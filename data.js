@@ -1869,3 +1869,26 @@ answer: { en: "\\(-\\dfrac{7}{3}\\)", zh: "\\(-\\dfrac{7}{3}\\)" },
 insight: { en: "Two power tools team up: (1) 'each root satisfies its own equation' lets you degree-reduce a messy expression like alpha^3 - alpha into a linear 1-2alpha; (2) the log-derivative identity sum 1/(k-root) = f'(k)/f(k) evaluates a whole sum from just f(k) and f'(k). Never solve the cubic.",
 zh: "两大武器联手：(1)「每个根满足自身方程」让你把 α³−α 这种乱表达式降次成线性的 1−2α；(2) 对数导数恒等式 Σ1/(k−根)=f'(k)/f(k) 只用 f(k) 和 f'(k) 就算出整个和。永远别去解三次方程。" }
 };
+courseData.days[1].problemSet[24] = {
+n: 25, source: "2012 VTRMC #3",
+statement: { en: "Find nonzero complex numbers \\(a,b,c,d,e\\) satisfying \\(\\sum a=-1\\), \\(\\sum a^2=15\\), \\(\\sum \\tfrac1a=-1\\), \\(\\sum \\tfrac1{a^2}=15\\), and \\(abcde=-1\\).",
+zh: "求非零复数 \\(a,b,c,d,e\\)，满足 \\(\\sum a=-1\\)，\\(\\sum a^2=15\\)，\\(\\sum \\tfrac1a=-1\\)，\\(\\sum \\tfrac1{a^2}=15\\)，\\(abcde=-1\\)。" },
+recall: [ { en: "Treat a,b,c,d,e as roots of one degree-5 polynomial", zh: "把 a,b,c,d,e 看作一个 5 次多项式的根" }, { en: "Vieta links the symmetric sums e1..e5 to coefficients", zh: "韦达把对称和 e1..e5 连到系数" }, { en: "Newton: p2 = e1^2 - 2e2", zh: "牛顿恒等式：p2 = e1² − 2e2" } ],
+guide: { en: "The cleverest move is to STOP thinking of five separate numbers and instead treat a,b,c,d,e as the five roots of a single polynomial \\(x^5+c_4x^4+\\cdots+c_0\\). Then every condition becomes a fact about that polynomial's coefficients via Vieta and Newton. The two reciprocal conditions are the secret: 'sum of 1/a' and 'sum of 1/a^2' are just the ordinary sum and sum-of-squares for the RECIPROCAL roots — and reversing a polynomial's coefficients gives exactly the polynomial whose roots are the reciprocals. Forcing both polynomials to match makes it palindromic.",
+zh: "最妙的一步是别再把它们当成五个独立的数，而把 a,b,c,d,e 看成一个多项式 \\(x^5+c_4x^4+\\cdots+c_0\\) 的五个根。这样每个条件都通过韦达和牛顿变成关于系数的事实。两个倒数条件是关键：「Σ1/a」和「Σ1/a²」其实就是「倒数根」的普通和与平方和 —— 而把多项式系数倒序排列，得到的正是以倒数为根的多项式。强迫两个多项式相等，就让它变成回文（对称）多项式。" },
+steps: [
+{ en: "Let \\(a,b,c,d,e\\) be roots of \\(x^5+c_4x^4+c_3x^3+c_2x^2+c_1x+c_0.\\) Vieta: \\(e_1=-c_4,\\ e_5=-c_0.\\)",
+zh: "设 \\(a,b,c,d,e\\) 是 \\(x^5+c_4x^4+c_3x^3+c_2x^2+c_1x+c_0\\) 的根。韦达：\\(e_1=-c_4,\\ e_5=-c_0.\\)" },
+{ en: "From \\(\\sum a=-1\\): \\(e_1=-1\\). From \\(abcde=-1\\): \\(e_5=-1\\), so \\(c_4=1,\\ c_0=-1.\\)",
+zh: "由 \\(\\sum a=-1\\)：\\(e_1=-1\\)。由 \\(abcde=-1\\)：\\(e_5=-1\\)，所以 \\(c_4=1,\\ c_0=-1.\\)" },
+{ en: "Newton for the square-sum: \\(\\sum a^2=e_1^2-2e_2=15.\\) Since \\(e_1^2=1\\): \\(1-2e_2=15\\Rightarrow e_2=-7.\\) Then \\(c_3=e_2=-7.\\)",
+zh: "平方和的牛顿恒等式：\\(\\sum a^2=e_1^2-2e_2=15\\)。因 \\(e_1^2=1\\)：\\(1-2e_2=15\\Rightarrow e_2=-7\\)。于是 \\(c_3=e_2=-7.\\)" },
+{ en: "Key idea: \\(\\sum\\tfrac1a=\\tfrac{e_4}{e_5}\\) and the reciprocal conditions mirror the originals. Matching forces the coefficient list to read the same forwards and backwards (palindromic): \\(c_1=c_3=-7,\\ c_2=e_3.\\) Working the reciprocal square-sum the same way gives \\(c_2=1.\\)",
+zh: "关键想法：\\(\\sum\\tfrac1a=\\tfrac{e_4}{e_5}\\)，且倒数条件与原条件镜像对称。匹配后强迫系数表正读反读相同（回文）：\\(c_1=c_3=-7,\\ c_2=e_3\\)。用同样方法处理倒数平方和得到 \\(c_2=1.\\)" },
+{ en: "Assemble: \\(x^5+x^4-7x^3-7x^2+x+1=0.\\) (Numerical check confirms its 5 roots give \\(\\sum a=-1,\\ \\sum a^2=15,\\ \\sum\\tfrac1a=-1,\\ \\sum\\tfrac1{a^2}=15,\\ abcde=-1.\\))",
+zh: "拼装：\\(x^5+x^4-7x^3-7x^2+x+1=0\\)。（数值验证确认其 5 个根满足 \\(\\sum a=-1,\\ \\sum a^2=15,\\ \\sum\\tfrac1a=-1,\\ \\sum\\tfrac1{a^2}=15,\\ abcde=-1.\\)）" }
+],
+answer: { en: "\\(a,b,c,d,e\\) are the five roots of \\(x^5+x^4-7x^3-7x^2+x+1=0\\)", zh: "\\(a,b,c,d,e\\) 是 \\(x^5+x^4-7x^3-7x^2+x+1=0\\) 的五个根" },
+insight: { en: "When several unknowns share symmetric conditions, bundle them as roots of ONE polynomial. Conditions on 1/a are conditions on the reciprocal roots = reversed coefficients; demanding the same conditions on both forces a palindromic polynomial. Vieta + Newton convert every sum into a coefficient.",
+zh: "当多个未知数共享对称条件时，把它们打包成同一个多项式的根。关于 1/a 的条件就是关于「倒数根」的条件 = 系数倒序；要求两边条件相同就强迫出回文多项式。韦达 + 牛顿把每个和都转成一个系数。" }
+};
