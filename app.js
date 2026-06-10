@@ -8,8 +8,9 @@ let currentKPs = [];
 
 function t(field) {
   if (field == null) return "";
-  if (typeof field === "string") return field;
-  return field[lang] || field.en || field.zh || "";
+  var s = (typeof field === "string") ? field : (field[lang] || field.en || field.zh || "");
+  // Escape bare angle brackets so innerHTML never treats LaTeX as an HTML tag.
+  return s.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 const UI = {
