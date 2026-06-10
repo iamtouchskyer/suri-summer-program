@@ -233,3 +233,56 @@ function start() {
 
 if (document.readyState === "complete") start();
 else window.addEventListener("load", start);
+
+
+/* ===================================================
+   UX interactions — 进度条 / 回到顶部 / 键盘可达
+   =================================================== */
+(function () {
+  // 阅读进度条
+  const bar = document.getElementById("readingProgress");
+  const toTop = document.getElementById("toTop");
+  function onScroll() {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    if (bar) bar.style.width = pct + "%";
+    if (toTop) toTop.classList.toggle("show", scrolled > 400);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  // 回到顶部
+  if (toTop) {
+    toTop.addEventListener("click", () =>
+      window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+
+  // 题目卡片键盘可达：Enter / Space 展开（提供邀请 + 可访问性）
+  document.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.key === " ") &&
+        document.activeElement &&
+        document.activeElement.classList.contains("problem-head")) {
+      e.preventDefault();
+      document.activeElement.click();
+    }
+  });
+
+  // 渲染后给可展开的题目头补上 tabindex + role（在每次 renderDay 之后由 MutationObserver 处理）
+  const app = document.getElementById("app");
+  if (app) {
+    const obs = new MutationObserver(() => {
+      app.querySelectorAll(".problem").forEach((p) => {
+        const head = p.querySelector(".problem-head");
+        if (head && p.querySelector(".problem-body") && !head.hasAttribute("tabindex")) {
+          head.setAttribute("tabindex", "0");
+          head.setAttribute("role", "button");
+        }
+      });
+    });
+    obs.observe(app, { childList: true, subtree: true });
+  }
+})();
+

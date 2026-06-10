@@ -364,3 +364,95 @@ html[lang="zh-CN"] .guide-tag { letter-spacing: 0.04em; font-family: var(--sans)
 /* steps: allow rich multi-line with soft sub-points */
 .steps li { white-space: pre-line; line-height: 1.7; }
 
+
+
+/* ===================================================
+   UX-expert pass — 即时反应 / 巧用过渡 / 提供邀请 / 可访问性
+   =================================================== */
+
+/* —— 阅读进度条（即时反应：让用户随时知道读到哪了）—— */
+.reading-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  z-index: 100; transition: width 0.1s linear;
+}
+
+/* —— 回到顶部（费茨法则：固定大热区，单击直达）—— */
+.to-top {
+  position: fixed; right: 24px; bottom: 24px; z-index: 80;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--ink); color: var(--paper);
+  border: 1.5px solid var(--ink); cursor: pointer;
+  font-size: 1.3rem; line-height: 1;
+  box-shadow: 0 6px 18px var(--shadow);
+  opacity: 0; transform: translateY(12px) scale(0.9); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+}
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--accent); transform: translateY(-2px); }
+.to-top:active { transform: translateY(0) scale(0.95); }
+
+/* —— 提供邀请：题目卡片更明确的「可点击」意符 —— */
+.problem-head { position: relative; }
+.problem-head::after {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: transparent; transition: background 0.25s ease;
+}
+.problem:hover .problem-head::after { background: var(--gold); }
+.problem.open .problem-head::after { background: var(--accent); }
+
+/* 章节标题悬停时锚点意符 */
+.section-title { scroll-margin-top: 90px; }
+
+/* —— 巧用过渡：题目展开更顺滑（解释「刚刚发生了什么」）—— */
+.problem-body-inner > * {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.problem.open .problem-body-inner > * { opacity: 1; transform: none; }
+.problem.open .problem-body-inner > *:nth-child(2) { transition-delay: 0.05s; }
+.problem.open .problem-body-inner > *:nth-child(3) { transition-delay: 0.10s; }
+.problem.open .problem-body-inner > *:nth-child(4) { transition-delay: 0.15s; }
+.problem.open .problem-body-inner > *:nth-child(5) { transition-delay: 0.20s; }
+
+/* —— 可访问性：清晰的键盘焦点态（WCAG）—— */
+.day-nav button:focus-visible,
+.lang-toggle button:focus-visible,
+.enh-reveal:focus-visible,
+.to-top:focus-visible,
+.problem-head:focus-visible {
+  outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 6px;
+}
+
+/* —— 可点击元素统一手型 + 更好的可读对比 —— */
+.problem-source { font-weight: 600; }
+.ps-source { opacity: 0.85; }
+
+/* —— 知识点卡片：进入时的微妙抬升，hover 强化「这是一张卡」—— */
+.kp-card { will-change: transform; }
+.kp-card:hover .kp-dot { transform: scale(1.6); transition: transform 0.25s ease; }
+
+/* —— 难度星级语义色（★ 绿 / ★★ 金 / ★★★ 赭红，建立直觉）—— */
+.enh-card:nth-child(1) .enh-level { color: var(--accent-2); }
+.enh-card:nth-child(2) .enh-level { color: var(--gold); }
+.enh-card:nth-child(3) .enh-level { color: var(--accent); }
+
+/* —— 答案框：金色标签 + 轻微强调，结果反馈更醒目 —— */
+.answer-box { box-shadow: 0 4px 14px var(--shadow); }
+
+/* —— 移动端：导航可横向滚动，避免换行挤压 —— */
+@media (max-width: 720px) {
+  .day-nav { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .day-nav::-webkit-scrollbar { display: none; }
+  .to-top { right: 16px; bottom: 16px; }
+}
+
+/* —— 尊重「减少动态效果」系统偏好（可访问性）—— */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
