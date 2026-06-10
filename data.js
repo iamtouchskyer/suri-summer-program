@@ -1995,3 +1995,38 @@ answer: { en: "Sum of roots \\(=2\\)", zh: "根之和 \\(=2\\)" },
 insight: { en: "TWO lasting lessons. (1) Always rewrite to \\(ax^2+bx+c=0\\) BEFORE reading coefficients — the #1 beginner mistake is grabbing numbers from a scrambled equation. (2) Vieta's 'sum = -b/a' is NOT magic: we SAW it with the friendly example \\(x^2-5x+6=(x-2)(x-3)\\), where the middle \\(-5=-(2+3)\\) is literally minus the sum. The letters just copy what the numbers already showed.",
 zh: "两条能记一辈子的经验。(1) 读系数前永远先改写成 \\(ax^2+bx+c=0\\) —— 初学者头号错误就是从乱序方程里抓数字。(2) 韦达的「和 = -b/a」不是魔法：我们用友好例子 \\(x^2-5x+6=(x-2)(x-3)\\) 亲眼看到了，中间的 \\(-5=-(2+3)\\) 就是和的相反数。字母只是把数字已经展示过的东西照抄一遍。" }
 };
+courseData.days[1].problemSet[20] = {
+n: 21, source: "2013 CHMMC Individual #4",
+statement: { en: "\\(f(x)=x^3+x-1\\) has roots \\(\\alpha,\\beta,\\gamma\\). Find \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\).",
+zh: "\\(f(x)=x^3+x-1\\) 有根 \\(\\alpha,\\beta,\\gamma\\)。求 \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\)。" },
+recall: [ { en: "Each root makes its own equation true (so we can swap things)", zh: "每个根都让它自己的方程成立（所以能替换）" }, { en: "Sum of reciprocals of roots = e2/e3 (we used this in Problems 3 & 4)", zh: "根的倒数之和 = e2/e3（第 3、4 题用过）" }, { en: "Build a polynomial whose roots are exactly what you want", zh: "造一个「以你想要的东西为根」的多项式" } ],
+guide: { en: "This looks terrifying because of the cubes. The whole trick is: never find the roots. We'll use ONE idea you already trust — 'a root makes its equation true' — to turn each scary \\(\\alpha^3-\\alpha\\) into a simple straight-line expression. Then the three denominators become the roots of a brand-new, easy cubic, and the question 'add up the reciprocals' is the exact same skill from Problems 3 and 4. No calculus, no magic — just substitution and a formula you've already used.",
+zh: "因为有立方，这题看着吓人。但整个窍门是：永远别求根。我们只用一个你已经信得过的想法 ——「根让它的方程成立」—— 把每个吓人的 \\(\\alpha^3-\\alpha\\) 变成简单的一次式。然后三个分母恰好成为一个全新、简单三次方程的根，而「把倒数加起来」正是第 3、4 题练过的同一招。没有微积分，没有魔法 —— 只有代换和你已经用过的公式。" },
+steps: [
+{ en: "STEP 1 — Read what we have. \\(f(x)=x^3+x-1\\) has three roots \\(\\alpha,\\beta,\\gamma\\). 'Root' means each one makes \\(f\\) equal zero: e.g. \\(\\alpha^3+\\alpha-1=0.\\) Keep that equation — it's our secret weapon.",
+zh: "第 1 步 —— 看清条件。\\(f(x)=x^3+x-1\\) 有三个根 \\(\\alpha,\\beta,\\gamma\\)。「根」意味着每个都让 \\(f\\) 等于零：比如 \\(\\alpha^3+\\alpha-1=0\\)。记住这个方程 —— 它是我们的秘密武器。" },
+{ en: "STEP 2 — Tame the scary denominator. We want to simplify \\(\\alpha^3-\\alpha.\\) From the root equation \\(\\alpha^3+\\alpha-1=0\\), move things over: \\(\\alpha^3=1-\\alpha.\\) Now SUBSTITUTE this into the denominator: \\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha.\\)",
+zh: "第 2 步 —— 驯服吓人的分母。我们要化简 \\(\\alpha^3-\\alpha\\)。由根的方程 \\(\\alpha^3+\\alpha-1=0\\) 移项：\\(\\alpha^3=1-\\alpha\\)。把它代入分母：\\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha.\\)" },
+{ en: "STEP 3 — Clean it up. \\((1-\\alpha)-\\alpha=1-2\\alpha.\\) The cube is GONE! Each denominator is just \\(1-2\\alpha\\) (a simple straight-line expression). So our whole sum is \\(\\dfrac{1}{1-2\\alpha}+\\dfrac{1}{1-2\\beta}+\\dfrac{1}{1-2\\gamma}.\\)",
+zh: "第 3 步 —— 整理干净。\\((1-\\alpha)-\\alpha=1-2\\alpha\\)。立方没了！每个分母只是 \\(1-2\\alpha\\)（简单的一次式）。所以整个和是 \\(\\dfrac{1}{1-2\\alpha}+\\dfrac{1}{1-2\\beta}+\\dfrac{1}{1-2\\gamma}.\\)" },
+{ en: "STEP 4 — Give the denominators a name. Let \\(y=1-2\\alpha\\) (and same for \\(\\beta,\\gamma\\)). Our sum is now \\(\\dfrac1{y_1}+\\dfrac1{y_2}+\\dfrac1{y_3}\\): the sum of reciprocals of three new numbers. If we can find the cubic whose roots are these \\(y\\)'s, Problems 3 & 4 finish it instantly.",
+zh: "第 4 步 —— 给分母起个名字。设 \\(y=1-2\\alpha\\)（\\(\\beta,\\gamma\\) 同理）。现在我们的和是 \\(\\dfrac1{y_1}+\\dfrac1{y_2}+\\dfrac1{y_3}\\)：三个新数的倒数之和。只要能找到「以这些 y 为根」的三次方程，第 3、4 题那招立刻收尾。" },
+{ en: "STEP 5 — Build the new cubic (the key move). We know \\(\\alpha\\) satisfies \\(x^3+x-1=0\\). We want the equation that \\(y=1-2\\alpha\\) satisfies. Solve for \\(\\alpha\\) in terms of \\(y\\): from \\(y=1-2\\alpha\\) we get \\(\\alpha=\\dfrac{1-y}{2}.\\)",
+zh: "第 5 步 —— 造新三次方程（关键一步）。我们知道 \\(\\alpha\\) 满足 \\(x^3+x-1=0\\)。我们想要 \\(y=1-2\\alpha\\) 满足的方程。把 \\(\\alpha\\) 用 \\(y\\) 表示：由 \\(y=1-2\\alpha\\) 解得 \\(\\alpha=\\dfrac{1-y}{2}.\\)" },
+{ en: "STEP 6 — Substitute \\(\\alpha=\\dfrac{1-y}{2}\\) into \\(\\alpha^3+\\alpha-1=0.\\) That gives \\(\\left(\\dfrac{1-y}{2}\\right)^3+\\dfrac{1-y}{2}-1=0.\\) (Don't panic — we just expand carefully next.)",
+zh: "第 6 步 —— 把 \\(\\alpha=\\dfrac{1-y}{2}\\) 代入 \\(\\alpha^3+\\alpha-1=0\\)。得到 \\(\\left(\\dfrac{1-y}{2}\\right)^3+\\dfrac{1-y}{2}-1=0\\)。（别慌 —— 下一步我们小心展开。）" },
+{ en: "STEP 7 — Expand step by step. \\(\\left(\\dfrac{1-y}{2}\\right)^3=\\dfrac{(1-y)^3}{8}.\\) Multiply the whole equation by 8 to clear denominators: \\((1-y)^3+4(1-y)-8=0.\\)",
+zh: "第 7 步 —— 一步步展开。\\(\\left(\\dfrac{1-y}{2}\\right)^3=\\dfrac{(1-y)^3}{8}\\)。整条方程乘以 8 去掉分母：\\((1-y)^3+4(1-y)-8=0.\\)" },
+{ en: "STEP 8 — Multiply out \\((1-y)^3.\\) Using \\((1-y)^3=1-3y+3y^2-y^3\\): the equation becomes \\(1-3y+3y^2-y^3+4-4y-8=0,\\) i.e. \\(-y^3+3y^2-7y-3=0.\\) Multiply by \\(-1\\) to make it tidy: \\(y^3-3y^2+7y+3=0.\\)",
+zh: "第 8 步 —— 把 \\((1-y)^3\\) 乘开。用 \\((1-y)^3=1-3y+3y^2-y^3\\)：方程变成 \\(1-3y+3y^2-y^3+4-4y-8=0\\)，即 \\(-y^3+3y^2-7y-3=0\\)。乘以 \\(-1\\) 整理：\\(y^3-3y^2+7y+3=0.\\)" },
+{ en: "STEP 9 — Read off Vieta for the new cubic \\(y^3-3y^2+7y+3=0\\) (form \\(y^3+py^2+qy+r\\) with \\(p=-3,q=7,r=3\\)). Sum of products in pairs \\(e_2=q=7;\\) product \\(e_3=-r=-3.\\)",
+zh: "第 9 步 —— 对新三次方程 \\(y^3-3y^2+7y+3=0\\) 读韦达（形如 \\(y^3+py^2+qy+r\\)，\\(p=-3,q=7,r=3\\)）。两两乘积之和 \\(e_2=q=7\\)；乘积 \\(e_3=-r=-3.\\)" },
+{ en: "STEP 10 — Use the SAME reciprocal-sum trick as Problems 3 & 4. \\(\\dfrac1{y_1}+\\dfrac1{y_2}+\\dfrac1{y_3}=\\dfrac{e_2}{e_3}\\) (combine over a common denominator: top = sum of products of pairs, bottom = product of all). So the answer is \\(\\dfrac{7}{-3}=-\\dfrac{7}{3}.\\)",
+zh: "第 10 步 —— 用和第 3、4 题完全一样的倒数和招式。\\(\\dfrac1{y_1}+\\dfrac1{y_2}+\\dfrac1{y_3}=\\dfrac{e_2}{e_3}\\)（通分合并：分子 = 两两乘积之和，分母 = 全部之积）。所以答案是 \\(\\dfrac{7}{-3}=-\\dfrac{7}{3}.\\)" },
+{ en: "STEP 11 — Sanity check with a calculator-free idea. The numbers came out clean (\\(7\\) and \\(-3\\)), which is the tell-tale sign the substitution was done right. (A computer check of the actual roots also gives \\(-2.3333\\ldots=-\\tfrac73\\).)",
+zh: "第 11 步 —— 不用计算器也能验。数字算出来很干净（\\(7\\) 和 \\(-3\\)），这正是代换做对了的标志。（用电脑代入真实的根也得到 \\(-2.3333\\ldots=-\\tfrac73\\)。）" }
+],
+answer: { en: "\\(-\\dfrac{7}{3}\\)", zh: "\\(-\\dfrac{7}{3}\\)" },
+insight: { en: "The master strategy for 'roots with cubes': (1) 'each root satisfies its own equation' lets you kill the high powers and shrink a scary expression to a straight line; (2) substituting alpha=(1-y)/2 BUILDS a new polynomial whose roots are exactly the denominators you care about; (3) then the reciprocal-sum = e2/e3 you already practiced finishes it. You never solve a single cubic.",
+zh: "「带立方的根问题」总策略：(1)「每个根满足自身方程」让你干掉高次幂，把吓人表达式缩成一次式；(2) 代入 α=(1−y)/2 直接「造出」一个新多项式，它的根正是你关心的那些分母；(3) 再用你练过的倒数和 = e2/e3 收尾。全程一个三次方程都不用解。" }
+};
