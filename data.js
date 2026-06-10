@@ -1892,3 +1892,26 @@ answer: { en: "\\(a,b,c,d,e\\) are the five roots of \\(x^5+x^4-7x^3-7x^2+x+1=0\
 insight: { en: "When several unknowns share symmetric conditions, bundle them as roots of ONE polynomial. Conditions on 1/a are conditions on the reciprocal roots = reversed coefficients; demanding the same conditions on both forces a palindromic polynomial. Vieta + Newton convert every sum into a coefficient.",
 zh: "当多个未知数共享对称条件时，把它们打包成同一个多项式的根。关于 1/a 的条件就是关于「倒数根」的条件 = 系数倒序；要求两边条件相同就强迫出回文多项式。韦达 + 牛顿把每个和都转成一个系数。" }
 };
+courseData.days[1].problemSet[28] = {
+n: 29, source: "1989 Nordic #1",
+statement: { en: "Find a lowest-degree polynomial \\(P\\) with integer coefficients, all integer roots, \\(P(0)=-1\\), and \\(P(3)=128\\).",
+zh: "求一个次数最低的多项式 \\(P\\)，整系数、所有根为整数、\\(P(0)=-1\\)、\\(P(3)=128\\)。" },
+recall: [ { en: "Integer roots => P(x)=k(x-r1)(x-r2)... with integer ri", zh: "整数根 => P(x)=k(x-r1)(x-r2)... 各 ri 为整数" }, { en: "P(0) is k times the product of (-ri)", zh: "P(0) 等于 k 乘以各 (-ri) 之积" }, { en: "Each (3 - ri) must divide 128 = 2^7", zh: "每个 (3 - ri) 必须整除 128 = 2^7" } ],
+guide: { en: "Because all roots are integers, write \\(P(x)=k(x-r_1)(x-r_2)\\cdots\\). The clue \\(P(0)=-1\\) is powerful: plugging in 0 gives \\(k\\cdot(-r_1)(-r_2)\\cdots=-1\\). Since everything is an integer and the product is \\(\\pm1\\), EVERY factor must be \\(\\pm1\\) — so \\(k=\\pm1\\) and each root is \\(\\pm1\\)! That hugely limits the roots to just \\(+1\\) and \\(-1\\). Then \\(P(3)=128=2^7\\) tells you how many of each: a root at \\(1\\) contributes a factor \\((3-1)=2\\), a root at \\(-1\\) contributes \\((3+1)=4=2^2\\). You just need the powers of 2 to add to 7, using as FEW roots as possible.",
+zh: "因为所有根都是整数，写成 \\(P(x)=k(x-r_1)(x-r_2)\\cdots\\)。线索 \\(P(0)=-1\\) 非常强：代入 0 得 \\(k\\cdot(-r_1)(-r_2)\\cdots=-1\\)。既然全是整数且乘积为 \\(\\pm1\\)，每个因子都必须是 \\(\\pm1\\) —— 所以 \\(k=\\pm1\\)，每个根都是 \\(\\pm1\\)！这把根狠狠限制到只有 \\(+1\\) 和 \\(-1\\)。再用 \\(P(3)=128=2^7\\) 确定各有几个：根 \\(1\\) 贡献因子 \\((3-1)=2\\)，根 \\(-1\\) 贡献 \\((3+1)=4=2^2\\)。只要让 2 的指数加起来等于 7，并且用尽量少的根。" },
+steps: [
+{ en: "Integer roots: \\(P(x)=k\\prod(x-r_i).\\) Set \\(x=0\\): \\(P(0)=k\\prod(-r_i)=-1.\\)",
+zh: "整数根：\\(P(x)=k\\prod(x-r_i)\\)。令 \\(x=0\\)：\\(P(0)=k\\prod(-r_i)=-1.\\)" },
+{ en: "A product of integers equals \\(-1\\) only if each is \\(\\pm1.\\) So \\(k=\\pm1\\) and every root \\(r_i\\in\\{+1,-1\\}.\\)",
+zh: "若干整数之积等于 \\(-1\\)，只能每个都是 \\(\\pm1\\)。所以 \\(k=\\pm1\\)，每个根 \\(r_i\\in\\{+1,-1\\}.\\)" },
+{ en: "Evaluate at \\(x=3\\): a root \\(+1\\) gives factor \\((3-1)=2\\); a root \\(-1\\) gives \\((3+1)=4=2^2.\\) Say there are \\(m\\) roots at \\(+1\\) and \\(n\\) roots at \\(-1\\): \\(P(3)=k\\cdot 2^{m}\\cdot 4^{n}=k\\cdot 2^{m+2n}.\\)",
+zh: "在 \\(x=3\\) 求值：根 \\(+1\\) 给因子 \\((3-1)=2\\)；根 \\(-1\\) 给 \\((3+1)=4=2^2\\)。设 \\(+1\\) 有 \\(m\\) 个、\\(-1\\) 有 \\(n\\) 个：\\(P(3)=k\\cdot 2^{m}\\cdot 4^{n}=k\\cdot 2^{m+2n}.\\)" },
+{ en: "Need \\(P(3)=128=2^7\\) with \\(k=+1\\): so \\(m+2n=7.\\) Minimize total degree \\(m+n\\): pick \\(n\\) as large as possible. \\(n=3,m=1\\) gives degree \\(4\\); \\(n=2,m=3\\) gives degree 5 (worse). So the minimum is \\(m=1,n=3\\), degree \\(4.\\)",
+zh: "要 \\(P(3)=128=2^7\\) 且 \\(k=+1\\)：所以 \\(m+2n=7\\)。最小化总次数 \\(m+n\\)：让 \\(n\\) 尽量大。\\(n=3,m=1\\) 给次数 \\(4\\)；\\(n=2,m=3\\) 给次数 5（更差）。所以最小是 \\(m=1,n=3\\)，次数 \\(4.\\)" },
+{ en: "Build it: one root at \\(+1\\), three at \\(-1\\): \\(P(x)=(x-1)(x+1)^3.\\) Check: \\(P(0)=(-1)(1)^3=-1\\) ✓ and \\(P(3)=(2)(4)^3=2\\cdot64=128\\) ✓.",
+zh: "构造：一个根 \\(+1\\)，三个根 \\(-1\\)：\\(P(x)=(x-1)(x+1)^3\\)。验证：\\(P(0)=(-1)(1)^3=-1\\) ✓，\\(P(3)=(2)(4)^3=2\\cdot64=128\\) ✓。" }
+],
+answer: { en: "\\(P(x)=(x-1)(x+1)^3\\) (degree 4)", zh: "\\(P(x)=(x-1)(x+1)^3\\)（4 次）" },
+insight: { en: "A constraint like P(0)=-1 with integer roots is a HUGE restriction: a product of integers equal to +/-1 forces every factor to be +/-1. That collapses infinitely many possibilities down to roots of just +1 and -1. Then matching P(3)=2^7 becomes a small 'powers of 2' counting puzzle — minimize degree by using the higher-power factor (the -1 root) as much as possible.",
+zh: "「P(0)=−1 + 整数根」是巨大的限制：若干整数之积等于 ±1，就强迫每个因子都是 ±1。这把无穷多可能性压缩到只有 +1 和 −1 两种根。再匹配 P(3)=2⁷ 就变成一个小小的「2 的幂」计数谜题 —— 尽量多用指数更高的因子（−1 这个根）来最小化次数。" }
+};
