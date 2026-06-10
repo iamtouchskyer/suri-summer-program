@@ -882,3 +882,148 @@ en: "Asked for (r-1)(s-1) on 2x^2+3x-5? Symmetric → expand to rs - (r+s) + 1, 
 zh: "在 2x²+3x−5 上要 (r−1)(s−1)？对称 → 展开成 rs − (r+s) + 1，代入韦达 s1 = −3/2、s2 = −5/2，得 0。十秒钟，不用求根公式，也没机会在丑根上算错符号。"
 }
 });
+courseData.days[1].problems.push(
+{
+source: { en: "Warm-up", zh: "热身" },
+statement: { en: "Find \\(r^3+s^3\\) for the roots of \\(x^2-3x+1\\).",
+zh: "求 \\(x^2-3x+1\\) 两个根的 \\(r^3+s^3\\)。" },
+recall: [
+{ en: "Vieta's (sum & product)", zh: "韦达定理（和与积）" },
+{ en: "Power-sum identity for cubes", zh: "立方幂和恒等式" }
+],
+guide: {
+en: "Your first instinct might be to solve the quadratic. Don't! The roots are ugly: \\((3\\pm\\sqrt5)/2\\). The target \\(r^3+s^3\\) is symmetric — swap r and s, nothing changes — so it must be expressible through s1 and s2, which Vieta hands you for free. The only tool you need is the cube identity.",
+zh: "你的第一反应可能是去解二次方程。别！根很丑：\\((3\\pm\\sqrt5)/2\\)。目标 \\(r^3+s^3\\) 是对称的 —— 交换 r 和 s 毫无变化 —— 所以它一定能用 s1 和 s2 表达出来，而这两个韦达白送给你。你唯一需要的工具就是立方恒等式。"
+},
+steps: [
+{ en: "Read Vieta's off the coefficients: \\(s_1=r+s=3\\), \\(s_2=rs=1\\).",
+zh: "从系数读出韦达定理：\\(s_1=r+s=3\\)，\\(s_2=rs=1\\)。" },
+{ en: "Recall the identity \\(r^3+s^3=(r+s)^3-3rs(r+s)\\). (It comes from expanding \\((r+s)^3\\) and pulling out the cross terms.)",
+zh: "回忆恒等式 \\(r^3+s^3=(r+s)^3-3rs(r+s)\\)。（它来自展开 \\((r+s)^3\\) 后把交叉项提出来。）" },
+{ en: "Substitute the Vieta numbers: \\((3)^3-3(1)(3)=27-9.\\)",
+zh: "代入韦达数字：\\((3)^3-3(1)(3)=27-9.\\)" },
+{ en: "Simplify: \\(=18.\\)",
+zh: "化简：\\(=18.\\)" }
+],
+answer: { en: "\\(r^3+s^3=18\\)", zh: "\\(r^3+s^3=18\\)" },
+insight: {
+en: "Never solve the quadratic for a symmetric target. Convert the power sum to s1, s2 with a standard identity, then read Vieta's straight off the coefficients.",
+zh: "对称目标，绝不去解二次方程。用标准恒等式把幂和转成 s1, s2，再直接从系数读出韦达定理。"
+}
+},
+{
+source: "Mandelbrot",
+statement: { en: "Find \\((r+s)(s+t)(t+r)\\) for the roots of \\(x^3+9x^2-9x-8\\).",
+zh: "求 \\(x^3+9x^2-9x-8\\) 三个根的 \\((r+s)(s+t)(t+r)\\)。" },
+recall: [
+{ en: "Vieta's for cubics (s1, s2, s3)", zh: "三次韦达定理（s1, s2, s3)" },
+{ en: "The identity (r+s)(s+t)(t+r) = s1*s2 - s3", zh: "恒等式 (r+s)(s+t)(t+r) = s1·s2 − s3" }
+],
+guide: {
+en: "Three roots, a symmetric product — pure Vieta territory. There are two clean routes. Route A: memorize the identity \\((r+s)(s+t)(t+r)=s_1 s_2-s_3\\). Route B (more memorable): since \\(r+s+t=s_1\\), notice \\(r+s=s_1-t\\). So the product becomes \\((s_1-r)(s_1-s)(s_1-t)\\) — which is exactly the polynomial evaluated at \\(s_1\\), up to sign! Either way you avoid finding roots.",
+zh: "三个根、一个对称积 —— 纯粹的韦达地盘。有两条干净的路。路 A：记住恒等式 \\((r+s)(s+t)(t+r)=s_1 s_2-s_3\\)。路 B（更好记）：因为 \\(r+s+t=s_1\\)，注意到 \\(r+s=s_1-t\\)。于是这个积变成 \\((s_1-r)(s_1-s)(s_1-t)\\) —— 这正好是「多项式在 \\(s_1\\) 处求值」（差一个符号）！两条路都不用求根。"
+},
+steps: [
+{ en: "Vieta's: \\(s_1=r+s+t=-9\\), \\(s_2=rs+st+tr=-9\\), \\(s_3=rst=8\\). (Signs alternate: \\(-9,\\ -9,\\ +8\\) → but s3 = -(constant) = 8.)",
+zh: "韦达定理：\\(s_1=r+s+t=-9\\)，\\(s_2=rs+st+tr=-9\\)，\\(s_3=rst=8\\)。（符号交替；s3 = −(常数) = 8。）" },
+{ en: "Use the identity \\((r+s)(s+t)(t+r)=s_1 s_2-s_3.\\)",
+zh: "用恒等式 \\((r+s)(s+t)(t+r)=s_1 s_2-s_3.\\)" },
+{ en: "Substitute: \\((-9)(-9)-8=81-8.\\)",
+zh: "代入：\\((-9)(-9)-8=81-8.\\)" },
+{ en: "\\(=73.\\)",
+zh: "\\(=73.\\)" }
+],
+answer: { en: "\\((r+s)(s+t)(t+r)=73\\)", zh: "\\((r+s)(s+t)(t+r)=73\\)" },
+insight: {
+en: "Memorize \\((r+s)(s+t)(t+r)=s_1 s_2-s_3\\). If you ever forget it, the 'shift by s1' trick rebuilds it: each (r+s) equals s1 minus the missing root.",
+zh: "记住 \\((r+s)(s+t)(t+r)=s_1 s_2-s_3\\)。万一忘了，「平移 s1」的技巧能重建它：每个 (r+s) 都等于 s1 减去那个缺席的根。"
+}
+},
+{
+source: { en: "Degree Reduction", zh: "降次" },
+statement: { en: "\\(r,s\\) are roots of \\(x^2+4x+1\\). Find \\(2r^3+s^3-15r+4\\).",
+zh: "\\(r,s\\) 是 \\(x^2+4x+1\\) 的根，求 \\(2r^3+s^3-15r+4\\)。" },
+recall: [
+{ en: "A root satisfies its own equation → degree reduction", zh: "根满足自己的方程 → 降次" },
+{ en: "Vieta's (sum of roots)", zh: "韦达定理（根之和）" }
+],
+guide: {
+en: "Careful — this target is NOT symmetric (it has a lone \\(-15r\\) and unequal weights on \\(r^3, s^3\\)). So pure Vieta won't apply directly. The trap is the \\(r^3\\) on a quadratic. The escape: each root satisfies \\(x^2=-4x-1\\), so you can reduce \\(r^3\\) and \\(s^3\\) down to linear pieces. After reduction, watch the non-symmetric parts magically cancel into a symmetric leftover.",
+zh: "小心 —— 这个目标「不对称」（有一个孤零零的 \\(-15r\\)，而且 \\(r^3, s^3\\) 的权重不相等）。所以纯韦达不能直接用。陷阱在于二次式上出现了 \\(r^3\\)。出路：每个根都满足 \\(x^2=-4x-1\\)，于是你可以把 \\(r^3\\) 和 \\(s^3\\) 降成一次式。降完之后，留意那些不对称的部分会神奇地抵消，剩下一个对称的式子。"
+},
+steps: [
+{ en: "From \\(x^2=-4x-1\\): \\(r^3=15r+4\\) and \\(s^3=15s+4\\) (the degree-reduction we derived in the notes).",
+zh: "由 \\(x^2=-4x-1\\)：\\(r^3=15r+4\\) 且 \\(s^3=15s+4\\)（就是讲义里推过的降次）。" },
+{ en: "Substitute: \\(2(15r+4)+(15s+4)-15r+4.\\)",
+zh: "代入：\\(2(15r+4)+(15s+4)-15r+4.\\)" },
+{ en: "Expand: \\(30r+8+15s+4-15r+4=15r+15s+16.\\) The lone \\(-15r\\) cancelled \\(15r\\) of the \\(30r\\)!",
+zh: "展开：\\(30r+8+15s+4-15r+4=15r+15s+16\\)。那个孤零零的 \\(-15r\\) 恰好抵消了 \\(30r\\) 里的 \\(15r\\)！" },
+{ en: "Now it's symmetric: \\(15(r+s)+16\\). Vieta gives \\(r+s=-4\\): \\(15(-4)+16=-60+16=-44.\\)",
+zh: "现在它对称了：\\(15(r+s)+16\\)。韦达给出 \\(r+s=-4\\)：\\(15(-4)+16=-60+16=-44.\\)" }
+],
+answer: { en: "\\(2r^3+s^3-15r+4=-44\\)", zh: "\\(2r^3+s^3-15r+4=-44\\)" },
+insight: {
+en: "A cubic power of a root on a quadratic is a flashing 'reduce me' sign. Reduce first; the non-symmetric junk often cancels, leaving a clean symmetric sum for Vieta to finish.",
+zh: "二次式上出现根的三次方，就是一个闪烁的「请降次」信号。先降次；那些不对称的杂项常常会抵消，留下一个干净的对称和交给韦达收尾。"
+}
+}
+);
+courseData.days[1].problems.push(
+{
+source: "CHMMC",
+statement: { en: "\\(r,s,t\\) are roots of \\(x^3-2x+3\\). Find \\(\\dfrac{1}{r-2}+\\dfrac{1}{s-2}+\\dfrac{1}{t-2}\\).",
+zh: "\\(r,s,t\\) 是 \\(x^3-2x+3\\) 的根，求 \\(\\dfrac{1}{r-2}+\\dfrac{1}{s-2}+\\dfrac{1}{t-2}\\)。" },
+recall: [
+{ en: "Shifted-root sum → the P'/P trick", zh: "平移根求和 → P'/P 技巧" },
+{ en: "Sign care for (r-k) vs (k-r)", zh: "(r−k) 与 (k−r) 的符号" }
+],
+guide: {
+en: "This is a sum of \\(1/(r_i-2)\\) — exactly the shape the P'/P trick was built for. Recall \\(\\sum 1/(x-r_i)=P'(x)/P(x)\\). We want \\(\\sum 1/(r_i-2)\\), which is the negative of \\(\\sum 1/(2-r_i)\\). So evaluate at \\(x=2\\) and attach a minus sign. You only need \\(P(2)\\) and \\(P'(2)\\) — two quick evaluations, no roots.",
+zh: "这是一个 \\(1/(r_i-2)\\) 的和 —— 正是 P'/P 技巧为之而生的形状。回忆 \\(\\sum 1/(x-r_i)=P'(x)/P(x)\\)。我们要的是 \\(\\sum 1/(r_i-2)\\)，它是 \\(\\sum 1/(2-r_i)\\) 的相反数。所以在 \\(x=2\\) 处求值，再加个负号。你只需要 \\(P(2)\\) 和 \\(P'(2)\\) —— 两次快速求值，不用根。"
+},
+steps: [
+{ en: "Set \\(P(x)=x^3-2x+3\\). The identity gives \\(\\sum\\dfrac{1}{r_i-2}=-\\dfrac{P'(2)}{P(2)}\\) (the minus comes from flipping \\(2-r\\) to \\(r-2\\)).",
+zh: "设 \\(P(x)=x^3-2x+3\\)。恒等式给出 \\(\\sum\\dfrac{1}{r_i-2}=-\\dfrac{P'(2)}{P(2)}\\)（负号来自把 \\(2-r\\) 翻成 \\(r-2\\)）。" },
+{ en: "Compute \\(P(2)=8-4+3=7.\\)",
+zh: "算 \\(P(2)=8-4+3=7.\\)" },
+{ en: "Differentiate: \\(P'(x)=3x^2-2\\), so \\(P'(2)=12-2=10.\\)",
+zh: "求导：\\(P'(x)=3x^2-2\\)，所以 \\(P'(2)=12-2=10.\\)" },
+{ en: "Combine: \\(-\\dfrac{10}{7}.\\)",
+zh: "合起来：\\(-\\dfrac{10}{7}.\\)" }
+],
+answer: { en: "\\(\\dfrac{1}{r-2}+\\dfrac{1}{s-2}+\\dfrac{1}{t-2}=-\\dfrac{10}{7}\\)",
+zh: "\\(\\dfrac{1}{r-2}+\\dfrac{1}{s-2}+\\dfrac{1}{t-2}=-\\dfrac{10}{7}\\)" },
+insight: {
+en: "Any sum of 1/(root - k) is just P'/P evaluated at k. The single most common mistake is the sign — always check whether your denominator is (r-k) or (k-r).",
+zh: "任何 1/(根 − k) 的和，就是 P'/P 在 k 处的值。最常见的唯一错误是符号 —— 永远先看清分母是 (r−k) 还是 (k−r)。"
+}
+},
+{
+source: "Putnam",
+statement: { en: "Every line meeting \\(y=2x^4+7x^3+3x-5\\) in 4 points gives the same value of \\(\\tfrac14(x_1+x_2+x_3+x_4)\\). Find it.",
+zh: "与 \\(y=2x^4+7x^3+3x-5\\) 交于 4 点的任意直线，其 \\(\\tfrac14(x_1+x_2+x_3+x_4)\\) 都相同。求该值。" },
+recall: [
+{ en: "Intersection points = roots of (curve - line)", zh: "交点 = (曲线 − 直线) 的根" },
+{ en: "Vieta's: sum of roots from the second coefficient", zh: "韦达定理：根之和由第二个系数给出" }
+],
+guide: {
+en: "The phrase 'meets in 4 points' is the key. Those 4 x-coordinates are exactly the roots of (curve minus line) = 0. A line is \\(mx+b\\); subtracting it only changes the \\(x^1\\) and constant terms — it can NEVER touch the \\(x^4\\) or \\(x^3\\) coefficients. And the sum of the roots depends only on those top two coefficients (Vieta: sum \\(=-\\frac{x^3\\text{-coeff}}{x^4\\text{-coeff}}\\)). So the sum is locked, no matter which line you pick. That's why the average is independent of the line.",
+zh: "「交于 4 点」这句话是关键。这 4 个 x 坐标，正好是 (曲线 − 直线) = 0 的根。直线是 \\(mx+b\\)；减掉它只改变 \\(x^1\\) 项和常数项 —— 永远碰不到 \\(x^4\\) 或 \\(x^3\\) 的系数。而根之和只依赖最高两项的系数（韦达：和 \\(=-\\frac{x^3\\text{系数}}{x^4\\text{系数}}\\)）。所以不管你选哪条直线，这个和都被锁死了。这就是为什么平均值与直线无关。"
+},
+steps: [
+{ en: "Intersections solve \\(2x^4+7x^3+3x-5-(mx+b)=0\\), i.e. \\(2x^4+7x^3+0\\,x^2+(3-m)x+(-5-b)=0.\\)",
+zh: "交点满足 \\(2x^4+7x^3+3x-5-(mx+b)=0\\)，即 \\(2x^4+7x^3+0\\,x^2+(3-m)x+(-5-b)=0.\\)" },
+{ en: "The line only altered the \\(x^1\\) and constant coefficients. The \\(x^4\\) and \\(x^3\\) coefficients stay \\(2\\) and \\(7\\).",
+zh: "直线只改了 \\(x^1\\) 项和常数项。\\(x^4\\) 与 \\(x^3\\) 的系数保持为 \\(2\\) 和 \\(7\\)。" },
+{ en: "Vieta: \\(x_1+x_2+x_3+x_4=-\\dfrac{7}{2}\\), independent of \\(m,b\\).",
+zh: "韦达：\\(x_1+x_2+x_3+x_4=-\\dfrac{7}{2}\\)，与 \\(m,b\\) 无关。" },
+{ en: "Average \\(=\\dfrac{-7/2}{4}=-\\dfrac{7}{8}.\\)",
+zh: "平均 \\(=\\dfrac{-7/2}{4}=-\\dfrac{7}{8}.\\)" }
+],
+answer: { en: "Average \\(=-\\dfrac{7}{8}\\)", zh: "平均值 \\(=-\\dfrac{7}{8}\\)" },
+insight: {
+en: "Subtracting a line changes only the bottom two coefficients of a polynomial. So anything controlled by the TOP coefficients (like the sum of roots) is an invariant — the same for every line.",
+zh: "减去一条直线，只改变多项式最低的两个系数。所以一切由「最高次系数」决定的量（比如根之和）都是不变量 —— 对每条直线都一样。"
+}
+}
+);
