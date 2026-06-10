@@ -1,34 +1,37 @@
 /* =======================================================
-   AwesomeMath Journal — Bilingual Renderer
+   AwesomeMath Journal — Bilingual Renderer (rich edition)
    ======================================================= */
 
 let activeDay = 0;
-let lang = localStorage.getItem("am_lang") || "en";
+let lang = localStorage.getItem("am_lang") || "zh";
 
-/* i18n helper: field may be string or {en, zh} */
 function t(field) {
   if (field == null) return "";
   if (typeof field === "string") return field;
   return field[lang] || field.en || field.zh || "";
 }
 
-/* UI strings */
 const UI = {
-  sectionKnowledge: { en: "Knowledge Points", zh: "知识点" },
-  sectionProblems:  { en: "Problems & Solutions", zh: "例题与解法" },
+  sectionKnowledge: { en: "Knowledge Points", zh: "知识点精讲" },
+  sectionProblems:  { en: "Worked Examples", zh: "课堂例题精讲" },
   sectionEnh:       { en: "Enhancement Practice", zh: "强化练习" },
-  sectionPset:      { en: "Full Problem Set", zh: "完整习题集" },
-  knowledgeTested:  { en: "Knowledge tested", zh: "考查知识点" },
-  workedSolution:   { en: "Worked solution", zh: "详细解答" },
+  sectionPset:      { en: "Full Problem Set — Solved", zh: "完整习题 · 逐题精解" },
+  knowledgeTested:  { en: "Knowledge tested", zh: "考查的知识点" },
+  recall:           { en: "First, what should come to mind?", zh: "先想一想：这道题会用到哪些知识点？" },
+  guide:            { en: "How to start", zh: "思路引导" },
+  workedSolution:   { en: "Step-by-step solution", zh: "分步详解" },
+  answerLabel:      { en: "Answer", zh: "答案" },
   keyInsight:       { en: "Key insight — ", zh: "关键洞察 —— " },
+  example:          { en: "Example", zh: "举个例子" },
   showHint:         { en: "Show hint & answer ↓", zh: "显示提示与答案 ↓" },
   hint:             { en: "Hint", zh: "提示" },
   answer:           { en: "Answer", zh: "答案" },
-  psetIntro:        { en: "Official AwesomeMath problem set — try these on your own. Sources listed for reference.",
-                      zh: "AwesomeMath 官方习题 —— 请独立完成。已附出处供参考。" },
+  psetIntro:        { en: "Every official AwesomeMath problem, worked out step by step. Click any problem to open the full walkthrough.",
+                      zh: "AwesomeMath 官方习题，每一道都逐步讲解。点击任意题目展开完整解析。" },
   source:           { en: "Source", zh: "出处" },
-  footer:           { en: "A living journal · updated every class · concepts → problems → solutions → enhancements",
-                      zh: "持续更新的成长日志 · 每节课更新 · 知识点 → 例题 → 解法 → 强化" }
+  tapToOpen:        { en: "tap to open", zh: "点击展开讲解" },
+  footer:           { en: "A living journal · updated every class · concepts → problems → solutions → insights",
+                      zh: "持续更新的成长日志 · 每节课更新 · 知识点 → 例题 → 精解 → 洞察" }
 };
 const ui = (k) => t(UI[k]);
 
@@ -44,8 +47,8 @@ function buildLangToggle() {
   const wrap = document.getElementById("langToggle");
   if (!wrap) return;
   wrap.innerHTML = `
-    <button data-l="en" class="${lang==='en'?'on':''}">EN</button>
-    <button data-l="zh" class="${lang==='zh'?'on':''}">中文</button>`;
+    <button data-l="zh" class="${lang==='zh'?'on':''}">中文</button>
+    <button data-l="en" class="${lang==='en'?'on':''}">EN</button>`;
   wrap.querySelectorAll("button").forEach(b =>
     b.addEventListener("click", () => setLang(b.dataset.l)));
 }
@@ -81,13 +84,29 @@ function kpCard(kp) {
       <span class="kp-dot"></span>
       <div class="kp-name">${t(kp.name)}</div>
       <div class="kp-detail">${t(kp.detail)}</div>
+      ${kp.example ? `<div class="kp-example"><span class="kp-ex-tag">${ui("example")}</span>${t(kp.example)}</div>` : ""}
       ${kp.formula ? `<div class="kp-formula">${kp.formula}</div>` : ""}
     </div>`;
 }
 
-function problemCard(p, idx) {
+/* shared rich-solution body (used by worked examples + problem set) */
+function solutionBody(p) {
+  const recall = (p.recall || []).map(k => `<span class="kn-chip">${t(k)}</span>`).join("");
   const knowledge = (p.knowledge || []).map(k => `<span class="kn-chip">${t(k)}</span>`).join("");
-  const steps = (p.solution || []).map(s => `<li>${t(s)}</li>`).join("");
+  const chips = recall || knowledge;
+  const chipLabel = recall ? ui("recall") : ui("knowledgeTested");
+  const steps = (p.steps || p.solution || []).map(s => `<li>${t(s)}</li>`).join("");
+  return `
+    ${chips ? `<div class="kn-row"><span class="kn-label">${chipLabel}</span>${chips}</div>` : ""}
+    ${p.guide ? `<div class="guide"><span class="guide-tag">${ui("guide")}</span><div class="guide-text">${t(p.guide)}</div></div>` : ""}
+    <div class="solution-title">${ui("workedSolution")}</div>
+    <ol class="steps">${steps}</ol>
+    ${p.answer ? `<div class="answer-box"><span class="answer-tag">${ui("answerLabel")}</span>${t(p.answer)}</div>` : ""}
+    ${p.insight ? `<div class="insight"><span class="bulb">💡</span>
+      <div class="insight-text"><strong>${ui("keyInsight")}</strong>${t(p.insight)}</div></div>` : ""}`;
+}
+
+function problemCard(p, idx) {
   return `
     <div class="problem" data-idx="${idx}">
       <div class="problem-head">
@@ -98,15 +117,7 @@ function problemCard(p, idx) {
         </div>
         <div class="chevron">›</div>
       </div>
-      <div class="problem-body">
-        <div class="problem-body-inner">
-          <div class="kn-row"><span class="kn-label">${ui("knowledgeTested")}</span>${knowledge}</div>
-          <div class="solution-title">${ui("workedSolution")}</div>
-          <ol class="steps">${steps}</ol>
-          ${p.insight ? `<div class="insight"><span class="bulb">💡</span>
-            <div class="insight-text"><strong>${ui("keyInsight")}</strong>${t(p.insight)}</div></div>` : ""}
-        </div>
-      </div>
+      <div class="problem-body"><div class="problem-body-inner">${solutionBody(p)}</div></div>
     </div>`;
 }
 
@@ -124,13 +135,18 @@ function enhCard(e) {
 }
 
 function psetRow(item) {
+  const solved = item.steps || item.solution;
   return `
-    <div class="ps-item">
-      <div class="ps-num">${item.n}</div>
-      <div class="ps-content">
-        <div class="ps-statement">${t(item.statement)}</div>
-        <div class="ps-source">${ui("source")}: ${item.source}</div>
+    <div class="problem ps-problem" data-n="${item.n}">
+      <div class="problem-head">
+        <div class="problem-index">${item.n}</div>
+        <div class="problem-headtext">
+          <div class="problem-source">${item.source}${solved ? "" : " · " + ui("tapToOpen")}</div>
+          <div class="problem-statement">${t(item.statement)}</div>
+        </div>
+        <div class="chevron">›</div>
       </div>
+      ${solved ? `<div class="problem-body"><div class="problem-body-inner">${solutionBody(item)}</div></div>` : ""}
     </div>`;
 }
 
@@ -139,12 +155,9 @@ function renderDay(d) {
   const title = t(d.title);
   const words = title.split(" ");
   const last = words.length > 1 ? words.pop() : "";
-  const titleHTML = last
-    ? `${words.join(" ")} <span class="big">${last}</span>`
-    : `<span class="big">${title}</span>`;
+  const titleHTML = last ? `${words.join(" ")} <span class="big">${last}</span>` : `<span class="big">${title}</span>`;
 
-  const psetHTML = (d.problemSet && d.problemSet.length)
-    ? `
+  const psetHTML = (d.problemSet && d.problemSet.length) ? `
     <section class="section reveal" style="animation-delay:.2s">
       <div class="section-head"><span class="section-num">04</span>
         <h2 class="section-title">${ui("sectionPset")}</h2><span class="section-rule"></span></div>
@@ -181,10 +194,14 @@ function renderDay(d) {
     ${psetHTML}
   `;
 
-  app.querySelectorAll(".problem-head").forEach(head =>
-    head.addEventListener("click", () => head.parentElement.classList.toggle("open")));
-  const first = app.querySelector(".problem");
-  if (first) first.classList.add("open");
+  app.querySelectorAll(".problem").forEach(prob => {
+    const head = prob.querySelector(".problem-head");
+    const hasBody = prob.querySelector(".problem-body");
+    if (head && hasBody) head.addEventListener("click", () => prob.classList.toggle("open"));
+    else if (head) head.style.cursor = "default";
+  });
+  const firstWorked = app.querySelector(".section .problem:not(.ps-problem)");
+  if (firstWorked && firstWorked.querySelector(".problem-body")) firstWorked.classList.add("open");
 
   app.querySelectorAll(".enh-reveal").forEach(btn =>
     btn.addEventListener("click", () => btn.closest(".enh-card").classList.add("revealed")));

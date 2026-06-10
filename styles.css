@@ -311,3 +311,56 @@ html[lang="zh-CN"] .insight-text strong { font-family: var(--serif-cjk); font-st
   .ps-item { padding: 14px 14px; gap: 12px; }
 }
 
+
+
+/* ===================================================
+   Rich edition additions — example / guide / answer boxes
+   =================================================== */
+
+.kp-example {
+  margin-top: 14px; padding: 12px 14px; border-radius: 6px;
+  background: rgba(29,92,79,0.07); border-left: 3px solid var(--accent-2);
+  font-size: 0.9rem; color: var(--ink-soft);
+}
+.kp-ex-tag {
+  display: block; font-family: var(--mono); font-size: 0.68rem;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-2);
+  margin-bottom: 5px; font-weight: 500;
+}
+html[lang="zh-CN"] .kp-ex-tag { letter-spacing: 0.04em; }
+
+.kp-detail { white-space: pre-line; }
+
+/* "how to start" guide box */
+.guide {
+  margin-bottom: 20px; padding: 16px 18px; border-radius: 8px;
+  background: linear-gradient(135deg, rgba(201,138,22,0.10), rgba(201,138,22,0.04));
+  border: 1px solid rgba(201,138,22,0.28);
+}
+.guide-tag {
+  display: block; font-family: var(--mono); font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold);
+  font-weight: 600; margin-bottom: 7px;
+}
+html[lang="zh-CN"] .guide-tag { letter-spacing: 0.04em; font-family: var(--sans); }
+.guide-text { font-size: 0.95rem; color: var(--ink-soft); white-space: pre-line; }
+
+/* final answer box */
+.answer-box {
+  margin-top: 16px; padding: 13px 16px; border-radius: 8px;
+  background: var(--ink); color: var(--paper);
+  font-size: 1.0rem; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+.answer-tag {
+  font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--gold); font-weight: 500;
+}
+.answer-box .katex { color: var(--paper); }
+
+/* problem-set problems reuse .problem styling; tighten the index color */
+.ps-problem .problem-index { background: var(--accent); }
+.ps-problem.open .problem-index { background: var(--ink); }
+
+/* steps: allow rich multi-line with soft sub-points */
+.steps li { white-space: pre-line; line-height: 1.7; }
+
