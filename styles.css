@@ -392,14 +392,7 @@ html[lang="zh-CN"] .guide-tag { letter-spacing: 0.04em; font-family: var(--sans)
 .to-top:hover { background: var(--accent); transform: translateY(-2px); }
 .to-top:active { transform: translateY(0) scale(0.95); }
 
-/* —— 提供邀请：题目卡片更明确的「可点击」意符 —— */
 .problem-head { position: relative; }
-.problem-head::after {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  background: transparent; transition: background 0.25s ease;
-}
-.problem:hover .problem-head::after { background: var(--gold); }
-.problem.open .problem-head::after { background: var(--accent); }
 
 /* 章节标题悬停时锚点意符 */
 .section-title { scroll-margin-top: 90px; }
