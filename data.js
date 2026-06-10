@@ -1027,3 +1027,32 @@ zh: "减去一条直线，只改变多项式最低的两个系数。所以一切
 }
 }
 );
+courseData.days[1].enhancements.push(
+{
+level: "★",
+statement: { en: "Find the sum of the squares of the roots of \\(x^2-5x+6\\).",
+zh: "求 \\(x^2-5x+6\\) 两根的平方和。" },
+hint: { en: "Squares are a power sum. Use \\(r^2+s^2=(r+s)^2-2rs=s_1^2-2s_2\\), then read Vieta's.",
+zh: "平方和是幂和。用 \\(r^2+s^2=(r+s)^2-2rs=s_1^2-2s_2\\)，再读韦达定理。" },
+answer: { en: "\\(s_1=5,\\ s_2=6 \\Rightarrow 5^2-2(6)=25-12=13.\\) (Check: roots are 2,3; \\(4+9=13\\).)",
+zh: "\\(s_1=5,\\ s_2=6 \\Rightarrow 5^2-2(6)=25-12=13.\\)（验证：根是 2、3；\\(4+9=13\\)。）" }
+},
+{
+level: "★★",
+statement: { en: "\\(r,s,t\\) are roots of \\(x^3+2x^2-5x-1\\). Find \\(\\tfrac1r+\\tfrac1s+\\tfrac1t\\).",
+zh: "\\(r,s,t\\) 是 \\(x^3+2x^2-5x-1\\) 的根，求 \\(\\tfrac1r+\\tfrac1s+\\tfrac1t\\)。" },
+hint: { en: "Combine the fractions: \\(\\tfrac1r+\\tfrac1s+\\tfrac1t=\\dfrac{rs+st+tr}{rst}=\\dfrac{s_2}{s_3}\\). Then read Vieta's (watch the alternating signs).",
+zh: "通分：\\(\\tfrac1r+\\tfrac1s+\\tfrac1t=\\dfrac{rs+st+tr}{rst}=\\dfrac{s_2}{s_3}\\)。再读韦达定理（注意符号交替）。" },
+answer: { en: "For \\(x^3+2x^2-5x-1\\): \\(s_2=-5,\\ s_3=-(-1)=1.\\) So \\(\\dfrac{s_2}{s_3}=\\dfrac{-5}{1}=-5.\\)",
+zh: "对 \\(x^3+2x^2-5x-1\\)：\\(s_2=-5,\\ s_3=-(-1)=1.\\) 所以 \\(\\dfrac{s_2}{s_3}=\\dfrac{-5}{1}=-5.\\)" }
+},
+{
+level: "★★★",
+statement: { en: "\\(r,s\\) are roots of \\(x^2-x-1\\) (the golden-ratio equation). Find \\(r^5+s^5\\).",
+zh: "\\(r,s\\) 是 \\(x^2-x-1\\)（黄金比例方程）的根，求 \\(r^5+s^5\\)。" },
+hint: { en: "Don't expand a 5th power. Let \\(p_n=r^n+s^n\\). Because each root satisfies \\(x^2=x+1\\), the power sums obey \\(p_n=p_{n-1}+p_{n-2}\\) (Fibonacci-style!). Start from \\(p_1=s_1=1\\) and \\(p_2=s_1^2-2s_2=1+2=3\\), then climb.",
+zh: "别去展开五次方。设 \\(p_n=r^n+s^n\\)。因为每个根满足 \\(x^2=x+1\\)，幂和满足 \\(p_n=p_{n-1}+p_{n-2}\\)（斐波那契式！）。从 \\(p_1=s_1=1\\)、\\(p_2=s_1^2-2s_2=1+2=3\\) 出发，逐级往上爬。" },
+answer: { en: "\\(p_1=1,\\ p_2=3,\\ p_3=p_2+p_1=4,\\ p_4=p_3+p_2=7,\\ p_5=p_4+p_3=11.\\) So \\(r^5+s^5=11.\\)",
+zh: "\\(p_1=1,\\ p_2=3,\\ p_3=p_2+p_1=4,\\ p_4=p_3+p_2=7,\\ p_5=p_4+p_3=11.\\) 所以 \\(r^5+s^5=11.\\)" }
+}
+);
