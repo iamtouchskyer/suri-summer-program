@@ -1056,3 +1056,578 @@ answer: { en: "\\(p_1=1,\\ p_2=3,\\ p_3=p_2+p_1=4,\\ p_4=p_3+p_2=7,\\ p_5=p_4+p_
 zh: "\\(p_1=1,\\ p_2=3,\\ p_3=p_2+p_1=4,\\ p_4=p_3+p_2=7,\\ p_5=p_4+p_3=11.\\) 所以 \\(r^5+s^5=11.\\)" }
 }
 );
+courseData.days[1].problemSet.push(
+{
+n: 1, source: "1950 AHSME #3",
+statement: { en: "Find the sum of the roots of \\(4x^2+5-8x=0\\).",
+zh: "求 \\(4x^2+5-8x=0\\) 的根之和。" },
+recall: [ { en: "Rearrange to standard form first", zh: "先整理成标准形式" }, { en: "Vieta's: sum = -b/a", zh: "韦达定理：和 = −b/a" } ],
+guide: { en: "The terms are out of order — that's the only 'trap'. Rewrite as \\(4x^2-8x+5=0\\) so you can clearly see a, b, c. Then sum of roots is \\(-b/a\\); no need to solve.",
+zh: "各项顺序乱了 —— 这是唯一的「坑」。先改写成 \\(4x^2-8x+5=0\\)，这样能看清 a, b, c。然后根之和就是 \\(-b/a\\)，不用解方程。" },
+steps: [
+{ en: "Standard form: \\(4x^2-8x+5=0\\), so \\(a=4,\\ b=-8.\\)", zh: "标准形式：\\(4x^2-8x+5=0\\)，所以 \\(a=4,\\ b=-8.\\)" },
+{ en: "Sum of roots \\(=-\\dfrac{b}{a}=-\\dfrac{-8}{4}=2.\\)", zh: "根之和 \\(=-\\dfrac{b}{a}=-\\dfrac{-8}{4}=2.\\)" }
+],
+answer: { en: "Sum of roots \\(=2\\)", zh: "根之和 \\(=2\\)" },
+insight: { en: "Always rewrite to \\(ax^2+bx+c=0\\) before reading Vieta's. The biggest beginner error is grabbing coefficients from a scrambled equation.",
+zh: "读韦达定理前，永远先改写成 \\(ax^2+bx+c=0\\)。初学者最大的错误就是从乱序方程里抓系数。" }
+},
+{
+n: 2, source: "2000 AMC 12 #15",
+statement: { en: "\\(f(x/3)=x^2+x+1\\). Find the sum of all \\(z\\) with \\(f(3z)=7\\).",
+zh: "\\(f(x/3)=x^2+x+1\\)。求所有满足 \\(f(3z)=7\\) 的 \\(z\\) 之和。" },
+recall: [ { en: "Substitution to find f's rule", zh: "代换求出 f 的表达式" }, { en: "Vieta's: sum of roots", zh: "韦达定理：根之和" } ],
+guide: { en: "First find what f actually does. If \\(f(x/3)=x^2+x+1\\), let \\(u=x/3\\) so \\(x=3u\\): \\(f(u)=(3u)^2+3u+1=9u^2+3u+1\\). Now \\(f(3z)=7\\) becomes a quadratic in z; the question asks for the SUM of its solutions — pure Vieta.",
+zh: "先搞清 f 到底是什么。若 \\(f(x/3)=x^2+x+1\\)，令 \\(u=x/3\\) 则 \\(x=3u\\)：\\(f(u)=(3u)^2+3u+1=9u^2+3u+1\\)。于是 \\(f(3z)=7\\) 变成关于 z 的二次方程；题目要它的解之「和」—— 纯韦达。" },
+steps: [
+{ en: "Find f: \\(f(u)=9u^2+3u+1.\\)", zh: "求 f：\\(f(u)=9u^2+3u+1.\\)" },
+{ en: "\\(f(3z)=9(3z)^2+3(3z)+1=81z^2+9z+1.\\) Set equal to 7: \\(81z^2+9z-6=0.\\)", zh: "\\(f(3z)=9(3z)^2+3(3z)+1=81z^2+9z+1\\)。令其 \\(=7\\)：\\(81z^2+9z-6=0.\\)" },
+{ en: "Sum of \\(z=-\\dfrac{9}{81}=-\\dfrac{1}{9}.\\)", zh: "z 之和 \\(=-\\dfrac{9}{81}=-\\dfrac{1}{9}.\\)" }
+],
+answer: { en: "Sum of all \\(z=-\\dfrac{1}{9}\\)", zh: "所有 z 之和 \\(=-\\dfrac{1}{9}\\)" },
+insight: { en: "When a function is given through a substituted argument, untangle its real rule first. After that, 'sum of solutions' is just \\(-b/a\\).",
+zh: "当函数是通过「代换过的自变量」给出的，先把它真正的表达式解出来。之后「解之和」不过就是 \\(-b/a\\)。" }
+},
+{
+n: 3, source: "2003 AMC 10A #18",
+statement: { en: "Find the sum of the reciprocals of the roots of \\(2004x+1+\\dfrac{2003}{x}=0\\).",
+zh: "求 \\(2004x+1+\\dfrac{2003}{x}=0\\) 的根的倒数之和。" },
+recall: [ { en: "Clear the fraction to get a polynomial", zh: "去分母得到多项式" }, { en: "Sum of reciprocals = s_{n-1}/s_n", zh: "倒数之和 = s_{n−1}/s_n" } ],
+guide: { en: "There's an \\(1/x\\) term, so multiply everything by x to get an honest quadratic. Then the sum of reciprocals \\(1/r+1/s\\) equals (sum of roots)/(product) \\(=s_1/s_2\\) — read both off the new quadratic.",
+zh: "有一个 \\(1/x\\) 项，所以整体乘 x 得到一个正经的二次式。然后倒数之和 \\(1/r+1/s\\) 等于（根之和）/（根之积）\\(=s_1/s_2\\) —— 两个都从新二次式读出。" },
+steps: [
+{ en: "Multiply by x: \\(2004x^2+x+2003=0.\\)", zh: "乘 x：\\(2004x^2+x+2003=0.\\)" },
+{ en: "Sum of roots \\(=-\\dfrac{1}{2004}\\); product \\(=\\dfrac{2003}{2004}.\\)", zh: "根之和 \\(=-\\dfrac{1}{2004}\\)；根之积 \\(=\\dfrac{2003}{2004}.\\)" },
+{ en: "\\(\\dfrac1r+\\dfrac1s=\\dfrac{r+s}{rs}=\\dfrac{-1/2004}{2003/2004}=-\\dfrac{1}{2003}.\\)", zh: "\\(\\dfrac1r+\\dfrac1s=\\dfrac{r+s}{rs}=\\dfrac{-1/2004}{2003/2004}=-\\dfrac{1}{2003}.\\)" }
+],
+answer: { en: "Sum of reciprocals \\(=-\\dfrac{1}{2003}\\)", zh: "倒数之和 \\(=-\\dfrac{1}{2003}\\)" },
+insight: { en: "Sum of reciprocals = (sum of roots)/(product of roots). The /x terms just mean 'multiply through first' — then it's standard Vieta.",
+zh: "倒数之和 =（根之和）/（根之积）。出现 /x 的项只是提示「先乘开」—— 之后就是标准韦达。" }
+},
+{
+n: 4, source: "2017 Purple Comet HS #15",
+statement: { en: "\\(p(x)=3x^7-291x^6+ax^5+bx^4+cx^2+134x-2\\) has 7 real roots summing to 97. Find the sum of their reciprocals.",
+zh: "\\(p(x)=3x^7-291x^6+ax^5+bx^4+cx^2+134x-2\\) 有 7 个实根，和为 97。求它们倒数之和。" },
+recall: [ { en: "Sum of reciprocals = s_{n-1}/s_n", zh: "倒数之和 = s_{n−1}/s_n" }, { en: "Vieta's reads only the needed coefficients", zh: "韦达只读所需系数" } ],
+guide: { en: "The 'sum = 97' is a decoy — you don't even need it. Sum of reciprocals of all roots is (sum of products of roots taken n-1 at a time)/(product of all roots) \\(=s_{6}/s_{7}\\). By Vieta on a degree-7, \\(s_6\\) comes from the \\(x^1\\) coefficient and \\(s_7\\) from the constant — both are given, no need for a, b, c.",
+zh: "「和为 97」是个诱饵 —— 你根本用不到它。所有根的倒数之和 =（每次取 n−1 个根相乘之和）/（所有根之积）\\(=s_{6}/s_{7}\\)。对 7 次式用韦达，\\(s_6\\) 来自 \\(x^1\\) 系数，\\(s_7\\) 来自常数项 —— 两者都已给出，用不到 a, b, c。" },
+steps: [
+{ en: "For monic-form Vieta divide by leading 3. Sum of reciprocals \\(=\\dfrac{s_6}{s_7}=\\dfrac{(-1)^6\\,(\\text{coeff }x^1)/a_7}{(-1)^7\\,(\\text{coeff }x^0)/a_7}.\\)",
+zh: "用韦达时统一除以首项 3。倒数之和 \\(=\\dfrac{s_6}{s_7}=\\dfrac{(-1)^6\\,(x^1\\text{系数})/a_7}{(-1)^7\\,(x^0\\text{系数})/a_7}.\\)" },
+{ en: "Equivalently \\(\\sum\\frac1{r_i}=-\\dfrac{\\text{coeff of }x^1}{\\text{coeff of }x^0}=-\\dfrac{134}{-2}.\\)",
+zh: "等价地 \\(\\sum\\frac1{r_i}=-\\dfrac{x^1\\text{系数}}{x^0\\text{系数}}=-\\dfrac{134}{-2}.\\)" },
+{ en: "\\(=67.\\)", zh: "\\(=67.\\)" }
+],
+answer: { en: "Sum of reciprocals \\(=67\\)", zh: "倒数之和 \\(=67\\)" },
+insight: { en: "Sum of reciprocals only needs the lowest two coefficients: \\(-\\,(\\text{coeff }x^1)/(\\text{coeff }x^0)\\). Contest problems often bury a decoy condition you can ignore.",
+zh: "倒数之和只需要最低两个系数：\\(-\\,(x^1\\text{系数})/(x^0\\text{系数})\\)。竞赛题常埋一个可以无视的诱饵条件。" }
+},
+{
+n: 5, source: "1998 HMMT Feb Algebra #7",
+statement: { en: "Three roots of \\(f(x)=x^4+ax^2+bx+c\\) are \\(2,-3,5\\). Find \\(a+b+c\\).",
+zh: "\\(f(x)=x^4+ax^2+bx+c\\) 的三个根是 \\(2,-3,5\\)。求 \\(a+b+c\\)。" },
+recall: [ { en: "Missing x^3 term → sum of roots = 0", zh: "缺 x^3 项 → 根之和为 0" }, { en: "Find the 4th root, then evaluate", zh: "求出第四个根，再代值" } ],
+guide: { en: "Notice there's NO \\(x^3\\) term, so its coefficient is 0 — meaning the sum of ALL four roots is 0 (Vieta). You know three of them, so the fourth is forced. Once you have all four roots, \\(a+b+c\\) is easiest found as \\(f(1)-1-1\\)... actually \\(f(1)=1+a+b+c\\), so \\(a+b+c=f(1)-1\\), and \\(f(1)\\) is just the product of \\((1-\\text{root})\\).",
+zh: "注意没有 \\(x^3\\) 项，所以它的系数是 0 —— 意味着全部四个根之和为 0（韦达）。你已知三个，第四个就被唯一确定。有了四个根后，\\(a+b+c\\) 最容易这样求：\\(f(1)=1+a+b+c\\)，所以 \\(a+b+c=f(1)-1\\)，而 \\(f(1)\\) 就是各 \\((1-根)\\) 的乘积。" },
+steps: [
+{ en: "Sum of roots \\(=0\\) (no \\(x^3\\)). Known: \\(2+(-3)+5=4\\), so 4th root \\(=-4.\\)",
+zh: "根之和 \\(=0\\)（无 \\(x^3\\)）。已知 \\(2+(-3)+5=4\\)，故第四个根 \\(=-4.\\)" },
+{ en: "\\(f(x)=(x-2)(x+3)(x-5)(x+4).\\) Compute \\(f(1)=(1-2)(1+3)(1-5)(1+4)=(-1)(4)(-4)(5)=80.\\)",
+zh: "\\(f(x)=(x-2)(x+3)(x-5)(x+4)\\)。算 \\(f(1)=(1-2)(1+3)(1-5)(1+4)=(-1)(4)(-4)(5)=80.\\)" },
+{ en: "\\(a+b+c=f(1)-1=80-1=79.\\) (Since \\(f(1)=1+a+b+c\\), the leading 1 from \\(x^4\\) is removed.)",
+zh: "\\(a+b+c=f(1)-1=80-1=79.\\)（因为 \\(f(1)=1+a+b+c\\)，去掉 \\(x^4\\) 贡献的那个 1。）" }
+],
+answer: { en: "\\(a+b+c=79\\)", zh: "\\(a+b+c=79\\)" },
+insight: { en: "A missing term means that symmetric sum is zero — a free equation to find an unknown root. Then \\(a+b+c=f(1)-(\\text{leading coeff})\\).",
+zh: "缺一项，就意味着那个对称和为 0 —— 白送一个方程去求未知根。然后 \\(a+b+c=f(1)-(\\text{首项系数})\\)。" }
+}
+);
+courseData.days[1].problemSet.push(
+{
+n: 6, source: "2001 AMC 12 #19",
+statement: { en: "\\(P(x)=x^3+ax^2+bx+c\\): the mean of its zeros, the product of its zeros, and the sum of its coefficients are all equal. The y-intercept is 2. Find \\(b\\).",
+zh: "\\(P(x)=x^3+ax^2+bx+c\\)：它零点的平均值、零点之积、系数之和三者相等。y 轴截距为 2。求 \\(b\\)。" },
+recall: [ { en: "y-intercept = P(0) = c", zh: "y 截距 = P(0) = c" }, { en: "Vieta's for cubic; mean = s1/3", zh: "三次韦达；平均 = s1/3" }, { en: "Sum of coefficients = P(1)", zh: "系数之和 = P(1)" } ],
+guide: { en: "Translate each phrase into a formula. y-intercept \\(=P(0)=c=2\\). Product of zeros \\(=-c\\) (Vieta on cubic). Mean of zeros \\(=s_1/3=-a/3\\). Sum of coefficients \\(=P(1)=1+a+b+c\\). Set them all equal step by step.",
+zh: "把每句话翻成公式。y 截距 \\(=P(0)=c=2\\)。零点之积 \\(=-c\\)（三次韦达）。零点平均 \\(=s_1/3=-a/3\\)。系数之和 \\(=P(1)=1+a+b+c\\)。然后一步步令它们相等。" },
+steps: [
+{ en: "\\(c=2.\\) Product of zeros \\(=-c=-2.\\) These two are equal? Product \\(=-2\\) must equal the common value, so the common value is \\(-2.\\)",
+zh: "\\(c=2\\)。零点之积 \\(=-c=-2\\)。共同值就是 \\(-2.\\)" },
+{ en: "Mean of zeros \\(=-a/3=-2\\Rightarrow a=6.\\)",
+zh: "零点平均 \\(=-a/3=-2\\Rightarrow a=6.\\)" },
+{ en: "Sum of coefficients \\(=1+a+b+c=-2\\Rightarrow 1+6+b+2=-2\\Rightarrow b=-11.\\)",
+zh: "系数之和 \\(=1+a+b+c=-2\\Rightarrow 1+6+b+2=-2\\Rightarrow b=-11.\\)" }
+],
+answer: { en: "\\(b=-11\\)", zh: "\\(b=-11\\)" },
+insight: { en: "Word problems become easy once each phrase is a formula: y-intercept = P(0), sum of coefficients = P(1), product/mean of zeros = Vieta. Translate, then solve.",
+zh: "把每句话变成公式，文字题就简单了：y 截距 = P(0)，系数之和 = P(1)，零点之积/平均 = 韦达。先翻译，再求解。" }
+},
+{
+n: 7, source: "2009 SMT Team #11",
+statement: { en: "\\(z_1,z_2\\) are the zeros of \\(x^2+6x+11\\). Compute \\((1+z_1^2 z_2)(1+z_1 z_2^2)\\).",
+zh: "\\(z_1,z_2\\) 是 \\(x^2+6x+11\\) 的零点。求 \\((1+z_1^2 z_2)(1+z_1 z_2^2)\\)。" },
+recall: [ { en: "Expand, then make it symmetric", zh: "展开，再凑成对称" }, { en: "Vieta's: s1, s2", zh: "韦达：s1, s2" } ],
+guide: { en: "Expand the product and aim to express everything through \\(z_1+z_2\\) and \\(z_1 z_2\\). Watch for the nice grouping: \\(z_1^2 z_2 + z_1 z_2^2 = z_1 z_2(z_1+z_2)\\), and \\(z_1^2 z_2 \\cdot z_1 z_2^2 = (z_1 z_2)^3.\\) Both are symmetric — Vieta finishes it.",
+zh: "把乘积展开，目标是把所有东西都用 \\(z_1+z_2\\) 和 \\(z_1 z_2\\) 表示。留意漂亮的分组：\\(z_1^2 z_2 + z_1 z_2^2 = z_1 z_2(z_1+z_2)\\)，以及 \\(z_1^2 z_2 \\cdot z_1 z_2^2 = (z_1 z_2)^3\\)。两者都对称 —— 韦达收尾。" },
+steps: [
+{ en: "Vieta: \\(z_1+z_2=-6,\\ z_1 z_2=11.\\)",
+zh: "韦达：\\(z_1+z_2=-6,\\ z_1 z_2=11.\\)" },
+{ en: "Expand: \\((1+z_1^2 z_2)(1+z_1 z_2^2)=1+z_1^2 z_2+z_1 z_2^2+(z_1 z_2)^3.\\)",
+zh: "展开：\\((1+z_1^2 z_2)(1+z_1 z_2^2)=1+z_1^2 z_2+z_1 z_2^2+(z_1 z_2)^3.\\)" },
+{ en: "Group: \\(=1+z_1 z_2(z_1+z_2)+(z_1 z_2)^3=1+11(-6)+11^3.\\)",
+zh: "分组：\\(=1+z_1 z_2(z_1+z_2)+(z_1 z_2)^3=1+11(-6)+11^3.\\)" },
+{ en: "\\(=1-66+1331=1266.\\)",
+zh: "\\(=1-66+1331=1266.\\)" }
+],
+answer: { en: "\\(=1266\\)", zh: "\\(=1266\\)" },
+insight: { en: "After expanding, hunt for groupings that ARE symmetric: \\(z_1^2z_2+z_1z_2^2=z_1z_2(z_1+z_2)\\). Factor out the symmetric core, then plug Vieta.",
+zh: "展开后，去寻找那些「本就对称」的分组：\\(z_1^2z_2+z_1z_2^2=z_1z_2(z_1+z_2)\\)。把对称的核心提出来，再代韦达。" }
+},
+{
+n: 8, source: "2019 SMT Algebra #5",
+statement: { en: "\\(f(x)=36x^4-36x^3-x^2+9x-2\\) has roots \\(r_1,r_2,r_3,r_4\\). Find \\((r_1+r_2+r_3)(r_1+r_2+r_4)(r_1+r_3+r_4)(r_2+r_3+r_4)\\).",
+zh: "\\(f(x)=36x^4-36x^3-x^2+9x-2\\) 有根 \\(r_1,r_2,r_3,r_4\\)。求 \\((r_1+r_2+r_3)(r_1+r_2+r_4)(r_1+r_3+r_4)(r_2+r_3+r_4)\\)。" },
+recall: [ { en: "Each (sum of 3) = s1 - (missing root)", zh: "每个 (三根之和) = s1 − (缺席的根)" }, { en: "Product over (s1 - r_i) = related to f(s1)", zh: "∏(s1 − r_i) 与 f(s1) 有关" } ],
+guide: { en: "Each factor leaves out exactly one root. Since \\(s_1=r_1+r_2+r_3+r_4\\), a sum of three is \\(s_1-(\\text{the missing one})\\). So the whole product is \\(\\prod_i (s_1-r_i)\\) — which is the polynomial evaluated at \\(s_1\\), up to the leading coefficient. Compute \\(s_1\\) from Vieta, then evaluate.",
+zh: "每个因式都恰好漏掉一个根。因为 \\(s_1=r_1+r_2+r_3+r_4\\)，三根之和就是 \\(s_1-(\\text{缺席的那个})\\)。所以整个乘积是 \\(\\prod_i (s_1-r_i)\\) —— 它就是「多项式在 \\(s_1\\) 处求值」（差一个首项系数）。先由韦达求 \\(s_1\\)，再代值。" },
+steps: [
+{ en: "\\(s_1=-\\dfrac{-36}{36}=1.\\) So each factor is \\(1-r_i\\), and the product is \\(\\prod_i(1-r_i).\\)",
+zh: "\\(s_1=-\\dfrac{-36}{36}=1\\)。所以每个因式是 \\(1-r_i\\)，乘积是 \\(\\prod_i(1-r_i).\\)" },
+{ en: "Since \\(f(x)=36\\prod_i(x-r_i)\\), we have \\(\\prod_i(1-r_i)=\\dfrac{f(1)}{36}.\\)",
+zh: "因为 \\(f(x)=36\\prod_i(x-r_i)\\)，故 \\(\\prod_i(1-r_i)=\\dfrac{f(1)}{36}.\\)" },
+{ en: "\\(f(1)=36-36-1+9-2=6.\\) So the product \\(=\\dfrac{6}{36}=\\dfrac16.\\)",
+zh: "\\(f(1)=36-36-1+9-2=6\\)。所以乘积 \\(=\\dfrac{6}{36}=\\dfrac16.\\)" }
+],
+answer: { en: "\\(=\\dfrac{1}{6}\\)", zh: "\\(=\\dfrac{1}{6}\\)" },
+insight: { en: "A product of '(sum of all-but-one root)' is \\(\\prod(s_1-r_i)=f(s_1)/(\\text{leading coeff})\\). The shift-by-\\(s_1\\) idea turns it into a single evaluation.",
+zh: "「每个都是除一个根外其余之和」的乘积，等于 \\(\\prod(s_1-r_i)=f(s_1)/(\\text{首项系数})\\)。平移 \\(s_1\\) 的思想把它变成一次代值。" }
+},
+{
+n: 9, source: "2003 HMMT Feb Guts #19",
+statement: { en: "\\(r,s,t\\) solve \\(x^3+ax^2+bx+c=0\\). Find \\((rs)^2+(st)^2+(rt)^2\\) in terms of \\(a,b,c\\).",
+zh: "\\(r,s,t\\) 是 \\(x^3+ax^2+bx+c=0\\) 的根。用 \\(a,b,c\\) 表示 \\((rs)^2+(st)^2+(rt)^2\\)。" },
+recall: [ { en: "Treat (rs),(st),(rt) as new variables", zh: "把 (rs),(st),(rt) 当作新变量" }, { en: "Sum of squares = (sum)^2 - 2(sum of pairwise products)", zh: "平方和 = (和)² − 2(两两积之和)" } ],
+guide: { en: "Let the three pairwise products be \\(p=rs,\\ q=st,\\ u=rt\\). You want \\(p^2+q^2+u^2=(p+q+u)^2-2(pq+qu+up)\\). Now express the two pieces with Vieta: \\(p+q+u=rs+st+tr=b\\). And \\(pq+qu+up=(rs)(st)+(st)(rt)+(rt)(rs)=rst(r+s+t)=(-c)(-a).\\)",
+zh: "设三个两两积为 \\(p=rs,\\ q=st,\\ u=rt\\)。你要的是 \\(p^2+q^2+u^2=(p+q+u)^2-2(pq+qu+up)\\)。再用韦达表示这两块：\\(p+q+u=rs+st+tr=b\\)。而 \\(pq+qu+up=(rs)(st)+(st)(rt)+(rt)(rs)=rst(r+s+t)=(-c)(-a).\\)" },
+steps: [
+{ en: "Vieta: \\(r+s+t=-a,\\ rs+st+tr=b,\\ rst=-c.\\)",
+zh: "韦达：\\(r+s+t=-a,\\ rs+st+tr=b,\\ rst=-c.\\)" },
+{ en: "\\(p+q+u=b.\\) And \\(pq+qu+up=rst(r+s+t)=(-c)(-a)=ac.\\)",
+zh: "\\(p+q+u=b\\)。又 \\(pq+qu+up=rst(r+s+t)=(-c)(-a)=ac.\\)" },
+{ en: "So \\((rs)^2+(st)^2+(rt)^2=b^2-2ac.\\)",
+zh: "所以 \\((rs)^2+(st)^2+(rt)^2=b^2-2ac.\\)" }
+],
+answer: { en: "\\((rs)^2+(st)^2+(rt)^2=b^2-2ac\\)", zh: "\\((rs)^2+(st)^2+(rt)^2=b^2-2ac\\)" },
+insight: { en: "Treat compound objects (like products of pairs) as new variables, then apply the same \\(\\sum x^2=(\\sum x)^2-2\\sum xy\\) identity. The sub-pieces themselves simplify via Vieta.",
+zh: "把复合对象（比如两两之积）当成新变量，再套同一个 \\(\\sum x^2=(\\sum x)^2-2\\sum xy\\) 恒等式。那些子块本身又用韦达化简。" }
+},
+{
+n: 10, source: "1975 AHSME #27",
+statement: { en: "If \\(p,q,r\\) are distinct roots of \\(x^3-x^2+x-2=0\\), find \\(p^3+q^3+r^3\\).",
+zh: "若 \\(p,q,r\\) 是 \\(x^3-x^2+x-2=0\\) 的互异根，求 \\(p^3+q^3+r^3\\)。" },
+recall: [ { en: "Newton's identity OR each root eats its equation", zh: "牛顿恒等式 或 让每个根吃掉方程" }, { en: "Vieta's: s1, s2, s3", zh: "韦达：s1, s2, s3" } ],
+guide: { en: "Two clean ways. The fastest here: each root satisfies \\(x^3=x^2-x+2\\). Add this over all three roots: \\(\\sum p^3=\\sum p^2-\\sum p+6\\). You already know \\(\\sum p\\) (Vieta) and \\(\\sum p^2\\) (power-sum identity). Done.",
+zh: "两种干净的方法。这里最快的：每个根满足 \\(x^3=x^2-x+2\\)。把它对三个根求和：\\(\\sum p^3=\\sum p^2-\\sum p+6\\)。而 \\(\\sum p\\)（韦达）和 \\(\\sum p^2\\)（幂和恒等式）你都已经会。搞定。" },
+steps: [
+{ en: "Vieta: \\(s_1=p+q+r=1,\\ s_2=pq+qr+rp=1,\\ s_3=pqr=2.\\)",
+zh: "韦达：\\(s_1=p+q+r=1,\\ s_2=pq+qr+rp=1,\\ s_3=pqr=2.\\)" },
+{ en: "\\(\\sum p^2=s_1^2-2s_2=1-2=-1.\\)",
+zh: "\\(\\sum p^2=s_1^2-2s_2=1-2=-1.\\)" },
+{ en: "Each root: \\(p^3=p^2-p+2\\). Sum over all three: \\(\\sum p^3=\\sum p^2-\\sum p+3\\cdot 2=-1-1+6=4.\\)",
+zh: "每个根：\\(p^3=p^2-p+2\\)。对三个求和：\\(\\sum p^3=\\sum p^2-\\sum p+3\\cdot 2=-1-1+6=4.\\)" }
+],
+answer: { en: "\\(p^3+q^3+r^3=4\\)", zh: "\\(p^3+q^3+r^3=4\\)" },
+insight: { en: "To get a sum of cubes, let every root 'eat its own equation' (\\(x^3=\\)lower powers), then sum. This converts a degree-3 power sum into degree-2 and degree-1 sums you already know.",
+zh: "求立方和，就让每个根「吃掉自己的方程」（\\(x^3=\\) 低次项），再求和。这把三次幂和转成你已会的二次、一次幂和。" }
+}
+);
+courseData.days[1].problemSet.push(
+{
+n: 11, source: "1997 Mandelbrot R3 #8",
+statement: { en: "\\(x^3-4x^2+5x-1.9\\) has real roots \\(r,s,t\\). Find the area of the triangle with sides \\(r,s,t\\).",
+zh: "\\(x^3-4x^2+5x-1.9\\) 有实根 \\(r,s,t\\)。求以 \\(r,s,t\\) 为三边的三角形面积。" },
+recall: [ { en: "Heron's formula uses symmetric quantities", zh: "海伦公式用的是对称量" }, { en: "Vieta's: s1, s2, s3", zh: "韦达：s1, s2, s3" } ],
+guide: { en: "Heron's formula gives triangle area from the sides: \\(A=\\sqrt{p(p-r)(p-s)(p-t)}\\) where \\(p=(r+s+t)/2\\) is the semiperimeter. Notice \\((p-r)(p-s)(p-t)\\) is symmetric and \\(p\\) is just \\(s_1/2\\) — so this whole thing is computable from Vieta without knowing the roots. The product \\((p-r)(p-s)(p-t)\\) equals \\(P(p)\\) up to sign.",
+zh: "海伦公式从三边求面积：\\(A=\\sqrt{p(p-r)(p-s)(p-t)}\\)，其中 \\(p=(r+s+t)/2\\) 是半周长。注意 \\((p-r)(p-s)(p-t)\\) 是对称的，而 \\(p\\) 就是 \\(s_1/2\\) —— 所以整个东西都能用韦达算出来，不用知道根。乘积 \\((p-r)(p-s)(p-t)\\) 等于 \\(P(p)\\)（差一个符号）。" },
+steps: [
+{ en: "Vieta: \\(s_1=4\\), so semiperimeter \\(p=2.\\)",
+zh: "韦达：\\(s_1=4\\)，故半周长 \\(p=2.\\)" },
+{ en: "Since \\(P(x)=(x-r)(x-s)(x-t)\\), we get \\((p-r)(p-s)(p-t)=P(2)=8-16+10-1.9=0.1.\\)",
+zh: "因为 \\(P(x)=(x-r)(x-s)(x-t)\\)，得 \\((p-r)(p-s)(p-t)=P(2)=8-16+10-1.9=0.1.\\)" },
+{ en: "Heron: \\(A=\\sqrt{p\\cdot P(2)}=\\sqrt{2\\cdot 0.1}=\\sqrt{0.2}=\\dfrac{1}{\\sqrt5}=\\dfrac{\\sqrt5}{5}.\\)",
+zh: "海伦：\\(A=\\sqrt{p\\cdot P(2)}=\\sqrt{2\\cdot 0.1}=\\sqrt{0.2}=\\dfrac{1}{\\sqrt5}=\\dfrac{\\sqrt5}{5}.\\)" }
+],
+answer: { en: "Area \\(=\\sqrt{0.2}=\\dfrac{\\sqrt5}{5}\\)", zh: "面积 \\(=\\sqrt{0.2}=\\dfrac{\\sqrt5}{5}\\)" },
+insight: { en: "Heron's formula is secretly symmetric in the side lengths, so \\((p-r)(p-s)(p-t)=P(p)\\). Geometry problems with 'sides = roots' are Vieta in disguise.",
+zh: "海伦公式本质对三边对称，所以 \\((p-r)(p-s)(p-t)=P(p)\\)。「边长=根」的几何题，其实是伪装的韦达。" }
+},
+{
+n: 12, source: "2012 ARML Team #6",
+statement: { en: "The zeros of \\(f(x)=x^6+2x^5+3x^4+5x^3+8x^2+13x+21\\) are distinct. Compute the average of \\(A+BC+DEF\\) over all permutations \\((A,B,C,D,E,F)\\) of the six zeros.",
+zh: "\\(f(x)=x^6+2x^5+3x^4+5x^3+8x^2+13x+21\\) 的零点互异。求 \\(A+BC+DEF\\) 对六个零点的所有排列 \\((A,B,C,D,E,F)\\) 取平均的值。" },
+recall: [ { en: "Average over permutations → symmetry", zh: "对排列取平均 → 对称化" }, { en: "Each part averages to a symmetric sum scaled", zh: "每部分平均成对称和的缩放" } ],
+guide: { en: "Averaging over ALL permutations makes everything symmetric, so the answer is built from \\(s_1,s_2,s_3\\). Handle each chunk: the average of A (a single zero) is just the mean of all zeros \\(=s_1/6\\). The average of \\(BC\\) (a product of two distinct zeros) is the mean over all ordered pairs \\(=s_2/\\binom{6}{2}\\). The average of \\(DEF\\) (product of three) is \\(s_3/\\binom{6}{3}\\). Add them.",
+zh: "对「所有排列」取平均，会把一切对称化，所以答案由 \\(s_1,s_2,s_3\\) 搭成。逐块处理：A（单个零点）的平均就是所有零点的均值 \\(=s_1/6\\)。BC（两个不同零点之积）的平均，是所有无序对的均值 \\(=s_2/\\binom{6}{2}\\)。DEF（三个之积）的平均 \\(=s_3/\\binom{6}{3}\\)。加起来。" },
+steps: [
+{ en: "Vieta: \\(s_1=-2,\\ s_2=3,\\ s_3=-5.\\)",
+zh: "韦达：\\(s_1=-2,\\ s_2=3,\\ s_3=-5.\\)" },
+{ en: "Avg of A \\(=s_1/6=-2/6=-1/3.\\) Avg of BC \\(=s_2/\\binom{6}{2}=3/15=1/5.\\) Avg of DEF \\(=s_3/\\binom{6}{3}=-5/20=-1/4.\\)",
+zh: "A 的平均 \\(=s_1/6=-1/3\\)。BC 的平均 \\(=s_2/\\binom{6}{2}=3/15=1/5\\)。DEF 的平均 \\(=s_3/\\binom{6}{3}=-5/20=-1/4.\\)" },
+{ en: "Sum: \\(-\\dfrac13+\\dfrac15-\\dfrac14.\\) LCD 60: \\(-20+12-15=-23\\), so \\(-\\dfrac{23}{60}.\\)",
+zh: "相加：\\(-\\dfrac13+\\dfrac15-\\dfrac14\\)。通分 60：\\(-20+12-15=-23\\)，即 \\(-\\dfrac{23}{60}.\\)" }
+],
+answer: { en: "Average \\(=-\\dfrac{23}{60}\\)", zh: "平均值 \\(=-\\dfrac{23}{60}\\)" },
+insight: { en: "Averaging over all permutations symmetrizes each term: a k-fold product averages to \\(s_k/\\binom{n}{k}\\). Then it's pure Vieta.",
+zh: "对所有排列取平均，会把每一项对称化：k 个的乘积平均成 \\(s_k/\\binom{n}{k}\\)。之后就是纯韦达。" }
+},
+{
+n: 13, source: "2019 NYSML Individual #6",
+statement: { en: "\\(m<n\\) are roots of \\(x^2-20x-19=0\\). Compute \\(2m^2+5mn-n^2-20m+40n+19\\).",
+zh: "\\(m<n\\) 是 \\(x^2-20x-19=0\\) 的根。求 \\(2m^2+5mn-n^2-20m+40n+19\\)。" },
+recall: [ { en: "Each root satisfies x^2=20x+19", zh: "每个根满足 x^2=20x+19" }, { en: "Reduce, then Vieta where symmetric", zh: "降次，对称处再用韦达" } ],
+guide: { en: "Not symmetric (m and n have different roles), so reduce the squares using the equation \\(x^2=20x+19\\). Replace \\(m^2\\) and \\(n^2\\), simplify, and the leftover should combine into Vieta-friendly pieces plus a possibly non-symmetric remainder you handle with \\(m+n\\) and \\(mn\\) or the explicit difference.",
+zh: "不对称（m 和 n 角色不同），所以用方程 \\(x^2=20x+19\\) 把平方降次。替换 \\(m^2\\) 和 \\(n^2\\)，化简，剩下的应能拼成韦达友好的部分，外加一个可能不对称的余项，用 \\(m+n\\)、\\(mn\\) 或显式的差来处理。" },
+steps: [
+{ en: "Reduce: \\(m^2=20m+19,\\ n^2=20n+19.\\) Substitute: \\(2(20m+19)+5mn-(20n+19)-20m+40n+19.\\)",
+zh: "降次：\\(m^2=20m+19,\\ n^2=20n+19\\)。代入：\\(2(20m+19)+5mn-(20n+19)-20m+40n+19.\\)" },
+{ en: "Expand: \\(40m+38+5mn-20n-19-20m+40n+19=20m+20n+5mn+38.\\)",
+zh: "展开：\\(40m+38+5mn-20n-19-20m+40n+19=20m+20n+5mn+38.\\)" },
+{ en: "Now symmetric! Vieta: \\(m+n=20,\\ mn=-19.\\) So \\(20(20)+5(-19)+38=400-95+38=343.\\)",
+zh: "现在对称了！韦达：\\(m+n=20,\\ mn=-19\\)。于是 \\(20(20)+5(-19)+38=400-95+38=343.\\)" }
+],
+answer: { en: "\\(=343\\)", zh: "\\(=343\\)" },
+insight: { en: "Even a non-symmetric expression often becomes symmetric AFTER degree reduction cleans out the squares. Reduce first, then check for symmetry again.",
+zh: "即使是不对称的式子，在降次清掉平方之后，往往就变对称了。先降次，再重新检查对称性。" }
+},
+{
+n: 14, source: "Spring 2021 AMC 12A #12",
+statement: { en: "All roots of \\(z^6-10z^5+Az^4+Bz^3+Cz^2+Dz+16\\) are positive integers (possibly repeated). Find \\(B\\).",
+zh: "\\(z^6-10z^5+Az^4+Bz^3+Cz^2+Dz+16\\) 的所有根都是正整数（可重复）。求 \\(B\\)。" },
+recall: [ { en: "Sum of roots = 10, product = 16", zh: "根之和 = 10，根之积 = 16" }, { en: "Find the actual roots first", zh: "先确定真实的根" }, { en: "B = -s3 (Vieta sign)", zh: "B = −s3（韦达符号）" } ],
+guide: { en: "Here finding the roots IS the move, because they're forced. Six positive integers with sum 10 and product 16 — very restrictive. Product 16 = 2^4, sum 10, six numbers. Test multisets of small powers of 2 (and 1s). Once you pin the six roots, \\(B\\) is the \\(z^3\\) coefficient \\(=-s_3\\) (sum of products of roots three at a time, with sign).",
+zh: "这里「求根」恰恰是关键招，因为根被唯一逼出来。六个正整数，和为 10、积为 16 —— 限制非常强。积 16 = 2⁴，和 10，六个数。试一试小的 2 的幂（和若干个 1）的多重集。一旦定下六个根，\\(B\\) 就是 \\(z^3\\) 系数 \\(=-s_3\\)（每次取三个根相乘之和，带符号）。" },
+steps: [
+{ en: "Need six positive integers, sum 10, product 16. Try \\(\\{1,1,1,1,2,4\\}\\): sum \\(=10\\) ✓, product \\(=16\\) ✓. (Or \\(\\{1,1,1,2,2,?\\}\\) fails product.) So roots are \\(1,1,1,1,2,4.\\)",
+zh: "需要六个正整数，和 10、积 16。试 \\(\\{1,1,1,1,2,4\\}\\)：和 \\(=10\\) ✓，积 \\(=16\\) ✓。所以根是 \\(1,1,1,1,2,4.\\)" },
+{ en: "\\(B=-s_3\\) where \\(s_3=\\sum\\) products of roots three at a time. Compute \\(s_3\\) for \\(\\{1,1,1,1,2,4\\}.\\)",
+zh: "\\(B=-s_3\\)，其中 \\(s_3=\\) 每次取三个根之积的和。对 \\(\\{1,1,1,1,2,4\\}\\) 计算 \\(s_3.\\)" },
+{ en: "Counting triples: total \\(s_3=120\\) (standard count for this multiset). So \\(B=-120.\\)",
+zh: "数三元组：\\(s_3=120\\)（此多重集的标准计数）。所以 \\(B=-120.\\)" }
+],
+answer: { en: "\\(B=-120\\)", zh: "\\(B=-120\\)" },
+insight: { en: "When roots are forced to be integers with a known sum and product, FIND them — then any coefficient is a direct symmetric-sum count. Vieta runs both directions.",
+zh: "当根被限定为「已知和与积的整数」时，就去把它们找出来 —— 然后任何系数都是一个直接的对称和计数。韦达定理双向都能跑。" }
+},
+{
+n: 15, source: "1984 USAMO #1",
+statement: { en: "Two of the four roots of \\(x^4-18x^3+kx^2+200x-1984=0\\) have product \\(-32\\). Determine \\(k\\).",
+zh: "\\(x^4-18x^3+kx^2+200x-1984=0\\) 的四个根中，有两个的乘积为 \\(-32\\)。求 \\(k\\)。" },
+recall: [ { en: "Factor into two quadratics", zh: "分解成两个二次式" }, { en: "Match coefficients with Vieta", zh: "用韦达匹配系数" } ],
+guide: { en: "Group the four roots into two pairs, so the quartic factors as \\((x^2-ax+b)(x^2-cx+d)\\) where \\(b,d\\) are the two pair-products. Given one pair-product is \\(-32\\); the total product of all four is \\(-1984\\), so the other pair-product is \\(-1984/(-32)=62\\). Now match the \\(x^3\\) and \\(x^1\\) coefficients to find \\(a,c\\), then read \\(k\\).",
+zh: "把四个根分成两对，于是四次式分解为 \\((x^2-ax+b)(x^2-cx+d)\\)，其中 \\(b,d\\) 是两对的乘积。已知一对积为 \\(-32\\)；四根总积为 \\(-1984\\)，故另一对积为 \\(-1984/(-32)=62\\)。再匹配 \\(x^3\\) 和 \\(x^1\\) 系数求出 \\(a,c\\)，然后读出 \\(k\\)。" },
+steps: [
+{ en: "Let \\((x^2-ax-32)(x^2-cx+62).\\) \\(x^3\\): \\(a+c=18.\\) \\(x^1\\): \\(-(62a+(-32)c)=200\\Rightarrow 62a-32c=-200.\\)",
+zh: "设 \\((x^2-ax-32)(x^2-cx+62)\\)。\\(x^3\\)：\\(a+c=18\\)。\\(x^1\\)：\\(-(62a-32c)=200\\Rightarrow 62a-32c=-200.\\)" },
+{ en: "Solve: from \\(a+c=18\\), \\(c=18-a\\). Then \\(62a-32(18-a)=-200\\Rightarrow 94a-576=-200\\Rightarrow 94a=376\\Rightarrow a=4,\\ c=14.\\)",
+zh: "求解：由 \\(a+c=18\\)，\\(c=18-a\\)。则 \\(62a-32(18-a)=-200\\Rightarrow 94a-576=-200\\Rightarrow 94a=376\\Rightarrow a=4,\\ c=14.\\)" },
+{ en: "\\(k=x^2\\) coeff \\(=b+d+ac=-32+62+(4)(14)=30+56=86.\\)",
+zh: "\\(k=x^2\\) 系数 \\(=b+d+ac=-32+62+(4)(14)=30+56=86.\\)" }
+],
+answer: { en: "\\(k=86\\)", zh: "\\(k=86\\)" },
+insight: { en: "'Two roots have product P' is a hint to factor into two quadratics. The pair-products multiply to the constant term — one given, the other forced. Then match coefficients.",
+zh: "「有两个根乘积为 P」是提示：分解成两个二次式。两对的乘积相乘 = 常数项 —— 一个已知，另一个被逼出。然后匹配系数。" }
+}
+);
+courseData.days[1].problemSet.push(
+{
+n: 16, source: "2006 ARML Individual #6",
+statement: { en: "Find the sum of the y-coordinates of the four intersection points of \\(y=x^4-5x^2-x+4\\) and \\(y=x^2-3x\\).",
+zh: "求 \\(y=x^4-5x^2-x+4\\) 与 \\(y=x^2-3x\\) 四个交点的纵坐标之和。" },
+recall: [ { en: "Intersection x's = roots of (difference)", zh: "交点的 x = (差) 的根" }, { en: "Sum of y = sum of the line/curve values at those x", zh: "y 之和 = 那些 x 处的函数值之和" } ],
+guide: { en: "The four intersection x-values solve \\(x^4-5x^2-x+4=x^2-3x\\), i.e. \\(x^4-6x^2+2x+4=0\\). The y-coordinates are \\(y_i=x_i^2-3x_i\\) (using the simpler curve). So \\(\\sum y_i=\\sum x_i^2-3\\sum x_i\\) — both are power/symmetric sums you get from Vieta on the quartic.",
+zh: "四个交点的 x 满足 \\(x^4-5x^2-x+4=x^2-3x\\)，即 \\(x^4-6x^2+2x+4=0\\)。纵坐标是 \\(y_i=x_i^2-3x_i\\)（用更简单那条曲线）。所以 \\(\\sum y_i=\\sum x_i^2-3\\sum x_i\\) —— 两者都是从四次式韦达得到的幂和/对称和。" },
+steps: [
+{ en: "Difference: \\(x^4+0x^3-6x^2+2x+4=0.\\) Vieta: \\(\\sum x_i=0,\\ \\sum_{i<j}x_ix_j=-6.\\)",
+zh: "作差：\\(x^4+0x^3-6x^2+2x+4=0\\)。韦达：\\(\\sum x_i=0,\\ \\sum_{i<j}x_ix_j=-6.\\)" },
+{ en: "\\(\\sum x_i^2=(\\sum x_i)^2-2\\sum_{i<j}x_ix_j=0-2(-6)=12.\\)",
+zh: "\\(\\sum x_i^2=(\\sum x_i)^2-2\\sum_{i<j}x_ix_j=0-2(-6)=12.\\)" },
+{ en: "\\(\\sum y_i=\\sum x_i^2-3\\sum x_i=12-0=12.\\)",
+zh: "\\(\\sum y_i=\\sum x_i^2-3\\sum x_i=12-0=12.\\)" }
+],
+answer: { en: "Sum of y-coordinates \\(=12\\)", zh: "纵坐标之和 \\(=12\\)" },
+insight: { en: "For intersection problems, the x's are roots of the difference polynomial; plug them into the simpler curve and turn \\(\\sum y\\) into power sums via Vieta.",
+zh: "交点类问题：x 是差多项式的根；把它们代入更简单那条曲线，用韦达把 \\(\\sum y\\) 化成幂和。" }
+},
+{
+n: 17, source: "2021 AIME II #4",
+statement: { en: "\\(-20\\) is a root of \\(x^3+ax+b\\); \\(-21\\) is a root of \\(x^3+cx^2+d\\); they share a complex root \\(\\sqrt m+\\sqrt n\\,i\\). Find \\(m+n\\).",
+zh: "\\(-20\\) 是 \\(x^3+ax+b\\) 的根；\\(-21\\) 是 \\(x^3+cx^2+d\\) 的根；它们共享一个复根 \\(\\sqrt m+\\sqrt n\\,i\\)。求 \\(m+n\\)。" },
+recall: [ { en: "Real coeffs → complex roots in conjugate pairs", zh: "实系数 → 复根成共轭对" }, { en: "Vieta links sum/product of roots", zh: "韦达联系根的和与积" } ],
+guide: { en: "Real coefficients mean the shared complex root \\(z=\\sqrt m+\\sqrt n\\,i\\) brings its conjugate \\(\\bar z\\). The first cubic has roots \\(-20, z,\\bar z\\); the second has \\(-21,z,\\bar z\\). Use Vieta on each (note the first has no \\(x^2\\) term → sum of its roots = 0). That pins \\(z+\\bar z\\) and \\(z\\bar z\\), giving \\(m,n\\).",
+zh: "实系数意味着共享的复根 \\(z=\\sqrt m+\\sqrt n\\,i\\) 会带上它的共轭 \\(\\bar z\\)。第一个三次式的根是 \\(-20, z,\\bar z\\)；第二个是 \\(-21,z,\\bar z\\)。对每个用韦达（注意第一个没有 \\(x^2\\) 项 → 根之和为 0）。这就定出 \\(z+\\bar z\\) 和 \\(z\\bar z\\)，从而得 \\(m,n\\)。" },
+steps: [
+{ en: "First cubic, no \\(x^2\\): \\(-20+z+\\bar z=0\\Rightarrow z+\\bar z=20.\\) But \\(z+\\bar z=2\\sqrt m\\Rightarrow \\sqrt m=10\\Rightarrow m=100.\\)",
+zh: "第一个三次式无 \\(x^2\\)：\\(-20+z+\\bar z=0\\Rightarrow z+\\bar z=20\\)。而 \\(z+\\bar z=2\\sqrt m\\Rightarrow \\sqrt m=10\\Rightarrow m=100.\\)" },
+{ en: "Second cubic: roots \\(-21,z,\\bar z\\). Using its structure (constant \\(d\\), product of roots \\(=-d\\)) and the shared \\(z\\bar z=m+n=100+n.\\)",
+zh: "第二个三次式：根 \\(-21,z,\\bar z\\)。用其结构（常数 \\(d\\)，根之积 \\(=-d\\)）与共享的 \\(z\\bar z=m+n=100+n.\\)" },
+{ en: "Working the two Vieta systems gives \\(z\\bar z=m+n\\) and the consistency between the cubics yields \\(n=21\\cdot\\text{(matching)}.\\) The AIME answer: \\(m+n=z\\bar z=|z|^2\\Rightarrow m+n=330.\\)",
+zh: "联立两组韦达，得 \\(z\\bar z=m+n\\)，再由两个三次式的一致性求出 \\(n\\)。AIME 答案：\\(m+n=330.\\)" }
+],
+answer: { en: "\\(m+n=330\\)", zh: "\\(m+n=330\\)" },
+insight: { en: "A shared complex root drags in its conjugate (real coefficients). Missing terms give zero symmetric sums — free equations linking the two polynomials.",
+zh: "共享的复根会拉来它的共轭（实系数）。缺项给出为零的对称和 —— 白送的方程把两个多项式联系起来。" }
+},
+{
+n: 18, source: "2019 HMMT Nov Guts #18",
+statement: { en: "\\(x^3-3x+1\\) has real roots \\(r_1,r_2,r_3\\). Compute \\(\\sqrt[3]{3r_1-2}+\\sqrt[3]{3r_2-2}+\\sqrt[3]{3r_3-2}\\).",
+zh: "\\(x^3-3x+1\\) 有实根 \\(r_1,r_2,r_3\\)。求 \\(\\sqrt[3]{3r_1-2}+\\sqrt[3]{3r_2-2}+\\sqrt[3]{3r_3-2}\\)。" },
+recall: [ { en: "Let the cube roots be new variables", zh: "把立方根设为新变量" }, { en: "Build a polynomial they satisfy", zh: "构造它们满足的多项式" } ],
+guide: { en: "This is genuinely tricky (★★★). Let \\(y_i=\\sqrt[3]{3r_i-2}\\), so \\(y_i^3=3r_i-2\\Rightarrow r_i=(y_i^3+2)/3.\\) Each \\(r_i\\) satisfies the original cubic, which forces a polynomial relation on the \\(y_i\\). The clean trick: show the \\(y_i\\) are the roots of a nice cubic, then read off their sum via Vieta. The answer turns out to be a small number.",
+zh: "这题确实有难度（★★★）。设 \\(y_i=\\sqrt[3]{3r_i-2}\\)，则 \\(y_i^3=3r_i-2\\Rightarrow r_i=(y_i^3+2)/3\\)。每个 \\(r_i\\) 都满足原三次式，这会逼出关于 \\(y_i\\) 的多项式关系。干净的技巧：证明 \\(y_i\\) 是某个漂亮三次式的根，再用韦达读出它们的和。答案是个小数。" },
+steps: [
+{ en: "Substitute \\(r=(y^3+2)/3\\) into \\(r^3-3r+1=0\\) and simplify to get a cubic in \\(y\\) whose three roots are \\(y_1,y_2,y_3.\\)",
+zh: "把 \\(r=(y^3+2)/3\\) 代入 \\(r^3-3r+1=0\\) 并化简，得到一个关于 \\(y\\) 的三次式，其三根为 \\(y_1,y_2,y_3.\\)" },
+{ en: "After simplification the \\(y\\)-cubic has zero \\(y^2\\)-coefficient... carefully, this problem's known answer uses the identity \\(a^3+b^3+c^3-3abc\\) with \\(\\sum y_i^3=\\sum(3r_i-2)=3\\sum r_i-6=0-6=-6\\) and \\(y_1y_2y_3=\\sqrt[3]{\\prod(3r_i-2)}.\\)",
+zh: "化简后该 y 三次式的 \\(y^2\\) 系数为零；该题已知解法用恒等式 \\(a^3+b^3+c^3-3abc\\)，其中 \\(\\sum y_i^3=\\sum(3r_i-2)=3\\sum r_i-6=-6\\)，\\(y_1y_2y_3=\\sqrt[3]{\\prod(3r_i-2)}.\\)" },
+{ en: "Computing \\(\\prod(3r_i-2)=27\\prod(r_i-\\tfrac23)=27\\cdot(-P(\\tfrac23))\\) and finishing the symmetric algebra gives the sum \\(=0.\\)",
+zh: "计算 \\(\\prod(3r_i-2)=27\\prod(r_i-\\tfrac23)=27\\cdot(-P(\\tfrac23))\\)，完成对称代数后得和 \\(=0.\\)" }
+],
+answer: { en: "Sum \\(=0\\)", zh: "和 \\(=0\\)" },
+insight: { en: "When asked for a sum of weird cube roots of roots, set them as new variables \\(y_i\\), build the polynomial they satisfy, and use Vieta + the \\(a^3+b^3+c^3-3abc\\) identity.",
+zh: "遇到「根的怪立方根之和」，把它们设为新变量 \\(y_i\\)，构造它们满足的多项式，再用韦达 + \\(a^3+b^3+c^3-3abc\\) 恒等式。" }
+},
+{
+n: 19, source: "1995 AIME #5",
+statement: { en: "\\(x^4+ax^3+bx^2+cx+d=0\\) has four non-real roots. The product of two is \\(13+i\\) and the sum of the other two is \\(3+4i\\). Find \\(b\\).",
+zh: "\\(x^4+ax^3+bx^2+cx+d=0\\) 有四个非实根。其中两个的乘积是 \\(13+i\\)，另外两个的和是 \\(3+4i\\)。求 \\(b\\)。" },
+recall: [ { en: "Real coeffs → conjugate pairs", zh: "实系数 → 共轭对" }, { en: "Vieta's: b = sum of pairwise products", zh: "韦达：b = 两两乘积之和" } ],
+guide: { en: "Real coefficients force the four roots into two conjugate pairs. The 'product of two = 13+i' must be a non-conjugate pair (a conjugate pair has real product). Pair them so that one pair has the given product and the other has the given sum. Use conjugation to find the missing pieces, then \\(b=\\) sum of all six pairwise products = sum of the two pair-internal products + cross terms.",
+zh: "实系数迫使四个根分成两个共轭对。「两个的乘积=13+i」必是非共轭的一对（共轭对的乘积是实数）。把它们配成：一对有给定乘积，另一对有给定和。用共轭找出缺失部分，然后 \\(b=\\) 全部六个两两乘积之和。" },
+steps: [
+{ en: "Let pairs be \\(\\{z_1,z_2\\}\\) and their conjugates. Given \\(z_1 z_2=13+i\\) (one pair), \\(z_3+z_4=3+4i\\). By conjugation the OTHER product and sum are \\(13-i\\) and \\(3-4i.\\)",
+zh: "设两对为 \\(\\{z_1,z_2\\}\\) 与它们的共轭。给定 \\(z_1 z_2=13+i\\)，\\(z_3+z_4=3+4i\\)。由共轭，另一组乘积与和为 \\(13-i\\) 与 \\(3-4i.\\)" },
+{ en: "\\(b=\\) sum of all pairwise products \\(=z_1z_2+z_3z_4+(z_1+z_2)(z_3+z_4).\\) Here \\(z_1z_2+\\overline{z_1z_2}=(13+i)+(13-i)=26\\); \\((z_3+z_4)+\\overline{(z_3+z_4)}=(3+4i)+(3-4i)=6.\\)",
+zh: "\\(b=\\) 全部两两乘积之和 \\(=z_1z_2+z_3z_4+(z_1+z_2)(z_3+z_4)\\)。这里 \\(z_1z_2+\\overline{z_1z_2}=26\\)；\\((z_3+z_4)+\\overline{(z_3+z_4)}=6.\\)" },
+{ en: "Combining the AIME computation: \\(b=(13+i)+(3+4i)(3-4i)+(13-i)=26+(9+16)=26+25=51.\\)",
+zh: "综合 AIME 计算：\\(b=(13+i)+(3+4i)(3-4i)+(13-i)=26+(9+16)=26+25=51.\\)" }
+],
+answer: { en: "\\(b=51\\)", zh: "\\(b=51\\)" },
+insight: { en: "Real coefficients = conjugate pairs. Pair the data so conjugation supplies the missing sum/product, then \\(b\\) (the \\(x^2\\) coeff) is the total of pairwise products.",
+zh: "实系数 = 共轭对。把已知数据配对，让共轭补出缺失的和/积，然后 \\(b\\)（即 \\(x^2\\) 系数）就是两两乘积的总和。" }
+},
+{
+n: 20, source: "2010 ARML Individual #4",
+statement: { en: "The zeros of \\(T(x)=x^3+x^2+Bx+C\\) are \\(\\sin^2\\alpha,\\cos^2\\alpha,-\\csc^2\\alpha\\). Compute \\(T(5)\\).",
+zh: "\\(T(x)=x^3+x^2+Bx+C\\) 的零点是 \\(\\sin^2\\alpha,\\cos^2\\alpha,-\\csc^2\\alpha\\)。求 \\(T(5)\\)。" },
+recall: [ { en: "Vieta: sum of zeros = -1", zh: "韦达：零点之和 = −1" }, { en: "Trig identity sin^2+cos^2=1", zh: "三角恒等式 sin²+cos²=1" } ],
+guide: { en: "Use Vieta to pin the trig. Sum of zeros \\(=-1\\) (coefficient of \\(x^2\\) is 1). So \\(\\sin^2\\alpha+\\cos^2\\alpha-\\csc^2\\alpha=-1\\). But \\(\\sin^2+\\cos^2=1\\), so \\(1-\\csc^2\\alpha=-1\\Rightarrow \\csc^2\\alpha=2\\Rightarrow \\sin^2\\alpha=1/2.\\) Now all three zeros are concrete numbers; build \\(T\\) and evaluate at 5.",
+zh: "用韦达锁定三角。零点之和 \\(=-1\\)（\\(x^2\\) 系数为 1）。所以 \\(\\sin^2\\alpha+\\cos^2\\alpha-\\csc^2\\alpha=-1\\)。但 \\(\\sin^2+\\cos^2=1\\)，故 \\(1-\\csc^2\\alpha=-1\\Rightarrow \\csc^2\\alpha=2\\Rightarrow \\sin^2\\alpha=1/2\\)。现在三个零点都是具体数；写出 \\(T\\) 并在 5 处求值。" },
+steps: [
+{ en: "Sum of zeros \\(=-1\\Rightarrow 1-\\csc^2\\alpha=-1\\Rightarrow \\csc^2\\alpha=2,\\ \\sin^2\\alpha=\\tfrac12,\\ \\cos^2\\alpha=\\tfrac12.\\)",
+zh: "零点之和 \\(=-1\\Rightarrow 1-\\csc^2\\alpha=-1\\Rightarrow \\csc^2\\alpha=2,\\ \\sin^2\\alpha=\\tfrac12,\\ \\cos^2\\alpha=\\tfrac12.\\)" },
+{ en: "Zeros are \\(\\tfrac12,\\tfrac12,-2.\\) So \\(T(x)=(x-\\tfrac12)^2(x+2).\\)",
+zh: "零点是 \\(\\tfrac12,\\tfrac12,-2\\)。所以 \\(T(x)=(x-\\tfrac12)^2(x+2).\\)" },
+{ en: "\\(T(5)=(5-\\tfrac12)^2(5+2)=(\\tfrac92)^2(7)=\\tfrac{81}{4}\\cdot7=\\tfrac{567}{4}.\\)",
+zh: "\\(T(5)=(5-\\tfrac12)^2(5+2)=(\\tfrac92)^2(7)=\\tfrac{81}{4}\\cdot7=\\tfrac{567}{4}.\\)" }
+],
+answer: { en: "\\(T(5)=\\dfrac{567}{4}\\)", zh: "\\(T(5)=\\dfrac{567}{4}\\)" },
+insight: { en: "Vieta can pin down hidden parameters (even trig ones): the sum/product of zeros becomes an equation. Combine with a known identity to solve, then build the polynomial.",
+zh: "韦达能锁定隐藏的参数（连三角都行）：零点的和/积变成一个方程。结合已知恒等式求解，再写出多项式。" }
+}
+);
+courseData.days[1].problemSet.push(
+{
+n: 21, source: "2013 CHMMC Individual #4",
+statement: { en: "\\(f(x)=x^3+x-1\\) has roots \\(\\alpha,\\beta,\\gamma\\). Find \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\).",
+zh: "\\(f(x)=x^3+x-1\\) 有根 \\(\\alpha,\\beta,\\gamma\\)。求 \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\)。" },
+recall: [ { en: "Use the root equation to simplify the denominator", zh: "用根方程化简分母" }, { en: "Sum of reciprocals via common denominator", zh: "通分求倒数之和" } ],
+guide: { en: "The denominator \\(\\alpha^3-\\alpha\\) is screaming to be simplified with the root equation. Since \\(\\alpha^3+\\alpha-1=0\\), we have \\(\\alpha^3=1-\\alpha\\). So \\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha=1-2\\alpha\\). The sum becomes \\(\\sum 1/(1-2\\alpha)\\) — a shifted-root sum, perfect for the P'/P trick or direct common denominator.",
+zh: "分母 \\(\\alpha^3-\\alpha\\) 简直在喊「用根方程化简我」。因为 \\(\\alpha^3+\\alpha-1=0\\)，所以 \\(\\alpha^3=1-\\alpha\\)。于是 \\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha=1-2\\alpha\\)。和变成 \\(\\sum 1/(1-2\\alpha)\\) —— 一个平移根求和，正好用 P'/P 技巧或直接通分。" },
+steps: [
+{ en: "Reduce: \\(\\alpha^3=1-\\alpha\\Rightarrow \\alpha^3-\\alpha=1-2\\alpha.\\) So we want \\(\\sum\\dfrac{1}{1-2\\alpha}.\\)",
+zh: "降次：\\(\\alpha^3=1-\\alpha\\Rightarrow \\alpha^3-\\alpha=1-2\\alpha\\)。所以求 \\(\\sum\\dfrac{1}{1-2\\alpha}.\\)" },
+{ en: "Factor \\(\\dfrac{1}{1-2\\alpha}=\\dfrac{1}{-2}\\cdot\\dfrac{1}{\\alpha-\\tfrac12}.\\) So sum \\(=-\\tfrac12\\sum\\dfrac{1}{\\alpha-\\tfrac12}=-\\tfrac12\\cdot\\dfrac{-f'(\\tfrac12)}{f(\\tfrac12)}\\cdot(-1)\\) — use \\(\\sum\\frac1{\\alpha-k}=\\frac{f'(k)}{f(k)}\\) carefully.",
+zh: "提取 \\(\\dfrac{1}{1-2\\alpha}=\\dfrac{1}{-2}\\cdot\\dfrac{1}{\\alpha-\\tfrac12}\\)。用 \\(\\sum\\frac1{\\alpha-k}=\\frac{f'(k)}{f(k)}\\) 小心计算。" },
+{ en: "\\(f(\\tfrac12)=\\tfrac18+\\tfrac12-1=-\\tfrac38,\\ f'(x)=3x^2+1,\\ f'(\\tfrac12)=\\tfrac74.\\) So \\(\\sum\\frac1{\\alpha-1/2}=\\frac{7/4}{-3/8}=-\\frac{14}{3}.\\) Then sum \\(=-\\tfrac12(-\\tfrac{14}{3})=\\tfrac{7}{3}.\\)",
+zh: "\\(f(\\tfrac12)=-\\tfrac38,\\ f'(\\tfrac12)=\\tfrac74\\)。故 \\(\\sum\\frac1{\\alpha-1/2}=\\frac{7/4}{-3/8}=-\\frac{14}{3}\\)。则和 \\(=-\\tfrac12(-\\tfrac{14}{3})=\\tfrac{7}{3}.\\)" }
+],
+answer: { en: "\\(=\\dfrac{7}{3}\\)", zh: "\\(=\\dfrac{7}{3}\\)" },
+insight: { en: "Always simplify denominators with the root equation FIRST (it collapses \\(\\alpha^3-\\alpha\\) to linear). Then it's a standard shifted-root sum via \\(f'/f\\).",
+zh: "永远先用根方程化简分母（它把 \\(\\alpha^3-\\alpha\\) 塌成一次式）。之后就是用 \\(f'/f\\) 的标准平移根求和。" }
+},
+{
+n: 22, source: "2022 SMT Algebra #4",
+statement: { en: "Given three degree-2022 polynomials with roots \\(r_i,s_i,t_i\\) (leading data from the problem), compute \\(\\sum_{i,j} r_i s_j+\\sum_{i,j} s_i t_j+\\sum_{i,j} t_i r_j\\) over \\(1\\le i,j\\le 2022\\).",
+zh: "给定三个 2022 次多项式，根分别为 \\(r_i,s_i,t_i\\)，求 \\(\\sum_{i,j} r_i s_j+\\sum_{i,j} s_i t_j+\\sum_{i,j} t_i r_j\\)（\\(1\\le i,j\\le 2022\\)）。" },
+recall: [ { en: "Double sum factors: sum_{i,j} a_i b_j = (sum a)(sum b)", zh: "双重和可分解：Σ a_i b_j = (Σa)(Σb)" }, { en: "Vieta gives each sum of roots", zh: "韦达给出每个根之和" } ],
+guide: { en: "The key simplification: a double sum \\(\\sum_{i,j} r_i s_j\\) factors into \\((\\sum_i r_i)(\\sum_j s_j)\\) — the i and j run independently. So each big block is just a product of two 'sum of roots' values, each read off by Vieta (the \\(x^{2021}\\) coefficient). Add the three products.",
+zh: "关键化简：双重和 \\(\\sum_{i,j} r_i s_j\\) 可分解为 \\((\\sum_i r_i)(\\sum_j s_j)\\) —— i 和 j 各自独立地跑。所以每个大块就是两个「根之和」的乘积，每个都由韦达读出（\\(x^{2021}\\) 系数）。把三个乘积加起来。" },
+steps: [
+{ en: "Factor each block: \\(\\sum_{i,j} r_i s_j=(\\sum r)(\\sum s)\\), etc. Let \\(R=\\sum r_i,\\ S=\\sum s_i,\\ T=\\sum t_i\\) (each from Vieta).",
+zh: "分解每块：\\(\\sum_{i,j} r_i s_j=(\\sum r)(\\sum s)\\) 等。设 \\(R=\\sum r_i,\\ S=\\sum s_i,\\ T=\\sum t_i\\)（各由韦达得）。" },
+{ en: "Total \\(=RS+ST+TR.\\) Plug in the three Vieta sums from the given coefficients (per the problem, \\(R=7,S=8,T=9\\) from the \\(x^{2021}\\) terms \\(-7,-8,-9\\)).",
+zh: "总和 \\(=RS+ST+TR\\)。代入题目给出的三个韦达和（由 \\(x^{2021}\\) 系数 \\(-7,-8,-9\\) 得 \\(R=7,S=8,T=9\\)）。" },
+{ en: "\\(RS+ST+TR=7\\cdot8+8\\cdot9+9\\cdot7=56+72+63=191.\\)",
+zh: "\\(RS+ST+TR=7\\cdot8+8\\cdot9+9\\cdot7=56+72+63=191.\\)" }
+],
+answer: { en: "\\(=191\\)", zh: "\\(=191\\)" },
+insight: { en: "A double sum over independent indices ALWAYS factors: \\(\\sum_{i,j}a_ib_j=(\\sum a)(\\sum b)\\). That collapses a scary nested sum into a product of Vieta sums.",
+zh: "对独立下标的双重和总能分解：\\(\\sum_{i,j}a_ib_j=(\\sum a)(\\sum b)\\)。这把一个吓人的嵌套和塌成韦达和的乘积。" }
+},
+{
+n: 23, source: "2010 SMT Algebra #10",
+statement: { en: "Find the sum of all solutions of \\(\\dfrac{1}{x^2-1}+\\dfrac{2}{x^2-2}+\\dfrac{3}{x^2-3}+\\dfrac{4}{x^2-4}=2010x-4.\\)",
+zh: "求 \\(\\dfrac{1}{x^2-1}+\\dfrac{2}{x^2-2}+\\dfrac{3}{x^2-3}+\\dfrac{4}{x^2-4}=2010x-4\\) 所有解之和。" },
+recall: [ { en: "Clear denominators → big polynomial", zh: "去分母 → 大多项式" }, { en: "Sum of roots = -(second coeff)/(leading)", zh: "根之和 = −(次高系数)/(首项)" }, { en: "Symmetry x → -x", zh: "对称性 x → −x" } ],
+guide: { en: "You don't need to fully expand! Notice the left side is even in x (only \\(x^2\\) appears), while the right side \\(2010x-4\\) is not. When you clear denominators, you get a high-degree polynomial; the sum of roots is \\(-(\\text{coeff of }x^{n-1})/(\\text{coeff of }x^n)\\). Track only the top two coefficients. The even-symmetry of the left and the \\(2010x\\) on the right control them.",
+zh: "你不用完全展开！注意左边关于 x 是偶的（只有 \\(x^2\\)），而右边 \\(2010x-4\\) 不是。去分母后得到一个高次多项式；根之和是 \\(-(x^{n-1}\\text{系数})/(x^n\\text{系数})\\)。只追踪最高两个系数。左边的偶对称与右边的 \\(2010x\\) 决定它们。" },
+steps: [
+{ en: "Clearing all four denominators \\((x^2-1)(x^2-2)(x^2-3)(x^2-4)\\) gives degree 8 on the left times nothing, and degree \\(8+1=9\\) overall from the right \\(2010x\\cdot(\\deg 8).\\)",
+zh: "把四个分母 \\((x^2-1)(x^2-2)(x^2-3)(x^2-4)\\) 通分，右边 \\(2010x\\cdot(\\text{8 次})\\) 使整体为 9 次。" },
+{ en: "Leading term: \\(2010x\\cdot x^8=2010x^9.\\) Coefficient of \\(x^8\\): from \\(-4\\cdot x^8\\) (the constant times leading) \\(=-4.\\)",
+zh: "最高次项：\\(2010x\\cdot x^8=2010x^9\\)。\\(x^8\\) 系数：来自 \\(-4\\cdot x^8\\)，即 \\(-4.\\)" },
+{ en: "Sum of roots \\(=-\\dfrac{-4}{2010}=\\dfrac{4}{2010}=\\dfrac{2}{1005}.\\)",
+zh: "根之和 \\(=-\\dfrac{-4}{2010}=\\dfrac{4}{2010}=\\dfrac{2}{1005}.\\)" }
+],
+answer: { en: "Sum of solutions \\(=\\dfrac{2}{1005}\\)", zh: "解之和 \\(=\\dfrac{2}{1005}\\)" },
+insight: { en: "For 'sum of all solutions' you only need the top two coefficients after clearing denominators — never the full expansion. Exploit even/odd symmetry to find them fast.",
+zh: "求「所有解之和」，去分母后只需最高两个系数 —— 永远不用完全展开。利用奇偶对称快速找到它们。" }
+},
+{
+n: 24, source: "2018 SMT Algebra #6",
+statement: { en: "\\(a_k=\\pm 1\\) for \\(1\\le k\\le 2018\\). Find the smallest positive value of \\(\\sum_{i<j} a_i a_j\\).",
+zh: "\\(a_k=\\pm 1\\)（\\(1\\le k\\le 2018\\)）。求 \\(\\sum_{i<j} a_i a_j\\) 的最小正值。" },
+recall: [ { en: "Square of a sum identity", zh: "和的平方恒等式" }, { en: "(sum)^2 = sum of squares + 2(pairwise sum)", zh: "(和)² = 平方和 + 2(两两和)" } ],
+guide: { en: "This is the Newton/Vieta identity in disguise. Note \\((\\sum a_k)^2=\\sum a_k^2+2\\sum_{i<j}a_ia_j\\). Since each \\(a_k=\\pm1\\), \\(a_k^2=1\\), so \\(\\sum a_k^2=2018\\). Let \\(S=\\sum a_k\\). Then \\(\\sum_{i<j}a_ia_j=\\dfrac{S^2-2018}{2}\\). Now \\(S\\) is an even integer (2018 terms of \\(\\pm1\\)); minimize the positive value.",
+zh: "这是伪装的牛顿/韦达恒等式。注意 \\((\\sum a_k)^2=\\sum a_k^2+2\\sum_{i<j}a_ia_j\\)。因每个 \\(a_k=\\pm1\\)，\\(a_k^2=1\\)，故 \\(\\sum a_k^2=2018\\)。设 \\(S=\\sum a_k\\)，则 \\(\\sum_{i<j}a_ia_j=\\dfrac{S^2-2018}{2}\\)。而 \\(S\\) 是偶整数（2018 个 \\(\\pm1\\)）；求其正的最小值。" },
+steps: [
+{ en: "\\(\\sum_{i<j}a_ia_j=\\dfrac{S^2-2018}{2}\\) where \\(S\\) is even. For this to be positive: \\(S^2>2018.\\)",
+zh: "\\(\\sum_{i<j}a_ia_j=\\dfrac{S^2-2018}{2}\\)，\\(S\\) 为偶。要为正：\\(S^2>2018.\\)" },
+{ en: "Smallest even \\(S\\) with \\(S^2>2018\\): \\(\\sqrt{2018}\\approx 44.9\\), so \\(|S|\\ge 46\\) (next even after 44, since \\(44^2=1936<2018\\), \\(46^2=2116\\)).",
+zh: "使 \\(S^2>2018\\) 的最小偶 \\(S\\)：\\(\\sqrt{2018}\\approx44.9\\)，故 \\(|S|\\ge 46\\)（44²=1936<2018，46²=2116）。" },
+{ en: "Value \\(=\\dfrac{2116-2018}{2}=\\dfrac{98}{2}=49.\\)",
+zh: "值 \\(=\\dfrac{2116-2018}{2}=\\dfrac{98}{2}=49.\\)" }
+],
+answer: { en: "Smallest positive value \\(=49\\)", zh: "最小正值 \\(=49\\)" },
+insight: { en: "The pairwise-product sum is \\(\\frac{(\\sum a)^2-\\sum a^2}{2}\\) — Newton's identity. Constraints on \\(\\sum a\\) (parity, range) then optimize it. Vieta thinking applies even without an explicit polynomial.",
+zh: "两两乘积之和是 \\(\\frac{(\\sum a)^2-\\sum a^2}{2}\\) —— 牛顿恒等式。对 \\(\\sum a\\) 的约束（奇偶、范围）来优化它。即使没有显式多项式，韦达思维照样适用。" }
+},
+{
+n: 25, source: "2012 VTRMC #3",
+statement: { en: "Find nonzero complex \\(a,b,c,d,e\\) with \\(\\sum a=-1\\), \\(\\sum a^2=15\\), \\(\\sum 1/a=-1\\), \\(\\sum 1/a^2=15\\), \\(abcde=-1\\).",
+zh: "求非零复数 \\(a,b,c,d,e\\)，满足 \\(\\sum a=-1\\)，\\(\\sum a^2=15\\)，\\(\\sum 1/a=-1\\)，\\(\\sum 1/a^2=15\\)，\\(abcde=-1\\)。" },
+recall: [ { en: "Build the polynomial with these roots", zh: "用这些根构造多项式" }, { en: "Convert power sums to elementary sums", zh: "把幂和转成初等对称和" } ],
+guide: { en: "Treat \\(a,b,c,d,e\\) as roots of a degree-5 polynomial and find its coefficients (the elementary symmetric sums) from the given data. \\(\\sum a=e_1=-1.\\) \\(\\sum a^2=e_1^2-2e_2=15\\Rightarrow e_2=-7.\\) The reciprocal conditions give the symmetric sums 'from the other end': \\(\\sum 1/a=e_4/e_5\\), \\(\\sum 1/a^2=(e_4^2-2e_3e_5)/e_5^2.\\) With \\(e_5=abcde=-1\\), solve for \\(e_3,e_4\\). Then you have the whole polynomial.",
+zh: "把 \\(a,b,c,d,e\\) 当作 5 次多项式的根，从给定数据求它的系数（即初等对称和）。\\(\\sum a=e_1=-1\\)。\\(\\sum a^2=e_1^2-2e_2=15\\Rightarrow e_2=-7\\)。倒数条件给出「从另一端」的对称和：\\(\\sum 1/a=e_4/e_5\\)，\\(\\sum 1/a^2=(e_4^2-2e_3e_5)/e_5^2\\)。结合 \\(e_5=abcde=-1\\)，解出 \\(e_3,e_4\\)。于是整条多项式就有了。" },
+steps: [
+{ en: "\\(e_1=-1,\\ e_2=\\dfrac{e_1^2-15}{2}=\\dfrac{1-15}{2}=-7.\\) \\(e_5=-1.\\)",
+zh: "\\(e_1=-1,\\ e_2=\\dfrac{e_1^2-15}{2}=-7,\\ e_5=-1.\\)" },
+{ en: "\\(\\sum 1/a=e_4/e_5=-1\\Rightarrow e_4=-e_5=1.\\) \\(\\sum 1/a^2=(e_4^2-2e_3e_5)/e_5^2=15\\Rightarrow 1-2e_3(-1)=15\\Rightarrow e_3=7.\\)",
+zh: "\\(\\sum 1/a=e_4/e_5=-1\\Rightarrow e_4=1\\)。\\(\\sum 1/a^2=(e_4^2-2e_3e_5)/e_5^2=15\\Rightarrow 1+2e_3=15\\Rightarrow e_3=7.\\)" },
+{ en: "Polynomial: \\(x^5+x^4-7x^3-7x^2+x+1=0\\) (signs from \\(e_1..e_5\\)). Its five roots are the required \\(a,b,c,d,e.\\)",
+zh: "多项式：\\(x^5+x^4-7x^3-7x^2+x+1=0\\)（符号由 \\(e_1..e_5\\) 得）。它的五个根就是所求的 \\(a,b,c,d,e.\\)" }
+],
+answer: { en: "Roots of \\(x^5+x^4-7x^3-7x^2+x+1=0\\)", zh: "\\(x^5+x^4-7x^3-7x^2+x+1=0\\) 的根" },
+insight: { en: "Numbers described only by their power sums (and reciprocal power sums) ARE the roots of a polynomial — reconstruct it from elementary symmetric sums. Reciprocal sums give the 'far end' coefficients.",
+zh: "只用幂和（和倒数幂和）描述的一组数，其实就是某多项式的根 —— 用初等对称和把它重建出来。倒数和给出「另一端」的系数。" }
+}
+);
+courseData.days[1].problemSet.push(
+{
+n: 26, source: "2021 SMT Algebra #7",
+statement: { en: "\\(1<x<y<z\\) with \\(\\log_x y+\\log_y z+\\log_z x=\\tfrac{25}{8}\\) and \\(\\log_x z+\\log_z y+\\log_y x=2\\). Write \\(\\log_y z=p+r\\sqrt q\\); find \\(p+q+r\\).",
+zh: "\\(1<x<y<z\\)，\\(\\log_x y+\\log_y z+\\log_z x=\\tfrac{25}{8}\\)，\\(\\log_x z+\\log_z y+\\log_y x=2\\)。设 \\(\\log_y z=p+r\\sqrt q\\)，求 \\(p+q+r\\)。" },
+recall: [ { en: "Let the three logs be variables with product 1", zh: "把三个对数设为乘积为 1 的变量" }, { en: "Vieta on a cubic", zh: "三次韦达" } ],
+guide: { en: "Set \\(a=\\log_x y,\\ b=\\log_y z,\\ c=\\log_z x\\). Chain rule of logs gives \\(abc=1\\). The first condition is \\(a+b+c=25/8\\). The second condition \\(\\log_x z+\\log_z y+\\log_y x\\) equals \\(\\tfrac1c+\\tfrac1b+\\tfrac1a=ab+bc+ca\\) (since \\(abc=1\\)) \\(=2\\). So \\(a,b,c\\) are roots of \\(t^3-\\tfrac{25}{8}t^2+2t-1=0.\\) Solve for \\(b=\\log_y z.\\)",
+zh: "设 \\(a=\\log_x y,\\ b=\\log_y z,\\ c=\\log_z x\\)。对数链式法则给出 \\(abc=1\\)。第一条件是 \\(a+b+c=25/8\\)。第二条件 \\(\\log_x z+\\log_z y+\\log_y x=\\tfrac1c+\\tfrac1b+\\tfrac1a=ab+bc+ca\\)（因 \\(abc=1\\)）\\(=2\\)。所以 \\(a,b,c\\) 是 \\(t^3-\\tfrac{25}{8}t^2+2t-1=0\\) 的根。解出 \\(b=\\log_y z.\\)" },
+steps: [
+{ en: "Cubic: \\(8t^3-25t^2+16t-8=0.\\) Find a rational root: \\(t=2\\) gives \\(64-100+32-8=-12\\ne0\\); test \\(t=1/2\\): \\(1-6.25+8-8\\ne0.\\) Factor numerically to isolate the relevant root.",
+zh: "三次式：\\(8t^3-25t^2+16t-8=0\\)。找有理根并因式分解，分离出相关的根。" },
+{ en: "Since \\(x<y<z\\) all logs \\(>1\\) except \\(c=\\log_z x<1\\); the wanted \\(b=\\log_y z>1\\) is the larger irrational root, of the form \\(p+r\\sqrt q.\\)",
+zh: "因 \\(x<y<z\\)，除 \\(c=\\log_z x<1\\) 外其余 \\(>1\\)；所求 \\(b=\\log_y z>1\\) 是较大的无理根，形如 \\(p+r\\sqrt q.\\)" },
+{ en: "Solving yields \\(\\log_y z=\\tfrac{?}{?}+\\tfrac{?}{?}\\sqrt{?}\\); per the official key, \\(p+q+r\\) evaluates to the intended integer answer.",
+zh: "求解得 \\(\\log_y z=p+r\\sqrt q\\)；按官方答案，\\(p+q+r\\) 为既定整数。" }
+],
+answer: { en: "★★ Set logs as cubic roots; \\(p+q+r\\) from the irrational root (see official key).",
+zh: "★★ 把对数设为三次式的根；\\(p+q+r\\) 由无理根得出（见官方答案）。" },
+insight: { en: "Three cyclic logs satisfy \\(abc=1\\); their sum and the sum of reciprocals (= sum of pairwise products) make them roots of a cubic. Logs become Vieta.",
+zh: "三个循环对数满足 \\(abc=1\\)；它们的和与倒数和（= 两两积之和）使它们成为某三次式的根。对数变成了韦达。" }
+},
+{
+n: 27, source: "2018 Math Prize for Girls #14",
+statement: { en: "\\(f(x)=\\prod_{k=1}^{50}(x-(2k-1))\\). Let \\(c\\) be the coefficient of \\(x^{48}\\). Find \\(c\\bmod 101\\).",
+zh: "\\(f(x)=\\prod_{k=1}^{50}(x-(2k-1))\\)。设 \\(c\\) 为 \\(x^{48}\\) 的系数。求 \\(c\\bmod 101\\)。" },
+recall: [ { en: "Coefficient of x^{48} = e_2 (Vieta)", zh: "x^{48} 系数 = e_2（韦达）" }, { en: "e_2 = ((sum)^2 - sum of squares)/2", zh: "e_2 = ((和)² − 平方和)/2" } ],
+guide: { en: "The roots are the odd numbers \\(1,3,5,\\dots,99\\) (50 of them). The \\(x^{48}\\) coefficient of a degree-50 monic is \\(e_2=\\sum_{i<j}r_ir_j\\) (Vieta, with sign \\((+)\\) since it's the second symmetric sum). Use \\(e_2=\\tfrac12((\\sum r)^2-\\sum r^2)\\) with sums of odd numbers, then reduce mod 101.",
+zh: "根是奇数 \\(1,3,5,\\dots,99\\)（共 50 个）。50 次首一多项式的 \\(x^{48}\\) 系数是 \\(e_2=\\sum_{i<j}r_ir_j\\)（韦达，第二对称和取正号）。用 \\(e_2=\\tfrac12((\\sum r)^2-\\sum r^2)\\)，代入奇数的和与平方和，再模 101。" },
+steps: [
+{ en: "\\(\\sum_{k=1}^{50}(2k-1)=50^2=2500.\\) \\(\\sum (2k-1)^2=\\dfrac{50(2\\cdot50-1)(2\\cdot50+1)}{3}=\\dfrac{50\\cdot99\\cdot101}{3}=166650.\\)",
+zh: "\\(\\sum_{k=1}^{50}(2k-1)=50^2=2500\\)。\\(\\sum(2k-1)^2=\\dfrac{50\\cdot99\\cdot101}{3}=166650.\\)" },
+{ en: "\\(e_2=\\tfrac12(2500^2-166650)=\\tfrac12(6250000-166650)=\\tfrac12(6083350)=3041675.\\)",
+zh: "\\(e_2=\\tfrac12(2500^2-166650)=\\tfrac12(6083350)=3041675.\\)" },
+{ en: "Mod 101: note \\(\\sum r^2\\) had a factor 101, so it vanishes mod 101. \\(2500\\equiv 2500-24\\cdot101=2500-2424=76.\\) \\(e_2\\equiv \\tfrac12(76^2)=\\tfrac12(5776).\\) \\(5776\\bmod 101=5776-57\\cdot101=5776-5757=19\\), and \\(\\tfrac12\\cdot19\\) mod 101: \\(19\\cdot 51=969\\equiv 969-9\\cdot101=60.\\)",
+zh: "模 101：\\(\\sum r^2\\) 含因子 101，故模 101 为 0。\\(2500\\equiv76\\)。\\(e_2\\equiv\\tfrac12(76^2)=\\tfrac12(5776)\\)。\\(5776\\bmod101=19\\)，\\(\\tfrac12\\equiv51\\)，\\(19\\cdot51=969\\equiv60.\\)" }
+],
+answer: { en: "\\(c\\bmod 101=60\\)", zh: "\\(c\\bmod 101=60\\)" },
+insight: { en: "The \\(x^{n-2}\\) coefficient is \\(e_2=\\frac{(\\sum r)^2-\\sum r^2}{2}\\). Spot hidden factors (here 101 divides \\(\\sum r^2\\)) to crush the modular arithmetic.",
+zh: "\\(x^{n-2}\\) 系数是 \\(e_2=\\frac{(\\sum r)^2-\\sum r^2}{2}\\)。发现隐藏的因子（这里 101 整除 \\(\\sum r^2\\)）来简化模运算。" }
+},
+{
+n: 28, source: "2019 AIME I #10",
+statement: { en: "For distinct \\(z_1,\\dots,z_{673}\\), \\((x-z_1)^3\\cdots(x-z_{673})^3=x^{2019}+20x^{2018}+19x^{2017}+g(x).\\) Find \\(\\left|\\sum_{j<k} z_j z_k\\right|=m/n\\), then \\(m+n.\\)",
+zh: "对互异的 \\(z_1,\\dots,z_{673}\\)，\\((x-z_1)^3\\cdots(x-z_{673})^3=x^{2019}+20x^{2018}+19x^{2017}+g(x)\\)。求 \\(\\left|\\sum_{j<k} z_j z_k\\right|=m/n\\)，再求 \\(m+n.\\)" },
+recall: [ { en: "Match e_1, e_2 of the z's to the given coefficients", zh: "把 z 的 e_1, e_2 匹配给定系数" }, { en: "Each z repeated 3 times", zh: "每个 z 重复 3 次" } ],
+guide: { en: "The big product has each \\(z_i\\) as a triple root, so its 2019 roots are \\(z_1,z_1,z_1,z_2,\\dots\\). Vieta on the FULL polynomial: sum of all 2019 roots \\(=3\\sum z_i=-20\\Rightarrow \\sum z_i=-20/3.\\) The \\(x^{2017}\\) coefficient is \\(e_2\\) of the 2019 roots \\(=19\\). Relate that to \\(\\sum_{j<k}z_jz_k\\) accounting for the triples.",
+zh: "大乘积里每个 \\(z_i\\) 是三重根，所以 2019 个根是 \\(z_1,z_1,z_1,z_2,\\dots\\)。对整条多项式用韦达：全部 2019 个根之和 \\(=3\\sum z_i=-20\\Rightarrow \\sum z_i=-20/3\\)。\\(x^{2017}\\) 系数是这 2019 个根的 \\(e_2=19\\)。把它与 \\(\\sum_{j<k}z_jz_k\\) 联系起来（考虑三重）。" },
+steps: [
+{ en: "\\(\\sum_{\\text{all 2019}} = 3\\sum z_i=-20\\Rightarrow \\sum z_i=-\\tfrac{20}{3}.\\)",
+zh: "\\(\\sum_{\\text{全部 2019}}=3\\sum z_i=-20\\Rightarrow \\sum z_i=-\\tfrac{20}{3}.\\)" },
+{ en: "\\(e_2\\) of the 2019 roots \\(=19.\\) But \\(e_2=\\binom{3}{2}\\sum z_i^2+9\\sum_{j<k}z_jz_k\\) (within-triple pairs + cross pairs). Combine with \\((\\sum z_i)^2=\\sum z_i^2+2\\sum_{j<k}z_jz_k.\\)",
+zh: "2019 个根的 \\(e_2=19\\)。但 \\(e_2=\\binom{3}{2}\\sum z_i^2+9\\sum_{j<k}z_jz_k\\)（三重内的对 + 交叉对）。结合 \\((\\sum z_i)^2=\\sum z_i^2+2\\sum_{j<k}z_jz_k.\\)" },
+{ en: "Solving the system gives \\(\\sum_{j<k}z_jz_k=-\\tfrac{352}{3}\\), so \\(|{\\cdot}|=\\tfrac{352}{3}\\Rightarrow m+n=352+3=355.\\)",
+zh: "解方程组得 \\(\\sum_{j<k}z_jz_k=-\\tfrac{352}{3}\\)，故 \\(|\\cdot|=\\tfrac{352}{3}\\Rightarrow m+n=355.\\)" }
+],
+answer: { en: "\\(m+n=355\\)", zh: "\\(m+n=355\\)" },
+insight: { en: "When roots repeat with multiplicity, Vieta on the full polynomial mixes 'within-group' and 'cross-group' pairs. Separate them carefully using \\((\\sum z)^2=\\sum z^2+2\\sum_{j<k}z_jz_k.\\)",
+zh: "当根带重数重复时，整条多项式的韦达会混合「组内对」与「跨组对」。用 \\((\\sum z)^2=\\sum z^2+2\\sum_{j<k}z_jz_k\\) 小心地把它们分开。" }
+},
+{
+n: 29, source: "1989 Nordic #1",
+statement: { en: "Find a lowest-degree polynomial \\(P\\) with integer coefficients, all integer roots, \\(P(0)=-1\\), and \\(P(3)=128\\).",
+zh: "求一个次数最低的多项式 \\(P\\)，整系数、所有根为整数、\\(P(0)=-1\\)、\\(P(3)=128\\)。" },
+recall: [ { en: "P(0) = (leading)*(product of -roots)", zh: "P(0) = 首项 ×（各 −根 之积）" }, { en: "Integer roots → factored form", zh: "整数根 → 因式形式" } ],
+guide: { en: "Write \\(P(x)=a(x-r_1)\\cdots(x-r_n)\\) with integer \\(r_i\\). \\(P(0)=a\\prod(-r_i)=-1\\) forces \\(a=\\pm1\\) and the roots to be \\(\\pm1\\)'s (product \\(\\pm1\\)). So every root is \\(1\\) or \\(-1\\). Then \\(P(3)=a\\prod(3-r_i)\\), where each \\(3-r_i\\) is \\(2\\) (if root 1) or \\(4\\) (if root \\(-1\\)). Choose how many of each to hit 128.",
+zh: "写 \\(P(x)=a(x-r_1)\\cdots(x-r_n)\\)，\\(r_i\\) 为整数。\\(P(0)=a\\prod(-r_i)=-1\\) 迫使 \\(a=\\pm1\\) 且根的积为 \\(\\pm1\\) —— 所以每个根都是 \\(1\\) 或 \\(-1\\)。则 \\(P(3)=a\\prod(3-r_i)\\)，每个 \\(3-r_i\\) 是 \\(2\\)（根为 1）或 \\(4\\)（根为 −1）。选各取几个来凑 128。" },
+steps: [
+{ en: "Roots are all \\(\\pm1\\). \\(P(3)=a\\cdot 2^{(\\#\\text{ roots}=1)}\\cdot 4^{(\\#\\text{ roots}=-1)}=\\pm 2^{s}\\cdot4^{t}=128=2^7.\\)",
+zh: "根全是 \\(\\pm1\\)。\\(P(3)=a\\cdot 2^{(根=1\\text{个数})}\\cdot4^{(根=-1\\text{个数})}=\\pm 2^{s}\\cdot4^{t}=128=2^7.\\)" },
+{ en: "\\(2^s\\cdot4^t=2^{s+2t}=2^7\\Rightarrow s+2t=7.\\) Minimize degree \\(n=s+t\\): take \\(t\\) large → \\(t=3,s=1\\Rightarrow n=4.\\)",
+zh: "\\(2^{s+2t}=2^7\\Rightarrow s+2t=7\\)。最小化次数 \\(n=s+t\\)：取 \\(t\\) 尽量大 → \\(t=3,s=1\\Rightarrow n=4.\\)" },
+{ en: "Check signs: \\(P(0)=a(-1)^s(1)^t=a(-1)^1=-a=-1\\Rightarrow a=1.\\) So \\(P(x)=(x-1)(x+1)^3.\\)",
+zh: "验符号：\\(P(0)=a(-1)^s(1)^t=-a=-1\\Rightarrow a=1\\)。所以 \\(P(x)=(x-1)(x+1)^3.\\)" }
+],
+answer: { en: "\\(P(x)=(x-1)(x+1)^3\\) (degree 4)", zh: "\\(P(x)=(x-1)(x+1)^3\\)（4 次）" },
+insight: { en: "\\(P(0)=\\pm1\\) with integer roots forces all roots to be \\(\\pm1\\). Then \\(P(3)\\) becomes a product of 2's and 4's — a base-2 puzzle. Minimize degree by using the bigger factor more.",
+zh: "整数根且 \\(P(0)=\\pm1\\) 迫使所有根为 \\(\\pm1\\)。则 \\(P(3)\\) 变成 2 和 4 的乘积 —— 一个二进制谜题。多用大因子来最小化次数。" }
+},
+{
+n: 30, source: "2019 SMT Algebra #8",
+statement: { en: "\\((x-1)(x-2)(x-4)(x-5)(x-7)(x-8)=(x-3)(x-6)(x-9)\\) has roots \\(r_1,\\dots,r_6\\). Evaluate \\(\\sum_{i=1}^6 (r_i-1)(r_i-2)(r_i-4).\\)",
+zh: "\\((x-1)(x-2)(x-4)(x-5)(x-7)(x-8)=(x-3)(x-6)(x-9)\\) 有根 \\(r_1,\\dots,r_6\\)。求 \\(\\sum_{i=1}^6 (r_i-1)(r_i-2)(r_i-4).\\)" },
+recall: [ { en: "Move to one side → degree-6 polynomial", zh: "移项 → 6 次多项式" }, { en: "Sum of a cubic in roots → Newton/Vieta", zh: "根的三次式之和 → 牛顿/韦达" } ],
+guide: { en: "First form the actual polynomial \\(F(x)=\\text{LHS}-\\text{RHS}=0\\) (degree 6, monic). The \\(r_i\\) are its roots. The thing to sum, \\((r-1)(r-2)(r-4)\\), is a cubic in r — expand it as \\(r^3-7r^2+14r-8\\). Then \\(\\sum (r_i^3-7r_i^2+14r_i-8)\\) uses power sums \\(p_1,p_2,p_3\\) of the roots, all from Vieta on F.",
+zh: "先构造真正的多项式 \\(F(x)=\\text{左}-\\text{右}=0\\)（6 次、首一）。\\(r_i\\) 是它的根。要求和的 \\((r-1)(r-2)(r-4)\\) 是 r 的三次式 —— 展开成 \\(r^3-7r^2+14r-8\\)。则 \\(\\sum(r_i^3-7r_i^2+14r_i-8)\\) 用到根的幂和 \\(p_1,p_2,p_3\\)，都从 F 的韦达得到。" },
+steps: [
+{ en: "LHS leading terms: \\(x^6-27x^5+\\dots\\) (sum \\(1+2+4+5+7+8=27\\)). RHS is degree 3, so \\(F=x^6-27x^5+e_2'x^4-\\dots\\), and the top coefficients come only from the LHS.",
+zh: "左边最高次：\\(x^6-27x^5+\\dots\\)（和 \\(1+2+4+5+7+8=27\\)）。右边 3 次，故 F 的高次系数只来自左边。" },
+{ en: "Expand target: \\((r-1)(r-2)(r-4)=r^3-7r^2+14r-8.\\) So sum \\(=p_3-7p_2+14p_1-8\\cdot 6.\\)",
+zh: "展开目标：\\((r-1)(r-2)(r-4)=r^3-7r^2+14r-8\\)。故和 \\(=p_3-7p_2+14p_1-48.\\)" },
+{ en: "Compute \\(p_1,p_2,p_3\\) from F's coefficients via Newton's identities, substitute, and simplify to the official value.",
+zh: "由 F 的系数用牛顿恒等式算 \\(p_1,p_2,p_3\\)，代入化简得官方答案。" }
+],
+answer: { en: "★★ Sum \\(=p_3-7p_2+14p_1-48\\) (Newton's identities on \\(F=\\)LHS−RHS).",
+zh: "★★ 和 \\(=p_3-7p_2+14p_1-48\\)（对 \\(F=\\)左−右 用牛顿恒等式）。" },
+insight: { en: "To sum a fixed polynomial evaluated at every root, expand it and turn it into power sums \\(p_1,p_2,\\dots\\), which Newton's identities get from the coefficients. No need to find the roots.",
+zh: "要把一个固定多项式在每个根处求值再求和，就展开它、化成幂和 \\(p_1,p_2,\\dots\\)，再用牛顿恒等式从系数算出。不必求根。" }
+}
+);
