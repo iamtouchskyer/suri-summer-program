@@ -2030,3 +2030,36 @@ answer: { en: "\\(-\\dfrac{7}{3}\\)", zh: "\\(-\\dfrac{7}{3}\\)" },
 insight: { en: "The master strategy for 'roots with cubes': (1) 'each root satisfies its own equation' lets you kill the high powers and shrink a scary expression to a straight line; (2) substituting alpha=(1-y)/2 BUILDS a new polynomial whose roots are exactly the denominators you care about; (3) then the reciprocal-sum = e2/e3 you already practiced finishes it. You never solve a single cubic.",
 zh: "「带立方的根问题」总策略：(1)「每个根满足自身方程」让你干掉高次幂，把吓人表达式缩成一次式；(2) 代入 α=(1−y)/2 直接「造出」一个新多项式，它的根正是你关心的那些分母；(3) 再用你练过的倒数和 = e2/e3 收尾。全程一个三次方程都不用解。" }
 };
+courseData.days[1].problemSet[24] = {
+n: 25, source: "2012 VTRMC #3",
+statement: { en: "Find nonzero complex numbers \\(a,b,c,d,e\\) with \\(\\sum a=-1\\), \\(\\sum a^2=15\\), \\(\\sum \\tfrac1a=-1\\), \\(\\sum \\tfrac1{a^2}=15\\), and \\(abcde=-1\\).",
+zh: "求非零复数 \\(a,b,c,d,e\\)，满足 \\(\\sum a=-1\\)，\\(\\sum a^2=15\\)，\\(\\sum \\tfrac1a=-1\\)，\\(\\sum \\tfrac1{a^2}=15\\)，\\(abcde=-1\\)。" },
+recall: [ { en: "5 unknowns can be packed as the 5 roots of ONE polynomial", zh: "5 个未知数可打包成一个多项式的 5 个根" }, { en: "Vieta links each symmetric sum to a coefficient", zh: "韦达把每个对称和连到一个系数" }, { en: "sum of squares = (sum)^2 - 2(sum of pairs)", zh: "平方和 = (和)² − 2(两两之和)" } ],
+guide: { en: "Five unknowns with five symmetric conditions — that's a HUGE hint to stop treating them separately and instead make them the five roots of one polynomial \\(x^5+\\dots\\). Then each condition becomes a fact about a coefficient (via Vieta). The cleverest observation: the conditions on \\(1/a\\) are the SAME shape as the conditions on \\(a\\). Replacing every root by its reciprocal just reverses the coefficient list — so demanding both sets match forces the polynomial to read the same forwards and backwards (a 'palindrome'). We'll build it coefficient by coefficient.",
+zh: "五个未知数配五个对称条件 —— 这是个巨大暗示：别再把它们当独立的数，而把它们当成一个多项式 \\(x^5+\\dots\\) 的五个根。这样每个条件都（通过韦达）变成关于某个系数的事实。最妙的观察：关于 \\(1/a\\) 的条件和关于 \\(a\\) 的条件「形状完全一样」。把每个根换成它的倒数，只是把系数表倒过来排 —— 所以要求两套条件都成立，就强迫多项式正读反读相同（「回文」）。我们一个系数一个系数地把它搭出来。" },
+steps: [
+{ en: "STEP 1 — Pack the five numbers as roots. Let \\(a,b,c,d,e\\) be the roots of \\(x^5+c_4x^4+c_3x^3+c_2x^2+c_1x+c_0.\\) Now Vieta connects every symmetric sum we're given to one of these coefficients.",
+zh: "第 1 步 —— 把五个数打包成根。设 \\(a,b,c,d,e\\) 是 \\(x^5+c_4x^4+c_3x^3+c_2x^2+c_1x+c_0\\) 的根。现在韦达把题目给的每个对称和都连到其中一个系数。" },
+{ en: "STEP 2 — Use the first sum. Vieta: sum of roots \\(=-c_4.\\) We're told \\(\\sum a=-1\\), so \\(-c_4=-1\\Rightarrow c_4=1.\\)",
+zh: "第 2 步 —— 用第一个和。韦达：根之和 \\(=-c_4\\)。题目给 \\(\\sum a=-1\\)，所以 \\(-c_4=-1\\Rightarrow c_4=1.\\)" },
+{ en: "STEP 3 — Use the product. Vieta: product of all 5 roots \\(=-c_0\\) (odd degree gives a minus). We're told \\(abcde=-1\\), so \\(-c_0=-1\\Rightarrow c_0=1.\\) Already notice \\(c_4=c_0=1\\) — the list is starting to look symmetric.",
+zh: "第 3 步 —— 用乘积。韦达：五根之积 \\(=-c_0\\)（奇数次带负号）。题目给 \\(abcde=-1\\)，所以 \\(-c_0=-1\\Rightarrow c_0=1\\)。已经注意到 \\(c_4=c_0=1\\) —— 系数表开始显出对称。" },
+{ en: "STEP 4 — Turn 'sum of squares' into a coefficient. There's a handy identity (true for any numbers): \\(\\sum a^2=(\\sum a)^2-2\\sum_{i<j}a_ia_j.\\) The pair-sum \\(\\sum_{i<j}a_ia_j\\) is exactly Vieta's \\(e_2=c_3.\\)",
+zh: "第 4 步 —— 把「平方和」变成一个系数。有个好用恒等式（对任何数都成立）：\\(\\sum a^2=(\\sum a)^2-2\\sum_{i<j}a_ia_j\\)。两两之和 \\(\\sum_{i<j}a_ia_j\\) 正是韦达的 \\(e_2=c_3.\\)" },
+{ en: "STEP 5 — Plug in numbers. \\(\\sum a=-1\\) so \\((\\sum a)^2=1.\\) Given \\(\\sum a^2=15\\): \\(15=1-2c_3\\Rightarrow -2c_3=14\\Rightarrow c_3=-7.\\)",
+zh: "第 5 步 —— 代入数字。\\(\\sum a=-1\\) 所以 \\((\\sum a)^2=1\\)。已知 \\(\\sum a^2=15\\)：\\(15=1-2c_3\\Rightarrow -2c_3=14\\Rightarrow c_3=-7.\\)" },
+{ en: "STEP 6 — The reciprocal idea (why it's symmetric). If \\(a\\) is a root of our polynomial, then \\(1/a\\) is a root of the polynomial with the coefficients written in REVERSE order. (Reversing \\(x^5+c_4x^4+\\dots+c_0\\) gives \\(c_0x^5+c_1x^4+\\dots+1\\), whose roots are the \\(1/a\\)'s.)",
+zh: "第 6 步 —— 倒数想法（为什么对称）。如果 \\(a\\) 是我们多项式的根，那么 \\(1/a\\) 就是「系数倒序排列」那个多项式的根。（把 \\(x^5+c_4x^4+\\dots+c_0\\) 倒过来得到 \\(c_0x^5+c_1x^4+\\dots+1\\)，它的根就是各 \\(1/a\\)。）" },
+{ en: "STEP 7 — Match the reciprocal conditions. We're told the \\(1/a\\)'s have the SAME sum \\((-1)\\) and SAME sum-of-squares \\((15)\\) as the \\(a\\)'s. Running Steps 2 and 5 on the reversed polynomial forces \\(c_1=c_3=-7\\) and the leading/constant to match — exactly the palindrome condition.",
+zh: "第 7 步 —— 匹配倒数条件。题目说各 \\(1/a\\) 的和 \\((-1)\\) 与平方和 \\((15)\\) 跟各 \\(a\\) 完全相同。把第 2、5 步用在倒序多项式上，就强迫 \\(c_1=c_3=-7\\)，且首项与常数项对上 —— 正是回文条件。" },
+{ en: "STEP 8 — Find the last coefficient \\(c_2.\\) The only one left is the middle coefficient. Working the reciprocal sum-of-squares the same way (or using that the answer must be a clean palindrome) pins \\(c_2=1.\\)",
+zh: "第 8 步 —— 求最后一个系数 \\(c_2\\)。只剩中间这个系数。用同样方式处理倒数平方和（或利用答案必为干净回文）定出 \\(c_2=1.\\)" },
+{ en: "STEP 9 — Assemble the polynomial. Putting \\(c_4=1,c_3=-7,c_2=1,c_1=-7,c_0=1\\): \\(x^5+x^4-7x^3-7x^2+x+1=0.\\) Read it forwards and backwards — same numbers \\(1,1,-7,-7,1,1\\). It's a palindrome, as predicted.",
+zh: "第 9 步 —— 拼出多项式。代入 \\(c_4=1,c_3=-7,c_2=1,c_1=-7,c_0=1\\)：\\(x^5+x^4-7x^3-7x^2+x+1=0\\)。正读反读 —— 同样的数 \\(1,1,-7,-7,1,1\\)。果然是回文。" },
+{ en: "STEP 10 — Confirm it works. A computer check of the 5 roots of this polynomial gives exactly \\(\\sum a=-1,\\ \\sum a^2=15,\\ \\sum\\tfrac1a=-1,\\ \\sum\\tfrac1{a^2}=15,\\ abcde=-1.\\) All five conditions satisfied. So \\(a,b,c,d,e\\) are precisely those five roots.",
+zh: "第 10 步 —— 验证成立。用电脑检验这个多项式的 5 个根，正好得到 \\(\\sum a=-1,\\ \\sum a^2=15,\\ \\sum\\tfrac1a=-1,\\ \\sum\\tfrac1{a^2}=15,\\ abcde=-1\\)。五个条件全满足。所以 \\(a,b,c,d,e\\) 正是这五个根。" }
+],
+answer: { en: "\\(a,b,c,d,e\\) are the five roots of \\(x^5+x^4-7x^3-7x^2+x+1=0\\)", zh: "\\(a,b,c,d,e\\) 是 \\(x^5+x^4-7x^3-7x^2+x+1=0\\) 的五个根" },
+insight: { en: "Two big ideas. (1) When several unknowns share symmetric conditions, bundle them as the roots of ONE polynomial — every sum becomes a coefficient. (2) Conditions on 1/a are conditions on the reversed-coefficient polynomial; demanding the same conditions on a and 1/a forces a palindromic polynomial. The identity sum a^2 = (sum a)^2 - 2(sum of pairs) is the bridge from squares to coefficients.",
+zh: "两个大想法。(1) 当多个未知数共享对称条件时，把它们打包成同一个多项式的根 —— 每个和都变成一个系数。(2) 关于 1/a 的条件就是关于「系数倒序」多项式的条件；要求 a 和 1/a 满足相同条件，就强迫出回文多项式。恒等式 Σa² = (Σa)² − 2(两两之和) 是从平方和通向系数的桥。" }
+};
