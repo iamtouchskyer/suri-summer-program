@@ -1846,3 +1846,26 @@ answer: { en: "\\(a+b+c=79\\)", zh: "\\(a+b+c=79\\)" },
 insight: { en: "A MISSING term is a free Vieta equation. 'No x^3' instantly tells you all roots sum to 0 — that single fact pins down the hidden root. Then reconstruct by factoring, pairing factors smartly to keep the algebra clean.",
 zh: "「缺项」就是一条免费的韦达方程。「没有 x^3」立刻告诉你所有根之和为 0 —— 这一个事实就锁定了隐藏的根。然后用因式还原，聪明地两两配对，让计算保持干净。" }
 };
+courseData.days[1].problemSet[20] = {
+n: 21, source: "2013 CHMMC Individual #4",
+statement: { en: "\\(f(x)=x^3+x-1\\) has roots \\(\\alpha,\\beta,\\gamma\\). Find \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\).",
+zh: "\\(f(x)=x^3+x-1\\) 有根 \\(\\alpha,\\beta,\\gamma\\)。求 \\(\\dfrac{1}{\\alpha^3-\\alpha}+\\dfrac{1}{\\beta^3-\\beta}+\\dfrac{1}{\\gamma^3-\\gamma}\\)。" },
+recall: [ { en: "Degree-reduction: each root satisfies its own equation", zh: "降次：每个根都满足它自己的方程" }, { en: "Log-derivative trick: sum of 1/(k - root) = f'(k)/f(k)", zh: "对数导数技巧：Σ 1/(k - 根) = f'(k)/f(k)" } ],
+guide: { en: "Two ideas combine here. First, NEVER solve the cubic. Each root satisfies f(root)=0, i.e. \\(\\alpha^3+\\alpha-1=0\\), so \\(\\alpha^3=1-\\alpha\\). That lets you turn the ugly \\(\\alpha^3-\\alpha\\) into something LINEAR. Second, once the denominators are linear like \\(1-2\\alpha\\), the sum \\(\\sum 1/(k-\\text{root})\\) is exactly \\(f'(k)/f(k)\\) — the 'logarithmic derivative' shortcut — so you evaluate two numbers and divide. No roots are ever found.",
+zh: "这里两个想法合体。第一，永远别去解三次方程。每个根满足 f(根)=0，即 \\(\\alpha^3+\\alpha-1=0\\)，所以 \\(\\alpha^3=1-\\alpha\\)。这能把丑陋的 \\(\\alpha^3-\\alpha\\) 变成线性的。第二，一旦分母是 \\(1-2\\alpha\\) 这样的线性式，和 \\(\\sum 1/(k-\\text{根})\\) 正好等于 \\(f'(k)/f(k)\\) —— 「对数导数」捷径 —— 算两个数相除即可。全程不求根。" },
+steps: [
+{ en: "Each root satisfies the equation: \\(\\alpha^3+\\alpha-1=0\\Rightarrow \\alpha^3=1-\\alpha.\\)",
+zh: "每个根都满足方程：\\(\\alpha^3+\\alpha-1=0\\Rightarrow \\alpha^3=1-\\alpha.\\)" },
+{ en: "Degree-reduce the denominator: \\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha=1-2\\alpha.\\) So the whole sum becomes \\(\\sum\\dfrac{1}{1-2\\alpha}.\\)",
+zh: "给分母降次：\\(\\alpha^3-\\alpha=(1-\\alpha)-\\alpha=1-2\\alpha\\)。于是整个和变成 \\(\\sum\\dfrac{1}{1-2\\alpha}.\\)" },
+{ en: "Pull out a factor of \\(\\tfrac12\\): \\(\\dfrac{1}{1-2\\alpha}=\\dfrac{1}{2}\\cdot\\dfrac{1}{\\tfrac12-\\alpha}.\\) So the sum is \\(\\dfrac{1}{2}\\sum\\dfrac{1}{\\tfrac12-\\alpha}.\\)",
+zh: "提出因子 \\(\\tfrac12\\)：\\(\\dfrac{1}{1-2\\alpha}=\\dfrac{1}{2}\\cdot\\dfrac{1}{\\tfrac12-\\alpha}\\)。所以和是 \\(\\dfrac{1}{2}\\sum\\dfrac{1}{\\tfrac12-\\alpha}.\\)" },
+{ en: "Log-derivative shortcut: \\(\\sum\\dfrac{1}{k-\\alpha}=\\dfrac{f'(k)}{f(k)}.\\) With \\(k=\\tfrac12\\): \\(f(\\tfrac12)=\\tfrac18+\\tfrac12-1=-\\tfrac38,\\quad f'(x)=3x^2+1\\Rightarrow f'(\\tfrac12)=\\tfrac34+1=\\tfrac74.\\)",
+zh: "对数导数捷径：\\(\\sum\\dfrac{1}{k-\\alpha}=\\dfrac{f'(k)}{f(k)}\\)。取 \\(k=\\tfrac12\\)：\\(f(\\tfrac12)=\\tfrac18+\\tfrac12-1=-\\tfrac38,\\quad f'(x)=3x^2+1\\Rightarrow f'(\\tfrac12)=\\tfrac34+1=\\tfrac74.\\)" },
+{ en: "So \\(\\sum\\dfrac{1}{\\tfrac12-\\alpha}=\\dfrac{7/4}{-3/8}=\\dfrac74\\cdot\\dfrac{-8}{3}=-\\dfrac{14}{3}.\\) Multiply by \\(\\tfrac12\\): \\(\\dfrac12\\cdot\\left(-\\dfrac{14}{3}\\right)=-\\dfrac{7}{3}.\\)",
+zh: "所以 \\(\\sum\\dfrac{1}{\\tfrac12-\\alpha}=\\dfrac{7/4}{-3/8}=\\dfrac74\\cdot\\dfrac{-8}{3}=-\\dfrac{14}{3}\\)。再乘 \\(\\tfrac12\\)：\\(\\dfrac12\\cdot\\left(-\\dfrac{14}{3}\\right)=-\\dfrac{7}{3}.\\)" }
+],
+answer: { en: "\\(-\\dfrac{7}{3}\\)", zh: "\\(-\\dfrac{7}{3}\\)" },
+insight: { en: "Two power tools team up: (1) 'each root satisfies its own equation' lets you degree-reduce a messy expression like alpha^3 - alpha into a linear 1-2alpha; (2) the log-derivative identity sum 1/(k-root) = f'(k)/f(k) evaluates a whole sum from just f(k) and f'(k). Never solve the cubic.",
+zh: "两大武器联手：(1)「每个根满足自身方程」让你把 α³−α 这种乱表达式降次成线性的 1−2α；(2) 对数导数恒等式 Σ1/(k−根)=f'(k)/f(k) 只用 f(k) 和 f'(k) 就算出整个和。永远别去解三次方程。" }
+};
