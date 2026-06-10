@@ -732,15 +732,91 @@ insight: { en: "To prove two polynomials are identical, show their difference ha
 zh: "要证两个多项式相同，就证明它们的差「根的个数超过次数允许的上限」。「次数 ≤ n 却有 n+1 处相等」= 完全相同。这是第 19、23 题的骨架。" }
 }
 );
-courseData.days.push({
-id: 2, unit: "Algebra 2.5", date: { en: "Day 2", zh: "第 2 天" },
-title: { en: "Vietas Formulas", zh: "韦达定理" },
-subtitle: { en: "Reading the symmetric functions of the roots straight off the coefficients — coming soon, fully solved.", zh: "直接从系数读出根的对称函数 —— 逐题精解整理中，即将上线。" },
-tags: [ {en:"Vietas",zh:"韦达定理"}, {en:"Symmetric Sums",zh:"对称和"}, {en:"Power Sums",zh:"幂和"} ],
-knowledgePoints: [
-{ name:{en:"Coming soon",zh:"整理中"}, detail:{en:"Day 2 detailed notes and 35 fully-worked problems are being prepared to the same depth as Day 1.", zh:"第 2 天的详细讲义与 35 道逐题精解正在按第 1 天的同等深度整理中，很快上线。"} }
+
+{
+const day2 = {
+id: 2,
+unit: "Algebra 2.5",
+date: { en: "Day 2", zh: "第 2 天" },
+title: { en: "Vieta's Formulas", zh: "韦达定理" },
+subtitle: {
+en: "Read the symmetric functions of the roots straight off the coefficients — without ever finding the roots.",
+zh: "直接从系数读出「根的对称函数」—— 全程不用把根求出来。"
+},
+tags: [
+{ en: "Vieta's", zh: "韦达定理" },
+{ en: "Symmetric Sums", zh: "对称和" },
+{ en: "Power Sums", zh: "幂和" },
+{ en: "Root Manipulation", zh: "根的变换" }
 ],
-problems: [], enhancements: [], problemSet: []
-});
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+};
+
+courseData.days.push(day2);
+}
+
+courseData.days[1].knowledgePoints.push(
+{
+name: { en: "Elementary Symmetric Sums (s1, s2, s3)", zh: "初等对称和（s1, s2, s3)" },
+detail: {
+en: "These are the basic building blocks made from the roots. For three roots a, b, c:\n- s1 = a+b+c  (add them one at a time)\n- s2 = ab+bc+ca  (multiply two at a time, then add)\n- s3 = abc  (multiply all three)\n'Symmetric' means: swap any two roots and the expression doesn't change. Almost every Vieta problem is really about rewriting what you want using only s1, s2, s3.",
+zh: "这些是用「根」搭出来的基本积木。以三个根 a, b, c 为例：\n• s1 = a+b+c （一个一个相加）\n• s2 = ab+bc+ca （每次取两个相乘，再加起来）\n• s3 = abc （三个全乘）\n「对称」的意思是：任意交换两个根，式子不变。几乎每道韦达题，本质都是把你要求的东西，改写成只含 s1, s2, s3 的形式。"
+},
+example: {
+en: "For roots 1, 2, 3:  s1 = 1+2+3 = 6,  s2 = 1*2+2*3+1*3 = 11,  s3 = 1*2*3 = 6.",
+zh: "对根 1, 2, 3：s1 = 1+2+3 = 6，s2 = 1·2+2·3+1·3 = 11，s3 = 1·2·3 = 6。"
+}
+},
+{
+name: { en: "Vieta's Formulas: the coefficient-root bridge", zh: "韦达定理：系数↔根的桥梁" },
+detail: {
+en: "The magic bridge: you get s1, s2, s3 DIRECTLY from the coefficients, with no need to solve for the roots! For a monic polynomial (leading coefficient 1), read the coefficients and flip signs in turn:\n- sum of roots = minus the next coefficient\n- the signs keep alternating (minus, plus, minus, ...).\nThis is why you 'never solve the quadratic' — Vieta's hands you the symmetric info for free.",
+zh: "这条神奇的桥梁：你能「直接从系数」读出 s1, s2, s3 —— 根本不用解方程求根！\n对首一多项式（最高次系数为 1），把系数依次读出、轮流变号：\n• 根之和 = −(下一项系数)\n• 符号交替出现（−, +, −, …）。\n这就是为什么我们总说「不要去解二次方程」—— 韦达定理把对称信息白送给你。"
+},
+formula: "\\[ x^2+bx+c:\\ r+s=-b,\\ rs=c \\qquad x^3+px^2+qx+r:\\ s_1=-p,\\ s_2=q,\\ s_3=-r \\]"
+},
+{
+name: { en: "Power Sums vs Symmetric Sums", zh: "幂和 与 对称和 的转换" },
+detail: {
+en: "Things like r^2+s^2 or r^3+s^3 are 'power sums' — NOT elementary, but they convert into s1, s2 using identities you already know:\n- r^2+s^2 = (r+s)^2 - 2rs = s1^2 - 2 s2\n- r^3+s^3 = (r+s)^3 - 3rs(r+s) = s1^3 - 3 s1 s2\nRecipe: see a power sum, rewrite it with the identity, then plug in Vieta's numbers.",
+zh: "像 r^2+s^2、r^3+s^3 这种叫「幂和」—— 它们不是初等对称式，但能用你已经会的恒等式转化成 s1, s2：\n• r^2+s^2 = (r+s)^2 − 2rs = s1^2 − 2 s2\n• r^3+s^3 = (r+s)^3 − 3rs(r+s) = s1^3 − 3 s1 s2\n所以套路是：看到幂和 → 用恒等式改写 → 代入韦达定理的数字。"
+},
+example: {
+en: "If r+s = 3 and rs = 1, then r^2+s^2 = 9 - 2 = 7, and r^3+s^3 = 27 - 9 = 18.",
+zh: "若 r+s = 3、rs = 1，则 r^2+s^2 = 9 − 2 = 7，r^3+s^3 = 27 − 9 = 18。"
+}
+}
+);
+courseData.days[1].knowledgePoints.push(
+{
+name: { en: "Degree Reduction (use the root's own equation)", zh: "降次技巧（用根自己的方程）" },
+detail: {
+en: "If r is a root of x^2 = px + q, then r itself satisfies r^2 = pr + q. So any high power of r can be 'pushed down' into something linear. Replace r^2, r^3, ... step by step until everything is just (number)*r + (number). Then a messy expression collapses into a clean symmetric sum that Vieta's finishes.",
+zh: "如果 r 是 x^2 = px + q 的根，那么 r 自己就满足 r^2 = pr + q。这意味着 r 的任何高次方，都能被「压」回一次式。\n一步步把 r^2、r^3、… 都替换掉，直到全部变成 (数字)·r + (数字)。这样一个乱糟糟的式子就塌缩成一个干净的对称和，再用韦达定理收尾。"
+},
+example: {
+en: "If r^2 = -4r - 1, then r^3 = r*r^2 = r(-4r-1) = -4r^2 - r = -4(-4r-1) - r = 15r + 4.",
+zh: "若 r^2 = −4r − 1，则 r^3 = r·r^2 = r(−4r−1) = −4r^2 − r = −4(−4r−1) − r = 15r + 4。"
+}
+},
+{
+name: { en: "Shifted / Transformed Roots", zh: "平移 / 变换后的根" },
+detail: {
+en: "Sometimes you want sums over CHANGED roots, like the sum of 1/(r-2) or 1/r. Two clean tools:\n- Combine fractions: sum of 1/r = (sum of products of the others)/(product of all) = s_{n-1}/s_n.\n- The P'/P trick: the sum of 1/(x - r_i) equals P'(x)/P(x). To get the sum of 1/(r_i - k), evaluate -P'(k)/P(k).\nThese turn scary-looking sums into one or two polynomial evaluations.",
+zh: "有时你要对「变过的根」求和，比如 Σ 1/(r−2) 或 Σ 1/r。两个干净的工具：\n• 通分：Σ 1/r =（其余根乘积之和）/（全部根之积）= s_{n−1}/s_n。\n• 「P'/P」技巧：Σ 1/(x − r_i) = P'(x)/P(x)。要求 Σ 1/(r_i − k)，就算 −P'(k)/P(k)。\n它们能把吓人的求和，变成一两次「代入求值」。"
+},
+formula: "\\[ \\sum_i \\frac{1}{x-r_i}=\\frac{P'(x)}{P(x)},\\qquad \\frac1{r_1}+\\cdots+\\frac1{r_n}=\\frac{s_{n-1}}{s_n} \\]"
+},
+{
+name: { en: "The big mindset: don't find the roots", zh: "核心心法：能不求根，就不求根" },
+detail: {
+en: "This is the soul of the whole day. When a problem asks for something built from ALL the roots in a symmetric way, that quantity is secretly a combination of s1, s2, s3 — which you read off the coefficients instantly. Finding the actual (often ugly or irrational) roots is almost always the slow, error-prone trap. Train your eye: 'Is this symmetric in the roots?' If yes, use Vieta's, not the quadratic formula.",
+zh: "这是整节课的灵魂。当一道题要求的东西，是「用所有根、对称地」搭出来的，那这个量其实就是 s1, s2, s3 的某种组合 —— 而这些你能瞬间从系数读出。\n去求那些（往往又丑又无理的）真实的根，几乎总是又慢又容易错的陷阱。\n训练你的眼睛：「这个式子关于根对称吗？」如果是 → 用韦达定理，而不是求根公式。"
+}
+}
+);
 
 if (typeof module !== "undefined") { module.exports = courseData; }

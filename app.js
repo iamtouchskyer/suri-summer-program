@@ -4,6 +4,7 @@
 
 let activeDay = 0;
 let lang = localStorage.getItem("am_lang") || "zh";
+let currentKPs = [];
 
 function t(field) {
   if (field == null) return "";
@@ -23,9 +24,11 @@ const UI = {
   answerLabel:      { en: "Answer", zh: "答案" },
   keyInsight:       { en: "Key insight — ", zh: "关键洞察 —— " },
   example:          { en: "Example", zh: "举个例子" },
+  readMore:         { en: "Read", zh: "查看详解" },
   showHint:         { en: "Show hint & answer ↓", zh: "显示提示与答案 ↓" },
   hint:             { en: "Hint", zh: "提示" },
   answer:           { en: "Answer", zh: "答案" },
+  close:            { en: "Close", zh: "关闭" },
   psetIntro:        { en: "Every official AwesomeMath problem, worked out step by step. Click any problem to open the full walkthrough.",
                       zh: "AwesomeMath 官方习题，每一道都逐步讲解。点击任意题目展开完整解析。" },
   source:           { en: "Source", zh: "出处" },
@@ -57,6 +60,7 @@ function setLang(l) {
   lang = l;
   localStorage.setItem("am_lang", l);
   document.documentElement.lang = (l === "zh" ? "zh-CN" : "en");
+  closeKPModal();
   buildLangToggle();
   buildNav();
   renderDay(courseData.days[activeDay]);
@@ -78,15 +82,55 @@ function renderChrome() {
   if (f) f.textContent = ui("footer");
 }
 
-function kpCard(kp) {
+/* ---- Knowledge point: constant-size card (summary only) ---- */
+function kpSummary(kp) {
+  const d = t(kp.detail) || "";
+  let first = d.split("\n")[0];
+  if (first.length > 82) first = first.slice(0, 80) + "…";
+  return first;
+}
+function kpCard(kp, idx) {
   return `
-    <div class="kp-card">
+    <button class="kp-card" data-kp="${idx}" aria-haspopup="dialog">
       <span class="kp-dot"></span>
       <div class="kp-name">${t(kp.name)}</div>
-      <div class="kp-detail">${t(kp.detail)}</div>
-      ${kp.example ? `<div class="kp-example"><span class="kp-ex-tag">${ui("example")}</span>${t(kp.example)}</div>` : ""}
+      <div class="kp-summary">${kpSummary(kp)}</div>
+      <div class="kp-open"><span>${ui("readMore")}</span><span class="kp-open-arrow">→</span></div>
+    </button>`;
+}
+
+/* ---- Knowledge point modal (centered panel) ---- */
+function openKPModal(idx) {
+  const kp = currentKPs[idx];
+  if (!kp) return;
+  const layer = document.getElementById("kpModalLayer");
+  layer.innerHTML = `
+    <div class="kp-modal-backdrop"></div>
+    <div class="kp-modal" role="dialog" aria-modal="true" aria-label="${t(kp.name)}">
+      <button class="kp-modal-close" aria-label="${ui("close")}">&times;</button>
+      <div class="kp-modal-eyebrow">${ui("sectionKnowledge")}</div>
+      <h3 class="kp-modal-title">${t(kp.name)}</h3>
+      <div class="kp-modal-detail">${t(kp.detail)}</div>
       ${kp.formula ? `<div class="kp-formula">${kp.formula}</div>` : ""}
+      ${kp.example ? `<div class="kp-example"><span class="kp-ex-tag">${ui("example")}</span>${t(kp.example)}</div>` : ""}
     </div>`;
+  layer.classList.add("show");
+  document.body.style.overflow = "hidden";
+  typeset(layer);
+
+  const close = () => closeKPModal();
+  layer.querySelector(".kp-modal-close").addEventListener("click", close);
+  layer.querySelector(".kp-modal-backdrop").addEventListener("click", close);
+  // focus the close button for accessibility
+  setTimeout(() => { const c = layer.querySelector(".kp-modal-close"); if (c) c.focus(); }, 30);
+}
+
+function closeKPModal() {
+  const layer = document.getElementById("kpModalLayer");
+  if (!layer) return;
+  layer.classList.remove("show");
+  layer.innerHTML = "";
+  document.body.style.overflow = "";
 }
 
 /* shared rich-solution body (used by worked examples + problem set) */
@@ -152,6 +196,7 @@ function psetRow(item) {
 
 function renderDay(d) {
   const app = document.getElementById("app");
+  currentKPs = d.knowledgePoints || [];
   const title = t(d.title);
   const words = title.split(" ");
   const last = words.length > 1 ? words.pop() : "";
@@ -193,6 +238,10 @@ function renderDay(d) {
 
     ${psetHTML}
   `;
+
+  // Knowledge cards open the centered modal
+  app.querySelectorAll(".kp-card").forEach(card =>
+    card.addEventListener("click", () => openKPModal(+card.dataset.kp)));
 
   app.querySelectorAll(".problem").forEach(prob => {
     const head = prob.querySelector(".problem-head");
@@ -236,10 +285,9 @@ else window.addEventListener("load", start);
 
 
 /* ===================================================
-   UX interactions — 进度条 / 回到顶部 / 键盘可达
+   UX interactions — 进度条 / 回到顶部 / 键盘可达 / 弹窗
    =================================================== */
 (function () {
-  // 阅读进度条
   const bar = document.getElementById("readingProgress");
   const toTop = document.getElementById("toTop");
   function onScroll() {
@@ -254,23 +302,22 @@ else window.addEventListener("load", start);
   window.addEventListener("resize", onScroll);
   onScroll();
 
-  // 回到顶部
   if (toTop) {
     toTop.addEventListener("click", () =>
       window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
-  // 题目卡片键盘可达：Enter / Space 展开（提供邀请 + 可访问性）
+  // Esc closes the knowledge modal; Enter/Space opens focused kp-card
   document.addEventListener("keydown", (e) => {
-    if ((e.key === "Enter" || e.key === " ") &&
-        document.activeElement &&
-        document.activeElement.classList.contains("problem-head")) {
+    if (e.key === "Escape") { closeKPModal(); return; }
+    const el = document.activeElement;
+    if (!el) return;
+    if ((e.key === "Enter" || e.key === " ") && el.classList.contains("problem-head")) {
       e.preventDefault();
-      document.activeElement.click();
+      el.click();
     }
   });
 
-  // 渲染后给可展开的题目头补上 tabindex + role（在每次 renderDay 之后由 MutationObserver 处理）
   const app = document.getElementById("app");
   if (app) {
     const obs = new MutationObserver(() => {
@@ -285,4 +332,3 @@ else window.addEventListener("load", start);
     obs.observe(app, { childList: true, subtree: true });
   }
 })();
-
