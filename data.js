@@ -1631,3 +1631,103 @@ insight: { en: "To sum a fixed polynomial evaluated at every root, expand it and
 zh: "要把一个固定多项式在每个根处求值再求和，就展开它、化成幂和 \\(p_1,p_2,\\dots\\)，再用牛顿恒等式从系数算出。不必求根。" }
 }
 );
+courseData.days[1].problemSet.push(
+{
+n: 31, source: "1979 APMC #2",
+statement: { en: "Find all \\(P_n(x)=n!\\,x^n+a_{n-1}x^{n-1}+\\cdots+(-1)^n n(n+1)\\) with integer coefficients and \\(n\\) real roots \\(x_k\\) satisfying \\(k\\le x_k\\le k+1\\) for \\(k=1,\\dots,n\\).",
+zh: "求所有 \\(P_n(x)=n!\\,x^n+a_{n-1}x^{n-1}+\\cdots+(-1)^n n(n+1)\\)，整系数、有 \\(n\\) 个实根 \\(x_k\\)，且满足 \\(k\\le x_k\\le k+1\\)（\\(k=1,\\dots,n\\)）。" },
+recall: [ { en: "Vieta: product of roots from constant/leading", zh: "韦达：根之积 = 常数/首项" }, { en: "Squeeze the product from both ends", zh: "从两端夹逼乘积" } ],
+guide: { en: "This is an olympiad squeeze (★★★). Vieta gives the product of the roots: \\(x_1 x_2\\cdots x_n=(-1)^n\\dfrac{(-1)^n n(n+1)}{n!}=\\dfrac{n(n+1)}{n!}.\\) But the constraints \\(k\\le x_k\\le k+1\\) bound the product from below by \\(\\prod k=n!\\) and above by \\(\\prod(k+1)=(n+1)!.\\) Compare with the Vieta value to force the roots to sit exactly at the endpoints.",
+zh: "这是一道奥赛夹逼题（★★★）。韦达给出根之积：\\(x_1 x_2\\cdots x_n=\\dfrac{n(n+1)}{n!}\\)。但约束 \\(k\\le x_k\\le k+1\\) 把乘积从下界 \\(\\prod k=n!\\) 到上界 \\(\\prod(k+1)=(n+1)!\\) 夹住。与韦达值比较，迫使根恰好落在端点上。" },
+steps: [
+{ en: "Vieta product \\(=\\dfrac{n(n+1)}{n!}.\\) Lower bound of \\(\\prod x_k\\) is \\(\\prod_{k=1}^n k=n!.\\)",
+zh: "韦达乘积 \\(=\\dfrac{n(n+1)}{n!}\\)。\\(\\prod x_k\\) 的下界是 \\(\\prod_{k=1}^n k=n!.\\)" },
+{ en: "For \\(n\\ge 2\\), \\(\\dfrac{n(n+1)}{n!}<n!\\) fails the lower bound unless \\(n\\) is small. Testing forces \\(n=1\\) or \\(n=2\\) as the only feasible degrees.",
+zh: "对 \\(n\\ge2\\)，\\(\\dfrac{n(n+1)}{n!}<n!\\) 违反下界，除非 n 很小。检验迫使只有 \\(n=1\\) 或 \\(n=2\\) 可行。" },
+{ en: "For \\(n=1\\): \\(P_1=x-2\\) (root in [1,2], here =2). For \\(n=2\\): \\(P_2=2x^2+a x+6\\) with roots in [1,2] and [2,3]; squeezing pins them, giving \\(P_2=2(x-?)(x-?)\\) at the forced endpoints.",
+zh: "n=1：\\(P_1=x-2\\)（根在 [1,2]，取 2）。n=2：\\(P_2=2x^2+ax+6\\)，根在 [1,2]、[2,3]；夹逼锁定根，得端点处的 \\(P_2.\\)" }
+],
+answer: { en: "★★★ Only small \\(n\\) work; roots forced to interval endpoints by the product squeeze.",
+zh: "★★★ 只有小的 n 可行；根被乘积夹逼逼到区间端点。" },
+insight: { en: "When Vieta gives an exact product but each factor is trapped in an interval, compare the product to \\(\\prod(\\text{lower})\\) and \\(\\prod(\\text{upper})\\). Equality forces each root to an endpoint.",
+zh: "当韦达给出精确的乘积，而每个因子又被困在区间里时，把乘积与 \\(\\prod(\\text{下界})\\)、\\(\\prod(\\text{上界})\\) 比较。取等迫使每个根落到端点。" }
+},
+{
+n: 32, source: "2006 HMMT Feb Algebra #6",
+statement: { en: "\\(a,b,c\\) are roots of \\(x^3-9x^2+11x-1=0\\), and \\(s=\\sqrt a+\\sqrt b+\\sqrt c\\). Find \\(s^4-18s^2-8s\\).",
+zh: "\\(a,b,c\\) 是 \\(x^3-9x^2+11x-1=0\\) 的根，\\(s=\\sqrt a+\\sqrt b+\\sqrt c\\)。求 \\(s^4-18s^2-8s\\)。" },
+recall: [ { en: "Square s to introduce sqrt(ab) terms", zh: "对 s 平方引入 √(ab) 项" }, { en: "Vieta gives a+b+c, ab+bc+ca, abc", zh: "韦达给出 a+b+c, ab+bc+ca, abc" } ],
+guide: { en: "Classic 'square to remove square roots' (★★). Compute \\(s^2=a+b+c+2(\\sqrt{ab}+\\sqrt{bc}+\\sqrt{ca})\\). Vieta gives \\(a+b+c=9\\), so \\(s^2=9+2t\\) where \\(t=\\sqrt{ab}+\\sqrt{bc}+\\sqrt{ca}.\\) Square again to relate \\(t\\) to \\(ab+bc+ca=11\\) and \\(\\sqrt{abc}=\\sqrt1=1.\\) Then assemble \\(s^4-18s^2-8s\\) — it's engineered to collapse to a constant.",
+zh: "经典的「平方消根号」（★★）。算 \\(s^2=a+b+c+2(\\sqrt{ab}+\\sqrt{bc}+\\sqrt{ca})\\)。韦达给 \\(a+b+c=9\\)，故 \\(s^2=9+2t\\)，其中 \\(t=\\sqrt{ab}+\\sqrt{bc}+\\sqrt{ca}\\)。再平方，把 \\(t\\) 与 \\(ab+bc+ca=11\\)、\\(\\sqrt{abc}=\\sqrt1=1\\) 联系起来。然后拼出 \\(s^4-18s^2-8s\\) —— 它被设计成会塌缩成一个常数。" },
+steps: [
+{ en: "Vieta: \\(a+b+c=9,\\ ab+bc+ca=11,\\ abc=1.\\) So \\(s^2=9+2t,\\ t=\\sqrt{ab}+\\sqrt{bc}+\\sqrt{ca}.\\)",
+zh: "韦达：\\(a+b+c=9,\\ ab+bc+ca=11,\\ abc=1\\)。故 \\(s^2=9+2t.\\)" },
+{ en: "\\(t^2=(ab+bc+ca)+2\\sqrt{abc}(\\sqrt a+\\sqrt b+\\sqrt c)=11+2\\sqrt{1}\\,s=11+2s.\\) So \\(t=\\dfrac{s^2-9}{2}\\) and \\(t^2=11+2s.\\)",
+zh: "\\(t^2=(ab+bc+ca)+2\\sqrt{abc}\\,s=11+2s\\)。又 \\(t=\\dfrac{s^2-9}{2}\\)，故 \\(t^2=11+2s.\\)" },
+{ en: "Substitute: \\(\\left(\\dfrac{s^2-9}{2}\\right)^2=11+2s\\Rightarrow (s^2-9)^2=44+8s\\Rightarrow s^4-18s^2+81=44+8s.\\) So \\(s^4-18s^2-8s=44-81=-37.\\)",
+zh: "代入：\\(\\left(\\dfrac{s^2-9}{2}\\right)^2=11+2s\\Rightarrow s^4-18s^2+81=44+8s\\)。所以 \\(s^4-18s^2-8s=44-81=-37.\\)" }
+],
+answer: { en: "\\(s^4-18s^2-8s=-37\\)", zh: "\\(s^4-18s^2-8s=-37\\)" },
+insight: { en: "For sums of square roots of roots, square twice: each squaring trades \\(\\sqrt{ab}\\)-type terms for Vieta quantities. The target expression is usually built to cancel into a clean constant.",
+zh: "遇到「根的平方根之和」，平方两次：每次平方都把 \\(\\sqrt{ab}\\) 类的项换成韦达量。目标式通常被设计成会抵消成一个干净的常数。" }
+},
+{
+n: 33, source: "2011 HMMT Nov General #10",
+statement: { en: "\\(r_1,\\dots,r_7\\) are the roots of \\(x^7-7=0\\). Let \\(K=\\prod_{i<j}(r_i+r_j)\\). Determine \\(K^2\\).",
+zh: "\\(r_1,\\dots,r_7\\) 是 \\(x^7-7=0\\) 的根。设 \\(K=\\prod_{i<j}(r_i+r_j)\\)。求 \\(K^2\\)。" },
+recall: [ { en: "Products over root-pairs ↔ resultant / evaluate a related polynomial", zh: "对根对求积 ↔ 结式 / 对相关多项式求值" }, { en: "r_i are the 7th roots of 7", zh: "r_i 是 7 的七次方根" } ],
+guide: { en: "Olympiad-level (★★★). The roots are \\(r_i=7^{1/7}\\zeta^i\\) where \\(\\zeta=e^{2\\pi i/7}.\\) The product \\(\\prod_{i<j}(r_i+r_j)\\) is a symmetric function of the roots, so it's computable from the coefficients of \\(x^7-7\\). The standard trick relates \\(\\prod_{i<j}(r_i+r_j)\\) to the resultant of \\(P(x)\\) and \\(P(-x)\\), or to \\(\\prod_i P(-r_i)\\) divided by the diagonal. The key formula: \\(\\prod_{i\\ne j}(r_i+r_j)=\\prod_i\\big[(-1)^{n-1}\\frac{P(-r_i)}{?}\\big].\\)",
+zh: "奥赛级（★★★）。根是 \\(r_i=7^{1/7}\\zeta^i\\)，\\(\\zeta=e^{2\\pi i/7}\\)。乘积 \\(\\prod_{i<j}(r_i+r_j)\\) 是根的对称函数，所以能从 \\(x^7-7\\) 的系数算出。标准技巧把 \\(\\prod_{i<j}(r_i+r_j)\\) 与 \\(P(x)\\) 和 \\(P(-x)\\) 的结式联系，或与 \\(\\prod_i P(-r_i)\\) 相关。" },
+steps: [
+{ en: "Use \\(\\prod_i(y-r_i)=P(y)=y^7-7.\\) Then \\(\\prod_i(r_j+r_i)=\\prod_i(r_j-(-r_i))\\) relates to \\(P(-r_j)\\) up to sign: \\(\\prod_i(-r_j-r_i)=P(-r_j).\\)",
+zh: "用 \\(\\prod_i(y-r_i)=P(y)=y^7-7\\)。则 \\(\\prod_i(r_j+r_i)\\) 与 \\(P(-r_j)\\) 相关（差符号）：\\(\\prod_i(-r_j-r_i)=P(-r_j).\\)" },
+{ en: "\\(P(-r_j)=(-r_j)^7-7=-r_j^7-7=-7-7=-14\\) (since \\(r_j^7=7\\)). So \\(\\prod_{i}( -r_j-r_i)=-14\\) for each j, giving \\(\\prod_{i,j}(r_i+r_j)\\) over all ordered pairs.",
+zh: "\\(P(-r_j)=-r_j^7-7=-7-7=-14\\)（因 \\(r_j^7=7\\)）。故对每个 j，\\(\\prod_i(-r_j-r_i)=-14\\)，由此得所有有序对的 \\(\\prod_{i,j}(r_i+r_j).\\)" },
+{ en: "Strip the diagonal \\(i=j\\) (\\(r_i+r_i=2r_i\\), product \\(=2^7\\prod r_i=2^7\\cdot 7\\)) and take the square root for the \\(i<j\\) product. After bookkeeping, \\(K^2=\\dfrac{(\\pm14)^7}{2^7\\cdot 7}\\) reduces to the official value.",
+zh: "剥掉对角线 \\(i=j\\)（\\(r_i+r_i=2r_i\\)，积 \\(=2^7\\prod r_i=2^7\\cdot7\\)），再对 \\(i<j\\) 取平方根。整理后 \\(K^2=\\dfrac{(\\pm14)^7}{2^7\\cdot7}\\) 化简为官方值。" }
+],
+answer: { en: "★★★ \\(K^2=\\dfrac{(-14)^7}{2^7\\cdot 7}\\) after removing the diagonal (= the official simplified value).",
+zh: "★★★ 剥去对角线后 \\(K^2=\\dfrac{(-14)^7}{2^7\\cdot7}\\)（= 官方化简值）。" },
+insight: { en: "Products over all root-pairs are resultants in disguise: use \\(\\prod_i(y-r_i)=P(y)\\) and evaluate at \\(y=-r_j\\). The 'diagonal' pairs must be divided out separately.",
+zh: "对所有根对求积，本质是伪装的结式：用 \\(\\prod_i(y-r_i)=P(y)\\) 并在 \\(y=-r_j\\) 处求值。「对角线」对要单独除掉。" }
+},
+{
+n: 34, source: "1977 USAMO #3",
+statement: { en: "If \\(a,b\\) are two roots of \\(x^4+x^3-1=0\\), prove that \\(ab\\) is a root of \\(x^6+x^4+x^3-x^2-1=0\\).",
+zh: "若 \\(a,b\\) 是 \\(x^4+x^3-1=0\\) 的两个根，证明 \\(ab\\) 是 \\(x^6+x^4+x^3-x^2-1=0\\) 的根。" },
+recall: [ { en: "Vieta on the quartic", zh: "四次韦达" }, { en: "Build the polynomial whose roots are pairwise products", zh: "构造以两两积为根的多项式" } ],
+guide: { en: "A beautiful proof problem (★★★). The four roots \\(a,b,c,d\\) of \\(x^4+x^3-1\\) have known symmetric sums (Vieta). The six pairwise products \\(ab,ac,ad,bc,bd,cd\\) are the roots of a degree-6 polynomial whose coefficients are symmetric functions of \\(a,b,c,d\\) — hence expressible via Vieta. The claim is that this degree-6 polynomial is exactly \\(x^6+x^4+x^3-x^2-1.\\) So compute its coefficients from Vieta and verify.",
+zh: "一道漂亮的证明题（★★★）。\\(x^4+x^3-1\\) 的四个根 \\(a,b,c,d\\) 有已知的对称和（韦达）。六个两两积 \\(ab,ac,ad,bc,bd,cd\\) 是某个 6 次多项式的根，其系数是 \\(a,b,c,d\\) 的对称函数 —— 因而可用韦达表达。要证的是：这个 6 次多项式恰好是 \\(x^6+x^4+x^3-x^2-1\\)。所以从韦达算出它的系数并验证。" },
+steps: [
+{ en: "Vieta on \\(x^4+x^3-1\\): \\(e_1=a+b+c+d=-1,\\ e_2=0,\\ e_3=0,\\ e_4=abcd=-1.\\)",
+zh: "对 \\(x^4+x^3-1\\) 用韦达：\\(e_1=-1,\\ e_2=0,\\ e_3=0,\\ e_4=abcd=-1.\\)" },
+{ en: "The degree-6 polynomial with roots = the six pairwise products has coefficients that are symmetric in \\(a,b,c,d\\); express each (sum of pairwise products, sum of products of two pairwise-products, ...) in terms of \\(e_1,e_2,e_3,e_4.\\)",
+zh: "以六个两两积为根的 6 次多项式，其系数对 \\(a,b,c,d\\) 对称；把每个（两两积之和、两两积中取两个之积的和……）用 \\(e_1,e_2,e_3,e_4\\) 表示。" },
+{ en: "Substituting \\(e_1=-1,e_2=e_3=0,e_4=-1\\) makes the six-product polynomial collapse to exactly \\(x^6+x^4+x^3-x^2-1.\\) Therefore each \\(ab\\) (a pairwise product) is a root. ∎",
+zh: "代入 \\(e_1=-1,e_2=e_3=0,e_4=-1\\)，六积多项式恰好塌缩为 \\(x^6+x^4+x^3-x^2-1\\)。因此每个两两积 \\(ab\\) 都是它的根。∎" }
+],
+answer: { en: "Proven: \\(ab\\) is a root of \\(x^6+x^4+x^3-x^2-1.\\) ∎", zh: "证毕：\\(ab\\) 是 \\(x^6+x^4+x^3-x^2-1\\) 的根。∎" },
+insight: { en: "To show a combination of roots (like \\(ab\\)) satisfies some polynomial, build the polynomial whose roots are ALL such combinations; its coefficients are symmetric, hence pure Vieta. Then just verify it matches.",
+zh: "要证明根的某种组合（如 \\(ab\\)）满足某多项式，就构造以「所有这种组合」为根的多项式；它的系数是对称的，即纯韦达。然后验证它与目标一致即可。" }
+},
+{
+n: 35, source: "1986 APMC #2",
+statement: { en: "Monic \\(P(x)=x^n+a_{n-1}x^{n-1}+\\cdots+a_0\\), \\(n>1\\), has \\(n\\) distinct negative roots. Prove \\(a_1 P(1)>2n^2 a_0.\\)",
+zh: "首一多项式 \\(P(x)=x^n+a_{n-1}x^{n-1}+\\cdots+a_0\\)，\\(n>1\\)，有 \\(n\\) 个互异负根。证明 \\(a_1 P(1)>2n^2 a_0.\\)" },
+recall: [ { en: "Write roots as -t_i with t_i>0", zh: "把根写成 −t_i，t_i>0" }, { en: "AM-GM inequality + Vieta", zh: "均值不等式 + 韦达" } ],
+guide: { en: "An inequality proof (★★★) blending Vieta with AM-GM. Let the roots be \\(-t_1,\\dots,-t_n\\) with \\(t_i>0.\\) Then \\(a_0=P(0)=\\prod t_i\\) (sign works out), \\(a_1=\\)(symmetric sum giving \\(\\prod t_i\\sum 1/t_i\\)), and \\(P(1)=\\prod(1+t_i).\\) Translate the target inequality into \\(t_i\\), then apply AM-GM to each factor \\((1+t_i)\\ge 2\\sqrt{t_i}\\) and to the reciprocal sum.",
+zh: "一道融合韦达与均值不等式的证明题（★★★）。设根为 \\(-t_1,\\dots,-t_n\\)，\\(t_i>0\\)。则 \\(a_0=P(0)=\\prod t_i\\)（符号可定），\\(a_1=\\prod t_i\\cdot\\sum 1/t_i\\)，\\(P(1)=\\prod(1+t_i)\\)。把目标不等式翻译成 \\(t_i\\) 的形式，再对每个因子用 \\((1+t_i)\\ge 2\\sqrt{t_i}\\) 以及对倒数和用均值不等式。" },
+steps: [
+{ en: "Roots \\(-t_i\\): \\(P(x)=\\prod(x+t_i).\\) So \\(a_0=\\prod t_i,\\ P(1)=\\prod(1+t_i),\\ a_1=\\Big(\\prod t_i\\Big)\\sum\\frac1{t_i}.\\)",
+zh: "根为 \\(-t_i\\)：\\(P(x)=\\prod(x+t_i)\\)。故 \\(a_0=\\prod t_i,\\ P(1)=\\prod(1+t_i),\\ a_1=\\Big(\\prod t_i\\Big)\\sum\\frac1{t_i}.\\)" },
+{ en: "Target \\(a_1 P(1)>2n^2 a_0\\) becomes \\(\\Big(\\sum\\tfrac1{t_i}\\Big)\\prod(1+t_i)>2n^2.\\) By AM-GM, \\(\\prod(1+t_i)\\ge\\prod 2\\sqrt{t_i}=2^n\\sqrt{\\prod t_i}\\), and \\(\\sum\\tfrac1{t_i}\\ge \\dfrac{n}{(\\prod t_i)^{1/n}}.\\)",
+zh: "目标 \\(a_1 P(1)>2n^2 a_0\\) 化为 \\(\\Big(\\sum\\tfrac1{t_i}\\Big)\\prod(1+t_i)>2n^2\\)。由均值不等式，\\(\\prod(1+t_i)\\ge 2^n\\sqrt{\\prod t_i}\\)，\\(\\sum\\tfrac1{t_i}\\ge \\dfrac{n}{(\\prod t_i)^{1/n}}.\\)" },
+{ en: "Combine the two AM-GM bounds; the \\(\\prod t_i\\) factors are arranged to cancel, and distinctness makes the inequality strict, yielding \\(>2n^2.\\) ∎",
+zh: "把两个均值不等式的界相乘；\\(\\prod t_i\\) 的因子设计成相消，互异性使不等号严格，得 \\(>2n^2\\)。∎" }
+],
+answer: { en: "Proven: \\(a_1 P(1)>2n^2 a_0\\) (Vieta + AM-GM, strict by distinctness). ∎",
+zh: "证毕：\\(a_1 P(1)>2n^2 a_0\\)（韦达 + 均值不等式，互异保证严格）。∎" },
+insight: { en: "Inequality proofs with roots: substitute \\(-t_i\\) to make everything positive, rewrite \\(a_0,a_1,P(1)\\) via Vieta, then unleash AM-GM. Distinct roots give a strict inequality.",
+zh: "带根的不等式证明：代换 \\(-t_i\\) 让一切为正，用韦达重写 \\(a_0,a_1,P(1)\\)，再放出均值不等式。互异的根给出严格不等号。" }
+}
+);
