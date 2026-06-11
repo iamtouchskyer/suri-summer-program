@@ -2344,11 +2344,11 @@ zh: "处理根的高次幂之和：用「每个根满足方程」把次数降一
 /* ===================== DAY 3 ===================== */
 courseData.days[2] = {
 id: "day3",
-unit: "Day 3",
-date: { en: "Polynomial Solving Techniques", zh: "多项式解题技巧" },
+unit: "Algebra 2.5",
+date: { en: "Day 3", zh: "第 3 天" },
 title: { en: "Solving Techniques", zh: "解题技巧" },
 subtitle: { en: "When formulas fail, cleverness wins: substitution, symmetry, and degree-reduction", zh: "当公式失灵，靠巧思取胜：代换、对称与降次" },
-tags: ["Substitution", "Symmetry", "Degree Reduction", "Nested Radicals"],
+tags: [{ en: "Substitution", zh: "代换" }, { en: "Symmetry", zh: "对称" }, { en: "Degree Reduction", zh: "降次" }, { en: "Nested Radicals", zh: "嵌套根式" }],
 knowledgePoints: [],
 problems: [],
 enhancements: [],
