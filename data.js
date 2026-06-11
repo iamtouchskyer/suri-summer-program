@@ -3445,3 +3445,36 @@ var byN = {};
 p.forEach(function (obj) { if (obj && obj.n != null) byN[String(obj.n)] = obj; });
 courseData.days[2].problemSet = order.map(function (n) { return byN[n]; });
 })();
+/* P23 FIX: replace calculus (g'(y)) with 8th-grade factoring y(y-3)^2 */
+courseData.days[2].problemSet.push({
+n: 23, source: "2007 PUMaC Algebra A #4",
+statement: { en: "Find all values of \\(a\\) such that \\(x^6-6x^5+12x^4+ax^3+12x^2-6x+1\\) is nonnegative for all real \\(x\\).",
+zh: "求所有使 \\(x^6-6x^5+12x^4+ax^3+12x^2-6x+1\\) 对所有实数 \\(x\\) 非负的 \\(a\\)。" },
+recall: [ { en: "Palindromic coefficients 1,-6,12,a,12,-6,1 — read both ways", zh: "回文系数 1,-6,12,a,12,-6,1 —— 正反一样" }, { en: "Divide by x^3, group into y = x + 1/x", zh: "除以 x^3，凑成 y = x + 1/x" }, { en: "The range of y = x+1/x is |y| >= 2; factor to find the minimum (no calculus!)", zh: "y = x+1/x 的范围是 |y| >= 2；用因式分解找最小（不用微积分！）" } ],
+guide: { en: "The coefficients \\(1,-6,12,a,12,-6,1\\) read the SAME forwards and backwards — a 'palindrome'. That's the cue: divide by \\(x^3\\) and group symmetric pairs into one variable \\(y=x+\\tfrac1x.\\) The degree-6 monster becomes a small cubic in \\(y.\\) Subtle point: \\(y=x+\\tfrac1x\\) can only land on \\(|y|\\ge 2.\\) Then — and this is the pretty part — we find the minimum NOT with calculus but by FACTORING the cubic into \\(y(y-3)^2,\\) which is obviously \\(\\ge 0\\) on \\(y\\ge2.\\)",
+zh: "系数 \\(1,-6,12,a,12,-6,1\\) 正读反读一样 —— 「回文」。信号：除以 \\(x^3\\)，把对称对配成一个变量 \\(y=x+\\tfrac1x\\)。6 次怪物变成 \\(y\\) 的小三次式。微妙处：\\(y=x+\\tfrac1x\\) 只能落在 \\(|y|\\ge 2\\)。然后 —— 这是最漂亮的地方 —— 我们「不用微积分」，而是把三次式「因式分解」成 \\(y(y-3)^2\\)，它在 \\(y\\ge2\\) 上显然 \\(\\ge 0.\\)" },
+steps: [
+{ en: "STEP 1 — Spot the palindrome and divide by x^3. Since coefficients are symmetric, \\(\\dfrac{P}{x^3}=\\left(x^3+\\tfrac1{x^3}\\right)-6\\left(x^2+\\tfrac1{x^2}\\right)+12\\left(x+\\tfrac1x\\right)+a.\\)",
+zh: "第 1 步 —— 看出回文，除以 x^3。因系数对称，\\(\\dfrac{P}{x^3}=\\left(x^3+\\tfrac1{x^3}\\right)-6\\left(x^2+\\tfrac1{x^2}\\right)+12\\left(x+\\tfrac1x\\right)+a.\\)" },
+{ en: "STEP 2 — Substitute \\(y=x+\\tfrac1x\\) using \\(x^2+\\tfrac1{x^2}=y^2-2,\\ x^3+\\tfrac1{x^3}=y^3-3y.\\) Then \\(\\dfrac{P}{x^3}=(y^3-3y)-6(y^2-2)+12y+a=y^3-6y^2+9y+12+a.\\) Call this \\(g(y).\\)",
+zh: "第 2 步 —— 用 \\(x^2+\\tfrac1{x^2}=y^2-2,\\ x^3+\\tfrac1{x^3}=y^3-3y\\) 代换 \\(y=x+\\tfrac1x\\)。则 \\(\\dfrac{P}{x^3}=(y^3-3y)-6(y^2-2)+12y+a=y^3-6y^2+9y+12+a\\)，记作 \\(g(y).\\)" },
+{ en: "STEP 3 — Handle the sign of x^3 (key subtlety). For \\(x>0,\\) \\(y\\ge 2\\) and \\(x^3>0,\\) so we need \\(g(y)\\ge0\\) for \\(y\\ge2.\\) For \\(x<0,\\) \\(y\\le-2\\) and \\(x^3<0;\\) by palindrome symmetry this gives the SAME condition. So: \\(g(y)\\ge 0\\) for all \\(y\\ge 2.\\)",
+zh: "第 3 步 —— 处理 x^3 的符号（关键微妙处）。当 \\(x>0\\)，\\(y\\ge 2\\) 且 \\(x^3>0\\)，所以需 \\(g(y)\\ge0\\) 对 \\(y\\ge2\\)。当 \\(x<0\\)，\\(y\\le-2\\) 且 \\(x^3<0\\)；由回文对称给出「相同」条件。所以：\\(g(y)\\ge 0\\) 对所有 \\(y\\ge 2.\\)" },
+{ en: "STEP 4 — FACTOR instead of differentiating (8th-grade move!). Split off the constant: \\(g(y)=(y^3-6y^2+9y)+(12+a).\\) Pull out \\(y\\): \\(y^3-6y^2+9y=y(y^2-6y+9)=y(y-3)^2.\\) So \\(g(y)=y(y-3)^2+(12+a).\\)",
+zh: "第 4 步 —— 用「因式分解」代替求导（8 年级的招！）。把常数拆开：\\(g(y)=(y^3-6y^2+9y)+(12+a)\\)。提出 \\(y\\)：\\(y^3-6y^2+9y=y(y^2-6y+9)=y(y-3)^2\\)。所以 \\(g(y)=y(y-3)^2+(12+a).\\)" },
+{ en: "STEP 5 — Read off the minimum with NO calculus. On \\(y\\ge2:\\) \\(y>0\\) and \\((y-3)^2\\ge0,\\) so \\(y(y-3)^2\\ge0,\\) and it equals 0 exactly at \\(y=3\\) (which is inside \\(y\\ge2\\)). So the smallest \\(g\\) can be is \\(0+(12+a)=12+a,\\) reached at \\(y=3.\\)",
+zh: "第 5 步 —— 不用微积分直接读出最小。在 \\(y\\ge2\\) 上：\\(y>0\\) 且 \\((y-3)^2\\ge0\\)，所以 \\(y(y-3)^2\\ge0\\)，且恰在 \\(y=3\\)（在 \\(y\\ge2\\) 内）时等于 0。所以 \\(g\\) 能取到的最小值是 \\(0+(12+a)=12+a\\)，在 \\(y=3\\) 取得。" },
+{ en: "STEP 6 — Require nonnegativity. \\(12+a\\ge 0\\Rightarrow a\\ge -12.\\) Numeric check: at \\(a=-12\\) the polynomial's minimum is exactly 0.",
+zh: "第 6 步 —— 要求非负。\\(12+a\\ge 0\\Rightarrow a\\ge -12\\)。数值检验：\\(a=-12\\) 时多项式最小值恰为 0。" }
+],
+answer: { en: "\\(a\\ge -12\\)", zh: "\\(a\\ge -12\\)" },
+insight: { en: "Palindromic coefficients: divide by the middle power, substitute y=x+1/x (x^2+1/x^2=y^2-2, x^3+1/x^3=y^3-3y). A degree-6 problem becomes a cubic g(y). Two must-not-forget points: y only reaches |y|>=2, and find the minimum by FACTORING — y^3-6y^2+9y = y(y-3)^2, a product of a positive number and a square, so it's >=0 with minimum 0 at y=3. No calculus needed; g(3)=12+a gives a>=-12.",
+zh: "回文系数：除以中间次幂，代换 y=x+1/x（x²+1/x²=y²−2，x³+1/x³=y³−3y）。6 次问题变成三次 g(y)。两个不能忘：y 只能取到 |y|≥2；用「因式分解」找最小 —— y³−6y²+9y = y(y−3)²，正数乘平方，所以 ≥0，最小值 0 在 y=3。不需要微积分；g(3)=12+a 给出 a≥−12。" }
+});
+(function () {
+var p = courseData.days[2].problemSet;
+var order = ['1','2','3','4','5','6','7','8','9','10','11','12.1','12.2','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28'];
+var byN = {};
+p.forEach(function (obj) { if (obj && obj.n != null) byN[String(obj.n)] = obj; });
+courseData.days[2].problemSet = order.map(function (n) { return byN[n]; });
+})();
