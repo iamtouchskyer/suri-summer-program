@@ -3478,3 +3478,40 @@ var byN = {};
 p.forEach(function (obj) { if (obj && obj.n != null) byN[String(obj.n)] = obj; });
 courseData.days[2].problemSet = order.map(function (n) { return byN[n]; });
 })();
+/* P23 CORRECTION: previous version only did the y>=2 branch and wrongly claimed "symmetry gives the same".
+The y<=-2 branch needs g(y)<=0 (x^3<0 flips the inequality), giving the UPPER bound a<=38.
+Correct answer: -12 <= a <= 38. Verified numerically. */
+courseData.days[2].problemSet.push({
+n: 23, source: "2007 PUMaC Algebra A #4",
+statement: { en: "Find all values of \\(a\\) such that \\(x^6-6x^5+12x^4+ax^3+12x^2-6x+1\\) is nonnegative for all real \\(x\\).",
+zh: "求所有使 \\(x^6-6x^5+12x^4+ax^3+12x^2-6x+1\\) 对所有实数 \\(x\\) 非负的 \\(a\\)。" },
+recall: [ { en: "Palindromic coefficients 1,-6,12,a,12,-6,1 — read both ways", zh: "回文系数 1,-6,12,a,12,-6,1 —— 正反一样" }, { en: "Divide by x^3, group into y = x + 1/x; range is |y| >= 2", zh: "除以 x^3，凑成 y = x + 1/x；范围 |y| >= 2" }, { en: "TWO branches: x>0 (need g>=0) and x<0 (x^3<0 flips to g<=0) — they are NOT the same!", zh: "两支：x>0（需 g>=0）和 x<0（x^3<0 翻转成 g<=0）—— 它们不一样！" } ],
+guide: { en: "The coefficients \\(1,-6,12,a,12,-6,1\\) read the SAME forwards and backwards — a 'palindrome'. Divide by \\(x^3\\) and substitute \\(y=x+\\tfrac1x\\) to turn the degree-6 monster into a cubic \\(g(y)=y^3-6y^2+9y+12+a.\\) The TRAP: \\(y\\) reaches BOTH \\(y\\ge2\\) (from \\(x>0\\)) and \\(y\\le-2\\) (from \\(x<0\\)). Because \\(P=x^3\\,g(y)\\) and \\(x^3\\) changes sign, the two branches give DIFFERENT conditions: \\(x>0\\) needs \\(g\\ge0,\\) but \\(x<0\\) needs \\(g\\le0.\\) That second branch produces an UPPER bound on \\(a.\\)",
+zh: "系数 \\(1,-6,12,a,12,-6,1\\) 正读反读一样 —— 「回文」。除以 \\(x^3\\)、代换 \\(y=x+\\tfrac1x\\)，把 6 次怪物变成三次式 \\(g(y)=y^3-6y^2+9y+12+a\\)。「陷阱」：\\(y\\) 同时能到 \\(y\\ge2\\)（来自 \\(x>0\\)）和 \\(y\\le-2\\)（来自 \\(x<0\\)）。因为 \\(P=x^3\\,g(y)\\) 而 \\(x^3\\) 会变号，两支给出「不同」条件：\\(x>0\\) 需 \\(g\\ge0\\)，但 \\(x<0\\) 需 \\(g\\le0\\)。第二支给出 \\(a\\) 的「上界」。" },
+steps: [
+{ en: "STEP 1 — Spot the palindrome, divide by x^3. \\(\\dfrac{P}{x^3}=\\left(x^3+\\tfrac1{x^3}\\right)-6\\left(x^2+\\tfrac1{x^2}\\right)+12\\left(x+\\tfrac1x\\right)+a.\\)",
+zh: "第 1 步 —— 看出回文，除以 x^3。\\(\\dfrac{P}{x^3}=\\left(x^3+\\tfrac1{x^3}\\right)-6\\left(x^2+\\tfrac1{x^2}\\right)+12\\left(x+\\tfrac1x\\right)+a.\\)" },
+{ en: "STEP 2 — Substitute \\(y=x+\\tfrac1x\\) (\\(x^2+\\tfrac1{x^2}=y^2-2,\\ x^3+\\tfrac1{x^3}=y^3-3y\\)): \\(g(y)=y^3-6y^2+9y+12+a.\\) And \\(P=x^3\\,g(y).\\)",
+zh: "第 2 步 —— 代换 \\(y=x+\\tfrac1x\\)（\\(x^2+\\tfrac1{x^2}=y^2-2,\\ x^3+\\tfrac1{x^3}=y^3-3y\\)）：\\(g(y)=y^3-6y^2+9y+12+a\\)。且 \\(P=x^3\\,g(y).\\)" },
+{ en: "STEP 3 — Factor g (8th-grade, no calculus). \\(g(y)=(y^3-6y^2+9y)+(12+a)=y(y^2-6y+9)+(12+a)=y(y-3)^2+(12+a).\\)",
+zh: "第 3 步 —— 因式分解 g（8 年级，不用微积分）。\\(g(y)=(y^3-6y^2+9y)+(12+a)=y(y^2-6y+9)+(12+a)=y(y-3)^2+(12+a).\\)" },
+{ en: "STEP 4 — Branch A: x>0 so y>=2 and x^3>0. Need P>=0, i.e. g(y)>=0. Here y>0 and (y-3)^2>=0, so y(y-3)^2>=0 with minimum 0 at y=3. So min g = 12+a. Require 12+a>=0  =>  a >= -12.  (LOWER bound)",
+zh: "第 4 步 —— A 支：x>0 故 y>=2 且 x^3>0。需 P>=0，即 g(y)>=0。此处 y>0 且 (y-3)^2>=0，所以 y(y-3)^2>=0，最小值 0 在 y=3。故 min g = 12+a。要 12+a>=0  =>  a >= -12。（「下界」）" },
+{ en: "STEP 5 — Branch B (the one most people miss): x<0 so y<=-2 and x^3<0. Now P=x^3·g, and x^3<0, so P>=0 needs g(y) <= 0 (inequality FLIPS!). On y<=-2: y<0 and (y-3)^2>=0, so y(y-3)^2<=0; its largest (closest to 0) value is at y=-2: (-2)(-5)^2=-50. So max g on this branch = -50+(12+a)=a-38.",
+zh: "第 5 步 —— B 支（最多人漏掉的一支）：x<0 故 y<=-2 且 x^3<0。此时 P=x^3·g，而 x^3<0，所以 P>=0 需要 g(y) <= 0（不等号「翻转」！）。在 y<=-2 上：y<0 且 (y-3)^2>=0，所以 y(y-3)^2<=0；其「最大」（最接近 0）的值在 y=-2：(-2)(-5)^2=-50。故此支 g 的最大值 = -50+(12+a)=a-38。" },
+{ en: "STEP 6 — Require g<=0 on Branch B. Need a-38 <= 0  =>  a <= 38.  (UPPER bound)",
+zh: "第 6 步 —— B 支要求 g<=0。需 a-38 <= 0  =>  a <= 38。（「上界」）" },
+{ en: "STEP 7 — Combine both branches. \\(-12 \\le a \\le 38.\\) Numeric check: a=-12 gives min P=0 (near x=0.38); a=38 gives P(-1)=0; a=-13 or a=39 both make P go negative.",
+zh: "第 7 步 —— 合并两支。\\(-12 \\le a \\le 38\\)。数值检验：a=-12 时 min P=0（在 x≈0.38）；a=38 时 P(-1)=0；a=-13 或 a=39 都会让 P 变负。" }
+],
+answer: { en: "\\(-12 \\le a \\le 38\\)", zh: "\\(-12 \\le a \\le 38\\)" },
+insight: { en: "Palindrome trick: divide by x^3, set y=x+1/x to get a cubic g(y), then FACTOR g=y(y-3)^2+(12+a) (no calculus). THE KEY LESSON: because P=x^3·g(y), the two reachable ranges of y are NOT symmetric in effect — x>0 (y>=2) needs g>=0 giving a>=-12, while x<0 (y<=-2) flips to g<=0 giving a<=38. Always split a palindrome into BOTH sign-branches; never assume 'symmetry makes them the same'. Answer: -12<=a<=38.",
+zh: "回文技巧：除以 x^3，设 y=x+1/x 得三次 g(y)，再因式分解 g=y(y-3)^2+(12+a)（不用微积分）。「核心教训」：因为 P=x^3·g(y)，y 的两个可达范围在效果上「并不对称」—— x>0（y>=2）需 g>=0 给出 a>=-12，而 x<0（y<=-2）翻转成 g<=0 给出 a<=38。回文题永远要拆成「两个符号支」；绝不能假设「对称所以相同」。答案：-12<=a<=38。" }
+});
+(function () {
+var p = courseData.days[2].problemSet;
+var order = ['1','2','3','4','5','6','7','8','9','10','11','12.1','12.2','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28'];
+var byN = {};
+p.forEach(function (obj) { if (obj && obj.n != null) byN[String(obj.n)] = obj; });
+courseData.days[2].problemSet = order.map(function (n) { return byN[n]; });
+})();
