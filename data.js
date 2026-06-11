@@ -2094,3 +2094,117 @@ answer: { en: "\\(P(x)=(x-1)(x+1)^3\\) (degree 4)", zh: "\\(P(x)=(x-1)(x+1)^3\\)
 insight: { en: "The power move: a condition like P(0)=-1 PLUS integer roots is a giant restriction, because a product of integers equal to +/-1 forces every factor to be +/-1. Infinitely many possibilities collapse to roots of only +1 and -1. After that, matching P(3)=2^7 is just counting powers of 2 — and you minimize the degree by using the higher-power factor (the -1 root, worth 2^2 each) as much as possible.",
 zh: "杀招：「P(0)=−1 加上整数根」是巨大限制，因为整数之积等于 ±1 就强迫每个因子都是 ±1。无穷多可能性塌缩成只有 +1 和 −1 两种根。之后匹配 P(3)=2⁷ 不过是数 2 的幂 —— 而你通过尽量多用「指数更高的因子」（−1 根，每个顶 2²）来最小化次数。" }
 };
+courseData.days[1].problemSet[1] = {
+n: 2, source: "2000 AMC 12 #15",
+statement: { en: "A function \\(f\\) satisfies \\(f(x/3)=x^2+x+1\\). Find the sum of all \\(z\\) with \\(f(3z)=7\\).",
+zh: "函数 \\(f\\) 满足 \\(f(x/3)=x^2+x+1\\)。求所有满足 \\(f(3z)=7\\) 的 \\(z\\) 之和。" },
+recall: [ { en: "What does it mean to 'know a function'?", zh: "「知道一个函数」是什么意思？" }, { en: "Substitution / renaming the input", zh: "代换 / 给输入改名" }, { en: "Vieta: sum of solutions of a quadratic = -b/a", zh: "韦达：二次方程解之和 = -b/a" } ],
+guide: { en: "The puzzle is that we're told what \\(f\\) does to \\((x/3)\\), but we need what \\(f\\) does to \\((3z)\\). Those don't match! The fix is a trick called 'renaming the input': we give the thing inside \\(f\\) a fresh name, work out the real rule for \\(f\\), and then feed it whatever input we like. Once we know \\(f\\)'s true formula, the condition \\(f(3z)=7\\) turns into an ordinary quadratic in \\(z\\), and 'sum of all z' is exactly the Vieta shortcut you learned in Problem 1. We'll go slowly.",
+zh: "难点在于：题目告诉我们 \\(f\\) 对 \\((x/3)\\) 做了什么，但我们需要的是 \\(f\\) 对 \\((3z)\\) 做什么。两者对不上！解决办法叫「给输入改名」：给 \\(f\\) 里面那个东西起个新名字，求出 \\(f\\) 真正的规则，然后想喂什么输入都行。一旦知道 \\(f\\) 的真公式，条件 \\(f(3z)=7\\) 就变成关于 \\(z\\) 的普通二次方程，而「所有 z 之和」正是第 1 题学的韦达捷径。我们慢慢来。" },
+steps: [
+{ en: "STEP 1 — Understand the weird setup. We're given \\(f(x/3)=x^2+x+1.\\) This tells us the OUTPUT of \\(f\\) when its input happens to be written as \\(x/3.\\) But the question asks about input \\(3z\\), which looks different. We need \\(f\\)'s rule for ANY input.",
+zh: "第 1 步 —— 看懂这个奇怪设定。给定 \\(f(x/3)=x^2+x+1\\)。它告诉我们：当 \\(f\\) 的输入恰好写成 \\(x/3\\) 时，输出是多少。但题目问的是输入 \\(3z\\)，长得不一样。我们需要 \\(f\\) 对「任意输入」的规则。" },
+{ en: "STEP 2 — Rename the input. Let \\(u\\) stand for whatever goes into \\(f.\\) Here the input is \\(x/3,\\) so set \\(u=x/3.\\) Our goal: rewrite the right side \\(x^2+x+1\\) using \\(u\\) instead of \\(x.\\)",
+zh: "第 2 步 —— 给输入改名。让 \\(u\\) 代表「进入 \\(f\\) 的那个东西」。这里输入是 \\(x/3\\)，所以设 \\(u=x/3\\)。目标：把右边 \\(x^2+x+1\\) 用 \\(u\\) 而不是 \\(x\\) 来写。" },
+{ en: "STEP 3 — Solve for x. From \\(u=x/3,\\) multiply both sides by 3: \\(x=3u.\\) Now we can replace every \\(x\\) by \\(3u.\\)",
+zh: "第 3 步 —— 反解出 x。由 \\(u=x/3\\)，两边乘 3：\\(x=3u\\)。现在可以把每个 \\(x\\) 换成 \\(3u.\\)" },
+{ en: "STEP 4 — Substitute to get f's real rule. \\(f(u)=(3u)^2+(3u)+1.\\) Compute \\((3u)^2=9u^2,\\) so \\(f(u)=9u^2+3u+1.\\) This is \\(f\\)'s TRUE formula — works for any input \\(u.\\)",
+zh: "第 4 步 —— 代换得到 f 的真规则。\\(f(u)=(3u)^2+(3u)+1\\)。算 \\((3u)^2=9u^2\\)，所以 \\(f(u)=9u^2+3u+1\\)。这是 \\(f\\) 的真公式 —— 对任意输入 \\(u\\) 都成立。" },
+{ en: "STEP 5 — Now plug in the input we actually want: \\(3z.\\) Replace every \\(u\\) by \\(3z\\): \\(f(3z)=9(3z)^2+3(3z)+1.\\)",
+zh: "第 5 步 —— 现在代入我们真正想要的输入：\\(3z\\)。把每个 \\(u\\) 换成 \\(3z\\)：\\(f(3z)=9(3z)^2+3(3z)+1.\\)" },
+{ en: "STEP 6 — Simplify. \\((3z)^2=9z^2,\\) so \\(9\\cdot 9z^2=81z^2;\\) and \\(3\\cdot 3z=9z.\\) Thus \\(f(3z)=81z^2+9z+1.\\)",
+zh: "第 6 步 —— 化简。\\((3z)^2=9z^2\\)，所以 \\(9\\cdot 9z^2=81z^2\\)；又 \\(3\\cdot 3z=9z\\)。于是 \\(f(3z)=81z^2+9z+1.\\)" },
+{ en: "STEP 7 — Use the condition \\(f(3z)=7.\\) Set \\(81z^2+9z+1=7.\\) Move the 7 over: \\(81z^2+9z+1-7=0,\\) i.e. \\(81z^2+9z-6=0.\\) Now it's a plain quadratic in \\(z.\\)",
+zh: "第 7 步 —— 用条件 \\(f(3z)=7\\)。令 \\(81z^2+9z+1=7\\)。把 7 移过去：\\(81z^2+9z+1-7=0\\)，即 \\(81z^2+9z-6=0\\)。现在是关于 \\(z\\) 的普通二次方程。" },
+{ en: "STEP 8 — Apply Vieta (from Problem 1). For \\(az^2+bz+c=0,\\) the sum of solutions is \\(-b/a.\\) Here \\(a=81,\\ b=9,\\) so the sum is \\(-\\dfrac{9}{81}.\\)",
+zh: "第 8 步 —— 用韦达（来自第 1 题）。对 \\(az^2+bz+c=0\\)，解之和是 \\(-b/a\\)。这里 \\(a=81,\\ b=9\\)，所以和是 \\(-\\dfrac{9}{81}.\\)" },
+{ en: "STEP 9 — Reduce the fraction. \\(\\dfrac{9}{81}=\\dfrac{1}{9},\\) so the sum is \\(-\\dfrac{1}{9}.\\) (We never had to actually solve for z — Vieta gave the sum directly.)",
+zh: "第 9 步 —— 约分。\\(\\dfrac{9}{81}=\\dfrac{1}{9}\\)，所以和是 \\(-\\dfrac{1}{9}\\)。（我们根本不用真去解 z —— 韦达直接给了和。）" }
+],
+answer: { en: "Sum of all \\(z=-\\dfrac{1}{9}\\)", zh: "所有 z 之和 \\(=-\\dfrac{1}{9}\\)" },
+insight: { en: "When a function is defined through a 'disguised' input like f(x/3), rename the inside (let u = x/3), solve for x, and substitute to uncover f's real formula. After that, any 'sum of all solutions' question is just Vieta's -b/a — the exact skill from Problem 1.",
+zh: "当函数通过「伪装的输入」（如 f(x/3)）定义时，给里面改名（设 u=x/3），反解 x，代换，揭出 f 的真公式。之后任何「所有解之和」的问题，都不过是韦达的 -b/a —— 和第 1 题完全一样的技能。" }
+};
+courseData.days[1].problemSet[2] = {
+n: 3, source: "2003 AMC 10A #18",
+statement: { en: "Find the sum of the reciprocals of the roots of \\(2004x^2+x+2003=0\\).",
+zh: "求 \\(2004x^2+x+2003=0\\) 的根的倒数之和。" },
+recall: [ { en: "Vieta: sum r1+r2 = -b/a, product r1·r2 = c/a", zh: "韦达：和 r1+r2 = -b/a，积 r1·r2 = c/a" }, { en: "How do you add two fractions? Common denominator!", zh: "两个分数怎么相加？通分！" }, { en: "Big ugly numbers = signal NOT to solve", zh: "又大又丑的数字 = 别去解方程的信号" } ],
+guide: { en: "The huge numbers 2004 and 2003 are scary, but they're actually a CLUE: a problem like this never wants you to find the actual roots (they'd be horrible). The real skill is recognizing that '\\(1/r_1+1/r_2\\)' is just adding two fractions — and adding fractions means a common denominator. When you do that, the top becomes the SUM of the roots and the bottom becomes the PRODUCT of the roots. Both of those are things Vieta hands you for free, straight from the coefficients. So the giant numbers just drop into a tiny formula.",
+zh: "2004 和 2003 这两个大数字很吓人，但它们其实是「线索」：这种题从不想让你求真正的根（那会很恐怖）。真正的技能是认出「\\(1/r_1+1/r_2\\)」不过是两个分数相加 —— 而分数相加要通分。一通分，分子就变成根之「和」，分母就变成根之「积」。这两个都是韦达直接从系数白送给你的。所以大数字只是套进一个小公式而已。" },
+steps: [
+{ en: "STEP 1 — Read the coefficients. In \\(2004x^2+x+2003=0\\): \\(a=2004,\\ b=1\\) (the lone \\(x\\) means coefficient 1), \\(c=2003.\\)",
+zh: "第 1 步 —— 读系数。在 \\(2004x^2+x+2003=0\\) 里：\\(a=2004,\\ b=1\\)（单独的 \\(x\\) 表示系数 1），\\(c=2003.\\)" },
+{ en: "STEP 2 — Get the two Vieta quantities. Sum of roots \\(r_1+r_2=-\\dfrac{b}{a}=-\\dfrac{1}{2004}.\\) Product of roots \\(r_1r_2=\\dfrac{c}{a}=\\dfrac{2003}{2004}.\\)",
+zh: "第 2 步 —— 拿到两个韦达量。根之和 \\(r_1+r_2=-\\dfrac{b}{a}=-\\dfrac{1}{2004}\\)。根之积 \\(r_1r_2=\\dfrac{c}{a}=\\dfrac{2003}{2004}.\\)" },
+{ en: "STEP 3 — Rewrite what we want as adding fractions. We want \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}.\\) Add them with a common denominator \\(r_1r_2\\): \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_2}{r_1r_2}+\\dfrac{r_1}{r_1r_2}=\\dfrac{r_1+r_2}{r_1r_2}.\\)",
+zh: "第 3 步 —— 把所求改写成分数相加。我们要 \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}\\)。用公分母 \\(r_1r_2\\) 相加：\\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_2}{r_1r_2}+\\dfrac{r_1}{r_1r_2}=\\dfrac{r_1+r_2}{r_1r_2}.\\)" },
+{ en: "STEP 4 — See the beautiful match. The top \\(r_1+r_2\\) is the SUM (we know it), the bottom \\(r_1r_2\\) is the PRODUCT (we know it too). So \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_1+r_2}{r_1r_2}.\\)",
+zh: "第 4 步 —— 看到漂亮的对应。分子 \\(r_1+r_2\\) 是「和」（已知），分母 \\(r_1r_2\\) 是「积」（也已知）。所以 \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_1+r_2}{r_1r_2}.\\)" },
+{ en: "STEP 5 — Substitute the two values. \\(\\dfrac{r_1+r_2}{r_1r_2}=\\dfrac{-1/2004}{2003/2004}.\\)",
+zh: "第 5 步 —— 代入两个值。\\(\\dfrac{r_1+r_2}{r_1r_2}=\\dfrac{-1/2004}{2003/2004}.\\)" },
+{ en: "STEP 6 — Divide the fractions. Dividing by \\(\\dfrac{2003}{2004}\\) is multiplying by \\(\\dfrac{2004}{2003}\\): \\(-\\dfrac{1}{2004}\\times\\dfrac{2004}{2003}.\\) The \\(2004\\)'s cancel, leaving \\(-\\dfrac{1}{2003}.\\)",
+zh: "第 6 步 —— 分数相除。除以 \\(\\dfrac{2003}{2004}\\) 就是乘以 \\(\\dfrac{2004}{2003}\\)：\\(-\\dfrac{1}{2004}\\times\\dfrac{2004}{2003}\\)。两个 \\(2004\\) 约掉，剩 \\(-\\dfrac{1}{2003}.\\)" },
+{ en: "STEP 7 — Shortcut to remember. Notice the \\(a\\)'s cancelled: \\(\\dfrac{-b/a}{c/a}=-\\dfrac{b}{c}.\\) So sum of reciprocals \\(=-\\dfrac{b}{c}=-\\dfrac{1}{2003}\\) directly. The leading coefficient never even mattered.",
+zh: "第 7 步 —— 记住的捷径。注意 \\(a\\) 约掉了：\\(\\dfrac{-b/a}{c/a}=-\\dfrac{b}{c}\\)。所以倒数之和 \\(=-\\dfrac{b}{c}=-\\dfrac{1}{2003}\\) 直接出。最高次系数压根没用上。" }
+],
+answer: { en: "Sum of reciprocals \\(=-\\dfrac{1}{2003}\\)", zh: "倒数之和 \\(=-\\dfrac{1}{2003}\\)" },
+insight: { en: "Big ugly numbers are a signal NOT to solve, but to use Vieta. 'Sum of reciprocals' is just adding fractions: 1/r1+1/r2 = (r1+r2)/(r1·r2) = -b/c. Memorize that shortcut — it turns a monster equation into one division, and the leading coefficient drops out entirely.",
+zh: "又大又丑的数字是「别解方程、用韦达」的信号。「倒数之和」不过是分数相加：1/r1+1/r2 = (r1+r2)/(r1·r2) = -b/c。记住这个捷径 —— 它把一个怪兽方程变成一次除法，而且最高次系数完全消失。" }
+};
+courseData.days[1].problemSet[3] = {
+n: 4, source: "2017 Purple Comet High School #15",
+statement: { en: "A degree-7 polynomial \\(p(x)=3x^7-291x^6+\\dots+134x-2\\) has 7 real roots whose sum is 97. Find the sum of the reciprocals of those 7 roots.",
+zh: "7 次多项式 \\(p(x)=3x^7-291x^6+\\dots+134x-2\\) 有 7 个实根，其和为 97。求这 7 个根的倒数之和。" },
+recall: [ { en: "Reciprocal sum = (sum of products of all-but-one) / (product of all)", zh: "倒数和 = (每次少取一个的乘积之和)/(全体之积)" }, { en: "These two pieces come from the LOWEST coefficients", zh: "这两块来自最低的两个系数" }, { en: "Generalize Problem 3 from degree 2 to degree 7", zh: "把第 3 题从 2 次推广到 7 次" } ],
+guide: { en: "This is Problem 3's idea, grown up to 7 roots. For two roots, \\(1/r_1+1/r_2=(\\text{sum})/(\\text{product}).\\) For seven roots, the SAME common-denominator move works: the top becomes the sum of every way to multiply SIX of the roots, and the bottom is the product of ALL seven. The lovely shortcut: that top is controlled by the \\(x^1\\) coefficient, and the bottom by the constant term — so you only need the two LOWEST coefficients (here \\(134\\) and \\(-2\\)). All the scary middle stuff (and even the sum 97) is a red herring.",
+zh: "这是第 3 题的想法长大到 7 个根。对两个根，\\(1/r_1+1/r_2=(\\text{和})/(\\text{积})\\)。对七个根，同样的「通分」依然成立：分子变成「每次取六个根相乘」的所有方式之和，分母是全部七个根之积。漂亮的捷径：分子由 \\(x^1\\) 系数掌管，分母由常数项掌管 —— 所以你只需要最低的两个系数（这里 \\(134\\) 和 \\(-2\\)）。中间所有吓人的东西（甚至那个和 97）都是干扰项。" },
+steps: [
+{ en: "STEP 1 — Recall the degree-2 version. From Problem 3: \\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_1+r_2}{r_1r_2}\\) — top is sum, bottom is product. We now copy this idea for 7 roots.",
+zh: "第 1 步 —— 回忆 2 次的版本。来自第 3 题：\\(\\dfrac{1}{r_1}+\\dfrac{1}{r_2}=\\dfrac{r_1+r_2}{r_1r_2}\\) —— 分子是和，分母是积。现在把这想法照搬到 7 个根。" },
+{ en: "STEP 2 — Add 7 reciprocals over a common denominator. The common bottom is the product of all 7 roots, \\(r_1r_2\\cdots r_7.\\) When you add \\(\\frac1{r_1}+\\cdots+\\frac1{r_7}\\) over it, each numerator term is 'all roots except one multiplied together'. The top is the sum of those 7 terms.",
+zh: "第 2 步 —— 把 7 个倒数通分。公分母是 7 个根之积 \\(r_1r_2\\cdots r_7\\)。把 \\(\\frac1{r_1}+\\cdots+\\frac1{r_7}\\) 加在它上面，每个分子项是「除一个外其余全乘起来」。分子是这 7 项之和。" },
+{ en: "STEP 3 — Name them with Vieta's symmetric sums. 'Sum of products of 6 roots at a time' is called \\(e_6.\\) 'Product of all 7' is \\(e_7.\\) So \\(\\sum\\dfrac{1}{r_i}=\\dfrac{e_6}{e_7}.\\)",
+zh: "第 3 步 —— 用韦达对称和命名。「每次取 6 个根相乘之和」叫 \\(e_6\\)。「全部 7 个之积」叫 \\(e_7\\)。所以 \\(\\sum\\dfrac{1}{r_i}=\\dfrac{e_6}{e_7}.\\)" },
+{ en: "STEP 4 — Connect e6, e7 to the coefficients. For \\(a_7x^7+a_6x^6+\\dots+a_1x+a_0,\\) Vieta says \\(e_6=\\dfrac{a_1}{a_7}\\) and \\(e_7=-\\dfrac{a_0}{a_7}.\\) (These come from the LOWEST coefficients \\(a_1\\) and \\(a_0.\\))",
+zh: "第 4 步 —— 把 e6、e7 连到系数。对 \\(a_7x^7+a_6x^6+\\dots+a_1x+a_0\\)，韦达说 \\(e_6=\\dfrac{a_1}{a_7}\\)，\\(e_7=-\\dfrac{a_0}{a_7}\\)。（来自最低系数 \\(a_1\\) 和 \\(a_0\\)。）" },
+{ en: "STEP 5 — Take the ratio; the leading coefficient cancels. \\(\\dfrac{e_6}{e_7}=\\dfrac{a_1/a_7}{-a_0/a_7}=-\\dfrac{a_1}{a_0}.\\) The \\(a_7\\) (and all the middle terms, and the sum 97) play no part at all.",
+zh: "第 5 步 —— 取比值；最高次系数约掉。\\(\\dfrac{e_6}{e_7}=\\dfrac{a_1/a_7}{-a_0/a_7}=-\\dfrac{a_1}{a_0}\\)。\\(a_7\\)（以及所有中间项、还有那个和 97）完全不起作用。" },
+{ en: "STEP 6 — Plug in the two lowest coefficients. Here \\(a_1=134\\) (front of \\(x\\)) and \\(a_0=-2\\) (constant). So sum of reciprocals \\(=-\\dfrac{134}{-2}.\\)",
+zh: "第 6 步 —— 代入最低两个系数。这里 \\(a_1=134\\)（\\(x\\) 前面）和 \\(a_0=-2\\)（常数项）。所以倒数之和 \\(=-\\dfrac{134}{-2}.\\)" },
+{ en: "STEP 7 — Finish. \\(-\\dfrac{134}{-2}=\\dfrac{134}{2}=67.\\) The 'sum is 97' was a distraction — we never needed it.",
+zh: "第 7 步 —— 收尾。\\(-\\dfrac{134}{-2}=\\dfrac{134}{2}=67\\)。「和为 97」是干扰 —— 我们根本没用到它。" }
+],
+answer: { en: "Sum of reciprocals \\(=67\\)", zh: "倒数之和 \\(=67\\)" },
+insight: { en: "The reciprocal-sum shortcut generalizes to ANY degree: sum of 1/roots = -(coefficient of x^1)/(constant term). You only ever need the two lowest coefficients; the leading coefficient and all middle data (and tempting extra facts like 'sum = 97') are irrelevant. Spotting the red herring is half the battle.",
+zh: "倒数和捷径可推广到任意次数：Σ1/根 = -(x^1 的系数)/(常数项)。你永远只需要最低的两个系数；最高次系数、所有中间数据（以及「和=97」这种诱人多余信息）都无关。识破干扰项就赢了一半。" }
+};
+courseData.days[1].problemSet[4] = {
+n: 5, source: "1998 HMMT February Algebra #7",
+statement: { en: "Three of the roots of \\(x^4+ax^2+bx+c\\) are \\(2,\\ -3,\\ 5\\). Find \\(a+b+c\\).",
+zh: "\\(x^4+ax^2+bx+c\\) 有三个根是 \\(2,\\ -3,\\ 5\\)。求 \\(a+b+c\\)。" },
+recall: [ { en: "A degree-4 polynomial has 4 roots", zh: "4 次多项式有 4 个根" }, { en: "A MISSING term means that coefficient is 0", zh: "缺项意味着那个系数是 0" }, { en: "Vieta: sum of all roots = -(coeff of x^3)/(leading)", zh: "韦达：所有根之和 = -(x^3 系数)/(首项)" } ],
+guide: { en: "The sneaky clue is what's MISSING. Look at \\(x^4+ax^2+bx+c\\): there's no \\(x^3\\) term! That's not a typo — it means the coefficient of \\(x^3\\) is 0. By Vieta, the \\(x^3\\) coefficient is minus the sum of all four roots, so the four roots must add to 0. We know three of them, so the fourth is forced. Once we have all four roots, we rebuild the polynomial by multiplying \\((x-\\text{root})\\) factors, then just read off \\(a,b,c.\\)",
+zh: "狡猾的线索藏在「缺了什么」。看 \\(x^4+ax^2+bx+c\\)：没有 \\(x^3\\) 项！这不是笔误 —— 它意味着 \\(x^3\\) 的系数是 0。根据韦达，\\(x^3\\) 系数是「所有四个根之和」的相反数，所以四根之和必须是 0。我们已知三个，于是第四个被唯一确定。拿到四个根后，把 \\((x-\\text{根})\\) 因式乘起来还原多项式，再读出 \\(a,b,c.\\)" },
+steps: [
+{ en: "STEP 1 — Count the roots. A degree-4 polynomial has 4 roots. We're given 3 of them (2, -3, 5); call the unknown fourth root \\(r.\\)",
+zh: "第 1 步 —— 数根。4 次多项式有 4 个根。给了 3 个（2, -3, 5）；设未知的第 4 个根为 \\(r.\\)" },
+{ en: "STEP 2 — Spot the missing term. The polynomial is \\(x^4+ax^2+bx+c.\\) Written fully it's \\(x^4+0\\cdot x^3+ax^2+bx+c\\) — the \\(x^3\\) coefficient is 0.",
+zh: "第 2 步 —— 发现缺项。多项式是 \\(x^4+ax^2+bx+c\\)。写全是 \\(x^4+0\\cdot x^3+ax^2+bx+c\\) —— \\(x^3\\) 的系数是 0。" },
+{ en: "STEP 3 — Vieta on the x^3 term. For a monic quartic, sum of all roots \\(=-(\\text{coeff of }x^3)=-0=0.\\) So \\(2+(-3)+5+r=0.\\)",
+zh: "第 3 步 —— 对 x^3 项用韦达。对首一四次式，所有根之和 \\(=-(x^3\\text{ 系数})=-0=0\\)。所以 \\(2+(-3)+5+r=0.\\)" },
+{ en: "STEP 4 — Solve for the fourth root. \\(2-3+5=4,\\) so \\(4+r=0\\Rightarrow r=-4.\\) The hidden root is \\(-4.\\)",
+zh: "第 4 步 —— 解出第四个根。\\(2-3+5=4\\)，所以 \\(4+r=0\\Rightarrow r=-4\\)。隐藏的根是 \\(-4.\\)" },
+{ en: "STEP 5 — Rebuild as factors. \\(P(x)=(x-2)(x+3)(x-5)(x+4).\\) To multiply cleanly, PAIR them smartly: pair \\((x-2)(x+3)\\) and \\((x-5)(x+4).\\)",
+zh: "第 5 步 —— 用因式还原。\\(P(x)=(x-2)(x+3)(x-5)(x+4)\\)。为了乘得干净，聪明地两两配对：配 \\((x-2)(x+3)\\) 和 \\((x-5)(x+4).\\)" },
+{ en: "STEP 6 — Expand each pair. \\((x-2)(x+3)=x^2+x-6.\\) \\((x-5)(x+4)=x^2-x-20.\\)",
+zh: "第 6 步 —— 展开每一对。\\((x-2)(x+3)=x^2+x-6\\)。\\((x-5)(x+4)=x^2-x-20.\\)" },
+{ en: "STEP 7 — Multiply the two quadratics. \\((x^2+x-6)(x^2-x-20).\\) Multiply term by term and collect: \\(x^4-27x^2-14x+120.\\) (The \\(x^3\\) terms cancel — a good sign, matching the missing \\(x^3\\)!)",
+zh: "第 7 步 —— 把两个二次式相乘。\\((x^2+x-6)(x^2-x-20)\\)。逐项相乘合并：\\(x^4-27x^2-14x+120\\)。（\\(x^3\\) 项抵消了 —— 好兆头，正好对上缺失的 \\(x^3\\)！）" },
+{ en: "STEP 8 — Read off and add. Match \\(x^4+ax^2+bx+c\\): \\(a=-27,\\ b=-14,\\ c=120.\\) So \\(a+b+c=-27-14+120=79.\\)",
+zh: "第 8 步 —— 读出并相加。对照 \\(x^4+ax^2+bx+c\\)：\\(a=-27,\\ b=-14,\\ c=120\\)。所以 \\(a+b+c=-27-14+120=79.\\)" }
+],
+answer: { en: "\\(a+b+c=79\\)", zh: "\\(a+b+c=79\\)" },
+insight: { en: "A MISSING term is a free Vieta equation. 'No x^3' instantly tells you all roots sum to 0 — that single fact pins down the hidden root. Then reconstruct by factoring, and pair the factors smartly (so the cross terms are easy) to keep the algebra clean. The cancelling x^3 is a built-in self-check.",
+zh: "「缺项」就是一条免费的韦达方程。「没有 x^3」立刻告诉你所有根之和为 0 —— 这一个事实就锁定了隐藏根。然后用因式还原，并聪明地配对因式（让交叉项好算）保持计算干净。抵消的 x^3 是自带的自检。" }
+};
