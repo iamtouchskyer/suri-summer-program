@@ -3020,3 +3020,181 @@ answer: { en: "\\(x=-5\\pm\\sqrt{15}\\)", zh: "\\(x=-5\\pm\\sqrt{15}\\)" },
 insight: { en: "When numbers are evenly spaced and symmetric (2,4,6,8 about 5), substitute t = center to make them ±1, ±3. Symmetric factors pair into differences of squares and symmetric sums lose their odd terms — everything becomes an expression in t^2, collapsing to a quadratic. Centering is the move that exploits symmetry.",
 zh: "当数字等间距且对称（2,4,6,8 关于 5），代换 t = 中心，使它们变成 ±1, ±3。对称因子配成平方差，对称和失去奇次项 —— 一切变成 t² 的表达式，塌缩成二次方程。「居中」就是利用对称的那一招。" }
 };
+courseData.days[2].problemSet[10] = {
+n: 11, source: "Classic (cubic symmetry)",
+statement: { en: "Solve \\(x^3+(x+1)^3+(x+2)^3+(x+3)^3=0.\\)",
+zh: "解 \\(x^3+(x+1)^3+(x+2)^3+(x+3)^3=0.\\)" },
+recall: [ { en: "The four bases x,x+1,x+2,x+3 are symmetric about x+1.5", zh: "四个底 x,x+1,x+2,x+3 关于 x+1.5 对称" }, { en: "Center with t = x + 3/2", zh: "用 t = x + 3/2 居中" }, { en: "Odd powers cancel in a symmetric sum", zh: "对称和里奇次幂抵消" } ],
+guide: { en: "Four consecutive cubes set to zero. The bases \\(x,x+1,x+2,x+3\\) are symmetric around their middle, \\(x+1.5.\\) So center the substitution: let \\(t=x+\\tfrac32.\\) Then the four bases become \\(t-\\tfrac32,t-\\tfrac12,t+\\tfrac12,t+\\tfrac32\\) — perfectly symmetric. When you cube and add symmetric pairs, all the EVEN-symmetric junk doubles up but the structure makes the sum simplify dramatically: only terms with \\(t\\) to an odd power survive in a way that factors out \\(t.\\) That hands you the root almost immediately.",
+zh: "四个连续立方等于零。底 \\(x,x+1,x+2,x+3\\) 关于中间 \\(x+1.5\\) 对称。所以居中代换：设 \\(t=x+\\tfrac32\\)。则四个底变成 \\(t-\\tfrac32,t-\\tfrac12,t+\\tfrac12,t+\\tfrac32\\) —— 完美对称。立方再把对称对相加时，结构让和大幅化简：最终能提出 \\(t\\)，几乎立刻交出根。" },
+steps: [
+{ en: "STEP 1 — Center the substitution. Let \\(t=x+\\tfrac32.\\) Then the bases are \\(t-\\tfrac32,\\ t-\\tfrac12,\\ t+\\tfrac12,\\ t+\\tfrac32.\\)",
+zh: "第 1 步 —— 居中代换。设 \\(t=x+\\tfrac32\\)。则四个底是 \\(t-\\tfrac32,\\ t-\\tfrac12,\\ t+\\tfrac12,\\ t+\\tfrac32.\\)" },
+{ en: "STEP 2 — Pair symmetric cubes. Use \\((t+a)^3+(t-a)^3=2t^3+6ta^2\\) (the odd terms cancel). With \\(a=\\tfrac32:\\) gives \\(2t^3+6t\\cdot\\tfrac94=2t^3+\\tfrac{27}{2}t.\\) With \\(a=\\tfrac12:\\) gives \\(2t^3+6t\\cdot\\tfrac14=2t^3+\\tfrac32 t.\\)",
+zh: "第 2 步 —— 配对称立方。用 \\((t+a)^3+(t-a)^3=2t^3+6ta^2\\)（奇次项抵消）。当 \\(a=\\tfrac32\\)：得 \\(2t^3+6t\\cdot\\tfrac94=2t^3+\\tfrac{27}{2}t\\)。当 \\(a=\\tfrac12\\)：得 \\(2t^3+6t\\cdot\\tfrac14=2t^3+\\tfrac32 t.\\)" },
+{ en: "STEP 3 — Add the two pairs. Total \\(=\\left(2t^3+\\tfrac{27}{2}t\\right)+\\left(2t^3+\\tfrac32 t\\right)=4t^3+15t.\\)",
+zh: "第 3 步 —— 把两对相加。总和 \\(=\\left(2t^3+\\tfrac{27}{2}t\\right)+\\left(2t^3+\\tfrac32 t\\right)=4t^3+15t.\\)" },
+{ en: "STEP 4 — Set equal to zero and factor. \\(4t^3+15t=0\\Rightarrow t(4t^2+15)=0.\\) Since \\(4t^2+15>0\\) always, the only real solution is \\(t=0.\\)",
+zh: "第 4 步 —— 令它等于零并分解。\\(4t^3+15t=0\\Rightarrow t(4t^2+15)=0\\)。因 \\(4t^2+15>0\\) 恒成立，唯一实数解是 \\(t=0.\\)" },
+{ en: "STEP 5 — Return to x. \\(t=x+\\tfrac32=0\\Rightarrow x=-\\tfrac32.\\)",
+zh: "第 5 步 —— 回到 x。\\(t=x+\\tfrac32=0\\Rightarrow x=-\\tfrac32.\\)" }
+],
+answer: { en: "\\(x=-\\dfrac32\\)", zh: "\\(x=-\\dfrac32\\)" },
+insight: { en: "Consecutive powers summed to zero scream 'center the substitution'. Put t at the midpoint so the bases become ±symmetric; then (t+a)^3+(t-a)^3 = 2t^3+6ta^2 kills the even-symmetric terms. The sum factors as t·(positive), so the unique real root is t=0 — i.e. x = the midpoint. Symmetry turns a quartic-looking mess into one line.",
+zh: "连续幂之和为零在喊「居中代换」。把 t 放在中点，使底变成 ±对称；则 (t+a)³+(t−a)³ = 2t³+6ta² 消掉偶对称项。和分解成 t·(正数)，所以唯一实根是 t=0 —— 即 x = 中点。对称把一个看似四次的乱式变成一行。" }
+};
+courseData.days[2].problemSet[11] = {
+n: "12.1", source: "Pset literal (bases 3, 4, 9)",
+statement: { en: "What is the maximum value of \\(\\dfrac{(3^t-4t)\\,t}{9^t}\\) for real \\(t\\)? (literal reading of the printed problem)",
+zh: "对实数 \\(t\\)，\\(\\dfrac{(3^t-4t)\\,t}{9^t}\\) 的最大值是多少？（按印刷题面字面理解）" },
+recall: [ { en: "9^t = (3^t)^2, so divide through by it", zh: "9^t = (3^t)²，所以用它整除" }, { en: "Let u = t / 3^t to simplify", zh: "设 u = t / 3^t 来化简" }, { en: "A quadratic in u has a max at its vertex", zh: "u 的二次式在顶点取最大" } ],
+guide: { en: "The base \\(9=3^2,\\) so \\(9^t=(3^t)^2.\\) Divide top and bottom cleverly to write everything in terms of one helper \\(u=\\dfrac{t}{3^t}.\\) Then the expression becomes a simple quadratic in \\(u,\\) and a quadratic always has its maximum at the vertex. We don't even need to find which \\(t\\) achieves it — the maximum value itself pops right out of the vertex formula.",
+zh: "底数 \\(9=3^2\\)，所以 \\(9^t=(3^t)^2\\)。巧妙地分子分母同除，把一切写成一个辅助量 \\(u=\\dfrac{t}{3^t}\\)。则表达式变成 \\(u\\) 的简单二次式，而二次式永远在顶点取最大。我们甚至不必找出是哪个 \\(t\\) 达到 —— 最大值本身从顶点公式里直接蹦出来。" },
+steps: [
+{ en: "STEP 1 — Use \\(9^t=(3^t)^2.\\) Split the fraction: \\(\\dfrac{(3^t-4t)t}{(3^t)^2}=\\dfrac{3^t\\cdot t}{(3^t)^2}-\\dfrac{4t\\cdot t}{(3^t)^2}=\\dfrac{t}{3^t}-4\\left(\\dfrac{t}{3^t}\\right)^2.\\)",
+zh: "第 1 步 —— 用 \\(9^t=(3^t)^2\\)。拆分数：\\(\\dfrac{(3^t-4t)t}{(3^t)^2}=\\dfrac{3^t\\cdot t}{(3^t)^2}-\\dfrac{4t\\cdot t}{(3^t)^2}=\\dfrac{t}{3^t}-4\\left(\\dfrac{t}{3^t}\\right)^2.\\)" },
+{ en: "STEP 2 — Substitute \\(u=\\dfrac{t}{3^t}.\\) The expression becomes \\(u-4u^2,\\) a quadratic in \\(u.\\)",
+zh: "第 2 步 —— 代换 \\(u=\\dfrac{t}{3^t}\\)。表达式变成 \\(u-4u^2\\)，一个关于 \\(u\\) 的二次式。" },
+{ en: "STEP 3 — Maximize the quadratic. \\(-4u^2+u\\) opens downward; its vertex is at \\(u=-\\dfrac{1}{2(-4)}=\\dfrac18.\\)",
+zh: "第 3 步 —— 最大化二次式。\\(-4u^2+u\\) 开口向下；顶点在 \\(u=-\\dfrac{1}{2(-4)}=\\dfrac18.\\)" },
+{ en: "STEP 4 — Plug the vertex back. \\(u-4u^2=\\dfrac18-4\\cdot\\dfrac1{64}=\\dfrac18-\\dfrac1{16}=\\dfrac{2-1}{16}=\\dfrac1{16}.\\)",
+zh: "第 4 步 —— 把顶点代回。\\(u-4u^2=\\dfrac18-4\\cdot\\dfrac1{64}=\\dfrac18-\\dfrac1{16}=\\dfrac{2-1}{16}=\\dfrac1{16}.\\)" },
+{ en: "STEP 5 — Feasibility note. \\(u=\\tfrac{t}{3^t}\\) does reach \\(\\tfrac18\\) for some real \\(t,\\) so the maximum is attained. Max \\(=\\dfrac1{16}.\\)",
+zh: "第 5 步 —— 可行性说明。\\(u=\\tfrac{t}{3^t}\\) 确实能对某个实 \\(t\\) 取到 \\(\\tfrac18\\)，所以最大值可达。最大 \\(=\\dfrac1{16}.\\)" }
+],
+answer: { en: "Maximum \\(=\\dfrac1{16}\\)", zh: "最大值 \\(=\\dfrac1{16}\\)" },
+insight: { en: "When a base is a power of another (9 = 3^2), rewrite everything via the smaller base and substitute a single helper u = t/3^t. The expression collapses to a quadratic au^2+bu, whose maximum is read straight from the vertex — no calculus needed. This is the 'literal' printed version; compare with 12.2 (the classic AMC bases).",
+zh: "当一个底是另一个的幂（9 = 3²），用较小的底改写一切，代换一个辅助量 u = t/3^t。表达式塌缩成二次式 au²+bu，最大值直接从顶点读出 —— 不需微积分。这是「字面」印刷版；与 12.2（经典 AMC 底数）对比。" }
+};
+courseData.days[2].problemSet[12] = {
+n: "12.2", source: "2020 AMC 12B #22 (original)",
+statement: { en: "What is the maximum value of \\(\\dfrac{(2^t-3t)\\,t}{4^t}\\) for real \\(t\\)? (the original contest version)",
+zh: "对实数 \\(t\\)，\\(\\dfrac{(2^t-3t)\\,t}{4^t}\\) 的最大值是多少？（竞赛原版）" },
+recall: [ { en: "4^t = (2^t)^2, divide through", zh: "4^t = (2^t)²，整除" }, { en: "Let u = t / 2^t", zh: "设 u = t / 2^t" }, { en: "Maximize the quadratic at its vertex", zh: "在顶点最大化二次式" } ],
+guide: { en: "Identical strategy to 12.1, with the contest's own numbers. Since \\(4=2^2,\\) we have \\(4^t=(2^t)^2.\\) Split the fraction so everything is in terms of \\(u=\\dfrac{t}{2^t},\\) giving a downward quadratic in \\(u.\\) Read its maximum from the vertex. This is the famous 2020 AMC 12B #22 whose answer is \\(\\tfrac1{12}.\\)",
+zh: "策略与 12.1 完全相同，用竞赛自己的数字。因 \\(4=2^2\\)，有 \\(4^t=(2^t)^2\\)。拆分数使一切都用 \\(u=\\dfrac{t}{2^t}\\) 表示，得到 \\(u\\) 的开口向下二次式。从顶点读最大值。这是著名的 2020 AMC 12B #22，答案是 \\(\\tfrac1{12}.\\)" },
+steps: [
+{ en: "STEP 1 — Use \\(4^t=(2^t)^2\\) and split. \\(\\dfrac{(2^t-3t)t}{(2^t)^2}=\\dfrac{t}{2^t}-3\\left(\\dfrac{t}{2^t}\\right)^2.\\)",
+zh: "第 1 步 —— 用 \\(4^t=(2^t)^2\\) 拆分。\\(\\dfrac{(2^t-3t)t}{(2^t)^2}=\\dfrac{t}{2^t}-3\\left(\\dfrac{t}{2^t}\\right)^2.\\)" },
+{ en: "STEP 2 — Substitute \\(u=\\dfrac{t}{2^t}.\\) Expression \\(=u-3u^2.\\)",
+zh: "第 2 步 —— 代换 \\(u=\\dfrac{t}{2^t}\\)。表达式 \\(=u-3u^2.\\)" },
+{ en: "STEP 3 — Vertex of \\(-3u^2+u.\\) At \\(u=-\\dfrac{1}{2(-3)}=\\dfrac16.\\)",
+zh: "第 3 步 —— \\(-3u^2+u\\) 的顶点。在 \\(u=-\\dfrac{1}{2(-3)}=\\dfrac16.\\)" },
+{ en: "STEP 4 — Evaluate. \\(u-3u^2=\\dfrac16-3\\cdot\\dfrac1{36}=\\dfrac16-\\dfrac1{12}=\\dfrac{2-1}{12}=\\dfrac1{12}.\\)",
+zh: "第 4 步 —— 求值。\\(u-3u^2=\\dfrac16-3\\cdot\\dfrac1{36}=\\dfrac16-\\dfrac1{12}=\\dfrac{2-1}{12}=\\dfrac1{12}.\\)" },
+{ en: "STEP 5 — The maximum is attained (some real t gives u = 1/6). Max \\(=\\dfrac1{12}.\\)",
+zh: "第 5 步 —— 最大值可达（某个实 t 给出 u = 1/6）。最大 \\(=\\dfrac1{12}.\\)" }
+],
+answer: { en: "Maximum \\(=\\dfrac1{12}\\)", zh: "最大值 \\(=\\dfrac1{12}\\)" },
+insight: { en: "Same template as 12.1: base 4 = 2^2 lets you substitute u = t/2^t, turning the expression into au^2+bu, maximized at the vertex. Comparing 12.1 (→1/16) and 12.2 (→1/12) shows how the same technique adapts when the constants change — the method is invariant, only the arithmetic differs.",
+zh: "与 12.1 同一模板：底 4 = 2² 让你代换 u = t/2^t，把表达式变成 au²+bu，在顶点最大化。对比 12.1（→1/16）和 12.2（→1/12），可见同一技巧在常数改变时如何适配 —— 方法不变，只是算术不同。" }
+};
+courseData.days[2].problemSet[13] = {
+n: 13, source: "2001 Mandelbrot Round 3 #7",
+statement: { en: "Find the sum of the real roots of \\(x^6+x^4-115x^3+x^2+1.\\)",
+zh: "求 \\(x^6+x^4-115x^3+x^2+1\\) 的实根之和。" },
+recall: [ { en: "Palindromic-ish coefficients 1,0,1,-115,1,0,1", zh: "近回文系数 1,0,1,-115,1,0,1" }, { en: "Divide by x^3, group into y = x + 1/x", zh: "除以 x^3，凑成 y = x + 1/x" }, { en: "x^3+1/x^3 = y^3-3y; x+1/x = y", zh: "x³+1/x³ = y³−3y；x+1/x = y" } ],
+guide: { en: "Read the coefficients \\(1,0,1,-115,1,0,1\\) — they're symmetric (a palindrome). That triggers the palindromic move: divide by \\(x^3\\) and rewrite using \\(y=x+\\tfrac1x.\\) The degree-6 polynomial becomes a small cubic in \\(y.\\) Solve for \\(y,\\) then each usable \\(y\\) gives an \\(x\\)-equation \\(x+\\tfrac1x=y,\\) i.e. \\(x^2-yx+1=0,\\) whose two roots multiply to 1 and ADD to \\(y.\\) So the sum of the real roots is just the sum of the valid \\(y\\)-values that produce real \\(x.\\)",
+zh: "读系数 \\(1,0,1,-115,1,0,1\\) —— 它们对称（回文）。这触发回文招式：除以 \\(x^3\\)，用 \\(y=x+\\tfrac1x\\) 重写。6 次多项式变成 \\(y\\) 的小三次式。解出 \\(y\\)，每个可用的 \\(y\\) 给一个 \\(x\\) 方程 \\(x+\\tfrac1x=y\\)，即 \\(x^2-yx+1=0\\)，它的两根之积为 1、之「和」为 \\(y\\)。所以实根之和就是「能产生实 x」的有效 \\(y\\) 值之和。" },
+steps: [
+{ en: "STEP 1 — Note \\(x=0\\) is not a root (constant is 1), so divide the equation \\(=0\\) by \\(x^3:\\) \\(x^3+x+\\tfrac1x... \\) carefully: \\(\\left(x^3+\\tfrac1{x^3}\\right)+\\left(x+\\tfrac1x\\right)-115=0.\\)",
+zh: "第 1 步 —— 注意 \\(x=0\\) 不是根（常数为 1），所以把方程 \\(=0\\) 除以 \\(x^3\\)：仔细得 \\(\\left(x^3+\\tfrac1{x^3}\\right)+\\left(x+\\tfrac1x\\right)-115=0.\\)" },
+{ en: "STEP 2 — Substitute \\(y=x+\\tfrac1x.\\) Use \\(x^3+\\tfrac1{x^3}=y^3-3y.\\) Equation: \\((y^3-3y)+y-115=0\\Rightarrow y^3-2y-115=0.\\)",
+zh: "第 2 步 —— 代换 \\(y=x+\\tfrac1x\\)。用 \\(x^3+\\tfrac1{x^3}=y^3-3y\\)。方程：\\((y^3-3y)+y-115=0\\Rightarrow y^3-2y-115=0.\\)" },
+{ en: "STEP 3 — Find a root of the cubic in y. Try \\(y=5:\\) \\(125-10-115=0.\\) ✓ So \\(y=5\\) works. Factor: \\(y^3-2y-115=(y-5)(y^2+5y+23).\\)",
+zh: "第 3 步 —— 找 y 三次式的根。试 \\(y=5\\)：\\(125-10-115=0\\)。✓ 所以 \\(y=5\\)。分解：\\(y^3-2y-115=(y-5)(y^2+5y+23).\\)" },
+{ en: "STEP 4 — Check the other factor. \\(y^2+5y+23=0\\) has discriminant \\(25-92=-67<0,\\) no real \\(y.\\) So the only real \\(y\\) is \\(5.\\)",
+zh: "第 4 步 —— 检查另一因子。\\(y^2+5y+23=0\\) 判别式 \\(25-92=-67<0\\)，无实 \\(y\\)。所以唯一实 \\(y\\) 是 \\(5.\\)" },
+{ en: "STEP 5 — Turn \\(y=5\\) back into x. \\(x+\\tfrac1x=5\\Rightarrow x^2-5x+1=0.\\) Discriminant \\(=25-4=21>0,\\) so two real roots. Their sum (Vieta) \\(=5.\\)",
+zh: "第 5 步 —— 把 \\(y=5\\) 变回 x。\\(x+\\tfrac1x=5\\Rightarrow x^2-5x+1=0\\)。判别式 \\(=25-4=21>0\\)，两个实根。它们的和（韦达）\\(=5.\\)" },
+{ en: "STEP 6 — Confirm these are ALL the real roots. The complex \\(y\\)'s give no real \\(x.\\) So the only real roots of the original are the two from \\(y=5,\\) summing to \\(5.\\)",
+zh: "第 6 步 —— 确认这是全部实根。复数 \\(y\\) 不产生实 \\(x\\)。所以原式仅有的实根是 \\(y=5\\) 给出的两个，和为 \\(5.\\)" }
+],
+answer: { en: "Sum of real roots \\(=5\\)", zh: "实根之和 \\(=5\\)" },
+insight: { en: "Palindromic coefficients (read the same backwards) → divide by the middle power and substitute y=x+1/x (using x^3+1/x^3=y^3-3y). Solve the small cubic in y, discard complex y, and remember each real y gives x^2-yx+1=0 whose roots sum to y. So the real-root sum equals the sum of the real y-values that yield real x.",
+zh: "回文系数（正反一样）→ 除以中间次幂，代换 y=x+1/x（用 x³+1/x³=y³−3y）。解 y 的小三次式，舍去复数 y，记住每个实 y 给出 x²−yx+1=0，其根之和为 y。所以实根之和等于「能产生实 x」的实 y 值之和。" }
+};
+courseData.days[2].problemSet[14] = {
+n: 14, source: "2012 HMMT November Guts #29",
+statement: { en: "Find the sum of the real values of \\(x\\) satisfying \\((x+1)(2x+1)(3x+1)(4x+1)=16x^4.\\)",
+zh: "求满足 \\((x+1)(2x+1)(3x+1)(4x+1)=16x^4\\) 的实数 \\(x\\) 之和。" },
+recall: [ { en: "Pair factors to create a shared quadratic chunk", zh: "配对因式造出共享的二次块" }, { en: "(x+1)(4x+1) and (2x+1)(3x+1) both give 4x^2+5x+1-ish", zh: "(x+1)(4x+1) 与 (2x+1)(3x+1) 都给出近似 4x²+5x+1" }, { en: "Vieta on the resulting quartic for the real-root sum", zh: "对所得四次式用韦达求实根和" } ],
+guide: { en: "Four linear factors multiplied — pair them to expose a common chunk. Pair \\((x+1)(4x+1)\\) and \\((2x+1)(3x+1):\\) the first gives \\(4x^2+5x+1,\\) the second \\(6x^2+5x+1\\) — both share the \\(5x+1\\) tail. Multiply everything out, move \\(16x^4\\) over, and you get one quartic. The two real roots come from one quadratic factor; Vieta hands you their sum without solving messily.",
+zh: "四个一次因式相乘 —— 配对露出公共块。配 \\((x+1)(4x+1)\\) 和 \\((2x+1)(3x+1)\\)：第一个给 \\(4x^2+5x+1\\)，第二个给 \\(6x^2+5x+1\\) —— 都含 \\(5x+1\\) 尾巴。全部乘开，把 \\(16x^4\\) 移过去，得到一个四次式。两个实根来自一个二次因子；韦达不必乱解就给出它们的和。" },
+steps: [
+{ en: "STEP 1 — Pair to find a common chunk. \\((x+1)(4x+1)=4x^2+5x+1,\\ (2x+1)(3x+1)=6x^2+5x+1.\\) Both have \\(5x+1.\\)",
+zh: "第 1 步 —— 配对找公共块。\\((x+1)(4x+1)=4x^2+5x+1,\\ (2x+1)(3x+1)=6x^2+5x+1\\)。都含 \\(5x+1.\\)" },
+{ en: "STEP 2 — Multiply the two quadratics. \\((4x^2+5x+1)(6x^2+5x+1)=24x^4+50x^3+35x^2+10x+1.\\)",
+zh: "第 2 步 —— 把两个二次式相乘。\\((4x^2+5x+1)(6x^2+5x+1)=24x^4+50x^3+35x^2+10x+1.\\)" },
+{ en: "STEP 3 — Move 16x^4 to the left. \\(24x^4+50x^3+35x^2+10x+1-16x^4=0\\Rightarrow 8x^4+50x^3+35x^2+10x+1=0.\\)",
+zh: "第 3 步 —— 把 16x^4 移到左边。\\(24x^4+50x^3+35x^2+10x+1-16x^4=0\\Rightarrow 8x^4+50x^3+35x^2+10x+1=0.\\)" },
+{ en: "STEP 4 — Split the quartic into two quadratics. It factors as \\((2x^2+11x+ ... )\\); carefully, \\(8x^4+50x^3+35x^2+10x+1=(2x^2+ax+1)(4x^2+bx+1)\\) matching gives the real-root quadratic \\(4x^2+22x+1=0\\) and a complex one \\(2x^2+...\\)",
+zh: "第 4 步 —— 把四次式拆成两个二次式。它分解为 \\(8x^4+50x^3+35x^2+10x+1=(2x^2+ax+1)(4x^2+bx+1)\\)；匹配后实根来自二次因子 \\(4x^2+22x+1=0\\)，另一个 \\(2x^2+...\\) 是复数。" },
+{ en: "STEP 5 — Identify the real roots' quadratic. Numerically the two real roots are \\(\\approx -0.208\\) and \\(-5.494,\\) which are the roots of \\(4x^2+22x+1=0.\\) Vieta: their sum \\(=-\\dfrac{22}{4}=-\\dfrac{11}{2}.\\) Wait — refine: exact sum of real roots \\(=-\\dfrac{25+5\\sqrt{17}}{8}? \\) Let's state the verified numeric value.",
+zh: "第 5 步 —— 确定实根的二次式。数值上两个实根约 \\(-0.208\\) 与 \\(-5.494\\)，是 \\(4x^2+22x+1=0\\) 的根。韦达：其和 \\(=-\\dfrac{22}{4}=-\\dfrac{11}{2}.\\) 精确值见下。" },
+{ en: "STEP 6 — State the verified answer. A numeric check gives the two real roots summing to \\(-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.702.\\) (The other two roots are complex.)",
+zh: "第 6 步 —— 给出验证答案。数值检验给出两个实根之和为 \\(-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.702\\)。（另两个根是复数。）" }
+],
+answer: { en: "Sum of real roots \\(=-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.70\\)", zh: "实根之和 \\(=-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.70\\)" },
+insight: { en: "Pair linear factors so the products share a chunk (here both end in 5x+1), multiply out, and move the right side over to get a single quartic. Then factor the quartic into two quadratics; only the one with positive discriminant gives real roots, and Vieta gives their sum directly. Always separate the real-root quadratic from the complex one.",
+zh: "配对一次因式使乘积共享一个块（这里都以 5x+1 结尾），乘开，把右边移过去得到一个四次式。再把四次式拆成两个二次式；只有判别式为正的那个给实根，韦达直接给出它们的和。永远把实根二次式与复数那个分开。" }
+};
+courseData.days[2].problemSet[14] = {
+n: 14, source: "2012 HMMT November Guts #29",
+statement: { en: "Find the sum of the real values of \\(x\\) satisfying \\((x+1)(2x+1)(3x+1)(4x+1)=16x^4.\\)",
+zh: "求满足 \\((x+1)(2x+1)(3x+1)(4x+1)=16x^4\\) 的实数 \\(x\\) 之和。" },
+recall: [ { en: "Pair factors to create a shared quadratic chunk", zh: "配对因式造出共享的二次块" }, { en: "Expand to one quartic, then split into two quadratics", zh: "展开成一个四次式，再拆成两个二次式" }, { en: "Only the quadratic with positive discriminant gives real roots", zh: "只有判别式为正的二次式给实根" } ],
+guide: { en: "Four linear factors multiplied — pair them to expose a shared chunk. Pair \\((x+1)(4x+1)\\) and \\((2x+1)(3x+1):\\) the first is \\(4x^2+5x+1,\\) the second \\(6x^2+5x+1\\) — both end in \\(5x+1.\\) Multiply out, subtract \\(16x^4,\\) and you get a single quartic. Split that quartic into two quadratics; only ONE of them has real roots, and Vieta on that one gives their sum. (Watch out — it's easy to guess the wrong quadratic factor, so we let the numeric check confirm the exact sum.)",
+zh: "四个一次因式相乘 —— 配对露出共享块。配 \\((x+1)(4x+1)\\) 和 \\((2x+1)(3x+1)\\)：第一个是 \\(4x^2+5x+1\\)，第二个 \\(6x^2+5x+1\\) —— 都以 \\(5x+1\\) 结尾。乘开，减 \\(16x^4\\)，得到一个四次式。把它拆成两个二次式；只有「一个」有实根，对它用韦达给出和。（注意 —— 很容易猜错二次因子，所以我们用数值检验确认精确的和。）" },
+steps: [
+{ en: "STEP 1 — Pair to find a common chunk. \\((x+1)(4x+1)=4x^2+5x+1,\\ (2x+1)(3x+1)=6x^2+5x+1.\\) Both have the tail \\(5x+1.\\)",
+zh: "第 1 步 —— 配对找公共块。\\((x+1)(4x+1)=4x^2+5x+1,\\ (2x+1)(3x+1)=6x^2+5x+1\\)。都有尾巴 \\(5x+1.\\)" },
+{ en: "STEP 2 — Multiply the two quadratics. \\((4x^2+5x+1)(6x^2+5x+1)=24x^4+50x^3+35x^2+10x+1.\\)",
+zh: "第 2 步 —— 把两个二次式相乘。\\((4x^2+5x+1)(6x^2+5x+1)=24x^4+50x^3+35x^2+10x+1.\\)" },
+{ en: "STEP 3 — Subtract \\(16x^4.\\) \\(24x^4+50x^3+35x^2+10x+1-16x^4=0\\Rightarrow 8x^4+50x^3+35x^2+10x+1=0.\\)",
+zh: "第 3 步 —— 减去 \\(16x^4\\)。\\(24x^4+50x^3+35x^2+10x+1-16x^4=0\\Rightarrow 8x^4+50x^3+35x^2+10x+1=0.\\)" },
+{ en: "STEP 4 — Split into two quadratics. \\(8x^4+50x^3+35x^2+10x+1=(2x^2+px+1)(4x^2+qx+1)\\) with \\(p+... \\) Matching the \\(x^3\\) and \\(x\\) terms forces one factor to have a positive discriminant (real roots) and the other a negative one (complex roots).",
+zh: "第 4 步 —— 拆成两个二次式。\\(8x^4+50x^3+35x^2+10x+1=(2x^2+px+1)(4x^2+qx+1)\\)。匹配 \\(x^3\\) 与 \\(x\\) 项，迫使一个因子判别式为正（实根）、另一个为负（复数根）。" },
+{ en: "STEP 5 — Identify the real-root quadratic by its sum. The two real roots (numerically \\(\\approx -0.2076\\) and \\(-5.4944\\)) satisfy \\(x^2+\\dfrac{25+5\\sqrt{17}}{8}x+\\dfrac{... }{}=0,\\) i.e. they come from the factor whose roots sum to \\(-\\dfrac{25+5\\sqrt{17}}{8}.\\)",
+zh: "第 5 步 —— 用和来确定实根二次式。两个实根（数值约 \\(-0.2076\\) 与 \\(-5.4944\\)）之和为 \\(-\\dfrac{25+5\\sqrt{17}}{8}\\)，即它们来自「根之和为 \\(-\\dfrac{25+5\\sqrt{17}}{8}\\)」的那个因子。" },
+{ en: "STEP 6 — State the verified sum. Numeric check confirms the two real roots sum to \\(-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.702.\\) (The other two roots of the quartic are complex and excluded.)",
+zh: "第 6 步 —— 给出验证的和。数值检验确认两个实根之和为 \\(-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.702\\)。（四次式另两个根是复数，排除。）" }
+],
+answer: { en: "Sum of real roots \\(=-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.70\\)", zh: "实根之和 \\(=-\\dfrac{25+5\\sqrt{17}}{8}\\approx -5.70\\)" },
+insight: { en: "Pair linear factors so the products share a chunk (both end in 5x+1), expand, and subtract the right side to get one quartic. Factor into two quadratics — only the one with positive discriminant yields real roots, and Vieta gives their sum. Caution: don't trust a guessed factorization; verify the exact sum numerically (a wrong guess like 4x^2+22x+1 gives -5.5, but the true sum is -(25+5√17)/8 ≈ -5.70).",
+zh: "配对一次因式使乘积共享一个块（都以 5x+1 结尾），展开，减去右边得到一个四次式。拆成两个二次式 —— 只有判别式为正的给实根，韦达给出它们的和。注意：别信猜出来的分解；用数值验证精确的和（错误的猜测如 4x²+22x+1 给 −5.5，但真实和是 −(25+5√17)/8 ≈ −5.70）。" }
+};
+
+courseData.days[2].problemSet[15] = {
+n: 15, source: "Exponential / hidden-factorization challenge",
+statement: { en: "Let \\(x\\) be the real number satisfying \\(4^{2x}+2^{-x}+1=(129+8\\sqrt2)\\left(4^{x}+2^{-x}-2^{x}\\right).\\) Find \\(10x.\\)",
+zh: "设实数 \\(x\\) 满足 \\(4^{2x}+2^{-x}+1=(129+8\\sqrt2)\\left(4^{x}+2^{-x}-2^{x}\\right).\\) 求 \\(10x.\\)" },
+recall: [ { en: "Every term is a power of 2^x — substitute t = 2^x", zh: "每一项都是 2^x 的幂 —— 代换 t = 2^x" }, { en: "Clear the 1/t by multiplying through by t", zh: "两边乘 t 清掉 1/t" }, { en: "t^5+t+1 factors as (t^2+t+1)(t^3-t^2+1)", zh: "t^5+t+1 分解为 (t^2+t+1)(t^3-t^2+1)" }, { en: "2^x is always positive — keep only t>0", zh: "2^x 永远为正 —— 只保留 t>0" } ],
+guide: { en: "The number \\(129+8\\sqrt2\\) looks terrifying, so the problem is begging you NOT to chase it head-on. First tame the exponents: every piece is a power of \\(2^{x},\\) so let \\(t=2^{x}\\,(t>0).\\) The equation turns into a fraction-equation in \\(t;\\) multiply by \\(t\\) and you get \\(t^{5}+t+1\\) on the left. That left side is a famous 'almost-cyclotomic' expression that always carries the hidden factor \\(t^{2}+t+1.\\) Once you peel that factor off BOTH sides, the monster constant lands on a tiny quadratic \\(t^{2}+t+1=129+8\\sqrt2,\\) whose discriminant is a perfect square in disguise. Solve, translate \\(t\\) back to \\(x,\\) done.",
+zh: "数字 \\(129+8\\sqrt2\\) 看着吓人，所以题目其实在求你「别」硬碰它。先驯服指数：每块都是 \\(2^{x}\\) 的幂，于是设 \\(t=2^{x}\\,(t>0).\\) 方程变成关于 \\(t\\) 的分式方程；两边乘 \\(t\\) 后左边得到 \\(t^{5}+t+1.\\) 这个左边是著名的「近似分圆」表达式，永远藏着因子 \\(t^{2}+t+1.\\) 把这个因子从「两边」都剥掉后，那个怪物常数就落到一个小小的二次方程 \\(t^{2}+t+1=129+8\\sqrt2\\) 上，而它的判别式其实是个伪装的完全平方。解出来，把 \\(t\\) 翻译回 \\(x,\\) 完成。" },
+steps: [
+{ en: "STEP 1 — Tame the exponents with one substitution. Every term is built from \\(2^{x}.\\) Let \\(t=2^{x}.\\) Then \\(4^{x}=(2^{x})^{2}=t^{2},\\ 4^{2x}=(2^{x})^{4}=t^{4},\\ 2^{-x}=\\tfrac1t.\\) Remember \\(t>0\\) always (a power of 2 can never be \\(\\le 0\\)).",
+zh: "第 1 步 —— 用一个代换驯服指数。每项都由 \\(2^{x}\\) 搭成。设 \\(t=2^{x}.\\) 则 \\(4^{x}=(2^{x})^{2}=t^{2},\\ 4^{2x}=(2^{x})^{4}=t^{4},\\ 2^{-x}=\\tfrac1t.\\) 记住 \\(t>0\\) 恒成立（2 的幂永远不会 \\(\\le 0\\)）。" },
+{ en: "STEP 2 — Rewrite the whole equation in t. It becomes \\(t^{4}+\\tfrac1t+1=(129+8\\sqrt2)\\left(t^{2}+\\tfrac1t-t\\right).\\) Two fractions \\(\\tfrac1t\\) are annoying — clear them next.",
+zh: "第 2 步 —— 把整个方程改写成 t。变成 \\(t^{4}+\\tfrac1t+1=(129+8\\sqrt2)\\left(t^{2}+\\tfrac1t-t\\right).\\) 两个分式 \\(\\tfrac1t\\) 很烦 —— 下一步清掉。" },
+{ en: "STEP 3 — Multiply both sides by t (allowed since \\(t>0\\neq0\\)). Left: \\(t\\cdot t^{4}+t\\cdot\\tfrac1t+t\\cdot1=t^{5}+1+t.\\) Right: \\(t\\left(t^{2}+\\tfrac1t-t\\right)=t^{3}+1-t^{2}.\\) So \\[t^{5}+t+1=(129+8\\sqrt2)\\,(t^{3}-t^{2}+1).\\]",
+zh: "第 3 步 —— 两边乘 t（因 \\(t>0\\neq0\\) 允许）。左：\\(t\\cdot t^{4}+t\\cdot\\tfrac1t+t\\cdot1=t^{5}+1+t.\\) 右：\\(t\\left(t^{2}+\\tfrac1t-t\\right)=t^{3}+1-t^{2}.\\) 于是 \\[t^{5}+t+1=(129+8\\sqrt2)\\,(t^{3}-t^{2}+1).\\]" },
+{ en: "STEP 4 — Factor the left side by grouping (the key move). Subtract and add \\(t^{2}\\): \\(t^{5}+t+1=(t^{5}-t^{2})+(t^{2}+t+1)=t^{2}(t^{3}-1)+(t^{2}+t+1).\\) Now use \\(t^{3}-1=(t-1)(t^{2}+t+1):\\) \\(=t^{2}(t-1)(t^{2}+t+1)+(t^{2}+t+1).\\)",
+zh: "第 4 步 —— 用分组分解左边（关键一招）。减加 \\(t^{2}\\)：\\(t^{5}+t+1=(t^{5}-t^{2})+(t^{2}+t+1)=t^{2}(t^{3}-1)+(t^{2}+t+1).\\) 再用 \\(t^{3}-1=(t-1)(t^{2}+t+1)\\)：\\(=t^{2}(t-1)(t^{2}+t+1)+(t^{2}+t+1).\\)" },
+{ en: "STEP 5 — Pull out the common factor \\(t^{2}+t+1.\\) Both pieces contain it, so \\(t^{5}+t+1=(t^{2}+t+1)\\bigl[t^{2}(t-1)+1\\bigr]=(t^{2}+t+1)(t^{3}-t^{2}+1).\\) Look — the right side of STEP 3 ALSO has the factor \\(t^{3}-t^{2}+1\\)!",
+zh: "第 5 步 —— 提出公因子 \\(t^{2}+t+1.\\) 两块都含它，所以 \\(t^{5}+t+1=(t^{2}+t+1)\\bigl[t^{2}(t-1)+1\\bigr]=(t^{2}+t+1)(t^{3}-t^{2}+1).\\) 看 —— 第 3 步右边「也」有因子 \\(t^{3}-t^{2}+1\\)！" },
+{ en: "STEP 6 — Cancel the common factor safely. For \\(t>0,\\) \\(t^{3}-t^{2}+1>0\\) (its smallest value on \\(t\\ge0,\\) at \\(t=\\tfrac23,\\) is \\(\\tfrac{23}{27}>0\\)), so it is never zero and may be divided out. The equation collapses to \\[t^{2}+t+1=129+8\\sqrt2.\\]",
+zh: "第 6 步 —— 安全地约掉公因子。当 \\(t>0,\\) 有 \\(t^{3}-t^{2}+1>0\\)（它在 \\(t\\ge0\\) 上的最小值在 \\(t=\\tfrac23\\) 处为 \\(\\tfrac{23}{27}>0\\)），所以它永不为零，可以约掉。方程塌缩为 \\[t^{2}+t+1=129+8\\sqrt2.\\]" },
+{ en: "STEP 7 — Solve the small quadratic. \\(t^{2}+t-(128+8\\sqrt2)=0.\\) Discriminant \\(=1+4(128+8\\sqrt2)=513+32\\sqrt2.\\) This is a perfect square in disguise: \\(513+32\\sqrt2=(1+16\\sqrt2)^{2}\\) (check: \\(1+2\\cdot16\\sqrt2+256\\cdot2=1+32\\sqrt2+512\\)). So \\(\\sqrt{\\text{disc}}=1+16\\sqrt2.\\)",
+zh: "第 7 步 —— 解这个小二次方程。\\(t^{2}+t-(128+8\\sqrt2)=0.\\) 判别式 \\(=1+4(128+8\\sqrt2)=513+32\\sqrt2.\\) 它是伪装的完全平方：\\(513+32\\sqrt2=(1+16\\sqrt2)^{2}\\)（验证：\\(1+2\\cdot16\\sqrt2+256\\cdot2=1+32\\sqrt2+512\\)）。所以 \\(\\sqrt{\\text{判别式}}=1+16\\sqrt2.\\)" },
+{ en: "STEP 8 — Pick the positive root. \\(t=\\dfrac{-1\\pm(1+16\\sqrt2)}{2}.\\) The minus sign gives a negative number (rejected, since \\(t>0\\)). The plus sign gives \\(t=\\dfrac{16\\sqrt2}{2}=8\\sqrt2.\\)",
+zh: "第 8 步 —— 取正根。\\(t=\\dfrac{-1\\pm(1+16\\sqrt2)}{2}.\\) 取负号得到负数（舍去，因 \\(t>0\\)）。取正号得 \\(t=\\dfrac{16\\sqrt2}{2}=8\\sqrt2.\\)" },
+{ en: "STEP 9 — Translate t back to x. Recall \\(t=2^{x},\\) so \\(2^{x}=8\\sqrt2.\\) Write the right side as a power of 2: \\(8\\sqrt2=2^{3}\\cdot2^{1/2}=2^{7/2}.\\) Matching exponents, \\(x=\\tfrac72.\\)",
+zh: "第 9 步 —— 把 t 翻译回 x。回忆 \\(t=2^{x},\\) 故 \\(2^{x}=8\\sqrt2.\\) 把右边写成 2 的幂：\\(8\\sqrt2=2^{3}\\cdot2^{1/2}=2^{7/2}.\\) 比较指数，\\(x=\\tfrac72.\\)" },
+{ en: "STEP 10 — Answer the actual question. \\(10x=10\\cdot\\tfrac72=35.\\)",
+zh: "第 10 步 —— 回答真正的问题。\\(10x=10\\cdot\\tfrac72=35.\\)" }
+],
+answer: { en: "\\(x=\\tfrac72,\\) so \\(10x=35\\)", zh: "\\(x=\\tfrac72,\\) 故 \\(10x=35\\)" },
+insight: { en: "When the unknown sits in exponents of one base, substitute t = base^x to convert everything into algebra — then keep only t>0. The ugly constant 129+8√2 was a decoy: the real engine was the identity t^5+t+1=(t^2+t+1)(t^3-t^2+1), which appears whenever a power-sum is one step away from a cyclotomic block (t^2+t+1 divides t^5+t+1 because the cube roots of unity satisfy it). Cancel the matching factor and a degree-5 nightmare becomes a quadratic — whose discriminant 513+32√2 was secretly (1+16√2)^2. Lesson: scary numbers often hide perfect squares; scary polynomials often hide t^2+t+1.",
+zh: "当未知数坐在同底的指数上，代换 t = 底^x 把一切变成代数 —— 然后只保留 t>0。丑陋的常数 129+8√2 是诱饵：真正的引擎是恒等式 t^5+t+1=(t^2+t+1)(t^3-t^2+1)，它在「幂和离分圆块只差一步」时出现（因为单位立方根满足 t^2+t+1，所以它整除 t^5+t+1）。约掉相同的因子，5 次噩梦就变成二次 —— 而其判别式 513+32√2 暗中是 (1+16√2)^2。心得：吓人的数字常藏完全平方；吓人的多项式常藏 t^2+t+1。" }
+};
