@@ -2289,3 +2289,55 @@ answer: { en: "\\(=\\dfrac{1}{6}\\)", zh: "\\(=\\dfrac{1}{6}\\)" },
 insight: { en: "The golden trick: when each factor is 'all the roots except one added up', write it as S - (missing root). The product (S-r1)(S-r2)... is exactly the factored polynomial evaluated at x=S. So the answer = f(S)/(leading coefficient) — a single substitution replaces a giant multiplication. Always look for 'sum minus one' patterns.",
 zh: "黄金技巧：当每个因子是「除一个外其余根之和」，把它写成 S −(缺的根)。乘积 (S-r1)(S-r2)… 正是因式多项式在 x=S 处求值。所以答案 = f(S)/(最高次系数) —— 一次代入取代一个巨大的乘法。永远留意「和减一个」的模式。" }
 };
+courseData.days[1].problemSet[8] = {
+n: 9, source: "2003 HMMT February Guts #19",
+statement: { en: "\\(r,s,t\\) solve \\(x^3+ax^2+bx+c=0\\). Find \\((rs)^2+(st)^2+(rt)^2\\) in terms of \\(a,b,c\\).",
+zh: "\\(r,s,t\\) 是 \\(x^3+ax^2+bx+c=0\\) 的根。用 \\(a,b,c\\) 表示 \\((rs)^2+(st)^2+(rt)^2\\)。" },
+recall: [ { en: "Vieta cubic: r+s+t=-a, rs+st+rt=b, rst=-c", zh: "三次韦达：r+s+t=-a，rs+st+rt=b，rst=-c" }, { en: "The identity (sum of squares) = (sum)^2 - 2(sum of pairs)", zh: "恒等式：(平方和) = (和)² − 2(两两之和)" }, { en: "Treat rs, st, rt as three NEW numbers", zh: "把 rs, st, rt 当成三个新数" } ],
+guide: { en: "Don't be fooled by the squares. Think of the three products \\(rs,\\ st,\\ rt\\) as three NEW numbers — call them \\(p,q,w.\\) Then we want \\(p^2+q^2+w^2.\\) There's an identity you already met in Problem 25: the sum of squares equals (their sum)\\(^2\\) minus twice (the sum of their pairwise products). So we need the SUM of \\(rs,st,rt\\) and the SUM OF PAIRS of \\(rs,st,rt.\\) Both turn out to be simple Vieta quantities in disguise.",
+zh: "别被平方吓到。把三个乘积 \\(rs,\\ st,\\ rt\\) 看成三个新数 —— 叫它们 \\(p,q,w\\)。那么我们要 \\(p^2+q^2+w^2\\)。有个你在第 25 题见过的恒等式：平方和 = (它们的和)\\(^2\\) 减去两倍(它们两两乘积之和)。所以我们需要 \\(rs,st,rt\\) 的「和」与它们的「两两乘积之和」。这两个其实都是伪装的简单韦达量。" },
+steps: [
+{ en: "STEP 1 — Write down Vieta for the cubic. For \\(x^3+ax^2+bx+c:\\) \\(r+s+t=-a,\\ rs+st+rt=b,\\ rst=-c.\\)",
+zh: "第 1 步 —— 写下三次韦达。对 \\(x^3+ax^2+bx+c\\)：\\(r+s+t=-a\\)，\\(rs+st+rt=b\\)，\\(rst=-c.\\)" },
+{ en: "STEP 2 — Name the three products. Let \\(p=rs,\\ q=st,\\ w=rt.\\) We want \\(p^2+q^2+w^2.\\)",
+zh: "第 2 步 —— 给三个乘积起名。设 \\(p=rs,\\ q=st,\\ w=rt\\)。我们要 \\(p^2+q^2+w^2.\\)" },
+{ en: "STEP 3 — Use the sum-of-squares identity. \\(p^2+q^2+w^2=(p+q+w)^2-2(pq+qw+pw).\\) So we need \\(p+q+w\\) and \\(pq+qw+pw.\\)",
+zh: "第 3 步 —— 用平方和恒等式。\\(p^2+q^2+w^2=(p+q+w)^2-2(pq+qw+pw)\\)。所以我们要 \\(p+q+w\\) 和 \\(pq+qw+pw.\\)" },
+{ en: "STEP 4 — Find p+q+w. \\(p+q+w=rs+st+rt,\\) which is exactly Vieta's \\(b.\\) So \\(p+q+w=b.\\)",
+zh: "第 4 步 —— 求 p+q+w。\\(p+q+w=rs+st+rt\\)，正是韦达的 \\(b\\)。所以 \\(p+q+w=b.\\)" },
+{ en: "STEP 5 — Find pq+qw+pw (the tricky one). \\(pq=(rs)(st)=rs^2t,\\) and similarly for the others. Each term has all of \\(r,s,t\\) with one of them squared. Factor out \\(rst:\\) \\(pq+qw+pw=rst(s+r+t)\\)... let's verify: \\(pq=rs\\cdot st=s\\cdot(rst);\\ qw=st\\cdot rt=t\\cdot(rst);\\ pw=rs\\cdot rt=r\\cdot(rst).\\) Sum \\(=(r+s+t)\\cdot rst.\\)",
+zh: "第 5 步 —— 求 pq+qw+pw（最棘手的）。\\(pq=(rs)(st)=rs^2t\\)，其余类似。每项都含 \\(r,s,t\\) 且其中一个被平方。提出 \\(rst\\)：先验证 \\(pq=rs\\cdot st=s\\cdot(rst)\\)；\\(qw=st\\cdot rt=t\\cdot(rst)\\)；\\(pw=rs\\cdot rt=r\\cdot(rst)\\)。求和 \\(=(r+s+t)\\cdot rst.\\)" },
+{ en: "STEP 6 — Plug Vieta into that. \\((r+s+t)\\cdot rst=(-a)(-c)=ac.\\) So \\(pq+qw+pw=ac.\\)",
+zh: "第 6 步 —— 把韦达代进去。\\((r+s+t)\\cdot rst=(-a)(-c)=ac\\)。所以 \\(pq+qw+pw=ac.\\)" },
+{ en: "STEP 7 — Assemble. \\(p^2+q^2+w^2=(p+q+w)^2-2(pq+qw+pw)=b^2-2(ac)=b^2-2ac.\\)",
+zh: "第 7 步 —— 拼起来。\\(p^2+q^2+w^2=(p+q+w)^2-2(pq+qw+pw)=b^2-2(ac)=b^2-2ac.\\)" }
+],
+answer: { en: "\\((rs)^2+(st)^2+(rt)^2=b^2-2ac\\)", zh: "\\((rs)^2+(st)^2+(rt)^2=b^2-2ac\\)" },
+insight: { en: "Treat compound products (rs, st, rt) as three brand-new variables, then reuse the sum-of-squares identity (sum)^2 - 2(sum of pairs). The 'sum of pairs' of the products always factors out rst times (r+s+t). This 'rename and reapply' move turns scary higher-degree symmetric sums into the same two-step pattern you already know.",
+zh: "把复合乘积 (rs, st, rt) 当成三个全新变量，再复用平方和恒等式 (和)² − 2(两两之和)。这些乘积的「两两之和」总能提出 rst 乘以 (r+s+t)。这种「改名再套用」的手法，把吓人的高次对称和变回你已熟悉的同一个两步模式。" }
+};
+courseData.days[1].problemSet[9] = {
+n: 10, source: "1975 AHSME #27",
+statement: { en: "If \\(p,q,r\\) are distinct roots of \\(x^3-x^2+x-2=0\\), find \\(p^3+q^3+r^3\\).",
+zh: "若 \\(p,q,r\\) 是 \\(x^3-x^2+x-2=0\\) 的互异根，求 \\(p^3+q^3+r^3\\)。" },
+recall: [ { en: "Each root satisfies its OWN equation (degree reduction)", zh: "每个根满足它自己的方程（降次）" }, { en: "Vieta: p+q+r, pq+qr+pr, pqr from coefficients", zh: "韦达：p+q+r, pq+qr+pr, pqr 来自系数" }, { en: "sum of squares = (sum)^2 - 2(sum of pairs)", zh: "平方和 = (和)² − 2(两两之和)" } ],
+guide: { en: "The cube \\(p^3\\) looks hard, but here's the magic: each root SATISFIES the equation, so \\(p^3-p^2+p-2=0,\\) which means \\(p^3=p^2-p+2.\\) That replaces a cube with lower powers — and the same for \\(q,r.\\) Add the three up, and \\(p^3+q^3+r^3\\) becomes (sum of squares) − (sum) + (a constant). Both pieces are Vieta quantities. This 'degree-reduction' trick is the same idea you used in Problem 21.",
+zh: "立方 \\(p^3\\) 看着难，但魔法在于：每个根「满足」方程，所以 \\(p^3-p^2+p-2=0\\)，即 \\(p^3=p^2-p+2\\)。这就把立方换成了低次幂 —— \\(q,r\\) 同理。三个相加，\\(p^3+q^3+r^3\\) 就变成 (平方和) − (和) + (常数)。两块都是韦达量。这个「降次」技巧和你在第 21 题用的是同一个想法。" },
+steps: [
+{ en: "STEP 1 — Vieta first. For \\(x^3-x^2+x-2:\\) \\(p+q+r=1,\\ pq+qr+pr=1,\\ pqr=2.\\) (Signs: sum \\(=-(-1)=1,\\) pairs \\(=+1,\\) product \\(=-(-2)=2.\\))",
+zh: "第 1 步 —— 先韦达。对 \\(x^3-x^2+x-2\\)：\\(p+q+r=1\\)，\\(pq+qr+pr=1\\)，\\(pqr=2\\)。（符号：和 \\(=-(-1)=1\\)，两两 \\(=+1\\)，积 \\(=-(-2)=2\\)。）" },
+{ en: "STEP 2 — Degree-reduce each cube. Since \\(p\\) is a root: \\(p^3-p^2+p-2=0\\Rightarrow p^3=p^2-p+2.\\) Same for \\(q\\) and \\(r.\\)",
+zh: "第 2 步 —— 给每个立方降次。因 \\(p\\) 是根：\\(p^3-p^2+p-2=0\\Rightarrow p^3=p^2-p+2\\)。\\(q,r\\) 同理。" },
+{ en: "STEP 3 — Add the three. \\(p^3+q^3+r^3=(p^2+q^2+r^2)-(p+q+r)+(2+2+2).\\) The constant 2 appears once per root, so \\(+6.\\)",
+zh: "第 3 步 —— 三个相加。\\(p^3+q^3+r^3=(p^2+q^2+r^2)-(p+q+r)+(2+2+2)\\)。常数 2 每个根各出现一次，所以 \\(+6.\\)" },
+{ en: "STEP 4 — Need the sum of squares. Use the identity \\(p^2+q^2+r^2=(p+q+r)^2-2(pq+qr+pr).\\) Plug in: \\(=1^2-2(1)=1-2=-1.\\)",
+zh: "第 4 步 —— 需要平方和。用恒等式 \\(p^2+q^2+r^2=(p+q+r)^2-2(pq+qr+pr)\\)。代入：\\(=1^2-2(1)=1-2=-1.\\)" },
+{ en: "STEP 5 — Substitute everything. \\(p^3+q^3+r^3=(-1)-(1)+6.\\)",
+zh: "第 5 步 —— 全部代入。\\(p^3+q^3+r^3=(-1)-(1)+6.\\)" },
+{ en: "STEP 6 — Finish. \\(-1-1+6=4.\\)",
+zh: "第 6 步 —— 收尾。\\(-1-1+6=4.\\)" }
+],
+answer: { en: "\\(p^3+q^3+r^3=4\\)", zh: "\\(p^3+q^3+r^3=4\\)" },
+insight: { en: "To handle sums of high powers of roots: use 'each root satisfies its equation' to drop the power by one (here cube becomes square-minus-linear-plus-constant). Add over all roots, and you're left with sum-of-squares and sum — both pure Vieta. This degree-reduction + symmetric-sum combo is one of the most reusable tools in the whole topic.",
+zh: "处理根的高次幂之和：用「每个根满足方程」把次数降一（这里立方变成 平方−一次+常数）。对所有根求和，就只剩平方和与和 —— 都是纯韦达。这个「降次 + 对称和」组合是整个专题里最可复用的工具之一。" }
+};
