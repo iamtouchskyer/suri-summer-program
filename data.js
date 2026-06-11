@@ -2341,3 +2341,54 @@ answer: { en: "\\(p^3+q^3+r^3=4\\)", zh: "\\(p^3+q^3+r^3=4\\)" },
 insight: { en: "To handle sums of high powers of roots: use 'each root satisfies its equation' to drop the power by one (here cube becomes square-minus-linear-plus-constant). Add over all roots, and you're left with sum-of-squares and sum — both pure Vieta. This degree-reduction + symmetric-sum combo is one of the most reusable tools in the whole topic.",
 zh: "处理根的高次幂之和：用「每个根满足方程」把次数降一（这里立方变成 平方−一次+常数）。对所有根求和，就只剩平方和与和 —— 都是纯韦达。这个「降次 + 对称和」组合是整个专题里最可复用的工具之一。" }
 };
+/* ===================== DAY 3 ===================== */
+courseData.days[2] = {
+id: "day3",
+unit: "Day 3",
+date: { en: "Polynomial Solving Techniques", zh: "多项式解题技巧" },
+title: { en: "Solving Techniques", zh: "解题技巧" },
+subtitle: { en: "When formulas fail, cleverness wins: substitution, symmetry, and degree-reduction", zh: "当公式失灵，靠巧思取胜：代换、对称与降次" },
+tags: ["Substitution", "Symmetry", "Degree Reduction", "Nested Radicals"],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+};
+courseData.days[2].knowledgePoints = [
+{
+name: { en: "Why there's no formula past degree 4", zh: "为什么 4 次以上没有公式" },
+detail: { en: "You already know the quadratic formula. There IS a cubic formula and a quartic formula too — but they are monstrous (the quartic one fills half a page). Then something shocking happens: Abel and Ruffini PROVED that for degree 5 and higher, no formula using only +, -, ×, ÷, and roots can ever exist. This is not 'we haven't found it yet' — it's 'it is impossible, forever.' So for hard polynomial problems, brute-force formulas are useless. The entire game becomes: find a clever trick that sidesteps solving. That is what Day 3 is about.", zh: "你已经会二次求根公式。其实三次、四次也有求根公式 —— 但它们是怪物（四次公式能占半页纸）。然后惊人的事发生了：Abel 和 Ruffini 证明了：对 5 次及以上，不存在任何只用 +、−、×、÷ 和开方就能写出的公式。这不是「还没找到」—— 而是「永远不可能」。所以对难的多项式问题，硬套公式没用。整个游戏就变成：找一个绕开「解方程」的巧招。这正是 Day 3 的主题。" },
+example: { en: "Degree 2: clean formula. Degree 3,4: ugly but exist. Degree ≥5: provably NO formula. Lesson: stop hunting for roots; hunt for structure.", zh: "2 次：干净的公式。3、4 次：丑但存在。≥5 次：已证明没有公式。教训：别再找根，去找结构。" },
+formula: { en: "x = \\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}\\quad(\\text{deg }2\\text{ only})", zh: "x = \\dfrac{-b\\pm\\sqrt{b^2-4ac}}{2a}\\quad(\\text{仅 2 次})" }
+},
+{
+name: { en: "Substitution: give the messy part a name", zh: "代换：给乱的部分起个名字" },
+detail: { en: "The single most powerful move in the whole topic. If an equation has a repeated chunk — like x^2+18x appearing twice, or 2^x showing up as 2^(2x) and 2^(3x) — give that chunk ONE new letter. Suddenly a scary degree-6 equation can become a friendly quadratic in the new variable. Solve the easy equation, then 'un-substitute' to get back to x. The art is spotting WHICH chunk repeats; once you see it, the problem often collapses in two lines.", zh: "整个专题里最强的一招。如果方程里有重复出现的块 —— 比如 x²+18x 出现两次，或 2^x 以 2^(2x)、2^(3x) 形式出现 —— 给那个块起「一个」新字母。突然，一个吓人的 6 次方程就能变成新变量里的友好二次方程。解出简单方程，再「逆代换」回 x。技巧在于看出「哪个」块重复；一旦看到，问题往往两行就塌缩。" },
+example: { en: "To solve x^4-3x^2+2=0, let y=x^2: it becomes y^2-3y+2=0, so y=1 or 2, giving x=±1, ±√2. A quartic solved like a quadratic.", zh: "解 x⁴−3x²+2=0，设 y=x²：变成 y²−3y+2=0，得 y=1 或 2，于是 x=±1, ±√2。一个四次方程当二次方程解。" },
+formula: { en: "\\text{Let } y=g(x)\\ \\Rightarrow\\ \\text{equation in }y\\ \\Rightarrow\\ \\text{solve, then back-substitute}", zh: "\\text{设 } y=g(x)\\ \\Rightarrow\\ \\text{关于 }y\\text{ 的方程}\\ \\Rightarrow\\ \\text{解出后逆代换}" }
+},
+{
+name: { en: "Symmetry: pair the factors smartly", zh: "对称：聪明地配对因式" },
+detail: { en: "When you see a product like (x+2)(x+4)(x+6)(x+8), do NOT expand blindly. Look for a pairing that creates the SAME quadratic chunk twice. Pair the outer-balanced ones: (x+2)(x+8)=x^2+10x+16 and (x+4)(x+6)=x^2+10x+24. Both contain x^2+10x! Now let y=x^2+10x and the whole thing is a small equation in y. The secret is choosing pairs whose 'middle' matches — usually pairing so the two constants add to the same total.", zh: "当你看到 (x+2)(x+4)(x+6)(x+8) 这样的乘积，别盲目展开。找一种配对，让它造出「同一个」二次块两次。配「两端平衡」的：(x+2)(x+8)=x²+10x+16 和 (x+4)(x+6)=x²+10x+24。两个都含 x²+10x！现在设 y=x²+10x，整个就是 y 里的小方程。秘诀是选「中间项」能对上的配对 —— 通常是让两个常数加起来总和相同。" },
+example: { en: "Roots 2,4,6,8 are evenly spaced. Pairing 2&8 and 4&6 (both sum to 10) makes both quadratics share x^2+10x. Always pair the symmetric ends.", zh: "根 2,4,6,8 等间距。配 2&8 和 4&6（都加到 10）让两个二次式都含 x²+10x。永远配对称的两端。" },
+formula: { en: "(x+p)(x+q)(x+r)(x+s),\\ p+s=q+r\\ \\Rightarrow\\ \\text{common chunk }x^2+(p+s)x", zh: "(x+p)(x+q)(x+r)(x+s),\\ p+s=q+r\\ \\Rightarrow\\ \\text{公共块 }x^2+(p+s)x" }
+},
+{
+name: { en: "Degree reduction: a root obeys its own equation", zh: "降次：根服从它自己的方程" },
+detail: { en: "If r is a root of x^3 = 5x - 1, then r literally satisfies r^3 = 5r - 1. That's a rule you can USE: anywhere you see r^3, replace it with 5r-1 — a lower power. Need r^4? Just multiply: r^4 = r·r^3 = r(5r-1) = 5r^2 - r. This lets you shrink ANY high power of a root down to a simple combination of 1, r, r^2. It turns terrifying expressions like r^7 into something you can actually add up. We used this on Day 2; on Day 3 it's a workhorse.", zh: "如果 r 是 x³=5x−1 的根，那么 r 就真的满足 r³=5r−1。这是一条你能「用」的规则：任何地方看到 r³，就把它换成 5r−1 —— 一个更低的次幂。需要 r⁴？乘一下：r⁴=r·r³=r(5r−1)=5r²−r。这让你能把根的「任何高次幂」缩成 1、r、r² 的简单组合。它把 r⁷ 这种吓人表达式变成你真能加起来的东西。第 2 天我们用过；第 3 天它是主力。" },
+example: { en: "If r^2 = r + 1 (golden ratio!), then r^3 = r·r^2 = r(r+1) = r^2+r = (r+1)+r = 2r+1. Each higher power folds back down to 'something·r + something'.", zh: "若 r²=r+1（黄金比例！），则 r³=r·r²=r(r+1)=r²+r=(r+1)+r=2r+1。每个更高次幂都折回成「某数·r + 某数」。" },
+formula: { en: "r^n = r^{n-3}\\cdot r^3 = r^{n-3}(5r-1)\\ \\text{(repeat to fully reduce)}", zh: "r^n = r^{n-3}\\cdot r^3 = r^{n-3}(5r-1)\\ \\text{（反复降到底）}" }
+},
+{
+name: { en: "Nested radicals: name it, then square", zh: "嵌套根式：起名，再平方" },
+detail: { en: "Equations with a square root, like x^2+18x+30 = 2√(x^2+18x+45), look impossible because the root traps everything. Two ideas rescue you. First, SUBSTITUTE the repeated chunk (here x^2+18x) so the equation is simpler. Second, ISOLATE the radical on one side and SQUARE both sides to remove it — but beware: squaring can create fake 'solutions' that don't actually work, so you MUST check every answer back in the original equation. Squaring is powerful but it lies sometimes; checking keeps it honest.", zh: "带平方根的方程，比如 x²+18x+30 = 2√(x²+18x+45)，看着没法做，因为根号把一切困住了。两个想法救你。第一，「代换」重复的块（这里 x²+18x）让方程更简单。第二，把根号「孤立」到一边，两边「平方」消掉它 —— 但当心：平方会制造出实际不成立的假「解」，所以你「必须」把每个答案代回原方程检验。平方很强，但有时会撒谎；检验让它保持诚实。" },
+example: { en: "Solve √x = x-2: square → x = x^2-4x+4 → x^2-5x+4=0 → x=1 or 4. CHECK: x=4 works (√4=2 ✓); x=1 fails (√1=1≠-1). Squaring invented the fake root x=1.", zh: "解 √x=x−2：平方 → x=x²−4x+4 → x²−5x+4=0 → x=1 或 4。检验：x=4 成立（√4=2 ✓）；x=1 不成立（√1=1≠−1）。平方造出了假根 x=1。" },
+formula: { en: "\\sqrt{A}=B\\ \\xrightarrow{\\text{square}}\\ A=B^2\\ \\text{(then VERIFY each root!)}", zh: "\\sqrt{A}=B\\ \\xrightarrow{\\text{平方}}\\ A=B^2\\ \\text{（然后逐个验根！）}" }
+},
+{
+name: { en: "Telescoping & near-perfect powers", zh: "望远镜式 & 近乎完全幂" },
+detail: { en: "Sometimes a giant expression is secretly ALMOST a perfect power or a binomial expansion in disguise. The coefficients 1, 5, 10, 10, 5, 1 should make your ears prick up — those are the binomial coefficients of (x+1)^5! So x^5+5x^4+10x^3+10x^2+5x+1 is exactly (x+1)^5. If a problem gives you something close to that, the move is to COMPARE it to the perfect power and patch the small difference. Likewise patterns like 1,-4,6,-4,1 signal a 4th difference / (something)^4 structure. Recognizing these hidden binomials turns a brutal computation into one clean line.", zh: "有时一个庞大表达式其实「几乎」是一个完全幂或伪装的二项式展开。系数 1, 5, 10, 10, 5, 1 应该让你竖起耳朵 —— 那是 (x+1)⁵ 的二项式系数！所以 x⁵+5x⁴+10x³+10x²+5x+1 正好是 (x+1)⁵。如果题目给你接近这个的东西，招式就是把它和那个完全幂「比较」，再修补微小的差。同样，1,−4,6,−4,1 这种模式暗示「4 阶差分 / (某式)⁴」结构。认出这些隐藏的二项式，能把残暴的计算变成干净的一行。" },
+example: { en: "Recognize (x+1)^5 = x^5+5x^4+10x^3+10x^2+5x+1. If you're given x^5+5x^4+10x^3+10x^2-5x+1, that's (x+1)^5 minus 10x. Spotting the pattern is the whole solution.", zh: "认出 (x+1)⁵ = x⁵+5x⁴+10x³+10x²+5x+1。若给你 x⁵+5x⁴+10x³+10x²−5x+1，那就是 (x+1)⁵ 减去 10x。看出模式就解决了一大半。" },
+formula: { en: "(x+1)^5=\\sum_{k=0}^{5}\\binom{5}{k}x^k=x^5+5x^4+10x^3+10x^2+5x+1", zh: "(x+1)^5=\\sum_{k=0}^{5}\\binom{5}{k}x^k=x^5+5x^4+10x^3+10x^2+5x+1" }
+}
+];
