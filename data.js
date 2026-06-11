@@ -2392,3 +2392,321 @@ example: { en: "Recognize (x+1)^5 = x^5+5x^4+10x^3+10x^2+5x+1. If you're given x
 formula: { en: "(x+1)^5=\\sum_{k=0}^{5}\\binom{5}{k}x^k=x^5+5x^4+10x^3+10x^2+5x+1", zh: "(x+1)^5=\\sum_{k=0}^{5}\\binom{5}{k}x^k=x^5+5x^4+10x^3+10x^2+5x+1" }
 }
 ];
+
+/* ---- Day 3 · Section 2: Worked Examples ---- */
+courseData.days[2].problems.push(
+{
+source: { en: "Warm-up", zh: "热身" },
+statement: { en: "Solve \\((x^2+x)^2 - 8(x^2+x) + 12 = 0\\).",
+zh: "解 \\((x^2+x)^2 - 8(x^2+x) + 12 = 0\\)。" },
+recall: [
+{ en: "Substitution: name the repeated chunk", zh: "代换：给重复的块起名字" },
+{ en: "Factoring a quadratic", zh: "二次因式分解" }
+],
+guide: {
+en: "Your eye should jump to the chunk \\(x^2+x\\) — it appears twice. The whole left side is built out of it. So give it ONE new name \\(y=x^2+x\\); the scary degree-4 equation instantly becomes a friendly quadratic in \\(y\\). Solve that, then 'un-substitute' to recover \\(x\\). Do NOT expand the square — that throws away the very structure that makes this easy.",
+zh: "你的目光应该立刻跳到 \\(x^2+x\\) 这个块 —— 它出现了两次。整个左边都是用它搭起来的。所以给它「一个」新名字 \\(y=x^2+x\\)；那个吓人的四次方程瞬间变成 \\(y\\) 里的友好二次方程。解出它，再「逆代换」回 \\(x\\)。千万别展开那个平方 —— 那会把让题目变简单的结构白白丢掉。"
+},
+steps: [
+{ en: "Spot the repeated chunk \\(x^2+x\\) and let \\(y=x^2+x\\).",
+zh: "看出重复的块 \\(x^2+x\\)，设 \\(y=x^2+x\\)。" },
+{ en: "The equation becomes \\(y^2-8y+12=0\\).",
+zh: "方程变成 \\(y^2-8y+12=0\\)。" },
+{ en: "Factor: \\((y-2)(y-6)=0\\Rightarrow y=2\\) or \\(y=6\\).",
+zh: "因式分解：\\((y-2)(y-6)=0\\Rightarrow y=2\\) 或 \\(y=6\\)。" },
+{ en: "Un-substitute, case \\(y=2\\): \\(x^2+x-2=0\\Rightarrow(x+2)(x-1)=0\\Rightarrow x=-2,1.\\)",
+zh: "逆代换，情形 \\(y=2\\)：\\(x^2+x-2=0\\Rightarrow(x+2)(x-1)=0\\Rightarrow x=-2,1.\\)" },
+{ en: "Case \\(y=6\\): \\(x^2+x-6=0\\Rightarrow(x+3)(x-2)=0\\Rightarrow x=-3,2.\\)",
+zh: "情形 \\(y=6\\)：\\(x^2+x-6=0\\Rightarrow(x+3)(x-2)=0\\Rightarrow x=-3,2.\\)" },
+{ en: "Collect all four real roots: \\(x=-3,-2,1,2.\\)",
+zh: "收齐四个实根：\\(x=-3,-2,1,2.\\)" }
+],
+answer: { en: "\\(x\\in\\{-3,-2,1,2\\}\\)", zh: "\\(x\\in\\{-3,-2,1,2\\}\\)" },
+insight: {
+en: "A degree-4 equation solved exactly like a quadratic — the entire trick was naming the chunk that repeats. Whenever the same expression shows up more than once, that's your substitution shouting at you.",
+zh: "一个四次方程，被当成二次方程一样解掉 —— 全部的诀窍就是给那个重复的块起名字。只要同一个表达式出现不止一次，那就是代换在向你大喊。"
+}
+},
+{
+source: { en: "Textbook Classic", zh: "课本经典" },
+statement: { en: "Solve \\((x+1)(x+2)(x+3)(x+4)=120\\).",
+zh: "解 \\((x+1)(x+2)(x+3)(x+4)=120\\)。" },
+recall: [
+{ en: "Symmetry: pair the factors smartly", zh: "对称：聪明地配对因式" },
+{ en: "Substitution into a common chunk", zh: "代换成公共块" }
+],
+guide: {
+en: "Four factors multiplied out is a degree-4 monster — don't do it. The shifts \\(1,2,3,4\\) are evenly spaced, so pair the OUTER-balanced ones: \\((x+1)\\) with \\((x+4)\\), and \\((x+2)\\) with \\((x+3)\\). Each constant-pair sums to \\(5\\), so both products carry the SAME chunk \\(x^2+5x\\). Name that chunk and the monster shrinks to a quadratic.",
+zh: "四个因式乘开是个四次怪物 —— 别那么做。偏移量 \\(1,2,3,4\\) 是等间距的，所以配「两端平衡」的：\\((x+1)\\) 配 \\((x+4)\\)，\\((x+2)\\) 配 \\((x+3)\\)。每对常数都加到 \\(5\\)，于是两个乘积都带着「同一个」块 \\(x^2+5x\\)。给这个块起名，怪物就缩成一个二次方程。"
+},
+steps: [
+{ en: "Pair the symmetric ends: \\((x+1)(x+4)=x^2+5x+4\\) and \\((x+2)(x+3)=x^2+5x+6\\). Both share \\(x^2+5x\\)!",
+zh: "配对称的两端：\\((x+1)(x+4)=x^2+5x+4\\) 与 \\((x+2)(x+3)=x^2+5x+6\\)。两个都含 \\(x^2+5x\\)！" },
+{ en: "Let \\(t=x^2+5x\\). The equation becomes \\((t+4)(t+6)=120\\).",
+zh: "设 \\(t=x^2+5x\\)。方程变成 \\((t+4)(t+6)=120\\)。" },
+{ en: "Expand: \\(t^2+10t+24=120\\Rightarrow t^2+10t-96=0\\).",
+zh: "展开：\\(t^2+10t+24=120\\Rightarrow t^2+10t-96=0\\)。" },
+{ en: "Factor: \\((t-6)(t+16)=0\\Rightarrow t=6\\) or \\(t=-16\\).",
+zh: "因式分解：\\((t-6)(t+16)=0\\Rightarrow t=6\\) 或 \\(t=-16\\)。" },
+{ en: "Case \\(t=6\\): \\(x^2+5x-6=0\\Rightarrow(x+6)(x-1)=0\\Rightarrow x=-6,1.\\)",
+zh: "情形 \\(t=6\\)：\\(x^2+5x-6=0\\Rightarrow(x+6)(x-1)=0\\Rightarrow x=-6,1.\\)" },
+{ en: "Case \\(t=-16\\): \\(x^2+5x+16=0\\) has discriminant \\(25-64<0\\) — no real roots, discard.",
+zh: "情形 \\(t=-16\\)：\\(x^2+5x+16=0\\) 的判别式 \\(25-64<0\\) —— 无实根，舍去。" },
+{ en: "Real solutions: \\(x=-6\\) and \\(x=1.\\)",
+zh: "实数解：\\(x=-6\\) 和 \\(x=1.\\)" }
+],
+answer: { en: "\\(x=-6\\) or \\(x=1\\)", zh: "\\(x=-6\\) 或 \\(x=1\\)" },
+insight: {
+en: "Pair the symmetric ends so both products share the same \\(x^2+(\\cdots)x\\); that common chunk is your substitution. The pairing whose constants share a sum is the one that works — here \\(1+4=2+3=5\\).",
+zh: "配对称的两端，让两个乘积共享同一个 \\(x^2+(\\cdots)x\\)；那个公共块就是你的代换。常数之和相同的那种配对才管用 —— 这里 \\(1+4=2+3=5\\)。"
+}
+},
+{
+source: { en: "Degree Reduction", zh: "降次" },
+statement: { en: "\\(r\\) is a root of \\(x^2=x+3\\). Find \\(r^4-7r\\).",
+zh: "\\(r\\) 是 \\(x^2=x+3\\) 的根，求 \\(r^4-7r\\)。" },
+recall: [
+{ en: "A root obeys its own equation → degree reduction", zh: "根服从它自己的方程 → 降次" }
+],
+guide: {
+en: "The roots of \\(x^2=x+3\\) are ugly: \\((1\\pm\\sqrt{13})/2\\). Computing \\(r^4\\) directly would be brutal. Instead use the fact that \\(r\\) obeys its own equation: \\(r^2=r+3\\). Treat that as a rewrite rule — every time an \\(r^2\\) appears, swap it for \\(r+3\\). Climb one power at a time: \\(r^2\\to r^3\\to r^4\\), reducing as you go. The high power melts down to '(number)\\(\\cdot r\\) + number'.",
+zh: "\\(x^2=x+3\\) 的根很丑：\\((1\\pm\\sqrt{13})/2\\)。直接算 \\(r^4\\) 会很惨。换个办法，用「根服从它自己的方程」这个事实：\\(r^2=r+3\\)。把它当成一条改写规则 —— 每次出现 \\(r^2\\)，就换成 \\(r+3\\)。一次爬一个次幂：\\(r^2\\to r^3\\to r^4\\)，边爬边降。那个高次幂会融化成「（某数）\\(\\cdot r\\) + 某数」。"
+},
+steps: [
+{ en: "The rewrite rule (from the equation): \\(r^2=r+3\\).",
+zh: "改写规则（来自方程）：\\(r^2=r+3\\)。" },
+{ en: "\\(r^3=r\\cdot r^2=r(r+3)=r^2+3r=(r+3)+3r=4r+3.\\)",
+zh: "\\(r^3=r\\cdot r^2=r(r+3)=r^2+3r=(r+3)+3r=4r+3.\\)" },
+{ en: "\\(r^4=r\\cdot r^3=r(4r+3)=4r^2+3r=4(r+3)+3r=7r+12.\\)",
+zh: "\\(r^4=r\\cdot r^3=r(4r+3)=4r^2+3r=4(r+3)+3r=7r+12.\\)" },
+{ en: "Therefore \\(r^4-7r=(7r+12)-7r=12.\\)",
+zh: "于是 \\(r^4-7r=(7r+12)-7r=12.\\)" }
+],
+answer: { en: "\\(r^4-7r=12\\) — and it's the same for BOTH roots.", zh: "\\(r^4-7r=12\\) —— 而且两个根都一样。" },
+insight: {
+en: "A root is a rewrite rule in disguise. Replace \\(r^2\\) each time and any high power collapses to a linear piece; here the \\(r\\)-part cancelled perfectly, leaving a clean integer with no \\(\\sqrt{13}\\) in sight.",
+zh: "根其实是一条伪装的改写规则。每次把 \\(r^2\\) 换掉，任何高次幂都会塌成一次式；这里 \\(r\\) 的部分完美抵消，留下一个干净的整数，连 \\(\\sqrt{13}\\) 的影子都没有。"
+}
+},
+{
+source: { en: "Radical + Substitution", zh: "根式 + 代换" },
+statement: { en: "Solve \\(x^2-3x+\\sqrt{x^2-3x+5}=7\\).",
+zh: "解 \\(x^2-3x+\\sqrt{x^2-3x+5}=7\\)。" },
+recall: [
+{ en: "Nested radicals: name it, then square", zh: "嵌套根式：起名，再平方" },
+{ en: "Substitution + verify (squaring can lie)", zh: "代换 + 验根（平方会撒谎）" }
+],
+guide: {
+en: "The chunk \\(x^2-3x\\) sits both OUTSIDE the root and INSIDE it. So name it once: \\(u=x^2-3x\\). The equation collapses to \\(u+\\sqrt{u+5}=7\\). Now isolate the radical on one side and square to kill it — but squaring can invent fake solutions, so you MUST check each candidate against the original (and against the 'right side must be \\(\\ge 0\\)' rule).",
+zh: "块 \\(x^2-3x\\) 既在根号「外面」，也在根号「里面」。所以把它命名一次：\\(u=x^2-3x\\)。方程塌缩成 \\(u+\\sqrt{u+5}=7\\)。现在把根号孤立到一边再平方消掉它 —— 但平方会造出假解，所以你「必须」把每个候选代回原方程检验（还要满足「右边必须 \\(\\ge 0\\)」这条规则）。"
+},
+steps: [
+{ en: "Let \\(u=x^2-3x\\). Equation: \\(u+\\sqrt{u+5}=7\\).",
+zh: "设 \\(u=x^2-3x\\)。方程：\\(u+\\sqrt{u+5}=7\\)。" },
+{ en: "Isolate the radical: \\(\\sqrt{u+5}=7-u\\) (this forces \\(7-u\\ge0\\)).",
+zh: "孤立根号：\\(\\sqrt{u+5}=7-u\\)（这要求 \\(7-u\\ge0\\)）。" },
+{ en: "Square: \\(u+5=(7-u)^2=49-14u+u^2\\Rightarrow u^2-15u+44=0.\\)",
+zh: "平方：\\(u+5=(7-u)^2=49-14u+u^2\\Rightarrow u^2-15u+44=0.\\)" },
+{ en: "Factor: \\((u-4)(u-11)=0\\Rightarrow u=4\\) or \\(u=11\\).",
+zh: "因式分解：\\((u-4)(u-11)=0\\Rightarrow u=4\\) 或 \\(u=11\\)。" },
+{ en: "Check the \\(7-u\\ge0\\) gate: \\(u=4\\Rightarrow\\sqrt9=3=7-4\\) ✓; \\(u=11\\Rightarrow7-11=-4<0\\) ✗ (extraneous).",
+zh: "检验 \\(7-u\\ge0\\) 这道门：\\(u=4\\Rightarrow\\sqrt9=3=7-4\\) ✓；\\(u=11\\Rightarrow7-11=-4<0\\) ✗（增根）。" },
+{ en: "Back-substitute \\(u=4\\): \\(x^2-3x=4\\Rightarrow x^2-3x-4=0\\Rightarrow(x-4)(x+1)=0\\Rightarrow x=4,-1.\\)",
+zh: "逆代换 \\(u=4\\)：\\(x^2-3x=4\\Rightarrow x^2-3x-4=0\\Rightarrow(x-4)(x+1)=0\\Rightarrow x=4,-1.\\)" },
+{ en: "Verify in the ORIGINAL: both give \\(x^2-3x=4\\), so \\(4+\\sqrt{9}=4+3=7\\) ✓.",
+zh: "代回原方程验证：两者都给出 \\(x^2-3x=4\\)，所以 \\(4+\\sqrt{9}=4+3=7\\) ✓。" }
+],
+answer: { en: "\\(x=4\\) or \\(x=-1\\)", zh: "\\(x=4\\) 或 \\(x=-1\\)" },
+insight: {
+en: "Substitution tames the radical; squaring then solves it — but squaring can lie. The \\(7-u\\ge0\\) gate is what exposed the fake root \\(u=11\\). Always verify every candidate in the original equation.",
+zh: "代换驯服了根号；平方再把它解掉 —— 但平方会撒谎。正是 \\(7-u\\ge0\\) 这道门揭穿了假根 \\(u=11\\)。永远把每个候选代回原方程验证。"
+}
+},
+{
+source: { en: "Binomial Pattern", zh: "二项式模式" },
+statement: { en: "Simplify \\((x+1)^4-(x-1)^4\\), then use it to compute \\(11^4-9^4\\) in one line.",
+zh: "化简 \\((x+1)^4-(x-1)^4\\)，再用它一行算出 \\(11^4-9^4\\)。" },
+recall: [
+{ en: "Telescoping & near-perfect powers (Pascal's row)", zh: "望远镜式 & 近乎完全幂（帕斯卡行）" }
+],
+guide: {
+en: "Expanding two quartics and subtracting is a page of arithmetic — skip it. The coefficients of \\((x\\pm1)^4\\) are Pascal's row \\(1,4,6,4,1\\). When you subtract, the EVEN-power terms (\\(x^4,6x^2,1\\)) are identical and cancel, while the ODD-power terms (\\(4x^3,4x\\)) double. Knowing in advance which terms survive turns the whole thing into one clean factored line — then just plug in \\(x=10\\).",
+zh: "把两个四次方展开再相减，是一整页的算术 —— 跳过它。\\((x\\pm1)^4\\) 的系数是帕斯卡行 \\(1,4,6,4,1\\)。相减时，「偶数次」项（\\(x^4,6x^2,1\\)）完全相同、互相抵消，而「奇数次」项（\\(4x^3,4x\\)）翻倍。事先知道哪些项会幸存，整件事就变成干净的一行因式 —— 然后代入 \\(x=10\\) 即可。"
+},
+steps: [
+{ en: "\\((x+1)^4=x^4+4x^3+6x^2+4x+1\\); \\((x-1)^4=x^4-4x^3+6x^2-4x+1\\).",
+zh: "\\((x+1)^4=x^4+4x^3+6x^2+4x+1\\)；\\((x-1)^4=x^4-4x^3+6x^2-4x+1\\)。" },
+{ en: "Subtract: the \\(x^4,\\ 6x^2,\\ 1\\) terms cancel; the odd terms double.",
+zh: "相减：\\(x^4,\\ 6x^2,\\ 1\\) 项抵消；奇数次项翻倍。" },
+{ en: "Result: \\((x+1)^4-(x-1)^4=8x^3+8x=8x(x^2+1).\\)",
+zh: "结果：\\((x+1)^4-(x-1)^4=8x^3+8x=8x(x^2+1).\\)" },
+{ en: "Now read \\(11^4-9^4\\) as \\((x+1)^4-(x-1)^4\\) with \\(x=10\\).",
+zh: "把 \\(11^4-9^4\\) 看成 \\(x=10\\) 时的 \\((x+1)^4-(x-1)^4\\)。" },
+{ en: "So \\(11^4-9^4=8\\cdot10\\cdot(10^2+1)=8\\cdot10\\cdot101=8080.\\)",
+zh: "于是 \\(11^4-9^4=8\\cdot10\\cdot(10^2+1)=8\\cdot10\\cdot101=8080.\\)" }
+],
+answer: { en: "\\((x+1)^4-(x-1)^4=8x(x^2+1)\\); \\(\\ 11^4-9^4=8080\\)", zh: "\\((x+1)^4-(x-1)^4=8x(x^2+1)\\)；\\(\\ 11^4-9^4=8080\\)" },
+insight: {
+en: "Pascal's row \\(1,4,6,4,1\\) tells you BEFORE any work which terms a subtraction will kill and which it doubles. Recognizing the binomial pattern replaces brute expansion with a single line.",
+zh: "帕斯卡行 \\(1,4,6,4,1\\) 在你动手「之前」就告诉你：相减会消掉哪些项、翻倍哪些项。认出二项式模式，就能用一行取代蛮力展开。"
+}
+}
+);
+
+
+/* ---- Day 3 · Section 3: Enhancement Practice ---- */
+courseData.days[2].enhancements.push(
+{
+level: "★",
+statement: { en: "Solve \\(x^4-5x^2+4=0\\) (a 'biquadratic').",
+zh: "解 \\(x^4-5x^2+4=0\\)（一个「双二次」方程）。" },
+hint: { en: "Only even powers of \\(x\\) appear, so let \\(y=x^2\\): the equation becomes \\(y^2-5y+4=0\\). Solve for \\(y\\), then take square roots — and remember each positive \\(y\\) gives TWO values of \\(x\\).",
+zh: "只出现 \\(x\\) 的偶次幂，所以设 \\(y=x^2\\)：方程变成 \\(y^2-5y+4=0\\)。先解出 \\(y\\)，再开平方 —— 记住每个正的 \\(y\\) 都给出「两个」 \\(x\\) 值。" },
+answer: { en: "\\(y^2-5y+4=(y-1)(y-4)=0\\Rightarrow y=1,4.\\) Then \\(x^2=1\\Rightarrow x=\\pm1\\) and \\(x^2=4\\Rightarrow x=\\pm2.\\) So \\(x\\in\\{-2,-1,1,2\\}.\\)",
+zh: "\\(y^2-5y+4=(y-1)(y-4)=0\\Rightarrow y=1,4.\\) 于是 \\(x^2=1\\Rightarrow x=\\pm1\\)，\\(x^2=4\\Rightarrow x=\\pm2.\\) 所以 \\(x\\in\\{-2,-1,1,2\\}.\\)" }
+},
+{
+level: "★★",
+statement: { en: "Solve \\(x(x+1)(x+2)(x+3)=24\\).",
+zh: "解 \\(x(x+1)(x+2)(x+3)=24\\)。" },
+hint: { en: "Don't expand. The shifts \\(0,1,2,3\\) are evenly spaced — pair the symmetric ends \\(x(x+3)\\) and \\((x+1)(x+2)\\). Both contain \\(x^2+3x\\); let \\(t=x^2+3x\\) to get \\(t(t+2)=24\\). Solve for \\(t\\), keep only the real \\(x\\), and check.",
+zh: "别展开。偏移量 \\(0,1,2,3\\) 等间距 —— 配对称的两端 \\(x(x+3)\\) 与 \\((x+1)(x+2)\\)。两个都含 \\(x^2+3x\\)；设 \\(t=x^2+3x\\)，得 \\(t(t+2)=24\\)。解出 \\(t\\)，只留实数 \\(x\\)，并验证。" },
+answer: { en: "\\(x(x+3)=x^2+3x\\) and \\((x+1)(x+2)=x^2+3x+2\\). With \\(t=x^2+3x\\): \\(t(t+2)=24\\Rightarrow t^2+2t-24=0\\Rightarrow(t-4)(t+6)=0\\Rightarrow t=4\\) or \\(-6\\). \\(t=-6\\) gives \\(x^2+3x+6=0\\) (disc \\(<0\\), no real). \\(t=4\\): \\(x^2+3x-4=0\\Rightarrow(x+4)(x-1)=0\\Rightarrow x=-4,1.\\)",
+zh: "\\(x(x+3)=x^2+3x\\)，\\((x+1)(x+2)=x^2+3x+2\\)。令 \\(t=x^2+3x\\)：\\(t(t+2)=24\\Rightarrow t^2+2t-24=0\\Rightarrow(t-4)(t+6)=0\\Rightarrow t=4\\) 或 \\(-6\\)。\\(t=-6\\) 给出 \\(x^2+3x+6=0\\)（判别式 \\(<0\\)，无实根）。\\(t=4\\)：\\(x^2+3x-4=0\\Rightarrow(x+4)(x-1)=0\\Rightarrow x=-4,1.\\)" }
+},
+{
+level: "★★★",
+statement: { en: "\\(r\\) is the real root of \\(x^3=2x+5\\) (Wallis's cubic). Find \\(r^5-5r^2-4r\\).",
+zh: "\\(r\\) 是 \\(x^3=2x+5\\)（沃利斯三次方程）的实根，求 \\(r^5-5r^2-4r\\)。" },
+hint: { en: "The root is irrational (\\(\\approx2.0946\\)) — never compute it. Use the rewrite rule \\(r^3=2r+5\\) and climb: \\(r^4=r\\cdot r^3\\), \\(r^5=r\\cdot r^4\\), substituting \\(r^3\\to2r+5\\) whenever a cube reappears, until \\(r^5\\) is written with powers \\(\\le2\\). Then subtract.",
+zh: "这个根是无理数（\\(\\approx2.0946\\)）—— 千万别去算它。用改写规则 \\(r^3=2r+5\\) 往上爬：\\(r^4=r\\cdot r^3\\)，\\(r^5=r\\cdot r^4\\)，每当三次方重新出现就用 \\(r^3\\to2r+5\\) 替换，直到 \\(r^5\\) 只用 \\(\\le2\\) 次的幂写出。然后相减。" },
+answer: { en: "\\(r^4=r\\cdot r^3=r(2r+5)=2r^2+5r.\\) \\(r^5=r\\cdot r^4=2r^3+5r^2=2(2r+5)+5r^2=5r^2+4r+10.\\) Therefore \\(r^5-5r^2-4r=(5r^2+4r+10)-5r^2-4r=10.\\)",
+zh: "\\(r^4=r\\cdot r^3=r(2r+5)=2r^2+5r.\\) \\(r^5=r\\cdot r^4=2r^3+5r^2=2(2r+5)+5r^2=5r^2+4r+10.\\) 于是 \\(r^5-5r^2-4r=(5r^2+4r+10)-5r^2-4r=10.\\)" }
+}
+);
+
+courseData.days[2].problemSet[0] = {
+n: 1, source: "1994 ARML Team #1",
+statement: { en: "If \\(x^5+5x^4+10x^3+10x^2-5x+1=10\\) and \\(x\\neq-1\\), compute \\((x+1)^4\\).",
+zh: "若 \\(x^5+5x^4+10x^3+10x^2-5x+1=10\\) 且 \\(x\\neq-1\\)，求 \\((x+1)^4\\)。" },
+recall: [ { en: "The coefficients 1,5,10,10,5,1 — where have you seen them?", zh: "系数 1,5,10,10,5,1 —— 你在哪见过？" }, { en: "Binomial expansion of (x+1)^5", zh: "(x+1)^5 的二项式展开" }, { en: "Compare the given mess to a perfect power", zh: "把给的乱式和一个完全幂比较" } ],
+guide: { en: "At first this degree-5 monster looks unsolvable. But stare at the coefficients: 1, 5, 10, 10, ... 5 ... 1. Those are EXACTLY Pascal's triangle row 5 — the numbers in \\((x+1)^5.\\) The only thing 'wrong' is the \\(-5x\\) should be \\(+5x\\) for a perfect fifth power. So the left side is almost \\((x+1)^5,\\) just off by a little. The whole trick is to write the mess AS \\((x+1)^5\\) minus the small correction, and everything collapses.",
+zh: "乍看这个 5 次怪物没法解。但盯住系数：1, 5, 10, 10, … 5 … 1。那正是帕斯卡三角第 5 行 —— \\((x+1)^5\\) 里的数字。唯一「不对」的是 \\(-5x\\) 本该是 \\(+5x\\) 才是完全 5 次幂。所以左边几乎就是 \\((x+1)^5\\)，只差一点点。整个窍门就是把这堆乱式写成 \\((x+1)^5\\) 减去那个小修正，然后一切都塌缩。" },
+steps: [
+{ en: "STEP 1 — Recognize the pattern. Recall \\((x+1)^5=x^5+5x^4+10x^3+10x^2+5x+1.\\) (The coefficients 1,5,10,10,5,1 come from Pascal's triangle.)",
+zh: "第 1 步 —— 认出模式。回忆 \\((x+1)^5=x^5+5x^4+10x^3+10x^2+5x+1\\)。（系数 1,5,10,10,5,1 来自帕斯卡三角。）" },
+{ en: "STEP 2 — Compare to the given left side. Ours is \\(x^5+5x^4+10x^3+10x^2-5x+1.\\) Line them up: everything matches EXCEPT the \\(x\\)-term: ours has \\(-5x,\\) the perfect power has \\(+5x.\\)",
+zh: "第 2 步 —— 与给定左边比较。我们的是 \\(x^5+5x^4+10x^3+10x^2-5x+1\\)。对齐：除了 \\(x\\) 项，其余全一样：我们的是 \\(-5x\\)，完全幂是 \\(+5x.\\)" },
+{ en: "STEP 3 — Write the mess as (x+1)^5 minus the gap. The difference between \\(+5x\\) and \\(-5x\\) is \\(10x.\\) So our left side \\(=(x+1)^5-10x.\\)",
+zh: "第 3 步 —— 把乱式写成 (x+1)^5 减去差额。\\(+5x\\) 与 \\(-5x\\) 相差 \\(10x\\)。所以我们的左边 \\(=(x+1)^5-10x.\\)" },
+{ en: "STEP 4 — Use the equation. It says the left side \\(=10,\\) so \\((x+1)^5-10x=10.\\) Move \\(10x\\) over: \\((x+1)^5=10x+10.\\)",
+zh: "第 4 步 —— 用方程。它说左边 \\(=10\\)，所以 \\((x+1)^5-10x=10\\)。把 \\(10x\\) 移过去：\\((x+1)^5=10x+10.\\)" },
+{ en: "STEP 5 — Factor the right side. \\(10x+10=10(x+1).\\) So \\((x+1)^5=10(x+1).\\)",
+zh: "第 5 步 —— 把右边提取因式。\\(10x+10=10(x+1)\\)。所以 \\((x+1)^5=10(x+1).\\)" },
+{ en: "STEP 6 — Divide by (x+1). We're told \\(x\\neq-1,\\) so \\((x+1)\\neq 0\\) and we may safely divide both sides by \\((x+1)\\): \\((x+1)^4=10.\\)",
+zh: "第 6 步 —— 除以 (x+1)。题目说 \\(x\\neq-1\\)，所以 \\((x+1)\\neq 0\\)，可以安全地两边同除 \\((x+1)\\)：\\((x+1)^4=10.\\)" },
+{ en: "STEP 7 — Done. That's exactly what was asked. (Notice why the condition \\(x\\neq-1\\) was given — it's the permission slip that lets us divide.)",
+zh: "第 7 步 —— 完成。这正是所求。（注意为什么给条件 \\(x\\neq-1\\) —— 它是允许我们做除法的「许可证」。）" }
+],
+answer: { en: "\\((x+1)^4=10\\)", zh: "\\((x+1)^4=10\\)" },
+insight: { en: "When you see coefficients matching a Pascal's-triangle row (1,5,10,10,5,1), the expression is a binomial power in disguise. Rewrite the mess as (perfect power) + (small correction), and the equation usually factors beautifully. The 'x ≠ -1' clue is a hint that you'll divide by (x+1) at the end.",
+zh: "当你看到系数对上帕斯卡三角某一行（1,5,10,10,5,1），这个表达式就是伪装的二项式幂。把乱式重写成 (完全幂) + (小修正)，方程通常会漂亮地分解。「x≠−1」这条线索暗示你最后会除以 (x+1)。" }
+};
+courseData.days[2].problemSet[1] = {
+n: 2, source: "2008 HMMT November General #9",
+statement: { en: "Find the product of all real \\(x\\) for which \\(2^{3x+1}-17\\cdot 2^{2x}+2^{x+3}=0\\).",
+zh: "求所有满足 \\(2^{3x+1}-17\\cdot 2^{2x}+2^{x+3}=0\\) 的实数 \\(x\\) 之积。" },
+recall: [ { en: "Exponent laws: 2^(3x+1)=2·(2^x)^3", zh: "指数律：2^(3x+1)=2·(2^x)^3" }, { en: "Substitute y = 2^x to hide the exponent", zh: "代换 y = 2^x 把指数藏起来" }, { en: "2^x is ALWAYS positive (reject y≤0)", zh: "2^x 永远为正（舍去 y≤0）" } ],
+guide: { en: "The scary part is that \\(x\\) is stuck up in the exponents. The cure is substitution: notice every term is a power of \\(2^x.\\) If we let \\(y=2^x,\\) then \\(2^{2x}=y^2\\) and \\(2^{3x}=y^3,\\) and the whole thing becomes an ordinary cubic in \\(y.\\) Solve that easy cubic, then translate each \\(y\\) back to an \\(x\\) using \\(y=2^x.\\) One caution: \\(2^x\\) is always positive, so any non-positive \\(y\\) gets thrown out.",
+zh: "吓人的地方是 \\(x\\) 卡在指数上。解药是代换：注意每一项都是 \\(2^x\\) 的幂。若设 \\(y=2^x\\)，则 \\(2^{2x}=y^2\\)，\\(2^{3x}=y^3\\)，整个就变成关于 \\(y\\) 的普通三次方程。解出那个简单三次方程，再用 \\(y=2^x\\) 把每个 \\(y\\) 翻译回 \\(x\\)。一个注意：\\(2^x\\) 永远为正，所以任何非正的 \\(y\\) 都要舍掉。" },
+steps: [
+{ en: "STEP 1 — Rewrite each term as a power of \\(2^x.\\) \\(2^{3x+1}=2\\cdot 2^{3x}=2(2^x)^3;\\ 2^{2x}=(2^x)^2;\\ 2^{x+3}=2^3\\cdot 2^x=8\\cdot 2^x.\\)",
+zh: "第 1 步 —— 把每项写成 \\(2^x\\) 的幂。\\(2^{3x+1}=2\\cdot 2^{3x}=2(2^x)^3\\)；\\(2^{2x}=(2^x)^2\\)；\\(2^{x+3}=2^3\\cdot 2^x=8\\cdot 2^x.\\)" },
+{ en: "STEP 2 — Substitute \\(y=2^x.\\) The equation becomes \\(2y^3-17y^2+8y=0.\\)",
+zh: "第 2 步 —— 代换 \\(y=2^x\\)。方程变成 \\(2y^3-17y^2+8y=0.\\)" },
+{ en: "STEP 3 — Factor out the common \\(y.\\) \\(y(2y^2-17y+8)=0.\\) So either \\(y=0\\) or \\(2y^2-17y+8=0.\\)",
+zh: "第 3 步 —— 提出公因子 \\(y\\)。\\(y(2y^2-17y+8)=0\\)。所以 \\(y=0\\) 或 \\(2y^2-17y+8=0.\\)" },
+{ en: "STEP 4 — Throw out the impossible root. \\(y=2^x\\) is always positive, so \\(y=0\\) is impossible. Keep only the quadratic.",
+zh: "第 4 步 —— 舍掉不可能的根。\\(y=2^x\\) 永远为正，所以 \\(y=0\\) 不可能。只保留二次方程。" },
+{ en: "STEP 5 — Solve \\(2y^2-17y+8=0.\\) Factor: \\((2y-1)(y-8)=0,\\) giving \\(y=\\tfrac12\\) or \\(y=8.\\) Both positive — both valid.",
+zh: "第 5 步 —— 解 \\(2y^2-17y+8=0\\)。分解：\\((2y-1)(y-8)=0\\)，得 \\(y=\\tfrac12\\) 或 \\(y=8\\)。都是正的 —— 都有效。" },
+{ en: "STEP 6 — Translate back to x. \\(2^x=\\tfrac12=2^{-1}\\Rightarrow x=-1.\\) \\(2^x=8=2^3\\Rightarrow x=3.\\)",
+zh: "第 6 步 —— 翻译回 x。\\(2^x=\\tfrac12=2^{-1}\\Rightarrow x=-1\\)。\\(2^x=8=2^3\\Rightarrow x=3.\\)" },
+{ en: "STEP 7 — Take the product. \\((-1)\\times 3=-3.\\)",
+zh: "第 7 步 —— 求积。\\((-1)\\times 3=-3.\\)" }
+],
+answer: { en: "Product \\(=-3\\)", zh: "乘积 \\(=-3\\)" },
+insight: { en: "When the unknown is trapped in an exponent and every term is a power of the same base, substitute y = base^x to turn it into a polynomial. ALWAYS remember base^x > 0, so discard any zero or negative y before translating back. Substitution converts 'exponential' into 'familiar polynomial'.",
+zh: "当未知数卡在指数里、且每项都是同底的幂，代换 y = 底^x 把它变成多项式。永远记住 底^x > 0，翻译回去前先丢掉零或负的 y。代换把「指数方程」变成「熟悉的多项式」。" }
+};
+courseData.days[2].problemSet[2] = {
+n: 3, source: "2009 Math Prize for Girls #7",
+statement: { en: "Compute \\(2009^4-4\\cdot 2007^4+6\\cdot 2005^4-4\\cdot 2003^4+2001^4.\\)",
+zh: "求 \\(2009^4-4\\cdot 2007^4+6\\cdot 2005^4-4\\cdot 2003^4+2001^4.\\)" },
+recall: [ { en: "Coefficients 1,-4,6,-4,1 — Pascal row 4 with alternating signs", zh: "系数 1,-4,6,-4,1 —— 帕斯卡第 4 行带交替符号" }, { en: "Fourth difference of a degree-4 polynomial is constant", zh: "4 次多项式的 4 阶差分是常数" }, { en: "The numbers step down by 2 each time", zh: "这些数每次往下走 2" } ],
+guide: { en: "Computing five fourth-powers of huge numbers by hand would be insane — that's the signal a trick is hiding. Look at the coefficients: \\(1,-4,6,-4,1.\\) Those are Pascal's row 4 with alternating signs — the fingerprint of a 'fourth difference'. And the bases \\(2009,2007,2005,2003,2001\\) step down by 2 each time. There's a beautiful theorem: applying this alternating pattern to any degree-4 expression \\(n^4\\) always gives the SAME constant, no matter where you start — and that constant is \\(4!\\) times (step)\\(^4.\\) So the answer is a tiny computation.",
+zh: "手算五个大数的 4 次方简直疯了 —— 这正是有窍门藏着的信号。看系数：\\(1,-4,6,-4,1\\)。那是帕斯卡第 4 行带交替符号 —— 「4 阶差分」的指纹。而底数 \\(2009,2007,2005,2003,2001\\) 每次往下走 2。有个漂亮定理：把这个交替模式作用在任何 4 次式 \\(n^4\\) 上，永远得到「同一个」常数，无论从哪开始 —— 这个常数是 \\(4!\\) 乘以 (步长)\\(^4\\)。所以答案是个小计算。" },
+steps: [
+{ en: "STEP 1 — Spot the structure. The signs/coefficients \\(1,-4,6,-4,1\\) are the 4th-difference pattern. The five bases decrease by a constant step of 2.",
+zh: "第 1 步 —— 看出结构。符号/系数 \\(1,-4,6,-4,1\\) 是 4 阶差分模式。五个底数以恒定步长 2 递减。" },
+{ en: "STEP 2 — Recall the key fact. For \\(f(n)=n^4,\\) the 4th difference (this exact alternating combination) is constant and equals \\(4!\\cdot h^4,\\) where \\(h\\) is the step size and \\(4!=24.\\) The leading coefficient of \\(n^4\\) is 1.",
+zh: "第 2 步 —— 记住关键事实。对 \\(f(n)=n^4\\)，4 阶差分（正是这个交替组合）是常数，等于 \\(4!\\cdot h^4\\)，其中 \\(h\\) 是步长，\\(4!=24\\)。\\(n^4\\) 的首项系数是 1。" },
+{ en: "STEP 3 — Test the idea on tiny numbers to TRUST it. Use bases \\(4,3,2,1,0\\) (step \\(h=1\\)): \\(4^4-4\\cdot3^4+6\\cdot2^4-4\\cdot1^4+0=256-324+96-4+0=24.\\) Indeed \\(24=4!\\cdot 1^4.\\) The pattern works!",
+zh: "第 3 步 —— 用小数字测试以「信任」它。用底数 \\(4,3,2,1,0\\)（步长 \\(h=1\\)）：\\(4^4-4\\cdot3^4+6\\cdot2^4-4\\cdot1^4+0=256-324+96-4+0=24\\)。果然 \\(24=4!\\cdot 1^4\\)。模式成立！" },
+{ en: "STEP 4 — Apply to our problem. Here the step is \\(h=2\\) (each base is 2 less than the previous). So the answer is \\(4!\\cdot 2^4.\\)",
+zh: "第 4 步 —— 用到我们的题。这里步长 \\(h=2\\)（每个底数比前一个小 2）。所以答案是 \\(4!\\cdot 2^4.\\)" },
+{ en: "STEP 5 — Compute. \\(4!=24,\\ 2^4=16,\\) so \\(24\\cdot 16=384.\\)",
+zh: "第 5 步 —— 计算。\\(4!=24,\\ 2^4=16\\)，所以 \\(24\\cdot 16=384.\\)" }
+],
+answer: { en: "\\(=384\\)", zh: "\\(=384\\)" },
+insight: { en: "Coefficients 1,-4,6,-4,1 (Pascal row 4, alternating) signal a 'fourth difference'. For any degree-4 expression with bases stepping by h, this combination always collapses to the constant 4!·h^4 — the giant numbers cancel completely. Test the pattern on small numbers first to trust it, then plug in the real step size.",
+zh: "系数 1,−4,6,−4,1（帕斯卡第 4 行，交替）暗示「4 阶差分」。对任何底数以 h 为步长的 4 次式，这个组合永远塌缩成常数 4!·h⁴ —— 大数字完全抵消。先用小数字测试模式以建立信任，再代入真正的步长。" }
+};
+courseData.days[2].problemSet[3] = {
+n: 4, source: "2018 NYSML Individual #2",
+statement: { en: "Let \\(r\\) be the greater root of \\(x^2+x=2018.\\) Compute \\((r-1)(r+2)(r-3)(r+4).\\)",
+zh: "设 \\(r\\) 是 \\(x^2+x=2018\\) 的较大根。求 \\((r-1)(r+2)(r-3)(r+4).\\)" },
+recall: [ { en: "r satisfies r^2+r=2018 — keep that handy", zh: "r 满足 r²+r=2018 —— 记好备用" }, { en: "Pair the factors so each pair gives r^2+r", zh: "配对因式，让每对都给出 r²+r" }, { en: "Never actually solve for r", zh: "永远别真去解出 r" } ],
+guide: { en: "Solving \\(x^2+x=2018\\) gives an ugly irrational \\(r,\\) so don't. Instead notice the gift: \\(r\\) satisfies \\(r^2+r=2018.\\) If we can make the chunk \\(r^2+r\\) appear, we just substitute 2018. The trick is choosing WHICH factors to pair. Pair \\((r-1)(r+2)\\) and \\((r-3)(r+4):\\) each multiplies out to \\(r^2+(\\text{something})r+(\\text{number}),\\) and the \\(r\\)-part comes out as \\(r^2+r\\) — exactly our known chunk. Then it's just arithmetic.",
+zh: "解 \\(x^2+x=2018\\) 会得到丑陋的无理数 \\(r\\)，所以别解。反而注意这个礼物：\\(r\\) 满足 \\(r^2+r=2018\\)。只要能让 \\(r^2+r\\) 这个块出现，直接代 2018 就行。窍门是选「哪些」因式配对。配 \\((r-1)(r+2)\\) 和 \\((r-3)(r+4)\\)：每对乘开都是 \\(r^2+(\\text{某})r+(\\text{数})\\)，而 \\(r\\) 那部分正好是 \\(r^2+r\\) —— 恰是我们已知的块。然后就是算术。" },
+steps: [
+{ en: "STEP 1 — Note the gift. \\(r\\) is a root of \\(x^2+x=2018,\\) so \\(r^2+r=2018.\\) We'll aim to make \\(r^2+r\\) appear.",
+zh: "第 1 步 —— 注意礼物。\\(r\\) 是 \\(x^2+x=2018\\) 的根，所以 \\(r^2+r=2018\\)。我们的目标是让 \\(r^2+r\\) 出现。" },
+{ en: "STEP 2 — Choose the smart pairing. Pair \\((r-1)(r+2)\\) and \\((r-3)(r+4).\\) Why these? Because in each pair the two numbers (\\(-1,+2\\)) and (\\(-3,+4\\)) add to \\(+1,\\) which makes the middle term \\(+1\\cdot r.\\)",
+zh: "第 2 步 —— 选聪明的配对。配 \\((r-1)(r+2)\\) 和 \\((r-3)(r+4)\\)。为什么是这些？因为每对里两个数（\\(-1,+2\\)）与（\\(-3,+4\\)）都加到 \\(+1\\)，让中间项是 \\(+1\\cdot r.\\)" },
+{ en: "STEP 3 — Expand the first pair. \\((r-1)(r+2)=r^2+2r-r-2=r^2+r-2.\\) Substitute \\(r^2+r=2018:\\) \\(=2018-2=2016.\\)",
+zh: "第 3 步 —— 展开第一对。\\((r-1)(r+2)=r^2+2r-r-2=r^2+r-2\\)。代入 \\(r^2+r=2018\\)：\\(=2018-2=2016.\\)" },
+{ en: "STEP 4 — Expand the second pair. \\((r-3)(r+4)=r^2+4r-3r-12=r^2+r-12.\\) Substitute: \\(=2018-12=2006.\\)",
+zh: "第 4 步 —— 展开第二对。\\((r-3)(r+4)=r^2+4r-3r-12=r^2+r-12\\)。代入：\\(=2018-12=2006.\\)" },
+{ en: "STEP 5 — Multiply the two results. \\(2016\\times 2006.\\) Compute: \\(2016\\times 2006=2016\\times 2000+2016\\times 6=4{,}032{,}000+12{,}096=4{,}044{,}096.\\)",
+zh: "第 5 步 —— 把两个结果相乘。\\(2016\\times 2006\\)。计算：\\(2016\\times 2006=2016\\times 2000+2016\\times 6=4{,}032{,}000+12{,}096=4{,}044{,}096.\\)" },
+{ en: "STEP 6 — Note it didn't matter which root. Both roots satisfy \\(r^2+r=2018,\\) so the same chunk substitution works either way — the answer is the same for both roots.",
+zh: "第 6 步 —— 注意用哪个根都一样。两个根都满足 \\(r^2+r=2018\\)，所以同样的块代换两边都成立 —— 两个根给出相同答案。" }
+],
+answer: { en: "\\(=4{,}044{,}096\\)", zh: "\\(=4{,}044{,}096\\)" },
+insight: { en: "When a root satisfies a simple relation like r^2+r=2018, treat that chunk as a single known number. Pair the linear factors so each product reveals the SAME chunk (here r^2+r) — choose pairs whose constants make the middle coefficients match. Then it's pure substitution, never solving for the ugly root.",
+zh: "当一个根满足像 r²+r=2018 这样的简单关系，就把那个块当成一个已知数。配对一次因式，让每个乘积都露出「同一个」块（这里 r²+r）—— 选常数能让中间系数对上的配对。然后纯代换，永远不解那个丑根。" }
+};
+courseData.days[2].problemSet[4] = {
+n: 5, source: "1994 NYSML Individual #3",
+statement: { en: "Compute \\(\\sqrt{28\\cdot 27\\cdot 26\\cdot 25+1}.\\)",
+zh: "求 \\(\\sqrt{28\\cdot 27\\cdot 26\\cdot 25+1}.\\)" },
+recall: [ { en: "Four consecutive integers multiplied, plus 1", zh: "四个连续整数相乘，再加 1" }, { en: "Try a small case first to find the pattern", zh: "先试小例子找规律" }, { en: "n(n+1)(n+2)(n+3)+1 is a perfect square", zh: "n(n+1)(n+2)(n+3)+1 是完全平方" } ],
+guide: { en: "Multiplying \\(28\\cdot27\\cdot26\\cdot25\\) gives a huge number — and then we need its square root to come out nice. That 'nice square root' is the clue: the product of FOUR consecutive integers plus 1 is ALWAYS a perfect square. Rather than memorize the formula, let's discover it on small numbers, see the pattern, prove WHY with a clever pairing, then apply it.",
+zh: "把 \\(28\\cdot27\\cdot26\\cdot25\\) 乘起来是个大数 —— 然后还要它的平方根算出来漂亮。这个「漂亮的平方根」就是线索：四个连续整数之积加 1 永远是完全平方。与其背公式，我们先用小数字发现它，看出规律，再用聪明的配对证明「为什么」，最后应用。" },
+steps: [
+{ en: "STEP 1 — Try a tiny case. \\(1\\cdot2\\cdot3\\cdot4+1=24+1=25=5^2.\\) And \\(2\\cdot3\\cdot4\\cdot5+1=120+1=121=11^2.\\) So 'four-in-a-row times, plus 1' really is a perfect square.",
+zh: "第 1 步 —— 试个小例子。\\(1\\cdot2\\cdot3\\cdot4+1=24+1=25=5^2\\)。又 \\(2\\cdot3\\cdot4\\cdot5+1=120+1=121=11^2\\)。所以「四连乘再加 1」真的是完全平方。" },
+{ en: "STEP 2 — Find what's being squared. For \\(1,2,3,4\\) the root is 5; for \\(2,3,4,5\\) it's 11. Notice \\(5=1\\cdot4+1\\) and \\(11=2\\cdot5+1\\) — that's (first×last)+1! Also \\(5=2\\cdot3-1\\) (middle pair). Either way it's a clean expression in the four numbers.",
+zh: "第 2 步 —— 找出被平方的是什么。对 \\(1,2,3,4\\) 根是 5；对 \\(2,3,4,5\\) 是 11。注意 \\(5=1\\cdot4+1\\)，\\(11=2\\cdot5+1\\) —— 就是 (首×尾)+1！也有 \\(5=2\\cdot3-1\\)（中间一对）。无论哪种，都是这四个数的干净表达式。" },
+{ en: "STEP 3 — Why it works (pairing trick). With the four numbers \\(n,n+1,n+2,n+3,\\) pair the OUTER two and the INNER two: \\(n(n+3)=n^2+3n\\) and \\((n+1)(n+2)=n^2+3n+2.\\) Both contain \\(n^2+3n.\\) Let \\(A=n^2+3n.\\) Then the product is \\(A(A+2)=A^2+2A,\\) and \\(+1\\) makes it \\(A^2+2A+1=(A+1)^2.\\) A perfect square!",
+zh: "第 3 步 —— 为什么成立（配对技巧）。对四个数 \\(n,n+1,n+2,n+3\\)，把「两端」和「中间」各配一对：\\(n(n+3)=n^2+3n\\) 和 \\((n+1)(n+2)=n^2+3n+2\\)。两个都含 \\(n^2+3n\\)。设 \\(A=n^2+3n\\)。则乘积是 \\(A(A+2)=A^2+2A\\)，加 \\(1\\) 变成 \\(A^2+2A+1=(A+1)^2\\)。完全平方！" },
+{ en: "STEP 4 — So the square root is A+1 = n^2+3n+1. For our problem the smallest of the four is \\(n=25.\\) Compute \\(A+1=25^2+3\\cdot25+1=625+75+1=701.\\)",
+zh: "第 4 步 —— 所以平方根是 A+1 = n²+3n+1。我们的题里四个数最小的是 \\(n=25\\)。算 \\(A+1=25^2+3\\cdot25+1=625+75+1=701.\\)" },
+{ en: "STEP 5 — Answer. \\(\\sqrt{28\\cdot27\\cdot26\\cdot25+1}=701.\\) (Quick check: it must equal (25·28)+1=700+1=701, matching first×last+1.)",
+zh: "第 5 步 —— 答案。\\(\\sqrt{28\\cdot27\\cdot26\\cdot25+1}=701\\)。（快速验证：它应等于 (25·28)+1=700+1=701，与「首×尾+1」吻合。）" }
+],
+answer: { en: "\\(=701\\)", zh: "\\(=701\\)" },
+insight: { en: "The product of four consecutive integers, plus 1, is always a perfect square: n(n+1)(n+2)(n+3)+1 = (n^2+3n+1)^2. The proof is the same pairing idea as Problem 4 — pair outer and inner to expose a common chunk A, then A(A+2)+1 = (A+1)^2. Discover patterns on small numbers, then prove and reuse.",
+zh: "四个连续整数之积加 1 永远是完全平方：n(n+1)(n+2)(n+3)+1 = (n²+3n+1)²。证明用的是和第 4 题一样的配对想法 —— 两端配、中间配，露出公共块 A，则 A(A+2)+1 = (A+1)²。在小数字上发现规律，再证明并复用。" }
+};
