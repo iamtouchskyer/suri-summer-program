@@ -2208,3 +2208,84 @@ answer: { en: "\\(a+b+c=79\\)", zh: "\\(a+b+c=79\\)" },
 insight: { en: "A MISSING term is a free Vieta equation. 'No x^3' instantly tells you all roots sum to 0 — that single fact pins down the hidden root. Then reconstruct by factoring, and pair the factors smartly (so the cross terms are easy) to keep the algebra clean. The cancelling x^3 is a built-in self-check.",
 zh: "「缺项」就是一条免费的韦达方程。「没有 x^3」立刻告诉你所有根之和为 0 —— 这一个事实就锁定了隐藏根。然后用因式还原，并聪明地配对因式（让交叉项好算）保持计算干净。抵消的 x^3 是自带的自检。" }
 };
+courseData.days[1].problemSet[5] = {
+n: 6, source: "2001 AMC 12 #19",
+statement: { en: "\\(P(x)=x^3+ax^2+bx+c\\): the mean of its zeros, the product of its zeros, and the sum of its coefficients are all equal. The y-intercept is 2. Find \\(b\\).",
+zh: "\\(P(x)=x^3+ax^2+bx+c\\)：其零点的平均值、零点之积、系数之和三者相等。y 截距为 2。求 \\(b\\)。" },
+recall: [ { en: "y-intercept = P(0) = c", zh: "y 截距 = P(0) = c" }, { en: "Vieta for cubic: sum of zeros = -a, product = -c", zh: "三次的韦达：零点之和 = -a，积 = -c" }, { en: "Sum of coefficients = P(1)", zh: "系数之和 = P(1)" } ],
+guide: { en: "This problem hands you three quantities and says they're all equal — so the strategy is: write EACH one in terms of \\(a,b,c\\), then set them equal and solve. Three facts you need: (1) the y-intercept is just \\(P(0)=c\\); (2) Vieta gives the sum and product of the zeros from the coefficients; (3) 'sum of the coefficients' is a sneaky way of saying \\(P(1)\\) (plug in 1 and every coefficient just adds up). Translate each phrase into algebra, and the equations almost solve themselves.",
+zh: "这题给你三个量并说它们全相等 —— 所以策略是：把「每一个」都用 \\(a,b,c\\) 表示出来，然后令它们相等去解。需要三个事实：(1) y 截距就是 \\(P(0)=c\\)；(2) 韦达从系数给出零点的和与积；(3)「系数之和」是「\\(P(1)\\)」的狡猾说法（代入 1，每个系数正好加起来）。把每句话翻译成代数，方程几乎自己就解开了。" },
+steps: [
+{ en: "STEP 1 — Use the y-intercept. The y-intercept is the value when \\(x=0\\): \\(P(0)=c.\\) We're told it's 2, so \\(c=2.\\)",
+zh: "第 1 步 —— 用 y 截距。y 截距是 \\(x=0\\) 时的值：\\(P(0)=c\\)。题目说它是 2，所以 \\(c=2.\\)" },
+{ en: "STEP 2 — Product of the zeros (Vieta). For \\(x^3+ax^2+bx+c,\\) the product of the three zeros is \\(-c.\\) So product \\(=-c=-2.\\)",
+zh: "第 2 步 —— 零点之积（韦达）。对 \\(x^3+ax^2+bx+c\\)，三个零点之积是 \\(-c\\)。所以积 \\(=-c=-2.\\)" },
+{ en: "STEP 3 — The three equal things share this value. Since product \\(=-2,\\) and all three quantities are equal, the common value is \\(-2.\\) So the MEAN of zeros \\(=-2\\) and the SUM of coefficients \\(=-2\\) too.",
+zh: "第 3 步 —— 三个相等的量共享这个值。既然积 \\(=-2\\)，且三量相等，公共值就是 \\(-2\\)。所以零点的「平均值」\\(=-2\\)，系数之和也 \\(=-2.\\)" },
+{ en: "STEP 4 — Use the mean of zeros. Mean = (sum of zeros)/3. Vieta: sum of zeros \\(=-a.\\) So \\(\\dfrac{-a}{3}=-2\\Rightarrow -a=-6\\Rightarrow a=6.\\)",
+zh: "第 4 步 —— 用零点的平均值。平均值 = (零点之和)/3。韦达：零点之和 \\(=-a\\)。所以 \\(\\dfrac{-a}{3}=-2\\Rightarrow -a=-6\\Rightarrow a=6.\\)" },
+{ en: "STEP 5 — Decode 'sum of coefficients' = P(1). Plug \\(x=1\\): \\(P(1)=1+a+b+c\\) (since \\(1^3=1,1^2=1,1=1\\)). This must equal \\(-2.\\)",
+zh: "第 5 步 —— 解码「系数之和」= P(1)。代 \\(x=1\\)：\\(P(1)=1+a+b+c\\)（因 \\(1^3=1,1^2=1,1=1\\)）。它必须等于 \\(-2.\\)" },
+{ en: "STEP 6 — Solve for b. \\(1+a+b+c=-2.\\) Substitute \\(a=6,\\ c=2\\): \\(1+6+b+2=-2\\Rightarrow 9+b=-2\\Rightarrow b=-11.\\)",
+zh: "第 6 步 —— 解出 b。\\(1+a+b+c=-2\\)。代入 \\(a=6,\\ c=2\\)：\\(1+6+b+2=-2\\Rightarrow 9+b=-2\\Rightarrow b=-11.\\)" },
+{ en: "STEP 7 — Quick check. \\(P(x)=x^3+6x^2-11x+2.\\) Mean of zeros \\(=-6/3=-2\\) ✓; product \\(=-2\\) ✓; \\(P(1)=1+6-11+2=-2\\) ✓. All three equal \\(-2.\\)",
+zh: "第 7 步 —— 快速验证。\\(P(x)=x^3+6x^2-11x+2\\)。零点平均 \\(=-6/3=-2\\) ✓；积 \\(=-2\\) ✓；\\(P(1)=1+6-11+2=-2\\) ✓。三者都等于 \\(-2.\\)" }
+],
+answer: { en: "\\(b=-11\\)", zh: "\\(b=-11\\)" },
+insight: { en: "When a problem says several quantities are 'all equal', translate EACH into algebra and set them equal. Key dictionary entries: y-intercept = P(0) = constant term; sum of coefficients = P(1); and Vieta turns 'sum/product/mean of zeros' into coefficients. Find the easiest one first (here the product, = -c), then everything else follows.",
+zh: "当题目说几个量「全相等」，把「每一个」翻译成代数再令其相等。关键词典：y 截距 = P(0) = 常数项；系数之和 = P(1)；韦达把「零点的和/积/平均」变成系数。先找最容易的那个（这里是积 = -c），其余顺势而下。" }
+};
+courseData.days[1].problemSet[6] = {
+n: 7, source: "2009 SMT Team #11",
+statement: { en: "\\(z_1,z_2\\) are the zeros of \\(x^2+6x+11\\). Compute \\((1+z_1^2 z_2)(1+z_1 z_2^2)\\).",
+zh: "\\(z_1,z_2\\) 是 \\(x^2+6x+11\\) 的零点。求 \\((1+z_1^2 z_2)(1+z_1 z_2^2)\\)。" },
+recall: [ { en: "Vieta: z1+z2 = -6, z1·z2 = 11", zh: "韦达：z1+z2 = -6，z1·z2 = 11" }, { en: "Expand a product of two brackets first", zh: "先把两个括号乘开" }, { en: "Rewrite everything using only (sum) and (product)", zh: "把一切只用(和)和(积)表示" } ],
+guide: { en: "The roots here are ugly (complex, even), so the rule is: don't find them. Instead, EXPAND the expression and then rewrite every piece using only \\(z_1+z_2\\) and \\(z_1z_2\\) — the two things Vieta gives us. The trick is recognizing hidden symmetric pieces: for example \\(z_1^2z_2+z_1z_2^2\\) secretly equals \\(z_1z_2(z_1+z_2),\\) which is just (product)(sum). Once everything is in terms of sum and product, plug in numbers.",
+zh: "这里的根很丑（甚至是复数），所以规则是：别去求它们。而是把式子「展开」，再把每一块只用 \\(z_1+z_2\\) 和 \\(z_1z_2\\)（韦达给的两样东西）重写。窍门是认出隐藏的对称块：比如 \\(z_1^2z_2+z_1z_2^2\\) 偷偷等于 \\(z_1z_2(z_1+z_2)\\)，也就是 (积)(和)。一旦一切都用和与积表示，代入数字即可。" },
+steps: [
+{ en: "STEP 1 — Get Vieta's two numbers. For \\(x^2+6x+11\\): sum \\(z_1+z_2=-6,\\) product \\(z_1z_2=11.\\)",
+zh: "第 1 步 —— 拿到韦达两个数。对 \\(x^2+6x+11\\)：和 \\(z_1+z_2=-6\\)，积 \\(z_1z_2=11.\\)" },
+{ en: "STEP 2 — Expand the product of the two brackets. \\((1+z_1^2z_2)(1+z_1z_2^2)=1+z_1z_2^2+z_1^2z_2+z_1^2z_2\\cdot z_1z_2^2.\\)",
+zh: "第 2 步 —— 展开两个括号之积。\\((1+z_1^2z_2)(1+z_1z_2^2)=1+z_1z_2^2+z_1^2z_2+z_1^2z_2\\cdot z_1z_2^2.\\)" },
+{ en: "STEP 3 — Simplify the last (biggest) term. \\(z_1^2z_2\\cdot z_1z_2^2=z_1^3z_2^3=(z_1z_2)^3.\\) That's just (product) cubed.",
+zh: "第 3 步 —— 化简最后（最大）那项。\\(z_1^2z_2\\cdot z_1z_2^2=z_1^3z_2^3=(z_1z_2)^3\\)。就是 (积) 的立方。" },
+{ en: "STEP 4 — Group the two middle terms. \\(z_1z_2^2+z_1^2z_2=z_1z_2(z_2+z_1)=(z_1z_2)(z_1+z_2).\\) That's (product)(sum).",
+zh: "第 4 步 —— 合并中间两项。\\(z_1z_2^2+z_1^2z_2=z_1z_2(z_2+z_1)=(z_1z_2)(z_1+z_2)\\)。就是 (积)(和)。" },
+{ en: "STEP 5 — Put it all together symbolically. The whole thing \\(=1+(z_1z_2)(z_1+z_2)+(z_1z_2)^3.\\) Everything is now in sum & product only.",
+zh: "第 5 步 —— 符号上拼起来。整个式子 \\(=1+(z_1z_2)(z_1+z_2)+(z_1z_2)^3\\)。现在全用和与积表示。" },
+{ en: "STEP 6 — Substitute the numbers. \\(=1+(11)(-6)+(11)^3=1-66+1331.\\)",
+zh: "第 6 步 —— 代入数字。\\(=1+(11)(-6)+(11)^3=1-66+1331.\\)" },
+{ en: "STEP 7 — Add up. \\(1-66=-65;\\) \\(-65+1331=1266.\\)",
+zh: "第 7 步 —— 求和。\\(1-66=-65\\)；\\(-65+1331=1266.\\)" }
+],
+answer: { en: "\\(=1266\\)", zh: "\\(=1266\\)" },
+insight: { en: "When an expression in the roots is SYMMETRIC (swapping the roots changes nothing), it can always be rewritten using just (sum) and (product). Spot the patterns: z1^2 z2 + z1 z2^2 = (product)(sum), and z1^3 z2^3 = (product)^3. Then Vieta's two numbers finish the job — no need to ever find the (complex) roots.",
+zh: "当一个关于根的表达式是「对称的」（交换两根不变），它总能只用 (和) 与 (积) 重写。认出模式：z1²z2 + z1z2² = (积)(和)，z1³z2³ = (积)³。然后韦达的两个数收尾 —— 根本不用求（复数）根。" }
+};
+courseData.days[1].problemSet[7] = {
+n: 8, source: "2019 SMT Algebra #5",
+statement: { en: "\\(f(x)=36x^4-36x^3-x^2+9x-2\\) has roots \\(r_1,r_2,r_3,r_4\\). Find \\((r_1+r_2+r_3)(r_1+r_2+r_4)(r_1+r_3+r_4)(r_2+r_3+r_4)\\).",
+zh: "\\(f(x)=36x^4-36x^3-x^2+9x-2\\) 有根 \\(r_1,r_2,r_3,r_4\\)。求 \\((r_1+r_2+r_3)(r_1+r_2+r_4)(r_1+r_3+r_4)(r_2+r_3+r_4)\\)。" },
+recall: [ { en: "Vieta: sum of all 4 roots S = -(coeff x^3)/(leading)", zh: "韦达：四根之和 S = -(x^3 系数)/(首项)" }, { en: "Each factor is S minus one root", zh: "每个因子是 S 减去一个根" }, { en: "f(x) = (leading)·(x-r1)(x-r2)(x-r3)(x-r4)", zh: "f(x) = (首项)·(x-r1)(x-r2)(x-r3)(x-r4)" } ],
+guide: { en: "Each factor like \\(r_1+r_2+r_3\\) is 'three of the four roots added'. The clever rewrite: if \\(S\\) is the sum of ALL four roots, then \\(r_1+r_2+r_3=S-r_4\\) (the total minus the one that's missing). So the whole product is \\((S-r_1)(S-r_2)(S-r_3)(S-r_4)\\) — and THAT is exactly what you get by plugging \\(x=S\\) into the factored form of \\(f.\\) So the answer is basically \\(f(S)\\) divided by the leading coefficient. One substitution finishes it.",
+zh: "每个因子如 \\(r_1+r_2+r_3\\) 是「四个根里取三个相加」。巧妙的改写：若 \\(S\\) 是「全部四个根」之和，那么 \\(r_1+r_2+r_3=S-r_4\\)（总和减去缺的那个）。所以整个乘积是 \\((S-r_1)(S-r_2)(S-r_3)(S-r_4)\\) —— 而这正是把 \\(x=S\\) 代入 \\(f\\) 的因式形式得到的东西。所以答案基本就是 \\(f(S)\\) 除以最高次系数。一次代入就收尾。" },
+steps: [
+{ en: "STEP 1 — Find S, the sum of all four roots. Vieta: for \\(36x^4-36x^3+\\dots,\\) sum of roots \\(=-\\dfrac{\\text{coeff of }x^3}{\\text{leading}}=-\\dfrac{-36}{36}=1.\\) So \\(S=1.\\)",
+zh: "第 1 步 —— 求 S，四根之和。韦达：对 \\(36x^4-36x^3+\\dots\\)，根之和 \\(=-\\dfrac{x^3\\text{ 系数}}{\\text{首项}}=-\\dfrac{-36}{36}=1\\)。所以 \\(S=1.\\)" },
+{ en: "STEP 2 — Rewrite each factor as S minus a root. \\(r_1+r_2+r_3=S-r_4,\\ r_1+r_2+r_4=S-r_3,\\) and so on. Each factor is just \\(S\\) minus the ONE root left out.",
+zh: "第 2 步 —— 把每个因子写成 S 减一个根。\\(r_1+r_2+r_3=S-r_4\\)，\\(r_1+r_2+r_4=S-r_3\\)，等等。每个因子就是 \\(S\\) 减去「被漏掉的那个根」。" },
+{ en: "STEP 3 — So the product becomes \\((S-r_1)(S-r_2)(S-r_3)(S-r_4).\\) Notice this is the SAME shape as \\((x-r_1)(x-r_2)(x-r_3)(x-r_4)\\) with \\(x\\) replaced by \\(S.\\)",
+zh: "第 3 步 —— 于是乘积变成 \\((S-r_1)(S-r_2)(S-r_3)(S-r_4)\\)。注意它和 \\((x-r_1)(x-r_2)(x-r_3)(x-r_4)\\) 形状相同，只是把 \\(x\\) 换成了 \\(S.\\)" },
+{ en: "STEP 4 — Connect to f. A polynomial factors as \\(f(x)=(\\text{leading})\\cdot(x-r_1)(x-r_2)(x-r_3)(x-r_4).\\) Here leading \\(=36,\\) so \\((x-r_1)\\cdots(x-r_4)=\\dfrac{f(x)}{36}.\\)",
+zh: "第 4 步 —— 连到 f。多项式分解为 \\(f(x)=(\\text{首项})\\cdot(x-r_1)(x-r_2)(x-r_3)(x-r_4)\\)。这里首项 \\(=36\\)，所以 \\((x-r_1)\\cdots(x-r_4)=\\dfrac{f(x)}{36}.\\)" },
+{ en: "STEP 5 — Substitute x = S = 1. Our product \\(=(S-r_1)\\cdots(S-r_4)=\\dfrac{f(S)}{36}=\\dfrac{f(1)}{36}.\\)",
+zh: "第 5 步 —— 代入 x = S = 1。我们的乘积 \\(=(S-r_1)\\cdots(S-r_4)=\\dfrac{f(S)}{36}=\\dfrac{f(1)}{36}.\\)" },
+{ en: "STEP 6 — Compute f(1). \\(f(1)=36-36-1+9-2=6.\\)",
+zh: "第 6 步 —— 算 f(1)。\\(f(1)=36-36-1+9-2=6.\\)" },
+{ en: "STEP 7 — Finish. Product \\(=\\dfrac{f(1)}{36}=\\dfrac{6}{36}=\\dfrac{1}{6}.\\)",
+zh: "第 7 步 —— 收尾。乘积 \\(=\\dfrac{f(1)}{36}=\\dfrac{6}{36}=\\dfrac{1}{6}.\\)" }
+],
+answer: { en: "\\(=\\dfrac{1}{6}\\)", zh: "\\(=\\dfrac{1}{6}\\)" },
+insight: { en: "The golden trick: when each factor is 'all the roots except one added up', write it as S - (missing root). The product (S-r1)(S-r2)... is exactly the factored polynomial evaluated at x=S. So the answer = f(S)/(leading coefficient) — a single substitution replaces a giant multiplication. Always look for 'sum minus one' patterns.",
+zh: "黄金技巧：当每个因子是「除一个外其余根之和」，把它写成 S −(缺的根)。乘积 (S-r1)(S-r2)… 正是因式多项式在 x=S 处求值。所以答案 = f(S)/(最高次系数) —— 一次代入取代一个巨大的乘法。永远留意「和减一个」的模式。" }
+};
