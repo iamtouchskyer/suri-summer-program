@@ -2897,3 +2897,126 @@ answer: { en: "Smallest \\(\\deg Q=28\\)", zh: "最小 \\(\\deg Q=28\\)" },
 insight: { en: "For 'smallest degree' problems, treat degree as the only currency. Use deg(P∘P)=(deg P)^2 and deg(P^k)=k·deg P, match the leading degrees to pick deg P, then cancel coefficients top-down as far as the structure allows. The first term that structurally CANNOT cancel sets the minimum degree. It's an accounting problem, not a root-finding one.",
 zh: "对「最小次数」问题，把次数当成唯一的货币。用 deg(P∘P)=(deg P)² 和 deg(P^k)=k·deg P，匹配最高次来定 deg P，再自顶向下尽结构所能抵消系数。第一个结构上「无法」抵消的项决定最小次数。这是记账问题，不是求根问题。" }
 };
+courseData.days[2].problemSet[5] = {
+n: 6, source: "Spring 2021 AMC 10B #15",
+statement: { en: "The real number \\(x\\) satisfies \\(x+\\dfrac1x=\\sqrt5.\\) What is the value of \\(x^{11}-7x^7+x^3?\\)",
+zh: "实数 \\(x\\) 满足 \\(x+\\dfrac1x=\\sqrt5\\)。求 \\(x^{11}-7x^7+x^3\\) 的值。" },
+recall: [ { en: "From x+1/x, build x^2+1/x^2, x^4+1/x^4 step by step", zh: "由 x+1/x 逐步造出 x²+1/x²、x⁴+1/x⁴" }, { en: "Factor out a common power of x", zh: "提出 x 的公共幂" }, { en: "Squaring (x+1/x) gives x^2+1/x^2 + 2", zh: "把 (x+1/x) 平方得到 x²+1/x²+2" } ],
+guide: { en: "The exponents 11, 7, 3 look huge, but notice they all share a factor: each is 7 plus or minus 4. The trick is to factor out the MIDDLE power \\(x^7,\\) leaving \\(x^7(x^4-7+x^{-4}).\\) The piece in parentheses is \\(x^4+\\tfrac1{x^4}-7,\\) and \\(x^4+\\tfrac1{x^4}\\) can be built from \\(x+\\tfrac1x=\\sqrt5\\) by squaring twice. If that piece turns out to be exactly 7, the whole thing is zero — no matter what \\(x^7\\) is.",
+zh: "指数 11、7、3 看着很大，但注意它们都有共同点：每个都是 7 加减 4。窍门是提出「中间」幂 \\(x^7\\)，剩下 \\(x^7(x^4-7+x^{-4})\\)。括号里是 \\(x^4+\\tfrac1{x^4}-7\\)，而 \\(x^4+\\tfrac1{x^4}\\) 能由 \\(x+\\tfrac1x=\\sqrt5\\) 平方两次造出来。如果那一块正好等于 7，整个东西就是零 —— 无论 \\(x^7\\) 是多少。" },
+steps: [
+{ en: "STEP 1 — Factor out the middle power. \\(x^{11}-7x^7+x^3=x^7\\left(x^4-7+\\dfrac1{x^4}\\right).\\) (Check: \\(x^7\\cdot x^4=x^{11},\\ x^7\\cdot(-7)=-7x^7,\\ x^7\\cdot x^{-4}=x^3.\\) ✓)",
+zh: "第 1 步 —— 提出中间幂。\\(x^{11}-7x^7+x^3=x^7\\left(x^4-7+\\dfrac1{x^4}\\right)\\)。（验证：\\(x^7\\cdot x^4=x^{11},\\ x^7\\cdot(-7)=-7x^7,\\ x^7\\cdot x^{-4}=x^3\\)。✓）" },
+{ en: "STEP 2 — Build x^2+1/x^2 by squaring. Square \\(x+\\tfrac1x=\\sqrt5:\\) \\(\\left(x+\\tfrac1x\\right)^2=x^2+2+\\tfrac1{x^2}=5.\\) So \\(x^2+\\tfrac1{x^2}=5-2=3.\\)",
+zh: "第 2 步 —— 平方造出 x²+1/x²。把 \\(x+\\tfrac1x=\\sqrt5\\) 平方：\\(\\left(x+\\tfrac1x\\right)^2=x^2+2+\\tfrac1{x^2}=5\\)。所以 \\(x^2+\\tfrac1{x^2}=5-2=3.\\)" },
+{ en: "STEP 3 — Build x^4+1/x^4 by squaring again. \\(\\left(x^2+\\tfrac1{x^2}\\right)^2=x^4+2+\\tfrac1{x^4}=3^2=9.\\) So \\(x^4+\\tfrac1{x^4}=9-2=7.\\)",
+zh: "第 3 步 —— 再平方造出 x⁴+1/x⁴。\\(\\left(x^2+\\tfrac1{x^2}\\right)^2=x^4+2+\\tfrac1{x^4}=3^2=9\\)。所以 \\(x^4+\\tfrac1{x^4}=9-2=7.\\)" },
+{ en: "STEP 4 — Evaluate the parenthesis. \\(x^4-7+\\tfrac1{x^4}=\\left(x^4+\\tfrac1{x^4}\\right)-7=7-7=0.\\)",
+zh: "第 4 步 —— 求括号的值。\\(x^4-7+\\tfrac1{x^4}=\\left(x^4+\\tfrac1{x^4}\\right)-7=7-7=0.\\)" },
+{ en: "STEP 5 — Finish. \\(x^7\\times 0=0,\\) no matter what \\(x^7\\) is. So \\(x^{11}-7x^7+x^3=0.\\)",
+zh: "第 5 步 —— 收尾。\\(x^7\\times 0=0\\)，无论 \\(x^7\\) 是多少。所以 \\(x^{11}-7x^7+x^3=0.\\)" }
+],
+answer: { en: "\\(=0\\)", zh: "\\(=0\\)" },
+insight: { en: "When exponents are symmetric around a middle value (3,7,11 center on 7), factor out the middle power to expose x^k + 1/x^k. Build those from x+1/x by squaring repeatedly: x^2+1/x^2=(x+1/x)^2-2, then x^4+1/x^4=(x^2+1/x^2)^2-2. The '-7' was designed to exactly cancel x^4+1/x^4, making the answer 0.",
+zh: "当指数关于某个中间值对称（3,7,11 以 7 为中心），提出中间幂露出 x^k + 1/x^k。用反复平方从 x+1/x 造出它们：x²+1/x²=(x+1/x)²−2，再 x⁴+1/x⁴=(x²+1/x²)²−2。那个「−7」是被设计来恰好抵消 x⁴+1/x⁴ 的，使答案为 0。" }
+};
+courseData.days[2].problemSet[6] = {
+n: 7, source: "1983 AIME #3",
+statement: { en: "What is the product of the real roots of \\(x^2+18x+30=2\\sqrt{x^2+18x+45}?\\)",
+zh: "求 \\(x^2+18x+30=2\\sqrt{x^2+18x+45}\\) 的实根之积。" },
+recall: [ { en: "The same chunk x^2+18x appears on both sides", zh: "同一个块 x²+18x 在两边都出现" }, { en: "Substitute to simplify, then square to kill the root", zh: "代换简化，再平方消去根号" }, { en: "Vieta gives the product without finding the roots", zh: "韦达不求根就给出乘积" } ],
+guide: { en: "The square root looks terrifying, but notice the SAME chunk \\(x^2+18x\\) hides on both sides — inside the root it's \\(x^2+18x+45,\\) outside it's \\(x^2+18x+30.\\) Give that chunk-plus-45 a single name \\(y,\\) so the inside becomes \\(y\\) and the outside becomes \\(y-15.\\) Now the equation is \\(y-15=2\\sqrt y,\\) a clean radical equation. Square to remove the root, solve for \\(y,\\) then go back to \\(x.\\) Crucially, after squaring we must CHECK answers, and Vieta gives the product of the \\(x\\)-roots directly.",
+zh: "根号看着吓人，但注意「同一个块」\\(x^2+18x\\) 藏在两边 —— 根号里是 \\(x^2+18x+45\\)，根号外是 \\(x^2+18x+30\\)。给「块+45」起一个名字 \\(y\\)，于是根号里变成 \\(y\\)，根号外变成 \\(y-15\\)。现在方程是 \\(y-15=2\\sqrt y\\)，干净的根式方程。平方消根号，解出 \\(y\\)，再回到 \\(x\\)。关键：平方后必须验根，而韦达直接给出 \\(x\\) 根之积。" },
+steps: [
+{ en: "STEP 1 — Name the repeated chunk. Let \\(y=x^2+18x+45.\\) Then the inside of the root is \\(y,\\) and the left side \\(x^2+18x+30=y-15.\\) Equation becomes \\(y-15=2\\sqrt y.\\)",
+zh: "第 1 步 —— 给重复块命名。设 \\(y=x^2+18x+45\\)。则根号里是 \\(y\\)，左边 \\(x^2+18x+30=y-15\\)。方程变成 \\(y-15=2\\sqrt y.\\)" },
+{ en: "STEP 2 — Square both sides to remove the root. \\((y-15)^2=4y\\Rightarrow y^2-30y+225=4y\\Rightarrow y^2-34y+225=0.\\)",
+zh: "第 2 步 —— 两边平方消根号。\\((y-15)^2=4y\\Rightarrow y^2-30y+225=4y\\Rightarrow y^2-34y+225=0.\\)" },
+{ en: "STEP 3 — Solve for y. Factor: \\((y-25)(y-9)=0,\\) so \\(y=25\\) or \\(y=9.\\)",
+zh: "第 3 步 —— 解 y。分解：\\((y-25)(y-9)=0\\)，所以 \\(y=25\\) 或 \\(y=9.\\)" },
+{ en: "STEP 4 — CHECK each (squaring can lie). The original needs \\(2\\sqrt y=y-15\\ge0,\\) so \\(y\\ge15.\\) \\(y=25:\\) \\(2\\cdot5=10=25-15\\) ✓. \\(y=9:\\) \\(2\\cdot3=6\\) but \\(9-15=-6,\\) fails. Reject \\(y=9.\\)",
+zh: "第 4 步 —— 逐个验根（平方会撒谎）。原方程要求 \\(2\\sqrt y=y-15\\ge0\\)，所以 \\(y\\ge15\\)。\\(y=25\\)：\\(2\\cdot5=10=25-15\\) ✓。\\(y=9\\)：\\(2\\cdot3=6\\) 但 \\(9-15=-6\\)，不成立。舍去 \\(y=9.\\)" },
+{ en: "STEP 5 — Translate back to x. \\(y=25:\\) \\(x^2+18x+45=25\\Rightarrow x^2+18x+20=0.\\) Its discriminant \\(=18^2-80=244>0,\\) so two real roots.",
+zh: "第 5 步 —— 翻译回 x。\\(y=25\\)：\\(x^2+18x+45=25\\Rightarrow x^2+18x+20=0\\)。判别式 \\(=18^2-80=244>0\\)，所以两个实根。" },
+{ en: "STEP 6 — Vieta gives the product. For \\(x^2+18x+20=0,\\) product of roots \\(=\\dfrac{c}{a}=\\dfrac{20}{1}=20.\\) (No need to find the roots themselves.)",
+zh: "第 6 步 —— 韦达给出乘积。对 \\(x^2+18x+20=0\\)，根之积 \\(=\\dfrac{c}{a}=\\dfrac{20}{1}=20\\)。（不必求出根本身。）" }
+],
+answer: { en: "Product of real roots \\(=20\\)", zh: "实根之积 \\(=20\\)" },
+insight: { en: "Spot the repeated chunk (x^2+18x) hiding inside and outside the radical — name it to turn a scary equation into a simple one in y. Square to remove the root, but ALWAYS check (squaring invents fake roots: here y=9 fails the sign test). Finally, Vieta gives the product of the x-roots straight from the quadratic's c/a.",
+zh: "看出重复块 (x²+18x) 藏在根号内外 —— 命名它，把吓人方程变成 y 里的简单方程。平方消根号，但永远要验根（平方会造假根：这里 y=9 通不过符号检验）。最后韦达直接从二次式的 c/a 给出 x 根之积。" }
+};
+courseData.days[2].problemSet[7] = {
+n: 8, source: "2013 AIME I #5",
+statement: { en: "The real root of \\(8x^3-3x^2-3x-1=0\\) can be written as \\(\\dfrac{\\sqrt[3]{a}+\\sqrt[3]{b}+1}{c}\\) with \\(a,b,c\\) positive integers. Find \\(a+b+c.\\)",
+zh: "\\(8x^3-3x^2-3x-1=0\\) 的实根可写成 \\(\\dfrac{\\sqrt[3]{a}+\\sqrt[3]{b}+1}{c}\\)，其中 \\(a,b,c\\) 为正整数。求 \\(a+b+c.\\)" },
+recall: [ { en: "Look for a hidden (x+1)^3 or similar cube", zh: "找隐藏的 (x+1)³ 或类似立方" }, { en: "9x^3 = x^3 + (3x^2+3x+1) is suggestive", zh: "9x³ = x³ + (3x²+3x+1) 很有提示性" }, { en: "Cube root of both sides to escape the cube", zh: "两边开立方来脱出立方" } ],
+guide: { en: "A cubic where the answer involves cube roots is begging us to MAKE a cube appear. The coefficients \\(3,3,1\\) are a huge hint — they're the tail of \\((x+1)^3=x^3+3x^2+3x+1.\\) Rewrite the equation to collect that perfect cube on one side. We'll move terms so one side is \\(9x^3\\) and the other is \\((x+1)^3.\\) Then take the cube root of both sides — the cube vanishes, leaving a simple linear equation in \\(x,\\) which we solve and rationalize.",
+zh: "一个答案带立方根的三次方程，简直在求我们「造出」一个立方。系数 \\(3,3,1\\) 是巨大提示 —— 它们是 \\((x+1)^3=x^3+3x^2+3x+1\\) 的尾巴。改写方程，把那个完全立方凑到一边。我们移项使一边是 \\(9x^3\\)，另一边是 \\((x+1)^3\\)。然后两边开立方 —— 立方消失，剩一个简单的 \\(x\\) 一次方程，解出并有理化。" },
+steps: [
+{ en: "STEP 1 — Spot the cube pattern. The equation \\(8x^3-3x^2-3x-1=0\\) means \\(8x^3=3x^2+3x+1.\\) Add \\(x^3\\) to both sides: \\(9x^3=x^3+3x^2+3x+1.\\)",
+zh: "第 1 步 —— 看出立方模式。方程 \\(8x^3-3x^2-3x-1=0\\) 即 \\(8x^3=3x^2+3x+1\\)。两边加 \\(x^3\\)：\\(9x^3=x^3+3x^2+3x+1.\\)" },
+{ en: "STEP 2 — Recognize the perfect cube. The right side \\(x^3+3x^2+3x+1=(x+1)^3.\\) So \\(9x^3=(x+1)^3.\\)",
+zh: "第 2 步 —— 认出完全立方。右边 \\(x^3+3x^2+3x+1=(x+1)^3\\)。所以 \\(9x^3=(x+1)^3.\\)" },
+{ en: "STEP 3 — Take the cube root of both sides. \\(\\sqrt[3]{9x^3}=\\sqrt[3]{(x+1)^3}\\Rightarrow \\sqrt[3]9\\,x=x+1.\\) The cube is gone — now it's linear!",
+zh: "第 3 步 —— 两边开立方。\\(\\sqrt[3]{9x^3}=\\sqrt[3]{(x+1)^3}\\Rightarrow \\sqrt[3]9\\,x=x+1\\)。立方没了 —— 现在是一次方程！" },
+{ en: "STEP 4 — Solve for x. \\(\\sqrt[3]9\\,x-x=1\\Rightarrow x(\\sqrt[3]9-1)=1\\Rightarrow x=\\dfrac{1}{\\sqrt[3]9-1}.\\)",
+zh: "第 4 步 —— 解出 x。\\(\\sqrt[3]9\\,x-x=1\\Rightarrow x(\\sqrt[3]9-1)=1\\Rightarrow x=\\dfrac{1}{\\sqrt[3]9-1}.\\)" },
+{ en: "STEP 5 — Rationalize using the cube-difference identity. Multiply top and bottom by \\((\\sqrt[3]9)^2+\\sqrt[3]9+1\\) (so the bottom becomes \\((\\sqrt[3]9)^3-1=9-1=8\\)): \\(x=\\dfrac{\\sqrt[3]{81}+\\sqrt[3]9+1}{8}.\\)",
+zh: "第 5 步 —— 用立方差恒等式有理化。分子分母同乘 \\((\\sqrt[3]9)^2+\\sqrt[3]9+1\\)（使分母变成 \\((\\sqrt[3]9)^3-1=9-1=8\\)）：\\(x=\\dfrac{\\sqrt[3]{81}+\\sqrt[3]9+1}{8}.\\)" },
+{ en: "STEP 6 — Read off a, b, c. Comparing to \\(\\dfrac{\\sqrt[3]a+\\sqrt[3]b+1}{c}:\\) \\(a=81,\\ b=9,\\ c=8.\\) So \\(a+b+c=81+9+8=98.\\)",
+zh: "第 6 步 —— 读出 a, b, c。对照 \\(\\dfrac{\\sqrt[3]a+\\sqrt[3]b+1}{c}\\)：\\(a=81,\\ b=9,\\ c=8\\)。所以 \\(a+b+c=81+9+8=98.\\)" }
+],
+answer: { en: "\\(a+b+c=98\\)", zh: "\\(a+b+c=98\\)" },
+insight: { en: "When a cubic's answer involves cube roots, engineer a perfect cube. Coefficients 3,3,1 are the signature of (x+1)^3 — add x^3 to both sides to build 9x^3 = (x+1)^3, then cube-root both sides to collapse to a linear equation. Rationalize a^(1/3)-1 denominators using a^(2/3)+a^(1/3)+1 (the cube-difference factor).",
+zh: "当三次方程的答案带立方根，就「造」一个完全立方。系数 3,3,1 是 (x+1)³ 的标志 —— 两边加 x³ 凑出 9x³ = (x+1)³，再两边开立方塌缩成一次方程。用 a^(2/3)+a^(1/3)+1（立方差因子）有理化 a^(1/3)−1 型分母。" }
+};
+courseData.days[2].problemSet[8] = {
+n: 9, source: "1990 AIME #4",
+statement: { en: "Find the positive solution to \\(\\dfrac{1}{x^2-10x-29}+\\dfrac{1}{x^2-10x-45}-\\dfrac{2}{x^2-10x-69}=0.\\)",
+zh: "求 \\(\\dfrac{1}{x^2-10x-29}+\\dfrac{1}{x^2-10x-45}-\\dfrac{2}{x^2-10x-69}=0\\) 的正解。" },
+recall: [ { en: "The SAME chunk x^2-10x appears in all three denominators", zh: "同一个块 x²−10x 出现在三个分母里" }, { en: "Let y = x^2-10x to clean it up", zh: "设 y = x²−10x 来化简" }, { en: "Solve the simple equation in y, then return to x", zh: "解 y 的简单方程，再回到 x" } ],
+guide: { en: "Three ugly fractions — but look closely: every denominator starts with the SAME chunk \\(x^2-10x.\\) Only the constant differs (\\(-29,-45,-69\\)). The cure is one substitution: let \\(y=x^2-10x.\\) Then the three denominators are just \\(y-29,\\ y-45,\\ y-69,\\) and the equation becomes a clean one in \\(y.\\) Solve for \\(y,\\) then turn the single value of \\(y\\) back into \\(x\\) via the quadratic \\(x^2-10x=y.\\)",
+zh: "三个丑分数 —— 但仔细看：每个分母都以「同一个块」\\(x^2-10x\\) 开头。只有常数不同（\\(-29,-45,-69\\)）。解药是一次代换：设 \\(y=x^2-10x\\)。则三个分母就是 \\(y-29,\\ y-45,\\ y-69\\)，方程变成 \\(y\\) 里的干净方程。解出 \\(y\\)，再通过二次方程 \\(x^2-10x=y\\) 把这个 \\(y\\) 值变回 \\(x.\\)" },
+steps: [
+{ en: "STEP 1 — Substitute the common chunk. Let \\(y=x^2-10x.\\) The equation becomes \\(\\dfrac1{y-29}+\\dfrac1{y-45}-\\dfrac2{y-69}=0.\\)",
+zh: "第 1 步 —— 代换公共块。设 \\(y=x^2-10x\\)。方程变成 \\(\\dfrac1{y-29}+\\dfrac1{y-45}-\\dfrac2{y-69}=0.\\)" },
+{ en: "STEP 2 — Combine the first two fractions. \\(\\dfrac1{y-29}+\\dfrac1{y-45}=\\dfrac{(y-45)+(y-29)}{(y-29)(y-45)}=\\dfrac{2y-74}{(y-29)(y-45)}.\\)",
+zh: "第 2 步 —— 合并前两个分数。\\(\\dfrac1{y-29}+\\dfrac1{y-45}=\\dfrac{(y-45)+(y-29)}{(y-29)(y-45)}=\\dfrac{2y-74}{(y-29)(y-45)}.\\)" },
+{ en: "STEP 3 — Set equal to the third term. \\(\\dfrac{2y-74}{(y-29)(y-45)}=\\dfrac{2}{y-69}.\\) Notice \\(2y-74=2(y-37).\\) Cancel the 2 on both sides: \\(\\dfrac{y-37}{(y-29)(y-45)}=\\dfrac{1}{y-69}.\\)",
+zh: "第 3 步 —— 令它等于第三项。\\(\\dfrac{2y-74}{(y-29)(y-45)}=\\dfrac{2}{y-69}\\)。注意 \\(2y-74=2(y-37)\\)。两边约掉 2：\\(\\dfrac{y-37}{(y-29)(y-45)}=\\dfrac{1}{y-69}.\\)" },
+{ en: "STEP 4 — Cross-multiply. \\((y-37)(y-69)=(y-29)(y-45).\\) Expand both: left \\(=y^2-106y+2553;\\) right \\(=y^2-74y+1305.\\)",
+zh: "第 4 步 —— 交叉相乘。\\((y-37)(y-69)=(y-29)(y-45)\\)。两边展开：左 \\(=y^2-106y+2553\\)；右 \\(=y^2-74y+1305.\\)" },
+{ en: "STEP 5 — Solve for y. The \\(y^2\\) cancels: \\(-106y+2553=-74y+1305\\Rightarrow -32y=-1248\\Rightarrow y=39.\\)",
+zh: "第 5 步 —— 解 y。\\(y^2\\) 抵消：\\(-106y+2553=-74y+1305\\Rightarrow -32y=-1248\\Rightarrow y=39.\\)" },
+{ en: "STEP 6 — Return to x. \\(x^2-10x=39\\Rightarrow x^2-10x-39=0\\Rightarrow (x-13)(x+3)=0.\\) So \\(x=13\\) or \\(x=-3.\\) The positive solution is \\(x=13.\\)",
+zh: "第 6 步 —— 回到 x。\\(x^2-10x=39\\Rightarrow x^2-10x-39=0\\Rightarrow (x-13)(x+3)=0\\)。所以 \\(x=13\\) 或 \\(x=-3\\)。正解是 \\(x=13.\\)" }
+],
+answer: { en: "Positive solution \\(x=13\\)", zh: "正解 \\(x=13\\)" },
+insight: { en: "When the same expression appears in every denominator, substitute it as a single variable (y = x^2-10x). The mess collapses to a small equation in y; combine fractions, cross-multiply, and the quadratic terms often cancel to give y linearly. Then a single quadratic returns you to x. One substitution does the heavy lifting.",
+zh: "当同一个表达式出现在每个分母里，把它代换成一个变量（y = x²−10x）。乱式塌缩成 y 里的小方程；合并分数、交叉相乘，二次项往往抵消，线性地给出 y。然后一个二次方程把你带回 x。一次代换扛起了全部重活。" }
+};
+courseData.days[2].problemSet[9] = {
+n: 10, source: "1994 ARML / classic",
+statement: { en: "Solve \\((x+2)(x+4)(x+6)(x+8)=(x+2)^2+(x+4)^2+(x+6)^2+(x+8)^2+4.\\)",
+zh: "解 \\((x+2)(x+4)(x+6)(x+8)=(x+2)^2+(x+4)^2+(x+6)^2+(x+8)^2+4.\\)" },
+recall: [ { en: "The four numbers 2,4,6,8 are symmetric about 5", zh: "四个数 2,4,6,8 关于 5 对称" }, { en: "Center the substitution: let t = x+5", zh: "把代换居中：设 t = x+5" }, { en: "Symmetric setup kills the odd powers", zh: "对称设定会消掉奇次幂" } ],
+guide: { en: "The numbers \\(2,4,6,8\\) are evenly spaced and centered at \\(5.\\) That symmetry is the whole hint: substitute \\(t=x+5\\) to put the center at zero. Then the four factors become \\(t-3,t-1,t+1,t+3\\) — perfectly symmetric \\(\\pm1,\\pm3.\\) Symmetric pairs multiply into differences of squares (no odd powers survive), so both sides become simple expressions in \\(t^2.\\) That collapses everything to a quadratic in \\(t^2.\\)",
+zh: "数字 \\(2,4,6,8\\) 等间距且以 \\(5\\) 为中心。这个对称就是全部提示：代换 \\(t=x+5\\) 把中心移到零。则四个因子变成 \\(t-3,t-1,t+1,t+3\\) —— 完美对称的 \\(\\pm1,\\pm3\\)。对称对相乘成平方差（没有奇次幂幸存），所以两边都变成 \\(t^2\\) 的简单表达式。这把一切塌缩成 \\(t^2\\) 的二次方程。" },
+steps: [
+{ en: "STEP 1 — Center the substitution. Let \\(t=x+5.\\) Then \\(x+2=t-3,\\ x+4=t-1,\\ x+6=t+1,\\ x+8=t+3.\\)",
+zh: "第 1 步 —— 居中代换。设 \\(t=x+5\\)。则 \\(x+2=t-3,\\ x+4=t-1,\\ x+6=t+1,\\ x+8=t+3.\\)" },
+{ en: "STEP 2 — Left side: pair symmetric factors. \\((t-3)(t+3)=t^2-9\\) and \\((t-1)(t+1)=t^2-1.\\) So LHS \\(=(t^2-9)(t^2-1)=t^4-10t^2+9.\\)",
+zh: "第 2 步 —— 左边：配对称因子。\\((t-3)(t+3)=t^2-9\\)，\\((t-1)(t+1)=t^2-1\\)。所以左边 \\(=(t^2-9)(t^2-1)=t^4-10t^2+9.\\)" },
+{ en: "STEP 3 — Right side: sum of squares. \\((t-3)^2+(t-1)^2+(t+1)^2+(t+3)^2.\\) The odd (cross) terms cancel by symmetry: \\(=4t^2+(9+1+1+9)=4t^2+20.\\) Add the \\(+4:\\) RHS \\(=4t^2+24.\\)",
+zh: "第 3 步 —— 右边：平方和。\\((t-3)^2+(t-1)^2+(t+1)^2+(t+3)^2\\)。奇次（交叉）项因对称抵消：\\(=4t^2+(9+1+1+9)=4t^2+20\\)。加上 \\(+4\\)：右边 \\(=4t^2+24.\\)" },
+{ en: "STEP 4 — Set LHS = RHS. \\(t^4-10t^2+9=4t^2+24\\Rightarrow t^4-14t^2-15=0.\\)",
+zh: "第 4 步 —— 令左 = 右。\\(t^4-10t^2+9=4t^2+24\\Rightarrow t^4-14t^2-15=0.\\)" },
+{ en: "STEP 5 — Solve as a quadratic in \\(t^2.\\) Factor: \\((t^2-15)(t^2+1)=0.\\) Since \\(t^2+1>0,\\) we need \\(t^2=15,\\) so \\(t=\\pm\\sqrt{15}.\\)",
+zh: "第 5 步 —— 当作 \\(t^2\\) 的二次方程解。分解：\\((t^2-15)(t^2+1)=0\\)。因 \\(t^2+1>0\\)，需 \\(t^2=15\\)，所以 \\(t=\\pm\\sqrt{15}.\\)" },
+{ en: "STEP 6 — Return to x. \\(x=t-5=-5\\pm\\sqrt{15}.\\)",
+zh: "第 6 步 —— 回到 x。\\(x=t-5=-5\\pm\\sqrt{15}.\\)" }
+],
+answer: { en: "\\(x=-5\\pm\\sqrt{15}\\)", zh: "\\(x=-5\\pm\\sqrt{15}\\)" },
+insight: { en: "When numbers are evenly spaced and symmetric (2,4,6,8 about 5), substitute t = center to make them ±1, ±3. Symmetric factors pair into differences of squares and symmetric sums lose their odd terms — everything becomes an expression in t^2, collapsing to a quadratic. Centering is the move that exploits symmetry.",
+zh: "当数字等间距且对称（2,4,6,8 关于 5），代换 t = 中心，使它们变成 ±1, ±3。对称因子配成平方差，对称和失去奇次项 —— 一切变成 t² 的表达式，塌缩成二次方程。「居中」就是利用对称的那一招。" }
+};
