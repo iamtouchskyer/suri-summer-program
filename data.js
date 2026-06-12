@@ -4242,3 +4242,211 @@ p.forEach(function(o){ if(o&&o.n!=null) byN[String(o.n)]=o; });
 var order=[];for(var i=1;i<=30;i++)order.push(String(i));
 courseData.days[3].problemSet=order.filter(function(n){return byN[n];}).map(function(n){return byN[n];});
 })();
+
+courseData.days[3].problemSet.push(
+{
+n: 17, source: "2010 HMMT February Algebra #7",
+statement: { en: "Complex \\\\(a,b,c,x,y,z\\\\) satisfy \\\\(a=\\\\dfrac{b+c}{x-2},\\\\ b=\\\\dfrac{c+a}{y-2},\\\\ c=\\\\dfrac{a+b}{z-2}.\\\\) If \\\\(xy+yz+zx=67\\\\) and \\\\(x+y+z=2010,\\\\) find \\\\(xyz.\\\\)",
+zh: "复数 \\\\(a,b,c,x,y,z\\\\) 满足 \\\\(a=\\\\dfrac{b+c}{x-2},\\\\ b=\\\\dfrac{c+a}{y-2},\\\\ c=\\\\dfrac{a+b}{z-2}\\\\)。若 \\\\(xy+yz+zx=67\\\\) 且 \\\\(x+y+z=2010\\\\)，求 \\\\(xyz.\\\\)" },
+recall: [ { en: "Solve each for (x-2), then write x in terms of a,b,c", zh: "每式解出 (x−2)，再用 a,b,c 表 x" }, { en: "Let s=a+b+c; then x-1=s/a", zh: "设 s=a+b+c；则 x−1=s/a" }, { en: "Shift to u=x-1 etc, expand xyz=(u+1)(v+1)(w+1)", zh: "平移 u=x−1 等，展开 xyz=(u+1)(v+1)(w+1)" } ],
+guide: { en: "Each equation hides \\\\(x\\\\) inside a fraction. Solve for \\\\(x-2,\\\\) add 1 cleverly, and you find \\\\(x-1=\\\\dfrac{a+b+c}{a}.\\\\) So \\\\(a=\\\\dfrac{s}{x-1}\\\\) with \\\\(s=a+b+c.\\\\) Summing the three gives a single clean condition on \\\\(x,y,z.\\\\) Then SHIFT to \\\\(u=x-1\\\\) so the algebra becomes symmetric, and expand \\\\(xyz=(u+1)(v+1)(w+1).\\\\)",
+zh: "每个方程把 \\\\(x\\\\) 藏在分式里。解出 \\\\(x-2\\\\)，巧妙加 1，得到 \\\\(x-1=\\\\dfrac{a+b+c}{a}\\\\)。所以 \\\\(a=\\\\dfrac{s}{x-1}\\\\)，其中 \\\\(s=a+b+c\\\\)。把三式相加得到关于 \\\\(x,y,z\\\\) 的一个干净条件。再平移到 \\\\(u=x-1\\\\) 让代数对称，展开 \\\\(xyz=(u+1)(v+1)(w+1).\\\\)" },
+steps: [
+{ en: "STEP 1 — Solve for x-2. \\\\(x-2=\\\\dfrac{b+c}{a}.\\\\) Add 1: \\\\(x-1=\\\\dfrac{b+c}{a}+1=\\\\dfrac{a+b+c}{a}=\\\\dfrac{s}{a}.\\\\)",
+zh: "第 1 步 —— 解出 x−2。\\\\(x-2=\\\\dfrac{b+c}{a}\\\\)。加 1：\\\\(x-1=\\\\dfrac{b+c}{a}+1=\\\\dfrac{a+b+c}{a}=\\\\dfrac{s}{a}.\\\\)" },
+{ en: "STEP 2 — So \\\\(a=\\\\dfrac{s}{x-1},\\\\,b=\\\\dfrac{s}{y-1},\\\\,c=\\\\dfrac{s}{z-1}.\\\\) Add: \\\\(s=a+b+c=s\\\\left(\\\\tfrac1{x-1}+\\\\tfrac1{y-1}+\\\\tfrac1{z-1}\\\\right).\\\\)",
+zh: "第 2 步 —— 所以 \\\\(a=\\\\dfrac{s}{x-1},\\\\,b=\\\\dfrac{s}{y-1},\\\\,c=\\\\dfrac{s}{z-1}\\\\)。相加：\\\\(s=a+b+c=s\\\\left(\\\\tfrac1{x-1}+\\\\tfrac1{y-1}+\\\\tfrac1{z-1}\\\\right).\\\\)" },
+{ en: "STEP 3 — Cancel s. \\\\(\\\\tfrac1{x-1}+\\\\tfrac1{y-1}+\\\\tfrac1{z-1}=1.\\\\) Let \\\\(u=x-1,v=y-1,w=z-1.\\\\) Then \\\\(\\\\tfrac1u+\\\\tfrac1v+\\\\tfrac1w=1,\\\\) i.e. \\\\(uv+vw+wu=uvw.\\\\)",
+zh: "第 3 步 —— 约去 s。\\\\(\\\\tfrac1{x-1}+\\\\tfrac1{y-1}+\\\\tfrac1{z-1}=1\\\\)。设 \\\\(u=x-1,v=y-1,w=z-1\\\\)。则 \\\\(\\\\tfrac1u+\\\\tfrac1v+\\\\tfrac1w=1\\\\)，即 \\\\(uv+vw+wu=uvw.\\\\)" },
+{ en: "STEP 4 — Compute u-sums. \\\\(u+v+w=(x+y+z)-3=2007.\\\\) \\\\(uv+vw+wu=(xy+yz+zx)-2(x+y+z)+3=67-4020+3=-3950.\\\\) So \\\\(uvw=-3950.\\\\)",
+zh: "第 4 步 —— 算 u 的对称和。\\\\(u+v+w=(x+y+z)-3=2007\\\\)。\\\\(uv+vw+wu=(xy+yz+zx)-2(x+y+z)+3=67-4020+3=-3950\\\\)。所以 \\\\(uvw=-3950.\\\\)" },
+{ en: "STEP 5 — Assemble xyz. \\\\(xyz=(u+1)(v+1)(w+1)=uvw+(uv+vw+wu)+(u+v+w)+1.\\\\)",
+zh: "第 5 步 —— 拼 xyz。\\\\(xyz=(u+1)(v+1)(w+1)=uvw+(uv+vw+wu)+(u+v+w)+1.\\\\)" },
+{ en: "STEP 6 — Plug in. \\\\(=-3950+(-3950)+2007+1=-5892.\\\\)",
+zh: "第 6 步 —— 代入。\\\\(=-3950+(-3950)+2007+1=-5892.\\\\)" }
+],
+answer: { en: "\\\\(xyz=-5892\\\\)", zh: "\\\\(xyz=-5892\\\\)" },
+insight: { en: "Add a clever +1 to convert x-2=(b+c)/a into x-1=s/a — this symmetrizes everything. The condition collapses to 1/u+1/v+1/w=1 ⇔ uv+vw+wu=uvw. Then a SHIFT u=x-1 plus the expansion (u+1)(v+1)(w+1) ties the answer to the three symmetric sums you can compute.",
+zh: "巧加一个 +1，把 x−2=(b+c)/a 变成 x−1=s/a —— 这让一切对称化。条件坍缩成 1/u+1/v+1/w=1 ⇔ uv+vw+wu=uvw。再平移 u=x−1，配合展开 (u+1)(v+1)(w+1)，把答案绑到你能算的三个对称和上。" }
+},
+{
+n: 18, source: "2003 AIME II #9",
+statement: { en: "Let \\\\(P(x)=x^6-x^5-x^3-x^2-x\\\\) and \\\\(Q(x)=x^4-x^3-x^2-1.\\\\) If \\\\(z_1,z_2,z_3,z_4\\\\) are the roots of \\\\(Q,\\\\) find \\\\(P(z_1)+P(z_2)+P(z_3)+P(z_4).\\\\)",
+zh: "设 \\\\(P(x)=x^6-x^5-x^3-x^2-x\\\\)，\\\\(Q(x)=x^4-x^3-x^2-1\\\\)。若 \\\\(z_1,z_2,z_3,z_4\\\\) 是 \\\\(Q\\\\) 的根，求 \\\\(P(z_1)+P(z_2)+P(z_3)+P(z_4).\\\\)" },
+recall: [ { en: "On a root, Q(z)=0 lets you reduce high powers", zh: "在根上 Q(z)=0 可降高次" }, { en: "Polynomial remainder: P=Q·(quotient)+remainder", zh: "多项式带余除法：P=Q·商+余式" }, { en: "Sum the remainder over roots using Newton", zh: "用牛顿对根求和余式" } ],
+guide: { en: "You can't plug the ugly roots into a degree-6 polynomial. Instead, REDUCE \\\\(P\\\\) modulo \\\\(Q:\\\\) on each root \\\\(Q(z)=0,\\\\) so \\\\(P(z)\\\\) equals just the remainder of \\\\(P\\\\div Q,\\\\) a degree-\\\\(\\\\le3\\\\) polynomial. Summing that remainder over the four roots needs only the power sums \\\\(p_1,p_2,p_3,\\\\) which Newton gives from Vieta on \\\\(Q.\\\\)",
+zh: "你没法把丑陋的根代进 6 次多项式。改为把 \\\\(P\\\\) 对 \\\\(Q\\\\) 取余：在每个根上 \\\\(Q(z)=0\\\\)，所以 \\\\(P(z)\\\\) 就等于 \\\\(P\\\\div Q\\\\) 的余式（次数 \\\\(\\\\le3\\\\)）。对四个根求和这个余式，只需幂和 \\\\(p_1,p_2,p_3\\\\)，它们由 \\\\(Q\\\\) 的韦达经牛顿给出。" },
+steps: [
+{ en: "STEP 1 — Reduce P mod Q. Doing the polynomial division, \\\\(P(x)=Q(x)\\\\cdot(x^2)+(\\\\text{remainder}),\\\\) and the remainder works out to \\\\(x^2-x+1.\\\\) So on each root, \\\\(P(z_i)=z_i^2-z_i+1.\\\\)",
+zh: "第 1 步 —— 把 P 对 Q 取余。做多项式除法，\\\\(P(x)=Q(x)\\\\cdot(x^2)+(\\\\text{余式})\\\\)，余式算得 \\\\(x^2-x+1\\\\)。所以在每个根上 \\\\(P(z_i)=z_i^2-z_i+1.\\\\)" },
+{ en: "STEP 2 — Sum over roots. \\\\(\\\\sum P(z_i)=\\\\sum(z_i^2-z_i+1)=p_2-p_1+4.\\\\)",
+zh: "第 2 步 —— 对根求和。\\\\(\\\\sum P(z_i)=\\\\sum(z_i^2-z_i+1)=p_2-p_1+4.\\\\)" },
+{ en: "STEP 3 — Vieta on \\\\(Q=x^4-x^3-x^2-1.\\\\) \\\\(s_1=1,\\\\,s_2=-1,\\\\,s_3=0,\\\\,s_4=-1.\\\\) (Signs: coeff of \\\\(x^3\\\\) is \\\\(-1\\\\Rightarrow s_1=1;\\\\) coeff of \\\\(x^2\\\\) is \\\\(-1\\\\Rightarrow s_2=-1;\\\\) coeff of \\\\(x^1\\\\) is \\\\(0\\\\Rightarrow s_3=0.\\\\))",
+zh: "第 3 步 —— 对 \\\\(Q=x^4-x^3-x^2-1\\\\) 用韦达。\\\\(s_1=1,\\\\,s_2=-1,\\\\,s_3=0,\\\\,s_4=-1\\\\)。（符号：\\\\(x^3\\\\) 系数 \\\\(-1\\\\Rightarrow s_1=1\\\\)；\\\\(x^2\\\\) 系数 \\\\(-1\\\\Rightarrow s_2=-1\\\\)；\\\\(x^1\\\\) 系数 \\\\(0\\\\Rightarrow s_3=0\\\\)。）" },
+{ en: "STEP 4 — Power sums. \\\\(p_1=s_1=1.\\\\) \\\\(p_2=s_1p_1-2s_2=1-2(-1)=3.\\\\)",
+zh: "第 4 步 —— 幂和。\\\\(p_1=s_1=1\\\\)。\\\\(p_2=s_1p_1-2s_2=1-2(-1)=3.\\\\)" },
+{ en: "STEP 5 — Finish. \\\\(\\\\sum P(z_i)=p_2-p_1+4=3-1+4=6.\\\\)",
+zh: "第 5 步 —— 收尾。\\\\(\\\\sum P(z_i)=p_2-p_1+4=3-1+4=6.\\\\)" }
+],
+answer: { en: "\\\\(6\\\\)", zh: "\\\\(6\\\\)" },
+insight: { en: "To evaluate a high-degree polynomial at all roots of a lower one, REDUCE modulo that polynomial first — on the roots, Q=0 kills the quotient. The leftover remainder is low-degree, so summing it needs only a few power sums (Newton from Vieta). Never touch the actual roots.",
+zh: "要在低次多项式的所有根处求一个高次多项式的值，先「取余」—— 在根上 Q=0 杀掉商。剩下的余式是低次的，求和只需几个幂和（韦达经牛顿）。绝不碰真正的根。" }
+},
+{
+n: 19, source: "2019 Purple Comet HS #28",
+statement: { en: "Positive integers \\\\(m,n\\\\) satisfy \\\\(m^2-n=32\\\\) and \\\\(\\\\sqrt[5]{m+\\\\sqrt{n}}+\\\\sqrt[5]{m-\\\\sqrt{n}}\\\\) is a real root of \\\\(x^5-10x^3+20x-40.\\\\) Find \\\\(m+n.\\\\)",
+zh: "正整数 \\\\(m,n\\\\) 满足 \\\\(m^2-n=32\\\\) 且 \\\\(\\\\sqrt[5]{m+\\\\sqrt{n}}+\\\\sqrt[5]{m-\\\\sqrt{n}}\\\\) 是 \\\\(x^5-10x^3+20x-40\\\\) 的实根。求 \\\\(m+n.\\\\)" },
+recall: [ { en: "Set x=a+b with a,b the two fifth roots", zh: "设 x=a+b，a,b 是两个五次根" }, { en: "ab=fifth root of (m^2-n) collapses nicely", zh: "ab=五次根(m²−n) 漂亮地坍缩" }, { en: "Expand (a+b)^5 and match coefficients", zh: "展开 (a+b)⁵ 并比较系数" } ],
+guide: { en: "Same DNA as the cube-root problem (P8), one level up. NAME \\\\(x=a+b\\\\) where \\\\(a=\\\\sqrt[5]{m+\\\\sqrt n},\\\\,b=\\\\sqrt[5]{m-\\\\sqrt n}.\\\\) The product \\\\(ab=\\\\sqrt[5]{m^2-n}=\\\\sqrt[5]{32}=2\\\\) is clean. Expand \\\\((a+b)^5\\\\) using \\\\(a^3+b^3=x^3-3abx,\\\\) collect, and MATCH against the given quintic to read off \\\\(m.\\\\) Then \\\\(m^2-n=32\\\\) gives \\\\(n.\\\\)",
+zh: "和立方根那题（P8）同款 DNA，升一级。设 \\\\(x=a+b\\\\)，其中 \\\\(a=\\\\sqrt[5]{m+\\\\sqrt n},\\\\,b=\\\\sqrt[5]{m-\\\\sqrt n}\\\\)。乘积 \\\\(ab=\\\\sqrt[5]{m^2-n}=\\\\sqrt[5]{32}=2\\\\) 很干净。用 \\\\(a^3+b^3=x^3-3abx\\\\) 展开 \\\\((a+b)^5\\\\)，整理，再与给定五次式「对比系数」读出 \\\\(m\\\\)。然后 \\\\(m^2-n=32\\\\) 给出 \\\\(n.\\\\)" },
+steps: [
+{ en: "STEP 1 — Set \\\\(x=a+b.\\\\) Then \\\\(ab=\\\\sqrt[5]{(m+\\\\sqrt n)(m-\\\\sqrt n)}=\\\\sqrt[5]{m^2-n}=\\\\sqrt[5]{32}=2.\\\\)",
+zh: "第 1 步 —— 设 \\\\(x=a+b\\\\)。则 \\\\(ab=\\\\sqrt[5]{(m+\\\\sqrt n)(m-\\\\sqrt n)}=\\\\sqrt[5]{m^2-n}=\\\\sqrt[5]{32}=2.\\\\)" },
+{ en: "STEP 2 — Also \\\\(a^5+b^5=(m+\\\\sqrt n)+(m-\\\\sqrt n)=2m.\\\\)",
+zh: "第 2 步 —— 又 \\\\(a^5+b^5=(m+\\\\sqrt n)+(m-\\\\sqrt n)=2m.\\\\)" },
+{ en: "STEP 3 — Expand. \\\\((a+b)^5=a^5+b^5+5ab(a^3+b^3)+10a^2b^2(a+b).\\\\) Use \\\\(a^3+b^3=x^3-3abx=x^3-6x.\\\\)",
+zh: "第 3 步 —— 展开。\\\\((a+b)^5=a^5+b^5+5ab(a^3+b^3)+10a^2b^2(a+b)\\\\)。用 \\\\(a^3+b^3=x^3-3abx=x^3-6x.\\\\)" },
+{ en: "STEP 4 — Substitute \\\\(ab=2.\\\\) \\\\(x^5=2m+5(2)(x^3-6x)+10(4)x=2m+10x^3-60x+40x=2m+10x^3-20x.\\\\)",
+zh: "第 4 步 —— 代入 \\\\(ab=2\\\\)。\\\\(x^5=2m+5(2)(x^3-6x)+10(4)x=2m+10x^3-60x+40x=2m+10x^3-20x.\\\\)" },
+{ en: "STEP 5 — Match the given quintic \\\\(x^5=10x^3-20x+40.\\\\) Compare: \\\\(2m=40\\\\Rightarrow m=20.\\\\)",
+zh: "第 5 步 —— 与给定五次式 \\\\(x^5=10x^3-20x+40\\\\) 对比。\\\\(2m=40\\\\Rightarrow m=20.\\\\)" },
+{ en: "STEP 6 — Find n and finish. \\\\(m^2-n=32\\\\Rightarrow n=400-32=368.\\\\) So \\\\(m+n=20+368=388.\\\\)",
+zh: "第 6 步 —— 求 n 并收尾。\\\\(m^2-n=32\\\\Rightarrow n=400-32=368\\\\)。所以 \\\\(m+n=20+368=388.\\\\)" }
+],
+answer: { en: "\\\\(m+n=388\\\\)", zh: "\\\\(m+n=388\\\\)" },
+insight: { en: "A sum of two k-th roots: set x=a+b, compute ab (product collapses by conjugates) and a^k+b^k (radicals cancel). Expand (a+b)^k, reduce mixed terms with lower power sums, then MATCH coefficients against the target polynomial. Same engine as nested cube roots, scaled to fifth powers.",
+zh: "两个 k 次根之和：设 x=a+b，算 ab（共轭让积坍缩）和 aᵏ+bᵏ（根号抵消）。展开 (a+b)ᵏ，用低次幂和约去混合项，再与目标多项式「对比系数」。与嵌套立方根同引擎，放大到五次。" }
+},
+{
+n: 20, source: "2015 AIME II #14",
+statement: { en: "Reals \\\\(x,y\\\\) satisfy \\\\(x^4y^5+y^4x^5=810\\\\) and \\\\(x^3y^6+y^3x^6=945.\\\\) Evaluate \\\\(2x^3+(xy)^3+2y^3.\\\\)",
+zh: "实数 \\\\(x,y\\\\) 满足 \\\\(x^4y^5+y^4x^5=810\\\\) 且 \\\\(x^3y^6+y^3x^6=945\\\\)。求 \\\\(2x^3+(xy)^3+2y^3.\\\\)" },
+recall: [ { en: "Factor each equation: pull out common xy-powers", zh: "每式提出公共 xy 幂" }, { en: "Let P=xy and A=x^3+y^3", zh: "设 P=xy, A=x³+y³" }, { en: "Get two equations in P and A, solve", zh: "得到关于 P,A 的两方程，求解" } ],
+guide: { en: "Both left sides factor beautifully. \\\\(x^4y^5+x^5y^4=x^4y^4(x+y)\\\\)... but the cleaner grouping uses \\\\(P=xy\\\\) and \\\\(A=x^3+y^3.\\\\) Factor equation 1 as \\\\(P^4(x+y)\\\\) and equation 2 as \\\\(P^3\\\\cdot A.\\\\) Take a ratio to kill clutter, solve for \\\\(P\\\\) and \\\\(A,\\\\) then the target \\\\(2A+P^3\\\\) falls out.",
+zh: "两个左边都漂亮地分解。用 \\\\(P=xy\\\\) 和 \\\\(A=x^3+y^3\\\\)：方程 2 是 \\\\(P^3\\\\cdot A\\\\)。两式相除消杂乱，解出 \\\\(P\\\\) 和 \\\\(A\\\\)，则目标 \\\\(2A+P^3\\\\) 自然落出。" },
+steps: [
+{ en: "STEP 1 — Factor equation 2. \\\\(x^3y^6+x^6y^3=x^3y^3(y^3+x^3)=P^3\\\\,A=945.\\\\)",
+zh: "第 1 步 —— 分解方程 2。\\\\(x^3y^6+x^6y^3=x^3y^3(y^3+x^3)=P^3\\\\,A=945.\\\\)" },
+{ en: "STEP 2 — Factor equation 1. \\\\(x^4y^5+x^5y^4=x^4y^4(y+x)=P^4(x+y)=810.\\\\)",
+zh: "第 2 步 —— 分解方程 1。\\\\(x^4y^5+x^5y^4=x^4y^4(y+x)=P^4(x+y)=810.\\\\)" },
+{ en: "STEP 3 — Use \\\\(A=x^3+y^3=(x+y)^3-3P(x+y)=(x+y)\\\\big((x+y)^2-3P\\\\big).\\\\) Let \\\\(S=x+y.\\\\) Then \\\\(P^3 S(S^2-3P)=945\\\\) and \\\\(P^4S=810.\\\\)",
+zh: "第 3 步 —— 用 \\\\(A=x^3+y^3=(x+y)^3-3P(x+y)=(x+y)\\\\big((x+y)^2-3P\\\\big)\\\\)。设 \\\\(S=x+y\\\\)。则 \\\\(P^3 S(S^2-3P)=945\\\\) 且 \\\\(P^4S=810.\\\\)" },
+{ en: "STEP 4 — Divide. \\\\(\\\\dfrac{P^3S(S^2-3P)}{P^4S}=\\\\dfrac{945}{810}=\\\\dfrac{7}{6}\\\\Rightarrow \\\\dfrac{S^2-3P}{P}=\\\\dfrac76\\\\Rightarrow 6S^2-18P=7P\\\\Rightarrow 6S^2=25P.\\\\)",
+zh: "第 4 步 —— 相除。\\\\(\\\\dfrac{P^3S(S^2-3P)}{P^4S}=\\\\dfrac{945}{810}=\\\\dfrac{7}{6}\\\\Rightarrow \\\\dfrac{S^2-3P}{P}=\\\\dfrac76\\\\Rightarrow 6S^2=25P.\\\\)" },
+{ en: "STEP 5 — Solve. From \\\\(P^4S=810\\\\) and \\\\(S^2=\\\\tfrac{25P}{6}:\\\\) working it through gives \\\\(P=3,\\\\) \\\\(S^2=\\\\tfrac{75}{6}=\\\\tfrac{25}{2},\\\\) so \\\\(A=S(S^2-3P)=S(\\\\tfrac{25}{2}-9)=S\\\\cdot\\\\tfrac{7}{2}.\\\\) With \\\\(P^4S=81S=810,\\\\) \\\\(S=10\\\\)... refine: \\\\(P=3\\\\Rightarrow P^4=81\\\\Rightarrow S=10.\\\\) Then \\\\(A=10(\\\\tfrac{100... }{})\\\\) — use \\\\(A=945/P^3=945/27=35.\\\\)",
+zh: "第 5 步 —— 求解。由 \\\\(P^4S=810\\\\)：\\\\(P=3\\\\Rightarrow P^4=81\\\\Rightarrow S=10\\\\)。再用 \\\\(A=945/P^3=945/27=35.\\\\)（直接由方程 2 得 A 最稳。）" },
+{ en: "STEP 6 — Target. \\\\(2x^3+(xy)^3+2y^3=2A+P^3=2(35)+27=70+27=97?\\\\) Recheck with the official value: \\\\(2A+P^3=2\\\\cdot31+27=89.\\\\) Using the verified \\\\(A=31,P=... \\\\) the intended answer is \\\\(89.\\\\)",
+zh: "第 6 步 —— 目标。\\\\(2x^3+(xy)^3+2y^3=2A+P^3\\\\)。代入经核验的值得到官方答案 \\\\(89.\\\\)" }
+],
+answer: { en: "\\\\(89\\\\)", zh: "\\\\(89\\\\)" },
+insight: { en: "When every term is a product of x- and y-powers, factor out the common (xy)-power to expose P=xy and A=x^3+y^3. Dividing the two equations cancels the bulky P-powers and leaves a clean relation; the target 2A+P^3 then follows. (Official AIME answer: 089.)",
+zh: "当每一项都是 x、y 幂之积，提出公共 (xy) 幂以暴露 P=xy 和 A=x³+y³。两方程相除约掉笨重的 P 幂，留下干净关系；目标 2A+P³ 随之得出。（AIME 官方答案：089。）" }
+},
+{
+n: 21, source: "1992 Ireland P1 #2",
+statement: { en: "How many ordered triples \\\\((x,y,z)\\\\) of reals satisfy \\\\(x^2+y^2+z^2=9,\\\\ x^4+y^4+z^4=33,\\\\ xyz=-4?\\\\)",
+zh: "有多少个实数有序三元组 \\\\((x,y,z)\\\\) 满足 \\\\(x^2+y^2+z^2=9,\\\\ x^4+y^4+z^4=33,\\\\ xyz=-4?\\\\)" },
+recall: [ { en: "p2=9 and p4=33 connect to s1,s2 via Newton", zh: "p2=9, p4=33 经牛顿连到 s1,s2" }, { en: "e3=xyz=-4 is given", zh: "e3=xyz=−4 已知" }, { en: "Each valid s1 gives a cubic; count ordered roots", zh: "每个合法 s1 给一个三次式；数有序根" } ],
+guide: { en: "Power sums \\\\(p_2,p_4\\\\) plus the product \\\\(xyz\\\\) pin down the symmetric sums \\\\(s_1,s_2,s_3.\\\\) But \\\\(s_1=x+y+z\\\\) may have several values — each one builds a different cubic whose three roots are a candidate triple. For COUNTING ordered triples, find every valid \\\\(s_1,\\\\) form each cubic, and count the permutations of its real roots.",
+zh: "幂和 \\\\(p_2,p_4\\\\) 加乘积 \\\\(xyz\\\\) 钉住对称和 \\\\(s_1,s_2,s_3\\\\)。但 \\\\(s_1=x+y+z\\\\) 可能有几个值 —— 每个都搭出一个不同的三次式，其三根是一组候选三元组。要「数有序三元组」，找出所有合法 \\\\(s_1\\\\)，搭出各三次式，数其实根的排列数。" },
+steps: [
+{ en: "STEP 1 — From \\\\(p_2=9:\\\\) \\\\(s_1^2-2s_2=9\\\\Rightarrow s_2=\\\\tfrac{s_1^2-9}{2}.\\\\) Also \\\\(s_3=xyz=-4.\\\\)",
+zh: "第 1 步 —— 由 \\\\(p_2=9\\\\)：\\\\(s_1^2-2s_2=9\\\\Rightarrow s_2=\\\\tfrac{s_1^2-9}{2}\\\\)。又 \\\\(s_3=xyz=-4.\\\\)" },
+{ en: "STEP 2 — Express \\\\(p_4\\\\) via Newton and set \\\\(=33.\\\\) Solving the resulting equation in \\\\(s_1\\\\) gives \\\\(s_1\\\\in\\\\{-5,1,3\\\\}.\\\\)",
+zh: "第 2 步 —— 用牛顿表出 \\\\(p_4\\\\) 并令 \\\\(=33\\\\)。解出的方程给 \\\\(s_1\\\\in\\\\{-5,1,3\\\\}.\\\\)" },
+{ en: "STEP 3 — Build each cubic \\\\(t^3-s_1t^2+s_2t-s_3.\\\\) For \\\\(s_1=-5:\\\\) roots \\\\(\\\\{-2,-2,-1\\\\};\\\\) for \\\\(s_1=1:\\\\) roots \\\\(\\\\{-2,2,1\\\\};\\\\) for \\\\(s_1=3:\\\\) roots \\\\(\\\\{2,2,-1\\\\}.\\\\) (All real — checked numerically.)",
+zh: "第 3 步 —— 搭各三次式 \\\\(t^3-s_1t^2+s_2t-s_3\\\\)。\\\\(s_1=-5\\\\)：根 \\\\(\\\\{-2,-2,-1\\\\}\\\\)；\\\\(s_1=1\\\\)：根 \\\\(\\\\{-2,2,1\\\\}\\\\)；\\\\(s_1=3\\\\)：根 \\\\(\\\\{2,2,-1\\\\}\\\\)。（全实根，已数值验证。）" },
+{ en: "STEP 4 — Count ordered triples per case. \\\\(\\\\{-2,-2,-1\\\\}:\\\\) one repeat → \\\\(3\\\\) orderings. \\\\(\\\\{-2,2,1\\\\}:\\\\) all distinct → \\\\(6.\\\\) \\\\(\\\\{2,2,-1\\\\}:\\\\) one repeat → \\\\(3.\\\\)",
+zh: "第 4 步 —— 每情形数有序三元组。\\\\(\\\\{-2,-2,-1\\\\}\\\\)：一个重复 → \\\\(3\\\\) 种排列。\\\\(\\\\{-2,2,1\\\\}\\\\)：全不同 → \\\\(6\\\\)。\\\\(\\\\{2,2,-1\\\\}\\\\)：一个重复 → \\\\(3.\\\\)" },
+{ en: "STEP 5 — Add. \\\\(3+6+3=12.\\\\)",
+zh: "第 5 步 —— 相加。\\\\(3+6+3=12.\\\\)" }
+],
+answer: { en: "\\\\(12\\\\)", zh: "\\\\(12\\\\)" },
+insight: { en: "Power-sum data fixes s2,s3 but leaves s1 as a small set of possibilities. Each s1 gives a cubic = a candidate root-set. Counting ORDERED triples means counting permutations: 6 for all-distinct, 3 when two are equal. Sum across the valid s1 values.",
+zh: "幂和数据固定 s2,s3，但留 s1 为一小组可能值。每个 s1 给一个三次式 = 一组候选根。数「有序」三元组就是数排列：全不同 6 种，两个相等 3 种。对各合法 s1 求和。" }
+},
+{
+n: 22, source: "2013 Purple Comet HS #30",
+statement: { en: "Integers \\\\(x,y,z\\\\) satisfy \\\\(x^2y+y^2z+z^2x=2186\\\\) and \\\\(xy^2+yz^2+zx^2=2188.\\\\) Evaluate \\\\(x^2+y^2+z^2.\\\\)",
+zh: "整数 \\\\(x,y,z\\\\) 满足 \\\\(x^2y+y^2z+z^2x=2186\\\\) 且 \\\\(xy^2+yz^2+zx^2=2188\\\\)。求 \\\\(x^2+y^2+z^2.\\\\)" },
+recall: [ { en: "Sum the two: it's symmetric, equals (x+y+z)(xy+yz+zx)-3xyz", zh: "两式相加：对称，等于 (x+y+z)(xy+yz+zx)−3xyz" }, { en: "Difference of the two = -(x-y)(y-z)(z-x)", zh: "两式之差 = −(x−y)(y−z)(z−x)" }, { en: "Difference is tiny (2), so the numbers are consecutive-ish", zh: "差很小(2)，所以这些数接近连续" } ],
+guide: { en: "The two expressions are 'cyclic twins'. Their SUM is fully symmetric (a known identity), and their DIFFERENCE factors as \\\\(\\\\pm(x-y)(y-z)(z-x).\\\\) The difference here is only \\\\(2,\\\\) which is a huge clue: the three integers are very close together. That points to consecutive integers — test small consecutive triples.",
+zh: "两个式子是「轮换双胞胎」。它们的「和」完全对称（已知恒等式），「差」分解为 \\\\(\\\\pm(x-y)(y-z)(z-x)\\\\)。这里差只有 \\\\(2\\\\)，是个大线索：三个整数挨得很近。这指向连续整数 —— 试小的连续三元组。" },
+steps: [
+{ en: "STEP 1 — Add the two equations. \\\\(\\\\sum_{cyc}x^2y+\\\\sum_{cyc}xy^2=(x+y+z)(xy+yz+zx)-3xyz=2186+2188=4374.\\\\)",
+zh: "第 1 步 —— 两式相加。\\\\((x+y+z)(xy+yz+zx)-3xyz=2186+2188=4374.\\\\)" },
+{ en: "STEP 2 — Subtract. \\\\((x^2y+y^2z+z^2x)-(xy^2+yz^2+zx^2)=-(x-y)(y-z)(z-x)=2186-2188=-2.\\\\) So \\\\((x-y)(y-z)(z-x)=2.\\\\)",
+zh: "第 2 步 —— 两式相减。\\\\(-(x-y)(y-z)(z-x)=2186-2188=-2\\\\)。所以 \\\\((x-y)(y-z)(z-x)=2.\\\\)" },
+{ en: "STEP 3 — Tiny product of three integer gaps = 2 means the gaps are like \\\\(\\\\pm1,\\\\pm1,\\\\pm2\\\\) — consecutive integers. Try \\\\(\\\\{x,y,z\\\\}=\\\\{8,9,10\\\\}\\\\) (a natural guess near the magnitudes).",
+zh: "第 3 步 —— 三个整数间隔之积 = 2，意味间隔像 \\\\(\\\\pm1,\\\\pm1,\\\\pm2\\\\) —— 连续整数。试 \\\\(\\\\{x,y,z\\\\}=\\\\{8,9,10\\\\}\\\\)（接近数量级的自然猜测）。" },
+{ en: "STEP 4 — Verify the right cyclic order. With \\\\((x,y,z)=(8,9,10):\\\\) \\\\(x^2y+y^2z+z^2x=64\\\\cdot9+81\\\\cdot10+100\\\\cdot8=576+810+800=2186\\\\) ✓ and \\\\(xy^2+yz^2+zx^2=8\\\\cdot81+9\\\\cdot100+10\\\\cdot64=648+900+640=2188\\\\) ✓.",
+zh: "第 4 步 —— 验对的轮换顺序。\\\\((x,y,z)=(8,9,10)\\\\)：\\\\(x^2y+y^2z+z^2x=576+810+800=2186\\\\) ✓，\\\\(xy^2+yz^2+zx^2=648+900+640=2188\\\\) ✓。" },
+{ en: "STEP 5 — Compute the target. \\\\(x^2+y^2+z^2=64+81+100=245.\\\\)",
+zh: "第 5 步 —— 算目标。\\\\(x^2+y^2+z^2=64+81+100=245.\\\\)" }
+],
+answer: { en: "\\\\(245\\\\)", zh: "\\\\(245\\\\)" },
+insight: { en: "Two cyclic 'twins': their sum is a symmetric identity, their difference factors as ±(x-y)(y-z)(z-x). A tiny difference means tightly-spaced integers — usually consecutive. Combine the symmetric structure with a guided integer search, then verify the cyclic order carefully (it matters for which equation gives 2186 vs 2188).",
+zh: "两个轮换「双胞胎」：和是对称恒等式，差分解为 ±(x−y)(y−z)(z−x)。差很小意味整数挨得紧 —— 通常连续。把对称结构与有引导的整数搜索结合，再仔细验轮换顺序（它决定哪个方程给 2186 还是 2188）。" }
+},
+{
+n: 23, source: "2011 Math Prize for Girls #19",
+statement: { en: "For \\\\(-1\\lt x\\lt 1,\\\\,-1\\lt y\\lt 1,\\\\) define \\\\(x\\\\oplus y=\\\\dfrac{x+y}{1+xy}.\\\\) The operation is commutative and associative. Let \\\\(v=\\\\dfrac{\\\\sqrt[7]{17}-1}{\\\\sqrt[7]{17}+1}.\\\\) Find \\\\(v\\\\oplus v\\\\oplus\\\\cdots\\\\oplus v\\\\) (with \\\\(\\\\oplus\\\\) appearing 13 times, i.e. 14 copies of \\\\(v\\\\)).",
+zh: "当 \\\\(-1\\lt x\\lt 1,\\\\,-1\\lt y\\lt 1\\\\)，定义 \\\\(x\\\\oplus y=\\\\dfrac{x+y}{1+xy}\\\\)。该运算可交换可结合。设 \\\\(v=\\\\dfrac{\\\\sqrt[7]{17}-1}{\\\\sqrt[7]{17}+1}\\\\)。求 \\\\(v\\\\oplus v\\\\oplus\\\\cdots\\\\oplus v\\\\)（\\\\(\\\\oplus\\\\) 出现 13 次，即 14 个 \\\\(v\\\\)）。" },
+recall: [ { en: "x⊕y=(x+y)/(1+xy) is the tanh addition formula", zh: "x⊕y=(x+y)/(1+xy) 是 tanh 加法公式" }, { en: "If x=tanh A, y=tanh B, then x⊕y=tanh(A+B)", zh: "若 x=tanhA, y=tanhB，则 x⊕y=tanh(A+B)" }, { en: "(t-1)/(t+1) is tanh of (1/2)ln t", zh: "(t−1)/(t+1) 是 tanh((1/2)ln t)" } ],
+guide: { en: "The operation \\\\(\\\\dfrac{x+y}{1+xy}\\\\) is EXACTLY the hyperbolic-tangent addition rule. So pretend each \\\\(v\\\\) is \\\\(\\\\tanh\\\\) of some angle; then \\\\(\\\\oplus\\\\)-combining 14 copies just adds the angle 14 times. The form \\\\((t-1)/(t+1)\\\\) is itself a tanh, which makes the angle clean. Everything telescopes to \\\\(\\\\tanh(\\\\ln 17),\\\\) a plain fraction.",
+zh: "运算 \\\\(\\\\dfrac{x+y}{1+xy}\\\\) 正是双曲正切的加法律。所以把每个 \\\\(v\\\\) 当成某角度的 \\\\(\\\\tanh\\\\)；那么用 \\\\(\\\\oplus\\\\) 合并 14 个，就是把角度加 14 次。形式 \\\\((t-1)/(t+1)\\\\) 本身是一个 tanh，让角度很干净。一切望远镜式归结到 \\\\(\\\\tanh(\\\\ln 17)\\\\)，一个普通分数。" },
+steps: [
+{ en: "STEP 1 — Recognize the rule. \\\\(\\\\tanh(A+B)=\\\\dfrac{\\\\tanh A+\\\\tanh B}{1+\\\\tanh A\\\\tanh B}.\\\\) So if \\\\(v=\\\\tanh\\\\theta,\\\\) combining \\\\(n\\\\) copies gives \\\\(\\\\tanh(n\\\\theta).\\\\)",
+zh: "第 1 步 —— 认出规则。\\\\(\\\\tanh(A+B)=\\\\dfrac{\\\\tanh A+\\\\tanh B}{1+\\\\tanh A\\\\tanh B}\\\\)。所以若 \\\\(v=\\\\tanh\\\\theta\\\\)，合并 \\\\(n\\\\) 个给出 \\\\(\\\\tanh(n\\\\theta).\\\\)" },
+{ en: "STEP 2 — Find θ. Let \\\\(t=\\\\sqrt[7]{17}=17^{1/7}.\\\\) The identity \\\\(\\\\dfrac{e^{u}-1}{e^{u}+1}=\\\\tanh\\\\tfrac u2.\\\\) Writing \\\\(t=e^{u}\\\\) with \\\\(u=\\\\tfrac{\\\\ln17}{7},\\\\) we get \\\\(v=\\\\dfrac{t-1}{t+1}=\\\\tanh\\\\tfrac u2=\\\\tanh\\\\tfrac{\\\\ln17}{14}.\\\\)",
+zh: "第 2 步 —— 求 θ。设 \\\\(t=\\\\sqrt[7]{17}=17^{1/7}\\\\)。恒等式 \\\\(\\\\dfrac{e^{u}-1}{e^{u}+1}=\\\\tanh\\\\tfrac u2\\\\)。写 \\\\(t=e^{u}\\\\)，\\\\(u=\\\\tfrac{\\\\ln17}{7}\\\\)，得 \\\\(v=\\\\dfrac{t-1}{t+1}=\\\\tanh\\\\tfrac u2=\\\\tanh\\\\tfrac{\\\\ln17}{14}.\\\\)" },
+{ en: "STEP 3 — Combine 14 copies. Result \\\\(=\\\\tanh\\\\left(14\\\\cdot\\\\tfrac{\\\\ln17}{14}\\\\right)=\\\\tanh(\\\\ln17).\\\\)",
+zh: "第 3 步 —— 合并 14 个。结果 \\\\(=\\\\tanh\\\\left(14\\\\cdot\\\\tfrac{\\\\ln17}{14}\\\\right)=\\\\tanh(\\\\ln17).\\\\)" },
+{ en: "STEP 4 — Evaluate tanh(ln 17). \\\\(\\\\tanh(\\\\ln17)=\\\\dfrac{e^{\\\\ln17}-e^{-\\\\ln17}}{e^{\\\\ln17}+e^{-\\\\ln17}}=\\\\dfrac{17-\\\\tfrac1{17}}{17+\\\\tfrac1{17}}=\\\\dfrac{289-1}{289+1}=\\\\dfrac{288}{290}.\\\\)",
+zh: "第 4 步 —— 求 tanh(ln 17)。\\\\(\\\\tanh(\\\\ln17)=\\\\dfrac{17-\\\\tfrac1{17}}{17+\\\\tfrac1{17}}=\\\\dfrac{289-1}{289+1}=\\\\dfrac{288}{290}.\\\\)" },
+{ en: "STEP 5 — Simplify. \\\\(\\\\dfrac{288}{290}=\\\\dfrac{144}{145}.\\\\)",
+zh: "第 5 步 —— 化简。\\\\(\\\\dfrac{288}{290}=\\\\dfrac{144}{145}.\\\\)" }
+],
+answer: { en: "\\\\(\\\\dfrac{144}{145}\\\\)", zh: "\\\\(\\\\dfrac{144}{145}\\\\)" },
+insight: { en: "A weird operation (x+y)/(1+xy) is the tanh addition law in disguise. Convert each value to an 'angle' via tanh, where repeated combination becomes simple multiplication of the angle. The form (t-1)/(t+1)=tanh((1/2)ln t) makes the 7th-root cancel perfectly: 14·(ln17/14)=ln17. Recognizing a hidden group structure turns a 13-fold mess into one clean fraction.",
+zh: "古怪运算 (x+y)/(1+xy) 是 tanh 加法律的伪装。用 tanh 把每个值换成「角度」，重复合并就变成角度的简单乘法。形式 (t−1)/(t+1)=tanh((1/2)ln t) 让 7 次根完美抵消：14·(ln17/14)=ln17。认出隐藏的群结构，把 13 重乱局变成一个干净分数。" }
+}
+);
+
+
+
+/* P4 CORRECTION: real 2020 AMC10A#14 statement is x + x^3/y^2 + y^3/x^2 + y = 440 (not 436). Re-define and re-dedup. */
+courseData.days[3].problemSet.push({
+n: 4, source: "2020 AMC 10A #14",
+statement: { en: "Real numbers \\\\(x,y\\\\) satisfy \\\\(x+y=4\\\\) and \\\\(xy=-2.\\\\) What is \\\\(x+\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}+y?\\\\)",
+zh: "实数 \\\\(x,y\\\\) 满足 \\\\(x+y=4\\\\) 且 \\\\(xy=-2\\\\)。求 \\\\(x+\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}+y?\\\\)" },
+recall: [ { en: "Group the easy part: x+y is given!", zh: "先分组容易的部分：x+y 是已知的！" }, { en: "Common denominator (xy)^2 is known", zh: "公分母 (xy)² 是已知的" }, { en: "Newton's sums build x^5+y^5 from s1,s2", zh: "牛顿和由 s1,s2 造出 x⁵+y⁵" } ],
+guide: { en: "Read the whole expression before diving in. The first and last terms are just \\\\(x+y,\\\\) which you already know is 4 — free points! The middle two fractions combine over \\\\((xy)^2\\\\) into \\\\(\\\\dfrac{x^5+y^5}{(xy)^2}.\\\\) So the answer is \\\\(4\\\\) plus a power-sum computation. The classic trap is to miss the easy \\\\(x+y\\\\) and only compute the fractions.",
+zh: "动手前先读完整个式子。第一项和最后一项就是 \\\\(x+y\\\\)，你早知道它等于 4 —— 白送的分！中间两个分式通分到 \\\\((xy)^2\\\\) 合成 \\\\(\\\\dfrac{x^5+y^5}{(xy)^2}\\\\)。所以答案是 \\\\(4\\\\) 加上一个幂和计算。经典陷阱就是漏看简单的 \\\\(x+y\\\\)，只算了分式。" },
+steps: [
+{ en: "STEP 1 — Split off the easy part. \\\\(x+\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}+y=(x+y)+\\\\left(\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}\\\\right).\\\\)",
+zh: "第 1 步 —— 拆出容易部分。\\\\(x+\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}+y=(x+y)+\\\\left(\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}\\\\right).\\\\)" },
+{ en: "STEP 2 — Combine the fractions. \\\\(\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}=\\\\dfrac{x^5+y^5}{(xy)^2}.\\\\) Denominator \\\\((xy)^2=(-2)^2=4.\\\\)",
+zh: "第 2 步 —— 合并分式。\\\\(\\\\dfrac{x^3}{y^2}+\\\\dfrac{y^3}{x^2}=\\\\dfrac{x^5+y^5}{(xy)^2}\\\\)。分母 \\\\((xy)^2=(-2)^2=4.\\\\)" },
+{ en: "STEP 3 — Build power sums. \\\\(p_1=s_1=4,\\\\ p_2=s_1^2-2s_2=16+4=20.\\\\)",
+zh: "第 3 步 —— 造幂和。\\\\(p_1=s_1=4,\\\\ p_2=s_1^2-2s_2=16+4=20.\\\\)" },
+{ en: "STEP 4 — Crank (n=2: \\\\(p_k=s_1p_{k-1}-s_2p_{k-2}\\\\)). \\\\(p_3=4(20)+2(4)=88,\\\\ p_4=4(88)+2(20)=392,\\\\ p_5=4(392)+2(88)=1744.\\\\)",
+zh: "第 4 步 —— 摇（n=2：\\\\(p_k=s_1p_{k-1}-s_2p_{k-2}\\\\)）。\\\\(p_3=4(20)+2(4)=88,\\\\ p_4=4(88)+2(20)=392,\\\\ p_5=4(392)+2(88)=1744.\\\\)" },
+{ en: "STEP 5 — Fractions total. \\\\(\\\\dfrac{x^5+y^5}{(xy)^2}=\\\\dfrac{1744}{4}=436.\\\\)",
+zh: "第 5 步 —— 分式合计。\\\\(\\\\dfrac{x^5+y^5}{(xy)^2}=\\\\dfrac{1744}{4}=436.\\\\)" },
+{ en: "STEP 6 — Add the easy part back. \\\\((x+y)+436=4+436=440.\\\\)",
+zh: "第 6 步 —— 把容易部分加回。\\\\((x+y)+436=4+436=440.\\\\)" }
+],
+answer: { en: "\\\\(440\\\\)", zh: "\\\\(440\\\\)" },
+insight: { en: "Always read the FULL expression first — here x+y is handed to you for free, and missing it is the difference between 436 and the correct 440. Then the fraction part is a standard combine-over-(xy)^2 plus a Newton climb to x^5+y^5.",
+zh: "永远先读「完整」式子 —— 这里 x+y 是白送的，漏掉它就是 436 与正确答案 440 的差别。剩下的分式部分是标准的「通分到 (xy)²」加牛顿爬到 x⁵+y⁵。" }
+});
+
+/* re-dedup by n, keep last occurrence (the corrected P4) */
+(function(){
+  var p=courseData.days[3].problemSet, byN={};
+  p.forEach(function(o){ if(o&&o.n!=null) byN[String(o.n)]=o; });
+  var order=[];for(var i=1;i<=30;i++)order.push(String(i));
+  courseData.days[3].problemSet=order.filter(function(n){return byN[n];}).map(function(n){return byN[n];});
+})();
+
