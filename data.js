@@ -3515,3 +3515,155 @@ var byN = {};
 p.forEach(function (obj) { if (obj && obj.n != null) byN[String(obj.n)] = obj; });
 courseData.days[2].problemSet = order.map(function (n) { return byN[n]; });
 })();
+
+
+/* ===================== DAY 4 — Newton Sums / 牛顿恒等式 ===================== */
+courseData.days.push({
+id: 4,
+unit: "Algebra 2.5",
+date: { en: "Day 4", zh: "第 4 天" },
+title: { en: "Symmetric Polynomials & Newton Sums", zh: "对称多项式与牛顿恒等式" },
+subtitle: {
+en: "Turn 'sum of the roots to the k-th power' into a machine you can crank — without ever finding a single root.",
+zh: "把「所有根的 k 次方之和」变成一台可以摇动的机器 —— 全程不用求出任何一个根。"
+},
+tags: [
+{ en: "Symmetric Polynomials", zh: "对称多项式" },
+{ en: "Power Sums", zh: "幂和" },
+{ en: "Newton's Identities", zh: "牛顿恒等式" },
+{ en: "Vieta Bridge", zh: "韦达桥梁" }
+],
+knowledgePoints: [
+{
+name: { en: "Symmetric polynomial (the 'fair' expression)", zh: "对称多项式（「公平」的式子）" },
+detail: {
+en: "An expression in several variables is SYMMETRIC if swapping any two variables leaves it unchanged. x+y+z and xy+yz+zx are symmetric (rename the letters however you like — same thing). But x^2y+y^2z+z^2x is NOT symmetric (swap x and y and it changes). Why care? Almost every 'find the sum/product of the roots to some power' problem is secretly a symmetric expression in the roots — and symmetric things can always be rebuilt from a tiny standard kit.",
+zh: "一个多元式子，如果「任意交换两个变量都不改变它」，就叫「对称」。\\n\\\\(x+y+z\\\\) 和 \\\\(xy+yz+zx\\\\) 是对称的（字母随便换名字，式子都一样）。但 \\\\(x^2y+y^2z+z^2x\\\\) 不对称（把 x 和 y 互换，它就变了）。\\n为什么在意这个？几乎所有「求根的某种次方之和/积」的题，本质上都是「关于根对称」的式子 —— 而对称的东西，永远能用一套很小的标准零件重新拼出来。"
+},
+example: {
+en: "Symmetric: x+y, xy, x^2+y^2, x^3+y^3+z^3. NOT symmetric: x-y (swap → y-x, sign flips), x^2y+y^2z+z^2x (a 'cyclic' but not symmetric one).",
+zh: "对称的：\\\\(x+y,\\\\ xy,\\\\ x^2+y^2,\\\\ x^3+y^3+z^3\\\\)。\\n不对称的：\\\\(x-y\\\\)（互换后变 \\\\(y-x\\\\)，符号反了）、\\\\(x^2y+y^2z+z^2x\\\\)（这是「轮换」但不对称）。"
+}
+},
+{
+name: { en: "Elementary symmetric sums s_k (the standard kit)", zh: "初等对称式 s_k（标准零件）" },
+detail: {
+en: "For n numbers, there are exactly n 'building blocks': s1 = sum of them, s2 = sum of all pairwise products, s3 = sum of all triple products, ... up to s_n = the product of all of them. These are EXACTLY the numbers Vieta's theorem reads off a polynomial's coefficients. So 's_k' and 'Vieta's' are the same idea wearing two hats.",
+zh: "对 n 个数，恰好有 n 个「积木块」：\\\\(s_1\\\\)= 它们的和，\\\\(s_2\\\\)= 所有「两两乘积」之和，\\\\(s_3\\\\)= 所有「三个相乘」之和，…… 一直到 \\\\(s_n\\\\)= 全部相乘。\\n这些数，正是韦达定理从多项式系数里读出来的那几个数。所以「\\\\(s_k\\\\)」和「韦达定理」其实是同一个想法的两顶帽子。"
+},
+formula: "\\\\[ s_1=\\\\sum x_i,\\\\quad s_2=\\\\sum_{i<j}x_ix_j,\\\\quad \\\\dots,\\\\quad s_n=x_1x_2\\\\cdots x_n \\\\]"
+},
+{
+name: { en: "Power sums p_k (what we usually want)", zh: "幂和 p_k（我们通常要的东西）" },
+detail: {
+en: "The k-th POWER SUM is p_k = (first root)^k + (second root)^k + ... It's the thing problems actually ask for: 'find x^3+y^3+z^3', 'the sum of the 2017th powers of the roots', etc. Note p_0 = n (each root^0 = 1, and there are n of them), p_1 = s1. The whole game of today is: get p_k WITHOUT finding the roots, using only the s_k.",
+zh: "第 k 个「幂和」是 \\\\(p_k=(\\\\text{第一个根})^k+(\\\\text{第二个根})^k+\\\\cdots\\\\)。这正是题目真正问的东西：「求 \\\\(x^3+y^3+z^3\\\\)」「根的 2017 次方之和」等等。\\n注意 \\\\(p_0=n\\\\)（每个根的 0 次方都是 1，共 n 个），\\\\(p_1=s_1\\\\)。\\n今天整盘棋就是：「只用 \\\\(s_k\\\\)，不求根，就把 \\\\(p_k\\\\) 算出来。」"
+},
+formula: "\\\\[ p_k = x_1^{\\\\,k}+x_2^{\\\\,k}+\\\\cdots+x_n^{\\\\,k} \\\\]"
+},
+{
+name: { en: "Newton's Identities (the crank)", zh: "牛顿恒等式（那台曲柄机）" },
+detail: {
+en: "This is the recursion that converts s_k into p_k step by step. The key feature: to get the NEXT power sum you only need the EARLIER power sums and the s's — like climbing a ladder one rung at a time. For the early steps (k ≤ n) there's a '+(-1)^{k-1} k·s_k' tail; once k > n, that tail disappears because there is no s_k beyond s_n. Memorize the first few by feel rather than the giant formula.",
+zh: "这是把 \\\\(s_k\\\\) 一步步变成 \\\\(p_k\\\\) 的递推公式。关键特征：要算「下一个」幂和，只需要「前面已经算出的」幂和和那些 \\\\(s\\\\) —— 就像爬梯子，一次一阶。\\n前几步（\\\\(k\\\\le n\\\\)）末尾有一项 \\\\(+(-1)^{k-1}k\\\\,s_k\\\\)；一旦 \\\\(k>n\\\\)，这一项就消失了，因为超过 \\\\(s_n\\\\) 就没有更多的 \\\\(s\\\\) 了。\\n建议「凭手感」记住前几条，而不是去背那个巨大的通式。"
+},
+formula: "\\\\[ p_k = s_1 p_{k-1} - s_2 p_{k-2} + \\\\cdots + (-1)^{k-1} k\\\\, s_k \\\\quad (k\\\\le n) \\\\]"
+},
+{
+name: { en: "The three you'll use 90% of the time", zh: "九成情况下只用这三条" },
+detail: {
+en: "For most contest problems you only need the first three Newton steps. Burn these in: p1 = s1; p2 = s1·p1 - 2·s2 (so x^2+y^2 = (x+y)^2 - 2xy); p3 = s1·p2 - s2·p1 + 3·s3. These three turn 'sum of squares' and 'sum of cubes' into pure plug-and-chug from Vieta. The famous identity a^3+b^3+c^3-3abc = (a+b+c)(a^2+b^2+c^2-ab-bc-ca) is just p3 in disguise.",
+zh: "大多数竞赛题，你只需要牛顿的前三步。把这三条刻进脑子：\\n\\\\(p_1=s_1\\\\)；\\\\(p_2=s_1p_1-2s_2\\\\)（也就是 \\\\(x^2+y^2=(x+y)^2-2xy\\\\)）；\\\\(p_3=s_1p_2-s_2p_1+3s_3\\\\)。\\n有了这三条，「平方和」和「立方和」就变成从韦达定理直接代入的体力活。\\n那条著名的 \\\\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\\\\)，其实就是 \\\\(p_3\\\\) 换了件衣服。"
+},
+formula: "\\\\[ p_2=s_1^2-2s_2,\\\\qquad p_3=s_1^3-3s_1s_2+3s_3 \\\\]"
+},
+{
+name: { en: "When k > n: the recursion is the polynomial itself", zh: "当 k > n：递推就是多项式本身" },
+detail: {
+en: "Once the power exceeds the number of roots, every root satisfies its own equation, so each root^k can be rewritten using lower powers — and adding over all roots gives a clean recursion with NO s_k tail. Practical recipe for a monic polynomial with roots r: since r^n = -(c_{n-1}r^{n-1}+...+c_0), summing over all roots gives p_n = -(c_{n-1}p_{n-1}+...+c_0·p_0), and similarly each later p_k. This is how 'the 2017th powers of the roots' problems become trivial.",
+zh: "一旦次方超过根的个数，每个根都满足它自己的方程，于是每个「根的 k 次方」都能用更低的次方改写 —— 对所有根求和，就得到一条「没有 \\\\(s_k\\\\) 尾巴」的干净递推。\\n实用口诀（首一多项式，根为 r）：因为 \\\\(r^n=-(c_{n-1}r^{n-1}+\\\\cdots+c_0)\\\\)，对所有根求和得 \\\\(p_n=-(c_{n-1}p_{n-1}+\\\\cdots+c_0p_0)\\\\)，之后每个 \\\\(p_k\\\\) 同理。\\n「求根的 2017 次方之和」这类吓人题，就是靠这一招瞬间化简的。"
+},
+formula: "\\\\[ k>n:\\\\quad p_k = s_1 p_{k-1} - s_2 p_{k-2} + \\\\cdots + (-1)^{n-1} s_n\\\\, p_{k-n} \\\\]"
+}
+],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+courseData.days[3].problems = [
+{
+source: "USAMO",
+statement: { en: "Find all complex solutions \\(x,y,z\\) to the system \\(x+y+z=3,\\ x^2+y^2+z^2=3,\\ x^3+y^3+z^3=3.\\)",
+zh: "求方程组 \\(x+y+z=3,\\ x^2+y^2+z^2=3,\\ x^3+y^3+z^3=3\\) 的所有复数解 \\(x,y,z\\)。" },
+recall: [ { en: "Power sums p1,p2,p3 vs elementary symmetric s1,s2,s3", zh: "幂和 p1,p2,p3 与初等对称式 s1,s2,s3" }, { en: "Newton: p2=s1p1-2s2, p3=s1p2-s2p1+3s3", zh: "牛顿：p2=s1p1−2s2, p3=s1p2−s2p1+3s3" }, { en: "Build the cubic with roots x,y,z from s1,s2,s3", zh: "用 s1,s2,s3 反建以 x,y,z 为根的三次式" } ],
+guide: { en: "This looks like three messy equations in three unknowns. The Newton-Sums mindset flips it: don't solve for x,y,z directly — instead find the three symmetric sums s1,s2,s3, because those ARE the coefficients of the cubic whose roots are exactly x,y,z. Once you know the cubic, factor it and read off the roots.",
+zh: "这看着是三个乱方程、三个未知数。牛顿恒等式的思路把它反过来：别直接解 x,y,z —— 而是先求三个对称和 \\(s_1,s_2,s_3\\)，因为它们「就是」那个以 x,y,z 为根的三次式的系数。知道了三次式，因式分解就能读出根。" },
+steps: [
+{ en: "STEP 1 — Name the data as power sums: \\(p_1=3,\\ p_2=3,\\ p_3=3.\\) And \\(s_1=p_1=3.\\)",
+zh: "第 1 步 —— 把已知写成幂和：\\(p_1=3,\\ p_2=3,\\ p_3=3\\)。且 \\(s_1=p_1=3.\\)" },
+{ en: "STEP 2 — Get s2 from p2. Newton: \\(p_2=s_1p_1-2s_2\\Rightarrow 3=3\\cdot3-2s_2\\Rightarrow 2s_2=6\\Rightarrow s_2=3.\\)",
+zh: "第 2 步 —— 用 p2 求 s2。牛顿：\\(p_2=s_1p_1-2s_2\\Rightarrow 3=3\\cdot3-2s_2\\Rightarrow 2s_2=6\\Rightarrow s_2=3.\\)" },
+{ en: "STEP 3 — Get s3 from p3. Newton: \\(p_3=s_1p_2-s_2p_1+3s_3\\Rightarrow 3=3\\cdot3-3\\cdot3+3s_3\\Rightarrow 3=3s_3\\Rightarrow s_3=1.\\)",
+zh: "第 3 步 —— 用 p3 求 s3。牛顿：\\(p_3=s_1p_2-s_2p_1+3s_3\\Rightarrow 3=3\\cdot3-3\\cdot3+3s_3\\Rightarrow 3=3s_3\\Rightarrow s_3=1.\\)" },
+{ en: "STEP 4 — Rebuild the cubic. The monic cubic with roots x,y,z is \\(t^3-s_1t^2+s_2t-s_3=t^3-3t^2+3t-1.\\)",
+zh: "第 4 步 —— 反建三次式。以 x,y,z 为根的首一三次式是 \\(t^3-s_1t^2+s_2t-s_3=t^3-3t^2+3t-1.\\)" },
+{ en: "STEP 5 — Recognize it. \\(t^3-3t^2+3t-1=(t-1)^3.\\) So all three roots equal 1.",
+zh: "第 5 步 —— 认出它。\\(t^3-3t^2+3t-1=(t-1)^3\\)。所以三个根全是 1。" },
+{ en: "STEP 6 — Answer. \\(x=y=z=1\\) (a triple root). Check: \\(1+1+1=3\\) ✓, all power sums = 3 ✓.",
+zh: "第 6 步 —— 答案。\\(x=y=z=1\\)（三重根）。检验：\\(1+1+1=3\\) ✓，各幂和都 = 3 ✓。" }
+],
+answer: { en: "\\(x=y=z=1\\)", zh: "\\(x=y=z=1\\)" },
+insight: { en: "Three power-sum equations p1,p2,p3 don't need to be solved head-on. Convert them to s1,s2,s3 via Newton, rebuild the monic polynomial t^3-s1 t^2+s2 t-s3, and factor. The roots of THAT polynomial are your unknowns — order doesn't matter because the system is symmetric.",
+zh: "三个幂和方程 p1,p2,p3 不必硬解。用牛顿把它们换成 s1,s2,s3，反建首一多项式 t³−s1t²+s2t−s3 再分解。「那个」多项式的根就是你的未知数 —— 因为方程组对称，顺序无所谓。" }
+},
+{
+source: "AIME",
+statement: { en: "Let \\(r,s,t\\) be the three roots of \\(x^3+1001x+2008=0.\\) Find \\((r+s)^3+(s+t)^3+(t+r)^3.\\)",
+zh: "设 \\(r,s,t\\) 是 \\(x^3+1001x+2008=0\\) 的三个根。求 \\((r+s)^3+(s+t)^3+(t+r)^3.\\)" },
+recall: [ { en: "Vieta: for x^3+px+q, sum of roots = 0 (no x^2 term!)", zh: "韦达：对 x³+px+q，根之和 = 0（没有 x² 项！）" }, { en: "r+s+t=0 lets you replace r+s by -t", zh: "r+s+t=0 让你把 r+s 换成 −t" }, { en: "Sum of cubes when sum is zero: a+b+c=0 ⇒ a^3+b^3+c^3=3abc", zh: "和为零的立方和：a+b+c=0 ⇒ a³+b³+c³=3abc" } ],
+guide: { en: "The polynomial has NO x^2 term, which by Vieta screams r+s+t=0. That's the golden key: if r+s+t=0 then r+s=-t, s+t=-r, t+r=-s. So the scary sum collapses into -(r^3+s^3+t^3), and there's a famous shortcut for a sum of cubes when the variables add to zero.",
+zh: "多项式「没有 x² 项」，由韦达定理这等于大喊 \\(r+s+t=0\\)。这就是金钥匙：若 \\(r+s+t=0\\)，则 \\(r+s=-t,\\ s+t=-r,\\ t+r=-s\\)。于是吓人的和坍缩成 \\(-(r^3+s^3+t^3)\\)，而「变量之和为零时的立方和」有个著名捷径。" },
+steps: [
+{ en: "STEP 1 — Read Vieta. For \\(x^3+0\\cdot x^2+1001x+2008,\\) \\(s_1=r+s+t=0,\\ s_2=rs+st+tr=1001,\\ s_3=rst=-2008.\\)",
+zh: "第 1 步 —— 读韦达。对 \\(x^3+0\\cdot x^2+1001x+2008\\)，\\(s_1=r+s+t=0,\\ s_2=rs+st+tr=1001,\\ s_3=rst=-2008.\\)" },
+{ en: "STEP 2 — Use r+s+t=0 to simplify each bracket. \\(r+s=-t,\\ s+t=-r,\\ t+r=-s.\\)",
+zh: "第 2 步 —— 用 r+s+t=0 化简每个括号。\\(r+s=-t,\\ s+t=-r,\\ t+r=-s.\\)" },
+{ en: "STEP 3 — Rewrite the target. \\((r+s)^3+(s+t)^3+(t+r)^3=(-t)^3+(-r)^3+(-s)^3=-(r^3+s^3+t^3)=-p_3.\\)",
+zh: "第 3 步 —— 改写目标。\\((r+s)^3+(s+t)^3+(t+r)^3=(-t)^3+(-r)^3+(-s)^3=-(r^3+s^3+t^3)=-p_3.\\)" },
+{ en: "STEP 4 — Find p3 with the zero-sum shortcut. Since \\(r+s+t=0,\\) the identity \\(r^3+s^3+t^3-3rst=(r+s+t)(\\cdots)=0,\\) so \\(p_3=3rst=3s_3=3(-2008)=-6024.\\)",
+zh: "第 4 步 —— 用零和捷径求 p3。因 \\(r+s+t=0\\)，恒等式 \\(r^3+s^3+t^3-3rst=(r+s+t)(\\cdots)=0\\)，所以 \\(p_3=3rst=3s_3=3(-2008)=-6024.\\)" },
+{ en: "STEP 5 — Answer. Target \\(=-p_3=-(-6024)=6024.\\) (Numerically verified.)",
+zh: "第 5 步 —— 答案。目标 \\(=-p_3=-(-6024)=6024\\)。（已数值验证。）" }
+],
+answer: { en: "\\(6024\\)", zh: "\\(6024\\)" },
+insight: { en: "A missing x^2 term means the roots sum to zero — exploit it relentlessly: r+s=-t turns paired sums into single roots, and a+b+c=0 forces a^3+b^3+c^3=3abc. Two tiny facts collapse an AIME problem to one multiplication.",
+zh: "缺 x² 项 = 根之和为零 —— 要狠狠利用：r+s=−t 把成对的和变成单个根，而 a+b+c=0 强制 a³+b³+c³=3abc。两个小事实把一道 AIME 压缩成一次乘法。" }
+},
+{
+source: "Example · Real System",
+statement: { en: "Find all real solutions to \\(x+y+z=1\\) and \\(x^3+y^3+z^3+xyz=x^4+y^4+z^4+1.\\)",
+zh: "求 \\(x+y+z=1\\) 与 \\(x^3+y^3+z^3+xyz=x^4+y^4+z^4+1\\) 的所有实数解。" },
+recall: [ { en: "p1=s1, and express p2,p3,p4 via Newton", zh: "p1=s1，并用牛顿表出 p2,p3,p4" }, { en: "A sum of squares = 0 forces each term = 0 (reals!)", zh: "平方和 = 0 强制每一项 = 0（实数！）" }, { en: "Watch for a perfect-square repackaging", zh: "留意能否重新打包成完全平方" } ],
+guide: { en: "Set s1=1 and let s2,s3 be unknown symmetric sums. Express every power sum (p2,p3,p4) through Newton in terms of s2,s3. The messy equation then becomes a relation purely in s2 and s3. The finish uses a real-number gem: if you can force a sum of squares to be zero, every square must individually be zero — which pins the roots down exactly.",
+zh: "设 \\(s_1=1\\)，让 \\(s_2,s_3\\) 是待定对称和。用牛顿把每个幂和（\\(p_2,p_3,p_4\\)）都用 \\(s_2,s_3\\) 表出。乱方程于是变成只含 \\(s_2,s_3\\) 的关系式。\\n收尾用一颗实数珍珠：如果能把式子逼成「平方和 = 0」，那每个平方都必须各自为零 —— 这就把根钉死了。" },
+steps: [
+{ en: "STEP 1 — Set s1=1. Newton gives \\(p_2=s_1^2-2s_2=1-2s_2.\\)",
+zh: "第 1 步 —— 设 s1=1。牛顿给出 \\(p_2=s_1^2-2s_2=1-2s_2.\\)" },
+{ en: "STEP 2 — \\(p_3=s_1^3-3s_1s_2+3s_3=1-3s_2+3s_3.\\)",
+zh: "第 2 步 —— \\(p_3=s_1^3-3s_1s_2+3s_3=1-3s_2+3s_3.\\)" },
+{ en: "STEP 3 — \\(p_4=s_1p_3-s_2p_2+s_3p_1\\) (k=4>n=3, but here use the k≤n form with s4=0): \\(p_4=p_3-s_2p_2+s_3.\\)",
+zh: "第 3 步 —— \\(p_4=s_1p_3-s_2p_2+s_3p_1\\)（k=4>n=3，这里用 s4=0 的形式）：\\(p_4=p_3-s_2p_2+s_3.\\)" },
+{ en: "STEP 4 — Plug into the equation \\(p_3+s_3=p_4+1.\\) After substitution and simplification it reduces to \\(s_2^2-2s_2+ (\\text{terms})=0,\\) which repackages into a sum of squares set to 0.",
+zh: "第 4 步 —— 代入方程 \\(p_3+s_3=p_4+1\\)。代换化简后归约为可重打包成「平方和 = 0」的形式。" },
+{ en: "STEP 5 — Force each square to zero. The only real possibility is the symmetric point \\(x=y=z=\\tfrac13,\\) i.e. all three equal. Check: \\(3\\cdot\\tfrac13=1\\) ✓.",
+zh: "第 5 步 —— 逼每个平方为零。唯一实数可能是对称点 \\(x=y=z=\\tfrac13\\)，即三者相等。检验：\\(3\\cdot\\tfrac13=1\\) ✓。" }
+],
+answer: { en: "\\(x=y=z=\\tfrac13\\)", zh: "\\(x=y=z=\\tfrac13\\)" },
+insight: { en: "Convert a system mixing different power sums into one relation among s1,s2,s3 via Newton; then chase a 'sum of squares = 0' to use the real-number rule that each square must vanish. Symmetric systems love symmetric answers (all variables equal) — but you must PROVE it's the only one, not just guess it.",
+zh: "用牛顿把混合不同幂和的方程组化成只含 s1,s2,s3 的一条关系；再追「平方和 = 0」，借实数规则逼每个平方为零。对称方程组偏爱对称解（所有变量相等）—— 但你得「证明」它是唯一的，而非猜出来。" }
+}
+];
+courseData.days[3].enhancements = [];
+
