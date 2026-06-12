@@ -34,6 +34,10 @@ const UI = {
                       zh: "AwesomeMath 官方习题，每一道都逐步讲解。点击任意题目展开完整解析。" },
   source:           { en: "Source", zh: "出处" },
   tapToOpen:        { en: "tap to open", zh: "点击展开讲解" },
+  navTextbook:      { en: "Textbook", zh: "教材" },
+  tbEyebrow:        { en: "Deep concept lesson", zh: "知识点 · 深度精讲" },
+  tbBackToDays:     { en: "Back to daily classes", zh: "返回每日一课" },
+  tbIndex:          { en: "In this lesson", zh: "本课目录" },
   footer:           { en: "A living journal · updated every class · concepts → problems → solutions → insights",
                       zh: "持续更新的成长日志 · 每节课更新 · 知识点 → 例题 → 精解 → 洞察" }
 };
@@ -41,10 +45,15 @@ const ui = (k) => t(UI[k]);
 
 function buildNav() {
   const nav = document.getElementById("dayNav");
-  nav.innerHTML = courseData.days.map((d, i) =>
+  var dayBtns = courseData.days.map((d, i) =>
     `<button data-i="${i}">${t(d.date)}</button>`).join("");
-  nav.querySelectorAll("button").forEach(btn =>
+  var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
+    ? `<button class="nav-textbook" data-tb="0">${ui("navTextbook")}</button>` : "";
+  nav.innerHTML = dayBtns + tbBtn;
+  nav.querySelectorAll("button[data-i]").forEach(btn =>
     btn.addEventListener("click", () => selectDay(+btn.dataset.i)));
+  var tb = nav.querySelector("button[data-tb]");
+  if (tb) tb.addEventListener("click", () => selectTextbook(+tb.dataset.tb));
 }
 
 function buildLangToggle() {
@@ -64,14 +73,17 @@ function setLang(l) {
   closeKPModal();
   buildLangToggle();
   buildNav();
-  renderDay(courseData.days[activeDay]);
+  if (activeTextbook != null) renderTextbook(textbookData[activeTextbook]);
+  else renderDay(courseData.days[activeDay]);
   renderChrome();
 }
 
 function selectDay(i) {
   activeDay = i;
-  document.querySelectorAll("#dayNav button").forEach((b, k) =>
-    b.classList.toggle("active", k === i));
+  activeTextbook = null;
+  document.querySelectorAll("#dayNav button[data-i]").forEach(function(b){ b.classList.toggle("active", +b.dataset.i === i); });
+  var tbBtn = document.querySelector("#dayNav button[data-tb]");
+  if (tbBtn) tbBtn.classList.remove("active");
   renderDay(courseData.days[i]);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -132,6 +144,87 @@ function closeKPModal() {
   layer.classList.remove("show");
   layer.innerHTML = "";
   document.body.style.overflow = "";
+}
+
+/* =========================================================
+   TEXTBOOK — deep concept lessons (long-form chapters)
+   ========================================================= */
+let activeTextbook = null;
+
+function tbInline(str) {
+  // escape bare angle brackets (same safety as t()), keep \( \) etc intact
+  if (str == null) return "";
+  return String(str).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function tbText(field) {
+  const raw = (field && (field[lang] || field.en || field.zh)) || "";
+  return tbInline(raw).replace(/\n/g, "<br>");
+}
+
+function tbBlock(b) {
+  switch (b.type) {
+    case "para":
+      return `<p class="tb-para">${tbText(b)}</p>`;
+    case "example":
+      return `<div class="tb-example"><span class="tb-tag tb-tag-ex">${ui("example")}</span><div class="tb-example-body">${tbText(b)}</div></div>`;
+    case "ask":
+      return `<div class="tb-ask"><span class="tb-ask-q">?</span><div class="tb-ask-body">${tbText(b)}</div></div>`;
+    case "note":
+      return `<div class="tb-note">${tbText(b)}</div>`;
+    case "formula":
+      return `<div class="tb-formula">${b.tex || ""}</div>`;
+    case "divider":
+      return `<div class="tb-divider"></div>`;
+    case "step": {
+      const title = b.title ? tbText(b.title) : "";
+      return `<div class="tb-step"><div class="tb-step-badge">${b.n || ""}</div><div class="tb-step-main"><div class="tb-step-title">${title}</div><div class="tb-step-body">${tbText(b)}</div></div></div>`;
+    }
+    case "table": {
+      const head = (b.head && (b.head[lang] || b.head.en)) || [];
+      const rows = (b.rows && (b.rows[lang] || b.rows.en)) || [];
+      const cap = b.caption ? `<div class="tb-table-cap">${tbText(b.caption)}</div>` : "";
+      const thead = "<tr>" + head.map(h => `<th>${tbInline(h)}</th>`).join("") + "</tr>";
+      const tbody = rows.map(r => "<tr>" + r.map(c => `<td>${tbInline(c)}</td>`).join("") + "</tr>").join("");
+      return `<div class="tb-table-wrap">${cap}<table class="tb-table"><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`;
+    }
+    default:
+      return "";
+  }
+}
+
+function selectTextbook(i) {
+  activeTextbook = i;
+  activeDay = -1;
+  document.querySelectorAll("#dayNav button[data-i]").forEach(b => b.classList.remove("active"));
+  const tbBtn = document.querySelector("#dayNav button[data-tb]");
+  if (tbBtn) tbBtn.classList.add("active");
+  renderTextbook(textbookData[i]);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderTextbook(lesson) {
+  const app = document.getElementById("app");
+  const toc = lesson.sections.map((sec, i) =>
+    `<a class="tb-toc-link" href="#tb-sec-${i}">${tbText(sec.heading)}</a>`).join("");
+
+  const body = lesson.sections.map((sec, i) => `
+    <section class="tb-section reveal" id="tb-sec-${i}">
+      <h2 class="tb-heading">${tbText(sec.heading)}</h2>
+      ${sec.blocks.map(tbBlock).join("")}
+    </section>`).join("");
+
+  app.innerHTML = `
+    <section class="tb-hero reveal">
+      <span class="day-eyebrow">${ui("tbEyebrow")}${lesson.badge ? " · " + tbText(lesson.badge) : ""}</span>
+      <h1 class="day-title"><span class="big">${tbText(lesson.title)}</span></h1>
+      <p class="day-subtitle">${tbText(lesson.subtitle)}</p>
+      ${lesson.readingTime ? `<div class="day-tags"><span class="tag">${tbText(lesson.readingTime)}</span></div>` : ""}
+    </section>
+    <nav class="tb-toc"><div class="tb-toc-title">${ui("tbIndex")}</div>${toc}</nav>
+    ${body}
+    <div class="tb-foot"><button class="tb-back" onclick="selectDay(0)">${ui("tbBackToDays")}</button></div>
+  `;
+  typeset(app);
 }
 
 /* shared rich-solution body (used by worked examples + problem set) */
