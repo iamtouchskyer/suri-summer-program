@@ -199,3 +199,174 @@ textbookData[0].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 02 — Power Sums & Newton's Identities
+   ============================================================*/
+textbookData.push({
+  id: "newton",
+  badge: { en: "Concept 02", zh: "知识点 02" },
+  title: { en: "Power Sums & Newton's Identities", zh: "幂和与牛顿恒等式" },
+  subtitle: { en: "Compute the sum of the k-th powers of the roots — at any power — without ever finding a single root.",
+              zh: "求「所有根的 k 次方之和」—— 任意次方 —— 全程不用解出任何一个根。" },
+  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
+  sections: [
+
+  /* ---------- 0. YOU ALREADY KNOW HALF ---------- */
+  {
+    heading: { en: "0 · You already know half of this", zh: "0 · 你已经会一半了" },
+    blocks: [
+      { type: "para", en: "In the previous concept (Elementary Symmetric Polynomials) you learned to read \\(s_1,s_2,s_3,\\dots\\) straight off a polynomial's coefficients. This lesson answers the natural next question that contests ask constantly:",
+        zh: "在上一个知识点（初等对称多项式）里，你学会了从多项式系数里直接读出 \\(s_1,s_2,s_3,\\dots\\)。这节课回答竞赛最爱问的下一个自然问题：" },
+      { type: "note", en: "\"Find the sum of the squares of the roots.\" \"Find the sum of the cubes.\" \"Find the sum of the 2017th powers.\" — All of these are POWER SUMS, and all of them can be built from the s_k you already know.",
+        zh: "「求根的平方和。」「求立方和。」「求 2017 次方之和。」—— 这些全都是「幂和」，而它们全都能用你已经会的 \\(s_k\\) 拼出来。" },
+      { type: "para", en: "And you already know the very first one for free: the sum of the roots to the FIRST power is just \\(s_1.\\) That's the starting rung of a ladder we'll climb.",
+        zh: "而且你早就免费拥有了第一个：根的「一次方」之和，就是 \\(s_1\\)。这是我们要爬的那把梯子的第一阶。" },
+      { type: "ask", en: "Before we start: you've seen \\((x+y)^2 = x^2+2xy+y^2.\\) If someone gives you \\(x+y\\) and \\(xy,\\) can you get \\(x^2+y^2\\) without finding \\(x\\) and \\(y\\)? Hold that thought — it IS the first Newton identity.",
+        zh: "开始前：你见过 \\((x+y)^2=x^2+2xy+y^2\\)。如果有人给你 \\(x+y\\) 和 \\(xy\\)，你能不解出 \\(x,y\\) 就求出 \\(x^2+y^2\\) 吗？记住这个念头 —— 它「就是」第一条牛顿恒等式。" }
+    ]
+  },
+
+  /* ---------- 1. WHAT IS A POWER SUM ---------- */
+  {
+    heading: { en: "1 · What a power sum is", zh: "1 · 幂和是什么" },
+    blocks: [
+      { type: "para", en: "Given numbers \\(x_1,x_2,\\dots,x_n,\\) the \\(k\\)-th POWER SUM is exactly what it sounds like — raise each to the \\(k\\)-th power and add:",
+        zh: "给定数 \\(x_1,x_2,\\dots,x_n\\)，第 \\(k\\) 个「幂和」就是字面意思 —— 把每个数取 \\(k\\) 次方再相加：" },
+      { type: "formula", tex: "\\[ p_k = x_1^{\\,k} + x_2^{\\,k} + \\cdots + x_n^{\\,k} \\]" },
+      { type: "para", en: "So \\(p_1\\) is the plain sum, \\(p_2\\) the sum of squares, \\(p_3\\) the sum of cubes, and so on. Two special values worth memorizing: \\(p_1 = s_1\\) (the sum), and \\(p_0 = n\\) (every number to the 0th power is 1, and there are \\(n\\) of them).",
+        zh: "所以 \\(p_1\\) 是普通的和，\\(p_2\\) 是平方和，\\(p_3\\) 是立方和，依此类推。两个值得记住的特殊值：\\(p_1=s_1\\)（和），以及 \\(p_0=n\\)（每个数的 0 次方都是 1，共 \\(n\\) 个）。" },
+      { type: "example", en: "Take the numbers \\(2\\) and \\(3.\\) Then \\(p_1=2+3=5,\\) \\(p_2=2^2+3^2=4+9=13,\\) \\(p_3=2^3+3^3=8+27=35.\\) These are the things contests ask you to find — but usually WITHOUT telling you the numbers are 2 and 3.",
+        zh: "取数 \\(2\\) 和 \\(3\\)。则 \\(p_1=2+3=5\\)，\\(p_2=2^2+3^2=4+9=13\\)，\\(p_3=2^3+3^3=8+27=35\\)。这些正是竞赛让你求的东西 —— 但通常「不」会告诉你这两个数是 2 和 3。" },
+      { type: "para", en: "Why is \\(p_k\\) symmetric? Same reason as \\(s_k\\): adding the powers in a different order doesn't change the total. Symmetric quantities are exactly the ones we can compute from \\(s_k\\) — which is the whole engine of this lesson.",
+        zh: "为什么 \\(p_k\\) 是对称的？和 \\(s_k\\) 同理：换个顺序加这些次方，总和不变。对称量正是我们能从 \\(s_k\\) 算出来的那些 —— 这就是这节课的整台发动机。" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. FIRST BRIDGE p2 ---------- */
+textbookData[1].sections.push({
+  heading: { en: "2 · The first bridge: p\u2082 from s\u2081, s\u2082", zh: "2 · 第一座桥：用 s\u2081, s\u2082 求 p\u2082" },
+  blocks: [
+    { type: "para", en: "Let's build the sum of squares using only the sum and the product. Start from a square you know by heart:",
+      zh: "我们只用「和」与「积」来造出平方和。从一个你倒背如流的平方开始：" },
+    { type: "formula", tex: "\\[ (x_1+x_2)^2 = x_1^2 + 2x_1x_2 + x_2^2 \\]" },
+    { type: "para", en: "The left side is \\(s_1^2.\\) On the right, \\(x_1^2+x_2^2\\) is exactly \\(p_2,\\) and \\(2x_1x_2\\) is \\(2s_2.\\) So \\(s_1^2 = p_2 + 2s_2.\\) Rearrange:",
+      zh: "左边是 \\(s_1^2\\)。右边，\\(x_1^2+x_2^2\\) 正是 \\(p_2\\)，而 \\(2x_1x_2\\) 是 \\(2s_2\\)。所以 \\(s_1^2=p_2+2s_2\\)。移项：" },
+    { type: "formula", tex: "\\[ p_2 = s_1^2 - 2s_2 \\]" },
+    { type: "note", en: "This is the most-used identity in all of contest algebra. Read it out loud: 'sum of squares equals the square of the sum, minus twice the product.' It works for ANY number of variables (the s_2 just means 'sum of all pairwise products').",
+      zh: "这是整个竞赛代数里用得最多的恒等式。大声读出来：「平方和 = 和的平方 减去 两倍的积」。它对「任意」多个变量都成立（这里的 s_2 就是「所有两两乘积之和」）。" },
+    { type: "example", en: "Roots of \\(x^2-5x+6.\\) Vieta: \\(s_1=5,\\,s_2=6.\\) Then \\(p_2 = 5^2 - 2\\cdot6 = 25-12 = 13.\\) (Check: roots are 2 and 3; \\(4+9=13.\\) \u2713) Notice we never solved the quadratic.",
+      zh: "\\(x^2-5x+6\\) 的根。韦达：\\(s_1=5,\\,s_2=6\\)。则 \\(p_2=5^2-2\\cdot6=25-12=13\\)。（验证：根是 2 和 3；\\(4+9=13\\)。\u2713）注意我们「没有」解这个二次方程。" },
+    { type: "ask", en: "Try it yourself before reading on: the roots of \\(x^2-9x+20.\\) What is the sum of their squares? (You should get \\(81-40=41.\\))",
+      zh: "继续读之前自己试：\\(x^2-9x+20\\) 的根，它们的平方和是多少？（你应该得到 \\(81-40=41\\)。）" }
+  ]
+});
+
+/* ---------- 3. SECOND BRIDGE p3 ---------- */
+textbookData[1].sections.push({
+  heading: { en: "3 · The second bridge: p\u2083 (sum of cubes)", zh: "3 · 第二座桥：p\u2083（立方和）" },
+  blocks: [
+    { type: "para", en: "Now the sum of cubes. For \\(n\\) variables the clean result is:",
+      zh: "现在求立方和。对 \\(n\\) 个变量，干净的结果是：" },
+    { type: "formula", tex: "\\[ p_3 = s_1^3 - 3s_1 s_2 + 3s_3 \\]" },
+    { type: "para", en: "You don't have to memorize the derivation, but here's where it comes from: expand \\((x_1+x_2+x_3)^3\\) and carefully collect terms. The cubes \\(x_i^3\\) give \\(p_3,\\) the mixed terms regroup into \\(s_1s_2\\) and \\(s_3\\) pieces. The numbers \\(-3\\) and \\(+3\\) are the only things to remember.",
+      zh: "你不必背推导，但它的来历是这样：展开 \\((x_1+x_2+x_3)^3\\) 并仔细收集同类项。立方项 \\(x_i^3\\) 给出 \\(p_3\\)，交叉项重新组合成 \\(s_1s_2\\) 和 \\(s_3\\) 那些块。要记的只有 \\(-3\\) 和 \\(+3\\) 这两个数。" },
+    { type: "example", en: "Roots of \\(x^3-6x^2+11x-6.\\) Vieta: \\(s_1=6,\\,s_2=11,\\,s_3=6.\\) Then \\(p_3 = 6^3 - 3\\cdot6\\cdot11 + 3\\cdot6 = 216 - 198 + 18 = 36.\\) (Check: roots are 1,2,3; \\(1+8+27=36.\\) \u2713)",
+      zh: "\\(x^3-6x^2+11x-6\\) 的根。韦达：\\(s_1=6,\\,s_2=11,\\,s_3=6\\)。则 \\(p_3=6^3-3\\cdot6\\cdot11+3\\cdot6=216-198+18=36\\)。（验证：根是 1,2,3；\\(1+8+27=36\\)。\u2713）" },
+    { type: "note", en: "Hidden inside this is the famous identity \\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca).\\) When \\(a+b+c=0,\\) the right side is 0, so \\(a^3+b^3+c^3=3abc.\\) That single fact cracks many 'missing x\u00b2 term' problems instantly.",
+      zh: "这里面藏着著名恒等式 \\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\\)。当 \\(a+b+c=0\\) 时，右边为 0，所以 \\(a^3+b^3+c^3=3abc\\)。这一个事实能瞬间秒杀很多「缺 x\u00b2 项」的题。" }
+  ]
+});
+
+
+
+/* ---------- 4. THE LADDER ---------- */
+textbookData[1].sections.push({
+  heading: { en: "4 · Newton's Identities: a ladder you climb", zh: "4 · 牛顿恒等式：一把往上爬的梯子" },
+  blocks: [
+    { type: "para", en: "We found \\(p_1, p_2, p_3\\) one at a time. Newton's Identities are the general recipe that lets you climb to ANY \\(p_k.\\) The key feature: to get the next power sum, you only need the EARLIER power sums plus the \\(s_k.\\) One rung at a time.",
+      zh: "我们一个一个地求出了 \\(p_1, p_2, p_3\\)。牛顿恒等式是让你能爬到「任意」\\(p_k\\) 的通用配方。关键特征：要得到下一个幂和，你只需要「前面已算出的」幂和加上 \\(s_k\\)。一次一阶。" },
+    { type: "formula", tex: "\\[ p_k = s_1 p_{k-1} - s_2 p_{k-2} + \\cdots + (-1)^{k-1} k\\, s_k \\quad (k \\le n) \\]" },
+    { type: "para", en: "Don't be scared by the general form. In practice you only need the first three rungs, and they follow a clean rhythm. Burn these into memory:",
+      zh: "别被通式吓到。实战中你只需要前三阶，而且它们有干净的节奏。把这三条刻进记忆：" },
+    { type: "formula", tex: "\\[ p_1 = s_1 \\]" },
+    { type: "formula", tex: "\\[ p_2 = s_1 p_1 - 2s_2 \\]" },
+    { type: "formula", tex: "\\[ p_3 = s_1 p_2 - s_2 p_1 + 3s_3 \\]" },
+    { type: "note", en: "Pattern to feel, not memorize: each new p_k is (s_1 times the previous p) minus (s_2 times the one before) plus ... and the LAST term has a bare k times s_k with an alternating sign. The signs go +, -, +, -.",
+      zh: "要「感受」而非死记的规律：每个新的 p_k 是（s_1 乘前一个 p）减（s_2 乘再前一个）加……而「最后一项」是裸的 k 乘 s_k，带交替符号。符号走 +、-、+、-。" },
+    { type: "step", n: "▶", title: { en: "Worked climb: roots of x\u00b2-5x+6", zh: "实战爬梯：x\u00b2-5x+6 的根" },
+      en: "Vieta: \\(s_1=5,\\ s_2=6\\) (and \\(s_3=0,\\) since it's only degree 2).\n\u2022 \\(p_1 = s_1 = 5.\\)\n\u2022 \\(p_2 = s_1 p_1 - 2s_2 = 5\\cdot5 - 12 = 13.\\)\n\u2022 \\(p_3 = s_1 p_2 - s_2 p_1 = 5\\cdot13 - 6\\cdot5 = 65-30 = 35.\\) (Note: no \\(+3s_3\\) term because \\(s_3=0\\) for two variables.)\n\u2022 Check with roots 2,3: \\(2^3+3^3 = 8+27 = 35.\\) \u2713",
+      zh: "韦达：\\(s_1=5,\\ s_2=6\\)（且 \\(s_3=0\\)，因为只是二次）。\n\u2022 \\(p_1=s_1=5.\\)\n\u2022 \\(p_2=s_1 p_1 - 2s_2 = 5\\cdot5-12 = 13.\\)\n\u2022 \\(p_3=s_1 p_2 - s_2 p_1 = 5\\cdot13-6\\cdot5 = 65-30 = 35.\\)（注意：没有 \\(+3s_3\\) 项，因为两个变量时 \\(s_3=0\\)。）\n\u2022 用根 2,3 验证：\\(2^3+3^3=8+27=35.\\) \u2713" },
+    { type: "ask", en: "Notice how \\(p_3\\) used both \\(p_2\\) AND \\(p_1\\) — the rungs below it. That's the ladder in action. Could you now climb to \\(p_4\\) for these same roots? (Use \\(p_4 = s_1 p_3 - s_2 p_2.\\))",
+      zh: "注意 \\(p_3\\) 同时用到了 \\(p_2\\) 和 \\(p_1\\) —— 它下面的两阶。这就是梯子在运转。你现在能为同样的根爬到 \\(p_4\\) 吗？（用 \\(p_4 = s_1 p_3 - s_2 p_2.\\)）" }
+  ]
+});
+
+/* ---------- 5. k > n ---------- */
+textbookData[1].sections.push({
+  heading: { en: "5 · When k is huge: the polynomial IS the recursion", zh: "5 · 当 k 很大：多项式本身就是递推" },
+  blocks: [
+    { type: "para", en: "What if a problem asks for the sum of the 2017th powers? You can't climb 2017 rungs by hand. But there's a shortcut once \\(k\\) exceeds the degree \\(n\\): every root satisfies its OWN equation, so its high power can be rewritten using lower powers.",
+      zh: "如果题目要求「2017 次方之和」呢？你没法手爬 2017 阶。但一旦 \\(k\\) 超过次数 \\(n\\)，有捷径：每个根都满足它「自己」的方程，所以它的高次方能用低次方改写。" },
+    { type: "para", en: "Concretely: if \\(r\\) is a root of a monic polynomial, then \\(r^n = -(c_{n-1}r^{n-1}+\\cdots+c_0).\\) Multiply by \\(r^{k-n}\\) and sum over all roots — the \\(s_k\\) tail vanishes (there's no \\(s_k\\) beyond \\(s_n\\)):",
+      zh: "具体地：若 \\(r\\) 是某首一多项式的根，则 \\(r^n=-(c_{n-1}r^{n-1}+\\cdots+c_0)\\)。乘以 \\(r^{k-n}\\) 再对所有根求和 —— \\(s_k\\) 的尾巴消失了（超过 \\(s_n\\) 就没有 \\(s_k\\) 了）：" },
+    { type: "formula", tex: "\\[ p_k = s_1 p_{k-1} - s_2 p_{k-2} + \\cdots + (-1)^{n-1} s_n\\, p_{k-n} \\quad (k > n) \\]" },
+    { type: "step", n: "▶", title: { en: "The scary one made easy", zh: "把吓人的题变简单" },
+      en: "Find the sum of the 2017th powers of the roots of \\(x^{2017} + 2017x + 17.\\)\n\u2022 Each root satisfies \\(r^{2017} = -2017r - 17.\\)\n\u2022 Sum over all 2017 roots: \\(p_{2017} = -2017\\,p_1 - 17\\cdot2017.\\)\n\u2022 The coefficient of \\(x^{2016}\\) is 0, so \\(p_1 = \\) sum of roots \\(= 0.\\)\n\u2022 Therefore \\(p_{2017} = -17\\cdot2017 = -34289.\\)",
+      zh: "求 \\(x^{2017}+2017x+17\\) 所有根的 2017 次方之和。\n\u2022 每个根满足 \\(r^{2017}=-2017r-17.\\)\n\u2022 对全部 2017 个根求和：\\(p_{2017}=-2017\\,p_1-17\\cdot2017.\\)\n\u2022 \\(x^{2016}\\) 的系数是 0，所以 \\(p_1=\\) 根之和 \\(=0.\\)\n\u2022 因此 \\(p_{2017}=-17\\cdot2017=-34289.\\)" },
+    { type: "note", en: "The lesson: when the power you want is large, don't climb the ladder — rewrite the top power directly from the equation and sum. Missing coefficients (like a zero x\u207f\u207b\u00b9 term) make most pieces vanish.",
+      zh: "教训：当你要的次方很大，别爬梯子 —— 直接用方程改写最高次方再求和。缺失的系数（比如 x\u207f\u207b\u00b9 项为零）会让大部分块消失。" }
+  ]
+});
+
+
+
+/* ---------- 6. WORKED EXAMPLES ---------- */
+textbookData[1].sections.push({
+  heading: { en: "6 · Worked examples, easy to hard", zh: "6 · 例题精讲，由易到难" },
+  blocks: [
+    { type: "para", en: "Same habit every time: read \\(s_k\\) off the coefficients, then climb Newton's ladder to the power you need. Watch for missing coefficients — they're gifts.",
+      zh: "每题同一个习惯：从系数读出 \\(s_k\\)，再爬牛顿梯子到你要的次方。留意缺失的系数 —— 它们是礼物。" },
+
+    { type: "step", n: "A", title: { en: "Sum of cubes of three roots", zh: "三个根的立方和" },
+      en: "Roots of \\(x^3+x^2-333x-1001.\\) Find \\(a^3+b^3+c^3.\\)\n\u2022 Vieta (mind the signs): \\(s_1=-1,\\ s_2=-333,\\ s_3=1001.\\)\n\u2022 \\(p_1=-1.\\)\n\u2022 \\(p_2=s_1^2-2s_2 = 1+666 = 667.\\)\n\u2022 \\(p_3=s_1 p_2 - s_2 p_1 + 3s_3 = (-1)(667)-(-333)(-1)+3(1001) = -667-333+3003 = 2003.\\)",
+      zh: "\\(x^3+x^2-333x-1001\\) 的根。求 \\(a^3+b^3+c^3\\)。\n\u2022 韦达（注意符号）：\\(s_1=-1,\\ s_2=-333,\\ s_3=1001.\\)\n\u2022 \\(p_1=-1.\\)\n\u2022 \\(p_2=s_1^2-2s_2=1+666=667.\\)\n\u2022 \\(p_3=s_1 p_2-s_2 p_1+3s_3=(-1)(667)-(-333)(-1)+3(1001)=-667-333+3003=2003.\\)" },
+
+    { type: "step", n: "B", title: { en: "Exploiting a missing term (AIME)", zh: "利用缺项（AIME）" },
+      en: "Let \\(r,s,t\\) be roots of \\(x^3+1001x+2008.\\) Find \\((r+s)^3+(s+t)^3+(t+r)^3.\\)\n\u2022 No \\(x^2\\) term \u21d2 \\(r+s+t = 0.\\) That's the golden key.\n\u2022 So \\(r+s=-t,\\ s+t=-r,\\ t+r=-s.\\)\n\u2022 Target \\(= (-t)^3+(-r)^3+(-s)^3 = -(r^3+s^3+t^3) = -p_3.\\)\n\u2022 Since \\(r+s+t=0,\\) the identity gives \\(p_3 = 3rst = 3s_3 = 3(-2008) = -6024.\\)\n\u2022 Answer \\(= -p_3 = 6024.\\)",
+      zh: "设 \\(r,s,t\\) 是 \\(x^3+1001x+2008\\) 的根。求 \\((r+s)^3+(s+t)^3+(t+r)^3\\)。\n\u2022 缺 \\(x^2\\) 项 \u21d2 \\(r+s+t=0\\)。这是金钥匙。\n\u2022 所以 \\(r+s=-t,\\ s+t=-r,\\ t+r=-s.\\)\n\u2022 目标 \\(=(-t)^3+(-r)^3+(-s)^3=-(r^3+s^3+t^3)=-p_3.\\)\n\u2022 因 \\(r+s+t=0\\)，恒等式给出 \\(p_3=3rst=3s_3=3(-2008)=-6024.\\)\n\u2022 答案 \\(=-p_3=6024.\\)" },
+
+    { type: "step", n: "C", title: { en: "Rebuilding the polynomial (USAMO)", zh: "反建多项式（USAMO）" },
+      en: "Find all complex \\(x,y,z\\) with \\(x+y+z=3,\\ x^2+y^2+z^2=3,\\ x^3+y^3+z^3=3.\\)\n\u2022 Read them as power sums: \\(p_1=p_2=p_3=3,\\) and \\(s_1=p_1=3.\\)\n\u2022 From \\(p_2=s_1^2-2s_2:\\) \\(3=9-2s_2\\Rightarrow s_2=3.\\)\n\u2022 From \\(p_3=s_1 p_2-s_2 p_1+3s_3:\\) \\(3=9-9+3s_3\\Rightarrow s_3=1.\\)\n\u2022 Rebuild the cubic with roots \\(x,y,z:\\) \\(t^3-3t^2+3t-1=(t-1)^3.\\)\n\u2022 So \\(x=y=z=1.\\)",
+      zh: "求所有复数 \\(x,y,z\\)，满足 \\(x+y+z=3,\\ x^2+y^2+z^2=3,\\ x^3+y^3+z^3=3\\)。\n\u2022 把它们读成幂和：\\(p_1=p_2=p_3=3\\)，且 \\(s_1=p_1=3.\\)\n\u2022 由 \\(p_2=s_1^2-2s_2\\)：\\(3=9-2s_2\\Rightarrow s_2=3.\\)\n\u2022 由 \\(p_3=s_1 p_2-s_2 p_1+3s_3\\)：\\(3=9-9+3s_3\\Rightarrow s_3=1.\\)\n\u2022 反建以 \\(x,y,z\\) 为根的三次式：\\(t^3-3t^2+3t-1=(t-1)^3.\\)\n\u2022 所以 \\(x=y=z=1.\\)" },
+
+    { type: "note", en: "Example C is the deepest move in this whole unit: power sums \u2192 (via Newton) elementary sums \u2192 rebuild the polynomial \u2192 factor. Going BACKWARDS from p_k to s_k to the polynomial itself is how the hardest olympiad systems get solved.",
+      zh: "例题 C 是整个单元最深的一招：幂和 \u2192（经牛顿）初等对称和 \u2192 反建多项式 \u2192 分解。从 p_k 倒推回 s_k 再回到多项式本身 \u2014\u2014 最难的奥赛方程组就是这样解的。" }
+  ]
+});
+
+/* ---------- 7. SELF-TEST ---------- */
+textbookData[1].sections.push({
+  heading: { en: "7 · Test yourself (answers below)", zh: "7 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. Use the ladder. Never solve for roots.",
+      zh: "盖住答案。用梯子。永不解根。" },
+    { type: "ask", en: "Q1. Roots of \\(x^2-9x+20.\\) Find the sum of their squares.",
+      zh: "Q1. \\(x^2-9x+20\\) 的根。求它们的平方和。" },
+    { type: "ask", en: "Q2. Reals \\(a,b,c\\) with \\(a+b+c=2,\\ ab+bc+ca=-1,\\ abc=-2.\\) Find \\(a^2+b^2+c^2.\\)",
+      zh: "Q2. 实数 \\(a,b,c\\) 满足 \\(a+b+c=2,\\ ab+bc+ca=-1,\\ abc=-2\\)。求 \\(a^2+b^2+c^2.\\)" },
+    { type: "ask", en: "Q3. Roots of \\(x^3-2x^2+3x-4.\\) Find the sum of their cubes.",
+      zh: "Q3. \\(x^3-2x^2+3x-4\\) 的根。求它们的立方和。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(s_1=9,\\,s_2=20\\Rightarrow p_2=81-40=41.\\)\nQ2: \\(p_2=s_1^2-2s_2 = 4-2(-1)=6.\\)\nQ3: \\(s_1=2,s_2=3,s_3=4.\\) \\(p_1=2,\\ p_2=4-6=-2,\\ p_3=s_1 p_2-s_2 p_1+3s_3 = 2(-2)-3(2)+12 = -4-6+12 = 2.\\)",
+      zh: "答案。\nQ1：\\(s_1=9,\\,s_2=20\\Rightarrow p_2=81-40=41.\\)\nQ2：\\(p_2=s_1^2-2s_2=4-2(-1)=6.\\)\nQ3：\\(s_1=2,s_2=3,s_3=4.\\) \\(p_1=2,\\ p_2=4-6=-2,\\ p_3=s_1 p_2-s_2 p_1+3s_3=2(-2)-3(2)+12=-4-6+12=2.\\)" },
+    { type: "para", en: "If Q3 felt smooth, you've got the ladder. Next time you see 'sum of the k-th powers of the roots', you'll smile instead of panic — because now it's just bookkeeping with s_1, s_2, s_3.",
+      zh: "如果 Q3 做得顺，你已经掌握了梯子。下次看到「根的 k 次方之和」，你会微笑而不是慌张 \u2014\u2014 因为现在它不过是用 s_1, s_2, s_3 记账而已。" }
+  ]
+});
+
