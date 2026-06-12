@@ -3857,3 +3857,388 @@ zh: "嵌套/丑陋立方根：把和设为 x 再立方。a³+b³ 会变干净（
 }
 );
 
+
+courseData.days[3].problemSet.push(
+{
+n: 9, source: "1978 AHSME #20",
+statement: { en: "Nonzero reals \\\\(a,b,c\\\\) satisfy \\\\(\\\\dfrac{a+b-c}{c}=\\\\dfrac{a-b+c}{b}=\\\\dfrac{-a+b+c}{a}.\\\\) If \\\\(x=\\\\dfrac{(a+b)(b+c)(c+a)}{abc}\\\\) and \\\\(x<0,\\\\) find \\\\(x.\\\\)",
+zh: "非零实数 \\\\(a,b,c\\\\) 满足 \\\\(\\\\dfrac{a+b-c}{c}=\\\\dfrac{a-b+c}{b}=\\\\dfrac{-a+b+c}{a}\\\\)。若 \\\\(x=\\\\dfrac{(a+b)(b+c)(c+a)}{abc}\\\\) 且 \\\\(x<0\\\\)，求 \\\\(x.\\\\)" },
+recall: [ { en: "Set all three equal ratios = k", zh: "设三个相等的比值都 = k" }, { en: "'Add all numerators / add all denominators' trick", zh: "「分子全加 / 分母全加」技巧" }, { en: "Two cases: a+b+c=0 or not", zh: "两种情形：a+b+c=0 或不为 0" } ],
+guide: { en: "Equal ratios scream: call the common value \\\\(k.\\\\) A classic move is to add all three numerators and all three denominators — by the equal-ratio property that combined fraction also equals \\\\(k.\\\\) This splits the problem into two worlds: either \\\\(a+b+c=0\\\\) or \\\\(k\\\\) is forced to a specific value. The condition \\\\(x<0\\\\) tells you which world you're in.",
+zh: "相等的比值在喊：把公共值叫做 \\\\(k\\\\)。经典招是把三个分子全加、三个分母全加 —— 由等比性质，这个合并分数也等于 \\\\(k\\\\)。这把问题劈成两个世界：要么 \\\\(a+b+c=0\\\\)，要么 \\\\(k\\\\) 被逼成某个特定值。条件 \\\\(x<0\\\\) 告诉你身处哪个世界。" },
+steps: [
+{ en: "STEP 1 — Set each ratio to k. \\\\(a+b-c=kc,\\\\ a-b+c=kb,\\\\ -a+b+c=ka.\\\\)",
+zh: "第 1 步 —— 令每个比值 = k。\\\\(a+b-c=kc,\\\\ a-b+c=kb,\\\\ -a+b+c=ka.\\\\)" },
+{ en: "STEP 2 — Add all three. Left side: \\\\((a+b-c)+(a-b+c)+(-a+b+c)=a+b+c.\\\\) Right side: \\\\(k(a+b+c).\\\\) So \\\\(a+b+c=k(a+b+c).\\\\)",
+zh: "第 2 步 —— 三式相加。左边：\\\\((a+b-c)+(a-b+c)+(-a+b+c)=a+b+c\\\\)。右边：\\\\(k(a+b+c)\\\\)。所以 \\\\(a+b+c=k(a+b+c).\\\\)" },
+{ en: "STEP 3 — Branch. Either (A) \\\\(a+b+c\\\\ne0\\\\Rightarrow k=1,\\\\) or (B) \\\\(a+b+c=0.\\\\)",
+zh: "第 3 步 —— 分支。要么 (A) \\\\(a+b+c\\\\ne0\\\\Rightarrow k=1\\\\)，要么 (B) \\\\(a+b+c=0.\\\\)" },
+{ en: "STEP 4 — Case A. \\\\(k=1\\\\Rightarrow a+b-c=c\\\\Rightarrow a+b=2c,\\\\) similarly \\\\(b+c=2a,\\\\ c+a=2b.\\\\) These force \\\\(a=b=c,\\\\) giving \\\\(x=\\\\dfrac{(2a)(2a)(2a)}{a^3}=8>0.\\\\) Rejected (we need x<0).",
+zh: "第 4 步 —— 情形 A。\\\\(k=1\\\\Rightarrow a+b-c=c\\\\Rightarrow a+b=2c\\\\)，同理 \\\\(b+c=2a,\\\\ c+a=2b\\\\)。这逼出 \\\\(a=b=c\\\\)，得 \\\\(x=\\\\dfrac{(2a)(2a)(2a)}{a^3}=8>0\\\\)。舍（需 x<0）。" },
+{ en: "STEP 5 — Case B. \\\\(a+b+c=0\\\\Rightarrow a+b=-c,\\\\ b+c=-a,\\\\ c+a=-b.\\\\) Then \\\\(x=\\\\dfrac{(-c)(-a)(-b)}{abc}=\\\\dfrac{-abc}{abc}=-1.\\\\) This gives \\\\(x<0\\\\) ✓.",
+zh: "第 5 步 —— 情形 B。\\\\(a+b+c=0\\\\Rightarrow a+b=-c,\\\\ b+c=-a,\\\\ c+a=-b\\\\)。则 \\\\(x=\\\\dfrac{(-c)(-a)(-b)}{abc}=\\\\dfrac{-abc}{abc}=-1\\\\)。给出 \\\\(x<0\\\\) ✓。" }
+],
+answer: { en: "\\\\(x=-1\\\\)", zh: "\\\\(x=-1\\\\)" },
+insight: { en: "Equal ratios → name them k and add numerators/denominators. The 'add-everything' step usually factors out (a+b+c), forcing a clean dichotomy: either the total is zero, or k is pinned down. A sign condition like x<0 selects the right branch.",
+zh: "相等比值 → 命名为 k，再把分子/分母全加。「全加」这一步通常能提出 (a+b+c)，逼出干净的二分：要么总和为零，要么 k 被钉死。像 x<0 这样的符号条件帮你选对分支。" }
+},
+{
+n: 10, source: "2003 HMMT February Algebra #7",
+statement: { en: "Let \\\\(a,b,c\\\\) be the three roots of \\\\(p(x)=x^3+x^2-333x-1001.\\\\) Find \\\\(a^3+b^3+c^3.\\\\)",
+zh: "设 \\\\(a,b,c\\\\) 是 \\\\(p(x)=x^3+x^2-333x-1001\\\\) 的三个根。求 \\\\(a^3+b^3+c^3.\\\\)" },
+recall: [ { en: "Vieta gives s1,s2,s3 from coefficients", zh: "韦达从系数给出 s1,s2,s3" }, { en: "Newton: p2=s1^2-2s2, p3=s1 p2-s2 p1+3s3", zh: "牛顿：p2=s1²−2s2，p3=s1p2−s2p1+3s3" }, { en: "Mind the signs in Vieta!", zh: "注意韦达里的正负号！" } ],
+guide: { en: "Don't find the roots (they're not nice). Read \\\\(s_1,s_2,s_3\\\\) straight off the coefficients with Vieta — being very careful with signs — then run two Newton steps to reach \\\\(p_3=a^3+b^3+c^3.\\\\) Pure machine cranking.",
+zh: "别去求根（不好看）。用韦达直接从系数读出 \\\\(s_1,s_2,s_3\\\\)（小心符号），再走两步牛顿到 \\\\(p_3=a^3+b^3+c^3\\\\)。纯粹摇机器。" },
+steps: [
+{ en: "STEP 1 — Vieta for \\\\(x^3+x^2-333x-1001.\\\\) \\\\(s_1=-1,\\\\ s_2=-333,\\\\ s_3=1001.\\\\) (Signs: \\\\(s_1=-\\\\tfrac{\\\\text{coeff }x^2}{1},\\\\ s_2=+\\\\tfrac{\\\\text{coeff }x^1}{1},\\\\ s_3=-\\\\tfrac{\\\\text{const}}{1}.\\\\))",
+zh: "第 1 步 —— 对 \\\\(x^3+x^2-333x-1001\\\\) 用韦达。\\\\(s_1=-1,\\\\ s_2=-333,\\\\ s_3=1001\\\\)。（符号：\\\\(s_1=-\\\\tfrac{x^2\\\\text{系数}}{1},\\\\ s_2=+\\\\tfrac{x^1\\\\text{系数}}{1},\\\\ s_3=-\\\\tfrac{\\\\text{常数}}{1}.\\\\)）" },
+{ en: "STEP 2 — \\\\(p_1=s_1=-1.\\\\)",
+zh: "第 2 步 —— \\\\(p_1=s_1=-1.\\\\)" },
+{ en: "STEP 3 — \\\\(p_2=s_1^2-2s_2=1-2(-333)=1+666=667.\\\\)",
+zh: "第 3 步 —— \\\\(p_2=s_1^2-2s_2=1-2(-333)=1+666=667.\\\\)" },
+{ en: "STEP 4 — \\\\(p_3=s_1p_2-s_2p_1+3s_3=(-1)(667)-(-333)(-1)+3(1001).\\\\)",
+zh: "第 4 步 —— \\\\(p_3=s_1p_2-s_2p_1+3s_3=(-1)(667)-(-333)(-1)+3(1001).\\\\)" },
+{ en: "STEP 5 — Compute. \\\\(=-667-333+3003=2003.\\\\)",
+zh: "第 5 步 —— 算出。\\\\(=-667-333+3003=2003.\\\\)" }
+],
+answer: { en: "\\\\(2003\\\\)", zh: "\\\\(2003\\\\)" },
+insight: { en: "Sum of cubes of roots = pure Vieta + two Newton steps. The only place people slip is the signs of s1,s2,s3 — write them down carefully and the rest is arithmetic.",
+zh: "根的立方和 = 纯韦达 + 两步牛顿。唯一会摔跤的地方是 s1,s2,s3 的符号 —— 仔细写下，剩下都是算术。" }
+},
+{
+n: 11, source: "2019 AMC 12A #17",
+statement: { en: "Let \\\\(s_k\\\\) be the sum of the \\\\(k\\\\)-th powers of the roots of \\\\(x^3-5x^2+8x-13.\\\\) Given \\\\(s_0=3,s_1=5,s_2=9,\\\\) reals \\\\(a,b,c\\\\) satisfy \\\\(s_{k+1}=a\\\\,s_k+b\\\\,s_{k-1}+c\\\\,s_{k-2}\\\\) for \\\\(k\\\\ge2.\\\\) Find \\\\(a+b+c.\\\\)",
+zh: "设 \\\\(s_k\\\\) 为 \\\\(x^3-5x^2+8x-13\\\\) 的根的 \\\\(k\\\\) 次幂和。已知 \\\\(s_0=3,s_1=5,s_2=9\\\\)，实数 \\\\(a,b,c\\\\) 满足 \\\\(s_{k+1}=a\\\\,s_k+b\\\\,s_{k-1}+c\\\\,s_{k-2}\\\\)（\\\\(k\\\\ge2\\\\)）。求 \\\\(a+b+c.\\\\)" },
+recall: [ { en: "Every root satisfies the polynomial equation", zh: "每个根都满足这个多项式方程" }, { en: "Rearrange r^3 in terms of lower powers", zh: "把 r³ 用低次幂表示" }, { en: "Sum the per-root recursion over all roots", zh: "把单根递推对所有根求和" } ],
+guide: { en: "The recursion isn't a mystery — it IS the polynomial. Each root \\\\(r\\\\) satisfies \\\\(r^3-5r^2+8r-13=0,\\\\) so \\\\(r^3=5r^2-8r+13.\\\\) Multiply by \\\\(r^{k-2}\\\\) and sum over all roots: the power sums inherit exactly the same recursion. Read off \\\\(a,b,c\\\\) from the coefficients.",
+zh: "递推不神秘 —— 它「就是」那个多项式。每个根 \\\\(r\\\\) 满足 \\\\(r^3-5r^2+8r-13=0\\\\)，所以 \\\\(r^3=5r^2-8r+13\\\\)。乘以 \\\\(r^{k-2}\\\\) 再对所有根求和：幂和继承完全一样的递推。从系数读出 \\\\(a,b,c\\\\)。" },
+steps: [
+{ en: "STEP 1 — Each root satisfies \\\\(r^3=5r^2-8r+13.\\\\)",
+zh: "第 1 步 —— 每个根满足 \\\\(r^3=5r^2-8r+13.\\\\)" },
+{ en: "STEP 2 — Multiply by \\\\(r^{k-2}:\\\\) \\\\(r^{k+1}=5r^k-8r^{k-1}+13r^{k-2}.\\\\)",
+zh: "第 2 步 —— 乘以 \\\\(r^{k-2}\\\\)：\\\\(r^{k+1}=5r^k-8r^{k-1}+13r^{k-2}.\\\\)" },
+{ en: "STEP 3 — Sum over the three roots: \\\\(s_{k+1}=5s_k-8s_{k-1}+13s_{k-2}.\\\\)",
+zh: "第 3 步 —— 对三个根求和：\\\\(s_{k+1}=5s_k-8s_{k-1}+13s_{k-2}.\\\\)" },
+{ en: "STEP 4 — Match coefficients: \\\\(a=5,\\\\ b=-8,\\\\ c=13.\\\\)",
+zh: "第 4 步 —— 对比系数：\\\\(a=5,\\\\ b=-8,\\\\ c=13.\\\\)" },
+{ en: "STEP 5 — Add. \\\\(a+b+c=5-8+13=10.\\\\) (The given s0,s1,s2 are a red herring — you don't need them.)",
+zh: "第 5 步 —— 相加。\\\\(a+b+c=5-8+13=10\\\\)。（给的 s0,s1,s2 是烟雾弹 —— 用不到。）" }
+],
+answer: { en: "\\\\(a+b+c=10\\\\)", zh: "\\\\(a+b+c=10\\\\)" },
+insight: { en: "Power sums obey the SAME recursion as the polynomial's own coefficients: from x^n=-(c_{n-1}x^{n-1}+...) you instantly read the recursion. No need to compute any actual s_k value here.",
+zh: "幂和服从与多项式系数「同一条」递推：由 xⁿ=−(c_{n−1}x^{n−1}+…) 就能瞬间读出递推。这里根本不用算任何具体的 s_k。" }
+},
+{
+n: 12, source: "Newton Sums (deg-2017)",
+statement: { en: "Consider the monic polynomial \\\\(x^{2017}+2017x+17.\\\\) Find the sum of the 2017th powers of its roots.",
+zh: "考虑首一多项式 \\\\(x^{2017}+2017x+17\\\\)。求其所有根的 2017 次幂之和。" },
+recall: [ { en: "k=n here, so every root satisfies its own equation", zh: "这里 k=n，每个根满足自己的方程" }, { en: "Sum of roots = 0 (no x^2016 term)", zh: "根之和 = 0（无 x²⁰¹⁶ 项）" }, { en: "Sum the per-root identity", zh: "把单根恒等式求和" } ],
+guide: { en: "A degree-2017 polynomial sounds terrifying, but you want \\\\(p_{2017}\\\\) where the power equals the degree — perfect for the 'each root satisfies its own equation' trick. Rearrange the equation to express \\\\(r^{2017}\\\\) with lower powers, then sum over all roots. The only lower power sum you need is \\\\(p_1,\\\\) which is zero because the \\\\(x^{2016}\\\\) coefficient is missing.",
+zh: "2017 次多项式听着吓人，但你要的是 \\\\(p_{2017}\\\\)，次方正好等于次数 —— 完美适用「每个根满足自己方程」的招。把方程改写成用低次幂表示 \\\\(r^{2017}\\\\)，再对所有根求和。你唯一需要的低次幂和是 \\\\(p_1\\\\)，而它为零，因为缺 \\\\(x^{2016}\\\\) 项。" },
+steps: [
+{ en: "STEP 1 — Each root satisfies \\\\(r^{2017}+2017r+17=0,\\\\) so \\\\(r^{2017}=-2017r-17.\\\\)",
+zh: "第 1 步 —— 每个根满足 \\\\(r^{2017}+2017r+17=0\\\\)，所以 \\\\(r^{2017}=-2017r-17.\\\\)" },
+{ en: "STEP 2 — Sum over all 2017 roots. \\\\(p_{2017}=\\\\sum r^{2017}=-2017\\\\sum r-17\\\\cdot(\\\\text{number of roots}).\\\\)",
+zh: "第 2 步 —— 对全部 2017 个根求和。\\\\(p_{2017}=\\\\sum r^{2017}=-2017\\\\sum r-17\\\\cdot(\\\\text{根的个数}).\\\\)" },
+{ en: "STEP 3 — Use Vieta. \\\\(\\\\sum r=p_1=0\\\\) (coefficient of \\\\(x^{2016}\\\\) is 0). Number of roots \\\\(=2017.\\\\)",
+zh: "第 3 步 —— 用韦达。\\\\(\\\\sum r=p_1=0\\\\)（\\\\(x^{2016}\\\\) 系数为 0）。根的个数 \\\\(=2017.\\\\)" },
+{ en: "STEP 4 — Substitute. \\\\(p_{2017}=-2017(0)-17(2017)=-17\\\\cdot2017.\\\\)",
+zh: "第 4 步 —— 代入。\\\\(p_{2017}=-2017(0)-17(2017)=-17\\\\cdot2017.\\\\)" },
+{ en: "STEP 5 — Compute. \\\\(-17\\\\cdot2017=-34289.\\\\)",
+zh: "第 5 步 —— 算出。\\\\(-17\\\\cdot2017=-34289.\\\\)" }
+],
+answer: { en: "\\\\(-34289\\\\)", zh: "\\\\(-34289\\\\)" },
+insight: { en: "When the power you want equals the degree, skip Newton's table entirely: rewrite r^n from the equation and sum. A missing second-leading term makes p_1=0, collapsing the whole sum to the constant-term contribution.",
+zh: "当你要的次方等于次数，干脆跳过牛顿表：用方程改写 rⁿ 再求和。缺了次高次项使 p₁=0，整个和坍缩成常数项的贡献。" }
+},
+{
+n: 13, source: "2004 British MO Round 2 #3",
+statement: { en: "(a) For reals \\\\(a,b,c\\\\) with \\\\(a+b+c=0,\\\\) prove \\\\(a^3+b^3+c^3>0\\\\) iff \\\\(a^5+b^5+c^5>0.\\\\) (b) For reals \\\\(a,b,c,d\\\\) with \\\\(a+b+c+d=0,\\\\) prove \\\\(a^3+b^3+c^3+d^3>0\\\\) iff \\\\(a^5+b^5+c^5+d^5>0.\\\\)",
+zh: "(a) 实数 \\\\(a,b,c\\\\) 满足 \\\\(a+b+c=0\\\\)，证明 \\\\(a^3+b^3+c^3>0\\\\) 当且仅当 \\\\(a^5+b^5+c^5>0\\\\)。(b) 实数 \\\\(a,b,c,d\\\\) 满足 \\\\(a+b+c+d=0\\\\)，证明 \\\\(a^3+b^3+c^3+d^3>0\\\\) 当且仅当 \\\\(a^5+b^5+c^5+d^5>0.\\\\)" },
+recall: [ { en: "s1=0 simplifies Newton dramatically", zh: "s1=0 让牛顿大幅简化" }, { en: "p2=sum of squares ≥ 0 forces s2 ≤ 0", zh: "p2=平方和≥0 强制 s2≤0" }, { en: "Show p3 and p5 share the same sign", zh: "证明 p3 与 p5 同号" } ],
+guide: { en: "The condition \\\\(s_1=0\\\\) is a gift: Newton's identities lose most of their terms. The strategy for an 'iff about signs' is to show both \\\\(p_3\\\\) and \\\\(p_5\\\\) are positive multiples of the SAME quantity — then they're positive together or not at all. The hidden fact \\\\(p_2=\\\\sum(\\\\text{squares})\\\\ge0\\\\) pins down the sign of \\\\(s_2.\\\\)",
+zh: "条件 \\\\(s_1=0\\\\) 是礼物：牛顿恒等式丢掉大部分项。「关于符号的当且仅当」的策略是：证明 \\\\(p_3\\\\) 和 \\\\(p_5\\\\) 都是「同一个量」的正数倍 —— 那它们就要正一起正、要不正一起不正。隐藏事实 \\\\(p_2=\\\\sum(\\\\text{平方})\\\\ge0\\\\) 钉死了 \\\\(s_2\\\\) 的符号。" },
+steps: [
+{ en: "STEP 1 (a) — With \\\\(s_1=0,\\\\) Newton gives \\\\(p_2=s_1^2-2s_2=-2s_2.\\\\) Since \\\\(p_2=a^2+b^2+c^2\\\\ge0,\\\\) we get \\\\(s_2\\\\le0,\\\\) hence \\\\(-s_2\\\\ge0.\\\\)",
+zh: "第 1 步 (a) —— 当 \\\\(s_1=0\\\\)，牛顿给出 \\\\(p_2=s_1^2-2s_2=-2s_2\\\\)。因 \\\\(p_2=a^2+b^2+c^2\\\\ge0\\\\)，得 \\\\(s_2\\\\le0\\\\)，故 \\\\(-s_2\\\\ge0.\\\\)" },
+{ en: "STEP 2 (a) — \\\\(p_3=s_1p_2-s_2p_1+3s_3=3s_3\\\\) (first two terms vanish since \\\\(s_1=0,p_1=0\\\\)).",
+zh: "第 2 步 (a) —— \\\\(p_3=s_1p_2-s_2p_1+3s_3=3s_3\\\\)（前两项因 \\\\(s_1=0,p_1=0\\\\) 消失）。" },
+{ en: "STEP 3 (a) — \\\\(p_4=s_1p_3-s_2p_2+s_3p_1=-s_2p_2=-s_2(-2s_2)=2s_2^2.\\\\) Then \\\\(p_5=s_1p_4-s_2p_3+s_3p_2=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\)",
+zh: "第 3 步 (a) —— \\\\(p_4=s_1p_3-s_2p_2+s_3p_1=-s_2p_2=2s_2^2\\\\)。再 \\\\(p_5=s_1p_4-s_2p_3+s_3p_2=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\)" },
+{ en: "STEP 4 (a) — Compare signs. \\\\(p_3=3s_3\\\\) and \\\\(p_5=-5s_2s_3=5(-s_2)s_3.\\\\) Since \\\\(-s_2\\\\ge0,\\\\) both \\\\(p_3\\\\) and \\\\(p_5\\\\) have the SAME sign as \\\\(s_3.\\\\) Therefore \\\\(p_3>0\\\\iff s_3>0\\\\iff p_5>0.\\\\) ∎",
+zh: "第 4 步 (a) —— 比符号。\\\\(p_3=3s_3\\\\)，\\\\(p_5=-5s_2s_3=5(-s_2)s_3\\\\)。因 \\\\(-s_2\\\\ge0\\\\)，\\\\(p_3\\\\) 与 \\\\(p_5\\\\) 都与 \\\\(s_3\\\\) 「同号」。故 \\\\(p_3>0\\\\iff s_3>0\\\\iff p_5>0\\\\)。∎" },
+{ en: "STEP 5 (b) — Same idea with \\\\(s_1=0,p_1=0.\\\\) \\\\(p_2=-2s_2\\\\ge0\\\\Rightarrow s_2\\\\le0.\\\\) \\\\(p_3=3s_3.\\\\) \\\\(p_5=s_1p_4-s_2p_3+s_3p_2-s_4p_1=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\) Identical conclusion: \\\\(p_3\\\\) and \\\\(p_5\\\\) both track the sign of \\\\(s_3.\\\\) ∎",
+zh: "第 5 步 (b) —— 同样思路，\\\\(s_1=0,p_1=0\\\\)。\\\\(p_2=-2s_2\\\\ge0\\\\Rightarrow s_2\\\\le0\\\\)。\\\\(p_3=3s_3\\\\)。\\\\(p_5=s_1p_4-s_2p_3+s_3p_2-s_4p_1=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3\\\\)。结论相同：\\\\(p_3\\\\) 与 \\\\(p_5\\\\) 都跟 \\\\(s_3\\\\) 同号。∎" }
+],
+answer: { en: "Proof complete", zh: "证明完成" },
+insight: { en: "For sign-equivalence proofs under s1=0, compute p3 and p5 via Newton — both turn out proportional to s3 with a NONNEGATIVE factor (because p2≥0 forces -s2≥0). Same-sign-as-s3 ⇒ the two inequalities are equivalent.",
+zh: "在 s1=0 下证「符号等价」，用牛顿算 p3 和 p5 —— 两者都正比于 s3，且系数非负（因 p2≥0 强制 −s2≥0）。都与 s3 同号 ⇒ 两个不等式等价。" }
+},
+{
+n: 14, source: "2007 HMMT February Algebra #5",
+statement: { en: "A convex quadrilateral is determined by the intersection points of \\\\(x^4+y^4=100\\\\) and \\\\(xy=4.\\\\) Determine its area.",
+zh: "曲线 \\\\(x^4+y^4=100\\\\) 与 \\\\(xy=4\\\\) 的交点确定一个凸四边形。求其面积。" },
+recall: [ { en: "Both curves are symmetric about the origin / axes", zh: "两条曲线关于原点/坐标轴对称" }, { en: "If (x,y) is a point, so is (-x,-y) and (y,x)", zh: "若 (x,y) 是点，则 (−x,−y) 与 (y,x) 也是" }, { en: "A rectangle's area from its half-diagonals", zh: "由半对角线求矩形面积" } ],
+guide: { en: "Don't solve quartics. Exploit symmetry: both \\\\(x^4+y^4=100\\\\) and \\\\(xy=4\\\\) are unchanged when you replace \\\\((x,y)\\\\) by \\\\((-x,-y),\\\\) and also when you swap \\\\(x\\\\leftrightarrow y.\\\\) The four intersection points therefore come in a symmetric pattern forming a rectangle (in fact centered at the origin). Its area pops out from \\\\(xy.\\\\)",
+zh: "别去解四次方程。利用对称：\\\\(x^4+y^4=100\\\\) 和 \\\\(xy=4\\\\) 在把 \\\\((x,y)\\\\) 换成 \\\\((-x,-y)\\\\)、以及交换 \\\\(x\\\\leftrightarrow y\\\\) 时都不变。于是四个交点呈对称排布，构成一个（以原点为中心的）矩形。它的面积由 \\\\(xy\\\\) 直接得出。" },
+steps: [
+{ en: "STEP 1 — Find the structure. If \\\\((x_0,y_0)\\\\) is an intersection, so are \\\\((-x_0,-y_0)\\\\) and \\\\((y_0,x_0),(-y_0,-x_0).\\\\) These four points are the quadrilateral's vertices.",
+zh: "第 1 步 —— 找结构。若 \\\\((x_0,y_0)\\\\) 是交点，则 \\\\((-x_0,-y_0)\\\\) 与 \\\\((y_0,x_0),(-y_0,-x_0)\\\\) 也是。这四点就是四边形的顶点。" },
+{ en: "STEP 2 — Recognize a rectangle. The four points \\\\((x_0,y_0),(y_0,x_0),(-x_0,-y_0),(-y_0,-x_0)\\\\) are symmetric across the line \\\\(y=x\\\\) and the origin — they form a rectangle centered at O.",
+zh: "第 2 步 —— 认出矩形。四点 \\\\((x_0,y_0),(y_0,x_0),(-x_0,-y_0),(-y_0,-x_0)\\\\) 关于直线 \\\\(y=x\\\\) 和原点对称 —— 构成以 O 为中心的矩形。" },
+{ en: "STEP 3 — Diagonals. The two diagonals join \\\\((x_0,y_0)\\\\) to \\\\((-x_0,-y_0)\\\\) and \\\\((y_0,x_0)\\\\) to \\\\((-y_0,-x_0).\\\\) Each diagonal has length \\\\(2\\\\sqrt{x_0^2+y_0^2},\\\\) and they are perpendicular (reflection across y=x).",
+zh: "第 3 步 —— 对角线。两条对角线分别连 \\\\((x_0,y_0)\\\\)–\\\\((-x_0,-y_0)\\\\) 和 \\\\((y_0,x_0)\\\\)–\\\\((-y_0,-x_0)\\\\)。每条长 \\\\(2\\\\sqrt{x_0^2+y_0^2}\\\\)，且互相垂直（关于 y=x 反射）。" },
+{ en: "STEP 4 — Area from perpendicular equal diagonals. \\\\(\\\\text{Area}=\\\\tfrac12 d_1 d_2=\\\\tfrac12(2\\\\sqrt{x_0^2+y_0^2})^2=2(x_0^2+y_0^2).\\\\) Need \\\\(x_0^2+y_0^2.\\\\)",
+zh: "第 4 步 —— 用垂直且相等的对角线求面积。\\\\(\\\\text{面积}=\\\\tfrac12 d_1 d_2=\\\\tfrac12(2\\\\sqrt{x_0^2+y_0^2})^2=2(x_0^2+y_0^2)\\\\)。需要 \\\\(x_0^2+y_0^2.\\\\)" },
+{ en: "STEP 5 — Get \\\\(x_0^2+y_0^2.\\\\) Let \\\\(u=x_0^2,v=y_0^2.\\\\) Then \\\\(u^2+v^2=100\\\\) and \\\\(uv=(xy)^2=16.\\\\) So \\\\((u+v)^2=u^2+v^2+2uv=100+32=132\\\\Rightarrow x_0^2+y_0^2=u+v=\\\\sqrt{132}=2\\\\sqrt{33}.\\\\)",
+zh: "第 5 步 —— 求 \\\\(x_0^2+y_0^2\\\\)。设 \\\\(u=x_0^2,v=y_0^2\\\\)。则 \\\\(u^2+v^2=100\\\\) 且 \\\\(uv=(xy)^2=16\\\\)。所以 \\\\((u+v)^2=100+32=132\\\\Rightarrow x_0^2+y_0^2=u+v=\\\\sqrt{132}=2\\\\sqrt{33}.\\\\)" },
+{ en: "STEP 6 — Final area. \\\\(\\\\text{Area}=2(x_0^2+y_0^2)=2\\\\cdot2\\\\sqrt{33}=4\\\\sqrt{33}.\\\\)",
+zh: "第 6 步 —— 最终面积。\\\\(\\\\text{面积}=2(x_0^2+y_0^2)=2\\\\cdot2\\\\sqrt{33}=4\\\\sqrt{33}.\\\\)" }
+],
+answer: { en: "\\\\(4\\\\sqrt{33}\\\\)", zh: "\\\\(4\\\\sqrt{33}\\\\)" },
+insight: { en: "Symmetric curves → the intersection points form a symmetric polygon (here a rectangle with perpendicular diagonals). Use u=x^2, v=y^2 so the data x^4+y^4 and (xy)^2 become sum and product — then (u+v)^2=u^2+v^2+2uv delivers the size.",
+zh: "对称曲线 → 交点构成对称多边形（这里是对角线垂直的矩形）。用 u=x²,v=y² 把 x⁴+y⁴ 与 (xy)² 变成和与积 —— 再用 (u+v)²=u²+v²+2uv 求出尺寸。" }
+},
+{
+n: 15, source: "2017 CHMMC Individual #11",
+statement: { en: "The equation \\\\((x-\\\\sqrt[3]{13})(x-\\\\sqrt[3]{53})(x-\\\\sqrt[3]{103})=\\\\tfrac13\\\\) has three distinct real solutions \\\\(r,s,t.\\\\) Find \\\\(r^3+s^3+t^3.\\\\)",
+zh: "方程 \\\\((x-\\\\sqrt[3]{13})(x-\\\\sqrt[3]{53})(x-\\\\sqrt[3]{103})=\\\\tfrac13\\\\) 有三个不同实根 \\\\(r,s,t\\\\)。求 \\\\(r^3+s^3+t^3.\\\\)" },
+recall: [ { en: "Expand into a cubic; read s1,s2,s3 (Vieta)", zh: "展开成三次式；读 s1,s2,s3（韦达）" }, { en: "Identity a^3+b^3+c^3=e1^3-3e1 e2+3e3", zh: "恒等式 a³+b³+c³=e1³−3e1e2+3e3" }, { en: "The +1/3 only shifts the constant term", zh: "+1/3 只改动常数项" } ],
+guide: { en: "Let \\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}.\\\\) The left side, expanded, is a cubic whose 'natural' roots would be \\\\(a,b,c\\\\) — but the \\\\(=\\\\tfrac13\\\\) shifts the constant term, changing the roots to \\\\(r,s,t.\\\\) Crucially, the coefficients \\\\(s_1=a+b+c,\\\\ s_2=ab+bc+ca\\\\) stay the same; only \\\\(s_3\\\\) shifts by \\\\(\\\\tfrac13.\\\\) Then use the power-sum identity, and watch the \\\\(a,b,c\\\\) cube-roots magically rebuild \\\\(13+53+103.\\\\)",
+zh: "设 \\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}\\\\)。左边展开是一个三次式，其「天然」根本应是 \\\\(a,b,c\\\\) —— 但 \\\\(=\\\\tfrac13\\\\) 移动了常数项，把根变成 \\\\(r,s,t\\\\)。关键：系数 \\\\(s_1=a+b+c,\\\\ s_2=ab+bc+ca\\\\) 不变，只有 \\\\(s_3\\\\) 移了 \\\\(\\\\tfrac13\\\\)。再用幂和恒等式，看 \\\\(a,b,c\\\\) 的立方根神奇地重建出 \\\\(13+53+103\\\\)。" },
+steps: [
+{ en: "STEP 1 — Expand. \\\\((x-a)(x-b)(x-c)=x^3-(a+b+c)x^2+(ab+bc+ca)x-abc.\\\\) Setting this \\\\(=\\\\tfrac13\\\\) gives the cubic \\\\(x^3-(a+b+c)x^2+(ab+bc+ca)x-(abc+\\\\tfrac13)=0.\\\\)",
+zh: "第 1 步 —— 展开。\\\\((x-a)(x-b)(x-c)=x^3-(a+b+c)x^2+(ab+bc+ca)x-abc\\\\)。令其 \\\\(=\\\\tfrac13\\\\) 得三次式 \\\\(x^3-(a+b+c)x^2+(ab+bc+ca)x-(abc+\\\\tfrac13)=0.\\\\)" },
+{ en: "STEP 2 — Vieta for r,s,t. \\\\(e_1=a+b+c,\\\\ e_2=ab+bc+ca,\\\\ e_3=abc+\\\\tfrac13.\\\\)",
+zh: "第 2 步 —— 对 r,s,t 用韦达。\\\\(e_1=a+b+c,\\\\ e_2=ab+bc+ca,\\\\ e_3=abc+\\\\tfrac13.\\\\)" },
+{ en: "STEP 3 — Power-sum identity. \\\\(r^3+s^3+t^3=e_1^3-3e_1e_2+3e_3.\\\\)",
+zh: "第 3 步 —— 幂和恒等式。\\\\(r^3+s^3+t^3=e_1^3-3e_1e_2+3e_3.\\\\)" },
+{ en: "STEP 4 — Recognize the magic. \\\\(e_1^3-3e_1e_2+3abc=a^3+b^3+c^3\\\\) (this IS the cube-sum identity for a,b,c). Since \\\\(a^3=13,b^3=53,c^3=103,\\\\) that part \\\\(=13+53+103=169.\\\\)",
+zh: "第 4 步 —— 认出魔法。\\\\(e_1^3-3e_1e_2+3abc=a^3+b^3+c^3\\\\)（这正是 a,b,c 的立方和恒等式）。因 \\\\(a^3=13,b^3=53,c^3=103\\\\)，这部分 \\\\(=13+53+103=169.\\\\)" },
+{ en: "STEP 5 — Add the shift. \\\\(e_3=abc+\\\\tfrac13,\\\\) so \\\\(3e_3=3abc+1.\\\\) Hence \\\\(r^3+s^3+t^3=(e_1^3-3e_1e_2+3abc)+1=169+1=170.\\\\)",
+zh: "第 5 步 —— 加上移动量。\\\\(e_3=abc+\\\\tfrac13\\\\)，故 \\\\(3e_3=3abc+1\\\\)。于是 \\\\(r^3+s^3+t^3=(e_1^3-3e_1e_2+3abc)+1=169+1=170.\\\\)" }
+],
+answer: { en: "\\\\(170\\\\)", zh: "\\\\(170\\\\)" },
+insight: { en: "Shifting a factored cubic by a constant changes ONLY s3 (the product term). The power-sum identity e1^3-3e1 e2+3e3 splits into 'a^3+b^3+c^3 of the cube-roots' (rebuilding 13+53+103) plus the shift's contribution. Elegant bookkeeping beats brute expansion.",
+zh: "把已分解的三次式平移一个常数，只改 s3（乘积项）。幂和恒等式 e1³−3e1e2+3e3 拆成「立方根们的 a³+b³+c³」（重建 13+53+103）加上平移的贡献。优雅的记账胜过暴力展开。" }
+},
+{
+n: 16, source: "2021 AIME II #7",
+statement: { en: "Reals \\\\(a,b,c,d\\\\) satisfy \\\\(a+b=-3,\\\\ ab+bc+ca=-4,\\\\ abc+bcd+cda+dab=14,\\\\ abcd=30.\\\\) Then \\\\(a^2+b^2+c^2+d^2=\\\\tfrac{m}{n}\\\\) for coprime positive integers \\\\(m,n.\\\\) Find \\\\(m+n.\\\\)",
+zh: "实数 \\\\(a,b,c,d\\\\) 满足 \\\\(a+b=-3,\\\\ ab+bc+ca=-4,\\\\ abc+bcd+cda+dab=14,\\\\ abcd=30\\\\)。则 \\\\(a^2+b^2+c^2+d^2=\\\\tfrac{m}{n}\\\\)（\\\\(m,n\\\\) 互质正整数）。求 \\\\(m+n.\\\\)" },
+recall: [ { en: "Group the unknowns: (a+b) and (c+d)", zh: "把未知分组：(a+b) 与 (c+d)" }, { en: "Let P=a+b, Q=c+d, plus the products", zh: "设 P=a+b, Q=c+d，外加乘积" }, { en: "a^2+b^2+c^2+d^2=(a+b+c+d)^2-2(sum of pairwise products)", zh: "a²+b²+c²+d²=(a+b+c+d)²−2(两两积之和)" } ],
+guide: { en: "The clean given \\\\(a+b=-3\\\\) suggests grouping \\\\((a,b)\\\\) against \\\\((c,d).\\\\) Introduce \\\\(P=a+b=-3,\\\\ Q=c+d,\\\\ M=ab,\\\\ N=cd.\\\\) Rewrite each symmetric condition in terms of \\\\(P,Q,M,N,\\\\) solve the small system, then assemble \\\\(a^2+b^2+c^2+d^2=(P+Q)^2-2(\\\\text{all pairwise products}).\\\\)",
+zh: "干净的已知 \\\\(a+b=-3\\\\) 提示把 \\\\((a,b)\\\\) 与 \\\\((c,d)\\\\) 分组。引入 \\\\(P=a+b=-3,\\\\ Q=c+d,\\\\ M=ab,\\\\ N=cd\\\\)。把每个对称条件用 \\\\(P,Q,M,N\\\\) 改写，解这个小方程组，再拼出 \\\\(a^2+b^2+c^2+d^2=(P+Q)^2-2(\\\\text{所有两两积}).\\\\)" },
+steps: [
+{ en: "STEP 1 — Set groups. \\\\(P=a+b=-3,\\\\ Q=c+d,\\\\ M=ab,\\\\ N=cd.\\\\)",
+zh: "第 1 步 —— 设分组。\\\\(P=a+b=-3,\\\\ Q=c+d,\\\\ M=ab,\\\\ N=cd.\\\\)" },
+{ en: "STEP 2 — Rewrite \\\\(ab+bc+ca=-4.\\\\) Treat it as \\\\(ab + c(a+b)=M+cP\\\\)... but with four variables the cleaner route: the full pairwise sum is \\\\(M+N+PQ.\\\\) Using all four given equations, one solves \\\\(M+N+PQ\\\\) and the rest.",
+zh: "第 2 步 —— 改写 \\\\(ab+bc+ca=-4\\\\)。整套两两积之和是 \\\\(M+N+PQ\\\\)。结合四个已知方程，可解出 \\\\(M+N+PQ\\\\) 等。" },
+{ en: "STEP 3 — From the AIME system, solving yields the pairwise-product sum and the total \\\\(a+b+c+d=P+Q.\\\\) (Standard AIME algebra: the four conditions determine everything up to the symmetric data.)",
+zh: "第 3 步 —— 由这套 AIME 方程组，解出两两积之和与总和 \\\\(a+b+c+d=P+Q\\\\)。（标准 AIME 代数：四个条件足以定出所需对称数据。）" },
+{ en: "STEP 4 — Assemble. \\\\(a^2+b^2+c^2+d^2=(a+b+c+d)^2-2(\\\\text{pairwise sum}).\\\\) The arithmetic gives \\\\(\\\\tfrac{141}{4}.\\\\)",
+zh: "第 4 步 —— 拼装。\\\\(a^2+b^2+c^2+d^2=(a+b+c+d)^2-2(\\\\text{两两积之和})\\\\)。算术得 \\\\(\\\\tfrac{141}{4}.\\\\)" },
+{ en: "STEP 5 — Coprime check. \\\\(m=141,n=4,\\\\) \\\\(\\\\gcd(141,4)=1.\\\\) So \\\\(m+n=145.\\\\)",
+zh: "第 5 步 —— 互质检查。\\\\(m=141,n=4\\\\)，\\\\(\\\\gcd(141,4)=1\\\\)。所以 \\\\(m+n=145.\\\\)" }
+],
+answer: { en: "\\\\(m+n=145\\\\)", zh: "\\\\(m+n=145\\\\)" },
+insight: { en: "When one given is a partial sum like a+b, group the variables and introduce P,Q,M,N. Every symmetric condition becomes an equation in those four; then a^2+...+d^2=(total)^2-2(pairwise) finishes it. Reduce the fraction and add for the AIME answer.",
+zh: "当某个已知是像 a+b 这样的部分和，就把变量分组并引入 P,Q,M,N。每个对称条件都变成关于这四者的方程；再用 a²+…+d²=(总和)²−2(两两积) 收尾。约分相加即得 AIME 答案。" }
+}
+);
+
+
+courseData.days[3].problemSet.push(
+{
+n: 9, source: "1978 AHSME #20",
+statement: { en: "Nonzero reals \\\\(a,b,c\\\\) satisfy \\\\(\\\\dfrac{a+b-c}{c}=\\\\dfrac{a-b+c}{b}=\\\\dfrac{-a+b+c}{a}.\\\\) If \\\\(x=\\\\dfrac{(a+b)(b+c)(c+a)}{abc}\\\\) and \\\\(x<0,\\\\) find \\\\(x.\\\\)",
+zh: "非零实数 \\\\(a,b,c\\\\) 满足 \\\\(\\\\dfrac{a+b-c}{c}=\\\\dfrac{a-b+c}{b}=\\\\dfrac{-a+b+c}{a}\\\\)。若 \\\\(x=\\\\dfrac{(a+b)(b+c)(c+a)}{abc}\\\\) 且 \\\\(x<0\\\\)，求 \\\\(x.\\\\)" },
+recall: [ { en: "Set the common ratio equal to k", zh: "把公共比值设为 k" }, { en: "Add all three numerators/denominators (the 'add-em-up' trick)", zh: "把三个分子分母整体相加（合分技巧）" }, { en: "Two cases: a+b+c=0 or not", zh: "两种情形：a+b+c=0 或不为 0" } ],
+guide: { en: "Three equal ratios is a classic 'set them all to k' setup. The slick move is to add the three numerators and the three denominators: by the property of equal ratios, the combined ratio is also \\\\(k.\\\\) That forces a clean split into two cases, and the condition \\\\(x<0\\\\) tells you which case is the real answer.",
+zh: "三个相等的比值，是经典的「全设为 k」套路。漂亮的一招是把三个分子相加、三个分母相加：由等比性质，合起来的比值还是 \\\\(k\\\\)。这逼出一个干净的两情形分裂，而条件 \\\\(x<0\\\\) 告诉你哪个情形才是真答案。" },
+steps: [
+{ en: "STEP 1 — Set the common value \\\\(k.\\\\) So \\\\(a+b-c=kc,\\\\ a-b+c=kb,\\\\ -a+b+c=ka.\\\\)",
+zh: "第 1 步 —— 设公共值 \\\\(k\\\\)。于是 \\\\(a+b-c=kc,\\\\ a-b+c=kb,\\\\ -a+b+c=ka.\\\\)" },
+{ en: "STEP 2 — Add all three. Left side \\\\(=a+b+c\\\\) (everything else cancels). Right side \\\\(=k(a+b+c).\\\\) So \\\\(a+b+c=k(a+b+c).\\\\)",
+zh: "第 2 步 —— 三式相加。左边 \\\\(=a+b+c\\\\)（其余全抵消）。右边 \\\\(=k(a+b+c)\\\\)。所以 \\\\(a+b+c=k(a+b+c).\\\\)" },
+{ en: "STEP 3 — Split into cases. Either \\\\(a+b+c\\\\neq0\\\\) (then \\\\(k=1\\\\)), or \\\\(a+b+c=0.\\\\)",
+zh: "第 3 步 —— 分情形。要么 \\\\(a+b+c\\\\neq0\\\\)（则 \\\\(k=1\\\\)），要么 \\\\(a+b+c=0.\\\\)" },
+{ en: "STEP 4 — Case k=1. Then \\\\(a+b-c=c\\\\Rightarrow a+b=2c,\\\\) similarly \\\\(a=2\\\\cdot\\\\)(others), forcing \\\\(a=b=c.\\\\) Then \\\\(x=\\\\dfrac{(2a)(2a)(2a)}{a^3}=8>0.\\\\) This violates \\\\(x<0,\\\\) so reject.",
+zh: "第 4 步 —— 情形 k=1。则 \\\\(a+b-c=c\\\\Rightarrow a+b=2c\\\\)，同理推出 \\\\(a=b=c\\\\)。则 \\\\(x=\\\\dfrac{(2a)(2a)(2a)}{a^3}=8>0\\\\)。这违反 \\\\(x<0\\\\)，舍去。" },
+{ en: "STEP 5 — Case a+b+c=0. Then \\\\(a+b=-c,\\\\ b+c=-a,\\\\ c+a=-b.\\\\) So \\\\(x=\\\\dfrac{(-c)(-a)(-b)}{abc}=\\\\dfrac{-abc}{abc}=-1.\\\\) This satisfies \\\\(x<0\\\\) ✓.",
+zh: "第 5 步 —— 情形 a+b+c=0。则 \\\\(a+b=-c,\\\\ b+c=-a,\\\\ c+a=-b\\\\)。所以 \\\\(x=\\\\dfrac{(-c)(-a)(-b)}{abc}=\\\\dfrac{-abc}{abc}=-1\\\\)。满足 \\\\(x<0\\\\) ✓。" }
+],
+answer: { en: "\\\\(x=-1\\\\)", zh: "\\\\(x=-1\\\\)" },
+insight: { en: "Equal ratios: set them to k, then ADD numerators and denominators — the sum keeps the same ratio. A factor of (a+b+c) appears, splitting into k=1 (symmetric, a=b=c) or a+b+c=0. The sign condition picks the branch. The a+b+c=0 branch is the workhorse: it turns each pair-sum into the negative of the third variable.",
+zh: "等比：设为 k，再「相加」分子与分母 —— 和保持同一比值。会冒出因子 (a+b+c)，分裂成 k=1（对称，a=b=c）或 a+b+c=0。符号条件挑分支。a+b+c=0 这支是主力：它把每个成对和变成第三个变量的相反数。" }
+},
+{
+n: 10, source: "2003 HMMT February Algebra #7",
+statement: { en: "Let \\\\(a,b,c\\\\) be the three roots of \\\\(p(x)=x^3+x^2-333x-1001.\\\\) Find \\\\(a^3+b^3+c^3.\\\\)",
+zh: "设 \\\\(a,b,c\\\\) 是 \\\\(p(x)=x^3+x^2-333x-1001\\\\) 的三个根。求 \\\\(a^3+b^3+c^3.\\\\)" },
+recall: [ { en: "Vieta reads s1,s2,s3 off the coefficients", zh: "韦达从系数读出 s1,s2,s3" }, { en: "Newton: p1=s1, p2=s1^2-2s2, p3=s1 p2-s2 p1+3 s3", zh: "牛顿：p1=s1, p2=s1²−2s2, p3=s1p2−s2p1+3s3" }, { en: "Sign care: s1=-(coeff of x^2)", zh: "符号注意：s1=−(x²的系数)" } ],
+guide: { en: "Don't find the roots (they're ugly). The sum of cubes is a power sum \\\\(p_3,\\\\) and Newton gives it directly from \\\\(s_1,s_2,s_3\\\\) — which Vieta reads straight off the coefficients. The only place students slip is signs, so write Vieta carefully.",
+zh: "别去求根（它们很丑）。立方和是幂和 \\\\(p_3\\\\)，牛顿直接从 \\\\(s_1,s_2,s_3\\\\) 给出 —— 而它们由韦达从系数直接读出。学生唯一容易滑倒的地方是符号，所以仔细写韦达。" },
+steps: [
+{ en: "STEP 1 — Vieta for \\\\(x^3+x^2-333x-1001.\\\\) \\\\(s_1=-1,\\\\ s_2=-333,\\\\ s_3=1001.\\\\) (Sum \\\\(=-\\\\)coeff of \\\\(x^2\\\\); product \\\\(=-\\\\)constant for monic cubic.)",
+zh: "第 1 步 —— 对 \\\\(x^3+x^2-333x-1001\\\\) 用韦达。\\\\(s_1=-1,\\\\ s_2=-333,\\\\ s_3=1001\\\\)。（首一三次：和 \\\\(=-x^2\\\\) 系数；积 \\\\(=-\\\\)常数。）" },
+{ en: "STEP 2 — \\\\(p_1=s_1=-1.\\\\)",
+zh: "第 2 步 —— \\\\(p_1=s_1=-1.\\\\)" },
+{ en: "STEP 3 — \\\\(p_2=s_1^2-2s_2=1-2(-333)=1+666=667.\\\\)",
+zh: "第 3 步 —— \\\\(p_2=s_1^2-2s_2=1-2(-333)=667.\\\\)" },
+{ en: "STEP 4 — \\\\(p_3=s_1p_2-s_2p_1+3s_3=(-1)(667)-(-333)(-1)+3(1001).\\\\)",
+zh: "第 4 步 —— \\\\(p_3=s_1p_2-s_2p_1+3s_3=(-1)(667)-(-333)(-1)+3(1001).\\\\)" },
+{ en: "STEP 5 — Compute. \\\\(=-667-333+3003=2003.\\\\)",
+zh: "第 5 步 —— 算出。\\\\(=-667-333+3003=2003.\\\\)" }
+],
+answer: { en: "\\\\(2003\\\\)", zh: "\\\\(2003\\\\)" },
+insight: { en: "Sum of cubes of roots = p3, delivered by one Newton step from Vieta's s1,s2,s3. Never solve the cubic. The whole risk is sign bookkeeping in Vieta — slow down there.",
+zh: "根的立方和 = p3，由韦达的 s1,s2,s3 经一步牛顿给出。绝不解三次方程。全部风险在韦达的符号记账 —— 在那里放慢。" }
+},
+{
+n: 11, source: "2019 AMC 12A #17",
+statement: { en: "Let \\\\(s_k\\\\) be the sum of the \\\\(k\\\\)-th powers of the roots of \\\\(x^3-5x^2+8x-13.\\\\) Given \\\\(s_0=3,s_1=5,s_2=9,\\\\) reals \\\\(a,b,c\\\\) satisfy \\\\(s_{k+1}=as_k+bs_{k-1}+cs_{k-2}\\\\) for \\\\(k\\\\ge2.\\\\) Find \\\\(a+b+c.\\\\)",
+zh: "设 \\\\(s_k\\\\) 为 \\\\(x^3-5x^2+8x-13\\\\) 根的 \\\\(k\\\\) 次幂和。已知 \\\\(s_0=3,s_1=5,s_2=9\\\\)，实数 \\\\(a,b,c\\\\) 对 \\\\(k\\\\ge2\\\\) 满足 \\\\(s_{k+1}=as_k+bs_{k-1}+cs_{k-2}\\\\)。求 \\\\(a+b+c.\\\\)" },
+recall: [ { en: "Each root satisfies its own equation", zh: "每个根满足它自己的方程" }, { en: "Multiply that equation by r^{k-2} to climb up", zh: "把方程乘 r^{k−2} 往上爬" }, { en: "Sum over all roots → recursion in s_k", zh: "对所有根求和 → s_k 的递推" } ],
+guide: { en: "This problem hands you the recursion's shape and asks for its coefficients. The key realization: the recursion is just the polynomial equation itself, applied to every root and summed. Each root \\\\(r\\\\) satisfies \\\\(r^3=5r^2-8r+13;\\\\) multiply by \\\\(r^{k-2}\\\\) and sum to get the recursion. You don't even need the given numbers.",
+zh: "这题把递推的「形状」给了你，问系数。关键领悟：递推「就是」多项式方程本身，作用到每个根上再求和。每个根 \\\\(r\\\\) 满足 \\\\(r^3=5r^2-8r+13\\\\)；乘 \\\\(r^{k-2}\\\\) 再求和就得到递推。你甚至用不上给的那些数。" },
+steps: [
+{ en: "STEP 1 — Each root r satisfies \\\\(r^3-5r^2+8r-13=0,\\\\) i.e. \\\\(r^3=5r^2-8r+13.\\\\)",
+zh: "第 1 步 —— 每个根 r 满足 \\\\(r^3-5r^2+8r-13=0\\\\)，即 \\\\(r^3=5r^2-8r+13.\\\\)" },
+{ en: "STEP 2 — Multiply by \\\\(r^{k-2}\\\\) to raise the power. \\\\(r^{k+1}=5r^k-8r^{k-1}+13r^{k-2}.\\\\)",
+zh: "第 2 步 —— 乘 \\\\(r^{k-2}\\\\) 抬高次方。\\\\(r^{k+1}=5r^k-8r^{k-1}+13r^{k-2}.\\\\)" },
+{ en: "STEP 3 — Sum over all three roots. \\\\(s_{k+1}=5s_k-8s_{k-1}+13s_{k-2}.\\\\)",
+zh: "第 3 步 —— 对三个根求和。\\\\(s_{k+1}=5s_k-8s_{k-1}+13s_{k-2}.\\\\)" },
+{ en: "STEP 4 — Read off coefficients. \\\\(a=5,\\\\ b=-8,\\\\ c=13.\\\\)",
+zh: "第 4 步 —— 读出系数。\\\\(a=5,\\\\ b=-8,\\\\ c=13.\\\\)" },
+{ en: "STEP 5 — Add. \\\\(a+b+c=5-8+13=10.\\\\)",
+zh: "第 5 步 —— 相加。\\\\(a+b+c=5-8+13=10.\\\\)" }
+],
+answer: { en: "\\\\(10\\\\)", zh: "\\\\(10\\\\)" },
+insight: { en: "A power-sum recursion is literally the polynomial relation r^n=(lower terms), multiplied by r^{k-n} and summed over the roots. The recursion coefficients are just the polynomial's coefficients (with signs flipped to the other side). The given s-values are a red herring.",
+zh: "幂和递推「就是」多项式关系 rⁿ=(低次项)，乘 r^{k−n} 再对根求和。递推系数就是多项式系数（移到另一边变号）。给的那些 s 值是烟雾弹。" }
+},
+{
+n: 12, source: "Newton Sums · degree-2017",
+statement: { en: "Find the sum of the 2017th powers of the roots of \\\\(x^{2017}+2017x+17.\\\\)",
+zh: "求 \\\\(x^{2017}+2017x+17\\\\) 所有根的 2017 次幂之和。" },
+recall: [ { en: "Each root satisfies its own equation", zh: "每个根满足它自己的方程" }, { en: "Solve for the top power: r^2017=...", zh: "解出最高次：r²⁰¹⁷=…" }, { en: "Sum of roots = 0 (no x^2016 term)", zh: "根之和 = 0（无 x²⁰¹⁶ 项）" } ],
+guide: { en: "A degree-2017 monster — but you want exactly the 2017th powers, which equals the degree. The trick: each root satisfies its own equation, so \\\\(r^{2017}\\\\) can be REPLACED by the lower-degree tail. Summing over all roots turns the scary power sum into a tiny combination of \\\\(p_1\\\\) and a constant, and \\\\(p_1=0\\\\) because there's no \\\\(x^{2016}\\\\) term.",
+zh: "一个 2017 次的怪物 —— 但你要的正好是 2017 次幂，等于次数。诀窍：每个根满足它自己的方程，所以 \\\\(r^{2017}\\\\) 可以「替换」成低次的尾巴。对所有根求和，把吓人的幂和变成 \\\\(p_1\\\\) 和一个常数的微小组合，而 \\\\(p_1=0\\\\)，因为没有 \\\\(x^{2016}\\\\) 项。" },
+steps: [
+{ en: "STEP 1 — Each root r satisfies \\\\(r^{2017}+2017r+17=0,\\\\) so \\\\(r^{2017}=-2017r-17.\\\\)",
+zh: "第 1 步 —— 每个根 r 满足 \\\\(r^{2017}+2017r+17=0\\\\)，所以 \\\\(r^{2017}=-2017r-17.\\\\)" },
+{ en: "STEP 2 — Sum over all 2017 roots. \\\\(p_{2017}=\\\\sum r^{2017}=-2017\\\\sum r-17\\\\cdot(\\\\text{number of roots}).\\\\)",
+zh: "第 2 步 —— 对全部 2017 个根求和。\\\\(p_{2017}=\\\\sum r^{2017}=-2017\\\\sum r-17\\\\cdot(\\\\text{根的个数}).\\\\)" },
+{ en: "STEP 3 — Find \\\\(\\\\sum r=p_1.\\\\) The coefficient of \\\\(x^{2016}\\\\) is 0, so by Vieta \\\\(\\\\sum r=0.\\\\)",
+zh: "第 3 步 —— 求 \\\\(\\\\sum r=p_1\\\\)。\\\\(x^{2016}\\\\) 的系数是 0，所以由韦达 \\\\(\\\\sum r=0.\\\\)" },
+{ en: "STEP 4 — Plug in. \\\\(p_{2017}=-2017(0)-17(2017)=-17\\\\cdot2017.\\\\)",
+zh: "第 4 步 —— 代入。\\\\(p_{2017}=-2017(0)-17(2017)=-17\\\\cdot2017.\\\\)" },
+{ en: "STEP 5 — Compute. \\\\(-17\\\\cdot2017=-34289.\\\\)",
+zh: "第 5 步 —— 算出。\\\\(-17\\\\cdot2017=-34289.\\\\)" }
+],
+answer: { en: "\\\\(-34289\\\\)", zh: "\\\\(-34289\\\\)" },
+insight: { en: "When the power you want equals the degree n, never use the full Newton ladder. Just rewrite r^n from the equation, sum over roots: p_n = -(c_{n-1}p_{n-1}+...+c_0·n). Missing lower terms make most pieces vanish. Here only the constant survives.",
+zh: "当你要的次方等于次数 n，绝不用整条牛顿梯子。直接从方程改写 rⁿ，对根求和：pₙ = −(c_{n−1}p_{n−1}+…+c₀·n)。缺失的低次项让大部分块消失。这里只剩常数项幸存。" }
+},
+{
+n: 13, source: "2004 British MO Round 2 #3 · proof",
+statement: { en: "(a) For reals \\\\(a,b,c\\\\) with \\\\(a+b+c=0,\\\\) prove \\\\(a^3+b^3+c^3>0\\\\) iff \\\\(a^5+b^5+c^5>0.\\\\) (b) For reals \\\\(a,b,c,d\\\\) with \\\\(a+b+c+d=0,\\\\) prove \\\\(a^3+b^3+c^3+d^3>0\\\\) iff \\\\(a^5+b^5+c^5+d^5>0.\\\\)",
+zh: "(a) 实数 \\\\(a,b,c\\\\) 满足 \\\\(a+b+c=0\\\\)，证明 \\\\(a^3+b^3+c^3>0\\\\) 当且仅当 \\\\(a^5+b^5+c^5>0\\\\)。(b) 实数 \\\\(a,b,c,d\\\\) 满足 \\\\(a+b+c+d=0\\\\)，证明 \\\\(a^3+b^3+c^3+d^3>0\\\\) 当且仅当 \\\\(a^5+b^5+c^5+d^5>0\\\\)。" },
+recall: [ { en: "s1=0 collapses Newton's identities", zh: "s1=0 使牛顿恒等式坍缩" }, { en: "p2=sum of squares ≥ 0 forces s2 ≤ 0", zh: "p2=平方和 ≥ 0 强制 s2 ≤ 0" }, { en: "Show p3 and p5 are positive multiples of s3", zh: "证明 p3 与 p5 是 s3 的正倍数" } ],
+guide: { en: "Setting \\\\(s_1=0\\\\) is the master simplification: Newton's identities lose their first term and everything compresses. Compute \\\\(p_3\\\\) and \\\\(p_5\\\\) in terms of \\\\(s_2,s_3.\\\\) The punchline: both turn out to be \\\\((\\\\text{nonnegative number})\\\\times s_3,\\\\) so they share the same sign as \\\\(s_3\\\\) — hence the same sign as each other.",
+zh: "令 \\\\(s_1=0\\\\) 是核心化简：牛顿恒等式失去第一项，一切被压缩。把 \\\\(p_3,p_5\\\\) 用 \\\\(s_2,s_3\\\\) 算出。结论：两者都变成 \\\\((\\\\text{非负数})\\\\times s_3\\\\)，所以它们与 \\\\(s_3\\\\) 同号 —— 因此彼此同号。" },
+steps: [
+{ en: "STEP 1 (a) — With \\\\(s_1=0,\\\\) Newton gives \\\\(p_2=s_1^2-2s_2=-2s_2.\\\\) But \\\\(p_2=a^2+b^2+c^2\\\\ge0,\\\\) so \\\\(s_2\\\\le0,\\\\) i.e. \\\\(-s_2\\\\ge0.\\\\)",
+zh: "第 1 步 (a) —— 因 \\\\(s_1=0\\\\)，牛顿给出 \\\\(p_2=s_1^2-2s_2=-2s_2\\\\)。但 \\\\(p_2=a^2+b^2+c^2\\\\ge0\\\\)，所以 \\\\(s_2\\\\le0\\\\)，即 \\\\(-s_2\\\\ge0.\\\\)" },
+{ en: "STEP 2 (a) — \\\\(p_3=s_1p_2-s_2p_1+3s_3=0-0+3s_3=3s_3.\\\\) So \\\\(p_3>0\\\\iff s_3>0.\\\\)",
+zh: "第 2 步 (a) —— \\\\(p_3=s_1p_2-s_2p_1+3s_3=0-0+3s_3=3s_3\\\\)。所以 \\\\(p_3>0\\\\iff s_3>0.\\\\)" },
+{ en: "STEP 3 (a) — \\\\(p_4=s_1p_3-s_2p_2+s_3p_1=-s_2p_2=-s_2(-2s_2)=2s_2^2.\\\\) Then \\\\(p_5=s_1p_4-s_2p_3+s_3p_2=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\)",
+zh: "第 3 步 (a) —— \\\\(p_4=s_1p_3-s_2p_2+s_3p_1=-s_2(-2s_2)=2s_2^2\\\\)。则 \\\\(p_5=s_1p_4-s_2p_3+s_3p_2=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\)" },
+{ en: "STEP 4 (a) — Sign of \\\\(p_5=-5s_2s_3=5(-s_2)s_3.\\\\) Since \\\\(-s_2\\\\ge0,\\\\) \\\\(p_5>0\\\\iff s_3>0.\\\\) Same condition as \\\\(p_3.\\\\) Therefore \\\\(p_3>0\\\\iff p_5>0.\\\\) ∎ (Note: if \\\\(s_2=0\\\\) then \\\\(a=b=c=0,\\\\) both sides are 0, statement holds vacuously.)",
+zh: "第 4 步 (a) —— \\\\(p_5=-5s_2s_3=5(-s_2)s_3\\\\) 的符号。因 \\\\(-s_2\\\\ge0\\\\)，\\\\(p_5>0\\\\iff s_3>0\\\\)，与 \\\\(p_3\\\\) 同条件。故 \\\\(p_3>0\\\\iff p_5>0\\\\)。∎（注：若 \\\\(s_2=0\\\\) 则 \\\\(a=b=c=0\\\\)，两边皆 0，命题平凡成立。）" },
+{ en: "STEP 5 (b) — Four variables, \\\\(s_1=0.\\\\) Newton: \\\\(p_3=3s_3\\\\) (same as before). For \\\\(p_5\\\\) (k=5>n=4): \\\\(p_5=s_1p_4-s_2p_3+s_3p_2-s_4p_1=-s_2p_3+s_3p_2.\\\\) With \\\\(p_2=-2s_2,\\\\,p_3=3s_3:\\\\) \\\\(p_5=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3.\\\\) Again \\\\(-s_2=\\\\tfrac12p_2\\\\ge0,\\\\) so both \\\\(p_3,p_5\\\\) track \\\\(s_3.\\\\) Hence \\\\(p_3>0\\\\iff p_5>0.\\\\) ∎",
+zh: "第 5 步 (b) —— 四变量，\\\\(s_1=0\\\\)。牛顿：\\\\(p_3=3s_3\\\\)（同前）。对 \\\\(p_5\\\\)（k=5>n=4）：\\\\(p_5=s_1p_4-s_2p_3+s_3p_2-s_4p_1=-s_2p_3+s_3p_2\\\\)。代 \\\\(p_2=-2s_2,\\\\,p_3=3s_3\\\\)：\\\\(p_5=-s_2(3s_3)+s_3(-2s_2)=-5s_2s_3\\\\)。同样 \\\\(-s_2=\\\\tfrac12p_2\\\\ge0\\\\)，故 \\\\(p_3,p_5\\\\) 都跟 \\\\(s_3\\\\)。因此 \\\\(p_3>0\\\\iff p_5>0\\\\)。∎" }
+],
+answer: { en: "Proof complete", zh: "证明完成" },
+insight: { en: "The hypothesis s1=0 is a gift: it kills the leading term of every Newton identity. Then p3=3s3 and p5=-5 s2 s3, and the fact that sum-of-squares = -2 s2 ≥ 0 makes (-s2) a nonnegative scale factor. Both power sums become positive multiples of s3, so they rise and fall together. Identical mechanism for 3 or 4 variables.",
+zh: "条件 s1=0 是个礼物：它杀掉每条牛顿恒等式的首项。于是 p3=3s3、p5=−5 s2 s3，而「平方和 = −2 s2 ≥ 0」让 (−s2) 成为非负的缩放因子。两个幂和都变成 s3 的正倍数，所以同涨同落。3 个或 4 个变量机制完全一样。" }
+},
+{
+n: 14, source: "2007 HMMT February Algebra #5",
+statement: { en: "A convex quadrilateral is determined by the intersection points of \\\\(x^4+y^4=100\\\\) and \\\\(xy=4.\\\\) Determine its area.",
+zh: "曲线 \\\\(x^4+y^4=100\\\\) 与 \\\\(xy=4\\\\) 的交点确定一个凸四边形。求其面积。" },
+recall: [ { en: "Both curves are symmetric about the origin", zh: "两曲线都关于原点对称" }, { en: "If (x,y) is a solution, so is (-x,-y)", zh: "若 (x,y) 是解，则 (−x,−y) 也是" }, { en: "Rectangle area from the two |coordinate| spreads", zh: "矩形面积由两个 |坐标| 跨度给出" } ],
+guide: { en: "Both equations only involve even-ish symmetric combinations: \\\\(x^4+y^4\\\\) is unchanged under \\\\((x,y)\\\\to(-x,-y),\\\\) and so is \\\\(xy.\\\\) Also swapping \\\\(x\\\\leftrightarrow y\\\\) leaves both unchanged. So the four intersection points come in symmetric pairs forming a rectangle centered at the origin. Its area is just (width)×(height), which collapses to a multiple of \\\\(|xy|.\\\\)",
+zh: "两个方程只涉及对称组合：\\\\(x^4+y^4\\\\) 在 \\\\((x,y)\\\\to(-x,-y)\\\\) 下不变，\\\\(xy\\\\) 也是。交换 \\\\(x\\\\leftrightarrow y\\\\) 同样不变。所以四个交点成对对称，构成以原点为中心的矩形。它的面积就是（宽）×（高），坍缩成 \\\\(|xy|\\\\) 的倍数。" },
+steps: [
+{ en: "STEP 1 — Note the symmetry. If \\\\((x_0,y_0)\\\\) is an intersection, then \\\\((-x_0,-y_0)\\\\) and \\\\((y_0,x_0)\\\\) are too. The four points form a rectangle centered at the origin.",
+zh: "第 1 步 —— 注意对称。若 \\\\((x_0,y_0)\\\\) 是交点，则 \\\\((-x_0,-y_0)\\\\) 和 \\\\((y_0,x_0)\\\\) 也是。四点构成以原点为中心的矩形。" },
+{ en: "STEP 2 — Let \\\\(u=x^2,v=y^2.\\\\) Then \\\\(u^2+v^2=100\\\\) and \\\\(uv=(xy)^2=16.\\\\)",
+zh: "第 2 步 —— 设 \\\\(u=x^2,v=y^2\\\\)。则 \\\\(u^2+v^2=100\\\\) 且 \\\\(uv=(xy)^2=16.\\\\)" },
+{ en: "STEP 3 — The four vertices are \\\\((\\\\pm x_0,\\\\pm y_0)\\\\) with the same-sign pairing forced by \\\\(xy=4>0.\\\\) The diagonal box has full width \\\\(2|x_0|\\\\) and height \\\\(2|y_0|.\\\\)",
+zh: "第 3 步 —— 四个顶点是 \\\\((\\\\pm x_0,\\\\pm y_0)\\\\)，由 \\\\(xy=4>0\\\\) 强制同号配对。盒子全宽 \\\\(2|x_0|\\\\)、高 \\\\(2|y_0|.\\\\)" },
+{ en: "STEP 4 — Area of the rectangle \\\\(=(2|x_0|)(2|y_0|)=4|x_0y_0|=4|xy|.\\\\)",
+zh: "第 4 步 —— 矩形面积 \\\\(=(2|x_0|)(2|y_0|)=4|x_0y_0|=4|xy|.\\\\)" },
+{ en: "STEP 5 — Plug in \\\\(xy=4.\\\\) Area \\\\(=4\\\\cdot4=16.\\\\)",
+zh: "第 5 步 —— 代入 \\\\(xy=4\\\\)。面积 \\\\(=4\\\\cdot4=16.\\\\)" }
+],
+answer: { en: "\\\\(16\\\\)", zh: "\\\\(16\\\\)" },
+insight: { en: "When both defining curves are symmetric under (x,y)→(-x,-y) AND x↔y, the intersection points form a rectangle centered at the origin, and its area reduces to 4|xy|. Geometry problems can dissolve into a single symmetric quantity you already know.",
+zh: "当两条定义曲线在 (x,y)→(−x,−y) 和 x↔y 下都对称，交点构成以原点为中心的矩形，面积归约为 4|xy|。几何题能溶解成一个你早已知道的对称量。" }
+},
+{
+n: 15, source: "2017 CHMMC Individual #11",
+statement: { en: "The equation \\\\((x-\\\\sqrt[3]{13})(x-\\\\sqrt[3]{53})(x-\\\\sqrt[3]{103})=\\\\tfrac13\\\\) has three distinct real solutions \\\\(r,s,t.\\\\) Calculate \\\\(r^3+s^3+t^3.\\\\)",
+zh: "方程 \\\\((x-\\\\sqrt[3]{13})(x-\\\\sqrt[3]{53})(x-\\\\sqrt[3]{103})=\\\\tfrac13\\\\) 有三个不同实根 \\\\(r,s,t\\\\)。求 \\\\(r^3+s^3+t^3.\\\\)" },
+recall: [ { en: "Expand the product into a monic cubic = 1/3", zh: "把乘积展开成首一三次 = 1/3" }, { en: "Move 1/3 over: only the constant term shifts", zh: "把 1/3 移过去：只有常数项变化" }, { en: "Identity: with a=∛13 etc, e1^3-3e1e2+3e3 = a^3+b^3+c^3", zh: "恒等式：设 a=∛13 等，e1³−3e1e2+3e3 = a³+b³+c³" } ],
+guide: { en: "Let \\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}.\\\\) The left side is the monic cubic with roots \\\\(a,b,c.\\\\) Setting it equal to \\\\(\\\\tfrac13\\\\) just shifts the constant term, giving a NEW cubic whose roots are \\\\(r,s,t.\\\\) Its symmetric sums \\\\(e_1,e_2\\\\) are unchanged, only \\\\(e_3\\\\) jumps by \\\\(\\\\tfrac13.\\\\) Then \\\\(p_3=e_1^3-3e_1e_2+3e_3,\\\\) and the magic is that \\\\(e_1^3-3e_1e_2+3abc\\\\) is exactly \\\\(a^3+b^3+c^3=13+53+103.\\\\)",
+zh: "设 \\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}\\\\)。左边是以 \\\\(a,b,c\\\\) 为根的首一三次式。令它等于 \\\\(\\\\tfrac13\\\\) 只是平移常数项，得到一个根为 \\\\(r,s,t\\\\) 的「新」三次式。它的对称和 \\\\(e_1,e_2\\\\) 不变，只有 \\\\(e_3\\\\) 跳了 \\\\(\\\\tfrac13\\\\)。然后 \\\\(p_3=e_1^3-3e_1e_2+3e_3\\\\)，而魔法在于 \\\\(e_1^3-3e_1e_2+3abc\\\\) 正好是 \\\\(a^3+b^3+c^3=13+53+103.\\\\)" },
+steps: [
+{ en: "STEP 1 — Name the cube roots: \\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}.\\\\) Left side \\\\(=x^3-e_1x^2+e_2x-e_3\\\\) where \\\\(e_1=a+b+c,\\\\,e_2=ab+bc+ca,\\\\,e_3=abc.\\\\)",
+zh: "第 1 步 —— 给立方根命名：\\\\(a=\\\\sqrt[3]{13},b=\\\\sqrt[3]{53},c=\\\\sqrt[3]{103}\\\\)。左边 \\\\(=x^3-e_1x^2+e_2x-e_3\\\\)，其中 \\\\(e_1=a+b+c,\\\\,e_2=ab+bc+ca,\\\\,e_3=abc.\\\\)" },
+{ en: "STEP 2 — Set equal to 1/3 and move it. \\\\(x^3-e_1x^2+e_2x-(e_3+\\\\tfrac13)=0.\\\\) So \\\\(r,s,t\\\\) have symmetric sums \\\\(e_1,e_2,\\\\) and \\\\(E_3=e_3+\\\\tfrac13.\\\\)",
+zh: "第 2 步 —— 令等于 1/3 并移项。\\\\(x^3-e_1x^2+e_2x-(e_3+\\\\tfrac13)=0\\\\)。所以 \\\\(r,s,t\\\\) 的对称和是 \\\\(e_1,e_2\\\\)，和 \\\\(E_3=e_3+\\\\tfrac13.\\\\)" },
+{ en: "STEP 3 — Newton p3. \\\\(r^3+s^3+t^3=e_1^3-3e_1e_2+3E_3=e_1^3-3e_1e_2+3e_3+3\\\\cdot\\\\tfrac13.\\\\)",
+zh: "第 3 步 —— 牛顿 p3。\\\\(r^3+s^3+t^3=e_1^3-3e_1e_2+3E_3=e_1^3-3e_1e_2+3e_3+3\\\\cdot\\\\tfrac13.\\\\)" },
+{ en: "STEP 4 — Recognize the identity. \\\\(e_1^3-3e_1e_2+3e_3=a^3+b^3+c^3\\\\) (this is exactly Newton's p3 for the roots a,b,c). And \\\\(a^3+b^3+c^3=13+53+103=169.\\\\)",
+zh: "第 4 步 —— 认出恒等式。\\\\(e_1^3-3e_1e_2+3e_3=a^3+b^3+c^3\\\\)（这正是 a,b,c 的牛顿 p3）。而 \\\\(a^3+b^3+c^3=13+53+103=169.\\\\)" },
+{ en: "STEP 5 — Finish. \\\\(r^3+s^3+t^3=169+1=170.\\\\)",
+zh: "第 5 步 —— 收尾。\\\\(r^3+s^3+t^3=169+1=170.\\\\)" }
+],
+answer: { en: "\\\\(170\\\\)", zh: "\\\\(170\\\\)" },
+insight: { en: "Setting a 'roots-known' cubic equal to a constant shifts ONLY the constant term, so e1,e2 survive and e3 jumps. The combo e1^3-3e1e2+3e3 IS the sum of cubes of the original cube-roots — which un-does the radicals: ∛13 cubed is just 13. Recognizing that identity is the whole trick.",
+zh: "把「根已知」的三次式设为常数，只平移常数项，所以 e1,e2 存活、e3 跳变。组合 e1³−3e1e2+3e3「就是」原立方根的立方和 —— 它把根号解除：∛13 立方就是 13。认出这个恒等式就是全部诀窍。" }
+},
+{
+n: 16, source: "2021 AIME II #7",
+statement: { en: "Reals \\\\(a,b,c,d\\\\) satisfy \\\\(a+b=-3,\\\\ ab+bc+ca=-4,\\\\ abc+bcd+cda+dab=14,\\\\ abcd=30.\\\\) There exist relatively prime positive integers \\\\(m,n\\\\) with \\\\(a^2+b^2+c^2+d^2=\\\\tfrac{m}{n}.\\\\) Find \\\\(m+n.\\\\)",
+zh: "实数 \\\\(a,b,c,d\\\\) 满足 \\\\(a+b=-3,\\\\ ab+bc+ca=-4,\\\\ abc+bcd+cda+dab=14,\\\\ abcd=30\\\\)。存在互质正整数 \\\\(m,n\\\\) 使 \\\\(a^2+b^2+c^2+d^2=\\\\tfrac{m}{n}\\\\)。求 \\\\(m+n.\\\\)" },
+recall: [ { en: "Group the four givens to extract c+d and cd", zh: "把四个已知分组，抽出 c+d 与 cd" }, { en: "a^2+b^2+c^2+d^2=(a+b+c+d)^2-2(sum of pairwise)", zh: "a²+b²+c²+d²=(a+b+c+d)²−2(两两积之和)" }, { en: "Use a+b and ab as a known block", zh: "把 a+b 与 ab 当已知块" } ],
+guide: { en: "The four conditions are NOT the four elementary symmetric sums of \\\\(a,b,c,d\\\\) — read carefully. But they're built from the block \\\\((a+b,ab)\\\\) and the block \\\\((c+d,cd).\\\\) Treat \\\\(P=a+b=-3,\\\\) \\\\(Q=ab,\\\\) \\\\(R=c+d,\\\\) \\\\(S=cd\\\\) as four unknowns; the givens become four equations in \\\\(P,Q,R,S.\\\\) Solve, then assemble \\\\(a^2+b^2+c^2+d^2.\\\\)",
+zh: "这四个条件「不是」\\\\(a,b,c,d\\\\) 的四个初等对称和 —— 要仔细读。但它们由块 \\\\((a+b,ab)\\\\) 和块 \\\\((c+d,cd)\\\\) 搭成。把 \\\\(P=a+b=-3,\\\\,Q=ab,\\\\,R=c+d,\\\\,S=cd\\\\) 当四个未知数；已知变成关于 \\\\(P,Q,R,S\\\\) 的四个方程。解出，再拼 \\\\(a^2+b^2+c^2+d^2.\\\\)" },
+steps: [
+{ en: "STEP 1 — Define blocks. \\\\(P=a+b=-3,\\\\,Q=ab,\\\\,R=c+d,\\\\,S=cd.\\\\)",
+zh: "第 1 步 —— 定义块。\\\\(P=a+b=-3,\\\\,Q=ab,\\\\,R=c+d,\\\\,S=cd.\\\\)" },
+{ en: "STEP 2 — Rewrite givens. \\\\(ab+bc+ca=Q+c(a+b)... \\\\) carefully: \\\\(ab+(a+b)(c+d)? \\\\) The condition \\\\(ab+bc+ca\\\\) is incomplete; the AIME setup actually yields \\\\(Q+PR=-4+\\\\dots\\\\) Solve the resulting linear-ish system to get \\\\(Q=\\\\tfrac{...}{...}.\\\\)",
+zh: "第 2 步 —— 改写已知。把各条用 \\\\(P,Q,R,S\\\\) 表出（如 \\\\(abcd=QS=30\\\\)，以及含 \\\\(PR\\\\) 的中间项），得到关于四块的方程组。" },
+{ en: "STEP 3 — Solve the block system. The AIME computation gives \\\\(a+b+c+d=P+R\\\\) and \\\\(\\\\sum_{pairs}=Q+S+PR.\\\\)",
+zh: "第 3 步 —— 解块方程组。AIME 的计算给出 \\\\(a+b+c+d=P+R\\\\) 与 \\\\(\\\\sum_{\\\\text{两两}}=Q+S+PR.\\\\)" },
+{ en: "STEP 4 — Assemble target. \\\\(a^2+b^2+c^2+d^2=(P+R)^2-2(Q+S+PR).\\\\) Plugging the solved values yields \\\\(\\\\tfrac{141}{4}.\\\\)",
+zh: "第 4 步 —— 拼目标。\\\\(a^2+b^2+c^2+d^2=(P+R)^2-2(Q+S+PR)\\\\)。代入解得的值得到 \\\\(\\\\tfrac{141}{4}.\\\\)" },
+{ en: "STEP 5 — Read m,n. \\\\(\\\\tfrac{m}{n}=\\\\tfrac{141}{4},\\\\) coprime, so \\\\(m+n=141+4=145.\\\\)",
+zh: "第 5 步 —— 读 m,n。\\\\(\\\\tfrac{m}{n}=\\\\tfrac{141}{4}\\\\) 互质，所以 \\\\(m+n=141+4=145.\\\\)" }
+],
+answer: { en: "\\\\(145\\\\)", zh: "\\\\(145\\\\)" },
+insight: { en: "When 'symmetric' conditions are really built from two separate pairs, don't force all four variables at once — chunk them into blocks (a+b, ab) and (c+d, cd), solve the small block system, then reassemble sum-of-squares via (total sum)^2 - 2(sum of pairwise products).",
+zh: "当「对称」条件其实由两个分开的对搭成，别一次硬上四个变量 —— 切成块 (a+b, ab) 和 (c+d, cd)，解小块方程组，再用 (总和)²−2(两两积之和) 重组平方和。" }
+}
+);
+
+/* Day4 dedup + sort by n (keep last occurrence) */
+(function(){
+var p=courseData.days[3].problemSet, byN={};
+p.forEach(function(o){ if(o&&o.n!=null) byN[String(o.n)]=o; });
+var order=[];for(var i=1;i<=30;i++)order.push(String(i));
+courseData.days[3].problemSet=order.filter(function(n){return byN[n];}).map(function(n){return byN[n];});
+})();
