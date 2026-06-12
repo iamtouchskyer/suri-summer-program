@@ -652,3 +652,29 @@ html[lang="zh-CN"] .kp-modal-title { font-family: var(--serif-cjk); }
   .tb-para{font-size:1rem;}
   .tb-step{flex-direction:column;gap:.6rem;}
 }
+/* ---- Textbook INDEX (concept card wall) ---- */
+.tbx-hero { margin-bottom:1.8rem; }
+.tbx-grid {
+display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:1.1rem; margin:0 0 2rem;
+}
+.tbx-card {
+display:flex; flex-direction:column; align-items:flex-start; gap:.55rem;
+text-align:left; cursor:pointer;
+background:linear-gradient(160deg,rgba(108,92,231,.08),rgba(160,108,213,.05));
+border:1px solid rgba(120,110,200,.22); border-radius:16px;
+padding:1.3rem 1.3rem 1.1rem; transition:transform .16s,box-shadow .16s,border-color .16s;
+font:inherit; color:inherit;
+}
+.tbx-card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(80,70,160,.16); border-color:#6c5ce7; }
+.tbx-card-badge {
+font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+color:#6c5ce7; background:rgba(108,92,231,.12); padding:.22rem .55rem; border-radius:20px;
+}
+.tbx-card-title { font-size:1.22rem; font-weight:800; line-height:1.3; }
+.tbx-card-sub { font-size:.93rem; line-height:1.6; opacity:.72; flex:1; }
+.tbx-card-foot { display:flex; align-items:center; justify-content:space-between; width:100%; margin-top:.4rem; }
+.tbx-card-time { font-size:.78rem; opacity:.6; }
+.tbx-card-arrow { font-size:1.2rem; color:#6c5ce7; transition:transform .16s; }
+.tbx-card:hover .tbx-card-arrow { transform:translateX(4px); }
+.nav-textbook { margin-right:.5rem; font-weight:700; }

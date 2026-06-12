@@ -38,6 +38,9 @@ const UI = {
   tbEyebrow:        { en: "Deep concept lesson", zh: "知识点 · 深度精讲" },
   tbBackToDays:     { en: "Back to daily classes", zh: "返回每日一课" },
   tbIndex:          { en: "In this lesson", zh: "本课目录" },
+  tbIndexTitle:     { en: "Concept Textbook", zh: "知识点教材" },
+  tbIndexSub:       { en: "Deep, hand-held lessons on each core idea — click any card to dive in.", zh: "每个核心知识点的深度手把手讲义 —— 点击任意卡片进入精读。" },
+  tbBackToIndex:    { en: "Back to all concepts", zh: "返回知识点列表" },
   footer:           { en: "A living journal · updated every class · concepts → problems → solutions → insights",
                       zh: "持续更新的成长日志 · 每节课更新 · 知识点 → 例题 → 精解 → 洞察" }
 };
@@ -45,16 +48,15 @@ const ui = (k) => t(UI[k]);
 
 function buildNav() {
   const nav = document.getElementById("dayNav");
-  var dayBtns = courseData.days.map((d, i) =>
-    `<button data-i="${i}">${t(d.date)}</button>`).join("");
   var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
-    ? `<button class="nav-textbook" data-tb="0">${ui("navTextbook")}</button>` : "";
-  nav.innerHTML = dayBtns + tbBtn;
-  nav.querySelectorAll("button[data-i]").forEach(btn =>
-    btn.addEventListener("click", () => selectDay(+btn.dataset.i)));
+    ? '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>' : "";
+  var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
+  nav.innerHTML = tbBtn + dayBtns;
+  nav.querySelectorAll("button[data-i]").forEach(function(btn){ btn.addEventListener("click", function(){ selectDay(+btn.dataset.i); }); });
   var tb = nav.querySelector("button[data-tb]");
-  if (tb) tb.addEventListener("click", () => selectTextbook(+tb.dataset.tb));
+  if (tb) tb.addEventListener("click", function(){ openTextbookIndex(); });
 }
+
 
 function buildLangToggle() {
   const wrap = document.getElementById("langToggle");
@@ -73,7 +75,8 @@ function setLang(l) {
   closeKPModal();
   buildLangToggle();
   buildNav();
-  if (activeTextbook != null) renderTextbook(textbookData[activeTextbook]);
+  if (activeTextbook === "index") renderTextbookIndex();
+  else if (activeTextbook != null) renderTextbook(textbookData[activeTextbook]);
   else renderDay(courseData.days[activeDay]);
   renderChrome();
 }
@@ -192,15 +195,47 @@ function tbBlock(b) {
   }
 }
 
+function setTbNavActive() {
+  document.querySelectorAll("#dayNav button[data-i]").forEach(function(b){ b.classList.remove("active"); });
+  var tbBtn = document.querySelector("#dayNav button[data-tb]");
+  if (tbBtn) tbBtn.classList.add("active");
+}
+
+function openTextbookIndex() {
+  activeTextbook = "index";
+  activeDay = -1;
+  setTbNavActive();
+  renderTextbookIndex();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderTextbookIndex() {
+  const app = document.getElementById("app");
+  const cards = textbookData.map(function(lesson, i){
+    var badge = lesson.badge ? tbText(lesson.badge) : "";
+    var rt = lesson.readingTime ? tbText(lesson.readingTime) : "";
+    return '<button class="tbx-card" data-tbi="'+i+'">'
+      + '<span class="tbx-card-badge">'+badge+'</span>'
+      + '<span class="tbx-card-title">'+tbText(lesson.title)+'</span>'
+      + '<span class="tbx-card-sub">'+tbText(lesson.subtitle)+'</span>'
+      + '<span class="tbx-card-foot"><span class="tbx-card-time">'+rt+'</span><span class="tbx-card-arrow">→</span></span>'
+      + '</button>';
+  }).join("");
+  app.innerHTML = '<section class="tbx-hero reveal"><span class="day-eyebrow">'+ui("tbEyebrow")+'</span>'
+    + '<h1 class="day-title"><span class="big">'+ui("tbIndexTitle")+'</span></h1>'
+    + '<p class="day-subtitle">'+ui("tbIndexSub")+'</p></section>'
+    + '<div class="tbx-grid">'+cards+'</div>';
+  app.querySelectorAll(".tbx-card").forEach(function(c){ c.addEventListener("click", function(){ selectTextbook(+c.dataset.tbi); }); });
+}
+
 function selectTextbook(i) {
   activeTextbook = i;
   activeDay = -1;
-  document.querySelectorAll("#dayNav button[data-i]").forEach(b => b.classList.remove("active"));
-  const tbBtn = document.querySelector("#dayNav button[data-tb]");
-  if (tbBtn) tbBtn.classList.add("active");
+  setTbNavActive();
   renderTextbook(textbookData[i]);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
 
 function renderTextbook(lesson) {
   const app = document.getElementById("app");
@@ -222,7 +257,7 @@ function renderTextbook(lesson) {
     </section>
     <nav class="tb-toc"><div class="tb-toc-title">${ui("tbIndex")}</div>${toc}</nav>
     ${body}
-    <div class="tb-foot"><button class="tb-back" onclick="selectDay(0)">${ui("tbBackToDays")}</button></div>
+    <div class="tb-foot"><button class="tb-back" onclick="openTextbookIndex()">${ui("tbBackToIndex")}</button></div>
   `;
   typeset(app);
 }
