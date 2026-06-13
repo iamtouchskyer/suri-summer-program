@@ -2006,3 +2006,142 @@ textbookData[12].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 14 — Trigonometric Identities & Evaluation
+   ============================================================*/
+textbookData.push({
+  id: "trig",
+  badge: { en: "Concept 14", zh: "知识点 14" },
+  title: { en: "Trigonometric Identities & Evaluation", zh: "三角恒等式与求值" },
+  subtitle: { en: "Three engines tame almost every contest trig problem: the Pythagorean identity, the addition formulas, and the symmetry tricks that collapse ugly sums.",
+              zh: "三台引擎驯服几乎所有竞赛三角题：毕达哥拉斯恒等式、加法公式，以及让丑陋求和坍缩的对称技巧。" },
+  readingTime: { en: "~30 min deep read", zh: "约 30 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · One identity you can never forget", zh: "0 · 一个你永远忘不掉的恒等式" },
+    blocks: [
+      { type: "para", en: "Before any formula, anchor everything to one picture: a right triangle inside a unit circle. For an angle \\(\\theta,\\) the point on the unit circle is \\((\\cos\\theta,\\sin\\theta).\\) Because that point is distance 1 from the center, the Pythagorean theorem gives the identity that underlies all of trigonometry.",
+        zh: "在任何公式之前，把一切锚定在一幅图上：单位圆里的一个直角三角形。对角度 \\(\\theta\\)，单位圆上的点是 \\((\\cos\\theta,\\sin\\theta)\\)。因为这个点到圆心距离为 1，勾股定理给出那个支撑全部三角学的恒等式。" },
+      { type: "formula", tex: "\\[ \\sin^2\\theta + \\cos^2\\theta = 1 \\]" },
+      { type: "para", en: "That's it \u2014 the whole foundation. It is just the Pythagorean theorem wearing trig clothes (legs \\(\\sin\\theta\\) and \\(\\cos\\theta,\\) hypotenuse 1). Every other identity is built from this one plus the addition formulas in the next section.",
+        zh: "就这样 \u2014\u2014 整个地基。它不过是穿着三角外衣的勾股定理（直角边 \\(\\sin\\theta\\) 和 \\(\\cos\\theta\\)，斜边 1）。其他每一个恒等式，都从这个加上下一节的加法公式搭出来。" },
+      { type: "example", en: "If \\(\\sin\\theta=\\tfrac35\\) and \\(\\theta\\) is acute, find \\(\\cos\\theta.\\) From the identity: \\(\\cos^2\\theta=1-\\left(\\tfrac35\\right)^2=1-\\tfrac{9}{25}=\\tfrac{16}{25}.\\) Since \\(\\theta\\) is acute, \\(\\cos\\theta=\\tfrac45.\\) (The famous 3-4-5 triangle hiding in plain sight.)",
+        zh: "若 \\(\\sin\\theta=\\tfrac35\\) 且 \\(\\theta\\) 是锐角，求 \\(\\cos\\theta\\)。由恒等式：\\(\\cos^2\\theta=1-\\left(\\tfrac35\\right)^2=1-\\tfrac{9}{25}=\\tfrac{16}{25}\\)。因 \\(\\theta\\) 锐角，\\(\\cos\\theta=\\tfrac45\\)。（藏在眼前的著名 3-4-5 三角形。）" },
+      { type: "note", en: "Two relatives of the main identity come free by dividing through by \\(\\cos^2\\theta\\) or \\(\\sin^2\\theta:\\) \\(\\tan^2\\theta+1=\\sec^2\\theta\\) and \\(1+\\cot^2\\theta=\\csc^2\\theta.\\) You don't need to memorize these separately \u2014 just remember you can always divide the main identity by whichever square is convenient.",
+        zh: "主恒等式的两个亲戚，靠两边除以 \\(\\cos^2\\theta\\) 或 \\(\\sin^2\\theta\\) 免费得到：\\(\\tan^2\\theta+1=\\sec^2\\theta\\) 和 \\(1+\\cot^2\\theta=\\csc^2\\theta\\)。你不用单独背它们 \u2014\u2014 只要记得你总能把主恒等式除以方便的那个平方。" },
+      { type: "ask", en: "Hold this: if \\(\\cos\\theta=-\\tfrac{5}{13}\\) and \\(\\theta\\) is in the second quadrant (where sine is positive), what is \\(\\sin\\theta?\\) (\\(\\sin^2\\theta=1-\\tfrac{25}{169}=\\tfrac{144}{169},\\) so \\(\\sin\\theta=\\tfrac{12}{13}.\\))",
+        zh: "记住：若 \\(\\cos\\theta=-\\tfrac{5}{13}\\) 且 \\(\\theta\\) 在第二象限（正弦为正），\\(\\sin\\theta\\) 是多少？（\\(\\sin^2\\theta=1-\\tfrac{25}{169}=\\tfrac{144}{169}\\)，所以 \\(\\sin\\theta=\\tfrac{12}{13}\\)。）" }
+    ]
+  },
+
+  /* ---------- 1. ADDITION FORMULAS ---------- */
+  {
+    heading: { en: "1 · The addition formulas \u2014 the master tools", zh: "1 · 加法公式 \u2014\u2014 主力工具" },
+    blocks: [
+      { type: "para", en: "If you memorize just two formulas in all of trigonometry, make them these. Everything else \u2014 double angles, half angles, product-to-sum \u2014 falls out of them in one step.",
+        zh: "如果在整个三角学里你只背两个公式，就背这两个。其他一切 \u2014\u2014 倍角、半角、积化和差 \u2014\u2014 都从它们一步导出。" },
+      { type: "formula", tex: "\\[ \\sin(A\\pm B) = \\sin A\\cos B \\pm \\cos A\\sin B \\]" },
+      { type: "formula", tex: "\\[ \\cos(A\\pm B) = \\cos A\\cos B \\mp \\sin A\\sin B \\]" },
+      { type: "note", en: "Watch the signs carefully \u2014 they're the only tricky part. In the cosine formula the sign FLIPS: \\(\\cos(A+B)\\) uses a MINUS, \\(\\cos(A-B)\\) uses a PLUS. Memory hook: 'cosine is contrary'. Sine keeps the same sign as the problem; cosine flips it.",
+        zh: "仔细看符号 \u2014\u2014 这是唯一的难点。余弦公式里符号「翻转」：\\(\\cos(A+B)\\) 用「减」，\\(\\cos(A-B)\\) 用「加」。记忆口诀：「余弦唱反调」。正弦跟题目同号；余弦反号。" },
+      { type: "step", n: "1", title: { en: "Double-angle formulas for free", zh: "免费得到倍角公式" },
+        en: "Set \\(B=A\\) in the addition formulas:\n\u2022 \\(\\sin 2A=\\sin A\\cos A+\\cos A\\sin A=2\\sin A\\cos A.\\)\n\u2022 \\(\\cos 2A=\\cos A\\cos A-\\sin A\\sin A=\\cos^2 A-\\sin^2 A.\\)\nUsing \\(\\sin^2+\\cos^2=1,\\) the cosine version also becomes \\(\\cos 2A=1-2\\sin^2A=2\\cos^2A-1.\\)",
+        zh: "在加法公式里令 \\(B=A\\)：\n\u2022 \\(\\sin 2A=\\sin A\\cos A+\\cos A\\sin A=2\\sin A\\cos A\\)。\n\u2022 \\(\\cos 2A=\\cos A\\cos A-\\sin A\\sin A=\\cos^2 A-\\sin^2 A\\)。\n用 \\(\\sin^2+\\cos^2=1\\)，余弦版还能变成 \\(\\cos 2A=1-2\\sin^2A=2\\cos^2A-1\\)。" },
+      { type: "example", en: "Compute \\(\\cos 75^\\circ\\) exactly. Write \\(75^\\circ=45^\\circ+30^\\circ:\\) \\(\\cos75^\\circ=\\cos45^\\circ\\cos30^\\circ-\\sin45^\\circ\\sin30^\\circ=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}-\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6-\\sqrt2}{4}.\\)",
+        zh: "精确算 \\(\\cos 75^\\circ\\)。写 \\(75^\\circ=45^\\circ+30^\\circ\\)：\\(\\cos75^\\circ=\\cos45^\\circ\\cos30^\\circ-\\sin45^\\circ\\sin30^\\circ=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}-\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6-\\sqrt2}{4}\\)。" },
+      { type: "ask", en: "Try: use \\(15^\\circ=45^\\circ-30^\\circ\\) to find \\(\\sin15^\\circ.\\) (\\(\\sin45\\cos30-\\cos45\\sin30=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}-\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6-\\sqrt2}{4}.\\))",
+        zh: "试试：用 \\(15^\\circ=45^\\circ-30^\\circ\\) 求 \\(\\sin15^\\circ\\)。（\\(\\sin45\\cos30-\\cos45\\sin30=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}-\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6-\\sqrt2}{4}\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. PRODUCT-TO-SUM & TELESCOPING ---------- */
+textbookData[13].sections.push({
+  heading: { en: "2 · Collapsing sums \u2014 product-to-sum & telescoping", zh: "2 · 让求和坍缩 \u2014\u2014 积化和差与裂项" },
+  blocks: [
+    { type: "para", en: "Contest trig loves long sums like \\(\\sin1^\\circ+\\sin2^\\circ+\\cdots\\) or products of many cosines. The key move is to convert a PRODUCT into a SUM (or a difference), so neighboring terms cancel \u2014 exactly the telescoping idea from Concept 11, now in trig.",
+      zh: "竞赛三角爱考长求和，比如 \\(\\sin1^\\circ+\\sin2^\\circ+\\cdots\\)，或一堆余弦的乘积。关键动作是把「乘积」转成「和」（或差），让相邻项抵消 \u2014\u2014 正是知识点 11 的裂项思想，现在用在三角里。" },
+    { type: "formula", tex: "\\[ 2\\sin A\\sin B = \\cos(A-B)-\\cos(A+B) \\]" },
+    { type: "formula", tex: "\\[ 2\\sin A\\cos B = \\sin(A+B)+\\sin(A-B) \\]" },
+    { type: "para", en: "These come straight from the addition formulas: add \\(\\cos(A-B)\\) and \\(\\cos(A+B)\\) and watch terms cancel. You don't memorize them cold \u2014 you re-derive them in 10 seconds from the two master formulas whenever needed.",
+      zh: "这些直接来自加法公式：把 \\(\\cos(A-B)\\) 和 \\(\\cos(A+B)\\) 相加，看项怎么抵消。你不用死背 \u2014\u2014 需要时从那两个主公式 10 秒内重新推出。" },
+    { type: "step", n: "1", title: { en: "A telescoping trig sum", zh: "一个裂项三角求和" },
+      en: "Find \\(S=\\sin1^\\circ+\\sin3^\\circ+\\sin5^\\circ+\\cdots+\\sin179^\\circ\\) (odd degrees).\n\u2022 Multiply by \\(2\\sin1^\\circ\\) and use product-to-sum: \\(2\\sin1^\\circ\\sin k^\\circ=\\cos(k-1)^\\circ-\\cos(k+1)^\\circ.\\)\n\u2022 The sum telescopes \u2014 each \\(\\cos\\) cancels with a neighbor \u2014 leaving only the first and last: \\(2\\sin1^\\circ\\cdot S=\\cos0^\\circ-\\cos180^\\circ=1-(-1)=2.\\)\n\u2022 So \\(S=\\dfrac{2}{2\\sin1^\\circ}=\\dfrac{1}{\\sin1^\\circ}.\\)",
+      zh: "求 \\(S=\\sin1^\\circ+\\sin3^\\circ+\\sin5^\\circ+\\cdots+\\sin179^\\circ\\)（奇数度）。\n\u2022 两边乘 \\(2\\sin1^\\circ\\)，用积化和差：\\(2\\sin1^\\circ\\sin k^\\circ=\\cos(k-1)^\\circ-\\cos(k+1)^\\circ\\)。\n\u2022 求和裂项 \u2014\u2014 每个 \\(\\cos\\) 与邻项抵消 \u2014\u2014 只剩首尾：\\(2\\sin1^\\circ\\cdot S=\\cos0^\\circ-\\cos180^\\circ=1-(-1)=2\\)。\n\u2022 所以 \\(S=\\dfrac{2}{2\\sin1^\\circ}=\\dfrac{1}{\\sin1^\\circ}\\)。" },
+    { type: "note", en: "The recipe for any 'sum of sines/cosines in arithmetic progression': multiply by \\(2\\sin(\\tfrac{d}{2})\\) where \\(d\\) is the common difference, apply product-to-sum, and watch the whole thing telescope to just two surviving terms. A monstrous 90-term sum becomes a one-line answer.",
+      zh: "对任何「等差排列的正弦/余弦之和」的配方：乘以 \\(2\\sin(\\tfrac{d}{2})\\)（\\(d\\) 是公差），套积化和差，看整个式子裂项到只剩两个幸存项。一个 90 项的怪物求和，变成一行答案。" },
+    { type: "ask", en: "Predict the structure: to collapse \\(\\cos1^\\circ+\\cos2^\\circ+\\cdots+\\cos89^\\circ,\\) what would you multiply by? (By \\(2\\sin\\tfrac12^\\circ\\) \u2014 half the common difference of \\(1^\\circ.\\))",
+      zh: "预测结构：要让 \\(\\cos1^\\circ+\\cos2^\\circ+\\cdots+\\cos89^\\circ\\) 坍缩，你会乘以什么？（乘 \\(2\\sin\\tfrac12^\\circ\\) \u2014\u2014 公差 \\(1^\\circ\\) 的一半。）" }
+  ]
+});
+
+/* ---------- 3. SYMMETRY TRICKS ---------- */
+textbookData[13].sections.push({
+  heading: { en: "3 · Symmetry tricks \u2014 pairing angles", zh: "3 · 对称技巧 \u2014\u2014 角度配对" },
+  blocks: [
+    { type: "para", en: "The fastest contest trig solutions rarely compute anything \u2014 they PAIR terms that are secretly related. The two relationships to watch for: complementary angles (summing to \\(90^\\circ\\)) and supplementary angles (summing to \\(180^\\circ\\)).",
+      zh: "最快的竞赛三角解法很少真去算 \u2014\u2014 它们「配对」那些暗中相关的项。要留意两种关系：互余角（和为 \\(90^\\circ\\)）和互补角（和为 \\(180^\\circ\\)）。" },
+    { type: "formula", tex: "\\[ \\sin(90^\\circ-\\theta)=\\cos\\theta, \\qquad \\cos(90^\\circ-\\theta)=\\sin\\theta \\]" },
+    { type: "step", n: "1", title: { en: "Pairing complementary angles", zh: "配对互余角" },
+      en: "Evaluate \\(\\sin^2 1^\\circ+\\sin^2 2^\\circ+\\cdots+\\sin^2 89^\\circ.\\)\n\u2022 Pair term \\(k\\) with term \\(90-k:\\) \\(\\sin^2 k^\\circ+\\sin^2(90-k)^\\circ=\\sin^2 k^\\circ+\\cos^2 k^\\circ=1.\\)\n\u2022 The 89 terms (1 to 89) pair into \\(44\\) pairs each summing to 1, with the middle term \\(\\sin^2 45^\\circ=\\tfrac12\\) left alone.\n\u2022 Total \\(=44\\cdot1+\\tfrac12=44.5=\\dfrac{89}{2}.\\)",
+      zh: "求 \\(\\sin^2 1^\\circ+\\sin^2 2^\\circ+\\cdots+\\sin^2 89^\\circ\\)。\n\u2022 把第 \\(k\\) 项与第 \\(90-k\\) 项配对：\\(\\sin^2 k^\\circ+\\sin^2(90-k)^\\circ=\\sin^2 k^\\circ+\\cos^2 k^\\circ=1\\)。\n\u2022 89 项（1 到 89）配成 \\(44\\) 对，每对和为 1，中间项 \\(\\sin^2 45^\\circ=\\tfrac12\\) 单独剩下。\n\u2022 总 \\(=44\\cdot1+\\tfrac12=44.5=\\dfrac{89}{2}\\)。" },
+    { type: "note", en: "This is the same 'pair first-and-last' instinct from Gauss's sum in Concept 11, now applied to angles. Whenever you see a symmetric range of angles (1 to 89, or 0 to 180), look for the pairing that turns each pair into the Pythagorean identity or a clean constant. Symmetry, not brute force.",
+      zh: "这和知识点 11 高斯求和里「首尾配对」的本能是同一个，现在用在角度上。每当你看到对称的角度范围（1 到 89，或 0 到 180），就找那个让每对变成毕达哥拉斯恒等式或干净常数的配对。靠对称，不靠蛮力。" },
+    { type: "para", en: "Another deep symmetry tool: the roots of \\(\\sin(n\\theta)=0\\) or \\(\\cos(n\\theta)=0\\) are evenly spaced angles, and sums/products over them often simplify dramatically using Vieta (Concept 01) on a polynomial in \\(\\cos\\theta.\\) This is the bridge from trig to the symmetric-polynomial machinery you already own.",
+      zh: "另一个深层对称工具：\\(\\sin(n\\theta)=0\\) 或 \\(\\cos(n\\theta)=0\\) 的根是等距的角，对它们求和/求积常常用韦达（知识点 01）作用在 \\(\\cos\\theta\\) 的多项式上而大幅化简。这是从三角通往你已掌握的对称多项式机器的桥。" },
+    { type: "ask", en: "Try the pairing: \\(\\cos^2 1^\\circ+\\cos^2 2^\\circ+\\cdots+\\cos^2 89^\\circ.\\) By the SAME pairing it also equals \\(\\dfrac{89}{2}.\\) Can you see why \\(\\sin^2\\) and \\(\\cos^2\\) versions give the identical answer? (Each pairs to 1 the same way.)",
+      zh: "试这个配对：\\(\\cos^2 1^\\circ+\\cos^2 2^\\circ+\\cdots+\\cos^2 89^\\circ\\)。由「同样」的配对它也等于 \\(\\dfrac{89}{2}\\)。你能看出为什么 \\(\\sin^2\\) 和 \\(\\cos^2\\) 版给出相同答案吗？（每对都同样地配成 1。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[13].sections.push({
+  heading: { en: "4 · Worked examples \u2014 identities under fire", zh: "4 · 例题精讲 \u2014\u2014 实战中的恒等式" },
+  blocks: [
+    { type: "para", en: "Three problems. Each is unlocked by choosing the right engine: Pythagorean, addition formula, or symmetry/product collapse. Read the first line, then try.",
+      zh: "三道题。每道靠选对引擎解锁：毕达哥拉斯、加法公式、或对称/乘积坍缩。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Addition formula with triangles", zh: "用三角形的加法公式" },
+      en: "Acute angles \\(A,B\\) satisfy \\(\\sin A=\\tfrac35\\) and \\(\\cos B=\\tfrac{5}{13}.\\) Find \\(\\sin(A+B).\\)\n\u2022 Build the missing pieces with the Pythagorean identity: \\(\\cos A=\\tfrac45,\\ \\sin B=\\tfrac{12}{13}.\\)\n\u2022 \\(\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B=\\tfrac35\\cdot\\tfrac{5}{13}+\\tfrac45\\cdot\\tfrac{12}{13}.\\)\n\u2022 \\(=\\tfrac{15}{65}+\\tfrac{48}{65}=\\tfrac{63}{65}.\\)",
+      zh: "锐角 \\(A,B\\) 满足 \\(\\sin A=\\tfrac35\\)、\\(\\cos B=\\tfrac{5}{13}\\)。求 \\(\\sin(A+B)\\)。\n\u2022 用毕达哥拉斯恒等式补全缺的部分：\\(\\cos A=\\tfrac45,\\ \\sin B=\\tfrac{12}{13}\\)。\n\u2022 \\(\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B=\\tfrac35\\cdot\\tfrac{5}{13}+\\tfrac45\\cdot\\tfrac{12}{13}\\)。\n\u2022 \\(=\\tfrac{15}{65}+\\tfrac{48}{65}=\\tfrac{63}{65}\\)。" },
+    { type: "step", n: "B", title: { en: "A famous cosine product", zh: "一个著名的余弦乘积" },
+      en: "Show \\(\\cos20^\\circ\\cos40^\\circ\\cos80^\\circ=\\tfrac18.\\)\n\u2022 Multiply and divide by \\(\\sin20^\\circ.\\) Use \\(2\\sin\\theta\\cos\\theta=\\sin2\\theta\\) repeatedly:\n\u2022 \\(\\sin20\\cos20=\\tfrac12\\sin40;\\) then \\(\\sin40\\cos40=\\tfrac12\\sin80;\\) then \\(\\sin80\\cos80=\\tfrac12\\sin160.\\)\n\u2022 So \\(\\sin20\\cdot(\\text{product})=\\tfrac18\\sin160=\\tfrac18\\sin20.\\) Cancel \\(\\sin20:\\) product \\(=\\tfrac18.\\)",
+      zh: "证明 \\(\\cos20^\\circ\\cos40^\\circ\\cos80^\\circ=\\tfrac18\\)。\n\u2022 乘以再除以 \\(\\sin20^\\circ\\)。反复用 \\(2\\sin\\theta\\cos\\theta=\\sin2\\theta\\)：\n\u2022 \\(\\sin20\\cos20=\\tfrac12\\sin40\\)；再 \\(\\sin40\\cos40=\\tfrac12\\sin80\\)；再 \\(\\sin80\\cos80=\\tfrac12\\sin160\\)。\n\u2022 所以 \\(\\sin20\\cdot(\\text{乘积})=\\tfrac18\\sin160=\\tfrac18\\sin20\\)。约掉 \\(\\sin20\\)：乘积 \\(=\\tfrac18\\)。" },
+    { type: "step", n: "C", title: { en: "The triple-angle identity", zh: "三倍角恒等式" },
+      en: "Derive and check \\(\\sin3\\theta=3\\sin\\theta-4\\sin^3\\theta.\\)\n\u2022 Write \\(\\sin3\\theta=\\sin(2\\theta+\\theta)=\\sin2\\theta\\cos\\theta+\\cos2\\theta\\sin\\theta.\\)\n\u2022 Substitute \\(\\sin2\\theta=2\\sin\\theta\\cos\\theta,\\ \\cos2\\theta=1-2\\sin^2\\theta:\\)\n\u2022 \\(=2\\sin\\theta\\cos^2\\theta+(1-2\\sin^2\\theta)\\sin\\theta.\\) Replace \\(\\cos^2\\theta=1-\\sin^2\\theta:\\) \\(=3\\sin\\theta-4\\sin^3\\theta.\\)\n\u2022 Check \\(\\theta=10^\\circ:\\) \\(\\sin30^\\circ=\\tfrac12=3\\sin10^\\circ-4\\sin^310^\\circ.\\) \u2713",
+      zh: "推导并验证 \\(\\sin3\\theta=3\\sin\\theta-4\\sin^3\\theta\\)。\n\u2022 写 \\(\\sin3\\theta=\\sin(2\\theta+\\theta)=\\sin2\\theta\\cos\\theta+\\cos2\\theta\\sin\\theta\\)。\n\u2022 代入 \\(\\sin2\\theta=2\\sin\\theta\\cos\\theta,\\ \\cos2\\theta=1-2\\sin^2\\theta\\)：\n\u2022 \\(=2\\sin\\theta\\cos^2\\theta+(1-2\\sin^2\\theta)\\sin\\theta\\)。把 \\(\\cos^2\\theta=1-\\sin^2\\theta\\) 代入：\\(=3\\sin\\theta-4\\sin^3\\theta\\)。\n\u2022 验 \\(\\theta=10^\\circ\\)：\\(\\sin30^\\circ=\\tfrac12=3\\sin10^\\circ-4\\sin^310^\\circ\\)。\u2713" },
+    { type: "note", en: "See the through-line: every example reduced to the SAME two master tools \u2014 the Pythagorean identity to fill in missing pieces, and the addition formula to break a hard angle into easy ones. The triple-angle formula isn't a new thing to memorize; it's the addition formula applied twice. Build from the two engines and you never need a formula sheet.",
+      zh: "看这条主线：每个例题都归结到「同样」两个主工具 \u2014\u2014 用毕达哥拉斯恒等式补全缺的部分，用加法公式把难角拆成易角。三倍角公式不是要背的新东西；它是加法公式用了两次。从两台引擎搭起，你永远不需要公式表。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[13].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. For each, first name the engine (Pythagorean / addition / symmetry), then solve.",
+      zh: "盖住答案。每道题先说出引擎（毕达哥拉斯 / 加法 / 对称），再求解。" },
+    { type: "ask", en: "Q1. If \\(\\sin\\theta=\\tfrac{5}{13}\\) and \\(\\theta\\) is acute, find \\(\\cos\\theta.\\)",
+      zh: "Q1. 若 \\(\\sin\\theta=\\tfrac{5}{13}\\) 且 \\(\\theta\\) 是锐角，求 \\(\\cos\\theta\\)。" },
+    { type: "ask", en: "Q2. Find the exact value of \\(\\cos15^\\circ\\) using \\(15^\\circ=45^\\circ-30^\\circ.\\)",
+      zh: "Q2. 用 \\(15^\\circ=45^\\circ-30^\\circ\\) 求 \\(\\cos15^\\circ\\) 的精确值。" },
+    { type: "ask", en: "Q3. Evaluate \\(\\sin^2 30^\\circ+\\sin^2 60^\\circ.\\)",
+      zh: "Q3. 求 \\(\\sin^2 30^\\circ+\\sin^2 60^\\circ\\)。" },
+    { type: "ask", en: "Q4. Evaluate \\(\\sin^2 1^\\circ+\\sin^2 2^\\circ+\\cdots+\\sin^2 89^\\circ.\\)",
+      zh: "Q4. 求 \\(\\sin^2 1^\\circ+\\sin^2 2^\\circ+\\cdots+\\sin^2 89^\\circ\\)。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: Pythagorean. \\(\\cos^2\\theta=1-\\tfrac{25}{169}=\\tfrac{144}{169},\\) acute so \\(\\cos\\theta=\\tfrac{12}{13}.\\)\nQ2: addition. \\(\\cos45\\cos30+\\sin45\\sin30=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}+\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6+\\sqrt2}{4}.\\)\nQ3: \\(\\sin^230+\\sin^260=\\tfrac14+\\tfrac34=1.\\)\nQ4: symmetry pairing. \\(44\\) pairs summing to 1 plus middle \\(\\sin^245=\\tfrac12,\\) total \\(\\tfrac{89}{2}.\\)",
+      zh: "答案。\nQ1：毕达哥拉斯。\\(\\cos^2\\theta=1-\\tfrac{25}{169}=\\tfrac{144}{169}\\)，锐角所以 \\(\\cos\\theta=\\tfrac{12}{13}\\)。\nQ2：加法。\\(\\cos45\\cos30+\\sin45\\sin30=\\tfrac{\\sqrt2}{2}\\cdot\\tfrac{\\sqrt3}{2}+\\tfrac{\\sqrt2}{2}\\cdot\\tfrac12=\\tfrac{\\sqrt6+\\sqrt2}{4}\\)。\nQ3：\\(\\sin^230+\\sin^260=\\tfrac14+\\tfrac34=1\\)。\nQ4：对称配对。\\(44\\) 对和为 1，加中间 \\(\\sin^245=\\tfrac12\\)，总 \\(\\tfrac{89}{2}\\)。" },
+    { type: "para", en: "Three engines now power your trig: the Pythagorean identity (one picture, the unit circle), the addition formulas (from which all double/triple/product formulas flow), and symmetry pairing (the Gauss instinct applied to angles). When a trig problem looks monstrous, don't reach for memorized formulas \u2014 ask which engine fits, and rebuild what you need on the spot.",
+      zh: "三台引擎现在驱动你的三角：毕达哥拉斯恒等式（一幅图，单位圆）、加法公式（一切倍角/三倍角/积公式由此流出）、对称配对（高斯本能用在角度上）。当一道三角题看着狰狞，别去翻背过的公式 \u2014\u2014 问哪台引擎合适，当场重建你需要的东西。" }
+  ]
+});
+
