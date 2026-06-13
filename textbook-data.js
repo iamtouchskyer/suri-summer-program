@@ -1665,3 +1665,179 @@ textbookData[10].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 12 — Non-negative Polynomials & the Perfect-Square Method
+   ============================================================*/
+textbookData.push({
+  id: "nonneg-square",
+  badge: { en: "Concept 12", zh: "知识点 12" },
+  title: { en: "Non-negative Polynomials & the Perfect-Square Method", zh: "恒非负多项式与完全平方法" },
+  subtitle: { en: "The signature AIME finisher: a curve sits above a line and touches it at several points. One chain of ideas \u2014 from geometry to Vieta \u2014 cracks the whole family.",
+              zh: "AIME 压轴的标志题型：一条曲线落在直线上方，并在几个点相切。一条完整的思维链 \u2014\u2014 从几何到韦达 \u2014\u2014 通杀这一整类题。" },
+  readingTime: { en: "~30 min deep read", zh: "约 30 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · The one picture this whole lesson is about", zh: "0 · 整节课就为这一幅图" },
+    blocks: [
+      { type: "para", en: "Picture a curve that never dips below a straight line, but kisses it at a few points \u2014 touching, not crossing. This single picture is one of the most loved setups on the AIME, and almost every student freezes on it. By the end of this lesson, you will see it as a machine with a fixed sequence of buttons to press.",
+        zh: "想象一条曲线，永远不低于一条直线，却在几个点「亲吻」它 \u2014\u2014 是「相切」，不是「穿过」。这一幅图，是 AIME 最钟爱的题型之一，几乎每个学生都会卡在它上面。学完这节课，你会把它看成一台机器，有一串固定的按钮要按。" },
+      { type: "para", en: "Everything hinges on one idea you already half-know from Concept 05: a square is never negative. We will run that idea in REVERSE. Instead of 'here is a square, so it's \\(\\ge0\\)', we ask: 'this thing is \\(\\ge0\\) and touches zero \u2014 so what must it secretly BE?'",
+        zh: "一切都系于一个你在知识点 05 已经半懂的想法：平方永不为负。我们要把这个想法「反过来」用。不是「这是个平方，所以它 \\(\\ge0\\)」，而是问：「这东西 \\(\\ge0\\) 而且触到了零 \u2014\u2014 那它暗地里「必须是」什么？」" },
+      { type: "example", en: "Compare two graphs near a root. \\(y=x\\) passes THROUGH zero at \\(x=0:\\) it's negative on the left, positive on the right \u2014 it CROSSES. But \\(y=x^2\\) only TOUCHES zero at \\(x=0:\\) it's positive on both sides and just dips down to kiss the axis. The difference? The exponent. Crossing needs an ODD power; touching needs an EVEN power.",
+        zh: "比较根附近的两张图。\\(y=x\\) 在 \\(x=0\\) 处「穿过」零：左边负、右边正 \u2014\u2014 它「穿越」。但 \\(y=x^2\\) 在 \\(x=0\\) 只「触碰」零：两边都正，只是俯身下去亲一下坐标轴。区别在哪？指数。穿越需要「奇」次方；触碰需要「偶」次方。" },
+      { type: "note", en: "That contrast \u2014 odd power crosses, even power touches \u2014 is the seed of the entire method. A polynomial that stays \\(\\ge0\\) is NEVER allowed to cross below zero. So at every point where it reaches zero, it can only touch, which forces an even power there. Hold onto this; it's the key that unlocks everything.",
+        zh: "这个对比 \u2014\u2014 奇次穿越、偶次触碰 \u2014\u2014 是整套方法的种子。一个保持 \\(\\ge0\\) 的多项式，「绝不允许」穿到零以下。所以在它每一个到达零的点，它只能「触碰」，这就「逼出」那里必须是偶次方。记住它；它是解锁一切的钥匙。" },
+      { type: "ask", en: "Think ahead: if a polynomial is \\(\\ge0\\) everywhere and you find it equals zero at \\(x=3,\\) why can it not have just a plain factor \\((x-3)?\\) What factor must appear instead? (Because a single \\((x-3)\\) would make it cross and go negative \u2014 it needs \\((x-3)^2.\\))",
+        zh: "想在前面：如果一个多项式处处 \\(\\ge0\\)，而你发现它在 \\(x=3\\) 等于零，为什么它不能只含一个普通因子 \\((x-3)\\)？必须出现什么因子？（因为单个 \\((x-3)\\) 会让它穿过去变负 \u2014\u2014 它需要 \\((x-3)^2\\)。）" }
+    ]
+  },
+
+  /* ---------- 1. THE TWO THEOREMS ---------- */
+  {
+    heading: { en: "1 · The two facts that drive everything", zh: "1 · 驱动一切的两条事实" },
+    blocks: [
+      { type: "para", en: "Let's state the two facts cleanly. They are the engine of the perfect-square method, and once you trust them, the rest is bookkeeping.",
+        zh: "我们把两条事实干净地说清。它们是完全平方法的引擎，一旦你信任它们，剩下的就是记账。" },
+      { type: "note", en: "FACT 1 (even multiplicity). If a polynomial \\(P(x)\\) satisfies \\(P(x)\\ge0\\) for ALL real \\(x,\\) then every real root of \\(P\\) has EVEN multiplicity. In plain words: wherever \\(P\\) hits zero, the factor for that root appears an even number of times \u2014 \\((x-r)^2,\\) or \\((x-r)^4,\\) and so on, never an odd power.",
+        zh: "事实 1（偶数重根）。如果多项式 \\(P(x)\\) 对「所有」实数 \\(x\\) 满足 \\(P(x)\\ge0\\)，那么 \\(P\\) 的每一个实根都是「偶数重」。白话说：\\(P\\) 在哪里触零，那个根的因子就出现偶数次 \u2014\u2014 \\((x-r)^2\\)、或 \\((x-r)^4\\)，等等，绝不会是奇数次。" },
+      { type: "para", en: "Why? Near a root \\(r,\\) the polynomial behaves like \\(c(x-r)^k\\) for some power \\(k\\) (its multiplicity). If \\(k\\) is odd, the factor \\((x-r)^k\\) flips sign as \\(x\\) passes \\(r\\) \u2014 just like \\(x^3\\) goes negative-to-positive through \\(0.\\) But \\(P\\ge0\\) forbids any sign flip. So \\(k\\) must be even. Geometry (no crossing) forces algebra (even power).",
+        zh: "为什么？在根 \\(r\\) 附近，多项式表现得像 \\(c(x-r)^k\\)（\\(k\\) 是它的重数）。如果 \\(k\\) 是奇数，因子 \\((x-r)^k\\) 会在 \\(x\\) 越过 \\(r\\) 时翻转符号 \u2014\u2014 就像 \\(x^3\\) 穿过 \\(0\\) 时由负变正。但 \\(P\\ge0\\) 禁止任何符号翻转。所以 \\(k\\) 必须是偶数。几何（不穿越）逼出代数（偶次方）。" },
+      { type: "note", en: "FACT 2 (perfect square). If, on top of being \\(\\ge0,\\) the polynomial's ENTIRE factorization is made of these even-power real roots (no leftover complex pieces), then \\(P(x)\\) is literally a perfect square: \\(P(x)=\\big(g(x)\\big)^2\\) for some polynomial \\(g.\\) Each double root \\((x-r)^2\\) contributes one factor \\((x-r)\\) to \\(g.\\)",
+        zh: "事实 2（完全平方）。如果在 \\(\\ge0\\) 之上，多项式的「整个」分解都由这些偶次实根构成（没有剩下的复数零件），那么 \\(P(x)\\) 字面上就是一个完全平方：\\(P(x)=\\big(g(x)\\big)^2\\)，\\(g\\) 是某个多项式。每个二重根 \\((x-r)^2\\) 都向 \\(g\\) 贡献一个因子 \\((x-r)\\)。" },
+      { type: "para", en: "This is the reverse of Concept 05. There, we MADE a square to prove \\(\\ge0.\\) Here, we are GIVEN \\(\\ge0\\) with touch points, and we deduce backwards that a square was hiding all along. Same identity \\((\\text{something})^2\\ge0,\\) read from the other end.",
+        zh: "这是知识点 05 的反向。那里，我们「造出」一个平方来证明 \\(\\ge0\\)。这里，我们被「给定」\\(\\ge0\\) 加上触碰点，反推出：一个平方一直藏在里面。同一个恒等式 \\((\\text{某个东西})^2\\ge0\\)，从另一头读。" },
+      { type: "ask", en: "Connect it: a degree-4 polynomial is \\(\\ge0\\) everywhere and touches zero at exactly \\(x=2\\) and \\(x=5.\\) By Fact 1, each is at least a double root, using \\(2+2=4\\) \u2014 the whole degree. So what perfect square must \\(P\\) equal? (\\(P(x)=\\big((x-2)(x-5)\\big)^2.\\))",
+        zh: "联系起来：一个四次多项式处处 \\(\\ge0\\)，恰好在 \\(x=2\\) 和 \\(x=5\\) 触零。由事实 1，每个至少是二重根，用掉 \\(2+2=4\\) \u2014\u2014 整个次数。那么 \\(P\\) 必须等于哪个完全平方？（\\(P(x)=\\big((x-2)(x-5)\\big)^2\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. GEOMETRY TO ALGEBRA ---------- */
+textbookData[11].sections.push({
+  heading: { en: "2 · Translating 'above the line' into algebra", zh: "2 · 把「在直线上方」翻译成代数" },
+  blocks: [
+    { type: "para", en: "Contest problems rarely hand you '\\(P(x)\\ge0\\)' directly. They DESCRIBE it geometrically: 'the curve \\(y=f(x)\\) lies on or above the line \\(y=\\ell(x),\\) touching it at two points.' Your first move is always the same translation.",
+      zh: "竞赛题很少直接给你「\\(P(x)\\ge0\\)」。它们用几何「描述」它：「曲线 \\(y=f(x)\\) 落在直线 \\(y=\\ell(x)\\) 上或上方，并在两点相切。」你的第一步永远是同一个翻译。" },
+    { type: "para", en: "Define the DIFFERENCE FUNCTION \\(D(x)=f(x)-\\ell(x)\\) \u2014 'curve minus line'. Then 'curve is above line' becomes the clean algebraic statement \\(D(x)\\ge0,\\) and 'touches at a point \\(x=a\\)' becomes 'D has a root at \\(a\\)'. Geometry has become a non-negative polynomial.",
+      zh: "定义「差函数」\\(D(x)=f(x)-\\ell(x)\\) \u2014\u2014「曲线减直线」。于是「曲线在直线上方」变成干净的代数陈述 \\(D(x)\\ge0\\)，而「在 \\(x=a\\) 相切」变成「\\(D\\) 在 \\(a\\) 有根」。几何变成了一个非负多项式。" },
+    { type: "formula", tex: "\\[ D(x) = f(x) - \\ell(x) \\ge 0, \\qquad D(a)=0 \\text{ at each touch point } a \\]" },
+    { type: "note", en: "And here's the crucial upgrade: 'touches' (not 'crosses') means each touch point is not just a root but a root of EVEN multiplicity, by Fact 1. A line touching a curve is the geometric face of a double root. So every 'tangent point' you read in the problem is secretly an instruction: 'put a \\((x-a)^2\\) factor here.'",
+      zh: "而这里是关键的升级：「相切」（不是「穿过」）意味着每个切点不只是根，而是「偶数重」根（由事实 1）。直线与曲线相切，是「二重根」的几何脸。所以你在题目里读到的每个「切点」，暗地里都是一条指令：「在这里放一个 \\((x-a)^2\\) 因子。」" },
+    { type: "step", n: "1", title: { en: "A small translation drill", zh: "一个小翻译练习" },
+      en: "Problem says: 'the parabola \\(y=x^2+3\\) lies above the line \\(y=2x+2\\) and touches it.' Translate:\n\u2022 \\(D(x)=(x^2+3)-(2x+2)=x^2-2x+1.\\)\n\u2022 This is \\((x-1)^2\\ge0\\) \u2014 a perfect square! It touches zero only at \\(x=1.\\)\n\u2022 So the parabola touches the line at exactly one point, \\(x=1,\\) confirming tangency.",
+      zh: "题目说：「抛物线 \\(y=x^2+3\\) 落在直线 \\(y=2x+2\\) 上方并与之相切。」翻译：\n\u2022 \\(D(x)=(x^2+3)-(2x+2)=x^2-2x+1\\)。\n\u2022 这是 \\((x-1)^2\\ge0\\) \u2014\u2014 一个完全平方！它只在 \\(x=1\\) 触零。\n\u2022 所以抛物线恰在一点 \\(x=1\\) 与直线相切，确认相切。" },
+    { type: "ask", en: "Translate this: 'the curve \\(y=x^2\\) lies above the line \\(y=4x-4.\\)' Form \\(D(x)\\) and identify the touch point. (\\(D=x^2-4x+4=(x-2)^2,\\) touches at \\(x=2.\\))",
+      zh: "翻译这个：「曲线 \\(y=x^2\\) 落在直线 \\(y=4x-4\\) 上方。」写出 \\(D(x)\\) 并找出切点。（\\(D=x^2-4x+4=(x-2)^2\\)，在 \\(x=2\\) 相切。）" }
+  ]
+});
+
+/* ---------- 3. DEGREE COUNTING ---------- */
+textbookData[11].sections.push({
+  heading: { en: "3 · Counting degrees — making the roots fit exactly", zh: "3 · 数次数 —— 让根恰好凑满" },
+  blocks: [
+    { type: "para", en: "This is the step that makes the whole method click, and it's pure counting. You know the DEGREE of \\(D(x)\\) (from its leading term), and you know each touch point eats up an even chunk of that degree. The art is making the budget balance EXACTLY.",
+      zh: "这是让整套方法「咔哒」一声到位的一步，而它纯粹是计数。你知道 \\(D(x)\\) 的「次数」（从它的最高次项），也知道每个切点吃掉这个次数里的一块偶数。诀窍是让这本预算「恰好」平衡。" },
+    { type: "para", en: "Think of the degree as a budget. A degree-6 polynomial has 6 'root-slots' to fill (counting multiplicity). If it's \\(\\ge0,\\) every slot must come in even bundles. So the possibilities are very restricted: three double roots \\((2+2+2=6),\\) or one double and one quadruple \\((2+4),\\) or a single sextuple \\((6).\\)",
+      zh: "把次数想成一笔预算。一个六次多项式有 6 个「根位」要填（含重数）。如果它 \\(\\ge0\\)，每个位都必须成偶数捆出现。所以可能性非常受限：三个二重根（\\(2+2+2=6\\)），或一个二重加一个四重（\\(2+4\\)），或单个六重（\\(6\\)）。" },
+    { type: "step", n: "1", title: { en: "The classic budget: six = three doubles", zh: "经典预算：六次 = 三个二重" },
+      en: "Suppose a degree-6 polynomial \\(P(x)\\ge0\\) is known to touch zero at THREE distinct points. Count the budget:\n\u2022 Three touch points, each at least a double root: \\(2+2+2=6.\\)\n\u2022 That uses the ENTIRE degree \u2014 nothing left over.\n\u2022 So each is EXACTLY a double root, and \\(P(x)=c\\,(x-r_1)^2(x-r_2)^2(x-r_3)^2\\) for a positive constant \\(c.\\)",
+      zh: "假设一个六次多项式 \\(P(x)\\ge0\\)，已知它在「三个」不同点触零。算预算：\n\u2022 三个切点，每个至少二重根：\\(2+2+2=6\\)。\n\u2022 这用掉「整个」次数 \u2014\u2014 一点不剩。\n\u2022 所以每个「恰好」是二重根，且 \\(P(x)=c\\,(x-r_1)^2(x-r_2)^2(x-r_3)^2\\)，\\(c\\) 是正常数。" },
+    { type: "note", en: "Feel the squeeze: the moment three touch points must fit into degree 6 with even multiplicities, there is NO freedom left \u2014 each must be exactly double. This 'the budget is used up exactly' argument is what pins the structure down. It is the single most important reasoning step in these problems.",
+      zh: "感受这种「挤压」：当三个切点必须以偶数重数塞进六次里，就「没有」任何自由度了 \u2014\u2014 每个必须恰好二重。这个「预算恰好用完」的论证，正是锁死结构的关键。它是这类题里最重要的一步推理。" },
+    { type: "para", en: "Now pull the constant inside the square: \\(c\\,(x-r_1)^2(x-r_2)^2(x-r_3)^2=\\big(\\sqrt{c}\\,(x-r_1)(x-r_2)(x-r_3)\\big)^2.\\) So \\(P=\\big(g(x)\\big)^2\\) where \\(g\\) is a CUBIC. The degree-6 non-negative polynomial is the square of a degree-3 polynomial. That cubic \\(g\\) is where Vieta will enter.",
+      zh: "现在把常数收进平方里：\\(c\\,(x-r_1)^2(x-r_2)^2(x-r_3)^2=\\big(\\sqrt{c}\\,(x-r_1)(x-r_2)(x-r_3)\\big)^2\\)。所以 \\(P=\\big(g(x)\\big)^2\\)，其中 \\(g\\) 是「三次」式。这个六次非负多项式，是一个三次多项式的平方。那个三次式 \\(g\\)，正是韦达将要登场的地方。" },
+    { type: "ask", en: "Budget check: a degree-8 polynomial is \\(\\ge0\\) and touches zero at four distinct points. How many times does each appear? (Four doubles: \\(2\\cdot4=8,\\) budget exactly used \u2014 each is a double root, and \\(P=(g(x))^2\\) with \\(g\\) of degree 4.)",
+      zh: "预算检查：一个八次多项式 \\(\\ge0\\)，在四个不同点触零。每个出现几次？（四个二重：\\(2\\cdot4=8\\)，预算恰好用完 \u2014\u2014 每个是二重根，且 \\(P=(g(x))^2\\)，\\(g\\) 是四次。）" }
+  ]
+});
+
+
+
+/* ---------- 4. SQUARE EXPANSION & MATCHING ---------- */
+textbookData[11].sections.push({
+  heading: { en: "4 · Squaring the cubic & matching coefficients", zh: "4 · 把三次式平方 & 系数比对" },
+  blocks: [
+    { type: "para", en: "We now know \\(P(x)=\\big(g(x)\\big)^2\\) with \\(g\\) a cubic. Write the cubic in Vieta-ready form \\(g(x)=x^3-px^2+qx-w,\\) so that (by Concept 01) \\(p,q,w\\) are the elementary symmetric polynomials of its three roots \u2014 which ARE the touch points. Now we expand and match.",
+      zh: "我们现在知道 \\(P(x)=\\big(g(x)\\big)^2\\)，\\(g\\) 是三次式。把三次式写成「韦达就绪」的形式 \\(g(x)=x^3-px^2+qx-w\\)，这样（由知识点 01）\\(p,q,w\\) 就是它三个根的初等对称多项式 \u2014\u2014 而这些根「就是」切点。现在我们展开并比对。" },
+    { type: "formula", tex: "\\[ \\big(x^3-px^2+qx-w\\big)^2 = x^6 -2p\\,x^5 +(p^2+2q)\\,x^4 +\\cdots \\]" },
+    { type: "table",
+      head: { en: ["Power", "Coefficient in \\((g)^2\\)", "What it reveals"], zh: ["次数", "在 \\((g)^2\\) 中的系数", "它揭示什么"] },
+      rows: { en: [
+        ["\\(x^6\\)", "\\(1\\)", "monic \u2014 confirms leading term"],
+        ["\\(x^5\\)", "\\(-2p\\)", "gives \\(p=\\) sum of touch points"],
+        ["\\(x^4\\)", "\\(p^2+2q\\)", "gives \\(q=\\) sum of pairwise products"],
+        ["\\(x^3\\)", "\\(-2w-2pq\\)", "gives \\(w=\\) product of touch points"]
+      ], zh: [
+        ["\\(x^6\\)", "\\(1\\)", "首一 \u2014\u2014 确认最高次项"],
+        ["\\(x^5\\)", "\\(-2p\\)", "给出 \\(p=\\) 切点之和"],
+        ["\\(x^4\\)", "\\(p^2+2q\\)", "给出 \\(q=\\) 两两乘积之和"],
+        ["\\(x^3\\)", "\\(-2w-2pq\\)", "给出 \\(w=\\) 切点之积"]
+      ] },
+      caption: { en: "The square-expansion table. Read top-down: each new coefficient unlocks one symmetric function.", zh: "平方展开表。自上而下读：每个新系数解锁一个对称函数。" }
+    },
+    { type: "note", en: "Here is the breathtaking shortcut: you usually do NOT need the whole expansion. To find \\(p,\\) you only read the \\(x^5\\) coefficient. To also find \\(q,\\) you only need \\(x^4.\\) The lower coefficients (\\(x^2,x^1,x^0\\)) are often never used. 'Only take the top few terms' is exactly why these monstrous-looking problems are quick once you know the trick.",
+      zh: "这里是令人惊叹的捷径：你通常「不」需要整个展开。要求 \\(p\\)，只读 \\(x^5\\) 系数。要再求 \\(q\\)，只需 \\(x^4\\)。更低的系数（\\(x^2,x^1,x^0\\)）常常根本用不上。「只取最高的那几项」正是为什么这些看着吓人的题，一旦你懂窍门就很快。" },
+    { type: "step", n: "1", title: { en: "Coefficient matching in action", zh: "系数比对实战" },
+      en: "A monic degree-6 polynomial \\(P(x)\\ge0\\) touches zero at three points. You're told its \\(x^5\\) coefficient is \\(-4\\) and its \\(x^4\\) coefficient is \\(-6.\\) Find \\(p\\) and \\(q.\\)\n\u2022 Match \\(x^5:\\) \\(-2p=-4\\Rightarrow p=2.\\)\n\u2022 Match \\(x^4:\\) \\(p^2+2q=-6\\Rightarrow 4+2q=-6\\Rightarrow q=-5.\\)\n\u2022 So the touch points have sum \\(p=2\\) and pairwise-product-sum \\(q=-5.\\) We never touched the lower coefficients.",
+      zh: "一个首一的六次多项式 \\(P(x)\\ge0\\) 在三点触零。已知它的 \\(x^5\\) 系数是 \\(-4\\)、\\(x^4\\) 系数是 \\(-6\\)。求 \\(p\\) 和 \\(q\\)。\n\u2022 比对 \\(x^5\\)：\\(-2p=-4\\Rightarrow p=2\\)。\n\u2022 比对 \\(x^4\\)：\\(p^2+2q=-6\\Rightarrow 4+2q=-6\\Rightarrow q=-5\\)。\n\u2022 所以切点的和 \\(p=2\\)、两两乘积之和 \\(q=-5\\)。我们「从没」碰过更低的系数。" },
+    { type: "ask", en: "Practice the match: if a monic degree-6 non-negative polynomial has \\(x^5\\) coefficient \\(+6,\\) what is the sum of its three touch points? (\\(-2p=6\\Rightarrow p=-3,\\) so the sum is \\(-3.\\))",
+      zh: "练一下比对：如果一个首一的六次非负多项式 \\(x^5\\) 系数是 \\(+6\\)，它三个切点之和是多少？（\\(-2p=6\\Rightarrow p=-3\\)，所以和是 \\(-3\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 5. THE FLAGSHIP EXAMPLE ---------- */
+textbookData[11].sections.push({
+  heading: { en: "5 · The flagship example — every idea at once", zh: "5 · 旗舰例题 —— 所有想法一次到位" },
+  blocks: [
+    { type: "para", en: "Now we run the entire machine on one problem. Watch how geometry, even multiplicity, degree counting, square expansion, coefficient matching, and Vieta all fire in sequence. This is the exact shape of an AIME finisher.",
+      zh: "现在我们在一道题上跑完整台机器。看几何、偶数重根、次数计数、平方展开、系数比对、韦达如何依次发射。这正是 AIME 压轴题的形状。" },
+    { type: "para", en: "THE PROBLEM. A degree-6 polynomial \\(P(x)\\) satisfies \\(P(x)\\ge0\\) for all real \\(x.\\) Its graph touches the \\(x\\)-axis at three distinct points, and the polynomial begins \\(P(x)=x^6-12x^5+58x^4-144x^3+\\cdots\\) (monic). Find the sum of the squares of the three touch points.",
+      zh: "题目。一个六次多项式 \\(P(x)\\) 对所有实数满足 \\(P(x)\\ge0\\)。它的图像在三个不同点与 \\(x\\) 轴相切，且多项式开头为 \\(P(x)=x^6-12x^5+58x^4-144x^3+\\cdots\\)（首一）。求三个切点的平方和。" },
+    { type: "step", n: "1", title: { en: "Geometry \u2192 algebra", zh: "几何 \u2192 代数" },
+      en: "'Touches the axis, never goes below' means \\(P(x)\\ge0\\) with each touch point a root. Since the curve touches (not crosses), each root has even multiplicity (Fact 1).",
+      zh: "「与轴相切、永不向下」意味着 \\(P(x)\\ge0\\)，每个切点都是根。因为曲线「相切」（不穿过），每个根都是偶数重（事实 1）。" },
+    { type: "step", n: "2", title: { en: "Degree budget \u2192 perfect square", zh: "次数预算 \u2192 完全平方" },
+      en: "Three touch points, each at least double: \\(2+2+2=6,\\) the entire degree. Budget used up exactly \u2014 each is precisely a double root. So \\(P(x)=\\big(g(x)\\big)^2\\) with \\(g\\) a monic cubic: \\(g(x)=x^3-px^2+qx-w.\\)",
+      zh: "三个切点，每个至少二重：\\(2+2+2=6\\)，整个次数。预算恰好用完 \u2014\u2014 每个恰是二重根。所以 \\(P(x)=\\big(g(x)\\big)^2\\)，\\(g\\) 是首一三次式：\\(g(x)=x^3-px^2+qx-w\\)。" },
+    { type: "step", n: "3", title: { en: "Square-expand & match top coefficients", zh: "平方展开 & 比对高次系数" },
+      en: "Using the expansion table:\n\u2022 \\(x^5:\\ -2p=-12\\Rightarrow p=6.\\)\n\u2022 \\(x^4:\\ p^2+2q=58\\Rightarrow 36+2q=58\\Rightarrow q=11.\\)\nWe didn't even need \\(w\\) or any lower term \u2014 just the top two coefficients.",
+      zh: "用展开表：\n\u2022 \\(x^5\\)：\\(-2p=-12\\Rightarrow p=6\\)。\n\u2022 \\(x^4\\)：\\(p^2+2q=58\\Rightarrow 36+2q=58\\Rightarrow q=11\\)。\n我们甚至不需要 \\(w\\) 或任何更低的项 \u2014\u2014 只用最高的两个系数。" },
+    { type: "step", n: "4", title: { en: "Vieta \u2192 the answer", zh: "韦达 \u2192 答案" },
+      en: "The touch points are the three roots of \\(g,\\) so by Vieta (Concept 01): \\(p=\\) their sum \\(=6,\\) and \\(q=\\) sum of pairwise products \\(=11.\\) The sum of squares is the Newton identity (Concept 02):\n\\[ r_1^2+r_2^2+r_3^2 = p^2-2q = 36-22 = 14. \\]\nThe answer is \\(\\boxed{14}.\\)",
+      zh: "切点是 \\(g\\) 的三个根，所以由韦达（知识点 01）：\\(p=\\) 它们的和 \\(=6\\)，\\(q=\\) 两两乘积之和 \\(=11\\)。平方和是牛顿恒等式（知识点 02）：\n\\[ r_1^2+r_2^2+r_3^2 = p^2-2q = 36-22 = 14. \\]\n答案是 \\(\\boxed{14}\\)。" },
+    { type: "note", en: "Look back at the chain you just walked: geometry (touch) \u2192 even multiplicity \u2192 degree counting \u2192 perfect square \u2192 square expansion \u2192 coefficient matching \u2192 Vieta \u2192 Newton. EIGHT ideas, each handing off to the next like runners in a relay. No single step was hard \u2014 the difficulty was knowing the ORDER. That ordered chain is the real skill, and now it's yours.",
+      zh: "回看你刚走过的链：几何（相切）\u2192 偶数重根 \u2192 次数计数 \u2192 完全平方 \u2192 平方展开 \u2192 系数比对 \u2192 韦达 \u2192 牛顿。「八个」想法，每个像接力赛里的选手交棒给下一个。没有任何单独一步是难的 \u2014\u2014 难的是知道「顺序」。那条有序的链，才是真正的本事，现在它是你的了。" },
+    { type: "note", en: "WHY THIS MATTERS for you. Your hardest contest problems are rarely about a single unknown idea. They are about COMBINING ideas you already own, in the right order. This lesson is the clearest example of that: ten familiar tools, one assembly line. When you next freeze on a problem, don't hunt for a magic new trick \u2014 ask 'which chain of tools I already have fits this shape?'",
+      zh: "为什么这对你重要。你最难的竞赛题，很少是关于某个你不懂的单一想法。它们是关于把你「已经拥有」的想法，以正确的顺序「组合」起来。这节课就是最清楚的例子：十个熟悉的工具，一条流水线。下次你卡在一道题上，别去找什么魔法新技巧 \u2014\u2014 问自己「我已经有的哪一条工具链，匹配这个形状？」" }
+  ]
+});
+
+/* ---------- 6. SELF-TEST ---------- */
+textbookData[11].sections.push({
+  heading: { en: "6 · Test yourself (answers below)", zh: "6 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. Walk the chain each time: touch \u2192 even root \u2192 budget \u2192 square \u2192 match \u2192 Vieta.",
+      zh: "盖住答案。每次都走一遍链：相切 \u2192 偶数根 \u2192 预算 \u2192 平方 \u2192 比对 \u2192 韦达。" },
+    { type: "ask", en: "Q1. A monic degree-6 polynomial \\(P(x)\\ge0\\) touches zero at three distinct points and begins \\(x^6-6x^5+13x^4-\\cdots.\\) Find the sum of the squares of the touch points.",
+      zh: "Q1. 首一六次多项式 \\(P(x)\\ge0\\) 在三个不同点触零，开头为 \\(x^6-6x^5+13x^4-\\cdots\\)。求切点的平方和。" },
+    { type: "ask", en: "Q2. The curve \\(y=x^2\\) lies on or above the line \\(y=6x-9.\\) Form the difference function and find the single point where they touch.",
+      zh: "Q2. 曲线 \\(y=x^2\\) 落在直线 \\(y=6x-9\\) 上或上方。写出差函数，并找出它们相切的那一个点。" },
+    { type: "ask", en: "Q3. A monic degree-6 non-negative polynomial has \\(x^5\\) coefficient \\(+10\\) and touches zero at three points. What is the sum of those three touch points?",
+      zh: "Q3. 首一六次非负多项式 \\(x^5\\) 系数为 \\(+10\\)，在三点触零。这三个切点之和是多少？" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(P=(g)^2,\\ g=x^3-px^2+qx-w.\\) Match \\(x^5:-2p=-6\\Rightarrow p=3.\\) Match \\(x^4:p^2+2q=13\\Rightarrow 9+2q=13\\Rightarrow q=2.\\) Sum of squares \\(=p^2-2q=9-4=5.\\)\nQ2: \\(D(x)=x^2-(6x-9)=x^2-6x+9=(x-3)^2.\\) Touches at \\(x=3.\\)\nQ3: \\(-2p=10\\Rightarrow p=-5.\\) Sum of touch points \\(=p=-5.\\)",
+      zh: "答案。\nQ1：\\(P=(g)^2,\\ g=x^3-px^2+qx-w\\)。比对 \\(x^5\\)：\\(-2p=-6\\Rightarrow p=3\\)。比对 \\(x^4\\)：\\(p^2+2q=13\\Rightarrow 9+2q=13\\Rightarrow q=2\\)。平方和 \\(=p^2-2q=9-4=5\\)。\nQ2：\\(D(x)=x^2-(6x-9)=x^2-6x+9=(x-3)^2\\)。在 \\(x=3\\) 相切。\nQ3：\\(-2p=10\\Rightarrow p=-5\\)。切点之和 \\(=p=-5\\)。" },
+    { type: "para", en: "This lesson is the capstone of the whole algebra arc. Non-negative \u21d4 perfect square ties together Concepts 01 (Vieta), 02 (Newton), 03 (factoring & rational roots & division), and 05 (squares). When a problem describes a curve touching a line, you no longer see a wall \u2014 you see a relay track with the baton already in your hand.",
+      zh: "这节课是整条代数线的封顶之作。非负 \u21d4 完全平方，把知识点 01（韦达）、02（牛顿）、03（因式分解、有理根、多项式除法）、05（平方）全部系到一起。当一道题描述曲线与直线相切，你不再看到一堵墙 \u2014\u2014 你看到一条接力跑道，接力棒已经在你手里。" }
+  ]
+});
+
