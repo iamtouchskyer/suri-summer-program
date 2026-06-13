@@ -1258,3 +1258,410 @@ textbookData[7].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 09 — Combinatorial Counting (Inclusion-Exclusion & Stars and Bars)
+   ============================================================*/
+textbookData.push({
+  id: "counting",
+  badge: { en: "Concept 09", zh: "知识点 09" },
+  title: { en: "Combinatorial Counting", zh: "组合计数（容斥与隔板法）" },
+  subtitle: { en: "Two engines that count what looks impossible: Inclusion–Exclusion to fix double-counting, and Stars-and-Bars to distribute identical things.",
+              zh: "两台引擎，数清看似数不清的东西：用「容斥原理」修正重复计数，用「隔板法」分配相同的物品。" },
+  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · The two hardest words in counting: 'overlap' and 'identical'", zh: "0 · 计数里最难的两个词：「重叠」和「相同」" },
+    blocks: [
+      { type: "para", en: "Most counting mistakes come from exactly two traps. The first: counting some things TWICE because categories overlap. The second: not knowing how to count when the objects are IDENTICAL. This lesson gives you one master tool for each.",
+        zh: "大多数计数错误，恰好来自两个陷阱。第一个：因为类别「重叠」而把某些东西「数了两次」。第二个：当物品「相同」时不知道怎么数。本节课为每个陷阱给你一把主力工具。" },
+      { type: "example", en: "In a class of 30, 18 play soccer, 15 play basketball, and 8 play both. How many play at least one sport? Tempting answer: \\(18+15=33.\\) But that's more than the whole class! We double-counted the 8 who play both. Correct: \\(18+15-8=25.\\)",
+        zh: "30 人的班级，18 人踢足球，15 人打篮球，8 人两者都玩。至少玩一项运动的有几人？诱人的答案：\\(18+15=33\\)。但这比全班还多！我们把那 8 个「都玩」的人数了两次。正确：\\(18+15-8=25\\)。" },
+      { type: "formula", tex: "\\[ |A\\cup B| = |A| + |B| - |A\\cap B| \\]" },
+      { type: "note", en: "That subtraction is the seed of Inclusion\u2013Exclusion: add up the pieces, then SUBTRACT the overlaps you counted twice. The whole theory is just bookkeeping this idea carefully when there are more than two overlapping sets.",
+        zh: "那个减法，正是「容斥原理」的种子：把各部分加起来，再「减掉」你数了两次的重叠。整个理论不过是当重叠集合超过两个时，仔细地为这个想法记账。" },
+      { type: "ask", en: "Hold this question: with THREE overlapping sets \\(A,B,C,\\) if you add \\(|A|+|B|+|C|\\) and subtract all three pairwise overlaps, have you handled the items in ALL THREE correctly? (We'll see they get over-subtracted \u2014 that's the twist.)",
+        zh: "记住这个问题：有「三个」重叠集合 \\(A,B,C\\)，如果你加 \\(|A|+|B|+|C|\\) 再减掉三个两两重叠，那些「同时在三个集合里」的元素处理对了吗？（我们会看到它们被「减过头」了 \u2014\u2014 这正是转折点。）" }
+    ]
+  },
+
+  /* ---------- 1. INCLUSION-EXCLUSION ---------- */
+  {
+    heading: { en: "1 · Inclusion–Exclusion in full", zh: "1 · 完整的容斥原理" },
+    blocks: [
+      { type: "para", en: "With three sets, the careful count alternates: ADD singles, SUBTRACT pairs, ADD back the triple. The triple overlap got added 3 times then subtracted 3 times \u2014 vanishing \u2014 so we add it once more to include it correctly.",
+        zh: "三个集合时，仔细的计数是「交替」的：加单个、减两两、再加回三重。三重重叠被加了 3 次又减了 3 次 \u2014\u2014 消失了 \u2014\u2014 所以我们再加一次，才能正确地包含它。" },
+      { type: "formula", tex: "\\[ |A\\cup B\\cup C| = |A|+|B|+|C| - |A\\cap B| - |A\\cap C| - |B\\cap C| + |A\\cap B\\cap C| \\]" },
+      { type: "step", n: "1", title: { en: "Counting multiples (a classic)", zh: "数倍数（一道经典题）" },
+        en: "How many integers from 1 to 100 are divisible by 2, 3, or 5?\n\u2022 Singles: \\(\\lfloor100/2\\rfloor=50,\\ \\lfloor100/3\\rfloor=33,\\ \\lfloor100/5\\rfloor=20.\\)\n\u2022 Pairs (divisible by lcm): \\(\\lfloor100/6\\rfloor=16,\\ \\lfloor100/10\\rfloor=10,\\ \\lfloor100/15\\rfloor=6.\\)\n\u2022 Triple: \\(\\lfloor100/30\\rfloor=3.\\)\n\u2022 I\u2013E: \\(50+33+20-16-10-6+3=74.\\)",
+        zh: "1 到 100 中，能被 2、3 或 5 整除的整数有多少个？\n\u2022 单个：\\(\\lfloor100/2\\rfloor=50,\\ \\lfloor100/3\\rfloor=33,\\ \\lfloor100/5\\rfloor=20\\)。\n\u2022 两两（被最小公倍数整除）：\\(\\lfloor100/6\\rfloor=16,\\ \\lfloor100/10\\rfloor=10,\\ \\lfloor100/15\\rfloor=6\\)。\n\u2022 三重：\\(\\lfloor100/30\\rfloor=3\\)。\n\u2022 容斥：\\(50+33+20-16-10-6+3=74\\)。" },
+      { type: "note", en: "The alternating sign pattern \\(+,-,+,-\\dots\\) continues for any number of sets: add odd-sized overlaps, subtract even-sized ones. The reason is that each element must be counted exactly ONCE in the end, and the alternating signs are precisely what cancels the over- and under-counting.",
+        zh: "交替符号模式 \\(+,-,+,-\\dots\\) 对任意多个集合都继续：加「奇数个集合的交」，减「偶数个集合的交」。原因是：每个元素最终必须「恰好」被数一次，而交替符号正好抵消掉多数和少数的部分。" },
+      { type: "ask", en: "Try the complement view: how many integers from 1 to 100 are divisible by NONE of 2, 3, 5? (Total minus the 74 above: \\(100-74=26.\\) These are exactly the numbers coprime to 30.)",
+        zh: "试试「补集」视角：1 到 100 中，2、3、5 都「不」能整除的有几个？（总数减去上面的 74：\\(100-74=26\\)。这些正是与 30 互素的数。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. STARS AND BARS ---------- */
+textbookData[8].sections.push({
+  heading: { en: "2 · Stars and Bars — distributing identical things", zh: "2 · 隔板法 —— 分配相同的物品" },
+  blocks: [
+    { type: "para", en: "Now the second trap: counting when objects are IDENTICAL. How many ways can you give 7 identical candies to 3 kids (some may get none)? You can't 'choose which candy' \u2014 they're the same. The trick is a beautiful picture.",
+      zh: "现在第二个陷阱：物品「相同」时怎么数。把 7 颗「相同」的糖分给 3 个孩子（有人可以分到 0 颗），有多少种分法？你没法「挑哪颗糖」\u2014\u2014 它们一样。窍门是一幅漂亮的图。" },
+    { type: "para", en: "Draw the 7 candies as stars: \\(\\star\\star\\star\\star\\star\\star\\star.\\) To split them among 3 kids, insert 2 BARS as dividers. Everything left of the first bar goes to kid 1, between the bars to kid 2, right of the second to kid 3.",
+      zh: "把 7 颗糖画成星星：\\(\\star\\star\\star\\star\\star\\star\\star\\)。要分给 3 个孩子，插入 2 个「隔板」作为分界。第一个隔板左边的归孩子 1，两个隔板之间的归孩子 2，第二个隔板右边的归孩子 3。" },
+    { type: "formula", tex: "\\[ \\star\\star\\,|\\,\\star\\star\\star\\,|\\,\\star\\star \\quad\\Longrightarrow\\quad (2,3,2) \\]" },
+    { type: "para", en: "So every arrangement of 7 stars and 2 bars in a row gives exactly one distribution! Now counting is easy: we have \\(7+2=9\\) positions, and we choose which 2 are bars. That's \\(\\binom{9}{2}.\\)",
+      zh: "所以「7 颗星 + 2 个隔板」排成一行的每一种排法，恰好对应一种分法！现在计数就简单了：共有 \\(7+2=9\\) 个位置，从中选 2 个放隔板。那就是 \\(\\binom{9}{2}\\)。" },
+    { type: "formula", tex: "\\[ \\text{distribute } n \\text{ identical items into } k \\text{ groups: } \\binom{n+k-1}{k-1} \\]" },
+    { type: "step", n: "1", title: { en: "The candy count", zh: "数糖果分法" },
+      en: "7 candies, 3 kids: \\(n=7,\\ k=3.\\)\n\u2022 Formula: \\(\\binom{7+3-1}{3-1}=\\binom{9}{2}.\\)\n\u2022 \\(\\binom{9}{2}=\\dfrac{9\\cdot8}{2}=36.\\)\n\u2022 So there are \\(36\\) ways.",
+      zh: "7 颗糖，3 个孩子：\\(n=7,\\ k=3\\)。\n\u2022 公式：\\(\\binom{7+3-1}{3-1}=\\binom{9}{2}\\)。\n\u2022 \\(\\binom{9}{2}=\\dfrac{9\\cdot8}{2}=36\\)。\n\u2022 所以有 \\(36\\) 种分法。" },
+    { type: "note", en: "Recognize the shape: stars-and-bars counts solutions to \\(x_1+x_2+\\cdots+x_k=n\\) in NON-NEGATIVE integers. Whenever a problem says 'how many ways to write \\(n\\) as an ordered sum of \\(k\\) non-negative parts', or 'distribute identical items', reach for \\(\\binom{n+k-1}{k-1}.\\)",
+      zh: "认出形状：隔板法数的是 \\(x_1+x_2+\\cdots+x_k=n\\) 在「非负」整数下的解的个数。每当题目说「把 \\(n\\) 写成 \\(k\\) 个非负部分的有序和有多少种」，或「分配相同物品」，就拿起 \\(\\binom{n+k-1}{k-1}\\)。" }
+  ]
+});
+
+/* ---------- 3. STARS AND BARS VARIANTS ---------- */
+textbookData[8].sections.push({
+  heading: { en: "3 · The 'at least one' twist", zh: "3 · 「每人至少一个」的变形" },
+  blocks: [
+    { type: "para", en: "Contests love adding a constraint: 'each kid gets AT LEAST one candy'. The fix is elegant \u2014 give everyone their required minimum FIRST, then stars-and-bars the rest.",
+      zh: "竞赛爱加一个约束：「每个孩子至少分到一颗糖」。解法很优雅 \u2014\u2014 「先」发给每人所需的最低数量，再对剩下的用隔板法。" },
+    { type: "step", n: "1", title: { en: "Positive-integer distribution", zh: "正整数分配" },
+      en: "7 candies, 3 kids, each gets at least 1.\n\u2022 First hand each kid 1 candy. That uses 3, leaving \\(7-3=4.\\)\n\u2022 Now distribute the remaining 4 freely (zero allowed) among 3 kids: \\(\\binom{4+3-1}{3-1}=\\binom{6}{2}=15.\\)\n\u2022 So there are \\(15\\) ways with the 'at least one' rule.",
+      zh: "7 颗糖，3 个孩子，每人至少 1 颗。\n\u2022 先发给每个孩子 1 颗。用掉 3 颗，剩 \\(7-3=4\\)。\n\u2022 现在把剩下的 4 颗自由分配（允许 0）给 3 个孩子：\\(\\binom{4+3-1}{3-1}=\\binom{6}{2}=15\\)。\n\u2022 所以满足「至少一个」规则的有 \\(15\\) 种。" },
+    { type: "formula", tex: "\\[ x_1+\\cdots+x_k=n,\\; x_i\\ge1 \\;\\Longrightarrow\\; \\binom{n-1}{k-1} \\]" },
+    { type: "note", en: "The general 'at least one' formula is \\(\\binom{n-1}{k-1}\\) \u2014 derived exactly by the 'pre-give one each' trick, which converts \\(x_i\\ge1\\) into \\(y_i=x_i-1\\ge0.\\) The same substitution handles ANY lower bound: to require \\(x_i\\ge3,\\) pre-give 3 each and reduce \\(n\\) by \\(3k.\\)",
+      zh: "一般的「至少一个」公式是 \\(\\binom{n-1}{k-1}\\) \u2014\u2014 正是用「预先各发一个」的技巧推出的，它把 \\(x_i\\ge1\\) 转化成 \\(y_i=x_i-1\\ge0\\)。同样的代换能处理「任何」下界：要求 \\(x_i\\ge3\\)，就预先各发 3 个，并把 \\(n\\) 减去 \\(3k\\)。" },
+    { type: "example", en: "How many positive-integer solutions does \\(a+b+c+d=12\\) have? Here \\(n=12,\\ k=4,\\) all \\(\\ge1.\\) Answer: \\(\\binom{12-1}{4-1}=\\binom{11}{3}=\\dfrac{11\\cdot10\\cdot9}{6}=165.\\)",
+      zh: "\\(a+b+c+d=12\\) 有多少个正整数解？这里 \\(n=12,\\ k=4\\)，全 \\(\\ge1\\)。答案：\\(\\binom{12-1}{4-1}=\\binom{11}{3}=\\dfrac{11\\cdot10\\cdot9}{6}=165\\)。" },
+    { type: "ask", en: "Try: how many non-negative solutions does \\(x+y+z=10\\) have? (\\(n=10,k=3,\\) zero allowed: \\(\\binom{10+3-1}{3-1}=\\binom{12}{2}=66.\\))",
+      zh: "试试：\\(x+y+z=10\\) 有多少个非负整数解？（\\(n=10,k=3\\)，允许 0：\\(\\binom{10+3-1}{3-1}=\\binom{12}{2}=66\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[8].sections.push({
+  heading: { en: "4 · Worked examples — count without double-counting", zh: "4 · 例题精讲 —— 不重不漏地数" },
+  blocks: [
+    { type: "para", en: "Three problems. Each needs you to spot whether the trap is OVERLAP (use I\u2013E) or IDENTICAL items (use stars-and-bars). Read the first line, then try.",
+      zh: "三道题。每道都要你看出陷阱是「重叠」（用容斥）还是「相同物品」（用隔板法）。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Inclusion–Exclusion on letters", zh: "字母上的容斥" },
+      en: "How many integers from 1 to 1000 are divisible by neither 6 nor 10?\n\u2022 Count divisible by 6 or 10, then subtract from 1000.\n\u2022 \\(\\lfloor1000/6\\rfloor=166,\\ \\lfloor1000/10\\rfloor=100.\\)\n\u2022 Overlap = divisible by \\(\\text{lcm}(6,10)=30:\\) \\(\\lfloor1000/30\\rfloor=33.\\)\n\u2022 Divisible by 6 or 10: \\(166+100-33=233.\\)\n\u2022 Neither: \\(1000-233=767.\\)",
+      zh: "1 到 1000 中，6 和 10 都「不」整除的有多少个？\n\u2022 先数能被 6 或 10 整除的，再从 1000 减去。\n\u2022 \\(\\lfloor1000/6\\rfloor=166,\\ \\lfloor1000/10\\rfloor=100\\)。\n\u2022 重叠 = 被 \\(\\text{lcm}(6,10)=30\\) 整除：\\(\\lfloor1000/30\\rfloor=33\\)。\n\u2022 被 6 或 10 整除：\\(166+100-33=233\\)。\n\u2022 都不：\\(1000-233=767\\)。" },
+    { type: "step", n: "B", title: { en: "Stars and bars with a minimum", zh: "带下界的隔板法" },
+      en: "A teacher splits 20 identical pencils among 4 students, each getting at least 2.\n\u2022 Pre-give 2 to each: uses 8, leaving \\(20-8=12.\\)\n\u2022 Distribute 12 freely among 4 (zero allowed): \\(\\binom{12+4-1}{4-1}=\\binom{15}{3}.\\)\n\u2022 \\(\\binom{15}{3}=\\dfrac{15\\cdot14\\cdot13}{6}=455.\\)",
+      zh: "老师把 20 支「相同」的铅笔分给 4 名学生，每人至少 2 支。\n\u2022 先给每人 2 支：用掉 8 支，剩 \\(20-8=12\\)。\n\u2022 把 12 支自由分给 4 人（允许 0）：\\(\\binom{12+4-1}{4-1}=\\binom{15}{3}\\)。\n\u2022 \\(\\binom{15}{3}=\\dfrac{15\\cdot14\\cdot13}{6}=455\\)。" },
+    { type: "step", n: "C", title: { en: "I–E counts surjections (no empty box)", zh: "容斥数满射（无空盒）" },
+      en: "How many ways to put 5 DISTINCT balls into 3 DISTINCT boxes with no box empty?\n\u2022 Total placements: \\(3^5=243\\) (each ball picks a box).\n\u2022 Subtract arrangements missing a box. Miss a specific box: \\(2^5=32,\\) and there are \\(\\binom{3}{1}=3\\) boxes to miss: \\(3\\cdot32=96.\\)\n\u2022 Add back missing two boxes (over-subtracted): \\(1^5=1,\\) times \\(\\binom{3}{2}=3:\\) \\(3.\\)\n\u2022 I\u2013E: \\(243-96+3=150.\\)",
+      zh: "把 5 个「不同」的球放进 3 个「不同」的盒子，且没有空盒，有多少种方法？\n\u2022 总放法：\\(3^5=243\\)（每个球选一个盒子）。\n\u2022 减去「缺某个盒子」的放法。缺某个固定盒子：\\(2^5=32\\)，共有 \\(\\binom{3}{1}=3\\) 个盒子可缺：\\(3\\cdot32=96\\)。\n\u2022 加回「缺两个盒子」的（被减过头）：\\(1^5=1\\)，乘 \\(\\binom{3}{2}=3\\)：\\(3\\)。\n\u2022 容斥：\\(243-96+3=150\\)。" },
+    { type: "note", en: "The watershed question every counting problem starts with: are the objects IDENTICAL or DISTINCT? Identical \u2192 stars-and-bars. Distinct with a 'no-empty / at-least-one-of-each' twist \u2192 Inclusion\u2013Exclusion. Naming the type first is half the solution.",
+      zh: "每道计数题开头都要问的分水岭问题：物品是「相同」还是「不同」？相同 \u2192 隔板法。不同且带「无空盒 / 每种至少一个」的转折 \u2192 容斥。先认出类型，就解决了一半。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[8].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. First name the type (overlap or identical), then count.",
+      zh: "盖住答案。先认出类型（重叠 还是 相同），再计数。" },
+    { type: "ask", en: "Q1. How many integers from 1 to 60 are divisible by 2 or 3?",
+      zh: "Q1. 1 到 60 中，能被 2 或 3 整除的有多少个？" },
+    { type: "ask", en: "Q2. How many non-negative integer solutions does \\(a+b+c=8\\) have?",
+      zh: "Q2. \\(a+b+c=8\\) 有多少个非负整数解？" },
+    { type: "ask", en: "Q3. Distribute 10 identical apples to 3 children, each getting at least 1. How many ways?",
+      zh: "Q3. 把 10 个相同的苹果分给 3 个孩子，每人至少 1 个，有多少种方法？" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(\\lfloor60/2\\rfloor+\\lfloor60/3\\rfloor-\\lfloor60/6\\rfloor=30+20-10=40.\\)\nQ2: stars-and-bars \\(n=8,k=3:\\) \\(\\binom{8+3-1}{3-1}=\\binom{10}{2}=45.\\)\nQ3: pre-give 1 each, distribute \\(10-3=7:\\) \\(\\binom{7+3-1}{3-1}=\\binom{9}{2}=36.\\) (Or directly \\(\\binom{10-1}{3-1}=\\binom{9}{2}=36.\\))",
+      zh: "答案。\nQ1：\\(\\lfloor60/2\\rfloor+\\lfloor60/3\\rfloor-\\lfloor60/6\\rfloor=30+20-10=40\\)。\nQ2：隔板法 \\(n=8,k=3\\)：\\(\\binom{8+3-1}{3-1}=\\binom{10}{2}=45\\)。\nQ3：先各发 1 个，分配 \\(10-3=7\\)：\\(\\binom{7+3-1}{3-1}=\\binom{9}{2}=36\\)。（或直接 \\(\\binom{10-1}{3-1}=\\binom{9}{2}=36\\)。）" },
+    { type: "para", en: "You now hold the two great counting engines. Inclusion\u2013Exclusion fixes overlap by alternating add-and-subtract; Stars-and-Bars distributes identical items with a single binomial. Before counting anything, ask: identical or distinct? overlapping or clean? The answer points to the right engine.",
+      zh: "你现在握有两台伟大的计数引擎。容斥靠交替加减修正重叠；隔板法用一个二项式分配相同物品。数任何东西之前，先问：相同还是不同？重叠还是干净？答案会指向正确的引擎。" }
+  ]
+});
+
+
+
+/* ============================================================
+   CONCEPT 10 — Geometry: Similarity & Power of a Point
+   ============================================================*/
+textbookData.push({
+  id: "geometry",
+  badge: { en: "Concept 10", zh: "知识点 10" },
+  title: { en: "Similarity & Power of a Point", zh: "几何技巧（相似与圆幂）" },
+  subtitle: { en: "Two ideas behind most contest geometry: proportions from similar triangles, and the surprising constant a point carries with respect to a circle.",
+              zh: "撑起大多数竞赛几何的两个想法：相似三角形给出的比例，以及一个点相对于圆所携带的那个惊人的常数。" },
+  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · Why similar triangles run geometry", zh: "0 · 为什么相似三角形主宰几何" },
+    blocks: [
+      { type: "para", en: "If you learn ONE geometry idea deeply, make it similarity. Two triangles are similar when they have the same shape but possibly different sizes \u2014 equal angles, proportional sides. Almost every length you can't compute directly, you can get from a pair of similar triangles.",
+        zh: "如果你只深学「一个」几何想法，就选相似。两个三角形「相似」，是指它们形状相同但大小可能不同 \u2014\u2014 角相等、边成比例。几乎每一条你没法直接算的长度，都能从一对相似三角形里得到。" },
+      { type: "para", en: "The key shortcut: you don't need all three angles. If TWO angles match, the third must too (angles sum to 180\u00b0), so the triangles are similar. This 'AA' rule is the workhorse \u2014 spot two equal angles and you instantly have proportional sides.",
+        zh: "关键捷径：你不需要三个角全相等。如果「两个」角相等，第三个也必然相等（三角形内角和 180\u00b0），所以两三角形相似。这条「AA」规则是主力 \u2014\u2014 看到两个相等的角，你立刻就有了成比例的边。" },
+      { type: "formula", tex: "\\[ \\triangle ABC \\sim \\triangle DEF \\;\\Longrightarrow\\; \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{CA}{FD} \\]" },
+      { type: "example", en: "A 6-ft person casts a 4-ft shadow. A nearby tree casts a 20-ft shadow at the same time. How tall is the tree? The sun's rays make equal angles, so the two right triangles are similar: \\(\\dfrac{\\text{tree}}{20}=\\dfrac{6}{4}.\\) Thus tree \\(=20\\cdot\\dfrac{6}{4}=30\\) ft.",
+        zh: "一个 6 英尺高的人投下 4 英尺的影子。同一时刻，附近一棵树投下 20 英尺的影子。树多高？阳光的角度相等，所以两个直角三角形相似：\\(\\dfrac{\\text{树}}{20}=\\dfrac{6}{4}\\)。于是树 \\(=20\\cdot\\dfrac{6}{4}=30\\) 英尺。" },
+      { type: "note", en: "That shadow problem captures the whole power of similarity: an UNREACHABLE length (tree height) is found from REACHABLE ones (person, two shadows) via a single proportion. Train your eye to hunt for the two equal angles \u2014 they unlock the ratio.",
+        zh: "那道影子题浓缩了相似的全部威力：一个「够不着」的长度（树高），靠「够得着」的长度（人、两个影子），通过一个比例求出。训练你的眼睛去寻找两个相等的角 \u2014\u2014 它们解锁比例。" }
+    ]
+  },
+
+  /* ---------- 1. FINDING SIMILAR TRIANGLES ---------- */
+  {
+    heading: { en: "1 · Spotting similar triangles in a figure", zh: "1 · 在图形中认出相似三角形" },
+    blocks: [
+      { type: "para", en: "The skill isn't knowing similarity exists \u2014 it's SEEING the similar pair hidden in a complicated figure. Three configurations appear again and again. Learn to recognize them instantly.",
+        zh: "本事不在于知道「相似」存在 \u2014\u2014 而在于「看见」藏在复杂图形里的那一对相似。三种配置反复出现。学会瞬间认出它们。" },
+      { type: "table",
+        head: { en: ["Configuration", "Why similar", "The proportion you get"], zh: ["配置", "为何相似", "你得到的比例"] },
+        rows: { en: [
+          ["A line parallel to one side of a triangle", "AA (parallel \u2192 equal angles)", "splits sides proportionally"],
+          ["Altitude to the hypotenuse of a right triangle", "creates 3 similar triangles", "geometric-mean relations"],
+          ["Two chords/secants crossing", "AA (same arc angles)", "products of segments equal"]
+        ], zh: [
+          ["平行于三角形一边的直线", "AA（平行 \u2192 等角）", "按比例分割两边"],
+          ["直角三角形斜边上的高", "造出 3 个相似三角形", "几何平均关系"],
+          ["两条相交的弦/割线", "AA（同弧对等角）", "线段乘积相等"]
+        ] },
+        caption: { en: "Three high-frequency similarity setups \u2014 memorize the picture for each.", zh: "三种高频相似配置 \u2014\u2014 把每种的图记住。" }
+      },
+      { type: "step", n: "1", title: { en: "The right-triangle altitude", zh: "直角三角形的高" },
+        en: "In right triangle \\(ABC\\) with the right angle at \\(C,\\) drop an altitude \\(CD\\) to the hypotenuse \\(AB.\\) This creates a famous relation: \\(CD\\) is the geometric mean of the two segments it cuts.\n\\[ CD^2 = AD\\cdot DB. \\]\nExample: if \\(AD=4\\) and \\(DB=9,\\) then \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6.\\)",
+        zh: "在直角三角形 \\(ABC\\) 中（直角在 \\(C\\)），从 \\(C\\) 向斜边 \\(AB\\) 作高 \\(CD\\)。这造出一个著名关系：\\(CD\\) 是它分出的两段的几何平均。\n\\[ CD^2 = AD\\cdot DB. \\]\n例：若 \\(AD=4\\)、\\(DB=9\\)，则 \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6\\)。" },
+      { type: "note", en: "Why \\(CD^2=AD\\cdot DB?\\) The altitude splits the big right triangle into two small ones, each similar to the big one (they share an angle plus the right angle \u2014 AA). Matching \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) gives \\(CD^2=AD\\cdot DB.\\) Similarity literally manufactures the geometric mean.",
+        zh: "为什么 \\(CD^2=AD\\cdot DB\\)？高把大直角三角形分成两个小的，每个都与大三角形相似（共享一个角加直角 \u2014\u2014 AA）。对应 \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) 就得到 \\(CD^2=AD\\cdot DB\\)。相似活生生造出了几何平均。" },
+      { type: "ask", en: "Predict: in the same setup, the leg \\(AC\\) satisfies \\(AC^2=AD\\cdot AB\\) (another geometric mean!). If \\(AD=4,\\ AB=13,\\) what is \\(AC?\\) (\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}.\\))",
+        zh: "预测：同一配置中，直角边 \\(AC\\) 满足 \\(AC^2=AD\\cdot AB\\)（又一个几何平均！）。若 \\(AD=4,\\ AB=13\\)，\\(AC\\) 是多少？（\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. POWER OF A POINT ---------- */
+textbookData[9].sections.push({
+  heading: { en: "2 · Power of a Point — one constant, three forms", zh: "2 · 圆幂定理 —— 一个常数，三种形态" },
+  blocks: [
+    { type: "para", en: "Here is one of the most beautiful facts in circle geometry. Pick any point \\(P\\) and any line through it that hits a circle. The line meets the circle at two points; the PRODUCT of the two distances from \\(P\\) is the SAME no matter which line you draw. That constant is called the power of the point.",
+      zh: "这是圆几何里最美的事实之一。取任意一点 \\(P\\) 和任意一条过它、且与圆相交的直线。这条线与圆交于两点；从 \\(P\\) 到这两点的「距离之积」，无论你画哪条线都「相同」。这个常数叫这个点的「幂」。" },
+    { type: "step", n: "1", title: { en: "Two chords crossing inside", zh: "圆内两弦相交" },
+      en: "If two chords \\(AB\\) and \\(CD\\) cross at \\(P\\) inside the circle, then\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\nExample: chords cross at \\(P;\\) one is split into \\(3\\) and \\(8,\\) the other into \\(4\\) and \\(x.\\) Then \\(3\\cdot8=4\\cdot x\\Rightarrow x=6.\\)",
+      zh: "若两弦 \\(AB\\) 和 \\(CD\\) 在圆内交于 \\(P\\)，则\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\n例：两弦交于 \\(P\\)；一条被分成 \\(3\\) 和 \\(8\\)，另一条分成 \\(4\\) 和 \\(x\\)。则 \\(3\\cdot8=4\\cdot x\\Rightarrow x=6\\)。" },
+    { type: "para", en: "Why is the product constant? Because the crossing creates two similar triangles \u2014 \\(\\triangle PAC\\sim\\triangle PDB\\) by AA (they share vertical angles at \\(P,\\) and equal inscribed angles subtending the same arc). Matching ratios gives \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB},\\) i.e. \\(PA\\cdot PB=PC\\cdot PD.\\) Power of a Point is similarity in disguise!",
+      zh: "为什么乘积恒定？因为相交造出两个相似三角形 \u2014\u2014 \\(\\triangle PAC\\sim\\triangle PDB\\)（AA：在 \\(P\\) 处共享对顶角，且对同一弧的圆周角相等）。对应比例给出 \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB}\\)，即 \\(PA\\cdot PB=PC\\cdot PD\\)。圆幂定理是换了装的相似！" },
+    { type: "step", n: "2", title: { en: "Two secants from outside", zh: "圆外两条割线" },
+      en: "If \\(P\\) is OUTSIDE the circle and two secants go through it, the same product rule holds using whole-segment \u00d7 outer-segment:\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\nwhere \\(PA,PC\\) reach the FAR intersections. Example: one secant has outer \\(3,\\) far \\(3+5=8;\\) other has outer \\(4,\\) far \\(4+x.\\) Then \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2.\\)",
+      zh: "若 \\(P\\) 在圆「外」，两条割线过它，同样的乘积规则成立，用「整段 \u00d7 外段」：\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\n其中 \\(PA,PC\\) 到「远」交点。例：一条割线外段 \\(3\\)、远段 \\(3+5=8\\)；另一条外段 \\(4\\)、远段 \\(4+x\\)。则 \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2\\)。" },
+    { type: "note", en: "The third form: if one line is a TANGENT touching at \\(T,\\) the two intersection points merge into one, so \\(PA\\cdot PB\\) becomes \\(PT^2.\\) Thus \\(PT^2=PA\\cdot PB\\) \u2014 the tangent length is the geometric mean of any secant's two segments. Three pictures (two chords, two secants, tangent-secant) are ONE theorem.",
+      zh: "第三种形态：若一条线是「切线」，切于 \\(T\\)，两个交点合并成一个，所以 \\(PA\\cdot PB\\) 变成 \\(PT^2\\)。于是 \\(PT^2=PA\\cdot PB\\) \u2014\u2014 切线长是任意割线两段的几何平均。三幅图（两弦、两割线、切线-割线）是「同一个」定理。" }
+  ]
+});
+
+/* ---------- 3. UNIFIED VIEW ---------- */
+textbookData[9].sections.push({
+  heading: { en: "3 · The unifying formula", zh: "3 · 统一的公式" },
+  blocks: [
+    { type: "para", en: "All three forms collapse into one clean idea using the distance from \\(P\\) to the circle's center. If the circle has center \\(O\\) and radius \\(r,\\) the power of \\(P\\) is exactly:",
+      zh: "用 \\(P\\) 到圆心的距离，三种形态都塌缩成一个干净的想法。若圆心为 \\(O\\)、半径为 \\(r\\)，则 \\(P\\) 的幂恰好是：" },
+    { type: "formula", tex: "\\[ \\text{pow}(P) = OP^2 - r^2 \\]" },
+    { type: "para", en: "Read the sign: if \\(P\\) is OUTSIDE, \\(OP>r,\\) so the power is positive \u2014 equal to \\(PT^2.\\) If \\(P\\) is INSIDE, \\(OP<r,\\) the power is negative, and its absolute value equals \\(PA\\cdot PB.\\) If \\(P\\) is ON the circle, the power is exactly zero. One number tells you where the point sits relative to the circle.",
+      zh: "读符号：若 \\(P\\) 在「外」，\\(OP>r\\)，幂为正 \u2014\u2014 等于 \\(PT^2\\)。若 \\(P\\) 在「内」，\\(OP<r\\)，幂为负，其绝对值等于 \\(PA\\cdot PB\\)。若 \\(P\\) 在圆「上」，幂恰为零。一个数就告诉你点相对于圆的位置。" },
+    { type: "step", n: "1", title: { en: "Compute a power directly", zh: "直接计算一个幂" },
+      en: "A circle has radius \\(5,\\) and point \\(P\\) is \\(8\\) from the center.\n\u2022 Power \\(=OP^2-r^2=8^2-5^2=64-25=39.\\)\n\u2022 Positive \u2014 so \\(P\\) is outside, and any tangent from \\(P\\) has length \\(PT=\\sqrt{39}.\\)\n\u2022 Any secant through \\(P\\) satisfies (outer)\u00d7(far) \\(=39.\\)",
+      zh: "一个圆半径 \\(5\\)，点 \\(P\\) 到圆心 \\(8\\)。\n\u2022 幂 \\(=OP^2-r^2=8^2-5^2=64-25=39\\)。\n\u2022 正 \u2014\u2014 所以 \\(P\\) 在外，从 \\(P\\) 引的任意切线长为 \\(PT=\\sqrt{39}\\)。\n\u2022 过 \\(P\\) 的任意割线满足（外段）\u00d7（远段）\\(=39\\)。" },
+    { type: "ask", en: "Predict: a point \\(P\\) is inside a circle of radius \\(10,\\) at distance \\(6\\) from center. A chord through \\(P\\) is cut into pieces \\(a\\) and \\(b.\\) What is \\(a\\cdot b?\\) (Power magnitude \\(=r^2-OP^2=100-36=64,\\) so \\(a\\cdot b=64.\\))",
+      zh: "预测：点 \\(P\\) 在半径 \\(10\\) 的圆内，到圆心距离 \\(6\\)。过 \\(P\\) 的一条弦被分成 \\(a\\) 和 \\(b\\)。\\(a\\cdot b\\) 是多少？（幂的大小 \\(=r^2-OP^2=100-36=64\\)，所以 \\(a\\cdot b=64\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[9].sections.push({
+  heading: { en: "4 · Worked examples — proportions & products", zh: "4 · 例题精讲 —— 比例与乘积" },
+  blocks: [
+    { type: "para", en: "Three problems. Each asks for a length you can't measure directly \u2014 reach for similar triangles or power of a point. Read the first line, then try.",
+      zh: "三道题。每道都求一个你没法直接量的长度 \u2014\u2014 拿起相似三角形或圆幂定理。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Similar triangles from a parallel line", zh: "平行线生成的相似三角形" },
+      en: "In triangle \\(ABC,\\) a line parallel to \\(BC\\) meets \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E.\\) If \\(AD=3,\\ DB=6,\\ AE=4,\\) find \\(EC.\\)\n\u2022 Parallel \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\) (AA).\n\u2022 Proportional sides: \\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}.\\)\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12,\\) so \\(EC=AC-AE=12-4=8.\\)",
+      zh: "三角形 \\(ABC\\) 中，一条平行于 \\(BC\\) 的线交 \\(AB\\) 于 \\(D\\)、交 \\(AC\\) 于 \\(E\\)。若 \\(AD=3,\\ DB=6,\\ AE=4\\)，求 \\(EC\\)。\n\u2022 平行 \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\)（AA）。\n\u2022 边成比例：\\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}\\)。\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12\\)，所以 \\(EC=AC-AE=12-4=8\\)。" },
+    { type: "step", n: "B", title: { en: "Tangent-secant power", zh: "切线-割线圆幂" },
+      en: "From external point \\(P,\\) a tangent touches a circle at \\(T\\) with \\(PT=6,\\) and a secant through \\(P\\) hits the circle at \\(A\\) (near) and \\(B\\) (far) with \\(PA=4.\\) Find \\(AB.\\)\n\u2022 Power: \\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9.\\)\n\u2022 \\(AB=PB-PA=9-4=5.\\)",
+      zh: "从外部点 \\(P\\)，一条切线切圆于 \\(T\\)，\\(PT=6\\)；一条过 \\(P\\) 的割线交圆于 \\(A\\)（近）和 \\(B\\)（远），\\(PA=4\\)。求 \\(AB\\)。\n\u2022 圆幂：\\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9\\)。\n\u2022 \\(AB=PB-PA=9-4=5\\)。" },
+    { type: "step", n: "C", title: { en: "Crossing chords", zh: "相交弦" },
+      en: "Two chords of a circle cross at \\(P.\\) The first is divided into segments \\(6\\) and \\(8.\\) The second has total length \\(16\\) and is divided into \\(y\\) and \\(16-y.\\) Find the two pieces.\n\u2022 Power: \\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2.\\)\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) or \\(12.\\)\n\u2022 The two pieces are \\(4\\) and \\(12.\\) (Same split either way.)",
+      zh: "圆的两弦交于 \\(P\\)。第一条被分成 \\(6\\) 和 \\(8\\)。第二条总长 \\(16\\)，被分成 \\(y\\) 和 \\(16-y\\)。求这两段。\n\u2022 圆幂：\\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2\\)。\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) 或 \\(12\\)。\n\u2022 两段是 \\(4\\) 和 \\(12\\)。（两种取法同样的分割。）" },
+    { type: "note", en: "Notice example C fused TWO lessons: power of a point set up the equation, and factoring (Concept 03) solved the quadratic. Contest geometry rarely stays purely geometric \u2014 it sets up an algebra problem, and your algebra toolkit finishes it.",
+      zh: "注意例题 C 融合了「两节课」：圆幂定理列出方程，而因式分解（知识点 03）解出那个二次式。竞赛几何很少纯粹停留在几何 \u2014\u2014 它列出一个代数问题，而你的代数工具箱把它做完。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[9].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. First decide: similar triangles, or power of a point?",
+      zh: "盖住答案。先决定：相似三角形，还是圆幂定理？" },
+    { type: "ask", en: "Q1. In right triangle \\(ABC\\) (right angle at \\(C\\)), the altitude to the hypotenuse cuts it into \\(AD=9\\) and \\(DB=16.\\) Find the altitude \\(CD.\\)",
+      zh: "Q1. 直角三角形 \\(ABC\\)（直角在 \\(C\\)），斜边上的高把斜边分成 \\(AD=9\\) 和 \\(DB=16\\)。求高 \\(CD\\)。" },
+    { type: "ask", en: "Q2. From external point \\(P,\\) a tangent has length \\(PT=8.\\) A secant through \\(P\\) has near distance \\(PA=4.\\) Find the far distance \\(PB.\\)",
+      zh: "Q2. 从外部点 \\(P\\)，切线长 \\(PT=8\\)。过 \\(P\\) 的割线近段 \\(PA=4\\)。求远段 \\(PB\\)。" },
+    { type: "ask", en: "Q3. A circle has radius \\(13.\\) Point \\(P\\) is \\(5\\) from the center. A chord through \\(P\\) is split into \\(a\\) and \\(b.\\) Find \\(a\\cdot b.\\)",
+      zh: "Q3. 一个圆半径 \\(13\\)。点 \\(P\\) 到圆心 \\(5\\)。过 \\(P\\) 的弦被分成 \\(a\\) 和 \\(b\\)。求 \\(a\\cdot b\\)。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(CD^2=AD\\cdot DB=9\\cdot16=144,\\) so \\(CD=12.\\)\nQ2: \\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16.\\)\nQ3: \\(P\\) inside, power magnitude \\(=r^2-OP^2=169-25=144,\\) so \\(a\\cdot b=144.\\)",
+      zh: "答案。\nQ1：\\(CD^2=AD\\cdot DB=9\\cdot16=144\\)，所以 \\(CD=12\\)。\nQ2：\\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16\\)。\nQ3：\\(P\\) 在内，幂的大小 \\(=r^2-OP^2=169-25=144\\)，所以 \\(a\\cdot b=144\\)。" },
+    { type: "para", en: "Two geometry engines now: similar triangles turn an unknown length into a proportion, and power of a point turns crossing lines into equal products. Both come from the same root \u2014 AA similarity. When a geometry problem stalls, hunt for two equal angles or a circle with crossing lines. That's where the answer hides.",
+      zh: "现在有两台几何引擎：相似三角形把未知长度变成比例，圆幂定理把相交直线变成相等乘积。两者同根 \u2014\u2014 都来自 AA 相似。当几何题卡住，去找两个相等的角，或一个有相交直线的圆。答案就藏在那里。" }
+  ]
+});
+
+
+
+/* ============================================================
+   CONCEPT 11 — Recursion & Sequences
+   ============================================================*/
+textbookData.push({
+  id: "recursion",
+  badge: { en: "Concept 11", zh: "知识点 11" },
+  title: { en: "Recursion & Sequences", zh: "递归与数列" },
+  subtitle: { en: "Instead of finding a hard number directly, describe how each step grows from the last. Recursion turns scary counting into a short, repeatable rule.",
+              zh: "与其直接去求一个难算的数，不如描述「每一步如何从上一步长出来」。递归把吓人的计数，变成一条简短、可重复的规则。" },
+  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · The power of 'one step at a time'", zh: "0 · 「一次走一步」的力量" },
+    blocks: [
+      { type: "para", en: "Some problems are too big to count all at once, but easy to count if you know the answer for the case just below. That is recursion: define each term using earlier terms. You trade 'solve the whole thing' for 'describe one step', and one step is usually simple.",
+        zh: "有些问题一次性全数太大，但如果你知道「小一号」情形的答案，就很容易数。这就是递归：用「更早的项」来定义「每一项」。你用「解决整个问题」换成「描述一步」，而一步通常很简单。" },
+      { type: "example", en: "How many ways can you climb a staircase of \\(n\\) steps, taking 1 or 2 steps at a time? Instead of counting all paths, ask: your LAST move was either a 1-step (from stair \\(n-1\\)) or a 2-step (from stair \\(n-2\\)). So the count for \\(n\\) is the sum of the counts for \\(n-1\\) and \\(n-2.\\)",
+        zh: "爬一段 \\(n\\) 级的楼梯，每次走 1 级或 2 级，有多少种走法？与其数遍所有路径，不如问：你的「最后一步」要么是 1 级（从第 \\(n-1\\) 级上来）、要么是 2 级（从第 \\(n-2\\) 级上来）。所以第 \\(n\\) 级的走法数，等于第 \\(n-1\\) 级和第 \\(n-2\\) 级走法数之和。" },
+      { type: "formula", tex: "\\[ a_n = a_{n-1} + a_{n-2} \\]" },
+      { type: "note", en: "That is the Fibonacci recurrence! With \\(a_1=1\\) (one way: a single step) and \\(a_2=2\\) (two ways: 1+1 or 2), you get \\(1,2,3,5,8,13,\\dots\\) Each term is built from the two before it. The hard counting problem became a one-line rule plus two starting values.",
+        zh: "那正是斐波那契递推！以 \\(a_1=1\\)（一种：走一级）和 \\(a_2=2\\)（两种：1+1 或 2）起步，你得到 \\(1,2,3,5,8,13,\\dots\\) 每一项都由它前面两项搭出来。那个难的计数问题，变成了一行规则加两个起始值。" },
+      { type: "ask", en: "Hold this: to fully define a recursive sequence you need TWO things \u2014 the rule AND the starting value(s). Why can't the staircase rule \\(a_n=a_{n-1}+a_{n-2}\\) work without knowing \\(a_1\\) and \\(a_2?\\)",
+        zh: "记住：要完整定义一个递归数列，你需要「两样东西」\u2014\u2014 规则「和」起始值。为什么楼梯规则 \\(a_n=a_{n-1}+a_{n-2}\\) 在不知道 \\(a_1\\) 和 \\(a_2\\) 时没法用？" }
+    ]
+  },
+
+  /* ---------- 1. BUILDING RECURRENCES ---------- */
+  {
+    heading: { en: "1 · Building a recurrence from a problem", zh: "1 · 从问题中搭出递推式" },
+    blocks: [
+      { type: "para", en: "The real skill is TRANSLATING a problem into a recurrence. The magic question is always the same: 'how does the last move/element connect this case to a smaller one?' Answer that, and the recurrence writes itself.",
+        zh: "真正的本事是把一个问题「翻译」成递推式。那个神奇的问题永远一样：「最后一步/最后一个元素，怎么把这个情形连到一个更小的情形？」回答它，递推式就自己写出来了。" },
+      { type: "step", n: "1", title: { en: "Counting binary strings", zh: "数二进制串" },
+        en: "How many length-\\(n\\) strings of 0s and 1s have NO two adjacent 1s?\n\u2022 Look at the last digit. If it's 0, the first \\(n-1\\) digits can be any valid string: \\(a_{n-1}\\) ways.\n\u2022 If it's 1, the digit before it MUST be 0 (no adjacent 1s), and the first \\(n-2\\) form any valid string: \\(a_{n-2}\\) ways.\n\u2022 So \\(a_n=a_{n-1}+a_{n-2}\\) \u2014 Fibonacci again!",
+        zh: "长度为 \\(n\\) 的 0/1 串中，「没有」两个相邻的 1 的有多少个？\n\u2022 看最后一位。若是 0，前 \\(n-1\\) 位可以是任何合法串：\\(a_{n-1}\\) 种。\n\u2022 若是 1，它前面那位「必须」是 0（不能有相邻 1），前 \\(n-2\\) 位是任何合法串：\\(a_{n-2}\\) 种。\n\u2022 所以 \\(a_n=a_{n-1}+a_{n-2}\\) \u2014\u2014 又是斐波那契！" },
+      { type: "note", en: "Notice the universal move: SPLIT BY THE LAST CHOICE. Whatever the last digit / last tile / last step is, each possibility connects to a smaller, already-counted case. Sum over the possibilities and you have the recurrence. This 'condition on the last thing' is the single most useful counting habit.",
+        zh: "注意那个万能动作：「按最后一个选择分类」。无论最后一位 / 最后一块砖 / 最后一步是什么，每种可能都连到一个更小的、已经数过的情形。对各种可能求和，你就得到递推式。这个「对最后一样东西分类讨论」是最有用的计数习惯。" },
+      { type: "step", n: "2", title: { en: "Compute with the recurrence", zh: "用递推式计算" },
+        en: "For the no-adjacent-1s strings: base cases \\(a_1=2\\) (just '0' or '1') and \\(a_2=3\\) ('00','01','10', not '11'). Then:\n\u2022 \\(a_3=a_2+a_1=3+2=5.\\)\n\u2022 \\(a_4=a_3+a_2=5+3=8.\\)\n\u2022 \\(a_5=a_4+a_3=8+5=13.\\) And so on.",
+        zh: "对「无相邻 1」的串：基本情形 \\(a_1=2\\)（'0' 或 '1'）和 \\(a_2=3\\)（'00','01','10'，不含 '11'）。则：\n\u2022 \\(a_3=a_2+a_1=3+2=5\\)。\n\u2022 \\(a_4=a_3+a_2=5+3=8\\)。\n\u2022 \\(a_5=a_4+a_3=8+5=13\\)。依此类推。" },
+      { type: "ask", en: "Try building one: you tile a \\(2\\times n\\) strip with \\(1\\times2\\) dominoes. Condition on the rightmost tile \u2014 it's either one vertical domino (leaving \\(2\\times(n-1)\\)) or two stacked horizontals (leaving \\(2\\times(n-2)\\)). What recurrence do you get? (\\(a_n=a_{n-1}+a_{n-2}\\) \u2014 Fibonacci once more.)",
+        zh: "试着搭一个：用 \\(1\\times2\\) 的多米诺骨牌铺 \\(2\\times n\\) 的长条。按最右边的牌分类 \u2014\u2014 要么一张竖牌（剩 \\(2\\times(n-1)\\)），要么两张叠放的横牌（剩 \\(2\\times(n-2)\\)）。你得到什么递推式？（\\(a_n=a_{n-1}+a_{n-2}\\) \u2014\u2014 又一次斐波那契。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. ARITHMETIC & GEOMETRIC ---------- */
+textbookData[10].sections.push({
+  heading: { en: "2 · The two sequences you can solve in closed form", zh: "2 · 两种能写出通项公式的数列" },
+  blocks: [
+    { type: "para", en: "Not every recurrence needs step-by-step climbing. Two famous families have a CLOSED FORM \u2014 a direct formula for the \\(n\\)-th term, no climbing needed. Recognizing them saves enormous time.",
+      zh: "不是每个递推都要一步步爬。两个著名的家族有「通项公式」\u2014\u2014 直接给出第 \\(n\\) 项的公式，不用爬。认出它们能省下巨量时间。" },
+    { type: "para", en: "An ARITHMETIC sequence adds a constant \\(d\\) each step: \\(a_n=a_{n-1}+d.\\) A GEOMETRIC sequence multiplies by a constant \\(r:\\) \\(a_n=r\\,a_{n-1}.\\) Each has a clean formula and a clean sum.",
+      zh: "「等差」数列每步加一个常数 \\(d\\)：\\(a_n=a_{n-1}+d\\)。「等比」数列每步乘一个常数 \\(r\\)：\\(a_n=r\\,a_{n-1}\\)。每个都有干净的通项和干净的求和。" },
+    { type: "formula", tex: "\\[ \\text{Arithmetic: } a_n=a_1+(n-1)d, \\qquad \\sum_{k=1}^n a_k = \\frac{n(a_1+a_n)}{2} \\]" },
+    { type: "formula", tex: "\\[ \\text{Geometric: } a_n=a_1\\,r^{\\,n-1}, \\qquad \\sum_{k=1}^n a_k = a_1\\frac{r^n-1}{r-1}\\ (r\\ne1) \\]" },
+    { type: "step", n: "1", title: { en: "Both sums in action", zh: "两个求和实战" },
+      en: "Arithmetic: \\(2+5+8+\\cdots+59.\\) Here \\(a_1=2,\\ d=3.\\) Find \\(n:\\) \\(59=2+(n-1)3\\Rightarrow n=20.\\) Sum \\(=\\dfrac{20(2+59)}{2}=10\\cdot61=610.\\)\nGeometric: \\(3+6+12+\\cdots+384.\\) Here \\(a_1=3,\\ r=2.\\) Terms: \\(384=3\\cdot2^{n-1}\\Rightarrow 2^{n-1}=128\\Rightarrow n=8.\\) Sum \\(=3\\cdot\\dfrac{2^8-1}{2-1}=3\\cdot255=765.\\)",
+      zh: "等差：\\(2+5+8+\\cdots+59\\)。这里 \\(a_1=2,\\ d=3\\)。求 \\(n\\)：\\(59=2+(n-1)3\\Rightarrow n=20\\)。和 \\(=\\dfrac{20(2+59)}{2}=10\\cdot61=610\\)。\n等比：\\(3+6+12+\\cdots+384\\)。这里 \\(a_1=3,\\ r=2\\)。项数：\\(384=3\\cdot2^{n-1}\\Rightarrow 2^{n-1}=128\\Rightarrow n=8\\)。和 \\(=3\\cdot\\dfrac{2^8-1}{2-1}=3\\cdot255=765\\)。" },
+    { type: "note", en: "The arithmetic-sum formula is just 'average term times number of terms' \u2014 the famous trick young Gauss used to add \\(1\\) to \\(100\\) instantly: \\(\\dfrac{100\\cdot101}{2}=5050.\\) Pairing the first and last term, each pair sums to the same value. Seeing the structure beats grinding every time.",
+      zh: "等差求和公式不过是「平均项 \u00d7 项数」\u2014\u2014 就是小高斯瞬间算出 \\(1\\) 加到 \\(100\\) 的著名技巧：\\(\\dfrac{100\\cdot101}{2}=5050\\)。把首项和末项配对，每一对的和都相同。看出结构，永远胜过死算。" },
+    { type: "ask", en: "Try: find the sum \\(1+4+7+\\cdots+100.\\) (Arithmetic, \\(a_1=1,d=3.\\) Solve \\(100=1+(n-1)3\\Rightarrow n=34.\\) Sum \\(=\\dfrac{34(1+100)}{2}=17\\cdot101=1717.\\))",
+      zh: "试试：求 \\(1+4+7+\\cdots+100\\)。（等差，\\(a_1=1,d=3\\)。解 \\(100=1+(n-1)3\\Rightarrow n=34\\)。和 \\(=\\dfrac{34(1+100)}{2}=17\\cdot101=1717\\)。）" }
+  ]
+});
+
+/* ---------- 3. CHARACTERISTIC ROOTS ---------- */
+textbookData[10].sections.push({
+  heading: { en: "3 · Solving linear recurrences with roots", zh: "3 · 用「根」解线性递推" },
+  blocks: [
+    { type: "para", en: "Here's a beautiful bridge back to Concepts 01\u201302. A recurrence like \\(a_n=5a_{n-1}-6a_{n-2}\\) has a CLOSED FORM you can find by guessing \\(a_n=x^n\\) and solving a quadratic \u2014 the same Vieta-style polynomial thinking from the symmetric-polynomial lessons.",
+      zh: "这里有一座回到知识点 01\u201302 的漂亮桥。像 \\(a_n=5a_{n-1}-6a_{n-2}\\) 这样的递推，有一个「通项公式」，你可以通过猜 \\(a_n=x^n\\) 并解一个二次方程找到 \u2014\u2014 正是对称多项式那几课里的韦达式多项式思维。" },
+    { type: "step", n: "1", title: { en: "Guess a power, get a quadratic", zh: "猜一个幂，得到二次方程" },
+      en: "For \\(a_n=5a_{n-1}-6a_{n-2},\\) guess \\(a_n=x^n.\\) Substitute:\n\\[ x^n=5x^{n-1}-6x^{n-2}. \\]\nDivide by \\(x^{n-2}:\\) \\(x^2=5x-6\\Rightarrow x^2-5x+6=0\\Rightarrow(x-2)(x-3)=0.\\)\nThe 'characteristic roots' are \\(x=2\\) and \\(x=3.\\)",
+      zh: "对 \\(a_n=5a_{n-1}-6a_{n-2}\\)，猜 \\(a_n=x^n\\)。代入：\n\\[ x^n=5x^{n-1}-6x^{n-2}. \\]\n除以 \\(x^{n-2}\\)：\\(x^2=5x-6\\Rightarrow x^2-5x+6=0\\Rightarrow(x-2)(x-3)=0\\)。\n「特征根」是 \\(x=2\\) 和 \\(x=3\\)。" },
+    { type: "step", n: "2", title: { en: "Combine the roots, fit the start", zh: "组合两根，拟合起始值" },
+      en: "The general solution is \\(a_n=A\\cdot2^n+B\\cdot3^n.\\) Use the starting values to pin \\(A,B.\\) Say \\(a_0=0,\\ a_1=1:\\)\n\u2022 \\(n=0:\\ A+B=0.\\)\n\u2022 \\(n=1:\\ 2A+3B=1.\\)\n\u2022 Solve: \\(A=-1,\\ B=1.\\) So \\(a_n=3^n-2^n.\\)\n\u2022 Check: \\(a_2=9-4=5,\\) and \\(5a_1-6a_0=5.\\) \u2713",
+      zh: "通解是 \\(a_n=A\\cdot2^n+B\\cdot3^n\\)。用起始值定出 \\(A,B\\)。设 \\(a_0=0,\\ a_1=1\\)：\n\u2022 \\(n=0\\)：\\(A+B=0\\)。\n\u2022 \\(n=1\\)：\\(2A+3B=1\\)。\n\u2022 解出：\\(A=-1,\\ B=1\\)。所以 \\(a_n=3^n-2^n\\)。\n\u2022 验证：\\(a_2=9-4=5\\)，而 \\(5a_1-6a_0=5\\)。\u2713" },
+    { type: "note", en: "The deep link: the characteristic equation \\(x^2-5x+6=0\\) is exactly the kind of polynomial whose roots Vieta describes. Recursion, factoring, and symmetric polynomials are not separate topics \u2014 they are the same algebra wearing different clothes. This is why building a connected toolkit beats memorizing isolated tricks.",
+      zh: "深层联系：特征方程 \\(x^2-5x+6=0\\) 正是韦达描述其根的那类多项式。递归、因式分解、对称多项式不是分开的话题 \u2014\u2014 它们是同一套代数穿着不同的衣服。这就是为什么「搭一个互相连通的工具箱」胜过「背孤立的技巧」。" },
+    { type: "ask", en: "Try: the recurrence \\(a_n=a_{n-1}+2a_{n-2}\\) has characteristic equation \\(x^2-x-2=0.\\) Factor it to find the roots. (\\((x-2)(x+1)=0,\\) roots \\(2\\) and \\(-1,\\) so \\(a_n=A\\cdot2^n+B(-1)^n.\\))",
+      zh: "试试：递推 \\(a_n=a_{n-1}+2a_{n-2}\\) 的特征方程是 \\(x^2-x-2=0\\)。分解它求根。（\\((x-2)(x+1)=0\\)，根 \\(2\\) 和 \\(-1\\)，所以 \\(a_n=A\\cdot2^n+B(-1)^n\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[10].sections.push({
+  heading: { en: "4 · Worked examples — recurse, then compute", zh: "4 · 例题精讲 —— 先递归，再计算" },
+  blocks: [
+    { type: "para", en: "Three problems. Each is solved by finding a recurrence (condition on the last step) or recognizing an arithmetic/geometric pattern. Read the first line, then try.",
+      zh: "三道题。每道都靠找出递推式（对最后一步分类）或认出等差/等比模式来解决。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Staircase counting", zh: "楼梯计数" },
+      en: "How many ways to climb 10 stairs taking 1 or 2 at a time?\n\u2022 Fibonacci recurrence \\(a_n=a_{n-1}+a_{n-2},\\) with \\(a_1=1,\\ a_2=2.\\)\n\u2022 Climb: \\(1,2,3,5,8,13,21,34,55,89.\\)\n\u2022 The 10th term is \\(89.\\) So \\(89\\) ways.",
+      zh: "爬 10 级楼梯，每次 1 或 2 级，有多少种走法？\n\u2022 斐波那契递推 \\(a_n=a_{n-1}+a_{n-2}\\)，\\(a_1=1,\\ a_2=2\\)。\n\u2022 逐项：\\(1,2,3,5,8,13,21,34,55,89\\)。\n\u2022 第 10 项是 \\(89\\)。所以 \\(89\\) 种。" },
+    { type: "step", n: "B", title: { en: "A geometric sum (AMC-style)", zh: "一个等比求和（AMC 风格）" },
+      en: "Find \\(1+2+4+8+\\cdots+1024.\\)\n\u2022 Geometric, \\(a_1=1,\\ r=2.\\) Last term \\(1024=2^{10},\\) so \\(n=11\\) terms.\n\u2022 Sum \\(=\\dfrac{2^{11}-1}{2-1}=2048-1=2047.\\)\n\u2022 (Memory hook: a sum of powers of 2 up to \\(2^k\\) is always \\(2^{k+1}-1.\\))",
+      zh: "求 \\(1+2+4+8+\\cdots+1024\\)。\n\u2022 等比，\\(a_1=1,\\ r=2\\)。末项 \\(1024=2^{10}\\)，所以 \\(n=11\\) 项。\n\u2022 和 \\(=\\dfrac{2^{11}-1}{2-1}=2048-1=2047\\)。\n\u2022（记忆口诀：2 的幂从 \\(1\\) 加到 \\(2^k\\) 永远是 \\(2^{k+1}-1\\)。）" },
+    { type: "step", n: "C", title: { en: "Telescoping a sum", zh: "裂项求和" },
+      en: "Find \\(\\displaystyle\\sum_{k=1}^{99}\\frac{1}{k(k+1)}.\\)\n\u2022 Split each term: \\(\\dfrac{1}{k(k+1)}=\\dfrac{1}{k}-\\dfrac{1}{k+1}.\\)\n\u2022 The sum telescopes \u2014 consecutive pieces cancel:\n\\[ \\Big(1-\\tfrac12\\Big)+\\Big(\\tfrac12-\\tfrac13\\Big)+\\cdots+\\Big(\\tfrac{1}{99}-\\tfrac1{100}\\Big). \\]\n\u2022 Everything cancels except the first and last: \\(1-\\dfrac{1}{100}=\\dfrac{99}{100}.\\)",
+      zh: "求 \\(\\displaystyle\\sum_{k=1}^{99}\\frac{1}{k(k+1)}\\)。\n\u2022 把每项裂开：\\(\\dfrac{1}{k(k+1)}=\\dfrac{1}{k}-\\dfrac{1}{k+1}\\)。\n\u2022 和「望远镜式」相消 \u2014\u2014 相邻部分抵消：\n\\[ \\Big(1-\\tfrac12\\Big)+\\Big(\\tfrac12-\\tfrac13\\Big)+\\cdots+\\Big(\\tfrac{1}{99}-\\tfrac1{100}\\Big). \\]\n\u2022 除了首尾，全部抵消：\\(1-\\dfrac{1}{100}=\\dfrac{99}{100}\\)。" },
+    { type: "note", en: "Telescoping (example C) is recursion's cousin: instead of building UP step by step, you write each term as a DIFFERENCE so neighbors cancel. Whenever you see a sum of fractions that factor nicely, try splitting into \\(\\tfrac{1}{k}-\\tfrac{1}{k+1}\\) form \u2014 the collapse is dramatic and exact.",
+      zh: "裂项（例题 C）是递归的表亲：不是一步步「往上搭」，而是把每项写成「差」，让相邻项相消。每当你看到一堆能漂亮分解的分式之和，就试着拆成 \\(\\tfrac{1}{k}-\\tfrac{1}{k+1}\\) 的形式 \u2014\u2014 那种坍缩既戏剧化又精确。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[10].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. First decide: recurrence, arithmetic/geometric, or telescoping?",
+      zh: "盖住答案。先决定：递推、等差/等比，还是裂项？" },
+    { type: "ask", en: "Q1. A Fibonacci-type sequence has \\(a_1=1,\\ a_2=1,\\ a_n=a_{n-1}+a_{n-2}.\\) Find \\(a_7.\\)",
+      zh: "Q1. 一个斐波那契型数列 \\(a_1=1,\\ a_2=1,\\ a_n=a_{n-1}+a_{n-2}\\)。求 \\(a_7\\)。" },
+    { type: "ask", en: "Q2. Find the sum \\(5+10+15+\\cdots+100.\\)",
+      zh: "Q2. 求和 \\(5+10+15+\\cdots+100\\)。" },
+    { type: "ask", en: "Q3. Find \\(\\displaystyle\\sum_{k=1}^{9}\\frac{1}{k(k+1)}.\\)",
+      zh: "Q3. 求 \\(\\displaystyle\\sum_{k=1}^{9}\\frac{1}{k(k+1)}\\)。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(1,1,2,3,5,8,13.\\) So \\(a_7=13.\\)\nQ2: arithmetic \\(a_1=5,d=5,\\) last \\(100\\Rightarrow n=20.\\) Sum \\(=\\dfrac{20(5+100)}{2}=10\\cdot105=1050.\\)\nQ3: telescoping \\(=1-\\dfrac{1}{10}=\\dfrac{9}{10}.\\)",
+      zh: "答案。\nQ1：\\(1,1,2,3,5,8,13\\)。所以 \\(a_7=13\\)。\nQ2：等差 \\(a_1=5,d=5\\)，末项 \\(100\\Rightarrow n=20\\)。和 \\(=\\dfrac{20(5+100)}{2}=10\\cdot105=1050\\)。\nQ3：裂项 \\(=1-\\dfrac{1}{10}=\\dfrac{9}{10}\\)。" },
+    { type: "para", en: "You now have the recursion toolkit: condition on the last step to build a recurrence, recognize arithmetic/geometric patterns for instant formulas, solve linear recurrences via characteristic roots (hello again, Vieta), and telescope sums into a clean collapse. The big idea across all of it: don't fight the whole problem \u2014 describe how one step relates to the last, and let the structure carry you.",
+      zh: "你现在有了递归工具箱：对最后一步分类来搭递推式、认出等差/等比模式以套公式、用特征根解线性递推（韦达又见面了）、把和裂项成干净的坍缩。贯穿一切的大想法：别和整个问题硬拼 \u2014\u2014 描述「一步如何连到上一步」，让结构托着你走。" }
+  ]
+});
+
