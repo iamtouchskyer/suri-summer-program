@@ -2286,3 +2286,140 @@ textbookData[14].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 16 — Complex Numbers & Roots of Unity
+   ============================================================*/
+textbookData.push({
+  id: "complex",
+  badge: { en: "Concept 16", zh: "知识点 16" },
+  title: { en: "Complex Numbers & Roots of Unity", zh: "复数与单位根" },
+  subtitle: { en: "The big weapon for AMC #25 and AIME: numbers that live on a plane, multiply by rotating, and split the circle into perfect equal pieces.",
+              zh: "AMC 第 25 题与 AIME 的大杀器：活在平面上、相乘即旋转、把圆切成完美等份的数。" },
+  readingTime: { en: "~30 min deep read", zh: "约 30 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · A number that points somewhere", zh: "0 · 一个「指向某处」的数" },
+    blocks: [
+      { type: "para", en: "Real numbers live on a line. Complex numbers live on a PLANE. That single upgrade \u2014 from line to plane \u2014 is what gives them their power. A complex number \\(z=a+bi\\) is just the point \\((a,b),\\) where \\(i\\) is the special number with \\(i^2=-1.\\)",
+        zh: "实数住在一条「线」上。复数住在一个「平面」上。这一个升级 \u2014\u2014 从线到面 \u2014\u2014 正是它们威力的来源。复数 \\(z=a+bi\\) 不过是点 \\((a,b)\\)，其中 \\(i\\) 是那个满足 \\(i^2=-1\\) 的特殊数。" },
+      { type: "formula", tex: "\\[ i^2=-1, \\qquad z=a+bi \\;\\leftrightarrow\\; \\text{point } (a,b) \\text{ in the plane} \\]" },
+      { type: "para", en: "Adding complex numbers is just adding the points like vectors. But MULTIPLYING is where the magic lives \u2014 and the key to it is what happens when you multiply by \\(i.\\) Watch the powers of \\(i\\) cycle.",
+        zh: "复数相加，就是像向量一样把点加起来。但「相乘」才是魔法所在 \u2014\u2014 而它的钥匙，是「乘以 \\(i\\)」时发生的事。看 \\(i\\) 的幂如何循环。" },
+      { type: "example", en: "Compute the powers of \\(i:\\) \\(i^1=i,\\ i^2=-1,\\ i^3=i^2\\cdot i=-i,\\ i^4=(i^2)^2=1,\\) then it REPEATS: \\(i^5=i,\\ i^6=-1,\\dots\\) The cycle has length 4: \\((i,-1,-i,1).\\) So \\(i^{2026}=i^{2026\\bmod 4}=i^2=-1\\) (since \\(2026=4\\cdot506+2\\)).",
+        zh: "算 \\(i\\) 的幂：\\(i^1=i,\\ i^2=-1,\\ i^3=i^2\\cdot i=-i,\\ i^4=(i^2)^2=1\\)，然后「重复」：\\(i^5=i,\\ i^6=-1,\\dots\\) 循环长度是 4：\\((i,-1,-i,1)\\)。所以 \\(i^{2026}=i^{2026\\bmod 4}=i^2=-1\\)（因为 \\(2026=4\\cdot506+2\\)）。" },
+      { type: "note", en: "That cycle is your first clue that complex numbers are about ROTATION. Multiplying by \\(i\\) takes the point \\((a,b)\\) and rotates it \\(90^\\circ\\) counterclockwise. Four rotations of \\(90^\\circ\\) bring you back to start \u2014 which is exactly why \\(i^4=1.\\) Powers cycling and the plane rotating are the SAME fact (the cycle-finding habit comes straight from Concept 07).",
+        zh: "那个循环是你的第一个线索：复数是关于「旋转」的。乘以 \\(i\\) 把点 \\((a,b)\\) 逆时针旋转 \\(90^\\circ\\)。四次 \\(90^\\circ\\) 旋转让你回到起点 \u2014\u2014 这正是为什么 \\(i^4=1\\)。幂的循环和平面的旋转，是「同一个」事实（找循环的习惯直接来自知识点 07）。" },
+      { type: "ask", en: "Hold this: what is \\(i^{100}+i^{101}+i^{102}+i^{103}?\\) (Any four consecutive powers cycle through \\(i,-1,-i,1\\) in some order, and they always sum to \\(0.\\))",
+        zh: "记住：\\(i^{100}+i^{101}+i^{102}+i^{103}\\) 是多少？（任意四个连续的幂都以某种顺序走遍 \\(i,-1,-i,1\\)，它们的和永远是 \\(0\\)。）" }
+    ]
+  },
+
+  /* ---------- 1. MODULUS & ROTATION ---------- */
+  {
+    heading: { en: "1 · Modulus, argument, and multiply-by-rotating", zh: "1 · 模、辐角，以及「相乘即旋转」" },
+    blocks: [
+      { type: "para", en: "Every complex number has two natural measurements: its DISTANCE from the origin, called the modulus \\(|z|,\\) and its ANGLE from the positive real axis, called the argument \\(\\arg z.\\) Together they describe the same point in 'polar' language.",
+        zh: "每个复数有两个自然的度量：到原点的「距离」，叫模 \\(|z|\\)；与正实轴的「夹角」，叫辐角 \\(\\arg z\\)。它们一起用「极坐标」语言描述同一个点。" },
+      { type: "formula", tex: "\\[ |z|=\\sqrt{a^2+b^2}, \\qquad z=|z|\\,(\\cos\\theta+i\\sin\\theta) \\text{ where } \\theta=\\arg z \\]" },
+      { type: "note", en: "Here is the rule that makes complex numbers a superpower: when you MULTIPLY two complex numbers, you MULTIPLY their moduli and ADD their arguments. Lengths multiply; angles add. So multiplication is 'stretch and rotate'. This single rule turns hard geometry into easy arithmetic.",
+        zh: "这是让复数成为超能力的规则：当你「相乘」两个复数，你把它们的模「相乘」、辐角「相加」。长度相乘；角度相加。所以乘法是「伸缩并旋转」。这一条规则把难的几何变成简单的算术。" },
+      { type: "para", en: "The cleanest case: if \\(|z|=1,\\) then \\(z\\) sits on the unit circle and multiplying by it is PURE rotation by angle \\(\\theta,\\) no stretching. This is why \\(i\\) (which is \\(\\cos90^\\circ+i\\sin90^\\circ\\)) rotates by exactly \\(90^\\circ.\\)",
+        zh: "最干净的情形：若 \\(|z|=1\\)，则 \\(z\\) 落在单位圆上，乘以它就是「纯」旋转角度 \\(\\theta\\)，不伸缩。这就是为什么 \\(i\\)（即 \\(\\cos90^\\circ+i\\sin90^\\circ\\)）恰好旋转 \\(90^\\circ\\)。" },
+      { type: "step", n: "1", title: { en: "De Moivre's theorem", zh: "棣莫弗定理" },
+        en: "If multiplying adds angles, then raising to a POWER multiplies the angle. This is De Moivre's theorem:\n\\[ \\big(\\cos\\theta+i\\sin\\theta\\big)^n=\\cos(n\\theta)+i\\sin(n\\theta). \\]\nExample: \\((\\cos30^\\circ+i\\sin30^\\circ)^6=\\cos180^\\circ+i\\sin180^\\circ=-1.\\) Raising to the 6th power just multiplied the \\(30^\\circ\\) angle by 6 to get \\(180^\\circ.\\)",
+        zh: "如果相乘是角度相加，那么求「幂」就是角度相乘。这就是棣莫弗定理：\n\\[ \\big(\\cos\\theta+i\\sin\\theta\\big)^n=\\cos(n\\theta)+i\\sin(n\\theta). \\]\n例：\\((\\cos30^\\circ+i\\sin30^\\circ)^6=\\cos180^\\circ+i\\sin180^\\circ=-1\\)。求 6 次方，不过是把 \\(30^\\circ\\) 角乘以 6 得到 \\(180^\\circ\\)。" },
+      { type: "ask", en: "Predict using rotation: \\((1+i)\\) has modulus \\(\\sqrt2\\) and argument \\(45^\\circ.\\) What is \\((1+i)^8?\\) (Modulus \\((\\sqrt2)^8=16,\\) argument \\(8\\cdot45^\\circ=360^\\circ\\equiv0^\\circ,\\) so \\((1+i)^8=16.\\))",
+        zh: "用旋转预测：\\((1+i)\\) 的模是 \\(\\sqrt2\\)、辐角 \\(45^\\circ\\)。\\((1+i)^8\\) 是多少？（模 \\((\\sqrt2)^8=16\\)，辐角 \\(8\\cdot45^\\circ=360^\\circ\\equiv0^\\circ\\)，所以 \\((1+i)^8=16\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. ROOTS OF UNITY ---------- */
+textbookData[15].sections.push({
+  heading: { en: "2 · Roots of unity \u2014 cutting the circle evenly", zh: "2 · 单位根 \u2014\u2014 把圆均匀切开" },
+  blocks: [
+    { type: "para", en: "Now the centerpiece. The \\(n\\)-th ROOTS OF UNITY are the solutions of \\(z^n=1.\\) There are exactly \\(n\\) of them, and \u2014 this is the beautiful part \u2014 they sit as \\(n\\) equally spaced points around the unit circle, like the vertices of a regular \\(n\\)-gon.",
+      zh: "现在是核心。\\(n\\) 次「单位根」是 \\(z^n=1\\) 的解。它们恰好有 \\(n\\) 个，而且 \u2014\u2014 这是最美的部分 \u2014\u2014 它们作为 \\(n\\) 个等距点分布在单位圆上，像一个正 \\(n\\) 边形的顶点。" },
+    { type: "formula", tex: "\\[ z^n=1 \\;\\Rightarrow\\; z_k=\\cos\\tfrac{2\\pi k}{n}+i\\sin\\tfrac{2\\pi k}{n},\\quad k=0,1,\\dots,n-1 \\]" },
+    { type: "para", en: "Why equally spaced? Because \\(z^n=1\\) means modulus \\(1\\) (so all on the unit circle) and \\(n\\theta\\) is a multiple of \\(360^\\circ\\) (so the angles are \\(\\tfrac{360^\\circ}{n}\\) apart). Solving \\(z^n=1\\) is geometrically the same as 'place \\(n\\) equal points on a circle starting at \\(1\\)'.",
+      zh: "为什么等距？因为 \\(z^n=1\\) 意味着模为 \\(1\\)（所以全在单位圆上），且 \\(n\\theta\\) 是 \\(360^\\circ\\) 的倍数（所以角度间隔 \\(\\tfrac{360^\\circ}{n}\\)）。解 \\(z^n=1\\)，几何上就是「从 \\(1\\) 开始在圆上放 \\(n\\) 个等距点」。" },
+    { type: "step", n: "1", title: { en: "The cube roots of unity", zh: "三次单位根" },
+      en: "Solve \\(z^3=1.\\) Three solutions, spaced \\(120^\\circ\\) apart starting at \\(1:\\)\n\u2022 \\(z_0=1\\) (angle \\(0^\\circ\\)).\n\u2022 \\(z_1=\\cos120^\\circ+i\\sin120^\\circ=-\\tfrac12+\\tfrac{\\sqrt3}{2}i.\\)\n\u2022 \\(z_2=\\cos240^\\circ+i\\sin240^\\circ=-\\tfrac12-\\tfrac{\\sqrt3}{2}i.\\)\n\u2022 The non-real one is usually called \\(\\omega.\\) Note \\(\\omega^3=1\\) and \\(1+\\omega+\\omega^2=0.\\)",
+      zh: "解 \\(z^3=1\\)。三个解，从 \\(1\\) 开始间隔 \\(120^\\circ\\)：\n\u2022 \\(z_0=1\\)（角 \\(0^\\circ\\)）。\n\u2022 \\(z_1=\\cos120^\\circ+i\\sin120^\\circ=-\\tfrac12+\\tfrac{\\sqrt3}{2}i\\)。\n\u2022 \\(z_2=\\cos240^\\circ+i\\sin240^\\circ=-\\tfrac12-\\tfrac{\\sqrt3}{2}i\\)。\n\u2022 那个非实根通常叫 \\(\\omega\\)。注意 \\(\\omega^3=1\\) 且 \\(1+\\omega+\\omega^2=0\\)。" },
+    { type: "note", en: "Memorize this fact, it is everywhere on contests: the SUM of all \\(n\\)-th roots of unity is \\(0\\) (for \\(n\\ge2\\)). Geometrically, \\(n\\) equally spaced points around a circle have their center of mass at the origin, so they cancel. Algebraically, it's Vieta (Concept 01): \\(z^n-1=0\\) has no \\(z^{n-1}\\) term, so the sum of roots is \\(0.\\) Two views, same truth.",
+      zh: "记住这个事实，它在竞赛里无处不在：所有 \\(n\\) 次单位根之「和」是 \\(0\\)（当 \\(n\\ge2\\)）。几何上，圆上 \\(n\\) 个等距点的质心在原点，所以相互抵消。代数上，这是韦达（知识点 01）：\\(z^n-1=0\\) 没有 \\(z^{n-1}\\) 项，所以根之和为 \\(0\\)。两个视角，同一个真理。" },
+    { type: "ask", en: "Predict: the fourth roots of unity solve \\(z^4=1.\\) What are they, and what is their sum? (They are \\(1,i,-1,-i\\) \u2014 and their sum is \\(1+i-1-i=0,\\) as promised.)",
+      zh: "预测：四次单位根解 \\(z^4=1\\)。它们是什么，和是多少？（它们是 \\(1,i,-1,-i\\) \u2014\u2014 和为 \\(1+i-1-i=0\\)，正如所说。）" }
+  ]
+});
+
+/* ---------- 3. ROOTS OF UNITY FILTER ---------- */
+textbookData[15].sections.push({
+  heading: { en: "3 · The roots-of-unity filter", zh: "3 · 单位根筛子" },
+  blocks: [
+    { type: "para", en: "Here is the single most powerful contest technique built from roots of unity. Suppose you want the sum of only SOME coefficients of a polynomial \u2014 say every third one. Plugging in roots of unity acts as a FILTER that keeps the terms you want and cancels the rest.",
+      zh: "这是用单位根搭出的、竞赛里最强大的一个技巧。假设你只想要一个多项式「某些」系数之和 \u2014\u2014 比如每隔三个取一个。代入单位根，就像一个「筛子」，留下你要的项、抵消其余的。" },
+    { type: "para", en: "The idea: for the \\(n\\)-th roots of unity \\(1,\\omega,\\omega^2,\\dots,\\) the sum \\(1+\\omega^k+\\omega^{2k}+\\cdots\\) equals \\(n\\) when \\(k\\) is a multiple of \\(n,\\) and \\(0\\) otherwise. So averaging \\(P(1),P(\\omega),P(\\omega^2),\\dots\\) keeps exactly the coefficients whose index is a multiple of \\(n.\\)",
+      zh: "想法：对 \\(n\\) 次单位根 \\(1,\\omega,\\omega^2,\\dots\\)，和 \\(1+\\omega^k+\\omega^{2k}+\\cdots\\) 在 \\(k\\) 是 \\(n\\) 的倍数时等于 \\(n\\)，否则为 \\(0\\)。所以对 \\(P(1),P(\\omega),P(\\omega^2),\\dots\\) 取平均，恰好留下「下标是 \\(n\\) 的倍数」的那些系数。" },
+    { type: "formula", tex: "\\[ \\sum_{k\\equiv 0 \\,(n)} a_k = \\frac{1}{n}\\sum_{j=0}^{n-1} P(\\omega^j), \\quad \\omega=e^{2\\pi i/n} \\]" },
+    { type: "step", n: "1", title: { en: "Summing every other coefficient", zh: "求隔一个的系数和" },
+      en: "Find the sum of the EVEN-position coefficients of \\((1+x)^4=1+4x+6x^2+4x^3+x^4.\\) (Even powers: \\(1+6+1=8.\\))\n\u2022 Use the 2nd roots of unity \\(\\{1,-1\\}\\) (here \\(n=2\\)):\n\u2022 Even-coefficient sum \\(=\\tfrac12\\big(P(1)+P(-1)\\big)=\\tfrac12\\big(2^4+0^4\\big)=\\tfrac12(16+0)=8.\\) \u2713",
+      zh: "求 \\((1+x)^4=1+4x+6x^2+4x^3+x^4\\) 中「偶数位」系数之和。（偶次幂：\\(1+6+1=8\\)。）\n\u2022 用 2 次单位根 \\(\\{1,-1\\}\\)（这里 \\(n=2\\)）：\n\u2022 偶系数和 \\(=\\tfrac12\\big(P(1)+P(-1)\\big)=\\tfrac12\\big(2^4+0^4\\big)=\\tfrac12(16+0)=8\\)。\u2713" },
+    { type: "note", en: "The familiar special case \\(n=2\\) is the 'plug in \\(1\\) and \\(-1\\)' trick you may have seen for even/odd coefficient sums \u2014 that is the simplest roots-of-unity filter. The general filter with cube roots, fourth roots, etc. is exactly how AMC/AIME problems ask for 'sum of every 3rd term' or 'number of subsets with size divisible by 4'. Same idea, more roots.",
+      zh: "熟悉的特例 \\(n=2\\)，就是你可能见过的、求奇/偶系数和的「代入 \\(1\\) 和 \\(-1\\)」技巧 \u2014\u2014 那是最简单的单位根筛子。用三次根、四次根等的一般筛子，正是 AMC/AIME 题问「每隔 3 项之和」或「大小被 4 整除的子集个数」的方式。同一个想法，更多的根。" },
+    { type: "ask", en: "Predict: to extract the sum of coefficients of \\(x^0,x^3,x^6,\\dots\\) (powers divisible by 3) from a polynomial, which roots would you plug in and average? (The CUBE roots of unity \\(1,\\omega,\\omega^2;\\) average \\(\\tfrac13(P(1)+P(\\omega)+P(\\omega^2)).\\))",
+      zh: "预测：要从一个多项式里提取 \\(x^0,x^3,x^6,\\dots\\)（幂被 3 整除）的系数和，你会代入并平均哪些根？（三次单位根 \\(1,\\omega,\\omega^2\\)；平均 \\(\\tfrac13(P(1)+P(\\omega)+P(\\omega^2))\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[15].sections.push({
+  heading: { en: "4 · Worked examples \u2014 the plane at work", zh: "4 · 例题精讲 \u2014\u2014 平面在工作" },
+  blocks: [
+    { type: "para", en: "Three problems. Each is unlocked by one complex idea: the power cycle, rotation/De Moivre, or the roots-of-unity filter. Read the first line, then try.",
+      zh: "三道题。每道靠一个复数想法解锁：幂的循环、旋转/棣莫弗、或单位根筛子。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "A power cycle sum", zh: "幂循环求和" },
+      en: "Compute \\(1+i+i^2+i^3+\\cdots+i^{2024}.\\)\n\u2022 The powers cycle \\((1,i,-1,-i)\\) with period 4, and each full cycle sums to \\(0.\\)\n\u2022 There are \\(2025\\) terms (\\(k=0\\) to \\(2024\\)). Since \\(2025=4\\cdot506+1,\\) we have 506 complete cycles (sum \\(0\\)) plus one leftover term \\(i^{2024}.\\)\n\u2022 \\(2024\\equiv0\\pmod4,\\) so \\(i^{2024}=1.\\) Total \\(=0+1=1.\\)",
+      zh: "求 \\(1+i+i^2+i^3+\\cdots+i^{2024}\\)。\n\u2022 幂以周期 4 循环 \\((1,i,-1,-i)\\)，每个完整循环和为 \\(0\\)。\n\u2022 共 \\(2025\\) 项（\\(k=0\\) 到 \\(2024\\)）。因为 \\(2025=4\\cdot506+1\\)，有 506 个完整循环（和 \\(0\\)）加一个剩余项 \\(i^{2024}\\)。\n\u2022 \\(2024\\equiv0\\pmod4\\)，所以 \\(i^{2024}=1\\)。总 \\(=0+1=1\\)。" },
+    { type: "step", n: "B", title: { en: "A power via rotation", zh: "用旋转求幂" },
+      en: "Compute \\((1+i)^{10}.\\)\n\u2022 Polar form: \\(|1+i|=\\sqrt2,\\ \\arg(1+i)=45^\\circ.\\)\n\u2022 By De Moivre, raise to the 10th: modulus \\((\\sqrt2)^{10}=2^5=32,\\) argument \\(10\\cdot45^\\circ=450^\\circ\\equiv90^\\circ.\\)\n\u2022 So \\((1+i)^{10}=32(\\cos90^\\circ+i\\sin90^\\circ)=32i.\\)",
+      zh: "求 \\((1+i)^{10}\\)。\n\u2022 极坐标形式：\\(|1+i|=\\sqrt2,\\ \\arg(1+i)=45^\\circ\\)。\n\u2022 由棣莫弗，求 10 次方：模 \\((\\sqrt2)^{10}=2^5=32\\)，辐角 \\(10\\cdot45^\\circ=450^\\circ\\equiv90^\\circ\\)。\n\u2022 所以 \\((1+i)^{10}=32(\\cos90^\\circ+i\\sin90^\\circ)=32i\\)。" },
+    { type: "step", n: "C", title: { en: "Roots-of-unity filter (AIME-style)", zh: "单位根筛子（AIME 风格）" },
+      en: "How many subsets of \\(\\{1,2,3,4,5,6\\}\\) have size divisible by 3 (size 0, 3, or 6)?\n\u2022 Subset counts by size are the coefficients of \\((1+x)^6.\\) We want powers \\(x^0,x^3,x^6.\\)\n\u2022 Cube-root filter: \\(\\tfrac13\\big(P(1)+P(\\omega)+P(\\omega^2)\\big)\\) with \\(P(x)=(1+x)^6.\\)\n\u2022 \\(P(1)=2^6=64;\\ P(\\omega)=(1+\\omega)^6;\\) since \\(1+\\omega=-\\omega^2,\\) \\((1+\\omega)^6=\\omega^{12}=1.\\) Likewise \\(P(\\omega^2)=1.\\)\n\u2022 Answer \\(=\\tfrac13(64+1+1)=\\tfrac{66}{3}=22.\\) (Check: \\(\\binom60+\\binom63+\\binom66=1+20+1=22.\\))",
+      zh: "\\(\\{1,2,3,4,5,6\\}\\) 有多少个子集的大小被 3 整除（大小 0、3 或 6）？\n\u2022 按大小的子集数，正是 \\((1+x)^6\\) 的系数。我们要 \\(x^0,x^3,x^6\\) 的幂。\n\u2022 三次根筛子：\\(\\tfrac13\\big(P(1)+P(\\omega)+P(\\omega^2)\\big)\\)，其中 \\(P(x)=(1+x)^6\\)。\n\u2022 \\(P(1)=2^6=64\\)；\\(P(\\omega)=(1+\\omega)^6\\)；因 \\(1+\\omega=-\\omega^2\\)，\\((1+\\omega)^6=\\omega^{12}=1\\)。同理 \\(P(\\omega^2)=1\\)。\n\u2022 答案 \\(=\\tfrac13(64+1+1)=\\tfrac{66}{3}=22\\)。（验证：\\(\\binom60+\\binom63+\\binom66=1+20+1=22\\)。）" },
+    { type: "note", en: "Example C is the signature AIME move: a counting question (Concept 09) gets encoded as polynomial coefficients (binomial theorem), then a roots-of-unity filter extracts exactly the ones you want. Counting, polynomials, and complex numbers fuse into one technique. This is the deepest payoff of building a connected toolkit \u2014 the hardest problems live where the topics meet.",
+      zh: "例题 C 是 AIME 的标志性招数：一个计数问题（知识点 09）被编码成多项式系数（二项式定理），然后单位根筛子精确提取你要的那些。计数、多项式、复数融成一个技巧。这是搭建互通工具箱最深的回报 \u2014\u2014 最难的题，就住在各个主题交汇的地方。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[15].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. For each, name the idea (power cycle / rotation / roots-of-unity), then solve.",
+      zh: "盖住答案。每道题先说出想法（幂循环 / 旋转 / 单位根），再求解。" },
+    { type: "ask", en: "Q1. Compute \\(i^{2027}.\\)",
+      zh: "Q1. 求 \\(i^{2027}\\)。" },
+    { type: "ask", en: "Q2. Compute \\((1+i)^4.\\)",
+      zh: "Q2. 求 \\((1+i)^4\\)。" },
+    { type: "ask", en: "Q3. What is the sum of all five 5th roots of unity?",
+      zh: "Q3. 五个 5 次单位根之和是多少？" },
+    { type: "ask", en: "Q4. Find the sum of the odd-position coefficients of \\((1+x)^5.\\)",
+      zh: "Q4. 求 \\((1+x)^5\\) 的奇数位系数之和。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: power cycle. \\(2027=4\\cdot506+3,\\) so \\(i^{2027}=i^3=-i.\\)\nQ2: rotation. \\(|1+i|=\\sqrt2,\\ \\arg=45^\\circ;\\) 4th power gives modulus \\(4,\\) argument \\(180^\\circ,\\) so \\(-4.\\)\nQ3: roots of unity sum to \\(0\\) (for \\(n\\ge2\\)).\nQ4: filter with \\(\\pm1.\\) Odd sum \\(=\\tfrac12(P(1)-P(-1))=\\tfrac12(2^5-0)=16.\\) (Check: \\(\\binom51+\\binom53+\\binom55=5+10+1=16.\\))",
+      zh: "答案。\nQ1：幂循环。\\(2027=4\\cdot506+3\\)，所以 \\(i^{2027}=i^3=-i\\)。\nQ2：旋转。\\(|1+i|=\\sqrt2,\\ \\arg=45^\\circ\\)；4 次方给出模 \\(4\\)、辐角 \\(180^\\circ\\)，所以 \\(-4\\)。\nQ3：单位根之和为 \\(0\\)（当 \\(n\\ge2\\)）。\nQ4：用 \\(\\pm1\\) 筛。奇数和 \\(=\\tfrac12(P(1)-P(-1))=\\tfrac12(2^5-0)=16\\)。（验证：\\(\\binom51+\\binom53+\\binom55=5+10+1=16\\)。）" },
+    { type: "para", en: "Complex numbers complete your toolkit. They turn powers into cycles (Concept 07's modular thinking), multiplication into rotation, and \\(z^n=1\\) into a perfectly symmetric set of points whose sums and filters crack the hardest AMC #25 and AIME problems. The recurring lesson of this whole journal holds one last time: the deepest problems are not about one idea, but about ideas meeting \u2014 and now you have fifteen connected tools to bring to that meeting.",
+      zh: "复数补全了你的工具箱。它们把幂变成循环（知识点 07 的模思维）、把乘法变成旋转、把 \\(z^n=1\\) 变成一组完美对称的点 \u2014\u2014 它们的求和与筛子，破开最难的 AMC 第 25 题和 AIME 题。这本日志反复的教训最后再说一次：最深的题不是关于一个想法，而是关于想法的「相遇」\u2014\u2014 而现在，你带着十五件互通的工具，赴这场相遇。" }
+  ]
+});
+
