@@ -2145,3 +2145,144 @@ textbookData[13].sections.push({
   ]
 });
 
+
+
+/* ============================================================
+   CONCEPT 15 — Logarithms & Exponents
+   ============================================================*/
+textbookData.push({
+  id: "logexp",
+  badge: { en: "Concept 15", zh: "知识点 15" },
+  title: { en: "Logarithms & Exponents", zh: "对数与指数" },
+  subtitle: { en: "A logarithm is just the question 'what power?' Master three laws and the change-of-base trick, and a whole class of AMC #15\u2013#20 problems becomes routine.",
+              zh: "对数不过是「几次方？」这个问题。掌握三条法则和换底技巧，一整类 AMC 第 15\u201320 题就变成例行公事。" },
+  readingTime: { en: "~28 min deep read", zh: "约 28 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · A logarithm is just a question", zh: "0 · 对数只是一个问题" },
+    blocks: [
+      { type: "para", en: "The word 'logarithm' scares people, but the idea is something you already do. Exponents answer 'what do I GET?': \\(2^3=8.\\) A logarithm just asks the SAME relationship backwards: 'what POWER do I need?' \\(\\log_2 8\\) asks 'two to the what equals 8?' \u2014 the answer is 3.",
+        zh: "「对数」这个词吓人，但这个想法你早就在做了。指数回答「我得到什么？」：\\(2^3=8\\)。对数只是把「同一个关系」反过来问：「我需要几次方？」\\(\\log_2 8\\) 问的是「2 的几次方等于 8？」\u2014\u2014 答案是 3。" },
+      { type: "formula", tex: "\\[ \\log_b a = c \\quad\\Longleftrightarrow\\quad b^c = a \\]" },
+      { type: "para", en: "Read that double arrow as the single most important fact in the whole lesson: a log equation and an exponential equation are the SAME statement written two ways. Whenever a log confuses you, rewrite it as 'base to the power equals'. The confusion vanishes.",
+        zh: "把那个双箭头读成整节课最重要的一个事实：一个对数方程和一个指数方程，是「同一句话」的两种写法。每当对数让你困惑，就把它改写成「底的几次方等于」。困惑就消失了。" },
+      { type: "example", en: "Evaluate \\(\\log_3 81.\\) Ask: 'three to the what is 81?' Since \\(3^4=81,\\) the answer is \\(4.\\) Evaluate \\(\\log_2 \\tfrac18.\\) Ask: 'two to the what is \\(\\tfrac18\\)?' Since \\(2^{-3}=\\tfrac18,\\) the answer is \\(-3.\\)",
+        zh: "求 \\(\\log_3 81\\)。问：「3 的几次方是 81？」因为 \\(3^4=81\\)，答案是 \\(4\\)。求 \\(\\log_2 \\tfrac18\\)。问：「2 的几次方是 \\(\\tfrac18\\)？」因为 \\(2^{-3}=\\tfrac18\\)，答案是 \\(-3\\)。" },
+      { type: "note", en: "Two values to lock in forever, true for any base \\(b>0:\\) \\(\\log_b 1=0\\) (because \\(b^0=1\\)) and \\(\\log_b b=1\\) (because \\(b^1=b\\)). These come up constantly as the 'anchor points' that simplify the end of a calculation.",
+        zh: "两个永远记住的值，对任何底 \\(b>0\\) 都成立：\\(\\log_b 1=0\\)（因为 \\(b^0=1\\)）和 \\(\\log_b b=1\\)（因为 \\(b^1=b\\)）。它们作为「锚点」在计算收尾时不断出现。" },
+      { type: "ask", en: "Hold this: what is \\(\\log_5 125?\\) Rewrite as 'five to the what is 125'. (\\(5^3=125,\\) so the answer is 3.) And \\(\\log_{10}\\tfrac{1}{100}?\\) (\\(10^{-2}=\\tfrac1{100},\\) so \\(-2.\\))",
+        zh: "记住：\\(\\log_5 125\\) 是多少？改写成「5 的几次方是 125」。（\\(5^3=125\\)，所以答案是 3。）还有 \\(\\log_{10}\\tfrac{1}{100}\\)？（\\(10^{-2}=\\tfrac1{100}\\)，所以 \\(-2\\)。）" }
+    ]
+  },
+
+  /* ---------- 1. THREE LAWS ---------- */
+  {
+    heading: { en: "1 · The three laws (and where they come from)", zh: "1 · 三条法则（以及它们的来源）" },
+    blocks: [
+      { type: "para", en: "Every log manipulation rests on three laws. The beautiful part: they are just the EXPONENT rules in disguise. Because logs undo exponents, the exponent rule 'multiply means add powers' becomes the log rule 'log of a product is a sum'.",
+        zh: "每一次对数变形都建立在三条法则上。美妙之处：它们只是「指数法则」的伪装。因为对数抵消指数，指数法则「相乘就是指数相加」变成对数法则「积的对数是和」。" },
+      { type: "formula", tex: "\\[ \\log_b(xy) = \\log_b x + \\log_b y \\]" },
+      { type: "formula", tex: "\\[ \\log_b\\!\\left(\\tfrac{x}{y}\\right) = \\log_b x - \\log_b y \\]" },
+      { type: "formula", tex: "\\[ \\log_b(x^n) = n\\log_b x \\]" },
+      { type: "note", en: "The third law \u2014 the exponent comes OUT to the front \u2014 is the single most useful one on contests. It turns an unknown stuck in an exponent into a coefficient you can solve for. 'A variable trapped upstairs comes downstairs when you take a log.' That is the whole reason logs exist for problem-solvers.",
+        zh: "第三条法则 \u2014\u2014 指数「跑到」前面来 \u2014\u2014 是竞赛里最有用的一条。它把一个卡在指数里的未知量，变成一个你能解的系数。「困在楼上的变量，取对数后就下楼了。」这就是对数对解题者存在的全部理由。" },
+      { type: "step", n: "1", title: { en: "Solving for a trapped exponent", zh: "解一个困在指数里的未知量" },
+        en: "Solve \\(3^x=20.\\)\n\u2022 The unknown \\(x\\) is stuck in the exponent. Take \\(\\log\\) of both sides (any base):\n\u2022 \\(\\log(3^x)=\\log 20\\Rightarrow x\\log 3=\\log 20\\) (third law brings \\(x\\) down).\n\u2022 \\(x=\\dfrac{\\log 20}{\\log 3}.\\) The variable came downstairs and we solved it.",
+        zh: "解 \\(3^x=20\\)。\n\u2022 未知量 \\(x\\) 卡在指数里。两边取 \\(\\log\\)（任意底）：\n\u2022 \\(\\log(3^x)=\\log 20\\Rightarrow x\\log 3=\\log 20\\)（第三条法则把 \\(x\\) 带下来）。\n\u2022 \\(x=\\dfrac{\\log 20}{\\log 3}\\)。变量下楼了，我们解出了它。" },
+      { type: "example", en: "Simplify \\(\\log_2 12 + \\log_2 \\tfrac{2}{3}.\\) Use the product/quotient laws to combine: \\(\\log_2\\!\\left(12\\cdot\\tfrac23\\right)=\\log_2 8=3.\\) Two scary-looking logs collapsed into the clean answer 3.",
+        zh: "化简 \\(\\log_2 12 + \\log_2 \\tfrac{2}{3}\\)。用积/商法则合并：\\(\\log_2\\!\\left(12\\cdot\\tfrac23\\right)=\\log_2 8=3\\)。两个看着吓人的对数，坍缩成干净的答案 3。" },
+      { type: "ask", en: "Try: simplify \\(\\log_6 4 + \\log_6 9.\\) (Product law: \\(\\log_6(4\\cdot9)=\\log_6 36=2.\\))",
+        zh: "试试：化简 \\(\\log_6 4 + \\log_6 9\\)。（积法则：\\(\\log_6(4\\cdot9)=\\log_6 36=2\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. CHANGE OF BASE ---------- */
+textbookData[14].sections.push({
+  heading: { en: "2 · Change of base \u2014 the universal converter", zh: "2 · 换底公式 \u2014\u2014 万能转换器" },
+  blocks: [
+    { type: "para", en: "Calculators only know two bases (10 and \\(e\\)), but contests throw every base at you. The change-of-base formula converts ANY logarithm into a ratio of logs in a base you prefer. It is the bridge between different bases.",
+      zh: "计算器只懂两个底（10 和 \\(e\\)），但竞赛把各种底都丢给你。换底公式把「任何」对数转成你喜欢的底下的两个对数之比。它是不同底之间的桥。" },
+    { type: "formula", tex: "\\[ \\log_b a = \\frac{\\log_c a}{\\log_c b} \\quad\\text{for any new base } c \\]" },
+    { type: "para", en: "Two consequences are worth memorizing because they appear constantly. First, a reciprocal flip: \\(\\log_b a=\\dfrac{1}{\\log_a b}.\\) Second, a 'chain' that telescopes: \\(\\log_a b\\cdot\\log_b c=\\log_a c\\) \u2014 the middle base cancels, just like canceling fractions.",
+      zh: "两个推论值得背，因为它们不断出现。第一，倒数翻转：\\(\\log_b a=\\dfrac{1}{\\log_a b}\\)。第二，一条会裂项的「链」：\\(\\log_a b\\cdot\\log_b c=\\log_a c\\) \u2014\u2014 中间的底抵消了，就像约分数一样。" },
+    { type: "step", n: "1", title: { en: "A telescoping chain of logs", zh: "一条裂项的对数链" },
+      en: "Evaluate \\(\\log_2 3\\cdot\\log_3 4\\cdot\\log_4 5\\cdot\\log_5 6\\cdots\\log_{63}64.\\)\n\u2022 Convert each to a common base: \\(\\log_2 3=\\dfrac{\\log 3}{\\log 2},\\ \\log_3 4=\\dfrac{\\log 4}{\\log 3},\\dots\\)\n\u2022 The product telescopes \u2014 every numerator cancels the next denominator \u2014 leaving \\(\\dfrac{\\log 64}{\\log 2}=\\log_2 64=6.\\)\n\u2022 A huge product collapsed to \\(6.\\)",
+      zh: "求 \\(\\log_2 3\\cdot\\log_3 4\\cdot\\log_4 5\\cdot\\log_5 6\\cdots\\log_{63}64\\)。\n\u2022 每个换成公共底：\\(\\log_2 3=\\dfrac{\\log 3}{\\log 2},\\ \\log_3 4=\\dfrac{\\log 4}{\\log 3},\\dots\\)\n\u2022 乘积裂项 \u2014\u2014 每个分子抵消下一个分母 \u2014\u2014 剩下 \\(\\dfrac{\\log 64}{\\log 2}=\\log_2 64=6\\)。\n\u2022 一个巨大的乘积坍缩成 \\(6\\)。" },
+    { type: "note", en: "Notice this is the SAME telescoping idea from Concepts 11 and 14, now in logs: convert everything to one base so neighbors cancel. When you see a long product or sum of logs with shifting bases, your reflex should be: change them all to a common base and watch the cascade collapse.",
+      zh: "注意这和知识点 11、14 里的「裂项」是同一个想法，现在用在对数上：把一切换成一个底，让相邻项抵消。当你看到一长串底在变的对数乘积或求和，你的反射应该是：全换成公共底，看那条级联坍缩。" },
+    { type: "ask", en: "Try the reciprocal flip: if \\(\\log_2 7=x,\\) what is \\(\\log_7 2\\) in terms of \\(x?\\) (\\(\\log_7 2=\\dfrac{1}{\\log_2 7}=\\dfrac1x.\\))",
+      zh: "试倒数翻转：若 \\(\\log_2 7=x\\)，用 \\(x\\) 表示 \\(\\log_7 2\\)？（\\(\\log_7 2=\\dfrac{1}{\\log_2 7}=\\dfrac1x\\)。）" }
+  ]
+});
+
+/* ---------- 3. EXPONENTIAL EQUATIONS ---------- */
+textbookData[14].sections.push({
+  heading: { en: "3 · Exponential equations \u2014 substitution returns", zh: "3 · 指数方程 \u2014\u2014 代换法回归" },
+  blocks: [
+    { type: "para", en: "Many exponential equations look terrifying until you notice a repeated chunk and name it \u2014 exactly the substitution skill from Concept 04. The most common pattern hides a quadratic inside.",
+      zh: "许多指数方程看着可怕，直到你注意到一个重复的块并给它命名 \u2014\u2014 正是知识点 04 的代换技能。最常见的模式里藏着一个二次方程。" },
+    { type: "step", n: "1", title: { en: "An exponential quadratic", zh: "一个指数二次方程" },
+      en: "Solve \\(4^x-5\\cdot2^x+4=0.\\)\n\u2022 Notice \\(4^x=(2^2)^x=(2^x)^2.\\) Let \\(u=2^x\\ (u>0).\\)\n\u2022 \\(u^2-5u+4=0\\Rightarrow(u-1)(u-4)=0\\Rightarrow u=1\\) or \\(u=4.\\)\n\u2022 \\(2^x=1\\Rightarrow x=0;\\quad 2^x=4\\Rightarrow x=2.\\)\n\u2022 Both valid since \\(u>0.\\) Solutions: \\(x=0,2.\\)",
+      zh: "解 \\(4^x-5\\cdot2^x+4=0\\)。\n\u2022 注意 \\(4^x=(2^2)^x=(2^x)^2\\)。令 \\(u=2^x\\ (u>0)\\)。\n\u2022 \\(u^2-5u+4=0\\Rightarrow(u-1)(u-4)=0\\Rightarrow u=1\\) 或 \\(u=4\\)。\n\u2022 \\(2^x=1\\Rightarrow x=0\\)；\\(2^x=4\\Rightarrow x=2\\)。\n\u2022 因 \\(u>0\\) 两个都合法。解：\\(x=0,2\\)。" },
+    { type: "note", en: "Two reflexes fired together: (1) name the repeated chunk \\(u=2^x,\\) and (2) carry the DOMAIN \\(u>0,\\) which would let you discard any negative \\(u.\\) Exponential expressions are always positive, so any solution forcing \\(u\\le0\\) is rejected \u2014 the same domain-vigilance habit from the substitution and inequality lessons.",
+      zh: "两个反射一起触发：(1) 给重复块命名 \\(u=2^x\\)，(2) 带着「定义域」\\(u>0\\)，它会让你丢掉任何负的 \\(u\\)。指数式永远为正，所以任何逼出 \\(u\\le0\\) 的解都被舍去 \u2014\u2014 和代换、不等式那几课里同样的「定义域警觉」习惯。" },
+    { type: "step", n: "2", title: { en: "A logarithmic equation", zh: "一个对数方程" },
+      en: "Solve \\(\\log_2 x+\\log_2(x-2)=3.\\)\n\u2022 Combine with the product law: \\(\\log_2\\big(x(x-2)\\big)=3.\\)\n\u2022 Rewrite as exponential: \\(x(x-2)=2^3=8\\Rightarrow x^2-2x-8=0\\Rightarrow(x-4)(x+2)=0.\\)\n\u2022 \\(x=4\\) or \\(x=-2.\\) But CHECK THE DOMAIN: logs need positive arguments, so \\(x>2.\\) Reject \\(x=-2.\\)\n\u2022 Only solution: \\(x=4.\\)",
+      zh: "解 \\(\\log_2 x+\\log_2(x-2)=3\\)。\n\u2022 用积法则合并：\\(\\log_2\\big(x(x-2)\\big)=3\\)。\n\u2022 改写成指数：\\(x(x-2)=2^3=8\\Rightarrow x^2-2x-8=0\\Rightarrow(x-4)(x+2)=0\\)。\n\u2022 \\(x=4\\) 或 \\(x=-2\\)。但「检查定义域」：对数需要正的真数，所以 \\(x>2\\)。舍去 \\(x=-2\\)。\n\u2022 唯一解：\\(x=4\\)。" },
+    { type: "note", en: "CRITICAL: logarithmic equations almost always produce a fake solution. Combining logs can introduce values that make an original log undefined (negative or zero argument). You MUST check every candidate against the domain \u2014 every argument inside a log must be strictly positive. Forgetting this is the #1 error on log problems.",
+      zh: "关键：对数方程几乎总会产生一个假解。合并对数会引入那些让原始对数无定义（真数为负或零）的值。你「必须」拿每个候选对照定义域检查 \u2014\u2014 每个对数里的真数都必须严格为正。忘了这点是对数题的头号错误。" },
+    { type: "ask", en: "Try: solve \\(\\log_3 x+\\log_3(x-6)=3.\\) (Combine: \\(x(x-6)=27\\Rightarrow x^2-6x-27=0\\Rightarrow(x-9)(x+3)=0.\\) Domain \\(x>6,\\) so \\(x=9.\\))",
+      zh: "试试：解 \\(\\log_3 x+\\log_3(x-6)=3\\)。（合并：\\(x(x-6)=27\\Rightarrow x^2-6x-27=0\\Rightarrow(x-9)(x+3)=0\\)。定义域 \\(x>6\\)，所以 \\(x=9\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[14].sections.push({
+  heading: { en: "4 · Worked examples \u2014 logs under fire", zh: "4 · 例题精讲 \u2014\u2014 实战中的对数" },
+  blocks: [
+    { type: "para", en: "Three problems. Each is unlocked by one move: change to a common base, bring an exponent down, or substitute. Read the first line, then try.",
+      zh: "三道题。每道靠一个动作解锁：换成公共底、把指数带下来、或代换。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Mixed bases (AMC-style)", zh: "混合底（AMC 风格）" },
+      en: "Solve \\(\\log_2 x+\\log_4 x+\\log_8 x=11.\\)\n\u2022 Change all to base 2: \\(\\log_4 x=\\tfrac{\\log_2 x}{2},\\ \\log_8 x=\\tfrac{\\log_2 x}{3}.\\)\n\u2022 So \\(\\left(1+\\tfrac12+\\tfrac13\\right)\\log_2 x=11\\Rightarrow\\tfrac{11}{6}\\log_2 x=11.\\)\n\u2022 \\(\\log_2 x=6\\Rightarrow x=2^6=64.\\)",
+      zh: "解 \\(\\log_2 x+\\log_4 x+\\log_8 x=11\\)。\n\u2022 全换成 2 为底：\\(\\log_4 x=\\tfrac{\\log_2 x}{2},\\ \\log_8 x=\\tfrac{\\log_2 x}{3}\\)。\n\u2022 所以 \\(\\left(1+\\tfrac12+\\tfrac13\\right)\\log_2 x=11\\Rightarrow\\tfrac{11}{6}\\log_2 x=11\\)。\n\u2022 \\(\\log_2 x=6\\Rightarrow x=2^6=64\\)。" },
+    { type: "step", n: "B", title: { en: "A variable in two places", zh: "变量出现在两处" },
+      en: "Find the product of all real solutions of \\(x^{\\log_{10} x}=100.\\)\n\u2022 The unknown is both a base and inside an exponent \u2014 take \\(\\log_{10}\\) of both sides.\n\u2022 \\(\\log_{10}\\!\\left(x^{\\log_{10}x}\\right)=\\log_{10}100\\Rightarrow(\\log_{10}x)^2=2.\\)\n\u2022 Let \\(y=\\log_{10}x:\\) \\(y^2=2\\Rightarrow y=\\pm\\sqrt2,\\) so \\(x=10^{\\sqrt2}\\) or \\(10^{-\\sqrt2}.\\)\n\u2022 Product \\(=10^{\\sqrt2}\\cdot10^{-\\sqrt2}=10^0=1.\\)",
+      zh: "求 \\(x^{\\log_{10} x}=100\\) 所有实数解之积。\n\u2022 未知量既是底又在指数里 \u2014\u2014 两边取 \\(\\log_{10}\\)。\n\u2022 \\(\\log_{10}\\!\\left(x^{\\log_{10}x}\\right)=\\log_{10}100\\Rightarrow(\\log_{10}x)^2=2\\)。\n\u2022 令 \\(y=\\log_{10}x\\)：\\(y^2=2\\Rightarrow y=\\pm\\sqrt2\\)，所以 \\(x=10^{\\sqrt2}\\) 或 \\(10^{-\\sqrt2}\\)。\n\u2022 积 \\(=10^{\\sqrt2}\\cdot10^{-\\sqrt2}=10^0=1\\)。" },
+    { type: "step", n: "C", title: { en: "A short log chain", zh: "一条短对数链" },
+      en: "Evaluate \\(\\log_2 3\\cdot\\log_3 4\\cdot\\log_4 8.\\)\n\u2022 Convert all to base 2 \u2014 the chain telescopes: \\(\\dfrac{\\log 3}{\\log 2}\\cdot\\dfrac{\\log 4}{\\log 3}\\cdot\\dfrac{\\log 8}{\\log 4}=\\dfrac{\\log 8}{\\log 2}.\\)\n\u2022 \\(=\\log_2 8=3.\\)",
+      zh: "求 \\(\\log_2 3\\cdot\\log_3 4\\cdot\\log_4 8\\)。\n\u2022 全换成 2 为底 \u2014\u2014 链裂项：\\(\\dfrac{\\log 3}{\\log 2}\\cdot\\dfrac{\\log 4}{\\log 3}\\cdot\\dfrac{\\log 8}{\\log 4}=\\dfrac{\\log 8}{\\log 2}\\)。\n\u2022 \\(=\\log_2 8=3\\)。" },
+    { type: "note", en: "The through-line: example B's 'take a log of both sides' is the universal escape when the unknown is trapped in an exponent, and its product-of-roots trick reused Vieta-style thinking (the \\(y\\)'s are roots of \\(y^2-2=0,\\) product \\(-2/1\\)... but here we read \\(x=10^y,\\) so the product is \\(10^{y_1+y_2}=10^0\\)). Logs, substitution, and Vieta keep meeting. One connected toolkit.",
+      zh: "主线：例题 B 的「两边取对数」是当未知量困在指数里时的万能逃生口，而它的「两根之积」技巧复用了韦达式思维（\\(y\\) 是 \\(y^2-2=0\\) 的根，和为 0，所以 \\(x\\) 之积 \\(=10^{y_1+y_2}=10^0\\)）。对数、代换、韦达不断相遇。一个互通的工具箱。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[14].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. For each, name the move first (rewrite / law / change base / substitute), then solve.",
+      zh: "盖住答案。每道题先说出动作（改写 / 法则 / 换底 / 代换），再求解。" },
+    { type: "ask", en: "Q1. Evaluate \\(\\log_2 32.\\)",
+      zh: "Q1. 求 \\(\\log_2 32\\)。" },
+    { type: "ask", en: "Q2. Simplify \\(\\log_6 4+\\log_6 9.\\)",
+      zh: "Q2. 化简 \\(\\log_6 4+\\log_6 9\\)。" },
+    { type: "ask", en: "Q3. Solve \\(9^x-4\\cdot3^x+3=0.\\)",
+      zh: "Q3. 解 \\(9^x-4\\cdot3^x+3=0\\)。" },
+    { type: "ask", en: "Q4. Evaluate \\(\\log_5 3\\cdot\\log_3 25.\\)",
+      zh: "Q4. 求 \\(\\log_5 3\\cdot\\log_3 25\\)。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: rewrite. \\(2^5=32,\\) so \\(\\log_2 32=5.\\)\nQ2: product law. \\(\\log_6(4\\cdot9)=\\log_6 36=2.\\)\nQ3: substitute \\(u=3^x:\\) \\(u^2-4u+3=(u-1)(u-3)=0\\Rightarrow u=1,3\\Rightarrow x=0,1.\\)\nQ4: change of base / chain. \\(\\log_5 3\\cdot\\log_3 25=\\log_5 25=2.\\)",
+      zh: "答案。\nQ1：改写。\\(2^5=32\\)，所以 \\(\\log_2 32=5\\)。\nQ2：积法则。\\(\\log_6(4\\cdot9)=\\log_6 36=2\\)。\nQ3：代换 \\(u=3^x\\)：\\(u^2-4u+3=(u-1)(u-3)=0\\Rightarrow u=1,3\\Rightarrow x=0,1\\)。\nQ4：换底 / 链。\\(\\log_5 3\\cdot\\log_3 25=\\log_5 25=2\\)。" },
+    { type: "para", en: "Everything here flowed from one idea: a log is the question 'what power?'. The three laws are exponent rules in reverse, change-of-base is the universal converter, and a trapped exponent always comes down when you take a log. Pair these with the domain check on every log equation, and a whole tier of AMC #15\u2013#20 problems becomes routine bookkeeping.",
+      zh: "这里的一切都从一个想法流出：对数是「几次方？」这个问题。三条法则是指数法则的反向，换底是万能转换器，困在指数里的未知量取对数后总会下楼。把这些和「每个对数方程都查定义域」配在一起，一整层 AMC 第 15\u201320 题就变成例行记账。" }
+  ]
+});
+
