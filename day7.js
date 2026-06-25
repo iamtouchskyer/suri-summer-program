@@ -344,13 +344,15 @@ courseData.days[courseData.days.length-1].problemSet.push(
 {
 n: 15, source: "2014 ARML Team #7",
 statement: { en: "Compute \\(\\sin^2 4^\\circ+\\sin^2 8^\\circ+\\sin^2 12^\\circ+\\cdots+\\sin^2 176^\\circ.\\)", zh: "求 \\(\\sin^2 4^\\circ+\\sin^2 8^\\circ+\\sin^2 12^\\circ+\\cdots+\\sin^2 176^\\circ.\\)" },
-recall: [ { en: "sin^2 x equals (1-cos2x)/2", zh: "sin²x=(1−cos2x)/2" }, { en: "Sum of cos over equal slices = 0", zh: "等分余弦和 = 0" } ],
-guide: { en: "Power-reduce each term; the \\(\\cos\\) parts form a complete roots-of-unity sum and vanish, leaving \\(\\tfrac12\\) times the count.", zh: "每项降幂；\\(\\cos\\) 部分构成完整单位根和而消失，剩 \\(\\tfrac12\\) 乘项数。" },
+recall: [ { en: "sin^2 x equals (1-cos2x)/2", zh: "sin²x=(1−cos2x)/2" }, { en: "Sum of cos over a full set of equal slices = -1 (not 0!)", zh: "一整组等分角的余弦和 = −1（不是 0！）" } ],
+guide: { en: "Power-reduce each term to \\(\\tfrac12-\\tfrac12\\cos(8k^\\circ).\\) The cosine angles \\(8^\\circ,16^\\circ,\\dots\\) are NOT a complete set of roots of unity here — their sum is \\(-1,\\) not \\(0.\\) Be careful: that half-unit is exactly what makes the answer a half-integer.", zh: "每项降幂为 \\(\\tfrac12-\\tfrac12\\cos(8k^\\circ).\\) 这里余弦的角 \\(8^\\circ,16^\\circ,\\dots\\) 并不是一整组单位根 —— 它们的和是 \\(-1,\\) 不是 \\(0.\\) 小心：正是这半个单位让答案变成半整数。" },
 steps: [
-{ en: "STEP 1 — 44 terms (\\(4^\\circ\\) to \\(176^\\circ\\) step \\(4^\\circ\\)). Sum \\(=\\tfrac12\\cdot44-\\tfrac12\\sum\\cos=22-0=22.\\)", zh: "第 1 步 —— 44 项。和 \\(=\\tfrac12\\cdot44-\\tfrac12\\sum\\cos=22-0=22.\\)" }
+{ en: "STEP 1 — Power-reduce: \\(\\sum_{k=1}^{44}\\sin^2(4k^\\circ)=\\tfrac12\\cdot44-\\tfrac12\\sum_{k=1}^{44}\\cos(8k^\\circ).\\)", zh: "第 1 步 —— 降幂：\\(\\sum_{k=1}^{44}\\sin^2(4k^\\circ)=\\tfrac12\\cdot44-\\tfrac12\\sum_{k=1}^{44}\\cos(8k^\\circ).\\)" },
+{ en: "STEP 2 — The cosine sum. \\(\\sum_{k=1}^{44}\\cos(8k^\\circ)=-1\\) (the angles \\(8^\\circ\\dots352^\\circ\\) are 44 of the 45 equally-spaced directions, missing only \\(0^\\circ,\\) so they sum to \\(-1\\)).", zh: "第 2 步 —— 余弦和。\\(\\sum_{k=1}^{44}\\cos(8k^\\circ)=-1\\)（角 \\(8^\\circ\\dots352^\\circ\\) 是 45 个等分方向里的 44 个，只缺 \\(0^\\circ,\\) 故和为 \\(-1\\)）。" },
+{ en: "STEP 3 — Assemble: \\(22-\\tfrac12(-1)=22+\\tfrac12=\\tfrac{45}{2}.\\) (Verified numerically.)", zh: "第 3 步 —— 合并：\\(22-\\tfrac12(-1)=22+\\tfrac12=\\tfrac{45}{2}.\\)（已数值验证。）" }
 ],
-answer: { en: "\\(22\\)", zh: "\\(22\\)" },
-insight: { en: "sin^2 sums become 'half the count' once the cosine part cancels as a full roots-of-unity sum.", zh: "sin² 求和在余弦部分作为完整单位根和消掉后，就变成「项数的一半」。" }
+answer: { en: "\\(\\dfrac{45}{2}=22.5\\)", zh: "\\(\\dfrac{45}{2}=22.5\\)" },
+insight: { en: "Watch the cosine sum! A near-complete set of equal slices sums to \\(-1,\\) not \\(0,\\) because exactly one direction (\\(0^\\circ\\)) is missing. That stray \\(\\tfrac12\\) is the whole difficulty.", zh: "盯紧余弦和！「几乎完整」的一组等分方向之和是 \\(-1,\\) 不是 \\(0,\\) 因为恰好缺了一个方向（\\(0^\\circ\\)）。那多出来的 \\(\\tfrac12\\) 正是难点所在。" }
 },
 {
 n: 16, source: "2015 HMMT November Guts #22",
