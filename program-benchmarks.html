@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>夏校能力基准卡 · Program Benchmarks for Suri</title>
+<meta name="description" content="9 个数学夏校的逐项目能力基准卡：具体知识点、能力分数线、推荐资源、以及针对 Suri 的行动建议。" />
+<meta name="theme-color" content="#b5471f" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8d8; --card:#fbf8f0;
+  --ink:#1f1b16; --ink-soft:#4a4136; --ink-faint:#847862;
+  --accent:#b5471f; --accent-2:#1d5c4f; --gold:#c98a16;
+  --line:#d9cfb8; --line-soft:#e6ddc9; --shadow:rgba(60,45,25,0.10);
+  --serif:"Fraunces",Georgia,serif; --sans:"Spline Sans",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",monospace; --scsc:"Noto Serif SC",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+:lang(zh),.zh{font-family:var(--sans);}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");}
+.reading-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:99;transition:width .1s;}
+
+/* Masthead */
+.masthead{position:sticky;top:0;z-index:50;background:rgba(244,239,228,.88);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--ink);}
+.masthead-inner{max-width:1080px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.brand-mark{font-family:var(--serif);font-weight:900;font-size:2.1rem;color:var(--paper);background:var(--accent);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 0 var(--ink);}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-line1{font-family:var(--serif);font-weight:900;font-size:1.25rem;letter-spacing:-.01em;color:var(--ink);}
+.brand-line2{font-size:.78rem;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;}
+.mast-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.mast-link{font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--ink-soft);background:transparent;border:1.5px solid var(--line);padding:7px 15px;border-radius:999px;cursor:pointer;text-decoration:none;transition:all .2s;}
+.mast-link:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-1px);}
+.mast-link.solid{background:var(--accent);color:var(--paper);border-color:var(--accent);font-weight:700;}
+.mast-link.solid:hover{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+
+main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px 90px;}
+
+/* Hero */
+.hero{padding:56px 0 34px;border-bottom:2px solid var(--ink);margin-bottom:8px;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:18px;}
+.eyebrow::before{content:"";width:32px;height:1.5px;background:var(--accent);}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.2rem,5.5vw,3.6rem);line-height:1.04;letter-spacing:-.02em;}
+.hero h1 .big{color:var(--accent);font-style:italic;}
+.hero .sub{margin-top:18px;font-size:1.1rem;color:var(--ink-soft);max-width:62ch;}
+.hero .meta{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap;}
+.tag{font-size:.74rem;font-weight:600;letter-spacing:.03em;padding:4px 12px;border-radius:4px;background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+
+/* How to read */
+.howto{background:linear-gradient(180deg,#fbf8f0,#f4ecdc);border:1.5px solid var(--ink);border-radius:16px;padding:22px 26px;margin-top:28px;}
+.howto h2{font-family:var(--serif);font-weight:700;font-size:1.3rem;margin-bottom:12px;}
+.howto .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:8px;}
+.howto .lg{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);}
+.howto .lg .ic{font-size:1.1rem;flex-shrink:0;}
+
+/* Quick jump */
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px;}
+.jump a{font-family:var(--mono);font-size:.78rem;font-weight:500;text-decoration:none;color:var(--ink-soft);background:var(--card);border:1.5px solid var(--line);padding:6px 13px;border-radius:999px;transition:all .2s;}
+.jump a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px);}
+
+/* Benchmark card */
+.bm{background:var(--card);border:1.5px solid var(--ink);border-radius:18px;margin-top:34px;overflow:hidden;box-shadow:0 2px 0 var(--shadow);scroll-margin-top:90px;}
+.bm-top{padding:24px 28px 20px;border-bottom:1.5px solid var(--ink);background:var(--paper-2);position:relative;}
+.bm-rail{position:absolute;top:0;left:0;width:6px;height:100%;}
+.bm.t-comp .bm-rail{background:var(--accent);}
+.bm.t-proof .bm-rail{background:var(--accent-2);}
+.bm.t-bridge .bm-rail{background:var(--gold);}
+.bm-eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:500;}
+.bm-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:5px;}
+.bm-title h2{font-family:var(--serif);font-weight:900;font-size:1.75rem;letter-spacing:-.01em;line-height:1.05;}
+.bm-title .num{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.1rem;color:var(--ink-faint);}
+.bm-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;}
+.chip{font-size:.72rem;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);}
+.chip.gate{background:#d8ebe4;color:#155244;border-color:#9fc9bd;}
+.chip.gateno{background:#f6e0d6;color:#9a3411;border-color:#e3b39c;}
+.chip.age{background:#f3e6c2;color:#8a6206;border-color:#ddc488;}
+
+/* difficulty meter */
+.meter{display:flex;align-items:center;gap:10px;margin-top:14px;}
+.meter .ml{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);}
+.dots{display:flex;gap:4px;}
+.dot{width:13px;height:13px;border-radius:50%;background:var(--line);}
+.dot.on{background:var(--accent);}
+.bm.t-proof .dot.on{background:var(--accent-2);}
+
+.bm-body{padding:10px 28px 26px;}
+.brow{display:grid;grid-template-columns:172px 1fr;gap:16px;padding:15px 0;border-bottom:1px dashed var(--line-soft);}
+.brow:last-child{border-bottom:0;}
+.brow .k{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-2);font-weight:500;padding-top:3px;display:flex;align-items:center;gap:7px;}
+.brow .k .kic{font-size:.95rem;}
+.brow .v{font-size:.95rem;color:var(--ink-soft);}
+.brow .v strong{color:var(--ink);font-weight:600;}
+.brow .v .bn{font-family:var(--serif);font-weight:900;font-style:italic;color:var(--accent);font-size:1.05rem;}
+.brow .v ul{margin:6px 0 0;padding-left:0;list-style:none;}
+.brow .v ul li{position:relative;padding-left:20px;margin:6px 0;}
+.brow .v ul li::before{content:"▸";position:absolute;left:2px;color:var(--accent);font-size:.85rem;top:1px;}
+.brow .v ol{margin:6px 0 0;padding-left:20px;}
+.brow .v ol li{margin:6px 0;}
+.kbd{font-family:var(--mono);font-size:.82rem;background:var(--paper-2);border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--ink);}
+
+/* Suri verdict box */
+.suri{background:var(--paper-2);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:15px 20px;margin-top:18px;}
+.suri .sh{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
+.suri p{font-size:.93rem;color:var(--ink-soft);margin:0;}
+.suri p+p{margin-top:8px;}
+.suri strong{color:var(--ink);}
+.readiness{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:.8rem;font-weight:700;padding:5px 14px;border-radius:999px;}
+.r-now{background:#d8ebe4;color:#155244;}
+.r-soon{background:#f3e6c2;color:#8a6206;}
+.r-later{background:#f6e0d6;color:#9a3411;}
+
+.site-footer{border-top:1.5px solid var(--ink);margin-top:46px;}
+.site-footer p{max-width:1080px;margin:0 auto;padding:22px 28px;font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);text-align:center;}
+.disclaimer{margin-top:38px;font-size:.8rem;color:var(--ink-faint);border-top:1px solid var(--line);padding-top:18px;}
+.to-top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);font-size:1.1rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;}
+.to-top.show{opacity:1;pointer-events:auto;}
+@media(max-width:620px){
+  .brow{grid-template-columns:1fr;gap:5px;}
+  .hero h1{font-size:2rem;}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="reading-progress" id="readingProgress"></div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">∑</span>
+      <div class="brand-text">
+        <span class="brand-line1">AwesomeMath Journal</span>
+        <span class="brand-line2">夏校能力基准卡 · for Suri</span>
+      </div>
+    </a>
+    <div class="mast-actions">
+      <a class="mast-link" href="summer-programs.html">← 夏校规划总览</a>
+      <a class="mast-link solid" href="index.html">每日一课</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">逐项目 · 能力基准卡 · 给 Suri 的备战清单</span>
+    <h1>9 张<span class="big">能力基准卡</span><br>—— 到底要练成什么样，才进得去</h1>
+    <p class="sub">不谈"交什么材料"，只谈<strong>能力</strong>：每个项目需要掌握的<strong>具体知识点</strong>、要达到的<strong>分数/水平基准</strong>、推荐的<strong>资源书目</strong>，以及一句针对 Suri（八年级、AMC10 100–120）的犀利判断。把抽象的"很难进"翻译成可执行的训练目标。</p>
+    <div class="meta">
+      <span class="tag">9 张基准卡</span>
+      <span class="tag">具体知识点清单</span>
+      <span class="tag">分数水平线</span>
+      <span class="tag">推荐资源</span>
+      <span class="tag">2026 年 6 月</span>
+    </div>
+  </section>
+
+  <!-- HOW TO READ -->
+  <section class="howto">
+    <h2>怎么读这些卡片</h2>
+    <p style="font-size:.95rem;color:var(--ink-soft);max-width:72ch">每张卡片用统一的栏目结构，方便横向对比。重点看四件事：<strong>① 真正的门槛</strong>（考什么）、<strong>② 必须掌握的知识点</strong>、<strong>③ 能力水平线</strong>（具体到 AMC/AIME 分数或证明能力）、<strong>④ 给 Suri 的行动建议</strong>（含"现在能不能冲"的就绪度标签）。</p>
+    <div class="legend">
+      <div class="lg"><span class="ic">🎯</span><div><strong>真正的门槛</strong> —— 录取真正打分的东西</div></div>
+      <div class="lg"><span class="ic">📐</span><div><strong>知识点清单</strong> —— 进门前要掌握的数学内容</div></div>
+      <div class="lg"><span class="ic">📊</span><div><strong>能力水平线</strong> —— 具体的分数 / 证明能力基准</div></div>
+      <div class="lg"><span class="ic">📚</span><div><strong>推荐资源</strong> —— 练这些能力用什么书 / 题</div></div>
+      <div class="lg"><span class="ic">⏱️</span><div><strong>准备周期</strong> —— 从现在起大概要多久</div></div>
+      <div class="lg"><span class="ic">✦</span><div><strong>给 Suri</strong> —— 就绪度 + 具体下一步</div></div>
+    </div>
+    <div style="margin-top:16px;font-size:.85rem;color:var(--ink-faint)">就绪度标签：<span class="readiness r-now" style="margin-top:0">现在可冲</span> <span class="readiness r-soon" style="margin-top:0">1–2 年后</span> <span class="readiness r-later" style="margin-top:0">2–3 年后</span></div>
+  </section>
+
+  <!-- JUMP -->
+  <div class="jump">
+    <a href="#amc">① AwesomeMath</a>
+    <a href="#hsmc">② HSMC</a>
+    <a href="#mathily">③ MathILy</a>
+    <a href="#sumac">④ SUMaC</a>
+    <a href="#mathcamp">⑤ Mathcamp</a>
+    <a href="#hcssim">⑥ HCSSiM</a>
+    <a href="#promys">⑦ PROMYS</a>
+    <a href="#ross">⑧ Ross</a>
+    <a href="#proveit">⑨ Prove it!</a>
+  </div>
+
+
+  <!-- 1 AwesomeMath -->
+  <article class="bm t-comp" id="amc">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">竞赛赛道 · 优先级 #1 · 现在就该参加</div>
+      <div class="bm-title"><span class="num">01</span><h2>AwesomeMath Summer Program</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：分级入学测试</span>
+        <span class="chip age">年龄：约 12–18（初中可）</span>
+        <span class="chip">3 周 · 住宿/线上</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中（分级，能从当前水平起步）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份<strong>分级入学测试</strong>（奥赛式简答）。它不淘汰人，而是把你<em>分到合适的班</em>。所以关键不是"过不过"，而是<strong>分数越高、班级越高</strong>。这是唯一的录取依据。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>代数：</strong>因式分解、韦达定理、二次/多项式、不等式（AM-GM 入门）</li>
+        <li><strong>数论：</strong>整除、质因数分解、同余/模运算入门、gcd/lcm</li>
+        <li><strong>组合：</strong>计数原理、排列组合、容斥入门、简单概率</li>
+        <li><strong>几何：</strong>相似三角形、圆幂、面积法、坐标几何</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">进门：<span class="bn">AMC10 约 90+</span>即可分到可用级别。<br>想进高班（更接近 AIME/奥赛）：<span class="bn">AMC10 110–120+</span> 或 <span class="bn">已晋级 AIME</span>。Suri 当前 100–120，目标是<strong>冲高班</strong>。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>AoPS《Introduction to / Intermediate》系列（代数、数论、计数）</li>
+        <li>AwesomeMath 自家教材（Titu Andreescu 系列）+ 历年入学测试样题</li>
+        <li>历年 AMC10/12 真题（按知识点分类刷）</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v">已达标，<strong>立即可申</strong>。分级测试建议提前 4–6 周针对性刷题，冲更高班。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>她现在<strong>稳过门槛</strong>。这一卡的目标不是"进得去"，而是<strong>分级测试要冲高分、进高班</strong>——只有高班才会系统训练 AMC 第 21–25 题那种多知识点综合题，正好打她的短板。</p>
+        <p>具体下一步：把入学测试当成一次正式模考来准备，重点练<strong>"一道题套多个知识点"</strong>的综合卷。</p>
+        <span class="readiness r-now">现在可冲</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2 HSMC -->
+  <article class="bm t-comp" id="hsmc">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">竞赛→证明 桥梁 · 优先级 #2 · 你特别问的那个</div>
+      <div class="bm-title"><span class="num">02</span><h2>Honors Summer Math Camp (HSMC)</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT（无分数线）</span>
+        <span class="chip gate">门槛：申请 + 竞赛履历</span>
+        <span class="chip age">高中（拔尖初中可）</span>
+        <span class="chip">6 周 · 住宿（德州）</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（看履历 + 潜力）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v"><strong>明确告诉你：不要 PSAT、没有标化分数线。</strong>它是<em>综合评估</em>：书面申请 + 数学短文（讲你的兴趣与经历）+ 数学老师推荐信 + 你的<strong>竞赛/课程履历</strong>。竞赛成绩是最硬的加分项。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>扎实的竞赛数学</strong>（AMC/AIME 四大块），证明它你"做数学到了一定深度"</li>
+        <li><strong>对数论/抽象数学的好奇心</strong>——营内核心是数论与抽象代数、做研究项目</li>
+        <li>能写一点<strong>初步证明</strong>（归纳法、整除证明）会让申请更突出</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">有竞争力的画像：<span class="bn">AMC10 ~110+</span>，最好<span class="bn">已晋级 AIME</span>（哪怕 AIME 3–5 分也是强信号）。再加一个能讲出来的"数学热爱证据"——一个项目、一个证明、一道你钻研过的难题。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>数论入门：Niven《An Introduction to the Theory of Numbers》或 AoPS 数论</li>
+        <li>证明入门：《How to Prove It》(Velleman) —— 为营内研究打底</li>
+        <li>持续刷 AIME 真题，把"晋级 AIME"做成硬指标</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 1–2 年</strong>。申请约 12 月 1 日开放。需要先把 AIME 晋级和一个"证明故事"做出来。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>直接回答你的例子：<strong>HSMC 不需要 PSAT，也没有分数线。</strong>它看的是 AMC/AIME 履历 + 数学热情。Suri 的路径很清晰：<strong>把 AMC10 提到 120+、晋级 AIME、攒一个证明故事</strong>。</p>
+        <p>具体下一步：今年 11 月 AMC 力争晋级 AIME；同时用 Algebra 2.5 起步写证明，明年作为"升 9/10 年级 + 已晋级 AIME"的画像去申请，竞争力很强。</p>
+        <span class="readiness r-soon">1–2 年后</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3 MathILy -->
+  <article class="bm t-proof" id="mathily">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明 + 趣味 混合 · 优先级 #3 · 初尝证明文化</div>
+      <div class="bm-title"><span class="num">03</span><h2>MathILy <span style="font-size:.65em;color:var(--ink-faint)">(&amp; MathILy-Er)</span></h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：探索性测试（证明）</span>
+        <span class="chip age">高中</span>
+        <span class="chip">5 周 · 住宿</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（看证明思维，不看速度）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份带回家做的<strong>探索性测试（Exploratory Test）</strong>——自由作答、偏证明，<em>不是竞赛</em>。评分看你能不能把一个陌生问题想清楚、并<strong>写出清晰的逻辑论证</strong>。不看你做题多快、也不看竞赛分。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>逻辑与证明基本功</strong>：能完整论证一个结论，而非只给答案</li>
+        <li>不要求高中以外的内容，但要求<strong>愿意"换角度想"、深挖一个问题</strong></li>
+        <li>组合/数论的探索性思维（找规律、归纳、构造）很吃香</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无分数线。"水平"= 能不能把一道开放题<strong>写成一段逻辑严密、表达清楚的论证</strong>。这是<em>质</em>不是<em>量</em>。Suri 现在差的正是这种<strong>书面证明表达</strong>。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>《How to Prove It》(Velleman) —— 系统学证明写法</li>
+        <li>历年 MathILy 探索性测试样题（官网有）</li>
+        <li>AoPS 论坛的证明题，练习"把思路写成文字"</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 1–2 年</strong>（进高中后）。核心是把证明写作练到能拿得出手。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>这是她<strong>从竞赛转向证明的最佳第一站</strong>——门槛友好、又真正训练证明文化。它的探索性测试本身就是低风险的证明练习场，做了即使没录取也是赚的。</p>
+        <p>具体下一步：等 Algebra 2.5 的证明基础打牢后，拿 MathILy 的样题练手，把它当作"证明能力体检"。</p>
+        <span class="readiness r-soon">1–2 年后</span>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- 4 SUMaC -->
+  <article class="bm t-proof" id="sumac">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明赛道 · 名校旗舰 · 年级硬门槛</div>
+      <div class="bm-title"><span class="num">04</span><h2>SUMaC — Stanford University Mathematics Camp</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：申请 + 入学测试</span>
+        <span class="chip age">仅限 10–11 年级</span>
+        <span class="chip">3–4 周 · 线上/住宿</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">高（大学级纯数学 + 极挑剔）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份<strong>入学测试（数学问题集）</strong> + 申请短文。<strong>年级硬卡在 10–11</strong>。极度挑剔：住宿约 40 席、线上约 64 席。AMC/AIME 强会加分，但<em>替代不了</em>测试本身的证明表现。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>预备微积分学完</strong>，且能自学抽象内容</li>
+        <li>能读写<strong>证明</strong>（这是核心）</li>
+        <li>课程二选一方向：<strong>抽象代数 + 数论</strong> 或 <strong>代数拓扑</strong>——申请前对其一有兴趣储备</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能独立读懂大学一年级的证明并自己写出来</strong>。竞赛上 <span class="bn">AMC 高分 / AIME 晋级</span>是常见画像，但测试看的是抽象与证明，不是速度。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>群论入门：《A Book of Abstract Algebra》(Pinter)</li>
+        <li>数论：《Elementary Number Theory》(Burton) 或 AoPS 数论</li>
+        <li>《How to Prove It》打底；历年 SUMaC 入学测试样题</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 2–3 年</strong>（年级门槛卡到 10–11 年级）。现在该练的是证明熟练度，不是某个分数。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>因为<strong>年级硬门槛</strong>，至少要等到 10 年级。这是一个值得"储备"的旗舰目标。现在唯一该做的准备，就是把<strong>证明能力</strong>慢慢养起来——其入学测试要的正是这个。</p>
+        <p>具体下一步：先不碰它，把精力放在 AwesomeMath + 证明基础上；10 年级前再启动抽象代数/数论的系统自学。</p>
+        <span class="readiness r-later">2–3 年后</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5 Mathcamp -->
+  <article class="bm t-proof" id="mathcamp">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明赛道 · 广博热闹 · 年龄不设限</div>
+      <div class="bm-title"><span class="num">05</span><h2>Canada/USA Mathcamp</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：资格测验（证明）</span>
+        <span class="chip age">13–18（年龄已符合）</span>
+        <span class="chip">5 周 · 住宿</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">高（深度原创证明思维）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">著名的 <strong>Qualifying Quiz（资格测验）</strong>：5–10 道难题，需提交<strong>完整书面证明</strong>。官方明说"不需要高中以外的背景""不是竞赛式设计"——它筛的是<strong>深度、原创的证明思维</strong>。年龄不设限，<em>唯一门槛就是这份测验</em>。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>高中数学的扎实基础</strong>（不需更多课程内容）</li>
+        <li>核心是<strong>证明工具</strong>：归纳法、抽屉原理、反证法、构造法</li>
+        <li>能对一道陌生题<strong>持续深挖数天</strong>并写出严密论证</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无分数线、不看竞赛分。能力线 = <strong>能把一道难证明题写成逻辑无懈可击的完整解答</strong>。这是"质"的门槛——一道写透，胜过十道半成品。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>《How to Prove It》(Velleman) + 《How to Solve It》(Polya)</li>
+        <li>历年 Qualifying Quiz 真题（官网全部公开，是最好的练习）</li>
+        <li>官网的"Tips on Writing Proofs"指南</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 1–2 年</strong>。测验每年 1 月发布、春季截止。可以<em>提早试做</em>，年龄不是障碍。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>这是她<strong>能最早尝试的顶级证明项目</strong>——因为年龄不卡，唯一门槛是测验。<strong>强烈建议：每年 1 月测验一发布就去做</strong>，哪怕暂不提交，也是市面上最好的免费证明写作训练。</p>
+        <p>具体下一步：把今年/明年的 Qualifying Quiz 当作 Algebra 2.5 之后的"证明实战靶场"，做完拿给我逐题批改严谨度。</p>
+        <span class="readiness r-soon">1–2 年后（测验现在就能练）</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 6 HCSSiM -->
+  <article class="bm t-proof" id="hcssim">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明赛道 · 浸泡式 · 看思维不看分</div>
+      <div class="bm-title"><span class="num">06</span><h2>HCSSiM — Hampshire College Summer Studies in Math</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：申请 + 开放数学题</span>
+        <span class="chip age">高中（多为升 10–12）</span>
+        <span class="chip">6 周 · 住宿</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（好奇心 + 耐力优先）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">申请里有一组<strong>开放式数学题</strong>，重点看你<em>怎么想</em>、思路怎么展开，而不是标准答案或竞赛分。录取偏好<strong>好奇心强、愿意探索、能扛 6 周高强度浸泡</strong>的学生。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li>不依赖特定课程，<strong>看的是数学思维方式</strong></li>
+        <li>能对开放问题<strong>主动探索、提出猜想、尝试论证</strong></li>
+        <li>每天 4 小时上午课 + 晚间问题课的<strong>耐力与投入度</strong></li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无分数线。能力线 = <strong>面对一个没见过的问题，能饶有兴致地钻进去、写下自己的探索过程</strong>。成熟度（能否享受 6 周纯数学）也是隐性门槛。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>《How to Solve It》(Polya) —— 培养探索式思维</li>
+        <li>《Mathematical Circles》(俄式数学圈) —— 开放问题练习</li>
+        <li>官网申请题往年版本，练习"写下思考过程"</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 2 年</strong>（进入高中、且真正享受证明后）。申请冬末开放，常滚动招满。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>等她<strong>真正享受"为证明而证明"</strong>之后，10–11 年级是绝佳的纯数学浸泡。它对竞赛分要求最低、对"好奇心与表达"要求最高——和当前以速度见长的她正好互补。</p>
+        <p>具体下一步：本轮先不考虑；在练证明时刻意培养"写下思考过程"的习惯，正是它看重的能力。</p>
+        <span class="readiness r-later">2–3 年后</span>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- 7 PROMYS -->
+  <article class="bm t-proof" id="promys">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明赛道 · 顶尖 · 数论发现法</div>
+      <div class="bm-title"><span class="num">07</span><h2>PROMYS — Program in Mathematics for Young Scientists</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：申请问题集（高难证明）</span>
+        <span class="chip age">14–18 岁</span>
+        <span class="chip">6 周 · 住宿（波士顿大学）</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">很高（真正写出原创证明）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（偏数论、需写证明），是录取的<em>绝对核心</em>。题目刻意开放、需要数周钻研。看的是你<strong>能不能自己猜想 + 严格证明</strong>，而非做题速度。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li><strong>初等数论</strong>：整除、同余、模运算、费马小定理（营内核心）</li>
+        <li><strong>证明成熟度</strong>：归纳、反证、构造，能写出完整严密的论证</li>
+        <li>"发现法"思维：从具体例子出发找规律、提出并证明猜想</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能产出真正的书面证明</strong>。常见画像具 <span class="bn">AIME 级</span>成熟度，但<em>竞赛分既非必需也不充分</em>——决定性的是申请问题集里证明的质量。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>数论：《Elementary Number Theory》(Burton) 或 Niven</li>
+        <li>《How to Prove It》(Velleman) 系统打底</li>
+        <li>历年 PROMYS 申请问题集（官网公开，提前数月开始做）</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 2–3 年</strong>。申请 2 月初开放、<strong>优先截止约 3 月 15</strong>。申请问题集是数月工程，需提前整整一年打数论 + 证明底子。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>一颗"北极星"，瞄准 10–11 年级。它和 Ross 共享同一套准备，所以<strong>现在投入的数论 + 证明会有双倍回报</strong>。</p>
+        <p>具体下一步：9 年级起系统学初等数论 + 证明；10 年级正式拿当年申请问题集逐题攻坚（这正是我们 Algebra 2.5 之后的自然延伸）。</p>
+        <span class="readiness r-later">2–3 年后</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 8 Ross -->
+  <article class="bm t-proof" id="ross">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">证明赛道 · 顶尖 · "对简单的事物深刻地想"</div>
+      <div class="bm-title"><span class="num">08</span><h2>The Ross Mathematics Program</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：申请问题集（与 PROMYS 同源）</span>
+        <span class="chip age">约 15+（多为 16–17）</span>
+        <span class="chip">6 周 · 住宿</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">很高（深度证明探索）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（书面证明），与 PROMYS 同源同理念。看重<strong>"对简单的事物深刻地思考"</strong>——把一个看似基础的数论问题挖到很深。营地在 Otterbein（俄亥俄）与 Rose-Hulman（印第安纳）。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li>与 PROMYS 几乎一致：<strong>初等数论 + 严格证明</strong></li>
+        <li>强调<strong>深度而非广度</strong>——少而精、钻到底</li>
+        <li>能独立、耐心地展开长链条推理</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无分数线。能力线同 PROMYS：<strong>写出真正深入的原创证明</strong>。录取多为 <span class="bn">16–17 岁</span>，是对 Suri 而言可申请时间<em>最晚</em>的项目之一。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>与 PROMYS 完全通用：Burton 数论 + Velleman 证明</li>
+        <li>历年 Ross 申请问题集（官网公开）</li>
+        <li>练习"对一个简单结论给出多种证明"</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>约 3 年</strong>（年龄通常 16+）。申请冬季开放。准备内容与 PROMYS 互通。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>与 PROMYS 并列作为 10–11 年级<strong>双目标</strong>，一套准备同时覆盖两家。年龄门槛偏晚，所以放在 PROMYS 之后作为"加申"。</p>
+        <p>具体下一步：和 PROMYS 共用数论 + 证明的长期训练，到时一起申请、提高命中率。</p>
+        <span class="readiness r-later">2–3 年后</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 9 Prove it -->
+  <article class="bm t-bridge" id="proveit">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">桥梁 · 从"解题"到"证明"的坡道 · 暂停中</div>
+      <div class="bm-title"><span class="num">09</span><h2>Prove it! Math Academy</h2></div>
+      <div class="bm-chips">
+        <span class="chip gateno">不看 SAT/PSAT</span>
+        <span class="chip gate">门槛：入学测试</span>
+        <span class="chip age">高中</span>
+        <span class="chip">2 周 · 住宿（隔年，2026 暂停）</span>
+      </div>
+      <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中（专为"会解题、初学证明"设计）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic">🎯</span>真正的门槛</div><div class="v">一份<strong>入学测试</strong>，专门面向<strong>"竞赛解题强、但刚接触证明"</strong>的学生。理念是明确架起"解出来 → 证出来"的桥。<strong>⚠ 2026 年住宿项目暂停</strong>（本为隔年举办）。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📐</span>必须掌握的知识点</div><div class="v"><ul>
+        <li>扎实的<strong>竞赛解题背景</strong>（这是前提）</li>
+        <li>对<strong>证明写作</strong>的初步意愿（营内主攻这个）</li>
+        <li>逻辑严谨性：不满足于"算对"，追求"证明对"</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">📊</span>能力水平线</div><div class="v">无分数线。能力线 = <strong>解题能力已强、正准备迈入严谨证明</strong>——和 Suri 的画像在理念上高度契合。</div></div>
+      <div class="brow"><div class="k"><span class="kic">📚</span>推荐资源</div><div class="v"><ul>
+        <li>《How to Prove It》(Velleman) —— 与其课程理念一致</li>
+        <li>关注官网复办公告</li>
+      </ul></div></div>
+      <div class="brow"><div class="k"><span class="kic">⏱️</span>准备周期</div><div class="v"><strong>暂不可用</strong>。把它的<em>理念</em>当作准备目标即可。</div></div>
+      <div class="suri">
+        <div class="sh"><span>✦</span>给 Suri 的判断</div>
+        <p>理念上是她理想的"第一个证明营"——可惜目前暂停。所以我们<strong>自己用 Algebra 2.5 搭这座"解题→证明"的桥</strong>，把它的目标内化成日常训练。</p>
+        <p>具体下一步：关注官网；若复办，把它的入学测试当作证明能力的阶段性检验。</p>
+        <span class="readiness r-later">暂停 · 关注复办</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- BOTTOM SUMMARY -->
+  <section class="howto" style="margin-top:40px">
+    <h2>一句话贯穿全部 9 张卡</h2>
+    <p style="font-size:.97rem;color:var(--ink-soft);max-width:74ch">把这 9 张卡叠在一起看，结论惊人地一致：<strong>没有一个看 SAT/PSAT</strong>；竞赛分（AMC/AIME）只在 AwesomeMath、HSMC 这类竞赛项目里是硬通货；而其余 6 个项目，真正的钥匙是同一样东西 —— <strong>写证明的能力</strong>。这恰恰是 Suri 现在还没有、但一旦拥有就能解锁一整排顶级项目的能力。所以最高性价比的准备，永远是：<strong>现在就开始写证明</strong>（Algebra 2.5 正在做的事）。</p>
+    <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px"><div style="font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:700;font-size:1.1rem">现在 → 9 年级</div><div style="font-size:.88rem;color:var(--ink-soft);margin-top:4px">AwesomeMath 冲高班 · AMC10 到 120+ · 晋级 AIME</div></div>
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px"><div style="font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:700;font-size:1.1rem">9 → 10 年级</div><div style="font-size:.88rem;color:var(--ink-soft);margin-top:4px">HSMC + 试做 Mathcamp 测验 · 开始写真正的证明</div></div>
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px"><div style="font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:700;font-size:1.1rem">10 → 11 年级</div><div style="font-size:.88rem;color:var(--ink-soft);margin-top:4px">冲 PROMYS / Ross / SUMaC · 证明积累兑现</div></div>
+    </div>
+  </section>
+
+  <div class="disclaimer">
+    <p><strong>来源与准确性：</strong>各项目门槛信息综合自官方网站（mathcamp.org、promys.org、rossprogram.org、sumac.spcs.stanford.edu、mathworks.txst.edu、proveitmath.org、awesomemath.org、mathily.org、hcssim.org）及既有项目认知，2026 年 6 月。其中具体的<strong>分数水平线（如 "AMC10 110+"）为综合估计，并非官方公布的硬性门槛</strong>——这些项目大多刻意不公布分数线，录取为综合评估。推荐书目为通行的备考经典。年龄、日期、费用、录取规则每年变动，<strong>正式申请前请到各官网核实最新要求</strong>。Prove it! 2026 年暂停；SUMaC 仅限 10–11 年级；Ross 通常 16+。</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>持续更新的成长日志 · 知识点 → 题目 → 证明 → 夏校 · 为 Suri 而做</p>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function(){
+  var bar = document.getElementById("readingProgress");
+  var toTop = document.getElementById("toTop");
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max>0 ? (h.scrollTop/max)*100 : 0;
+    if(bar) bar.style.width = pct + "%";
+    if(toTop) toTop.classList.toggle("show", h.scrollTop>400);
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>
+

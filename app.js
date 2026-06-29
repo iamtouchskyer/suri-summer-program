@@ -51,7 +51,8 @@ function buildNav() {
   var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
     ? '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>' : "";
   var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
-  nav.innerHTML = tbBtn + dayBtns;
+  var spBtn = '<a class="nav-textbook nav-summer" href="summer-programs.html">'+(lang==="zh"?"夏校规划":"Summer Programs")+'</a>';
+  nav.innerHTML = tbBtn + dayBtns + spBtn;
   nav.querySelectorAll("button[data-i]").forEach(function(btn){ btn.addEventListener("click", function(){ selectDay(+btn.dataset.i); }); });
   var tb = nav.querySelector("button[data-tb]");
   if (tb) tb.addEventListener("click", function(){ openTextbookIndex(); });

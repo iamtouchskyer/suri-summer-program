@@ -678,3 +678,19 @@ color:#6c5ce7; background:rgba(108,92,231,.12); padding:.22rem .55rem; border-ra
 .tbx-card-arrow { font-size:1.2rem; color:#6c5ce7; transition:transform .16s; }
 .tbx-card:hover .tbx-card-arrow { transform:translateX(4px); }
 .nav-textbook { margin-right:.5rem; font-weight:700; }
+
+
+/* ---- Summer Programs nav link (anchor styled like a nav button) ---- */
+.day-nav a.nav-summer {
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 700;
+  color: var(--paper); background: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 7px 15px; border-radius: 999px; cursor: pointer;
+  text-decoration: none; display: inline-block; line-height: 1.2;
+  transition: all 0.2s ease;
+}
+.day-nav a.nav-summer:hover {
+  background: var(--ink); border-color: var(--ink); color: var(--paper);
+  transform: translateY(-1px);
+}
+
