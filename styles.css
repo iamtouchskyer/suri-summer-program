@@ -687,6 +687,7 @@ color:#6c5ce7; background:rgba(108,92,231,.12); padding:.22rem .55rem; border-ra
   border: 1.5px solid var(--accent);
   padding: 7px 15px; border-radius: 999px; cursor: pointer;
   text-decoration: none; display: inline-block; line-height: 1.2;
+box-shadow: 0 2px 0 var(--ink); margin-right: 4px;
   transition: all 0.2s ease;
 }
 .day-nav a.nav-summer:hover {

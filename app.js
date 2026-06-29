@@ -48,15 +48,16 @@ const ui = (k) => t(UI[k]);
 
 function buildNav() {
   const nav = document.getElementById("dayNav");
+  var spBtn = '<a class="nav-summer" href="summer-programs.html">'+(lang==="zh"?"☀ 夏校规划":"☀ Summer Programs")+'</a>';
   var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
     ? '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>' : "";
   var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
-  var spBtn = '<a class="nav-textbook nav-summer" href="summer-programs.html">'+(lang==="zh"?"夏校规划":"Summer Programs")+'</a>';
-  nav.innerHTML = tbBtn + dayBtns + spBtn;
+  nav.innerHTML = spBtn + tbBtn + dayBtns;
   nav.querySelectorAll("button[data-i]").forEach(function(btn){ btn.addEventListener("click", function(){ selectDay(+btn.dataset.i); }); });
   var tb = nav.querySelector("button[data-tb]");
   if (tb) tb.addEventListener("click", function(){ openTextbookIndex(); });
 }
+
 
 
 function buildLangToggle() {
