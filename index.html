@@ -1,73 +1,353 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AwesomeMath Journal · Suri</title>
-  <meta name="description" content="Suri 的 AwesomeMath 暑期数学日志 —— 知识点精讲、竞赛题逐题精解（中英双语）。" />
-  <meta name="theme-color" content="#b5471f" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suri's Summer Program · 学习与夏校总览</title>
+<meta name="description" content="Suri 的数学学习与夏校规划总览 —— 课程日志、能力基准、按年份推进的成长时间线。" />
+<meta name="theme-color" content="#b5471f" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8d8; --card:#fbf8f0;
+  --ink:#1f1b16; --ink-soft:#4a4136; --ink-faint:#847862;
+  --accent:#b5471f; --accent-2:#1d5c4f; --gold:#c98a16;
+  --line:#d9cfb8; --line-soft:#e6ddc9; --shadow:rgba(60,45,25,0.10);
+  --serif:"Fraunces",Georgia,serif; --sans:"Spline Sans",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",monospace; --scsc:"Noto Serif SC",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");}
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+/* Masthead */
+.masthead{position:sticky;top:0;z-index:50;background:rgba(244,239,228,.88);backdrop-filter:blur(12px);border-bottom:1.5px solid var(--ink);}
+.masthead-inner{max-width:1120px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.brand-mark{font-family:var(--serif);font-weight:900;font-size:2.1rem;color:var(--paper);background:var(--accent);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 0 var(--ink);}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-line1{font-family:var(--serif);font-weight:900;font-size:1.25rem;letter-spacing:-.01em;color:var(--ink);}
+.brand-line2{font-size:.78rem;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;}
+.lang-toggle{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden;}
+.lang-toggle button{font-family:var(--sans);font-size:.8rem;font-weight:600;border:0;background:transparent;color:var(--ink-soft);padding:6px 13px;cursor:pointer;}
+.lang-toggle button.on{background:var(--ink);color:var(--paper);}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+main{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 28px 90px;}
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+/* Hero */
+.hero{padding:52px 0 30px;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:16px;}
+.eyebrow::before{content:"";width:32px;height:1.5px;background:var(--accent);}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.3rem,6vw,3.8rem);line-height:1.03;letter-spacing:-.02em;}
+.hero h1 .big{color:var(--accent);font-style:italic;}
+.hero .sub{margin-top:16px;font-size:1.1rem;color:var(--ink-soft);max-width:60ch;}
 
-  <link rel="stylesheet" href="styles.css" />
-  <style id="a11y-fallback">
-    /* 焦点可见性兜底（与 styles.css 一致），保证首屏前键盘焦点即可见 */
-    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
-      outline: 3px solid #c98a16; outline-offset: 2px;
-    }
-    /* 字体说明：Fraunces 为刻意选用的编辑衬线体，规避通用 AI 字体观感 */
-  </style>
+/* Section label */
+.row-label{display:flex;align-items:center;gap:14px;margin:42px 0 18px;}
+.row-label .rl-eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);font-weight:500;}
+.row-label h2{font-family:var(--serif);font-weight:700;font-size:1.5rem;letter-spacing:-.01em;white-space:nowrap;}
+.row-label .rule{flex:1;height:1px;background:var(--line);}
+
+/* General cards row */
+.gen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+.gcard{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:20px 20px 18px;text-decoration:none;color:var(--ink);transition:all .2s ease;position:relative;overflow:hidden;}
+.gcard:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:0 6px 0 var(--shadow);}
+.gcard .gc-ic{font-size:1.7rem;}
+.gcard .gc-title{font-family:var(--serif);font-weight:700;font-size:1.18rem;line-height:1.15;}
+.gcard .gc-desc{font-size:.86rem;color:var(--ink-faint);}
+.gcard .gc-go{margin-top:4px;font-family:var(--mono);font-size:.74rem;color:var(--accent);font-weight:500;display:flex;align-items:center;gap:5px;}
+.gcard.accent{background:linear-gradient(160deg,#fbf8f0,#f3e7d4);border-color:var(--accent);}
+
+/* Timeline */
+.timeline{margin-top:18px;position:relative;padding-left:6px;}
+.tl-year{position:relative;margin-bottom:34px;padding-left:38px;}
+.tl-year::before{content:"";position:absolute;left:9px;top:8px;bottom:-34px;width:2px;background:var(--line);}
+.tl-year:last-child::before{display:none;}
+.tl-dot{position:absolute;left:0;top:3px;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--paper);box-shadow:0 0 0 1.5px var(--accent);display:grid;place-items:center;}
+.tl-year.now .tl-dot{background:var(--gold);box-shadow:0 0 0 1.5px var(--gold),0 0 0 6px rgba(201,138,22,.18);}
+.tl-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+.tl-head .yr{font-family:var(--serif);font-weight:900;font-size:1.8rem;color:var(--ink);letter-spacing:-.01em;}
+.tl-head .yr-tag{font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px;background:var(--accent-2);color:var(--paper);}
+.tl-year.now .yr-tag{background:var(--gold);color:var(--ink);}
+.tl-head .yr-grade{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);}
+.tl-sub{font-size:.9rem;color:var(--ink-faint);margin-bottom:14px;max-width:60ch;}
+
+/* program cards inside timeline */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.pcard{display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--ink);transition:all .2s ease;position:relative;}
+.pcard:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:0 6px 0 var(--shadow);}
+.pcard.locked{opacity:.72;}
+.pcard.locked:hover{transform:none;border-color:var(--line);box-shadow:none;cursor:default;}
+.pcard-rail{height:6px;width:100%;}
+.rail-comp{background:var(--accent);}
+.rail-geo{background:var(--accent-2);}
+.rail-proof{background:var(--gold);}
+.pcard-body{padding:18px 20px 18px;display:flex;flex-direction:column;gap:7px;flex:1;}
+.pcard .pc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.pcard .pc-cat{font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);font-weight:500;}
+.pcard.locked .pc-cat{color:var(--ink-faint);}
+.pcard .pc-status{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap;}
+.st-live{background:#d8ebe4;color:#155244;border:1px solid #9fc9bd;}
+.st-plan{background:#f3e6c2;color:#8a6206;border:1px solid #ddc488;}
+.st-lock{background:var(--paper-2);color:var(--ink-faint);border:1px solid var(--line);}
+.pcard .pc-title{font-family:var(--serif);font-weight:900;font-size:1.3rem;line-height:1.1;letter-spacing:-.01em;}
+.pcard .pc-sub{font-size:.88rem;color:var(--ink-soft);}
+.pcard .pc-meta{margin-top:auto;padding-top:10px;display:flex;gap:6px;flex-wrap:wrap;}
+.pcard .pc-chip{font-size:.7rem;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+.pcard .pc-go{margin-top:12px;font-family:var(--mono);font-size:.75rem;color:var(--accent);font-weight:600;display:flex;align-items:center;gap:6px;}
+.pcard .pc-go .arrow{transition:transform .2s;}
+.pcard:hover .pc-go .arrow{transform:translateX(4px);}
+
+.site-footer{border-top:1.5px solid var(--ink);margin-top:40px;}
+.site-footer p{max-width:1120px;margin:0 auto;padding:22px 28px;font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);text-align:center;}
+
+/* lang */
+.zh-only{display:initial;}.en-only{display:none;}
+body.lang-en .zh-only{display:none;}body.lang-en .en-only{display:initial;}
+@media(max-width:600px){.hero h1{font-size:2.1rem;}}
+</style>
 </head>
-<body>
-  <div class="grain"></div>
+<body class="lang-zh">
+<div class="grain"></div>
 
-  <div class="reading-progress" id="readingProgress"></div>
-
-  <header class="masthead">
-    <div class="masthead-inner">
-      <div class="brand">
-        <span class="brand-mark">∑</span>
-        <div class="brand-text">
-          <span class="brand-line1">AwesomeMath Journal</span>
-          <span class="brand-line2">Algebra 2.5 · for Suri</span>
-        </div>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">∑</span>
+      <div class="brand-text">
+        <span class="brand-line1">Suri's Summer Program</span>
+        <span class="brand-line2"><span class="zh-only">学习与夏校总览</span><span class="en-only">Learning &amp; Camps Hub</span></span>
       </div>
-      <div class="masthead-right">
-        <nav class="day-nav" id="dayNav"></nav>
-        <div class="lang-toggle" id="langToggle"></div>
+    </a>
+    <div class="lang-toggle" id="langToggle">
+      <button data-l="zh" class="on">中文</button>
+      <button data-l="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow"><span class="zh-only">Suri 的数学成长地图</span><span class="en-only">Suri's math roadmap</span></span>
+    <h1><span class="zh-only">一张地图，<span class="big">看清</span>每一步</span><span class="en-only">One map, <span class="big">every step</span> clear</span></h1>
+    <p class="sub"><span class="zh-only">上面是通用资源（夏校规划、能力基准、课程教材），下面是按年份推进的成长时间线。点开任意一张课程卡，进入逐题精讲的学习日志。</span><span class="en-only">General resources up top (camp planning, ability benchmarks, textbook); below is a year-by-year growth timeline. Open any course card to enter the step-by-step study journal.</span></p>
+  </section>
+
+  <!-- GENERAL ROW -->
+  <div class="row-label">
+    <div>
+      <div class="rl-eyebrow">General</div>
+      <h2><span class="zh-only">通用 · 规划与资源</span><span class="en-only">General · Planning &amp; Resources</span></h2>
+    </div>
+    <span class="rule"></span>
+  </div>
+  <div class="gen-grid">
+    <a class="gcard accent" href="summer-programs.html">
+      <span class="gc-ic">☀️</span>
+      <span class="gc-title"><span class="zh-only">夏校规划</span><span class="en-only">Summer Programs</span></span>
+      <span class="gc-desc"><span class="zh-only">9 大夏校深度调研 + 两条赛道 + 季度行动计划</span><span class="en-only">9 programs, 2 tracks, quarterly action plan</span></span>
+      <span class="gc-go"><span class="zh-only">查看规划</span><span class="en-only">Explore</span> →</span>
+    </a>
+    <a class="gcard" href="program-benchmarks.html">
+      <span class="gc-ic">🎯</span>
+      <span class="gc-title"><span class="zh-only">能力基准卡</span><span class="en-only">Ability Benchmarks</span></span>
+      <span class="gc-desc"><span class="zh-only">9 张卡：每个项目要练成什么样、具体分数线</span><span class="en-only">9 cards: exact ability bar per program</span></span>
+      <span class="gc-go"><span class="zh-only">查看基准</span><span class="en-only">Open cards</span> →</span>
+    </a>
+    <a class="gcard" href="algebra-level2.html#textbook">
+      <span class="gc-ic">📖</span>
+      <span class="gc-title"><span class="zh-only">知识点教材</span><span class="en-only">Concept Textbook</span></span>
+      <span class="gc-desc"><span class="zh-only">每个核心知识点的深度手把手讲义</span><span class="en-only">Deep, hand-held lessons on each core idea</span></span>
+      <span class="gc-go"><span class="zh-only">进入教材</span><span class="en-only">Read</span> →</span>
+    </a>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="row-label">
+    <div>
+      <div class="rl-eyebrow">Timeline</div>
+      <h2><span class="zh-only">成长时间线</span><span class="en-only">Growth Timeline</span></h2>
+    </div>
+    <span class="rule"></span>
+  </div>
+
+  <div class="timeline">
+
+    <!-- 2026 -->
+    <div class="tl-year now">
+      <div class="tl-dot">📍</div>
+      <div class="tl-head">
+        <span class="yr">2026</span>
+        <span class="yr-tag"><span class="zh-only">进行中</span><span class="en-only">Now</span></span>
+        <span class="yr-grade"><span class="zh-only">八年级 → 升九年级 · 夯实基础、抬高 AMC 天花板</span><span class="en-only">Grade 8 → 9 · build base, raise the AMC ceiling</span></span>
+      </div>
+      <p class="tl-sub"><span class="zh-only">本年聚焦 AwesomeMath 竞赛训练，攻克 AMC10 最后五题。</span><span class="en-only">This year focuses on AwesomeMath contest training to crack the AMC10 last-5.</span></p>
+      <div class="prog-grid">
+
+        <a class="pcard" href="algebra-level2.html">
+          <div class="pcard-rail rail-comp"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat">AwesomeMath · 代数</span>
+              <span class="pc-status st-live"><span class="zh-only">已开课 · 9 天</span><span class="en-only">Live · 9 days</span></span>
+            </div>
+            <div class="pc-title">Algebra Level 2</div>
+            <div class="pc-sub"><span class="zh-only">代数 2.5 · 逐题精讲日志（中英双语）</span><span class="en-only">Algebra 2.5 · worked-solution journal</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip"><span class="zh-only">知识点精讲</span><span class="en-only">Concepts</span></span>
+              <span class="pc-chip"><span class="zh-only">逐题精解</span><span class="en-only">Solutions</span></span>
+              <span class="pc-chip">KaTeX</span>
+            </div>
+            <div class="pc-go"><span class="zh-only">进入学习日志</span><span class="en-only">Open journal</span> <span class="arrow">→</span></div>
+          </div>
+        </a>
+
+        <a class="pcard locked">
+          <div class="pcard-rail rail-geo"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat">AwesomeMath · 几何</span>
+              <span class="pc-status st-lock"><span class="zh-only">即将开课</span><span class="en-only">Coming soon</span></span>
+            </div>
+            <div class="pc-title">Geometry Level 2</div>
+            <div class="pc-sub"><span class="zh-only">几何模块 · 课程开始后将填充逐题日志</span><span class="en-only">Geometry track · journal fills in once classes begin</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip"><span class="zh-only">相似与圆</span><span class="en-only">Similarity &amp; circles</span></span>
+              <span class="pc-chip"><span class="zh-only">面积法</span><span class="en-only">Area method</span></span>
+              <span class="pc-chip"><span class="zh-only">坐标几何</span><span class="en-only">Coord. geo</span></span>
+            </div>
+            <div class="pc-go" style="color:var(--ink-faint)"><span class="zh-only">敬请期待</span><span class="en-only">Stay tuned</span></div>
+          </div>
+        </a>
+
       </div>
     </div>
-  </header>
 
-  <main id="app"></main>
+    <!-- 2027 -->
+    <div class="tl-year">
+      <div class="tl-dot">›</div>
+      <div class="tl-head">
+        <span class="yr">2027</span>
+        <span class="yr-tag"><span class="zh-only">计划</span><span class="en-only">Planned</span></span>
+        <span class="yr-grade"><span class="zh-only">九年级 → 升十年级 · 竞赛出成绩 + 开始写证明</span><span class="en-only">Grade 9 → 10 · contest results + start proofs</span></span>
+      </div>
+      <p class="tl-sub"><span class="zh-only">晋级 AIME，尝试 HSMC 与 Mathcamp 资格测验，迈入证明赛道。</span><span class="en-only">Qualify for AIME, attempt HSMC + Mathcamp Quiz, enter the proof track.</span></p>
+      <div class="prog-grid">
 
-  <div class="kp-modal-layer" id="kpModalLayer"></div>
+        <a class="pcard" href="program-benchmarks.html#hsmc">
+          <div class="pcard-rail rail-comp"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat"><span class="zh-only">竞赛→证明 桥梁</span><span class="en-only">Comp→Proof</span></span>
+              <span class="pc-status st-plan"><span class="zh-only">目标</span><span class="en-only">Target</span></span>
+            </div>
+            <div class="pc-title">HSMC</div>
+            <div class="pc-sub"><span class="zh-only">Honors Summer Math Camp · 接受拔尖低龄学生</span><span class="en-only">Honors Summer Math Camp · takes younger talent</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip">AMC10 110+</span>
+              <span class="pc-chip">AIME</span>
+            </div>
+            <div class="pc-go"><span class="zh-only">看能力基准</span><span class="en-only">See benchmark</span> <span class="arrow">→</span></div>
+          </div>
+        </a>
 
-  <footer class="site-footer">
-    <p>A living journal · updated every class · concepts → problems → solutions → insights</p>
-  </footer>
+        <a class="pcard" href="program-benchmarks.html#mathcamp">
+          <div class="pcard-rail rail-proof"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat"><span class="zh-only">证明赛道</span><span class="en-only">Proof track</span></span>
+              <span class="pc-status st-plan"><span class="zh-only">可提早试做</span><span class="en-only">Try early</span></span>
+            </div>
+            <div class="pc-title">Mathcamp</div>
+            <div class="pc-sub"><span class="zh-only">Canada/USA Mathcamp · 资格测验是最好的证明训练</span><span class="en-only">Qualifying Quiz = best proof training</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip"><span class="zh-only">证明问题集</span><span class="en-only">Proof quiz</span></span>
+              <span class="pc-chip"><span class="zh-only">年龄不限</span><span class="en-only">Any age</span></span>
+            </div>
+            <div class="pc-go"><span class="zh-only">看能力基准</span><span class="en-only">See benchmark</span> <span class="arrow">→</span></div>
+          </div>
+        </a>
 
-  <button class="to-top" id="toTop" aria-label="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+      </div>
+    </div>
 
-  <script src="data.js"></script>
-  <script src="day5.js"></script>
-  <script src="day6.js"></script>
-  <script src="day7.js"></script>
-  <script src="day8.js"></script>
-  <script src="day9.js"></script>
-  <script src="textbook-data.js"></script>
-  <script src="app.js"></script>
+    <!-- 2028 -->
+    <div class="tl-year">
+      <div class="tl-dot">›</div>
+      <div class="tl-head">
+        <span class="yr">2028</span>
+        <span class="yr-tag"><span class="zh-only">远期</span><span class="en-only">Future</span></span>
+        <span class="yr-grade"><span class="zh-only">十年级 → 升十一年级 · 冲击顶尖证明项目</span><span class="en-only">Grade 10 → 11 · aim the flagship proof camps</span></span>
+      </div>
+      <p class="tl-sub"><span class="zh-only">证明能力兑现，瞄准 PROMYS / Ross / SUMaC。</span><span class="en-only">Proof skills pay off — aim PROMYS / Ross / SUMaC.</span></p>
+      <div class="prog-grid">
+
+        <a class="pcard" href="program-benchmarks.html#promys">
+          <div class="pcard-rail rail-proof"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat"><span class="zh-only">证明赛道 · 顶尖</span><span class="en-only">Proof · elite</span></span>
+              <span class="pc-status st-plan"><span class="zh-only">北极星</span><span class="en-only">North star</span></span>
+            </div>
+            <div class="pc-title">PROMYS</div>
+            <div class="pc-sub"><span class="zh-only">数论发现法 · 波士顿大学 6 周</span><span class="en-only">Number theory by discovery · BU, 6 weeks</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip"><span class="zh-only">数论</span><span class="en-only">Number theory</span></span>
+              <span class="pc-chip"><span class="zh-only">申请问题集</span><span class="en-only">Problem set</span></span>
+            </div>
+            <div class="pc-go"><span class="zh-only">看能力基准</span><span class="en-only">See benchmark</span> <span class="arrow">→</span></div>
+          </div>
+        </a>
+
+        <a class="pcard" href="program-benchmarks.html#sumac">
+          <div class="pcard-rail rail-proof"></div>
+          <div class="pcard-body">
+            <div class="pc-top">
+              <span class="pc-cat"><span class="zh-only">证明赛道 · 名校</span><span class="en-only">Proof · prestige</span></span>
+              <span class="pc-status st-plan"><span class="zh-only">目标</span><span class="en-only">Target</span></span>
+            </div>
+            <div class="pc-title">SUMaC</div>
+            <div class="pc-sub"><span class="zh-only">斯坦福数学营 · 抽象代数与数论</span><span class="en-only">Stanford · abstract algebra &amp; number theory</span></div>
+            <div class="pc-meta">
+              <span class="pc-chip"><span class="zh-only">仅 10–11 年级</span><span class="en-only">Grades 10–11</span></span>
+              <span class="pc-chip"><span class="zh-only">证明</span><span class="en-only">Proofs</span></span>
+            </div>
+            <div class="pc-go"><span class="zh-only">看能力基准</span><span class="en-only">See benchmark</span> <span class="arrow">→</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><span class="zh-only">持续更新的成长地图 · 课程 → 证明 → 夏校 · 为 Suri 而做</span><span class="en-only">A living roadmap · courses → proofs → camps · built for Suri</span></p>
+</footer>
+
+<script>
+(function(){
+  var saved = localStorage.getItem("am_lang") || "zh";
+  apply(saved);
+  document.getElementById("langToggle").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return; apply(b.dataset.l);
+  });
+  function apply(l){
+    document.body.className = "lang-" + l;
+    document.documentElement.lang = (l==="zh"?"zh-CN":"en");
+    localStorage.setItem("am_lang", l);
+    document.querySelectorAll("#langToggle button").forEach(function(x){ x.classList.toggle("on", x.dataset.l===l); });
+  }
+})();
+</script>
 </body>
 </html>
+

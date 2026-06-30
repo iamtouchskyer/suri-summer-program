@@ -48,7 +48,7 @@ const ui = (k) => t(UI[k]);
 
 function buildNav() {
   const nav = document.getElementById("dayNav");
-  var spBtn = '<a class="nav-summer" href="summer-programs.html">'+(lang==="zh"?"☀ 夏校规划":"☀ Summer Programs")+'</a>';
+  var spBtn = '<a class="nav-summer" href="index.html">'+(lang==="zh"?"🏠 总览":"🏠 Home")+'</a>';
   var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
     ? '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>' : "";
   var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
