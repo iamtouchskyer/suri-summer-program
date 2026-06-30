@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geometry Level 2 · Suri</title>
+  <meta name="description" content="Suri 的 AwesomeMath 暑期数学日志 —— 知识点精讲、竞赛题逐题精解（中英双语）。" />
+  <meta name="theme-color" content="#b5471f" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <style id="a11y-fallback">
+    /* 焦点可见性兜底（与 styles.css 一致），保证首屏前键盘焦点即可见 */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid #c98a16; outline-offset: 2px;
+    }
+    /* 字体说明：Fraunces 为刻意选用的编辑衬线体，规避通用 AI 字体观感 */
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <span class="brand-mark">∑</span>
+        <div class="brand-text">
+          <span class="brand-line1">Geometry Level 2</span>
+          <span class="brand-line2">AwesomeMath · for Suri</span>
+        </div>
+      </div>
+      <div class="masthead-right">
+        <nav class="day-nav" id="dayNav"></nav>
+        <div class="lang-toggle" id="langToggle"></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <div class="kp-modal-layer" id="kpModalLayer"></div>
+
+  <footer class="site-footer">
+    <p>A living journal · updated every class · concepts → problems → solutions → insights</p>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script src="geometry-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
