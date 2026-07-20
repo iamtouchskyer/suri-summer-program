@@ -129,4 +129,115 @@ ab_external: `<svg viewBox="0 0 360 210" role="img" aria-label="External bisecto
 <text class="lbl-ang" x="150" y="150">BD'/CD' = AB/AC</text>
 </svg>`
 };
+
+/* ===== 追加：真题/例题专属图（带具体数字标注）===== */
+FIG.bpt_incenter_amn = `<svg viewBox="0 0 340 250" role="img" aria-label="incenter parallel line AB12 AC18 BC24">
+<polygon class="f-fill" points="150,25 60,210 300,210"/>
+<polygon class="s-main" points="150,25 60,210 300,210"/>
+<line class="s-hi" x1="108" y1="120" x2="238" y2="120"/>
+<circle class="s-aux" cx="176" cy="150" r="34"/>
+<circle class="pt-hi" cx="176" cy="150" r="3"/><text class="lbl" x="182" y="146">I</text>
+<circle class="pt" cx="150" cy="25" r="3"/><text class="lbl" x="144" y="18">A</text>
+<circle class="pt" cx="60" cy="210" r="3"/><text class="lbl" x="46" y="225">B</text>
+<circle class="pt" cx="300" cy="210" r="3"/><text class="lbl" x="305" y="225">C</text>
+<circle class="pt-hi" cx="108" cy="120" r="3"/><text class="lbl" x="90" y="116">M</text>
+<circle class="pt-hi" cx="238" cy="120" r="3"/><text class="lbl" x="244" y="116">N</text>
+<text class="lbl-len" x="86" y="82">AB=12</text>
+<text class="lbl-len" x="220" y="82">AC=18</text>
+<text class="lbl-len" x="150" y="228">BC=24</text>
+<text class="lbl-ang" x="116" y="138">MN // BC</text>
+</svg>`;
+
+FIG.bpt_trap_harmonic = `<svg viewBox="0 0 340 220" role="img" aria-label="trapezoid diagonal harmonic 6 18 to 9">
+<polygon class="s-main" points="120,35 220,35 300,185 40,185"/>
+<line class="s-aux" x1="120" y1="35" x2="300" y2="185"/>
+<line class="s-aux" x1="220" y1="35" x2="40" y2="185"/>
+<line class="s-hi" x1="83" y1="120" x2="257" y2="120"/>
+<circle class="pt" cx="120" cy="35" r="3"/><text class="lbl" x="110" y="28">A</text>
+<circle class="pt" cx="220" cy="35" r="3"/><text class="lbl" x="224" y="28">B</text>
+<circle class="pt" cx="300" cy="185" r="3"/><text class="lbl" x="305" y="200">C</text>
+<circle class="pt" cx="40" cy="185" r="3"/><text class="lbl" x="26" y="200">D</text>
+<circle class="pt-hi" cx="170" cy="120" r="3"/><text class="lbl" x="164" y="112">P</text>
+<text class="lbl-len" x="155" y="30">6</text>
+<text class="lbl-len" x="165" y="200">18</text>
+<text class="lbl-len" x="150" y="138">EF = 9</text>
+</svg>`;
+
+
+FIG.gm_semicircle = `<svg viewBox="0 0 340 200" role="img" aria-label="semicircle sqrt mn">
+<path class="s-main" d="M40 170 A130 130 0 0 1 300 170"/>
+<line class="s-main" x1="40" y1="170" x2="300" y2="170"/>
+<line class="s-aux" x1="150" y1="170" x2="150" y2="66"/>
+<line class="s-hi" x1="40" y1="170" x2="150" y2="66"/>
+<line class="s-hi" x1="150" y1="66" x2="300" y2="170"/>
+<path class="mark" d="M138 66 l0 12 l12 0"/>
+<circle class="pt" cx="40" cy="170" r="3"/><text class="lbl" x="28" y="186">A</text>
+<circle class="pt" cx="300" cy="170" r="3"/><text class="lbl" x="304" y="186">B</text>
+<circle class="pt-hi" cx="150" cy="66" r="3"/><text class="lbl" x="144" y="58">C</text>
+<circle class="pt-hi" cx="150" cy="170" r="3"/><text class="lbl" x="140" y="186">H</text>
+<text class="lbl-len" x="88" y="186">m</text>
+<text class="lbl-len" x="220" y="186">n</text>
+<text class="lbl-ang" x="152" y="120">CH=sqrt(mn)</text>
+</svg>`;
+
+FIG.gm_9_16 = `<svg viewBox="0 0 360 210" role="img" aria-label="split 9 16 gives 15 20 25">
+<polygon class="f-fill" points="40,180 320,180 148,40"/>
+<polygon class="s-main" points="40,180 320,180 148,40"/>
+<line class="s-aux" x1="148" y1="40" x2="148" y2="180"/>
+<path class="mark" d="M136 180 l0 -12 l12 0"/>
+<circle class="pt" cx="148" cy="40" r="3"/><text class="lbl" x="142" y="32">C</text>
+<circle class="pt" cx="40" cy="180" r="3"/><text class="lbl" x="26" y="196">A</text>
+<circle class="pt" cx="320" cy="180" r="3"/><text class="lbl" x="326" y="196">B</text>
+<circle class="pt-hi" cx="148" cy="180" r="3"/><text class="lbl" x="140" y="200">H</text>
+<text class="lbl-len" x="86" y="196">9</text>
+<text class="lbl-len" x="228" y="196">16</text>
+<text class="lbl-len" x="156" y="115">12</text>
+<text class="lbl-len" x="74" y="105">15</text>
+<text class="lbl-len" x="244" y="100">20</text>
+</svg>`;
+
+FIG.ab_amc2004 = `<svg viewBox="0 0 320 260" role="img" aria-label="AMC2004 bisector circumcircle 7 8 9">
+<circle class="s-thin" cx="160" cy="140" r="105"/>
+<polygon class="s-main" points="160,35 78,205 235,190"/>
+<line class="s-hi" x1="160" y1="35" x2="150" y2="245"/>
+<circle class="pt" cx="160" cy="35" r="3"/><text class="lbl" x="154" y="28">A</text>
+<circle class="pt" cx="78" cy="205" r="3"/><text class="lbl" x="62" y="216">B</text>
+<circle class="pt" cx="235" cy="190" r="3"/><text class="lbl" x="240" y="194">C</text>
+<circle class="pt-hi" cx="150" cy="245" r="3"/><text class="lbl" x="150" y="258">D</text>
+<text class="lbl-len" x="104" y="120">7</text>
+<text class="lbl-len" x="205" y="112">8</text>
+<text class="lbl-len" x="150" y="210">9</text>
+<text class="lbl-ang" x="168" y="150">AD bisects</text>
+</svg>`;
+
+FIG.ab_aime2011 = `<svg viewBox="0 0 340 240" role="img" aria-label="AIME2011 bisector midpoint mass points">
+<polygon class="s-main" points="150,25 55,205 290,205"/>
+<line class="s-hi" x1="150" y1="25" x2="180" y2="205"/>
+<line class="s-aux" x1="55" y1="205" x2="235" y2="115"/>
+<circle class="pt" cx="150" cy="25" r="3"/><text class="lbl" x="144" y="18">A</text>
+<circle class="pt" cx="55" cy="205" r="3"/><text class="lbl" x="41" y="220">B</text>
+<circle class="pt" cx="290" cy="205" r="3"/><text class="lbl" x="295" y="220">C</text>
+<circle class="pt-hi" cx="180" cy="205" r="3"/><text class="lbl" x="174" y="222">D</text>
+<circle class="pt-hi" cx="165" cy="115" r="3"/><text class="lbl" x="150" y="110">M</text>
+<circle class="pt-hi" cx="235" cy="115" r="3"/><text class="lbl" x="240" y="112">P</text>
+<text class="lbl-len" x="86" y="120">20k</text>
+<text class="lbl-len" x="228" y="100">11k</text>
+<text class="lbl-ang" x="150" y="165">M=mid AD</text>
+</svg>`;
+
+FIG.ab_stewart = `<svg viewBox="0 0 340 220" role="img" aria-label="bisector length Stewart b c a">
+<polygon class="f-fill2" points="150,25 50,195 300,195"/>
+<polygon class="s-main" points="150,25 50,195 300,195"/>
+<line class="s-hi" x1="150" y1="25" x2="170" y2="195"/>
+<circle class="pt" cx="150" cy="25" r="3"/><text class="lbl" x="144" y="18">A</text>
+<circle class="pt" cx="50" cy="195" r="3"/><text class="lbl" x="36" y="210">B</text>
+<circle class="pt" cx="300" cy="195" r="3"/><text class="lbl" x="305" y="210">C</text>
+<circle class="pt-hi" cx="170" cy="195" r="3"/><text class="lbl" x="164" y="212">D</text>
+<text class="lbl-len" x="86" y="108">c</text>
+<text class="lbl-len" x="238" y="104">b</text>
+<text class="lbl-len" x="150" y="120">t_a</text>
+<text class="lbl-ang" x="104" y="185">m</text>
+<text class="lbl-ang" x="232" y="185">n</text>
+</svg>`;
+
 if (typeof module !== "undefined" && module.exports) module.exports = FIG;
