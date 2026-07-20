@@ -695,3 +695,42 @@ box-shadow: 0 2px 0 var(--ink); margin-right: 4px;
   transform: translateY(-1px);
 }
 
+
+
+/* ===== Geometry figures (inline SVG diagrams) ===== */
+.geo-fig {
+  margin: 16px 0;
+  padding: 14px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.geo-fig svg {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+.kp-modal-detail + .geo-fig { margin-top: 6px; }
+.geo-fig .fig-cap {
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+/* SVG stroke/label palette hooks (used by the diagrams) */
+.geo-fig .s-main   { stroke: var(--ink);     stroke-width: 2;   fill: none; }
+.geo-fig .s-aux    { stroke: var(--accent);  stroke-width: 1.8; fill: none; stroke-dasharray: 5 4; }
+.geo-fig .s-hi     { stroke: var(--accent-2);stroke-width: 2.4; fill: none; }
+.geo-fig .s-thin   { stroke: var(--ink-faint);stroke-width: 1;  fill: none; }
+.geo-fig .f-fill   { fill: rgba(29,92,79,0.10); stroke: none; }
+.geo-fig .f-fill2  { fill: rgba(181,71,31,0.10); stroke: none; }
+.geo-fig .lbl      { font-family: var(--serif); font-size: 15px; fill: var(--ink); }
+.geo-fig .lbl-len  { font-family: var(--mono); font-size: 12.5px; fill: var(--accent-2); }
+.geo-fig .lbl-ang  { font-family: var(--mono); font-size: 12px; fill: var(--accent); }
+.geo-fig .pt       { fill: var(--ink); }
+.geo-fig .pt-hi    { fill: var(--accent); }
+.geo-fig .mark     { stroke: var(--accent); stroke-width: 1.6; fill: none; }
+

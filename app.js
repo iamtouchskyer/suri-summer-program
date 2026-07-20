@@ -13,6 +13,13 @@ function t(field) {
   return s.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function figHTML(fig) {
+  if (!fig) return "";
+  var svg = (typeof fig === "string") ? fig : (fig[lang] || fig.en || fig.zh || "");
+  if (!svg) return "";
+  return '<figure class="geo-fig">' + svg + '</figure>';
+}
+
 const UI = {
   sectionKnowledge: { en: "Knowledge Points", zh: "知识点精讲" },
   sectionProblems:  { en: "Worked Examples", zh: "课堂例题精讲" },
@@ -129,6 +136,7 @@ function openKPModal(idx) {
       <div class="kp-modal-eyebrow">${ui("sectionKnowledge")}</div>
       <h3 class="kp-modal-title">${t(kp.name)}</h3>
       <div class="kp-modal-detail">${t(kp.detail)}</div>
+      ${figHTML(kp.fig)}
       ${kp.formula ? `<div class="kp-formula">${kp.formula}</div>` : ""}
       ${kp.example ? `<div class="kp-example"><span class="kp-ex-tag">${ui("example")}</span>${t(kp.example)}</div>` : ""}
     </div>`;
@@ -272,6 +280,7 @@ function solutionBody(p) {
   const chipLabel = recall ? ui("recall") : ui("knowledgeTested");
   const steps = (p.steps || p.solution || []).map(s => `<li>${t(s)}</li>`).join("");
   return `
+    ${figHTML(p.fig)}
     ${chips ? `<div class="kn-row"><span class="kn-label">${chipLabel}</span>${chips}</div>` : ""}
     ${p.guide ? `<div class="guide"><span class="guide-tag">${ui("guide")}</span><div class="guide-text">${t(p.guide)}</div></div>` : ""}
     <div class="solution-title">${ui("workedSolution")}</div>
@@ -301,6 +310,7 @@ function enhCard(e) {
     <div class="enh-card">
       <div class="enh-level">${e.level}</div>
       <div class="enh-statement">${t(e.statement)}</div>
+      ${figHTML(e.fig)}
       <button class="enh-reveal">${ui("showHint")}</button>
       <div class="enh-extra">
         ${e.hint ? `<div class="enh-hint"><span class="enh-tag">${ui("hint")}</span>${t(e.hint)}</div>` : ""}
