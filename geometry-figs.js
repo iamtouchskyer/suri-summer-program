@@ -19,6 +19,22 @@ bpt_ashape: `<svg viewBox="0 0 340 220" role="img" aria-label="Triangle ABC with
 <text class="lbl-len" x="252" y="162">EC</text>
 <text class="lbl-ang" x="150" y="140">DE &#8741; BC</text>
 </svg>`,
+
+bpt_l1: `<svg viewBox="0 0 340 220" role="img" aria-label="平行线 DE 分 AB AC，AD:DB=3:2，AE=9，求 EC">
+<polygon class="f-fill" points="150,28 55,192 285,192"/>
+<polygon class="s-main" points="150,28 55,192 285,192"/>
+<line class="s-hi" x1="93" y1="128" x2="231" y2="128"/>
+<circle class="pt" cx="150" cy="28" r="3"/><text class="lbl" x="145" y="20">A</text>
+<circle class="pt" cx="55" cy="192" r="3"/><text class="lbl" x="41" y="207">B</text>
+<circle class="pt" cx="285" cy="192" r="3"/><text class="lbl" x="289" y="207">C</text>
+<circle class="pt-hi" cx="93" cy="128" r="3"/><text class="lbl" x="73" y="124">D</text>
+<circle class="pt-hi" cx="231" cy="128" r="3"/><text class="lbl" x="237" y="124">E</text>
+<text class="lbl-len" x="108" y="82">AD=3k</text>
+<text class="lbl-len" x="60" y="168">DB=2k</text>
+<text class="lbl-len" x="200" y="82">AE=9</text>
+<text class="lbl-len" x="252" y="168">EC=?</text>
+<text class="lbl-ang" x="128" y="148">DE &#8741; BC</text>
+</svg>`,
 bpt_three: `<svg viewBox="0 0 340 210" role="img" aria-label="Three parallel lines cut by two transversals">
 <line class="s-hi" x1="30" y1="40" x2="310" y2="40"/>
 <line class="s-hi" x1="30" y1="110" x2="310" y2="110"/>

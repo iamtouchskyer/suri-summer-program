@@ -308,7 +308,7 @@ function problemCard(p, idx) {
 function enhCard(e) {
   return `
     <div class="enh-card">
-      <div class="enh-level">${e.level}</div>
+      <div class="enh-level">${t(e.level)}</div>
       <div class="enh-statement">${t(e.statement)}</div>
       ${figHTML(e.fig)}
       <button class="enh-reveal">${ui("showHint")}</button>

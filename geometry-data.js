@@ -190,6 +190,7 @@ statement: {
 en: "A line parallel to \\(BC\\) meets \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E\\). If \\(\\dfrac{AD}{DB}=\\dfrac{3}{2}\\) and \\(AE=9\\), find \\(EC\\).",
 zh: "一条平行于 \\(BC\\) 的直线交 \\(AB\\) 于 \\(D\\)、交 \\(AC\\) 于 \\(E\\)。若 \\(\\dfrac{AD}{DB}=\\dfrac{3}{2}\\) 且 \\(AE=9\\)，求 \\(EC\\)。"
 },
+fig: FIG.bpt_l1,
 hint: { en: "Thales: \\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\). The parallel line splits both sides in the SAME ratio.", zh: "泰勒斯定理：\\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\)。平行线把两条边按「相同的比」分割。" },
 answer: { en: "\\(\\dfrac{9}{EC}=\\dfrac{3}{2}\\Rightarrow EC=6\\).", zh: "\\(\\dfrac{9}{EC}=\\dfrac{3}{2}\\Rightarrow EC=6\\)。" }
 },
