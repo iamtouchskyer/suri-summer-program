@@ -734,3 +734,36 @@ box-shadow: 0 2px 0 var(--ink); margin-right: 4px;
 .geo-fig .pt-hi    { fill: var(--accent); }
 .geo-fig .mark     { stroke: var(--accent); stroke-width: 1.6; fill: none; }
 
+
+
+/* ===== Textbook: source/citation badge under a worked example ===== */
+.tb-source {
+  margin: 6px 0 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent-2);
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  background: rgba(29, 92, 79, 0.07);
+  border-left: 2px solid var(--accent-2);
+  border-radius: 3px;
+  display: inline-block;
+}
+.tb-section .geo-fig { margin: 20px auto; max-width: 420px; }
+
+
+
+/* ===== source badge variants: verified contest vs textbook ===== */
+.tb-source.src-contest {
+  color: #8a5a00;
+  background: rgba(201, 138, 22, 0.13);
+  border-left-color: var(--gold);
+  font-weight: 600;
+}
+.tb-source.src-contest::before { content: "✓ "; }
+.tb-source.src-text {
+  color: var(--ink-faint);
+  background: rgba(132, 120, 98, 0.10);
+  border-left-color: var(--line);
+}
+

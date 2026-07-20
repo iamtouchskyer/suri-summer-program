@@ -188,6 +188,12 @@ function tbBlock(b) {
       return `<div class="tb-formula">${b.tex || ""}</div>`;
     case "divider":
       return `<div class="tb-divider"></div>`;
+    case "fig":
+      return figHTML(b.svg || b.fig);
+    case "source": {
+      var sv = b.variant === "contest" ? " src-contest" : (b.variant === "text" ? " src-text" : "");
+      return `<div class="tb-source${sv}">${tbText(b)}</div>`;
+    }
     case "step": {
       const title = b.title ? tbText(b.title) : "";
       return `<div class="tb-step"><div class="tb-step-badge">${b.n || ""}</div><div class="tb-step-main"><div class="tb-step-title">${title}</div><div class="tb-step-body">${tbText(b)}</div></div></div>`;
