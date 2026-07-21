@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suri's Question Bank · 压轴题分级库</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8d8; --card:#fbf8f0;
+  --ink:#2b2620; --ink-faint:#6f6656; --line:#d8cdb5;
+  --accent:#1d5c4f; --accent-2:#b5471f; --shadow:#d8cdb5;
+  --gold:#b8860b;
+  --serif:'Fraunces','Noto Serif SC',serif;
+  --sans:'Spline Sans','Noto Serif SC',sans-serif;
+  --mono:'Spline Sans Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;padding-bottom:60px;}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+header{background:linear-gradient(165deg,#fbf8f0,#efe4cf);border-bottom:2px solid var(--line);padding:26px 0 22px;margin-bottom:22px;}
+header .wrap{display:flex;flex-direction:column;gap:6px;}
+.crumb{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+.crumb a{color:var(--accent);text-decoration:none;}
+h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
+.sub{color:var(--ink-faint);font-size:.9rem;}
+.note{background:#fbf3e4;border:1.5px solid var(--gold);border-radius:10px;padding:10px 14px;font-size:.82rem;color:#7a5c12;margin-top:10px;}
+/* controls */
+.controls{position:sticky;top:0;z-index:20;background:var(--paper);padding:14px 0 12px;border-bottom:1.5px solid var(--line);margin-bottom:16px;}
+.filter-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px;align-items:center;}
+.flabel{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);margin-right:4px;min-width:42px;}
+.chip{font-family:var(--mono);font-size:.76rem;padding:5px 11px;border:1.5px solid var(--line);border-radius:20px;background:var(--card);cursor:pointer;transition:all .15s;color:var(--ink-faint);user-select:none;}
+.chip:hover{border-color:var(--ink);}
+.chip.on{background:var(--accent);color:#fbf8f0;border-color:var(--accent);}
+.chip.on.d-expert{background:var(--accent-2);border-color:var(--accent-2);}
+.chip.on.d-olympiad{background:#7a2e12;border-color:#7a2e12;}
+#q{width:100%;padding:9px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:var(--sans);font-size:.9rem;background:var(--card);color:var(--ink);}
+#q:focus{outline:none;border-color:var(--accent);}
+.count{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);margin-top:8px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">← 总览</a> · QUESTION BANK</div>
+    <h1>压轴题分级库</h1>
+    <div class="sub">1339 道 AMC/AIME 题 · 按知识点与难度筛选 · 专攻第 21–25 题</div>
+    <div class="note">📖 本库仅含<b>题目</b>（源自结构化题库，带官方难度标注）。解析与配图由老师按需逐题精做、代码验证后补充 —— 不放未经核对的答案，是为了不误导 Suri。</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="filter-row" id="topicRow">
+      <span class="flabel">知识点</span>
+    </div>
+    <div class="filter-row" id="bandRow">
+      <span class="flabel">难度</span>
+    </div>
+    <div class="filter-row">
+      <span class="flabel">搜索</span>
+      <input id="q" type="text" placeholder="输入关键词，如 circle / probability / 内接 …" />
+    </div>
+    <div class="count" id="count"></div>
+  </div>
+  <div id="list"></div>
+</div>
+
+<style>
+.pcard-q{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:15px 17px;margin-bottom:12px;transition:border-color .15s;}
+.pcard-q:hover{border-color:var(--ink);}
+.pq-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.pq-id{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+.pq-tag{font-family:var(--mono);font-size:.66rem;padding:2px 8px;border-radius:12px;letter-spacing:.04em;}
+.t-geometry{background:#e3efe9;color:#1d5c4f;}
+.t-algebra{background:#eae7f5;color:#4b3f8f;}
+.t-number{background:#f5ead9;color:#8a5a1a;}
+.t-counting{background:#f3e2e2;color:#9a3a2a;}
+.t-counting2{background:#efdcdc;color:#7a2e12;}
+.pq-diff{font-family:var(--mono);font-size:.66rem;padding:2px 8px;border-radius:12px;background:var(--accent);color:#fbf8f0;}
+.pq-diff.d-expert{background:var(--accent-2);}
+.pq-diff.d-olympiad{background:#7a2e12;}
+.pq-diff.d-hard{background:#5a7a1a;}
+.pq-diff.d-mid{background:#7a6a4a;}
+.pq-diff.d-easy{background:#9a9484;}
+.pq-badge{font-family:var(--mono);font-size:.64rem;color:var(--ink-faint);border:1px solid var(--line);border-radius:10px;padding:1px 7px;}
+.pq-text{font-size:.92rem;line-height:1.65;color:var(--ink);}
+.pq-text .katex{font-size:1em;}
+.empty{text-align:center;color:var(--ink-faint);padding:40px;font-family:var(--mono);font-size:.85rem;}
+.more{text-align:center;margin:20px 0;}
+.more button{font-family:var(--mono);font-size:.8rem;padding:9px 20px;border:1.5px solid var(--accent);border-radius:8px;background:var(--card);color:var(--accent);cursor:pointer;}
+.more button:hover{background:var(--accent);color:#fbf8f0;}
+</style>
+
+
+<script src="qbank-data.js"></script>
+<script>
+var TOPICS = window.QBANK_TOPICS;
+var DATA = window.QBANK || [];
+var BANDS = [
+  ['easy','入门 <2'], ['mid','中档 2-3'], ['hard','较难 3-4'],
+  ['expert','难题 4-5'], ['olympiad','压轴 ≥5']
+];
+var state = { topics: [], bands: ['expert','olympiad'], q: '' };
+var shown = 0;
+var PAGE = 25;
+
+function buildChips(){
+  var tr = document.getElementById('topicRow');
+  Object.keys(TOPICS).forEach(function(k){
+    var c = document.createElement('span');
+    c.className = 'chip';
+    c.textContent = TOPICS[k][1];
+    c.dataset.k = k;
+    c.onclick = function(){ toggle(state.topics, k, c); render(); };
+    tr.appendChild(c);
+  });
+  var br = document.getElementById('bandRow');
+  BANDS.forEach(function(b){
+    var c = document.createElement('span');
+    c.className = 'chip d-' + b[0];
+    if (state.bands.indexOf(b[0]) >= 0) c.classList.add('on');
+    c.textContent = b[1];
+    c.dataset.k = b[0];
+    c.onclick = function(){ toggle(state.bands, b[0], c); render(); };
+    br.appendChild(c);
+  });
+}
+
+function toggle(arr, k, el){
+  var i = arr.indexOf(k);
+  if (i >= 0){ arr.splice(i,1); el.classList.remove('on'); }
+  else { arr.push(k); el.classList.add('on'); }
+}
+
+function match(p){
+  if (state.topics.length && state.topics.indexOf(p.topic) < 0) return false;
+  if (state.bands.length && state.bands.indexOf(p.band) < 0) return false;
+  if (state.q){
+    var q = state.q.toLowerCase();
+    if (p.text.toLowerCase().indexOf(q) < 0 && p.id.indexOf(q) < 0) return false;
+  }
+  return true;
+}
+
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+
+
+<script>
+function cardHTML(p){
+  var diffLabel = 'DIFF ' + p.diff.toFixed(p.diff % 1 === 0 ? 0 : 2);
+  var badges = '';
+  if (p.img) badges += '<span class="pq-badge">🖼 原题含图</span>';
+  if (p.mc) badges += '<span class="pq-badge">选择题</span>';
+  else badges += '<span class="pq-badge">填空/证明</span>';
+  return '<div class="pcard-q">' +
+    '<div class="pq-head">' +
+      '<span class="pq-tag t-' + p.topic + '">' + TOPICS[p.topic][1] + '</span>' +
+      '<span class="pq-diff d-' + p.band + '">' + diffLabel + '</span>' +
+      '<span class="pq-id">' + p.id + '</span>' +
+      badges +
+    '</div>' +
+    '<div class="pq-text">' + esc(p.text) + '</div>' +
+  '</div>';
+}
+
+function render(reset){
+  if (reset !== false) shown = 0;
+  var filtered = DATA.filter(match);
+  var list = document.getElementById('list');
+  var slice = filtered.slice(0, shown + PAGE);
+  shown = slice.length;
+  var html = slice.map(cardHTML).join('');
+  if (!filtered.length) html = '<div class="empty">没有匹配的题目，试试放宽筛选条件。</div>';
+  if (shown < filtered.length){
+    html += '<div class="more"><button id="moreBtn">加载更多（还有 ' + (filtered.length - shown) + ' 题）</button></div>';
+  }
+  list.innerHTML = html;
+  document.getElementById('count').textContent =
+    '共 ' + filtered.length + ' 题匹配 · 显示 ' + shown + ' 题';
+  if (window.renderMathInElement){
+    renderMathInElement(list, {
+      delimiters: [
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError: false
+    });
+  }
+  var mb = document.getElementById('moreBtn');
+  if (mb) mb.onclick = function(){ render(false); };
+}
+
+document.getElementById('q').addEventListener('input', function(e){
+  state.q = e.target.value.trim();
+  render();
+});
+
+function start(){ buildChips(); render(); }
+if (document.readyState === 'complete') start();
+else window.addEventListener('load', start);
+</script>
+</body>
+</html>
+
