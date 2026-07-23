@@ -187,7 +187,26 @@ function cardHTML(p){
       }
       optsHTML = '<div class="pq-ans-opts">' + esc(parts.join('  ')) + '</div>';
     }
-    var solHTML = p.sol ? '<div class="pq-sol">' + esc(p.sol) + '</div>' : '';
+    var solHTML = '';
+  if (p.sol){
+    if (typeof p.sol === 'string'){
+      solHTML = '<div class="pq-sol">' + esc(p.sol) + '</div>';
+    } else if (typeof p.sol === 'object'){
+      var lines = [];
+      var order = Object.keys(p.sol).sort(function(a,b){
+        var na = parseInt((a.match(/\\d+/)||[999])[0],10);
+        var nb = parseInt((b.match(/\\d+/)||[999])[0],10);
+        if (a === 'final_answer') return 1;
+        if (b === 'final_answer') return -1;
+        return na - nb;
+      });
+      order.forEach(function(k){
+        var label = (k === 'final_answer') ? '结论' : k.replace('step','步骤 ');
+        lines.push(esc(label) + '：' + esc(String(p.sol[k])));
+      });
+      solHTML = '<div class="pq-sol">' + lines.join('\\n') + '</div>';
+    }
+  }
     ansBlock = '<button class="pq-ans-toggle" data-tid="' + p.id + '">显示答案</button>' +
       '<div class="pq-ans-box" id="ans-' + p.id + '">' +
         '<div class="pq-ans-label">ANSWER</div>' +
