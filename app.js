@@ -423,7 +423,13 @@ function start() {
   document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
   buildLangToggle();
   buildNav();
-  selectDay(0);
+  var hasDays = (typeof courseData !== "undefined" && courseData.days && courseData.days.length);
+  var hasTextbook = (typeof textbookData !== "undefined" && textbookData.length);
+  if (!hasDays && hasTextbook) {
+    openTextbookIndex();
+  } else {
+    selectDay(0);
+  }
   renderChrome();
 }
 
