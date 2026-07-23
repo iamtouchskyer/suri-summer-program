@@ -51,7 +51,7 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
     <div class="crumb"><a href="index.html">← 总览</a> · QUESTION BANK</div>
     <h1>压轴题分级库</h1>
     <div class="sub">1339 道 AMC/AIME 题 · 按知识点与难度筛选 · 专攻第 21–25 题</div>
-    <div class="note">📖 本库仅含<b>题目</b>（源自结构化题库，带官方难度标注）。解析与配图由老师按需逐题精做、代码验证后补充 —— 不放未经核对的答案，是为了不误导 Suri。</div>
+    <div class="note">本库含 1339 道题，其中约 800 道已由老师<b>文本匹配并代码核验答案</b>（点击“显示答案”查看）；其余诚实留白，逐题精做后补充。</div>
   </div>
 </header>
 
@@ -94,6 +94,19 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
 .pq-text .katex{font-size:1em;}
 .empty{text-align:center;color:var(--ink-faint);padding:40px;font-family:var(--mono);font-size:.85rem;}
 .more{text-align:center;margin:20px 0;}
+.pq-ans-toggle{margin-top:11px;font-family:var(--mono);font-size:.72rem;padding:5px 13px;border:1.5px solid var(--accent);border-radius:8px;background:var(--card);color:var(--accent);cursor:pointer;transition:all .15s;}
+.pq-ans-toggle:hover{background:var(--accent);color:#fbf8f0;}
+.pq-ans-none{margin-top:11px;font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);font-style:italic;}
+.pq-ans-box{margin-top:11px;padding:13px 15px;background:#f6f3ea;border:1px dashed var(--line);border-radius:9px;display:none;}
+.pq-ans-box.open{display:block;}
+.pq-ans-label{font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);letter-spacing:.05em;margin-bottom:6px;}
+.pq-ans-val{font-size:1rem;font-weight:600;color:#1d5c4f;margin-bottom:9px;}
+.pq-ans-tv{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:.6rem;padding:1px 7px;border-radius:9px;background:#1d5c4f;color:#fbf8f0;font-weight:400;}
+.pq-ans-nr{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:.6rem;padding:1px 7px;border-radius:9px;background:#8a5a1a;color:#fbf8f0;font-weight:400;}
+.pq-ans-opts{font-size:.85rem;line-height:1.7;color:var(--ink);margin-bottom:9px;}
+.pq-sol{font-size:.85rem;line-height:1.7;color:var(--ink);white-space:pre-wrap;border-top:1px solid var(--line);padding-top:9px;}
+.pq-sol .katex{font-size:.95em;}
+
 .more button{font-family:var(--mono);font-size:.8rem;padding:9px 20px;border:1.5px solid var(--accent);border-radius:8px;background:var(--card);color:var(--accent);cursor:pointer;}
 .more button:hover{background:var(--accent);color:#fbf8f0;}
 </style>
@@ -159,17 +172,38 @@ function esc(s){
 function cardHTML(p){
   var diffLabel = 'DIFF ' + p.diff.toFixed(p.diff % 1 === 0 ? 0 : 2);
   var badges = '';
-  if (p.img) badges += '<span class="pq-badge">🖼 原题含图</span>';
-  if (p.mc) badges += '<span class="pq-badge">选择题</span>';
-  else badges += '<span class="pq-badge">填空/证明</span>';
+  if (p.img){ badges += '<span class="pq-badge">图</span>'; }
+  if (p.mc){ badges += '<span class="pq-badge">选择题</span>'; }
+  else { badges += '<span class="pq-badge">填空/证明</span>'; }
+  var ansBlock = '';
+  if (p.ans){
+    var tvB = p.tv ? '<span class="pq-ans-tv">老师验证</span>' : '';
+    var nrB = p.nr ? '<span class="pq-ans-nr">待核对</span>' : '';
+    var optsHTML = '';
+    if (p.options && typeof p.options === 'object'){
+      var parts = [];
+      for (var k in p.options){
+        if (p.options.hasOwnProperty(k)){ parts.push('(' + k + ') ' + p.options[k]); }
+      }
+      optsHTML = '<div class="pq-ans-opts">' + esc(parts.join('  ')) + '</div>';
+    }
+    var solHTML = p.sol ? '<div class="pq-sol">' + esc(p.sol) + '</div>' : '';
+    ansBlock = '<button class="pq-ans-toggle" data-tid="' + p.id + '">显示答案</button>' +
+      '<div class="pq-ans-box" id="ans-' + p.id + '">' +
+        '<div class="pq-ans-label">ANSWER</div>' +
+        '<div class="pq-ans-val">' + esc(String(p.ans)) + tvB + nrB + '</div>' +
+        optsHTML + solHTML +
+      '</div>';
+  } else {
+    ansBlock = '<div class="pq-ans-none">此题答案由老师逐题精做后补充</div>';
+  }
   return '<div class="pcard-q">' +
     '<div class="pq-head">' +
       '<span class="pq-tag t-' + p.topic + '">' + TOPICS[p.topic][1] + '</span>' +
       '<span class="pq-diff d-' + p.band + '">' + diffLabel + '</span>' +
-      '<span class="pq-id">' + p.id + '</span>' +
-      badges +
+      '<span class="pq-id">' + p.id + '</span>' + badges +
     '</div>' +
-    '<div class="pq-text">' + esc(p.text) + '</div>' +
+    '<div class="pq-text">' + esc(p.text) + '</div>' + ansBlock +
   '</div>';
 }
 
@@ -210,6 +244,17 @@ document.getElementById('q').addEventListener('input', function(e){
 function start(){ buildChips(); render(); }
 if (document.readyState === 'complete') start();
 else window.addEventListener('load', start);
+</script>
+
+<script>/*PQ_ANS_HOOK*/
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest(".pq-ans-toggle") : null;
+  if(!b) return;
+  var box = document.getElementById("ans-" + b.getAttribute("data-tid"));
+  if(!box) return;
+  var open = box.classList.toggle("open");
+  b.textContent = open ? "隐藏答案" : "显示答案";
+});
 </script>
 </body>
 </html>
