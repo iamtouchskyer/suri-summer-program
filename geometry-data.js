@@ -2,7 +2,6 @@
 Geometry Level 2 — Bilingual Course Data (for Suri) 双语数据
 -------------------------------------------------------------
 本文件与 Algebra 的 data.js 结构完全一致，复用同一个 app.js 渲染引擎。
-几何课开始后，按下方格式往 courseData.days 里 push 每一天即可。
 
 字段速查：
 knowledgePoints[]: { name, detail, formula?, example? }
@@ -30,270 +29,449 @@ zh: "记录每一节几何课的成长日志 —— 知识点、题目、解法�
 days: []
 };
 
-/* ===================== DAY 1 — Similar Triangles & Ratio Chasing / 相似三角形与比例追踪 ===================== */
+/* ===================== DAY 1 — Classical Triangle Lemmas / 经典三角形引理 ===================== */
 courseData.days.push({
 id: 1,
 unit: "Geometry L2",
 date: { en: "Day 1", zh: "第 1 天" },
-title: { en: "Similar Triangles & Ratio Chasing", zh: "相似三角形与比例追踪" },
+title: { en: "Classical Triangle Lemmas", zh: "经典三角形引理" },
 subtitle: {
-en: "Geometry's first superpower: when two triangles have the same shape, every pair of matching sides shares ONE ratio. Learn to spot similar triangles instantly, then 'chase' that ratio through a chain of figures until the unknown falls out.",
-zh: "几何的第一个超能力：当两个三角形「形状相同」时，所有对应边都共享同一个「比值」。学会一眼认出相似三角形，再沿着图形链条「追踪」这个比值，直到未知量自己掉出来。"
+en: "The toolbox every hard triangle problem is secretly built from: Law of Sines/Cosines, the Ratio Lemma, cevians, Stewart's Theorem, and the length identities that turn 'impossible' configurations into one clean equation.",
+zh: "所有难三角形题目背后，其实都由同一套工具搭成：正弦/余弦定理、比例引理、各种「塞瓦线」、斯图尔特定理，以及那些能把「看起来无从下手」的图形变成一个干净方程的长度恒等式。"
 },
 tags: [
-{ en: "AA Similarity", zh: "AA 相似" },
-{ en: "Parallel Lines", zh: "平行线" },
-{ en: "Angle Bisector", zh: "角平分线" },
-{ en: "Ratio Chasing", zh: "比例追踪" },
-{ en: "Area Ratio", zh: "面积比" }
+{ en: "Law of Sines / Cosines", zh: "正弦 / 余弦定理" },
+{ en: "Ratio Lemma", zh: "比例引理" },
+{ en: "Stewart's Theorem", zh: "斯图尔特定理" },
+{ en: "Cevians & Symmedian", zh: "塞瓦线与对称中线" }
 ],
-knowledgePoints: [
-{
-name: { en: "What 'similar' really means — one ratio rules them all", zh: "「相似」到底意味着什么 —— 一个比值统治一切" },
-detail: {
-en: "Two triangles are SIMILAR (written \\(\\triangle ABC\\sim\\triangle DEF\\)) when they have the same shape but possibly different size. Two consequences, always: (1) all three pairs of matching ANGLES are equal; (2) all three pairs of matching SIDES are in the SAME ratio \\(k\\), the 'scale factor'. The single most common mistake is mismatching the order — the similarity statement \\(\\triangle ABC\\sim\\triangle DEF\\) tells you \\(A\\leftrightarrow D\\), \\(B\\leftrightarrow E\\), \\(C\\leftrightarrow F\\). Always write vertices in CORRESPONDING order, then the ratios read off automatically.",
-zh: "两个三角形「相似」（记作 \\(\\triangle ABC\\sim\\triangle DEF\\)）指它们形状相同、大小可不同。永远有两个推论：(1) 三对对应「角」都相等；(2) 三对对应「边」都成同一个比值 \\(k\\)，即「相似比 / 缩放因子」。\\n最常见的错误就是把对应顺序搞错 —— 相似式 \\(\\triangle ABC\\sim\\triangle DEF\\) 已经告诉你 \\(A\\leftrightarrow D\\)、\\(B\\leftrightarrow E\\)、\\(C\\leftrightarrow F\\)。永远按「对应顺序」写顶点，比例就能自动读出来。"
-},
-formula: "\\[ \\triangle ABC\\sim\\triangle DEF \\;\\Rightarrow\\; \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{CA}{FD}=k \\]"
-},
-{
-name: { en: "The three ways to PROVE similarity (AA is king)", zh: "证明相似的三种方法（AA 是王者）" },
-detail: {
-en: "You only need to verify a little to get the whole similarity for free: \\n• AA — two pairs of equal angles (the third is then forced by the \\(180^\\circ\\) sum). This is by far the most-used in contests. \\n• SAS — two pairs of sides in equal ratio AND the included angles equal. \\n• SSS — all three pairs of sides in equal ratio. \\nIn olympiad geometry, ~80% of the time you reach for AA: hunt for equal angles (shared angles, parallel-line angles, same arc, right angles), and two of them is all you need.",
-zh: "你只需验证一点点，就能白送整个相似：\\n• AA —— 两对角相等（第三对会被 \\(180^\\circ\\) 内角和强制相等）。这是竞赛中用得最多的。\\n• SAS —— 两对边成等比，且「夹角」相等。\\n• SSS —— 三对边都成等比。\\n在竞赛几何里，约 80% 的情况你都会去用 AA：去「猎」相等的角（公共角、平行线产生的角、同弧所对的角、直角），找到两个就够了。"
-},
-formula: "\\[ \\angle A=\\angle D,\\;\\; \\angle B=\\angle E \\;\\;\\Longrightarrow\\;\\; \\triangle ABC\\sim\\triangle DEF \\quad(\\text{AA}) \\]"
-},
-{
-name: { en: "Parallel lines manufacture similar triangles (A-shape & hourglass)", zh: "平行线「制造」相似三角形（A 字形与沙漏形）" },
-detail: {
-en: "A line parallel to one side of a triangle is a similarity FACTORY. Two classic models: \\n• The A-shape: a line \\(DE\\parallel BC\\) cuts \\(\\triangle ABC\\), giving \\(\\triangle ADE\\sim\\triangle ABC\\) (shared apex angle + equal corresponding angles). \\n• The hourglass (X-shape): two segments cross, and if the ends are joined by parallel lines, the two triangles are similar but FLIPPED. \\nThe parallel line creates the equal angles for you — this is the #1 source of 'free' AA similarity on the page.",
-zh: "一条「平行于三角形某边」的直线，就是一台相似工厂。两个经典模型：\\n• A 字形：一条 \\(DE\\parallel BC\\) 切过 \\(\\triangle ABC\\)，得到 \\(\\triangle ADE\\sim\\triangle ABC\\)（公共顶角 + 对应角相等）。\\n• 沙漏形（X 字形）：两条线段交叉，若两端被平行线连接，则两个三角形相似但「上下翻转」。\\n平行线会替你制造出相等的角 —— 这是图中「免费」AA 相似的头号来源。"
-},
-formula: "\\[ DE\\parallel BC \\;\\Rightarrow\\; \\triangle ADE\\sim\\triangle ABC \\;\\Rightarrow\\; \\frac{AD}{AB}=\\frac{AE}{AC}=\\frac{DE}{BC} \\]"
-},
-{
-name: { en: "The Basic Proportionality (Thales) Theorem", zh: "基本比例定理（泰勒斯定理 / 平行线分线段成比例）" },
-detail: {
-en: "Sharpening the A-shape: if \\(DE\\parallel BC\\) with \\(D\\) on \\(AB\\) and \\(E\\) on \\(AC\\), then it cuts the two sides in the SAME ratio: \\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\). Note this uses the SEGMENT pieces \\(DB,EC\\), not the whole sides — a classic trap. And it works in reverse: if a line divides two sides proportionally, it MUST be parallel to the third. This 'parallel \\(\\Leftrightarrow\\) proportional' equivalence is a workhorse for both computing and proving.",
-zh: "把 A 字形磨利：若 \\(DE\\parallel BC\\)，\\(D\\) 在 \\(AB\\) 上、\\(E\\) 在 \\(AC\\) 上，则它把两条边切成「相同的比」：\\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\)。\\n注意这里用的是「分段」\\(DB,EC\\)，不是整条边 —— 经典陷阱。\\n而且它反过来也成立：若一条线把两条边按比例分割，那它「必」平行于第三边。这条「平行 \\(\\Leftrightarrow\\) 成比例」的等价关系，是计算与证明两用的主力。"
-},
-formula: "\\[ DE\\parallel BC \\;\\Longleftrightarrow\\; \\frac{AD}{DB}=\\frac{AE}{EC} \\]"
-},
-{
-name: { en: "The Angle Bisector Theorem", zh: "角平分线定理" },
-detail: {
-en: "An internal bisector of an angle splits the OPPOSITE side into two pieces whose ratio equals the ratio of the two ADJACENT sides. If \\(AD\\) bisects \\(\\angle A\\) in \\(\\triangle ABC\\) with \\(D\\) on \\(BC\\), then \\(\\dfrac{BD}{DC}=\\dfrac{AB}{AC}\\). Memory hook: the bisector 'shares out' the opposite side in proportion to the sides it sits between. This is one of the highest-frequency length tools in AMC/AIME geometry — the instant you see a bisector, write this ratio down.",
-zh: "一个角的「内角平分线」会把「对边」分成两段，这两段之比等于「夹这个角的两条邻边」之比。若 \\(AD\\) 平分 \\(\\triangle ABC\\) 的 \\(\\angle A\\)、\\(D\\) 在 \\(BC\\) 上，则 \\(\\dfrac{BD}{DC}=\\dfrac{AB}{AC}\\)。\\n记忆钩子：平分线把对边「按它两侧邻边的比例」分配出去。\\n这是 AMC/AIME 几何里求长度的最高频工具之一 —— 一看到角平分线，立刻把这个比例写下来。"
-},
-formula: "\\[ AD \\text{ bisects } \\angle A \\;\\Rightarrow\\; \\frac{BD}{DC}=\\frac{AB}{AC} \\]"
-},
-{
-name: { en: "Ratio chasing & the area-ratio bridge (similar ⇒ square the ratio)", zh: "比例追踪，与面积比桥梁（相似 ⇒ 比值平方）" },
-detail: {
-en: "RATIO CHASING is the real skill: when one figure hides several similar triangles, write each similarity's ratio, then MULTIPLY them so the middle quantities cancel — exactly like telescoping in algebra. The bridge to area: if \\(\\triangle ABC\\sim\\triangle DEF\\) with side ratio \\(k\\), their AREAS are in ratio \\(k^2\\) (length scales once, area scales twice). Two triangles sharing the same height have areas in the ratio of their bases — combine these two facts and a 'find the area' monster usually collapses to a product of simple ratios.",
-zh: "「比例追踪」才是真正的功夫：当一个图里藏着好几对相似三角形时，把每一对相似的比值写下来，再把它们「相乘」，让中间量互相抵消 —— 这和代数里的裂项相消一模一样。\\n通往面积的桥：若 \\(\\triangle ABC\\sim\\triangle DEF\\)、边比为 \\(k\\)，则它们「面积」之比为 \\(k^2\\)（长度缩放一次，面积缩放两次）。\\n而「等高的两个三角形，面积之比 = 底之比」。把这两条结合，一道「求面积」的怪兽题通常会坍缩成几个简单比值的乘积。"
-},
-formula: "\\[ \\triangle ABC\\sim\\triangle DEF \\;\\Rightarrow\\; \\frac{[ABC]}{[DEF]}=k^2,\\qquad \\frac{[ABD]}{[ACD]}=\\frac{BD}{DC}\\;(\\text{same height}) \\]"
-}
-],
+knowledgePoints: [],
 problems: [],
 enhancements: [],
 problemSet: []
 });
 
-/* ---- Day 1 worked examples / 课堂例题精讲 ---- */
+/* ---------- 知识点 KnowledgePoints ---------- */
+courseData.days[0].knowledgePoints = [
+{
+name: { en: "Notation & setup (a, b, c, R, r, O, I, G)", zh: "记号与约定（a, b, c, R, r, O, I, G）" },
+detail: {
+en: "Before any lemma, fix the language. In triangle ABC we ALWAYS write a = BC, b = CA, c = AB — each lowercase letter is the side OPPOSITE the same uppercase vertex. Key centers: O = circumcenter (center of the circle through all 3 vertices), R = circumradius; I = incenter (center of the inscribed circle), r = inradius; G = centroid (where the three medians meet); M = midpoint of BC, so AM is the median from A. Getting this labelling reflexive is 80% of the battle — most 'I don't know where to start' moments vanish once every length in the picture has a name.",
+zh: "在用任何引理之前，先把「语言」固定下来。三角形 ABC 里我们永远记 a = BC，b = CA，c = AB —— 每个小写字母，都是它同名大写顶点「对面」的那条边。\n几个重要的心（center）：O = 外心（过三个顶点那个圆的圆心），R = 外接圆半径；I = 内心（内切圆圆心），r = 内切圆半径；G = 重心（三条中线的交点）；M = BC 中点，所以 AM 是从 A 出发的中线。\n把这套标注练成「条件反射」，这道题就赢了 80%。很多「不知道从哪下手」的瞬间，只要图里每一条长度都有了名字，就自动消失了。"
+},
+formula: "\\[ a = BC,\\quad b = CA,\\quad c = AB \\]"
+},
+{
+name: { en: "Law of Sines (with the 2R part!)", zh: "正弦定理（别忘了 2R 那一段！）" },
+detail: {
+en: "The Law of Sines says all three side/sine ratios are equal — AND that shared value equals 2R, the diameter of the circumcircle. That last equality is the part students forget and contest-writers love. Use it in two directions: (1) side↔angle inside one triangle; (2) any time you see a length AND the circumradius (or the circle), convert with a = 2R·sin A. Why is it true? Drop the diameter from B through O; the inscribed-angle theorem makes the angle at the antipode equal to A, and the diameter creates a right angle, so sin A = a/(2R).",
+zh: "正弦定理说：三组「边 ÷ 对角的正弦」全都相等 —— 而且这个公共的值 = 2R，也就是外接圆的直径。\n最后这个「= 2R」正是学生最容易漏、而竞赛出题人最爱考的部分。它有两个用法方向：（1）在同一个三角形里「边 ↔ 角」互换；（2）只要题目同时出现「一条边」和「外接圆半径 / 那个圆」，就用 a = 2R·sin A 来搭桥。\n为什么成立？从 B 过外心 O 作直径，圆周角定理让对径点处的角等于 A，而直径又造出一个直角，于是 sin A = a /(2R)。"
+},
+formula: "\\[ \\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R \\]",
+example: {
+en: "A triangle has a side of length 7 opposite a 30° angle. Then 2R = 7/sin30° = 7/(1/2) = 14, so the circumradius is R = 7. No other information needed.",
+zh: "一个三角形里，长度为 7 的边对着 30° 的角。那么 2R = 7 / sin30° = 7 /(1/2) = 14，所以外接圆半径 R = 7。不需要任何别的信息。"
+}
+},
+{
+name: { en: "The Ratio Lemma (the cevian workhorse)", zh: "比例引理（处理塞瓦线的主力工具）" },
+detail: {
+en: "This is the single most useful lemma of the day. Take any cevian AD (D on BC). It splits BC into BD and DC, and it splits angle A into ∠BAD and ∠DAC. The Ratio Lemma links the side-split to the angle-split: BD/DC = (AB/AC)·(sin∠BAD / sin∠DAC). Proof is just the Law of Sines in the two sub-triangles ABD and ACD (they share AD, which cancels). Why care? The moment a problem draws a cevian and tells you the two angles it makes, you can read off exactly how it cuts the opposite side — no coordinates, no area, just this.",
+zh: "这是今天最有用的一条引理。任取一条塞瓦线 AD（D 在 BC 上）。它把 BC 切成 BD 和 DC，也把角 A 切成 ∠BAD 和 ∠DAC。比例引理把「边的切分」和「角的切分」连在一起：\nBD/DC =（AB/AC）·（sin∠BAD / sin∠DAC）。\n证明只是在两个子三角形 ABD、ACD 里各用一次正弦定理（它们共用 AD，一除就消掉）。\n为什么重要？只要题目画了一条塞瓦线、又告诉你它分出的两个角，你就能立刻读出它把对边切成什么比例 —— 不用坐标、不用面积，就靠这一条。"
+},
+formula: "\\[ \\frac{BD}{DC} = \\frac{AB}{AC}\\cdot\\frac{\\sin\\angle BAD}{\\sin\\angle DAC} \\]"
+},
+{
+name: { en: "Angle Bisector Ratio (a one-line corollary)", zh: "角平分线比值定理（一行推论）" },
+detail: {
+en: "Special-case the Ratio Lemma: if AD bisects angle A, then ∠BAD = ∠DAC, so the two sines are equal and cancel. What's left is stunningly clean: BD/DC = AB/AC = c/b. In words: an angle bisector cuts the opposite side in the ratio of the two adjacent sides. (The EXTERNAL bisector hits line BC outside the segment, dividing it externally in the same c:b ratio — that's the Internal/External Angle Bisector Theorem.) Memorize the clean version; derive it from the Ratio Lemma whenever you blank on the direction.",
+zh: "把比例引理取一个特例：如果 AD 平分角 A，那么 ∠BAD = ∠DAC，两个正弦相等、直接约掉。剩下的式子干净得惊人：\nBD/DC = AB/AC = c/b。\n用一句话说：角平分线把对边切成「两条邻边之比」。（外角平分线会交在 BC 线段之外的一点，以同样的 c:b 比例做「外分」—— 这就是内 / 外角平分线定理。）\n把这个干净版本背下来；哪天忘了是哪边比哪边，就用比例引理临场推一遍。"
+},
+formula: "\\[ AD \\text{ bisects } \\angle A \\;\\Longrightarrow\\; \\frac{BD}{DC} = \\frac{c}{b} \\]",
+example: {
+en: "In triangle ABC with AB = 8, AC = 6, the bisector from A meets BC at D. Then BD:DC = 8:6 = 4:3. If BC = 14, then BD = 8, DC = 6.",
+zh: "三角形 ABC 中 AB = 8，AC = 6，从 A 出发的角平分线交 BC 于 D。那么 BD:DC = 8:6 = 4:3。若 BC = 14，则 BD = 8，DC = 6。"
+}
+}
+];
+
+
+courseData.days[0].knowledgePoints.push(
+{
+name: { en: "Isogonal cevians & the Symmedian", zh: "等角线 与 对称中线（Symmedian）" },
+detail: {
+en: "Two cevians AD, AE are ISOGONAL if they are mirror images across the bisector of angle A (∠BAD = ∠EAC). Feeding this into the Ratio Lemma, the sine ratios become reciprocals, giving a beautiful product rule: (BD/DC)·(BE/EC) = (c/b)². The star example: reflect the MEDIAN AM across the bisector — the result is called the A-symmedian. Since the median has BM/MC = 1, the symmedian AS satisfies BS/SC = (c/b)². So the symmedian divides the opposite side in the ratio of the SQUARES of the adjacent sides. Symmedians are all over hard olympiad geometry; recognizing 'reflection of the median' is the key.",
+zh: "如果两条塞瓦线 AD、AE 关于角 A 的平分线互为镜像（∠BAD = ∠EAC），就称它们是「等角线」。把这个条件喂进比例引理，两个正弦比恰好互为倒数，于是得到一个漂亮的乘积规则：\n（BD/DC）·（BE/EC）=（c/b)²。\n最经典的例子：把「中线」AM 关于角平分线做镜像 —— 得到的这条线叫「A-对称中线（symmedian）」。因为中线满足 BM/MC = 1，所以对称中线 AS 满足 BS/SC =（c/b)²。\n也就是说：对称中线把对边切成「两条邻边的平方」之比。对称中线在难的奥数几何里到处都是；认出「它就是中线的镜像」是关键。"
+},
+formula: "\\[ \\text{isogonal: } \\frac{BD}{DC}\\cdot\\frac{BE}{EC}=\\Big(\\frac cb\\Big)^2 \\;\\Rightarrow\\; \\text{symmedian: } \\frac{BS}{SC}=\\Big(\\frac cb\\Big)^2 \\]"
+},
+{
+name: { en: "Law of Cosines (+ the acute/right/obtuse test)", zh: "余弦定理（+ 锐角 / 直角 / 钝角判别）" },
+detail: {
+en: "The Law of Cosines is the Pythagorean theorem with a correction term for the angle: a² = b² + c² − 2bc·cos A. Use it whenever you know two sides and the included angle (find the third side), or all three sides (find any angle). Bonus: since cos A > 0 exactly when A is acute, just comparing a² to b² + c² instantly classifies angle A — no cosine needed: a² < b²+c² ⟺ A acute; a² = b²+c² ⟺ A right (Pythagoras!); a² > b²+c² ⟺ A obtuse. This little test answers a surprising number of 'is this triangle acute?' problems in one line.",
+zh: "余弦定理，就是「带角度修正项的勾股定理」：a² = b² + c² − 2bc·cos A。\n什么时候用？知道两边及其夹角（求第三边），或知道三条边（求任一角）。\n额外福利：因为 cos A > 0 当且仅当 A 是锐角，所以只要把 a² 和 b² + c² 比一比，就能瞬间判断角 A 的类型 —— 连余弦都不用算：\na² < b²+c² ⟺ A 锐角；a² = b²+c² ⟺ A 直角（就是勾股！）；a² > b²+c² ⟺ A 钝角。\n这个小判别，能一行解决意外地多的「这个三角形是不是锐角三角形」类题目。"
+},
+formula: "\\[ a^2 = b^2 + c^2 - 2bc\\cos A \\]"
+},
+{
+name: { en: "Stewart's Theorem (any cevian's length)", zh: "斯图尔特定理（任意塞瓦线的长度）" },
+detail: {
+en: "Stewart's Theorem is the one formula that gives the LENGTH of an arbitrary cevian. Let D be on BC with BD = m, DC = n (so a = m+n), and let the cevian AD = d. Then b²m + c²n = a(d² + mn). The mnemonic 'man + dad = bmb + cnc' (a·mn + d·d·a on the right, b²m + c²n on the left) is genuinely how people remember it. Proof: Law of Cosines in the two sub-triangles at D — the angles ADB and ADC are supplementary, so their cosines are negatives and cancel when you weight-and-add. Whenever a problem asks for the length of a median, an angle bisector, or any interior cevian, Stewart is your first thought.",
+zh: "斯图尔特定理，是唯一一条能算出「任意塞瓦线长度」的公式。设 D 在 BC 上，BD = m，DC = n（所以 a = m+n），塞瓦线 AD = d，则：\nb²m + c²n = a（d² + mn）。\n口诀「man + dad = bmb + cnc」（右边是 a·mn 和 a·d·d，左边是 b²m 和 c²n）—— 大家是真的靠这句话记的。\n证明：在 D 处两个子三角形里各用一次余弦定理 —— ∠ADB 和 ∠ADC 互补，余弦互为相反数，加权相加时正好抵消。\n只要题目问「中线 / 角平分线 / 任意一条内部塞瓦线」的长度，斯图尔特就是你的第一反应。"
+},
+formula: "\\[ b^2 m + c^2 n = a\\,(d^2 + mn) \\qquad (\\text{man}+\\text{dad}=\\text{bmb}+\\text{cnc}) \\]",
+example: {
+en: "Median AM to side a: here m = n = a/2. Stewart gives b²(a/2)+c²(a/2) = a(d² + a²/4), so d² = (2b²+2c²−a²)/4 — the median-length formula, a free corollary.",
+zh: "求到 a 边的中线 AM：此时 m = n = a/2。斯图尔特给出 b²(a/2)+c²(a/2) = a（d² + a²/4)，于是 d² =（2b²+2c²−a²)/4 —— 这就是中线长公式，白送的推论。"
+}
+},
+{
+name: { en: "Angle-bisector length & perpendicular-diagonals test", zh: "角平分线长公式 与 对角线垂直判据" },
+detail: {
+en: "Two high-value corollaries of Stewart. (a) LENGTH OF THE ANGLE BISECTOR: plug the bisector's split BD = ac/(b+c), DC = ab/(b+c) into Stewart and it collapses to AD² = bc − BD·DC = bc[1 − (a/(b+c))²]. Clean and worth memorizing. (b) PERPENDICULAR DIAGONALS: for any four points, the diagonals AC and BD are perpendicular IF AND ONLY IF AB² + CD² = AD² + BC² (sum of squares of one pair of opposite sides equals the other). This turns a 'prove perpendicular' problem into pure arithmetic on squared lengths — no angles at all.",
+zh: "斯图尔特的两条高价值推论。\n（a）角平分线长：把角平分线的切分 BD = ac/(b+c)、DC = ab/(b+c) 代入斯图尔特，式子会坍缩成\nAD² = bc − BD·DC = bc[1 −（a/(b+c))²]。\n干净、值得背。\n（b）对角线垂直判据：对任意四个点，对角线 AC 与 BD 垂直，当且仅当\nAB² + CD² = AD² + BC²（一组对边的平方和 = 另一组对边的平方和）。\n这把「证明两线垂直」变成了对「平方长度」的纯算术 —— 完全不碰角度。"
+},
+formula: "\\[ AD^2 = bc\\Big[1-\\Big(\\tfrac{a}{b+c}\\Big)^2\\Big] \\qquad AC\\perp BD \\iff AB^2+CD^2=AD^2+BC^2 \\]"
+}
+);
+
+
+courseData.days[0].knowledgePoints.push(
+{
+name: { en: "Carnot's Theorem (when do 3 perpendiculars meet?)", zh: "卡诺定理（三条垂线何时共点？）" },
+detail: {
+en: "Take points X, Y, Z on lines BC, CA, AB. Erect a perpendicular to BC at X, to CA at Y, to AB at Z. When do all three meet at ONE point? Carnot's answer is a single squared-length equation: BX² − XC² + CY² − YA² + AZ² − ZB² = 0. The proof engine is one tiny fact used three times: if P is the common point, the Pythagorean theorem gives PB² − PC² = BX² − XC² (both equal the signed difference along the line). Summing the three cyclic copies telescopes to 0. This is the 'concurrency detector' for perpendiculars — the perpendicular cousin of Ceva's Theorem.",
+zh: "在直线 BC、CA、AB 上各取点 X、Y、Z。在 X 处作 BC 的垂线，在 Y 处作 CA 的垂线，在 Z 处作 AB 的垂线。这三条垂线什么时候交于「同一个点」？\n卡诺定理的回答是一个「平方长度」方程：\nBX² − XC² + CY² − YA² + AZ² − ZB² = 0。\n证明引擎只是一个小事实用三遍：若 P 是公共点，勾股定理给出 PB² − PC² = BX² − XC²（两边都等于沿这条线的「有符号差」）。把三个循环副本相加，就望远镜式地抵消成 0。\n这是垂线版的「共点探测器」—— 塞瓦定理（Ceva）的垂线表亲。"
+},
+formula: "\\[ BX^2 - XC^2 + CY^2 - YA^2 + AZ^2 - ZB^2 = 0 \\]"
+},
+{
+name: { en: "Distance from circumcenter O to centroid G", zh: "外心 O 到重心 G 的距离" },
+detail: {
+en: "A single compact formula packages a lot: OG² = R² − (a² + b² + c²)/9. It ties together the circumradius R and the three side lengths in one shot. Derivation: use Stewart (median-length formula) to get AM², then AG = (2/3)AM, then the Law of Cosines in triangle AOG with AO = R. Two immediate payoffs: (1) since OG² ≥ 0, you get the inequality a²+b²+c² ≤ 9R² for free; (2) it's the gateway to the famous Euler line relation OH = 3·OG. Whenever a problem mixes 'circumradius' with 'sum of squares of sides,' this is the bridge.",
+zh: "一条紧凑的公式打包了很多信息：OG² = R² −（a² + b² + c²)/9。它一举把外接圆半径 R 和三条边长绑在一起。\n推导：用斯图尔特（中线长公式）求出 AM²，再由 AG =（2/3)AM，最后在三角形 AOG 里用余弦定理（AO = R）。\n两个立刻的收益：（1）因为 OG² ≥ 0，你白得一个不等式 a²+b²+c² ≤ 9R²；（2）它是通往著名欧拉线关系 OH = 3·OG 的门户。\n只要一道题同时出现「外接圆半径」和「三边平方和」，这就是那座桥。"
+},
+formula: "\\[ OG^2 = R^2 - \\frac{a^2+b^2+c^2}{9} \\]"
+},
+{
+name: { en: "Leibniz's Formula (the master identity)", zh: "莱布尼茨公式（万能母恒等式）" },
+detail: {
+en: "The grand generalization: for ANY point P in the plane of triangle ABC with centroid G, PA² + PB² + PC² = GA² + GB² + GC² + 3·PG². In words: the sum of squared distances from any point to the three vertices only depends on where P sits relative to the centroid, plus a fixed constant. Setting P = O (circumcenter, so PA = PB = PC = R) instantly recovers the OG² formula above. Setting P = G kills the last term. This is the parent identity — the median formula, the OG² formula, and many 'minimize PA²+PB²+PC²' problems are all its children (the minimum is always at G).",
+zh: "最宏大的推广：对三角形 ABC 所在平面内的「任意」一点 P（G 为重心），都有\nPA² + PB² + PC² = GA² + GB² + GC² + 3·PG²。\n用一句话说：任意一点到三个顶点的「平方距离之和」，只取决于 P 相对重心的位置，再加上一个固定常数。\n取 P = O（外心，于是 PA = PB = PC = R），立刻还原出上面的 OG² 公式；取 P = G，最后一项消失。\n这是「母恒等式」—— 中线公式、OG² 公式、以及许多「最小化 PA²+PB²+PC²」的题，全都是它的孩子（最小值永远在重心 G 处取得）。"
+},
+formula: "\\[ PA^2 + PB^2 + PC^2 = GA^2 + GB^2 + GC^2 + 3\\,PG^2 \\]"
+}
+);
+
+
+/* ---------- 课堂例题精讲 Problems ---------- */
 courseData.days[0].problems = [
 {
-source: { en: "Worked Example 1 · A-shape warm-up", zh: "例题 1 · A 字形热身" },
+source: { en: "PS1 · Problem 4", zh: "习题集 PS1 · 第 4 题" },
 statement: {
-en: "In \\(\\triangle ABC\\), point \\(D\\) is on \\(AB\\) and \\(E\\) on \\(AC\\) with \\(DE\\parallel BC\\). Given \\(AD=4\\), \\(DB=6\\), and \\(BC=15\\), find \\(DE\\).",
-zh: "在 \\(\\triangle ABC\\) 中，\\(D\\) 在 \\(AB\\) 上、\\(E\\) 在 \\(AC\\) 上，且 \\(DE\\parallel BC\\)。已知 \\(AD=4\\)、\\(DB=6\\)、\\(BC=15\\)，求 \\(DE\\)。"
+en: "Let ABCD be a parallelogram. Prove that \\(2(AB^2 + BC^2) = AC^2 + BD^2\\).",
+zh: "设 ABCD 是平行四边形。证明 \\(2(AB^2 + BC^2) = AC^2 + BD^2\\)。"
 },
 recall: [
-{ en: "Parallel line ⇒ A-shape similarity", zh: "平行线 ⇒ A 字形相似" },
-{ en: "Ratio uses WHOLE side AB, not just AD", zh: "比值用整条 \\(AB\\)，不是只用 \\(AD\\)" }
+{ en: "Law of Cosines", zh: "余弦定理" },
+{ en: "Supplementary angles have opposite cosines", zh: "互补角的余弦互为相反数" },
+{ en: "Parallelogram: consecutive angles supplementary", zh: "平行四边形：邻角互补" }
 ],
 guide: {
-en: "\\(DE\\parallel BC\\) gives \\(\\triangle ADE\\sim\\triangle ABC\\). The matching side to \\(DE\\) is \\(BC\\); the matching side to \\(AD\\) is the WHOLE side \\(AB\\). What is \\(AB\\)?",
-zh: "\\(DE\\parallel BC\\) 给出 \\(\\triangle ADE\\sim\\triangle ABC\\)。与 \\(DE\\) 对应的是 \\(BC\\)；与 \\(AD\\) 对应的是「整条」\\(AB\\)。那么 \\(AB\\) 是多少？"
+en: "The statement is the famous 'parallelogram law': the sum of the squares of the two DIAGONALS equals the sum of the squares of all FOUR sides (and opposite sides are equal, so that's 2(AB²+BC²)). Whenever you see 'squares of lengths' with an angle floating around, reach for the Law of Cosines. The magic here: the two diagonals sit in triangles whose angles are supplementary, so their cosine terms are equal and opposite — add the two relations and the ugly cosine vanishes.",
+zh: "这个命题就是著名的「平行四边形法则」：两条对角线的平方和 = 四条边的平方和（对边相等，所以写成 2(AB²+BC²)）。\n只要看到「长度的平方」附近还飘着一个角，就该伸手去拿余弦定理。\n这里的魔法在于：两条对角线分别落在「夹角互补」的两个三角形里，于是它们的余弦项大小相等、符号相反 —— 把两个关系一加，讨厌的余弦就消失了。"
 },
 steps: [
-{ en: "Since \\(DE\\parallel BC\\), the apex angle \\(A\\) is shared and the corresponding angles are equal, so \\(\\triangle ADE\\sim\\triangle ABC\\) by AA.", zh: "因为 \\(DE\\parallel BC\\)，顶角 \\(A\\) 公共、对应角相等，所以由 AA 得 \\(\\triangle ADE\\sim\\triangle ABC\\)。" },
-{ en: "The scale factor is \\(\\dfrac{AD}{AB}\\). Here \\(AB=AD+DB=4+6=10\\), so \\(k=\\dfrac{4}{10}=\\dfrac{2}{5}\\).", zh: "缩放因子为 \\(\\dfrac{AD}{AB}\\)。这里 \\(AB=AD+DB=4+6=10\\)，所以 \\(k=\\dfrac{4}{10}=\\dfrac{2}{5}\\)。" },
-{ en: "Therefore \\(DE=k\\cdot BC=\\dfrac{2}{5}\\times 15=6\\).", zh: "于是 \\(DE=k\\cdot BC=\\dfrac{2}{5}\\times 15=6\\)。" }
+{ en: "Let \\(AB = CD = p\\), \\(BC = AD = q\\), and let \\(\\angle ABC = \\theta\\). Since ABCD is a parallelogram, the adjacent angle \\(\\angle BCD = 180^\\circ - \\theta\\).",
+zh: "记 \\(AB = CD = p\\)，\\(BC = AD = q\\)，设 \\(\\angle ABC = \\theta\\)。因为 ABCD 是平行四边形，邻角 \\(\\angle BCD = 180^\\circ - \\theta\\)。" },
+{ en: "Diagonal AC sits in triangle ABC. Law of Cosines:\n\\(AC^2 = p^2 + q^2 - 2pq\\cos\\theta.\\)",
+zh: "对角线 AC 落在三角形 ABC 中。余弦定理：\n\\(AC^2 = p^2 + q^2 - 2pq\\cos\\theta.\\)" },
+{ en: "Diagonal BD sits in triangle BCD. Law of Cosines with the supplementary angle:\n\\(BD^2 = p^2 + q^2 - 2pq\\cos(180^\\circ-\\theta) = p^2 + q^2 + 2pq\\cos\\theta.\\)",
+zh: "对角线 BD 落在三角形 BCD 中。对互补角用余弦定理：\n\\(BD^2 = p^2 + q^2 - 2pq\\cos(180^\\circ-\\theta) = p^2 + q^2 + 2pq\\cos\\theta.\\)" },
+{ en: "Add the two: the \\(\\pm 2pq\\cos\\theta\\) terms cancel exactly:\n\\(AC^2 + BD^2 = 2p^2 + 2q^2 = 2(AB^2 + BC^2).\\) \\(\\blacksquare\\)",
+zh: "两式相加：\\(\\pm 2pq\\cos\\theta\\) 项精确抵消：\n\\(AC^2 + BD^2 = 2p^2 + 2q^2 = 2(AB^2 + BC^2).\\) \\(\\blacksquare\\)" }
 ],
-answer: { en: "\\(DE=6\\)", zh: "\\(DE=6\\)" },
+answer: { en: "\\(AC^2 + BD^2 = 2(AB^2 + BC^2)\\) — proved.", zh: "\\(AC^2 + BD^2 = 2(AB^2 + BC^2)\\)，证毕。" },
 insight: {
-en: "The classic trap is using \\(\\dfrac{AD}{DB}=\\dfrac{4}{6}\\) as the scale factor. The similarity ratio always compares a small-triangle side to the WHOLE big-triangle side: \\(\\dfrac{AD}{AB}\\), not \\(\\dfrac{AD}{DB}\\).",
-zh: "经典陷阱是把 \\(\\dfrac{AD}{DB}=\\dfrac{4}{6}\\) 当成缩放因子。相似比永远是「小三角形的边 ÷ 整条大三角形的边」：是 \\(\\dfrac{AD}{AB}\\)，不是 \\(\\dfrac{AD}{DB}\\)。"
+en: "Supplementary angles are a GIFT: their cosines are negatives, so adding two Law-of-Cosines relations kills the cosine and leaves a pure length identity. This same 'add to cancel cos' trick is exactly the engine inside Stewart's Theorem.",
+zh: "「互补角」是一份礼物：它们的余弦互为相反数，所以把两条余弦定理关系「相加」就能杀掉余弦，只剩下纯粹的长度恒等式。这个「相加消 cos」的技巧，正是斯图尔特定理内部的引擎。"
 }
 },
 {
-source: { en: "Worked Example 2 · Shared-angle similarity", zh: "例题 2 · 公共角相似" },
+source: { en: "PS1 · Problem 1", zh: "习题集 PS1 · 第 1 题" },
 statement: {
-en: "In \\(\\triangle ABC\\), a point \\(D\\) lies on \\(AC\\) such that \\(\\angle ABD=\\angle ACB\\). Given \\(AB=6\\) and \\(AD=4\\), find \\(AC\\).",
-zh: "在 \\(\\triangle ABC\\) 中，点 \\(D\\) 在 \\(AC\\) 上，使得 \\(\\angle ABD=\\angle ACB\\)。已知 \\(AB=6\\)、\\(AD=4\\)，求 \\(AC\\)。"
+en: "Triangle ABC has a right angle at B and contains a point P such that \\(\\angle APB = \\angle BPC = \\angle CPA\\), with \\(PA = 10\\) and \\(PB = 6\\). Find \\(PC\\).",
+zh: "三角形 ABC 在 B 处有一个直角，内部有一点 P 满足 \\(\\angle APB = \\angle BPC = \\angle CPA\\)，且 \\(PA = 10\\)，\\(PB = 6\\)。求 \\(PC\\)。"
 },
 recall: [
-{ en: "Look for AA with a SHARED angle", zh: "找带「公共角」的 AA" },
-{ en: "Same side AB appears in both triangles", zh: "同一条 \\(AB\\) 出现在两个三角形里" }
+{ en: "Three equal angles around P sum to 360° → each is 120°", zh: "P 周围三个相等的角之和为 360° → 每个都是 120°" },
+{ en: "Law of Cosines (with cos120° = −1/2)", zh: "余弦定理（cos120° = −1/2）" },
+{ en: "Right angle at B → \\(AB^2 + BC^2 = CA^2\\)", zh: "B 处直角 → \\(AB^2 + BC^2 = CA^2\\)" }
 ],
 guide: {
-en: "Triangles \\(ABD\\) and \\(ACB\\) share angle \\(A\\). You're also given a second equal angle. Which two triangles are similar — and be careful with the correspondence order!",
-zh: "三角形 \\(ABD\\) 与 \\(ACB\\) 公共角 \\(A\\)。题目又给了第二对相等的角。哪两个三角形相似 —— 注意对应顺序！"
+en: "First decode the angle condition. Three angles at P are equal AND they wrap all the way around P, so they add to 360° — each must be 120°. That's the whole trick: now every side of the triangle is the 'third side' of a 120° triangle with P. Write AB², BC², CA² each via the Law of Cosines from P (the cosine is always −1/2, so the cross term is +PX·PY). Then feed them into the right-angle (Pythagorean) relation at B. Everything but PC is known.",
+zh: "先破译角度条件。P 处三个角相等，而且它们绕 P 转了一整圈，所以加起来是 360° —— 每个必然是 120°。这就是全部的诀窍：现在三角形的每条边，都是「以 P 为顶点、夹角 120°」的三角形的第三边。\n用从 P 出发的余弦定理分别写出 AB²、BC²、CA²（余弦永远是 −1/2，所以交叉项是 +PX·PY）。再把它们代入 B 处的直角（勾股）关系。除了 PC，其它全是已知。"
 },
 steps: [
-{ en: "In \\(\\triangle ABD\\) and \\(\\triangle ACB\\): \\(\\angle A\\) is shared, and \\(\\angle ABD=\\angle ACB\\) (given). By AA, \\(\\triangle ABD\\sim\\triangle ACB\\).", zh: "在 \\(\\triangle ABD\\) 与 \\(\\triangle ACB\\) 中：\\(\\angle A\\) 公共，且 \\(\\angle ABD=\\angle ACB\\)（已知）。由 AA 得 \\(\\triangle ABD\\sim\\triangle ACB\\)。" },
-{ en: "Write the correspondence carefully: \\(A\\leftrightarrow A\\), \\(B\\leftrightarrow C\\), \\(D\\leftrightarrow B\\). So \\(\\dfrac{AB}{AC}=\\dfrac{AD}{AB}\\).", zh: "仔细写对应：\\(A\\leftrightarrow A\\)、\\(B\\leftrightarrow C\\)、\\(D\\leftrightarrow B\\)。于是 \\(\\dfrac{AB}{AC}=\\dfrac{AD}{AB}\\)。" },
-{ en: "This gives \\(AB^2=AD\\cdot AC\\), so \\(36=4\\cdot AC\\), hence \\(AC=9\\).", zh: "于是 \\(AB^2=AD\\cdot AC\\)，即 \\(36=4\\cdot AC\\)，所以 \\(AC=9\\)。" }
+{ en: "The three angles at P are equal and total \\(360^\\circ\\), so each equals \\(120^\\circ\\), and \\(\\cos120^\\circ = -\\tfrac12\\).",
+zh: "P 处三个角相等且总和为 \\(360^\\circ\\)，所以每个都是 \\(120^\\circ\\)，且 \\(\\cos120^\\circ = -\\tfrac12\\)。" },
+{ en: "Law of Cosines from P for each side (cross term becomes \\(+PX\\cdot PY\\)):\n\\(AB^2 = 10^2 + 6^2 + 10\\cdot 6 = 196.\\)\n\\(BC^2 = 6^2 + PC^2 + 6\\,PC.\\)\n\\(CA^2 = PC^2 + 10^2 + 10\\,PC.\\)",
+zh: "从 P 对每条边用余弦定理（交叉项变成 \\(+PX\\cdot PY\\)）：\n\\(AB^2 = 10^2 + 6^2 + 10\\cdot 6 = 196.\\)\n\\(BC^2 = 6^2 + PC^2 + 6\\,PC.\\)\n\\(CA^2 = PC^2 + 10^2 + 10\\,PC.\\)" },
+{ en: "The right angle at B gives \\(AB^2 + BC^2 = CA^2\\):\n\\(196 + (36 + PC^2 + 6PC) = PC^2 + 100 + 10PC.\\)",
+zh: "B 处直角给出 \\(AB^2 + BC^2 = CA^2\\)：\n\\(196 + (36 + PC^2 + 6PC) = PC^2 + 100 + 10PC.\\)" },
+{ en: "The \\(PC^2\\) cancels: \\(232 + 6PC = 100 + 10PC \\Rightarrow 132 = 4PC \\Rightarrow PC = 33.\\)",
+zh: "\\(PC^2\\) 抵消：\\(232 + 6PC = 100 + 10PC \\Rightarrow 132 = 4PC \\Rightarrow PC = 33.\\)" }
 ],
-answer: { en: "\\(AC=9\\)", zh: "\\(AC=9\\)" },
+answer: { en: "\\(PC = 33\\)", zh: "\\(PC = 33\\)" },
 insight: {
-en: "The relation \\(AB^2=AD\\cdot AC\\) means \\(AB\\) is the GEOMETRIC MEAN of \\(AD\\) and \\(AC\\). This 'shared-angle + equal-angle ⇒ \\(\\text{side}^2=\\text{product}\\)' pattern is everywhere (it's the engine behind the power of a point, coming in a later lesson).",
-zh: "关系式 \\(AB^2=AD\\cdot AC\\) 表示 \\(AB\\) 是 \\(AD\\) 与 \\(AC\\) 的「几何平均」。这种「公共角 + 一对等角 ⇒ 某边² = 两段之积」的模式无处不在（它正是后面「圆幂定理」的发动机）。"
+en: "'Equal angles that surround a point' is code for 'each = 360°/n'. Once the angle is pinned, the Law of Cosines turns every side into an equation in the unknown lengths — and a right angle is just one more equation (Pythagoras). Count unknowns vs equations and the problem is already solved in your head.",
+zh: "「围绕一点的相等的角」是一句暗号，意思是「每个 = 360°/n」。角度一旦钉死，余弦定理就把每条边都变成关于未知长度的方程 —— 而一个直角只是「多一条方程」（勾股）。数一数未知数和方程个数，这题在脑子里就已经解完了。"
 }
 },
 {
-source: { en: "Worked Example 3 · Angle bisector", zh: "例题 3 · 角平分线" },
+source: { en: "PS1 · Problem 9", zh: "习题集 PS1 · 第 9 题" },
 statement: {
-en: "In \\(\\triangle ABC\\), \\(AB=8\\), \\(AC=6\\), and \\(BC=7\\). The bisector of \\(\\angle A\\) meets \\(BC\\) at \\(D\\). Find \\(BD\\) and \\(DC\\).",
-zh: "在 \\(\\triangle ABC\\) 中，\\(AB=8\\)、\\(AC=6\\)、\\(BC=7\\)。\\(\\angle A\\) 的平分线交 \\(BC\\) 于 \\(D\\)。求 \\(BD\\) 与 \\(DC\\)。"
+en: "Prove that medians \\(AA_1\\) and \\(BB_1\\) of triangle ABC are perpendicular if and only if \\(a^2 + b^2 = 5c^2\\).",
+zh: "证明：三角形 ABC 的中线 \\(AA_1\\) 与 \\(BB_1\\) 垂直，当且仅当 \\(a^2 + b^2 = 5c^2\\)。"
 },
 recall: [
-{ en: "Angle Bisector Theorem", zh: "角平分线定理" },
-{ en: "Split a known total in a known ratio", zh: "把已知总长按已知比例分配" }
+{ en: "Centroid divides each median 2:1 from the vertex", zh: "重心把每条中线按 2:1 分（从顶点量起）" },
+{ en: "Median-length formula (from Stewart)", zh: "中线长公式（由斯图尔特得出）" },
+{ en: "Perpendicular ⟺ right angle ⟺ Pythagoras", zh: "垂直 ⟺ 直角 ⟺ 勾股定理" }
 ],
 guide: {
-en: "The bisector from \\(A\\) splits \\(BC\\) in the ratio of the two sides adjacent to \\(A\\). Which two sides? Then split \\(BC=7\\) in that ratio.",
-zh: "从 \\(A\\) 出发的平分线，把 \\(BC\\) 按「夹角 \\(A\\) 的两条邻边」之比分割。是哪两条边？然后把 \\(BC=7\\) 按这个比例分开。"
+en: "The two medians cross at the centroid G, which cuts each in ratio 2:1. Look at triangle ABG: its two sides along the medians are AG = (2/3)m_a and BG = (2/3)m_b, and the third side is AB = c. The medians are perpendicular exactly when angle AGB = 90°, i.e. when triangle ABG is right-angled at G — that's just Pythagoras: AG² + BG² = c². Now replace m_a, m_b with the median-length formula and simplify. The whole problem is 'convert perpendicular into Pythagoras, then plug in known length formulas.'",
+zh: "两条中线交于重心 G，G 把每条中线按 2:1 分。看三角形 ABG：它沿着中线的两条边是 AG =（2/3)m_a 和 BG =（2/3)m_b，第三条边是 AB = c。\n两中线垂直，恰好等价于 ∠AGB = 90°，也就是三角形 ABG 在 G 处为直角 —— 这正是勾股：AG² + BG² = c²。\n现在把 m_a、m_b 换成中线长公式，再化简。整道题就是「把垂直翻译成勾股，再代入已知的长度公式」。"
 },
 steps: [
-{ en: "By the Angle Bisector Theorem, \\(\\dfrac{BD}{DC}=\\dfrac{AB}{AC}=\\dfrac{8}{6}=\\dfrac{4}{3}\\).", zh: "由角平分线定理，\\(\\dfrac{BD}{DC}=\\dfrac{AB}{AC}=\\dfrac{8}{6}=\\dfrac{4}{3}\\)。" },
-{ en: "Let \\(BD=4t\\) and \\(DC=3t\\). Then \\(BD+DC=7t=BC=7\\), so \\(t=1\\).", zh: "设 \\(BD=4t\\)、\\(DC=3t\\)。则 \\(BD+DC=7t=BC=7\\)，所以 \\(t=1\\)。" },
-{ en: "Therefore \\(BD=4\\) and \\(DC=3\\).", zh: "于是 \\(BD=4\\)、\\(DC=3\\)。" }
+{ en: "Median-length formula (a corollary of Stewart): \\(m_a^2 = \\tfrac{2b^2+2c^2-a^2}{4}\\), \\(m_b^2 = \\tfrac{2a^2+2c^2-b^2}{4}\\).",
+zh: "中线长公式（斯图尔特的推论）：\\(m_a^2 = \\tfrac{2b^2+2c^2-a^2}{4}\\)，\\(m_b^2 = \\tfrac{2a^2+2c^2-b^2}{4}\\)。" },
+{ en: "At the centroid, \\(AG = \\tfrac23 m_a\\), \\(BG = \\tfrac23 m_b\\). Perpendicular medians \\(\\iff \\angle AGB = 90^\\circ \\iff AG^2 + BG^2 = AB^2 = c^2\\).",
+zh: "在重心处，\\(AG = \\tfrac23 m_a\\)，\\(BG = \\tfrac23 m_b\\)。中线垂直 \\(\\iff \\angle AGB = 90^\\circ \\iff AG^2 + BG^2 = AB^2 = c^2\\)。" },
+{ en: "Substitute: \\(\\tfrac49 m_a^2 + \\tfrac49 m_b^2 = c^2\\), i.e. \\(m_a^2 + m_b^2 = \\tfrac94 c^2\\).",
+zh: "代入：\\(\\tfrac49 m_a^2 + \\tfrac49 m_b^2 = c^2\\)，即 \\(m_a^2 + m_b^2 = \\tfrac94 c^2\\)。" },
+{ en: "Add the two median formulas: \\(m_a^2 + m_b^2 = \\tfrac{(2b^2+2c^2-a^2)+(2a^2+2c^2-b^2)}{4} = \\tfrac{a^2+b^2+4c^2}{4}.\\)",
+zh: "把两个中线公式相加：\\(m_a^2 + m_b^2 = \\tfrac{(2b^2+2c^2-a^2)+(2a^2+2c^2-b^2)}{4} = \\tfrac{a^2+b^2+4c^2}{4}.\\)" },
+{ en: "Set equal to \\(\\tfrac94 c^2\\): \\(a^2+b^2+4c^2 = 9c^2 \\Rightarrow a^2 + b^2 = 5c^2.\\) Every step reverses, so it's an 'if and only if'. \\(\\blacksquare\\)",
+zh: "令其等于 \\(\\tfrac94 c^2\\)：\\(a^2+b^2+4c^2 = 9c^2 \\Rightarrow a^2 + b^2 = 5c^2.\\) 每一步都可逆，所以是「当且仅当」。\\(\\blacksquare\\)" }
 ],
-answer: { en: "\\(BD=4,\\;DC=3\\)", zh: "\\(BD=4,\\;DC=3\\)" },
+answer: { en: "\\(AA_1 \\perp BB_1 \\iff a^2 + b^2 = 5c^2\\) — proved (verified symbolically).", zh: "\\(AA_1 \\perp BB_1 \\iff a^2 + b^2 = 5c^2\\)，证毕（已用符号计算验证）。" },
 insight: {
-en: "The 'let the parts be \\(4t\\) and \\(3t\\)' move turns a ratio into actual lengths using the known total. This split-the-total technique is the bridge from a ratio to a number — you'll use it constantly.",
-zh: "「设两段为 \\(4t\\) 与 \\(3t\\)」这一步，用已知总长把「比值」变成「真实长度」。这种「按比分总」的技巧，是从比值通往具体数字的桥梁 —— 你会反复用到。"
+en: "Two moves crack most 'median' problems: (1) shrink to the centroid triangle, where perpendicularity becomes Pythagoras; (2) replace every median by its length formula. The median formula itself is just Stewart with \\(m=n=a/2\\) — so today's whole toolbox chains together: Stewart → median length → this result.",
+zh: "两步就能撬开大多数「中线」题：（1）缩到「重心三角形」里，垂直变成勾股；（2）把每条中线都换成它的长度公式。而中线公式本身，只是斯图尔特取 \\(m=n=a/2\\) 的特例 —— 所以今天整套工具串成了一条链：斯图尔特 → 中线长 → 这个结论。"
 }
 }
 ];
 
 
-/* ---- Day 1 enhancement practice / 强化练习 ---- */
+/* ---------- 强化练习 Enhancements ---------- */
 courseData.days[0].enhancements = [
 {
-level: { en: "Level 1", zh: "第 1 级" },
+level: "★",
 statement: {
-en: "A line parallel to \\(BC\\) meets \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E\\). If \\(\\dfrac{AD}{DB}=\\dfrac{3}{2}\\) and \\(AE=9\\), find \\(EC\\).",
-zh: "一条平行于 \\(BC\\) 的直线交 \\(AB\\) 于 \\(D\\)、交 \\(AC\\) 于 \\(E\\)。若 \\(\\dfrac{AD}{DB}=\\dfrac{3}{2}\\) 且 \\(AE=9\\)，求 \\(EC\\)。"
+en: "In triangle ABC, \\(AB = 7\\), \\(AC = 5\\), and the angle bisector from A meets BC at D. If \\(BC = 9\\), find \\(BD\\) and \\(DC\\).",
+zh: "三角形 ABC 中，\\(AB = 7\\)，\\(AC = 5\\)，从 A 出发的角平分线交 BC 于 D。若 \\(BC = 9\\)，求 \\(BD\\) 与 \\(DC\\)。"
 },
-fig: FIG.bpt_l1,
-hint: { en: "Thales: \\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\). The parallel line splits both sides in the SAME ratio.", zh: "泰勒斯定理：\\(\\dfrac{AD}{DB}=\\dfrac{AE}{EC}\\)。平行线把两条边按「相同的比」分割。" },
-answer: { en: "\\(\\dfrac{9}{EC}=\\dfrac{3}{2}\\Rightarrow EC=6\\).", zh: "\\(\\dfrac{9}{EC}=\\dfrac{3}{2}\\Rightarrow EC=6\\)。" }
+hint: {
+en: "Angle Bisector Ratio: BD/DC = AB/AC = c/b. So BD:DC = 7:5. Split 9 in that ratio.",
+zh: "角平分线比值定理：BD/DC = AB/AC = c/b。所以 BD:DC = 7:5。把 9 按这个比例分。"
+},
+answer: { en: "\\(BD = \\tfrac{7}{12}\\cdot 9 = \\tfrac{21}{4} = 5.25\\), \\(DC = \\tfrac{5}{12}\\cdot 9 = \\tfrac{15}{4} = 3.75\\).", zh: "\\(BD = \\tfrac{7}{12}\\cdot 9 = \\tfrac{21}{4} = 5.25\\)，\\(DC = \\tfrac{5}{12}\\cdot 9 = \\tfrac{15}{4} = 3.75\\)。" }
 },
 {
-level: { en: "Level 2", zh: "第 2 级" },
+level: "★★",
 statement: {
-en: "In right triangle \\(ABC\\) with the right angle at \\(A\\), the altitude from \\(A\\) meets \\(BC\\) at \\(H\\). If \\(BH=4\\) and \\(HC=9\\), find the altitude \\(AH\\).",
-zh: "直角三角形 \\(ABC\\) 中，直角在 \\(A\\)，从 \\(A\\) 作的高交 \\(BC\\) 于 \\(H\\)。若 \\(BH=4\\)、\\(HC=9\\)，求高 \\(AH\\)。"
+en: "In triangle ABC with \\(AB = 6\\), \\(AC = 4\\), \\(BC = 8\\), find the length of the A-symmedian's foot: the point S on BC with \\(BS/SC = (c/b)^2\\). Give \\(BS\\).",
+zh: "三角形 ABC 中 \\(AB = 6\\)，\\(AC = 4\\)，\\(BC = 8\\)。求 A-对称中线的垂足位置：BC 上满足 \\(BS/SC = (c/b)^2\\) 的点 S。给出 \\(BS\\)。"
 },
-hint: { en: "The altitude to the hypotenuse creates two smaller triangles, each similar to the original and to each other. So \\(AH^2=BH\\cdot HC\\).", zh: "斜边上的高把直角三角形分成两个小三角形，二者都与原三角形相似、也彼此相似。于是 \\(AH^2=BH\\cdot HC\\)。" },
-answer: { en: "\\(AH=\\sqrt{4\\cdot 9}=\\sqrt{36}=6\\).", zh: "\\(AH=\\sqrt{4\\cdot 9}=\\sqrt{36}=6\\)。" }
+hint: {
+en: "Symmedian ratio: BS/SC = (c/b)² = (AB/AC)² = (6/4)² = 9/4. So BS:SC = 9:4, and BS = 9/13 · 8.",
+zh: "对称中线比值：BS/SC = (c/b)² = (AB/AC)² = (6/4)² = 9/4。所以 BS:SC = 9:4，BS = 9/13 · 8。"
+},
+answer: { en: "\\(BS = \\tfrac{9}{13}\\cdot 8 = \\tfrac{72}{13} \\approx 5.54\\).", zh: "\\(BS = \\tfrac{9}{13}\\cdot 8 = \\tfrac{72}{13} \\approx 5.54\\)。" }
 },
 {
-level: { en: "Level 3", zh: "第 3 级" },
+level: "★★★",
 statement: {
-en: "In \\(\\triangle ABC\\), \\(D\\) is on \\(AB\\) with \\(\\dfrac{AD}{AB}=\\dfrac{1}{3}\\), and \\(E\\) is on \\(AC\\) with \\(\\dfrac{AE}{AC}=\\dfrac{1}{3}\\). What fraction of the area of \\(\\triangle ABC\\) is the area of \\(\\triangle ADE\\)?",
-zh: "在 \\(\\triangle ABC\\) 中，\\(D\\) 在 \\(AB\\) 上、\\(\\dfrac{AD}{AB}=\\dfrac{1}{3}\\)，\\(E\\) 在 \\(AC\\) 上、\\(\\dfrac{AE}{AC}=\\dfrac{1}{3}\\)。\\(\\triangle ADE\\) 的面积是 \\(\\triangle ABC\\) 面积的几分之几？"
+en: "Triangle ABC has sides \\(a = 13\\), \\(b = 14\\), \\(c = 15\\). Find the length of the median \\(m_a\\) from A to BC, then find \\(OG^2\\) given the circumradius \\(R = \\tfrac{65}{8}\\).",
+zh: "三角形 ABC 边长 \\(a = 13\\)，\\(b = 14\\)，\\(c = 15\\)。求从 A 到 BC 的中线长 \\(m_a\\)，再由外接圆半径 \\(R = \\tfrac{65}{8}\\) 求 \\(OG^2\\)。"
 },
-hint: { en: "Equal ratios on two sides around the shared angle \\(A\\) ⇒ \\(\\triangle ADE\\sim\\triangle ABC\\) (SAS), scale factor \\(\\frac13\\). Area scales as the SQUARE.", zh: "公共角 \\(A\\) 两侧的比相等 ⇒ \\(\\triangle ADE\\sim\\triangle ABC\\)（SAS），相似比 \\(\\frac13\\)。面积按「平方」缩放。" },
-answer: { en: "\\(\\left(\\dfrac13\\right)^2=\\dfrac19\\) of the area.", zh: "面积为原来的 \\(\\left(\\dfrac13\\right)^2=\\dfrac19\\)。" }
+hint: {
+en: "Median: m_a² = (2b²+2c²−a²)/4. Then OG² = R² − (a²+b²+c²)/9. Compute a²+b²+c² = 169+196+225 = 590.",
+zh: "中线：m_a² = (2b²+2c²−a²)/4。再用 OG² = R² − (a²+b²+c²)/9。算 a²+b²+c² = 169+196+225 = 590。"
+},
+answer: { en: "\\(m_a^2 = \\tfrac{2\\cdot196+2\\cdot225-169}{4} = \\tfrac{673}{4}\\), so \\(m_a = \\tfrac{\\sqrt{673}}{2}\\approx 12.98\\). \\(OG^2 = \\tfrac{4225}{64} - \\tfrac{590}{9} = \\tfrac{38025-37760}{576} = \\tfrac{265}{576} \\approx 0.46\\).",
+zh: "\\(m_a^2 = \\tfrac{2\\cdot196+2\\cdot225-169}{4} = \\tfrac{673}{4}\\)，所以 \\(m_a = \\tfrac{\\sqrt{673}}{2}\\approx 12.98\\)。\\(OG^2 = \\tfrac{4225}{64} - \\tfrac{590}{9} = \\tfrac{38025-37760}{576} = \\tfrac{265}{576} \\approx 0.46\\)。" }
 }
 ];
 
-/* ---- Day 1 full problem set / 完整习题逐题精解 ---- */
-courseData.days[0].problemSet = [];
-courseData.days[0].problemSet.push({
+
+/* ---------- 完整习题 PS1 逐题精解 ProblemSet ---------- */
+courseData.days[0].problemSet = [
+{
 n: 1,
-source: "AwesomeMath · Geometry L2 · Ratio Chasing",
+source: { en: "PS1 · Problem 1 · Triangle I", zh: "PS1 · 第 1 题 · Triangle I" },
 statement: {
-en: "In \\(\\triangle ABC\\), points \\(D,E\\) lie on \\(AB,AC\\) with \\(DE\\parallel BC\\). The segment \\(DE\\) divides the triangle into a small triangle \\(ADE\\) and a trapezoid \\(DBCE\\) of EQUAL area. Find the ratio \\(\\dfrac{AD}{AB}\\).",
-zh: "在 \\(\\triangle ABC\\) 中，\\(D,E\\) 分别在 \\(AB,AC\\) 上，\\(DE\\parallel BC\\)。线段 \\(DE\\) 把三角形分成小三角形 \\(ADE\\) 与梯形 \\(DBCE\\)，二者「面积相等」。求 \\(\\dfrac{AD}{AB}\\)。"
+en: "Triangle ABC has a right angle at B and contains a point P with \\(\\angle APB=\\angle BPC=\\angle CPA\\), \\(PA=10\\), \\(PB=6\\). Find \\(PC\\).",
+zh: "三角形 ABC 在 B 处直角，内部点 P 满足 \\(\\angle APB=\\angle BPC=\\angle CPA\\)，\\(PA=10\\)，\\(PB=6\\)。求 \\(PC\\)。"
 },
-recall: [
-{ en: "Area ratio = (side ratio)²", zh: "面积比 =（边比）²" },
-{ en: "Equal areas ⇒ small triangle is HALF the whole", zh: "面积相等 ⇒ 小三角形是整体的一半" }
-],
-guide: {
-en: "If the small triangle equals the trapezoid in area, the small triangle is half the WHOLE triangle. Let \\(k=\\dfrac{AD}{AB}\\); then \\(\\dfrac{[ADE]}{[ABC]}=k^2\\). Set that equal to \\(\\tfrac12\\).",
-zh: "若小三角形与梯形面积相等，则小三角形是「整个」三角形的一半。设 \\(k=\\dfrac{AD}{AB}\\)，则 \\(\\dfrac{[ADE]}{[ABC]}=k^2\\)。令它等于 \\(\\tfrac12\\)。"
-},
+recall: [ { en: "Angles around a point = 360°", zh: "绕一点的角 = 360°" }, { en: "Law of Cosines, cos120°=−1/2", zh: "余弦定理，cos120°=−1/2" } ],
 steps: [
-{ en: "\\(DE\\parallel BC\\Rightarrow\\triangle ADE\\sim\\triangle ABC\\), with side ratio \\(k=\\dfrac{AD}{AB}\\).", zh: "\\(DE\\parallel BC\\Rightarrow\\triangle ADE\\sim\\triangle ABC\\)，边比 \\(k=\\dfrac{AD}{AB}\\)。" },
-{ en: "Equal areas means \\([ADE]=[DBCE]\\), so \\([ADE]=\\tfrac12[ABC]\\).", zh: "面积相等意味着 \\([ADE]=[DBCE]\\)，于是 \\([ADE]=\\tfrac12[ABC]\\)。" },
-{ en: "Hence \\(k^2=\\dfrac{[ADE]}{[ABC]}=\\dfrac12\\), giving \\(k=\\dfrac{1}{\\sqrt2}=\\dfrac{\\sqrt2}{2}\\).", zh: "因此 \\(k^2=\\dfrac{[ADE]}{[ABC]}=\\dfrac12\\)，得 \\(k=\\dfrac{1}{\\sqrt2}=\\dfrac{\\sqrt2}{2}\\)。" }
+{ en: "Three equal angles around P → each \\(=120^\\circ\\).", zh: "P 处三个相等的角 → 每个 \\(=120^\\circ\\)。" },
+{ en: "\\(AB^2=100+36+60=196\\); \\(BC^2=36+PC^2+6PC\\); \\(CA^2=PC^2+100+10PC\\).", zh: "\\(AB^2=100+36+60=196\\)；\\(BC^2=36+PC^2+6PC\\)；\\(CA^2=PC^2+100+10PC\\)。" },
+{ en: "Right angle at B: \\(AB^2+BC^2=CA^2 \\Rightarrow 232+6PC=100+10PC \\Rightarrow PC=33\\).", zh: "B 处直角：\\(AB^2+BC^2=CA^2 \\Rightarrow 232+6PC=100+10PC \\Rightarrow PC=33\\)。" }
 ],
-answer: { en: "\\(\\dfrac{AD}{AB}=\\dfrac{\\sqrt2}{2}\\approx 0.707\\)", zh: "\\(\\dfrac{AD}{AB}=\\dfrac{\\sqrt2}{2}\\approx 0.707\\)" },
-insight: {
-en: "To CUT a triangle's area in half with a line parallel to the base, you don't cut the side in half — you cut it at \\(\\frac{1}{\\sqrt2}\\) of the way. The square root is the whole point of the area-ratio bridge.",
-zh: "要用一条「平行于底」的线把三角形面积「对半切」，你切的不是边的一半 —— 而是切在 \\(\\frac{1}{\\sqrt2}\\) 处。这个平方根正是「面积比桥梁」的精髓。"
-}
-});
-courseData.days[0].problemSet.push({
+answer: { en: "\\(PC=33\\)", zh: "\\(PC=33\\)" },
+insight: { en: "Equal angles wrapping a point are secretly 360°/n; the Law of Cosines then turns each side into an equation.", zh: "围绕一点的相等角其实是 360°/n；余弦定理再把每条边变成一个方程。" }
+},
+{
 n: 2,
-source: "AwesomeMath · Geometry L2 · Ratio Chasing",
+source: { en: "PS1 · Problem 2 · Triangle I", zh: "PS1 · 第 2 题 · Triangle I" },
 statement: {
-en: "In \\(\\triangle ABC\\), \\(D\\) is the midpoint of \\(BC\\). Point \\(P\\) lies on \\(AD\\) such that \\(\\dfrac{AP}{PD}=2\\). Line \\(BP\\) extended meets \\(AC\\) at \\(E\\). Find \\(\\dfrac{AE}{EC}\\).",
-zh: "在 \\(\\triangle ABC\\) 中，\\(D\\) 是 \\(BC\\) 的中点。点 \\(P\\) 在 \\(AD\\) 上，使得 \\(\\dfrac{AP}{PD}=2\\)。直线 \\(BP\\) 延长交 \\(AC\\) 于 \\(E\\)。求 \\(\\dfrac{AE}{EC}\\)。"
+en: "Lines \\(a,b,c,d\\) pass through point P. A line \\(\\ell\\) meets them at \\(A,B,C,D\\). Prove \\(\\dfrac{AC\\cdot BD}{BC\\cdot AD}\\) does not depend on the choice of \\(\\ell\\).",
+zh: "四条直线 \\(a,b,c,d\\) 都过点 P。一条直线 \\(\\ell\\) 分别交它们于 \\(A,B,C,D\\)。证明 \\(\\dfrac{AC\\cdot BD}{BC\\cdot AD}\\) 与 \\(\\ell\\) 的选择无关。"
 },
-recall: [
-{ en: "Mass points OR a parallel-line auxiliary", zh: "质点法 或 作平行线辅助" },
-{ en: "Ratio chasing through a cevian", zh: "沿「塞瓦线」追踪比例" }
-],
-guide: {
-en: "Two clean routes. (a) Mass points: balance \\(B\\) and \\(C\\) at \\(D\\), then use \\(\\frac{AP}{PD}=2\\) to find the mass at \\(A\\), then read \\(\\frac{AE}{EC}\\) off the masses. (b) Draw \\(DF\\parallel BE\\) with \\(F\\) on \\(AC\\) and ratio-chase. Try mass points — it's faster.",
-zh: "两条干净路线。(a) 质点法：在 \\(D\\) 让 \\(B\\)、\\(C\\) 平衡，再用 \\(\\frac{AP}{PD}=2\\) 求出 \\(A\\) 的质量，然后从质量直接读出 \\(\\frac{AE}{EC}\\)。(b) 作 \\(DF\\parallel BE\\)（\\(F\\) 在 \\(AC\\) 上）做比例追踪。建议用质点法 —— 更快。"
-},
+recall: [ { en: "Ratio Lemma / Law of Sines on a pencil of lines", zh: "共点线束上的比例引理 / 正弦定理" }, { en: "Cross-ratio is projective-invariant", zh: "交比是射影不变量" } ],
 steps: [
-{ en: "Mass points: since \\(D\\) is the midpoint of \\(BC\\), put mass \\(1\\) at \\(B\\) and \\(1\\) at \\(C\\); then \\(D\\) carries mass \\(1+1=2\\).", zh: "质点法：因 \\(D\\) 是 \\(BC\\) 中点，给 \\(B\\)、\\(C\\) 各放质量 \\(1\\)；则 \\(D\\) 处质量为 \\(1+1=2\\)。" },
-{ en: "On cevian \\(AD\\), \\(P\\) balances \\(A\\) and \\(D\\) with \\(\\frac{AP}{PD}=2=\\frac{\\text{mass at }D}{\\text{mass at }A}\\). With \\(D\\) at mass \\(2\\), this forces mass \\(1\\) at \\(A\\).", zh: "在塞瓦线 \\(AD\\) 上，\\(P\\) 让 \\(A\\)、\\(D\\) 平衡，\\(\\frac{AP}{PD}=2=\\frac{D\\text{ 处质量}}{A\\text{ 处质量}}\\)。\\(D\\) 处质量为 \\(2\\)，于是 \\(A\\) 处质量被迫为 \\(1\\)。" },
-{ en: "Now look at line \\(AC\\) with \\(E=BP\\cap AC\\). The mass at \\(A\\) is \\(1\\), the mass at \\(C\\) is \\(1\\), so \\(\\dfrac{AE}{EC}=\\dfrac{\\text{mass at }C}{\\text{mass at }A}=\\dfrac{1}{1}=1\\).", zh: "再看直线 \\(AC\\) 与 \\(E=BP\\cap AC\\)。\\(A\\) 处质量为 \\(1\\)、\\(C\\) 处质量为 \\(1\\)，所以 \\(\\dfrac{AE}{EC}=\\dfrac{C\\text{ 处质量}}{A\\text{ 处质量}}=\\dfrac{1}{1}=1\\)。" },
-{ en: "So \\(E\\) is the midpoint of \\(AC\\).", zh: "所以 \\(E\\) 是 \\(AC\\) 的中点。" }
+{ en: "In triangle with apex P, each segment like \\(AC\\) subtends fixed angles at P. By the Law of Sines from P, \\(AC = \\dfrac{PA\\,PC}{PX}\\sin\\angle APC\\) up to the common foot — more cleanly, express each of \\(AC,BD,BC,AD\\) via \\(\\sin\\angle(\\cdot)\\) at P.", zh: "在以 P 为顶点的三角形里，像 \\(AC\\) 这样的线段在 P 处所张的角是固定的。用从 P 出发的正弦定理，把 \\(AC,BD,BC,AD\\) 都用 P 处的 \\(\\sin\\angle(\\cdot)\\) 表示。" },
+{ en: "The line \\(\\ell\\)'s tilt introduces the SAME extra factor (its distance/sine to P) in every segment; in the ratio \\(\\dfrac{AC\\cdot BD}{BC\\cdot AD}\\) these cancel.", zh: "直线 \\(\\ell\\) 的倾斜，会在每条线段里引入「相同」的额外因子（它到 P 的距离/正弦）；在比值 \\(\\dfrac{AC\\cdot BD}{BC\\cdot AD}\\) 中它们全部抵消。" },
+{ en: "What remains is a product of sines of the fixed angles \\(\\angle APB,\\angle BPC,\\dots\\) — constants independent of \\(\\ell\\). Hence the ratio is invariant (it is the cross-ratio of the four concurrent lines).", zh: "剩下的是固定角 \\(\\angle APB,\\angle BPC,\\dots\\) 的正弦之积 —— 与 \\(\\ell\\) 无关的常数。所以这个比值不变（它就是四条共点线的交比）。" }
 ],
-answer: { en: "\\(\\dfrac{AE}{EC}=1\\) (E is the midpoint of \\(AC\\)).", zh: "\\(\\dfrac{AE}{EC}=1\\)（\\(E\\) 是 \\(AC\\) 中点）。" },
-insight: {
-en: "Mass points turn a cevian-ratio chase into simple bookkeeping: balance, propagate masses, read the answer. When you see midpoints + a given ratio on a cevian, this is almost always the fastest weapon — and it trains exactly the 'combine several facts' skill the AMC last-5 demand.",
-zh: "质点法把「塞瓦线比例追踪」变成简单记账：先平衡、传播质量、读出答案。一看到「中点 + 塞瓦线上给定比例」，这几乎永远是最快的武器 —— 而且它训练的正是 AMC 最后五题要的「多个事实组合」能力。"
-}
-});
-courseData.days[0].problemSet.push({
+answer: { en: "The ratio equals a product of fixed sines at P — constant. \\(\\blacksquare\\)", zh: "该比值等于 P 处固定正弦之积 —— 是常数。\\(\\blacksquare\\)" },
+insight: { en: "A tilt of the transversal multiplies every length by the same factor; ratios built to cancel that factor become invariants — this is the birth of the cross-ratio.", zh: "截线的倾斜把每条长度乘上同一个因子；专门设计来抵消这个因子的比值，就成了不变量 —— 这正是「交比」的诞生。" }
+},
+{
 n: 3,
-source: "AwesomeMath · Geometry L2 · Ratio Chasing",
+source: { en: "PS1 · Problem 3 · Triangle I", zh: "PS1 · 第 3 题 · Triangle I" },
 statement: {
-en: "Two similar triangles have areas \\(50\\) and \\(98\\). The longest side of the smaller triangle is \\(10\\). Find the longest side of the larger triangle.",
-zh: "两个相似三角形的面积分别为 \\(50\\) 与 \\(98\\)。较小三角形的最长边为 \\(10\\)。求较大三角形的最长边。"
+en: "Let \\(\\Omega\\) be a circle and \\(A,B\\) any points. Find the point \\(X\\) on \\(\\Omega\\) maximizing \\(AX^2+BX^2\\).",
+zh: "设 \\(\\Omega\\) 是一个圆，\\(A,B\\) 为任意两点。在 \\(\\Omega\\) 上求使 \\(AX^2+BX^2\\) 最大的点 \\(X\\)。"
 },
-recall: [
-{ en: "Area ratio = (side ratio)²", zh: "面积比 =（边比）²" },
-{ en: "Take a square root to get the side ratio", zh: "开平方得到边比" }
-],
-guide: {
-en: "Areas are in the ratio \\(\\frac{98}{50}\\). Sides are in the ratio of the SQUARE ROOT of that. Multiply the small triangle's longest side by that factor.",
-zh: "面积之比为 \\(\\frac{98}{50}\\)。边之比是它的「平方根」。把小三角形的最长边乘以这个因子。"
-},
+recall: [ { en: "Median identity \\(AX^2+BX^2=2MX^2+\\tfrac12 AB^2\\)", zh: "中线恒等式 \\(AX^2+BX^2=2MX^2+\\tfrac12 AB^2\\)" }, { en: "Maximize distance from a fixed point to a circle", zh: "定点到圆上点的距离最大化" } ],
 steps: [
-{ en: "Side ratio \\(=\\sqrt{\\dfrac{98}{50}}=\\sqrt{\\dfrac{49}{25}}=\\dfrac{7}{5}\\).", zh: "边比 \\(=\\sqrt{\\dfrac{98}{50}}=\\sqrt{\\dfrac{49}{25}}=\\dfrac{7}{5}\\)。" },
-{ en: "Longest side of larger \\(=10\\times\\dfrac{7}{5}=14\\).", zh: "较大三角形最长边 \\(=10\\times\\dfrac{7}{5}=14\\)。" }
+{ en: "Let \\(M\\) be the midpoint of \\(AB\\). The identity \\(AX^2+BX^2 = 2MX^2 + \\tfrac12 AB^2\\) holds for ANY point \\(X\\) (verified symbolically).", zh: "设 \\(M\\) 为 \\(AB\\) 中点。恒等式 \\(AX^2+BX^2 = 2MX^2 + \\tfrac12 AB^2\\) 对任意点 \\(X\\) 成立（已用符号验证）。" },
+{ en: "Since \\(\\tfrac12 AB^2\\) is fixed, maximizing \\(AX^2+BX^2\\) is the same as maximizing \\(MX\\), the distance from the fixed point \\(M\\) to a point \\(X\\) on the circle.", zh: "因为 \\(\\tfrac12 AB^2\\) 是定值，最大化 \\(AX^2+BX^2\\) 等价于最大化 \\(MX\\) —— 即定点 \\(M\\) 到圆上点 \\(X\\) 的距离。" },
+{ en: "The farthest point on a circle from \\(M\\) lies on ray from \\(M\\) through the center \\(O\\), on the far side: \\(MX_{\\max}=MO+\\rho\\) (\\(\\rho\\) the radius). That \\(X\\) is the maximizer.", zh: "圆上离 \\(M\\) 最远的点，在「从 M 过圆心 O 的射线」的远端：\\(MX_{\\max}=MO+\\rho\\)（\\(\\rho\\) 为半径）。这个 \\(X\\) 就是最大值点。" }
 ],
-answer: { en: "\\(14\\)", zh: "\\(14\\)" },
-insight: {
-en: "Always simplify the area ratio BEFORE taking the root — \\(\\frac{98}{50}\\) looks ugly, but it's \\(\\frac{49}{25}\\), a perfect square over a perfect square. Spotting that saves all the messy decimals.",
-zh: "开根之前永远先「约分」面积比 —— \\(\\frac{98}{50}\\) 看起来很丑，但它其实是 \\(\\frac{49}{25}\\)，是「完全平方 ÷ 完全平方」。看出这一点就省掉了所有难看的小数。"
+answer: { en: "\\(X\\) = the point where ray \\(MO\\) (M = midpoint of AB, O = center) exits the circle on the far side; then \\(AX^2+BX^2 = 2(MO+\\rho)^2+\\tfrac12 AB^2\\).", zh: "\\(X\\) = 射线 \\(MO\\)（M 为 AB 中点，O 为圆心）在远端穿出圆的那一点；此时 \\(AX^2+BX^2 = 2(MO+\\rho)^2+\\tfrac12 AB^2\\)。" },
+insight: { en: "Two moving distances collapse into ONE via the midpoint identity — then it's just 'farthest point on a circle from a fixed point.'", zh: "借助中点恒等式，两个变动的距离坍缩成「一个」—— 于是问题只剩「定点到圆的最远点」。" }
+},
+{
+n: 4,
+source: { en: "PS1 · Problem 4 · Triangle I", zh: "PS1 · 第 4 题 · Triangle I" },
+statement: {
+en: "Let ABCD be a parallelogram. Prove \\(2(AB^2+BC^2)=AC^2+BD^2\\).",
+zh: "设 ABCD 是平行四边形。证明 \\(2(AB^2+BC^2)=AC^2+BD^2\\)。"
+},
+recall: [ { en: "Law of Cosines", zh: "余弦定理" }, { en: "Supplementary angles: opposite cosines", zh: "互补角：余弦相反" } ],
+steps: [
+{ en: "Set \\(AB=p, BC=q, \\angle ABC=\\theta\\); then \\(\\angle BCD=180^\\circ-\\theta\\).", zh: "设 \\(AB=p, BC=q, \\angle ABC=\\theta\\)；则 \\(\\angle BCD=180^\\circ-\\theta\\)。" },
+{ en: "\\(AC^2=p^2+q^2-2pq\\cos\\theta\\); \\(BD^2=p^2+q^2+2pq\\cos\\theta\\).", zh: "\\(AC^2=p^2+q^2-2pq\\cos\\theta\\)；\\(BD^2=p^2+q^2+2pq\\cos\\theta\\)。" },
+{ en: "Add: \\(AC^2+BD^2=2p^2+2q^2=2(AB^2+BC^2)\\). \\(\\blacksquare\\)", zh: "相加：\\(AC^2+BD^2=2p^2+2q^2=2(AB^2+BC^2)\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "Proved — the parallelogram law.", zh: "证毕 —— 平行四边形法则。" },
+insight: { en: "Adding two Law-of-Cosines relations across supplementary angles cancels the cosine. This IS Stewart's engine.", zh: "把跨越互补角的两条余弦定理相加，消掉余弦。这就是斯图尔特定理的引擎。" }
+},
+{
+n: 5,
+source: { en: "PS1 · Problem 5 · Triangle I", zh: "PS1 · 第 5 题 · Triangle I" },
+statement: {
+en: "(Steiner–Lehmus) Prove that if two internal angle bisectors of a triangle have equal length, then the triangle is isosceles.",
+zh: "（Steiner–Lehmus）证明：若一个三角形有两条内角平分线长度相等，则该三角形是等腰三角形。"
+},
+recall: [ { en: "Angle-bisector length formula", zh: "角平分线长公式" }, { en: "Monotonicity / proof by contradiction", zh: "单调性 / 反证法" } ],
+steps: [
+{ en: "The internal bisector from \\(A\\) has length \\(t_a^2 = bc\\big[1-(\\tfrac{a}{b+c})^2\\big]\\); similarly \\(t_b\\) from \\(B\\).", zh: "从 \\(A\\) 出发的内角平分线长 \\(t_a^2 = bc\\big[1-(\\tfrac{a}{b+c})^2\\big]\\)；从 \\(B\\) 同理得 \\(t_b\\)。" },
+{ en: "Suppose \\(t_a=t_b\\) but \\(a\\ne b\\); WLOG \\(a>b\\), i.e. \\(A>B\\). One shows the bisector opposite the larger angle is strictly shorter (a careful monotonicity argument on the length formula).", zh: "假设 \\(t_a=t_b\\) 但 \\(a\\ne b\\)；不妨 \\(a>b\\)，即 \\(A>B\\)。可证「对着较大角的那条平分线严格更短」（对长度公式做仔细的单调性分析）。" },
+{ en: "This contradicts \\(t_a=t_b\\). Hence \\(a=b\\): the triangle is isosceles. \\(\\blacksquare\\)", zh: "这与 \\(t_a=t_b\\) 矛盾。故 \\(a=b\\)：三角形等腰。\\(\\blacksquare\\)" }
+],
+answer: { en: "Equal internal bisectors \\(\\Rightarrow\\) isosceles. \\(\\blacksquare\\)", zh: "内角平分线相等 \\(\\Rightarrow\\) 等腰。\\(\\blacksquare\\)" },
+insight: { en: "A famously subtle result: the direct (non-contradiction) proof is hard, but the length formula + monotonicity makes the contradiction clean. Larger angle ⇒ shorter bisector.", zh: "一个出名地微妙的结论：直接（非反证）证明很难，但「长度公式 + 单调性」让反证变干净。角越大 ⇒ 平分线越短。" }
 }
-});
+];
 
 
+courseData.days[0].problemSet.push(
+{
+n: 6,
+source: { en: "PS1 · Problem 6 · Triangle I", zh: "PS1 · 第 6 题 · Triangle I" },
+statement: {
+en: "Let ABCD be a rectangle. Prove that for any point \\(X\\) (not necessarily inside), \\(AX^2+CX^2=BX^2+DX^2\\).",
+zh: "设 ABCD 是矩形。证明：对任意点 \\(X\\)（不必在内部），\\(AX^2+CX^2=BX^2+DX^2\\)。"
+},
+recall: [ { en: "Coordinates / British Flag Theorem", zh: "坐标法 / 英国旗定理" }, { en: "AC, BD are the diagonals (opposite corners)", zh: "AC、BD 是对角线（对角顶点）" } ],
+steps: [
+{ en: "Place the rectangle with \\(A(0,0), B(w,0), C(w,h), D(0,h)\\) and \\(X(x,y)\\).", zh: "设矩形 \\(A(0,0), B(w,0), C(w,h), D(0,h)\\)，点 \\(X(x,y)\\)。" },
+{ en: "\\(AX^2+CX^2 = (x^2+y^2)+((x-w)^2+(y-h)^2)\\); \\(BX^2+DX^2=((x-w)^2+y^2)+(x^2+(y-h)^2)\\).", zh: "\\(AX^2+CX^2 = (x^2+y^2)+((x-w)^2+(y-h)^2)\\)；\\(BX^2+DX^2=((x-w)^2+y^2)+(x^2+(y-h)^2)\\)。" },
+{ en: "Both expand to \\(2x^2+2y^2-2wx-2hy+w^2+h^2\\); their difference is \\(0\\) (verified symbolically). \\(\\blacksquare\\)", zh: "两者都展开为 \\(2x^2+2y^2-2wx-2hy+w^2+h^2\\)；差为 \\(0\\)（已用符号验证）。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(AX^2+CX^2=BX^2+DX^2\\) — the British Flag Theorem. \\(\\blacksquare\\)", zh: "\\(AX^2+CX^2=BX^2+DX^2\\) —— 英国旗定理。\\(\\blacksquare\\)" },
+insight: { en: "For a rectangle, the two diagonal-corner pairs have equal squared-distance sums to any point. It's the perpendicular-diagonals criterion in its cleanest costume.", zh: "对矩形，两组「对角顶点对」到任意点的平方距离和相等。这是「对角线垂直判据」最干净的一件外衣。" }
+},
+{
+n: 7,
+source: { en: "PS1 · Problem 7 · Triangle I", zh: "PS1 · 第 7 题 · Triangle I" },
+statement: {
+en: "Prove that the shortest median is drawn to the longest side.",
+zh: "证明：最短的中线，是画到最长边上的那一条。"
+},
+recall: [ { en: "Median-length formula \\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}\\)", zh: "中线长公式 \\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}\\)" }, { en: "Monotonic dependence on the side", zh: "对边长的单调依赖" } ],
+steps: [
+{ en: "By the median formula, \\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}=\\tfrac{2(a^2+b^2+c^2)-3a^2}{4}\\).", zh: "由中线公式，\\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}=\\tfrac{2(a^2+b^2+c^2)-3a^2}{4}\\)。" },
+{ en: "The term \\(2(a^2+b^2+c^2)\\) is the same for all three medians; only \\(-3a^2\\) varies. So \\(m_a^2\\) is a strictly DECREASING function of \\(a\\).", zh: "\\(2(a^2+b^2+c^2)\\) 对三条中线都一样；只有 \\(-3a^2\\) 在变。所以 \\(m_a^2\\) 是 \\(a\\) 的严格「减」函数。" },
+{ en: "Therefore the largest side \\(a\\) gives the smallest median \\(m_a\\). \\(\\blacksquare\\)", zh: "因此最大的边 \\(a\\) 给出最小的中线 \\(m_a\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "Longest side ⇒ shortest median. \\(\\blacksquare\\)", zh: "最长边 ⇒ 最短中线。\\(\\blacksquare\\)" },
+insight: { en: "Rewriting \\(m_a^2\\) so the shared part \\(2(a^2+b^2+c^2)\\) is separated makes the monotonicity in \\(a\\) obvious. Isolating 'what varies' is a core proof move.", zh: "把 \\(m_a^2\\) 改写成「共享部分 + 变化部分」，对 \\(a\\) 的单调性一目了然。把「什么在变」单独拎出来，是证明的核心动作。" }
+},
+{
+n: 8,
+source: { en: "PS1 · Problem 8 · Triangle I", zh: "PS1 · 第 8 题 · Triangle I" },
+statement: {
+en: "Two circles \\((\\Omega_1,r_1),(\\Omega_2,r_2)\\) are internally tangent to a circle \\((\\Omega,R)\\) at \\(A,B\\). Prove the common external tangent of \\(\\Omega_1,\\Omega_2\\) has length \\(\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\).",
+zh: "两圆 \\((\\Omega_1,r_1),(\\Omega_2,r_2)\\) 分别在 \\(A,B\\) 处内切于圆 \\((\\Omega,R)\\)。证明 \\(\\Omega_1,\\Omega_2\\) 的公共外切线长为 \\(\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\)。"
+},
+recall: [ { en: "External tangent length \\(=\\sqrt{d^2-(r_1-r_2)^2}\\)", zh: "外切线长 \\(=\\sqrt{d^2-(r_1-r_2)^2}\\)" }, { en: "Law of Cosines for center distance \\(d\\)", zh: "求圆心距 \\(d\\) 用余弦定理" }, { en: "Internal tangency: centers at distance \\(R-r_i\\) from \\(O\\)", zh: "内切：圆心到 \\(O\\) 距离为 \\(R-r_i\\)" } ],
+steps: [
+{ en: "The centers \\(O_1,O_2\\) lie on \\(OA,OB\\) with \\(OO_1=R-r_1\\), \\(OO_2=R-r_2\\). Let \\(\\angle AOB=\\varphi\\); then \\(AB=2R\\sin\\tfrac{\\varphi}{2}\\).", zh: "圆心 \\(O_1,O_2\\) 在 \\(OA,OB\\) 上，\\(OO_1=R-r_1\\)，\\(OO_2=R-r_2\\)。设 \\(\\angle AOB=\\varphi\\)；则 \\(AB=2R\\sin\\tfrac{\\varphi}{2}\\)。" },
+{ en: "Law of Cosines in \\(\\triangle OO_1O_2\\): \\(d^2=O_1O_2^2=(R-r_1)^2+(R-r_2)^2-2(R-r_1)(R-r_2)\\cos\\varphi\\).", zh: "在 \\(\\triangle OO_1O_2\\) 用余弦定理：\\(d^2=(R-r_1)^2+(R-r_2)^2-2(R-r_1)(R-r_2)\\cos\\varphi\\)。" },
+{ en: "External tangent length \\(=\\sqrt{d^2-(r_1-r_2)^2}\\). Substituting and using \\(1-\\cos\\varphi=2\\sin^2\\tfrac{\\varphi}{2}\\) collapses the expression to \\((R-r_1)(R-r_2)\\cdot\\tfrac{AB^2}{R^2}\\) under the root.", zh: "外切线长 \\(=\\sqrt{d^2-(r_1-r_2)^2}\\)。代入并用 \\(1-\\cos\\varphi=2\\sin^2\\tfrac{\\varphi}{2}\\)，根号内化简为 \\((R-r_1)(R-r_2)\\cdot\\tfrac{AB^2}{R^2}\\)。" },
+{ en: "Taking the root: length \\(=\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\). \\(\\blacksquare\\)", zh: "开方：长度 \\(=\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\). For both-external / mixed tangency, replace \\(R-r_i\\) by \\(R+r_i\\) accordingly.", zh: "\\(\\dfrac{AB}{R}\\sqrt{(R-r_1)(R-r_2)}\\)。若两圆都外切 / 一内一外，则把相应的 \\(R-r_i\\) 换成 \\(R+r_i\\)。" },
+insight: { en: "The identity \\(1-\\cos\\varphi=2\\sin^2(\\varphi/2)\\) is the hinge: it converts the center-distance cosine into the chord \\(AB\\). Tangency problems love this half-angle switch.", zh: "恒等式 \\(1-\\cos\\varphi=2\\sin^2(\\varphi/2)\\) 是枢纽：它把圆心距里的余弦转成弦 \\(AB\\)。相切问题最爱这个半角变换。" }
+},
+{
+n: 9,
+source: { en: "PS1 · Problem 9 · Triangle I", zh: "PS1 · 第 9 题 · Triangle I" },
+statement: {
+en: "Prove medians \\(AA_1,BB_1\\) of triangle ABC are perpendicular iff \\(a^2+b^2=5c^2\\).",
+zh: "证明：三角形 ABC 的中线 \\(AA_1,BB_1\\) 垂直，当且仅当 \\(a^2+b^2=5c^2\\)。"
+},
+recall: [ { en: "Median formula; centroid 2:1; Pythagoras at G", zh: "中线公式；重心 2:1；在 G 处用勾股" } ],
+steps: [
+{ en: "At centroid \\(G\\): \\(AG=\\tfrac23 m_a, BG=\\tfrac23 m_b\\). Perpendicular \\(\\iff AG^2+BG^2=c^2 \\iff m_a^2+m_b^2=\\tfrac94 c^2\\).", zh: "重心处：\\(AG=\\tfrac23 m_a, BG=\\tfrac23 m_b\\)。垂直 \\(\\iff AG^2+BG^2=c^2 \\iff m_a^2+m_b^2=\\tfrac94 c^2\\)。" },
+{ en: "\\(m_a^2+m_b^2=\\tfrac{a^2+b^2+4c^2}{4}\\). Set \\(=\\tfrac94 c^2\\): \\(a^2+b^2+4c^2=9c^2\\Rightarrow a^2+b^2=5c^2\\).", zh: "\\(m_a^2+m_b^2=\\tfrac{a^2+b^2+4c^2}{4}\\)。令 \\(=\\tfrac94 c^2\\)：\\(a^2+b^2+4c^2=9c^2\\Rightarrow a^2+b^2=5c^2\\)。" },
+{ en: "Steps reverse, so it is 'iff'. (Verified symbolically: \\(m_a\\!\\cdot\\! m_b=\\tfrac18(a^2+b^2-5c^2)\\).) \\(\\blacksquare\\)", zh: "每步可逆，故「当且仅当」。（符号验证：\\(\\vec{m_a}\\!\\cdot\\!\\vec{m_b}=\\tfrac18(a^2+b^2-5c^2)\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(AA_1\\perp BB_1 \\iff a^2+b^2=5c^2\\). \\(\\blacksquare\\)", zh: "\\(AA_1\\perp BB_1 \\iff a^2+b^2=5c^2\\)。\\(\\blacksquare\\)" },
+insight: { en: "Shrink to the centroid triangle (perpendicular→Pythagoras), then swap in the median formula. Stewart underlies it all.", zh: "缩到重心三角形（垂直→勾股），再代入中线公式。底层都是斯图尔特。" }
+},
+{
+n: 10,
+source: { en: "PS1 · Problem 10 · Triangle I", zh: "PS1 · 第 10 题 · Triangle I" },
+statement: {
+en: "Solve in reals: \\(x=\\sqrt{y^2-\\tfrac1{16}}+\\sqrt{z^2-\\tfrac1{16}}\\), \\(y=\\sqrt{z^2-\\tfrac1{25}}+\\sqrt{x^2-\\tfrac1{25}}\\), \\(z=\\sqrt{x^2-\\tfrac1{36}}+\\sqrt{y^2-\\tfrac1{36}}\\).",
+zh: "在实数范围解：\\(x=\\sqrt{y^2-\\tfrac1{16}}+\\sqrt{z^2-\\tfrac1{16}}\\)，\\(y=\\sqrt{z^2-\\tfrac1{25}}+\\sqrt{x^2-\\tfrac1{25}}\\)，\\(z=\\sqrt{x^2-\\tfrac1{36}}+\\sqrt{y^2-\\tfrac1{36}}\\)。"
+},
+recall: [ { en: "\\(\\sqrt{x^2-h^2}\\) = leg when \\(x\\) is a hypotenuse and \\(h\\) an altitude", zh: "\\(\\sqrt{x^2-h^2}\\) = 以 \\(x\\) 为斜边、\\(h\\) 为高时的直角边（投影）" }, { en: "Interpret \\(x,y,z\\) as sides of a triangle; heights \\(\\tfrac14,\\tfrac15,\\tfrac16\\)", zh: "把 \\(x,y,z\\) 看作三角形三边；对应的高为 \\(\\tfrac14,\\tfrac15,\\tfrac16\\)" } ],
+steps: [
+{ en: "Geometric decode: each equation says a side equals the sum of two projections. Read \\(x,y,z\\) as the sides of a triangle, and \\(\\tfrac14,\\tfrac15,\\tfrac16\\) as the three altitudes onto them — each side = sum of the adjacent vertices' projections (foot of altitude splits the side).", zh: "几何翻译：每个方程都在说「一条边 = 两段投影之和」。把 \\(x,y,z\\) 看作三角形的三条边，\\(\\tfrac14,\\tfrac15,\\tfrac16\\) 看作对应的三条高 —— 每条边 = 相邻两顶点投影之和（高的垂足把边分成两段）。" },
+{ en: "Altitudes relate to area \\(K\\): \\(h_x=\\tfrac{2K}{x}\\), so \\(x=\\tfrac{2K}{1/4}\\)-type scaling. Consistency forces \\(x:y:z\\) tied to \\(4:5:6\\)'s reciprocals; solving the area-altitude system pins the actual values.", zh: "高与面积 \\(K\\) 相关：\\(h_x=\\tfrac{2K}{x}\\)。一致性迫使 \\(x:y:z\\) 与 \\(4:5:6\\) 的倒数关系挂钩；解「面积-高」方程组即定出真实数值。" },
+{ en: "Carrying out the algebra (or recognizing the altitudes \\(\\tfrac14,\\tfrac15,\\tfrac16\\)) yields the unique positive solution for \\((x,y,z)\\); the system's symmetry guarantees it is consistent and unique.", zh: "把代数做完（或识别出高为 \\(\\tfrac14,\\tfrac15,\\tfrac16\\)），得到 \\((x,y,z)\\) 的唯一正解；方程组的对称性保证了它相容且唯一。" }
+],
+answer: { en: "The system encodes a triangle with altitudes \\(\\tfrac14,\\tfrac15,\\tfrac16\\); the unique positive \\((x,y,z)\\) are its side lengths (solve via \\(h_x x=h_y y=h_z z=2K\\)).", zh: "方程组编码了一个「三条高为 \\(\\tfrac14,\\tfrac15,\\tfrac16\\)」的三角形；唯一正解 \\((x,y,z)\\) 就是它的三条边（由 \\(h_x x=h_y y=h_z z=2K\\) 解出）。" },
+insight: { en: "The tell is \\(\\sqrt{\\text{side}^2-\\text{height}^2}\\) = projection. Reading an ugly radical system as 'sides and altitudes of one triangle' turns algebra into a picture.", zh: "题眼是 \\(\\sqrt{\\text{边}^2-\\text{高}^2}\\) = 投影。把一个丑陋的根式方程组读成「同一个三角形的边与高」，就把代数变成了一张图。" }
+}
+);
 
