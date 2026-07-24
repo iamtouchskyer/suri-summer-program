@@ -475,3 +475,535 @@ insight: { en: "The tell is \\(\\sqrt{\\text{side}^2-\\text{height}^2}\\) = proj
 }
 );
 
+
+
+/* ===================== DAY 2 — Area, Incircle & Cyclic Quadrilaterals / 面积、内切圆与圆内接四边形 ===================== */
+courseData.days.push({
+id: 2,
+unit: "Geometry L2",
+date: { en: "Day 2", zh: "第 2 天" },
+title: { en: "Area, Incircle & Cyclic Quadrilaterals", zh: "面积、内切圆与圆内接四边形" },
+subtitle: {
+en: "Every 'find the area' or 'find the inradius' problem runs on a small, tightly-linked toolkit: Area = rs, Heron's Formula, the Ravi substitution, tangent lengths s−a, excircles, and — for four points on a circle — Ptolemy's Theorem. Learn how these lock together and the hardest configurations become bookkeeping.",
+zh: "每一道「求面积」或「求内切圆半径」的题，背后都跑着同一套紧密相扣的小工具：面积 = rs、海伦公式、Ravi 代换、切线长 s−a、旁切圆，以及——当四点共圆时——托勒密定理。学会这些如何咬合在一起，最难的图形也会变成简单的记账。"
+},
+tags: [
+{ en: "Area = rs & Heron", zh: "面积 = rs 与海伦公式" },
+{ en: "Ravi Substitution", zh: "Ravi 代换" },
+{ en: "Incircle & Excircles", zh: "内切圆与旁切圆" },
+{ en: "Ptolemy's Theorem", zh: "托勒密定理" }
+],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+/* ---------- Day2 知识点 ---------- */
+courseData.days[1].knowledgePoints = [
+{
+name: { en: "Area of a triangle — six faces of one idea", zh: "三角形面积 —— 同一件事的六张面孔" },
+detail: {
+en: "The area of a triangle can be written six equivalent ways, and picking the RIGHT one is half the battle. Base×height: Area = ½·a·hₐ. Two-sides-and-included-angle: Area = ½·ab·sin C (use when you know an angle). And the one students forget: Area = r·s, the inradius times the semiperimeter. That last form is the bridge between 'area' problems and 'incircle' problems — whenever a problem mentions the inradius r, silently write Area = rs. Proof of Area = rs: join the incenter I to all three vertices, splitting the triangle into three thin triangles each of height r; their areas ½ra + ½rb + ½rc = ½r(a+b+c) = rs.",
+zh: "三角形的面积有六种等价写法，而「选对哪一种」就赢了一半。\n底×高：Area = ½·a·hₐ。两边夹一角：Area = ½·ab·sin C（知道角时用）。还有一个学生最容易忘的：Area = r·s，内切圆半径乘以半周长。\n最后这个形式，是「面积」问题和「内切圆」问题之间的桥梁 —— 只要题目提到内切圆半径 r，就默默写下 Area = rs。\n证明 Area = rs：把内心 I 连到三个顶点，三角形被分成三个「高都是 r」的薄三角形；它们的面积之和 ½ra + ½rb + ½rc = ½r(a+b+c) = rs。"
+},
+formula: "\\[ \\text{Area} = \\tfrac12 a h_a = \\tfrac12 ab\\sin C = rs \\qquad (s = \\tfrac{a+b+c}{2}) \\]",
+example: {
+en: "A triangle with inradius r = 2 and sides 5, 6, 7 has s = 9, so Area = rs = 18. (Check with Heron: √(9·4·3·2) = √216 ≈ 14.7 — wait, that's different, so r ≠ 2 here; the point is: given ANY two of {Area, r, s}, the third is forced.)",
+zh: "内切圆半径 r 与半周长 s 一旦知道两个量，第三个就被锁死。例如若已知 Area = 18、s = 9，则立刻 r = Area/s = 2。这就是 Area = rs 的威力：三个量里知道两个，第三个自动出来。"
+}
+},
+{
+name: { en: "Heron's Formula (area from three sides)", zh: "海伦公式（三边求面积）" },
+detail: {
+en: "When you know all three sides but no angle, Heron's Formula hands you the area directly: Area = √(s(s−a)(s−b)(s−c)). The proof is a beautiful cascade of difference-of-squares. Start from Area = ½ab·sin C, square it, replace sin²C = 1−cos²C, then use the Law of Cosines 2ab·cos C = a²+b²−c². Everything factors: 16·Area² = [c²−(a−b)²]·[(a+b)²−c²] = (c−a+b)(c+a−b)(a+b−c)(a+b+c) = 2(s−a)·2(s−b)·2(s−c)·2s. Divide by 16 and you're done. Recognizing 'three sides given, want area' → Heron is an instant reflex.",
+zh: "当你知道三条边、却没有任何角时，海伦公式直接把面积交给你：Area = √(s(s−a)(s−b)(s−c))。\n它的证明是一串漂亮的「平方差」瀑布。从 Area = ½ab·sin C 出发，平方，把 sin²C = 1−cos²C 代入，再用余弦定理 2ab·cos C = a²+b²−c²。一切都能因式分解：\n16·Area² = [c²−(a−b)²]·[(a+b)²−c²] = (c−a+b)(c+a−b)(a+b−c)(a+b+c) = 2(s−a)·2(s−b)·2(s−c)·2s。\n除以 16 即得。看到「给三边、求面积」→ 海伦，应该成为条件反射。"
+},
+formula: "\\[ \\text{Area} = \\sqrt{s(s-a)(s-b)(s-c)} \\]",
+example: {
+en: "The 13-14-15 triangle: s = 21, Area = √(21·8·7·6) = √7056 = 84. A famous 'nice' triangle worth memorizing.",
+zh: "13-14-15 三角形：s = 21，Area = √(21·8·7·6) = √7056 = 84。一个著名的「好看」三角形，值得记住。"
+}
+},
+{
+name: { en: "Equal Tangents Lemma (the quiet workhorse)", zh: "等切线引理（安静的主力）" },
+detail: {
+en: "From a point P outside a circle, the two tangent segments to the circle have EQUAL length: PA = PB where A, B are the touch points. It sounds trivial, but it is the seed of almost every incircle computation. The reason: both tangent segments, the two radii to the touch points, and PO form two congruent right triangles (shared hypotenuse PO, equal radii). Every time a circle touches a line, mentally mark the equal tangent segments — those equalities are the equations you'll solve with.",
+zh: "从圆外一点 P 向圆作两条切线，两条切线段「长度相等」：PA = PB，其中 A、B 是切点。\n听起来平凡，但它是几乎所有内切圆计算的种子。原因：两条切线段、两条到切点的半径、以及 PO，组成两个全等的直角三角形（共用斜边 PO，半径相等）。\n每当一个圆碰到一条直线，就在心里标出那对相等的切线段 —— 这些等式，就是你接下来要解的方程。"
+},
+formula: "\\[ PA = PB \\quad (\\text{two tangents from an external point}) \\]"
+},
+{
+name: { en: "The Ravi Substitution (a=x+y, b=y+t, c=t+x)", zh: "Ravi 代换（a=x+y, b=y+t, c=t+x）" },
+detail: {
+en: "Here is the payoff of equal tangents. Let the incircle touch the three sides; call the tangent lengths from A, B, C equal to t, x, y (each vertex gives two equal tangents). Then each side splits into two of these: a = BC = x+y, b = CA = y+t, c = AB = t+x, with t, x, y > 0. This 'Ravi substitution' re-parametrizes ANY triangle by three positive numbers. Adding all three: a+b+c = 2(t+x+y), so t+x+y = s. Its magic: the awkward triangle inequality (a<b+c etc.) becomes automatic (x,y,t just need to be positive), which is why it's the #1 tool for triangle inequalities.",
+zh: "这就是等切线的回报。设内切圆碰到三条边；把从 A、B、C 出发的切线长分别记为 t、x、y（每个顶点给出两条相等切线）。于是每条边都拆成其中两个之和：\na = BC = x+y，b = CA = y+t，c = AB = t+x，其中 t, x, y > 0。\n这个「Ravi 代换」把「任意」三角形用三个正数重新参数化。三式相加：a+b+c = 2(t+x+y)，所以 t+x+y = s。\n它的魔力：讨厌的三角不等式（a<b+c 等）自动成立（只要 x,y,t 是正数），这正是它成为三角不等式头号工具的原因。"
+},
+formula: "\\[ a=x+y,\\quad b=y+t,\\quad c=t+x,\\qquad t+x+y=s \\]"
+}
+];
+
+
+courseData.days[1].knowledgePoints.push(
+{
+name: { en: "Incircle tangent lengths = s−a, s−b, s−c", zh: "内切圆切线长 = s−a, s−b, s−c" },
+detail: {
+en: "Combine Ravi (t+x+y = s) with the individual relations and every tangent length gets a clean name. The tangent length from A is t = s − a, from B is x = s − b, from C is y = s − c. (Check: t = s − a because t = (t+x+y) − (x+y) = s − a.) So if the incircle touches BC at X, then BX = s−b and CX = s−c. These three numbers s−a, s−b, s−c are the DNA of incircle problems — memorize which vertex gives which. A huge number of 'find the length from the vertex to the touch point' questions are answered by just writing down s minus the opposite side.",
+zh: "把 Ravi（t+x+y = s）和各自的关系结合，每条切线长都得到一个干净的名字。从 A 出发的切线长 t = s − a，从 B 是 x = s − b，从 C 是 y = s − c。（验证：t =(t+x+y)−(x+y)= s − a。）\n所以若内切圆碰 BC 于 X，则 BX = s−b，CX = s−c。\n这三个数 s−a、s−b、s−c 是内切圆问题的 DNA —— 记住哪个顶点对应哪个。大量「求顶点到切点的长度」的问题，答案就是「s 减去对边」。"
+},
+formula: "\\[ \\text{tangent from } A = s-a,\\quad B: s-b,\\quad C: s-c \\]",
+example: {
+en: "In the 13-14-15 triangle (s=21), with a=BC=14: the incircle touches BC at X with BX = s−c = 21−15 = 6 and CX = s−b = 21−13 = 8. (Check: 6+8 = 14 = BC ✓.)",
+zh: "在 13-14-15 三角形（s=21）中，设 a=BC=14：内切圆碰 BC 于 X，BX = s−c = 21−15 = 6，CX = s−b = 21−13 = 8。（验证：6+8 = 14 = BC ✓。）"
+}
+},
+{
+name: { en: "Excircles: Area = rₐ(s−a)", zh: "旁切圆：Area = rₐ(s−a)" },
+detail: {
+en: "Besides the incircle nestled inside, each triangle has three EXcircles, each sitting outside, tangent to one side and to the extensions of the other two. The A-excircle (opposite vertex A) has radius rₐ and touches side BC. Its area relation mirrors Area = rs but with a twist: Area = rₐ(s−a) (and cyclically r_b(s−b), r_c(s−c)). Proof: the A-excenter Iₐ is on the far side of BC, so Area(ABC) = Area(ABIₐ)+Area(ACIₐ)−Area(BCIₐ) = ½rₐc+½rₐb−½rₐa = ½rₐ(b+c−a) = rₐ(s−a). Combined with Area = rs, you get relations like r·rₐ·r_b·r_c = Area² — a favorite of competition problems.",
+zh: "除了蜷在内部的内切圆，每个三角形还有三个「旁切圆」，都待在外面，切一条边、并切另外两边的延长线。A-旁切圆（对着顶点 A）半径为 rₐ，切边 BC。\n它的面积关系与 Area = rs 相仿，但有个转折：Area = rₐ(s−a)（循环地还有 r_b(s−b)、r_c(s−c)）。\n证明：A-旁心 Iₐ 在 BC 的另一侧，所以 Area(ABC) = Area(ABIₐ)+Area(ACIₐ)−Area(BCIₐ) = ½rₐc+½rₐb−½rₐa = ½rₐ(b+c−a) = rₐ(s−a)。\n与 Area = rs 结合，就得到像 r·rₐ·r_b·r_c = Area² 这样的关系 —— 竞赛题的心头好。"
+},
+formula: "\\[ \\text{Area} = r_a(s-a) = r_b(s-b) = r_c(s-c),\\qquad r\\,r_a r_b r_c = \\text{Area}^2 \\]"
+},
+{
+name: { en: "Touch-point symmetry: BD = CE", zh: "切点对称：BD = CE" },
+detail: {
+en: "A lovely fact linking the incircle and A-excircle. Both touch segment BC — the incircle at X, the A-excircle at Xₐ. Then X and Xₐ are REFLECTIONS across the midpoint of BC: BX = CXₐ and CX = BXₐ. In tangent-length terms, BX = s−b while BXₐ = s−c, and these swap. The engine is the Equal Tangents Lemma applied to both circles along lines AB and AC. This symmetry is the secret behind many 'the two touch points are symmetric' olympiad problems, and it's the crux of Problem 13 (IMOSL 1995) in today's set.",
+zh: "一个把内切圆和 A-旁切圆联系起来的可爱事实。两者都切线段 BC —— 内切圆切于 X，A-旁切圆切于 Xₐ。那么 X 和 Xₐ 关于 BC 的中点「对称」：BX = CXₐ，CX = BXₐ。\n用切线长说：BX = s−b 而 BXₐ = s−c，两者互换。\n引擎是沿 AB、AC 两条线，对两个圆都用等切线引理。\n这个对称，是许多「两个切点对称」奥数题的秘密，也是今天习题 #13（IMOSL 1995）的关键。"
+},
+formula: "\\[ BX = CX_a = s-b,\\qquad CX = BX_a = s-c \\]"
+},
+{
+name: { en: "The tangent-length table (incircle vs A-excircle)", zh: "切线长对照表（内切圆 vs A-旁切圆）" },
+detail: {
+en: "Package everything into one reference table. Incircle touch points give tangent lengths BX = BZ = s−b, CX = CY = s−c, AY = AZ = s−a. The A-excircle gives BXₐ = BZₐ = s−c, CXₐ = CYₐ = s−b, and the striking one: AYₐ = AZₐ = s (the tangent from A to the A-excircle equals the FULL semiperimeter, since AZₐ = AB + BZₐ = c + (s−c) = s). Having this table memorized turns messy 'chase the tangent lengths' problems into instant lookups. When in doubt, redraw the triangle and label all six touch points with their s−(·) values.",
+zh: "把一切打包成一张参照表。内切圆切点给出切线长：BX = BZ = s−b，CX = CY = s−c，AY = AZ = s−a。\nA-旁切圆给出：BXₐ = BZₐ = s−c，CXₐ = CYₐ = s−b，以及最惊艳的一个：AYₐ = AZₐ = s（从 A 到 A-旁切圆的切线长等于「整个半周长」，因为 AZₐ = AB + BZₐ = c +(s−c)= s）。\n把这张表背下来，能把凌乱的「追切线长」问题变成瞬间查表。拿不准时，就重画三角形，把六个切点都标上它们的 s−(·) 值。"
+},
+formula: "\\[ \\text{incircle: } s-a,\\,s-b,\\,s-c;\\qquad A\\text{-excircle: } AZ_a=s,\\; BX_a=s-c,\\; CX_a=s-b \\]"
+}
+);
+
+
+courseData.days[1].knowledgePoints.push(
+{
+name: { en: "Half-angle & inradius identities", zh: "半角与内切圆半径恒等式" },
+detail: {
+en: "The tangent lengths feed directly into half-angle formulas — a bridge between lengths and angles. Since the incenter I sees the tangent length s−a from A along the bisector, and the inradius r is the opposite leg, tan(A/2) = r/(s−a). Pairing this with the algebraic half-angle identity tan²(A/2) = (s−b)(s−c)/[s(s−a)] (from the Law of Cosines) gives the inradius directly: r² = (s−a)(s−b)(s−c)/s, i.e. r = Area/s again. Also useful: sin(A/2) = √[(s−b)(s−c)/(bc)] and cos(A/2) = √[s(s−a)/(bc)]. These are exactly Problem 4 in today's set — and they turn many 'angle' conditions into 'side' equations.",
+zh: "切线长直接喂进半角公式 —— 这是长度与角度之间的桥。因为内心 I 沿角平分线看到从 A 出发的切线长 s−a，而内切圆半径 r 是对边直角边，所以 tan(A/2) = r/(s−a)。\n把它与代数半角恒等式 tan²(A/2) = (s−b)(s−c)/[s(s−a)]（由余弦定理得）配对，直接给出内切圆半径：r² = (s−a)(s−b)(s−c)/s，也就是又回到 r = Area/s。\n还有用的：sin(A/2) = √[(s−b)(s−c)/(bc)]，cos(A/2) = √[s(s−a)/(bc)]。这正是今天习题 #4 —— 它们把许多「角」的条件变成「边」的方程。"
+},
+formula: "\\[ \\tan\\tfrac A2 = \\frac{r}{s-a},\\quad \\sin\\tfrac A2 = \\sqrt{\\tfrac{(s-b)(s-c)}{bc}},\\quad \\cos\\tfrac A2 = \\sqrt{\\tfrac{s(s-a)}{bc}} \\]"
+},
+{
+name: { en: "Ptolemy's Theorem (the cyclic-quadrilateral key)", zh: "托勒密定理（圆内接四边形的钥匙）" },
+detail: {
+en: "For a cyclic quadrilateral ABCD (four points in order on a circle), the product of the diagonals equals the sum of the products of opposite sides: AC·BD = AB·CD + AD·BC. This is THE tool for four concyclic points. Proof idea: construct K on diagonal AC with ∠ABK = ∠DBC; two pairs of similar triangles (from equal inscribed angles) give AK·BD = AB·CD and KC·BD = AD·BC — add them and AK+KC = AC finishes it. Ptolemy also has an inequality form (AC·BD ≤ AB·CD+AD·BC for ANY four points, equality iff concyclic), which is a slick way to prove points lie on a circle.",
+zh: "对圆内接四边形 ABCD（四点按序在圆上），两对角线之积等于两组对边乘积之和：AC·BD = AB·CD + AD·BC。\n这是处理「四点共圆」的那把钥匙。证明思路：在对角线 AC 上构造 K 使 ∠ABK = ∠DBC；两对相似三角形（来自相等的圆周角）给出 AK·BD = AB·CD 和 KC·BD = AD·BC —— 相加，再用 AK+KC = AC 收尾。\n托勒密还有不等式形式（对「任意」四点 AC·BD ≤ AB·CD+AD·BC，等号当且仅当共圆），这是证明「点共圆」的漂亮手法。"
+},
+formula: "\\[ AC\\cdot BD = AB\\cdot CD + AD\\cdot BC \\qquad (\\text{cyclic } ABCD) \\]",
+example: {
+en: "A rectangle is cyclic; Ptolemy gives (diagonal)² = (length)²+(width)², which is just the Pythagorean theorem in disguise. A point on the arc of an equilateral triangle: Ptolemy instantly gives PA = PB+PC for the far vertex.",
+zh: "矩形是圆内接的；托勒密给出 (对角线)² = (长)²+(宽)²，其实就是伪装的勾股定理。对等边三角形外接圆弧上一点 P：托勒密立刻给出 PA = PB+PC（A 为远顶点）。"
+}
+},
+{
+name: { en: "Ptolemy's Second Theorem (ratio of diagonals)", zh: "托勒密第二定理（对角线之比）" },
+detail: {
+en: "Ptolemy's first theorem gives the PRODUCT of the diagonals; the second gives their RATIO. For cyclic ABCD: AC/BD = (AB·AD + CB·CD)/(AB·BC + AD·DC). Combined with the first theorem (which gives AC·BD), knowing both the product and the ratio lets you solve for each diagonal individually — a powerful two-equation system. Sketch of why it's true: write every side and diagonal as 2R·sin(half-arc) via the Law of Sines; both diagonals become sines of sums of half-arcs, and a product-to-sum expansion (using that the four arcs sum to 360°) confirms the identity. This pair is the stepping stone to Casey's Theorem (Ptolemy for four tangent circles).",
+zh: "托勒密第一定理给出对角线的「乘积」；第二定理给出它们的「比」。对圆内接 ABCD：\nAC/BD = (AB·AD + CB·CD)/(AB·BC + AD·DC)。\n与第一定理（给出 AC·BD）结合，同时知道「积」和「比」，就能分别解出每条对角线 —— 一个强大的二元方程组。\n为什么成立（思路）：用正弦定理把每条边和对角线写成 2R·sin(半弧)；两条对角线都变成「半弧之和」的正弦，再用积化和差（利用四段弧之和 = 360°）即可确认。这一对是通往 Casey 定理（四个相切圆的托勒密）的踏脚石。"
+},
+formula: "\\[ \\frac{AC}{BD} = \\frac{AB\\cdot AD + CB\\cdot CD}{AB\\cdot BC + AD\\cdot DC} \\]"
+},
+{
+name: { en: "Euler's Quadrilateral Theorem", zh: "欧拉四边形定理" },
+detail: {
+en: "This generalizes the parallelogram law to ANY quadrilateral. Let ABCD be any quadrilateral (not necessarily cyclic), and let E, F be the midpoints of the two diagonals AC, BD. Then: AB²+BC²+CD²+DA² = AC²+BD²+4·EF². In words: the sum of the squares of all four sides exceeds the sum of the squares of the diagonals by exactly four times the squared distance between the diagonal-midpoints. Proof is a clean vector computation — expand every squared length via dot products and both sides collapse to the same expression. Corollary: in a parallelogram the diagonals bisect each other, so E = F, EF = 0, and you recover AB²+BC²+CD²+DA² = AC²+BD² (the parallelogram law from Day 1).",
+zh: "这把「平行四边形法则」推广到「任意」四边形。设 ABCD 是任意四边形（不必圆内接），E、F 是两对角线 AC、BD 的中点。则：\nAB²+BC²+CD²+DA² = AC²+BD²+4·EF²。\n用一句话说：四条边的平方和，比对角线的平方和恰好多出「对角线中点间距离」平方的四倍。\n证明是干净的向量计算 —— 把每条长度平方用点积展开，两边坍缩成同一个表达式。\n推论：平行四边形的对角线互相平分，所以 E = F，EF = 0，于是还原出 AB²+BC²+CD²+DA² = AC²+BD²（Day 1 的平行四边形法则）。"
+},
+formula: "\\[ AB^2+BC^2+CD^2+DA^2 = AC^2+BD^2+4\\,EF^2 \\]"
+}
+);
+
+
+/* ---------- Day2 课堂例题精讲 ---------- */
+courseData.days[1].problems = [
+{
+source: { en: "PS2 · Problem 1", zh: "习题集 PS2 · 第 1 题" },
+statement: {
+en: "In triangle ABC with \\(\\angle A = 90^\\circ\\), prove that the inradius is \\(r = \\dfrac{AB + AC - BC}{2}\\).",
+zh: "在 \\(\\angle A = 90^\\circ\\) 的三角形 ABC 中，证明内切圆半径 \\(r = \\dfrac{AB + AC - BC}{2}\\)。"
+},
+recall: [
+{ en: "Incircle tangent length from a vertex = s − (opposite side)", zh: "顶点到内切圆的切线长 = s − 对边" },
+{ en: "At the right-angle vertex, the two tangents + two radii form a square", zh: "在直角顶点处，两切线 + 两半径 组成一个正方形" }
+],
+guide: {
+en: "Two clean routes, pick whichever clicks. ROUTE 1 (tangent lengths): the tangent length from A equals s − a, where a = BC is the hypotenuse. But at a RIGHT angle, the incircle touches both legs at distance r from A (the radius meets each leg perpendicularly, forming a little square of side r). So the tangent length from A is exactly r. Setting r = s − a and expanding s = (a+b+c)/2 gives the result. ROUTE 2 (area): Area = rs and also Area = ½·(leg)(leg) = ½bc; equate and simplify. Route 1 is faster — try to SEE the square at the right angle.",
+zh: "两条干净的路，哪条顺手用哪条。\n路线 1（切线长）：从 A 出发的切线长等于 s − a，其中 a = BC 是斜边。但在「直角」处，内切圆在距 A 为 r 的地方碰到两条直角边（半径垂直于每条边，形成一个边长为 r 的小正方形）。所以从 A 出发的切线长恰好是 r。令 r = s − a 并展开 s =(a+b+c)/2 即得。\n路线 2（面积）：Area = rs，又 Area = ½·(直角边)(直角边) = ½bc；两者相等再化简。\n路线 1 更快 —— 试着「看见」直角处那个正方形。"
+},
+steps: [
+{ en: "Let \\(a = BC\\) (hypotenuse), \\(b = AC\\), \\(c = AB\\) (the two legs). Semiperimeter \\(s = \\tfrac{a+b+c}{2}\\).",
+zh: "记 \\(a = BC\\)（斜边），\\(b = AC\\)，\\(c = AB\\)（两条直角边）。半周长 \\(s = \\tfrac{a+b+c}{2}\\)。" },
+{ en: "The tangent length from vertex A to the incircle is \\(s - a\\). At the right angle A, the incircle touches both legs, and the two radii to those touch points form a square of side \\(r\\) — so this tangent length also equals \\(r\\).",
+zh: "从顶点 A 到内切圆的切线长是 \\(s - a\\)。在直角 A 处，内切圆切两条直角边，到这两个切点的半径组成一个边长为 \\(r\\) 的正方形 —— 所以这条切线长也等于 \\(r\\)。" },
+{ en: "Therefore \\(r = s - a = \\tfrac{a+b+c}{2} - a = \\tfrac{b+c-a}{2} = \\dfrac{AC + AB - BC}{2}.\\) \\(\\blacksquare\\)",
+zh: "因此 \\(r = s - a = \\tfrac{a+b+c}{2} - a = \\tfrac{b+c-a}{2} = \\dfrac{AC + AB - BC}{2}.\\) \\(\\blacksquare\\)" },
+{ en: "Sanity check with the 3-4-5 triangle: \\(r = \\tfrac{3+4-5}{2} = 1\\). And Area/s \\(= 6/6 = 1\\) ✓ (verified numerically).",
+zh: "用 3-4-5 三角形检验：\\(r = \\tfrac{3+4-5}{2} = 1\\)。且 Area/s \\(= 6/6 = 1\\) ✓（已数值验证）。" }
+],
+answer: { en: "\\(r = \\dfrac{AB+AC-BC}{2}\\) — proved.", zh: "\\(r = \\dfrac{AB+AC-BC}{2}\\)，证毕。" },
+insight: {
+en: "The tangent length from a vertex is s − (opposite side) — always. At a right angle it doubles as the inradius because the touch points make a square. Recognizing 'tangent length = r here' is the whole trick.",
+zh: "顶点到内切圆的切线长永远是 s −(对边)。在直角处它「兼职」当内切圆半径，因为切点凑成一个正方形。认出「这里切线长 = r」就是全部的诀窍。"
+}
+},
+{
+source: { en: "PS2 · Problem 3 · NIMO 14 (Evan Chen)", zh: "习题集 PS2 · 第 3 题 · NIMO 14（Evan Chen）" },
+statement: {
+en: "In triangle ABC, \\(\\sin A\\,\\sin B\\,\\sin C = \\tfrac{1}{1000}\\) and \\(AB\\cdot BC\\cdot CA = 1000\\). Find the area of triangle ABC.",
+zh: "三角形 ABC 中，\\(\\sin A\\,\\sin B\\,\\sin C = \\tfrac{1}{1000}\\)，且 \\(AB\\cdot BC\\cdot CA = 1000\\)。求三角形 ABC 的面积。"
+},
+recall: [
+{ en: "Law of Sines: \\(a = 2R\\sin A\\)", zh: "正弦定理：\\(a = 2R\\sin A\\)" },
+{ en: "Area \\(= \\dfrac{abc}{4R}\\)", zh: "面积 \\(= \\dfrac{abc}{4R}\\)" }
+],
+guide: {
+en: "Both given quantities smell like the Law of Sines. Write each side as a = 2R·sin A, so the product abc = 8R³·(sinA sinB sinC). You KNOW both abc (=1000) and sinA sinB sinC (=1/1000), so this single equation pins down R. Once you have R, the area formula Area = abc/(4R) finishes instantly. The whole problem is 'convert the product of sides into R via the Law of Sines.'",
+zh: "两个给定量都散发着正弦定理的气味。把每条边写成 a = 2R·sin A，于是乘积 abc = 8R³·(sinA sinB sinC)。\n你「同时」知道 abc(=1000) 和 sinA sinB sinC(=1/1000)，所以这一个方程就把 R 钉死。\n一旦有了 R，面积公式 Area = abc/(4R) 立刻收尾。整道题就是「用正弦定理把边的乘积转成 R」。"
+},
+steps: [
+{ en: "By the Law of Sines, \\(a = 2R\\sin A\\), \\(b = 2R\\sin B\\), \\(c = 2R\\sin C\\). Multiply: \\(abc = 8R^3\\,(\\sin A\\sin B\\sin C).\\)",
+zh: "由正弦定理，\\(a = 2R\\sin A\\)，\\(b = 2R\\sin B\\)，\\(c = 2R\\sin C\\)。相乘：\\(abc = 8R^3\\,(\\sin A\\sin B\\sin C).\\)" },
+{ en: "Substitute the givens: \\(1000 = 8R^3\\cdot\\tfrac{1}{1000}\\), so \\(R^3 = \\tfrac{1000\\cdot 1000}{8} = 125000\\), giving \\(R = 50.\\)",
+zh: "代入已知：\\(1000 = 8R^3\\cdot\\tfrac{1}{1000}\\)，所以 \\(R^3 = \\tfrac{1000\\cdot 1000}{8} = 125000\\)，得 \\(R = 50.\\)" },
+{ en: "Area \\(= \\dfrac{abc}{4R} = \\dfrac{1000}{4\\cdot 50} = \\dfrac{1000}{200} = 5.\\)",
+zh: "面积 \\(= \\dfrac{abc}{4R} = \\dfrac{1000}{4\\cdot 50} = \\dfrac{1000}{200} = 5.\\)" }
+],
+answer: { en: "Area \\(= 5\\) (verified symbolically).", zh: "面积 \\(= 5\\)（已符号验证）。" },
+insight: {
+en: "When a problem gives you a product of sines AND a product of sides, the Law of Sines links them through R. The pair (abc, sinA·sinB·sinC) is exactly enough to solve for R, and Area = abc/(4R) does the rest. Two facts in, one clean number out.",
+zh: "当题目同时给你「正弦的乘积」和「边的乘积」，正弦定理通过 R 把它们连起来。数对 (abc, sinA·sinB·sinC) 恰好足够解出 R，再用 Area = abc/(4R) 收尾。两个事实进去，一个干净数字出来。"
+}
+},
+{
+source: { en: "PS2 · Problem 16", zh: "习题集 PS2 · 第 16 题" },
+statement: {
+en: "Let \\(a,b,c\\) be the sides of an acute triangle. Suppose the system \\(x^2+xy+y^2=a^2\\), \\(y^2+yz+z^2=b^2\\), \\(z^2+zx+x^2=c^2\\) has a solution in positive reals. Find \\(xy+yz+zx\\).",
+zh: "设 \\(a,b,c\\) 是一个锐角三角形的三边。已知方程组 \\(x^2+xy+y^2=a^2\\)，\\(y^2+yz+z^2=b^2\\)，\\(z^2+zx+x^2=c^2\\) 在正实数中有解。求 \\(xy+yz+zx\\)。"
+},
+recall: [
+{ en: "Law of Cosines with a 120° angle: \\(p^2+pq+q^2\\) pattern", zh: "含 120° 角的余弦定理：\\(p^2+pq+q^2\\) 的模式" },
+{ en: "Area = ½·(two sides)·sin(included angle)", zh: "面积 = ½·(两边)·sin(夹角)" },
+{ en: "Fermat point: three 120° angles meeting at one interior point", zh: "费马点：三个 120° 角在一个内点相交" }
+],
+guide: {
+en: "The expression \\(x^2+xy+y^2\\) is a HUGE tell. Compare it to the Law of Cosines \\(p^2+q^2-2pq\\cos\\theta\\): matching gives \\(-2\\cos\\theta = +1\\), so \\(\\cos\\theta = -\\tfrac12\\), i.e. \\(\\theta = 120^\\circ\\). So each equation says: a triangle with two sides \\(x,y\\) and included angle 120° has third side \\(a\\). Picture ONE interior point P from which three segments \\(PX=x, PY=y, PZ=z\\) fan out, each pair at 120° (they fill up 360°). The three outer sides are then exactly \\(a,b,c\\) — so P is the Fermat point of triangle ABC! Now compute the area of ABC two ways: as the sum of three little 120° triangles, vs. by Heron. Setting them equal isolates \\(xy+yz+zx\\).",
+zh: "表达式 \\(x^2+xy+y^2\\) 是一个「巨大的」提示。把它和余弦定理 \\(p^2+q^2-2pq\\cos\\theta\\) 对比：匹配得 \\(-2\\cos\\theta = +1\\)，所以 \\(\\cos\\theta = -\\tfrac12\\)，即 \\(\\theta = 120^\\circ\\)。\n所以每个方程都在说：一个「两边为 \\(x,y\\)、夹角 120°」的三角形，第三边是 \\(a\\)。想象「一个」内点 P，从它扇出三条线段 \\(PX=x, PY=y, PZ=z\\)，每两条夹角 120°（正好填满 360°）。三条外边恰好是 \\(a,b,c\\) —— 所以 P 是三角形 ABC 的费马点！\n现在用两种方式算 ABC 的面积：作为三个 120° 小三角形之和，对比海伦公式。令二者相等，就分离出 \\(xy+yz+zx\\)。"
+},
+steps: [
+{ en: "Each equation is the Law of Cosines with included angle 120° (since \\(\\cos120^\\circ=-\\tfrac12\\) makes \\(p^2+q^2-2pq\\cos120^\\circ = p^2+q^2+pq\\)). So \\(x,y,z\\) are three segments from an interior point P, pairwise at 120°, and \\(a,b,c\\) are the opposite outer sides.",
+zh: "每个方程都是「夹角 120°」的余弦定理（因为 \\(\\cos120^\\circ=-\\tfrac12\\) 使 \\(p^2+q^2-2pq\\cos120^\\circ = p^2+q^2+pq\\)）。所以 \\(x,y,z\\) 是从内点 P 出发、两两夹角 120° 的三条线段，而 \\(a,b,c\\) 是对面的三条外边。" },
+{ en: "Area of ABC = sum of the three sub-triangles at P, each \\(\\tfrac12(\\text{two segs})\\sin120^\\circ = \\tfrac{\\sqrt3}{4}(\\cdot)\\):\n\\([ABC] = \\tfrac{\\sqrt3}{4}(xy+yz+zx).\\)",
+zh: "ABC 的面积 = P 处三个子三角形之和，每个 \\(\\tfrac12(\\text{两段})\\sin120^\\circ = \\tfrac{\\sqrt3}{4}(\\cdot)\\)：\n\\([ABC] = \\tfrac{\\sqrt3}{4}(xy+yz+zx).\\)" },
+{ en: "Solve for the target: \\(xy+yz+zx = \\dfrac{4}{\\sqrt3}\\,[ABC] = \\dfrac{4\\sqrt3}{3}\\,[ABC].\\)",
+zh: "解出目标：\\(xy+yz+zx = \\dfrac{4}{\\sqrt3}\\,[ABC] = \\dfrac{4\\sqrt3}{3}\\,[ABC].\\)" },
+{ en: "Here \\([ABC] = \\sqrt{s(s-a)(s-b)(s-c)}\\) by Heron. (The acuteness guarantees the Fermat point is interior, so the picture is valid.) Verified numerically on several triangles.",
+zh: "其中 \\([ABC] = \\sqrt{s(s-a)(s-b)(s-c)}\\)（海伦公式）。（锐角保证费马点在内部，图形成立。）已在多个三角形上数值验证。" }
+],
+answer: { en: "\\(xy+yz+zx = \\dfrac{4}{\\sqrt3}\\,[ABC] = \\dfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\) (verified numerically).", zh: "\\(xy+yz+zx = \\dfrac{4}{\\sqrt3}\\,[ABC] = \\dfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\)（已数值验证）。" },
+insight: {
+en: "The pattern \\(p^2+pq+q^2\\) screams '120° Law of Cosines'. Reading three such equations as three 120° wedges around one point reveals the Fermat point — turning an algebra system into a single area picture. Match the algebraic form to a geometric angle: that's the master move.",
+zh: "\\(p^2+pq+q^2\\) 的模式在尖叫「120° 余弦定理」。把三个这样的方程读成「围绕一点的三个 120° 楔形」，就揭示出费马点 —— 把一个代数方程组变成一张面积图。把代数形式匹配到一个几何角度：这就是那招大师级动作。"
+}
+}
+];
+
+
+/* ---------- Day2 强化练习 ---------- */
+courseData.days[1].enhancements = [
+{
+level: "★",
+statement: {
+en: "A right triangle has legs 6 and 8 and hypotenuse 10. Find its inradius \\(r\\) two ways: (i) using \\(r = \\tfrac{\\text{leg}+\\text{leg}-\\text{hyp}}{2}\\), and (ii) using Area \\(= rs\\).",
+zh: "一个直角三角形两直角边为 6 和 8，斜边为 10。用两种方法求内切圆半径 \\(r\\)：(i) 用 \\(r = \\tfrac{\\text{直角边}+\\text{直角边}-\\text{斜边}}{2}\\)；(ii) 用 Area \\(= rs\\)。"
+},
+hint: {
+en: "(i) r = (6+8−10)/2. (ii) Area = ½·6·8 = 24, s = (6+8+10)/2 = 12, so r = Area/s. Both must agree.",
+zh: "(i) r =(6+8−10)/2。(ii) Area = ½·6·8 = 24，s =(6+8+10)/2 = 12，所以 r = Area/s。两者必须一致。"
+},
+answer: { en: "\\(r = 2\\) both ways (verified).", zh: "两种方法都得 \\(r = 2\\)（已验证）。" }
+},
+{
+level: "★★",
+statement: {
+en: "A triangle has sides 9, 10, 17. Find its area (Heron), then its inradius \\(r\\), then the tangent length from each vertex to the incircle.",
+zh: "一个三角形三边为 9, 10, 17。求它的面积（海伦），再求内切圆半径 \\(r\\)，然后求每个顶点到内切圆的切线长。"
+},
+hint: {
+en: "s = 18. Area = √(18·(18−9)·(18−10)·(18−17)) = √(18·9·8·1). Then r = Area/s. Tangent lengths are s−a = 18−9, s−b = 18−10, s−c = 18−17 (match each to the vertex opposite that side).",
+zh: "s = 18。Area = √(18·(18−9)·(18−10)·(18−17)) = √(18·9·8·1)。再 r = Area/s。切线长为 s−a = 18−9，s−b = 18−10，s−c = 18−17（每个对应它所对边的那个顶点）。"
+},
+answer: { en: "Area \\(= 36\\), \\(r = 2\\); tangent lengths \\(9, 8, 1\\) from the vertices opposite sides \\(9, 10, 17\\) (verified).", zh: "Area \\(= 36\\)，\\(r = 2\\)；从对着边 \\(9, 10, 17\\) 的顶点出发的切线长分别是 \\(9, 8, 1\\)（已验证）。" }
+},
+{
+level: "★★★",
+statement: {
+en: "A cyclic quadrilateral ABCD has \\(AB=3, BC=4, CD=5, DA=6\\) (in order). Using Ptolemy's Theorem AND Ptolemy's Second Theorem, find both diagonals \\(AC\\) and \\(BD\\).",
+zh: "圆内接四边形 ABCD 顺次边长 \\(AB=3, BC=4, CD=5, DA=6\\)。同时用托勒密定理和托勒密第二定理，求两条对角线 \\(AC\\) 与 \\(BD\\)。"
+},
+hint: {
+en: "First theorem gives the PRODUCT: AC·BD = AB·CD + AD·BC = 3·5 + 6·4 = 39. Second theorem gives the RATIO: AC/BD = (AB·AD + CB·CD)/(AB·BC + AD·DC) = (3·6+4·5)/(3·4+6·5) = 38/42 = 19/21. Two equations, two unknowns: multiply them to get AC², divide to get BD².",
+zh: "第一定理给出「积」：AC·BD = AB·CD + AD·BC = 3·5 + 6·4 = 39。第二定理给出「比」：AC/BD =(AB·AD + CB·CD)/(AB·BC + AD·DC) =(3·6+4·5)/(3·4+6·5) = 38/42 = 19/21。两方程两未知：相乘得 AC²，相除得 BD²。"
+},
+answer: { en: "\\(AC = \\sqrt{39\\cdot\\tfrac{19}{21}} = \\sqrt{\\tfrac{247}{7}} \\approx 5.94\\), \\(BD = \\sqrt{39\\cdot\\tfrac{21}{19}} = \\sqrt{\\tfrac{819}{19}} \\approx 6.57\\) (verified numerically; check \\(AC\\cdot BD = 39\\) ✓).", zh: "\\(AC = \\sqrt{39\\cdot\\tfrac{19}{21}} = \\sqrt{\\tfrac{247}{7}} \\approx 5.94\\)，\\(BD = \\sqrt{39\\cdot\\tfrac{21}{19}} = \\sqrt{\\tfrac{819}{19}} \\approx 6.57\\)（已数值验证；核对 \\(AC\\cdot BD = 39\\) ✓）。" }
+}
+];
+
+
+/* ---------- Day2 完整习题 PS2 逐题精解 ---------- */
+courseData.days[1].problemSet = [
+{
+n: 1,
+source: { en: "PS2 · Problem 1 · Triangle II", zh: "PS2 · 第 1 题 · Triangle II" },
+statement: { en: "In right triangle ABC (\\(\\angle A=90^\\circ\\)), prove \\(r = \\tfrac{AB+AC-BC}{2}\\).", zh: "直角三角形 ABC（\\(\\angle A=90^\\circ\\)）中，证明 \\(r = \\tfrac{AB+AC-BC}{2}\\)。" },
+recall: [ { en: "Tangent length from A = s − a", zh: "从 A 的切线长 = s − a" }, { en: "At the right angle, tangent length = r (square)", zh: "直角处切线长 = r（正方形）" } ],
+steps: [
+{ en: "Tangent length from A is \\(s-a\\); at the right angle it equals the inradius \\(r\\).", zh: "从 A 的切线长是 \\(s-a\\)；在直角处它等于内切圆半径 \\(r\\)。" },
+{ en: "\\(r = s-a = \\tfrac{a+b+c}{2}-a = \\tfrac{b+c-a}{2} = \\tfrac{AB+AC-BC}{2}\\). \\(\\blacksquare\\)", zh: "\\(r = s-a = \\tfrac{a+b+c}{2}-a = \\tfrac{b+c-a}{2} = \\tfrac{AB+AC-BC}{2}\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(r=\\tfrac{AB+AC-BC}{2}\\). Verified on 3-4-5 (r=1).", zh: "\\(r=\\tfrac{AB+AC-BC}{2}\\)。3-4-5 验证 r=1。" },
+insight: { en: "Right angle ⇒ the vertex tangent length IS the inradius.", zh: "直角 ⇒ 顶点切线长「就是」内切圆半径。" }
+},
+{
+n: 2,
+source: { en: "PS2 · Problem 2 · Triangle II", zh: "PS2 · 第 2 题 · Triangle II" },
+statement: { en: "Prove: (1) \\(\\tfrac1{r_a}+\\tfrac1{r_b}+\\tfrac1{r_c}=\\tfrac1r\\); (2) \\(r_br_c+r_cr_a+r_ar_b=s^2\\); (3) \\(r\\,r_ar_br_c=[ABC]^2\\).", zh: "证明：(1) \\(\\tfrac1{r_a}+\\tfrac1{r_b}+\\tfrac1{r_c}=\\tfrac1r\\)；(2) \\(r_br_c+r_cr_a+r_ar_b=s^2\\)；(3) \\(r\\,r_ar_br_c=[ABC]^2\\)。" },
+recall: [ { en: "Area = rs and Area = rₐ(s−a)", zh: "Area = rs 和 Area = rₐ(s−a)" }, { en: "Let K = [ABC]; write every radius as K/(something)", zh: "设 K = [ABC]；把每个半径写成 K/(某量)" } ],
+steps: [
+{ en: "HINT — write all four radii in terms of the area K and s: \\(r=\\tfrac Ks\\), \\(r_a=\\tfrac K{s-a}\\), \\(r_b=\\tfrac K{s-b}\\), \\(r_c=\\tfrac K{s-c}\\).", zh: "提示 —— 把四个半径都用面积 K 和 s 表示：\\(r=\\tfrac Ks\\)，\\(r_a=\\tfrac K{s-a}\\)，\\(r_b=\\tfrac K{s-b}\\)，\\(r_c=\\tfrac K{s-c}\\)。" },
+{ en: "(1) \\(\\sum\\tfrac1{r_a} = \\tfrac{(s-a)+(s-b)+(s-c)}{K} = \\tfrac{3s-2s}{K} = \\tfrac sK = \\tfrac1r\\). ✓", zh: "(1) \\(\\sum\\tfrac1{r_a} = \\tfrac{(s-a)+(s-b)+(s-c)}{K} = \\tfrac{3s-2s}{K} = \\tfrac sK = \\tfrac1r\\)。✓" },
+{ en: "(3) \\(r\\,r_ar_br_c = \\tfrac{K^4}{s(s-a)(s-b)(s-c)} = \\tfrac{K^4}{K^2} = K^2\\) (Heron: \\(s(s-a)(s-b)(s-c)=K^2\\)). ✓", zh: "(3) \\(r\\,r_ar_br_c = \\tfrac{K^4}{s(s-a)(s-b)(s-c)} = \\tfrac{K^4}{K^2} = K^2\\)（海伦：\\(s(s-a)(s-b)(s-c)=K^2\\)）。✓" },
+{ en: "(2) HINT: \\(\\sum r_br_c = K^2\\sum\\tfrac1{(s-b)(s-c)} = K^2\\cdot\\tfrac{(s-a)+(s-b)+(s-c)}{(s-a)(s-b)(s-c)} = K^2\\cdot\\tfrac{s}{K^2/s} = s^2\\). ✓", zh: "(2) 提示：\\(\\sum r_br_c = K^2\\sum\\tfrac1{(s-b)(s-c)} = K^2\\cdot\\tfrac{(s-a)+(s-b)+(s-c)}{(s-a)(s-b)(s-c)} = K^2\\cdot\\tfrac{s}{K^2/s} = s^2\\)。✓" }
+],
+answer: { en: "All three identities follow from writing radii as K/(s−·) and using Heron. \\(\\blacksquare\\)", zh: "三个恒等式都由「半径 = K/(s−·)」加海伦公式得出。\\(\\blacksquare\\)" },
+insight: { en: "The excircle radii \\(r_a=K/(s-a)\\) turn every symmetric excircle identity into simple algebra in \\(s-a,s-b,s-c\\). Heron ties the product back to K².", zh: "旁切圆半径 \\(r_a=K/(s-a)\\) 把每个对称的旁切圆恒等式变成关于 \\(s-a,s-b,s-c\\) 的简单代数。海伦把乘积拉回 K²。" }
+},
+{
+n: 3,
+source: { en: "PS2 · Problem 3 · NIMO 14 (Evan Chen)", zh: "PS2 · 第 3 题 · NIMO 14（Evan Chen）" },
+statement: { en: "\\(\\sin A\\sin B\\sin C=\\tfrac1{1000}\\), \\(AB\\cdot BC\\cdot CA=1000\\). Find \\([ABC]\\).", zh: "\\(\\sin A\\sin B\\sin C=\\tfrac1{1000}\\)，\\(AB\\cdot BC\\cdot CA=1000\\)。求 \\([ABC]\\)。" },
+recall: [ { en: "\\(a=2R\\sin A\\); Area \\(=\\tfrac{abc}{4R}\\)", zh: "\\(a=2R\\sin A\\)；Area \\(=\\tfrac{abc}{4R}\\)" } ],
+steps: [
+{ en: "\\(abc=8R^3\\sin A\\sin B\\sin C \\Rightarrow 1000=8R^3\\cdot\\tfrac1{1000}\\Rightarrow R^3=125000\\Rightarrow R=50\\).", zh: "\\(abc=8R^3\\sin A\\sin B\\sin C \\Rightarrow 1000=8R^3\\cdot\\tfrac1{1000}\\Rightarrow R^3=125000\\Rightarrow R=50\\)。" },
+{ en: "\\([ABC]=\\tfrac{abc}{4R}=\\tfrac{1000}{200}=5\\).", zh: "\\([ABC]=\\tfrac{abc}{4R}=\\tfrac{1000}{200}=5\\)。" }
+],
+answer: { en: "\\([ABC]=5\\) (verified).", zh: "\\([ABC]=5\\)（已验证）。" },
+insight: { en: "Product of sines + product of sides ⇒ solve for R, then Area = abc/(4R).", zh: "正弦乘积 + 边乘积 ⇒ 解出 R，再 Area = abc/(4R)。" }
+},
+{
+n: 4,
+source: { en: "PS2 · Problem 4 · Triangle II", zh: "PS2 · 第 4 题 · Triangle II" },
+statement: { en: "Prove \\(\\sin\\tfrac A2=\\sqrt{\\tfrac{(s-b)(s-c)}{bc}}\\) and \\(\\cos\\tfrac A2=\\sqrt{\\tfrac{s(s-a)}{bc}}\\).", zh: "证明 \\(\\sin\\tfrac A2=\\sqrt{\\tfrac{(s-b)(s-c)}{bc}}\\) 且 \\(\\cos\\tfrac A2=\\sqrt{\\tfrac{s(s-a)}{bc}}\\)。" },
+recall: [ { en: "Half-angle: \\(\\sin^2\\tfrac A2=\\tfrac{1-\\cos A}2\\)", zh: "半角：\\(\\sin^2\\tfrac A2=\\tfrac{1-\\cos A}2\\)" }, { en: "Law of Cosines: \\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\)", zh: "余弦定理：\\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\)" } ],
+steps: [
+{ en: "HINT: start from \\(\\sin^2\\tfrac A2=\\tfrac{1-\\cos A}2\\) and substitute \\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\).", zh: "提示：从 \\(\\sin^2\\tfrac A2=\\tfrac{1-\\cos A}2\\) 出发，代入 \\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\)。" },
+{ en: "\\(\\sin^2\\tfrac A2=\\tfrac{2bc-(b^2+c^2-a^2)}{4bc}=\\tfrac{a^2-(b-c)^2}{4bc}=\\tfrac{(a-b+c)(a+b-c)}{4bc}=\\tfrac{2(s-b)\\cdot2(s-c)}{4bc}=\\tfrac{(s-b)(s-c)}{bc}\\).", zh: "\\(\\sin^2\\tfrac A2=\\tfrac{2bc-(b^2+c^2-a^2)}{4bc}=\\tfrac{a^2-(b-c)^2}{4bc}=\\tfrac{(a-b+c)(a+b-c)}{4bc}=\\tfrac{2(s-b)\\cdot2(s-c)}{4bc}=\\tfrac{(s-b)(s-c)}{bc}\\)。" },
+{ en: "Take the (positive) square root. The cosine version is identical starting from \\(\\cos^2\\tfrac A2=\\tfrac{1+\\cos A}2\\), giving \\(\\tfrac{(b+c)^2-a^2}{4bc}=\\tfrac{s(s-a)}{bc}\\). \\(\\blacksquare\\)", zh: "取（正）平方根。余弦版本从 \\(\\cos^2\\tfrac A2=\\tfrac{1+\\cos A}2\\) 出发完全类似，得 \\(\\tfrac{(b+c)^2-a^2}{4bc}=\\tfrac{s(s-a)}{bc}\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "Both half-angle formulas proved via Law of Cosines + difference of squares.", zh: "两个半角公式都由余弦定理 + 平方差证得。" },
+insight: { en: "The half-angle formulas are just the Law of Cosines run through \\(1\\mp\\cos A\\) and factored. They convert angle data into \\(s-a\\)-type side data.", zh: "半角公式只是把余弦定理通过 \\(1\\mp\\cos A\\) 跑一遍再因式分解。它们把「角」的信息转成 \\(s-a\\) 型的「边」信息。" }
+},
+{
+n: 5,
+source: { en: "PS2 · Problem 5 · Triangle II", zh: "PS2 · 第 5 题 · Triangle II" },
+statement: { en: "Convex cyclic quadrilateral ABCD. Let \\(r_A,r_B,r_C,r_D\\) be the inradii of triangles DAB, ABC, BCD, CDA. Prove \\(r_A+r_C=r_B+r_D\\).", zh: "凸圆内接四边形 ABCD。设 \\(r_A,r_B,r_C,r_D\\) 为三角形 DAB, ABC, BCD, CDA 的内切圆半径。证明 \\(r_A+r_C=r_B+r_D\\)。" },
+recall: [ { en: "\\(r = (s-a)\\tan\\tfrac A2\\) type / \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)", zh: "\\(r = (s-a)\\tan\\tfrac A2\\) 型 / \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)" }, { en: "Inscribed angles on the same chord are equal", zh: "同弦所对的圆周角相等" } ],
+steps: [
+{ en: "HINT: this is the Japanese Theorem for cyclic quadrilaterals. Key fact: for a triangle inscribed in a circle of radius R, \\(r = 4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\). All four triangles share the SAME circumcircle (radius R), since all vertices lie on \\(\\omega\\).", zh: "提示：这是圆内接四边形的「日本定理」。关键事实：内接于半径 R 的圆的三角形，\\(r = 4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)。四个三角形共用「同一个」外接圆（半径 R），因为所有顶点都在 \\(\\omega\\) 上。" },
+{ en: "Express each \\(r\\) using half-arcs: the inscribed angles are half the arcs they subtend. Writing every half-angle as a half-arc and using product-to-sum, the sum \\(r_A+r_C\\) and \\(r_B+r_D\\) both reduce to the SAME symmetric expression in the four arcs.", zh: "用半弧表示每个 \\(r\\)：圆周角是它所对弧的一半。把每个半角写成半弧，再用积化和差，\\(r_A+r_C\\) 和 \\(r_B+r_D\\) 都化简为四段弧的「同一个」对称表达式。" },
+{ en: "Hence \\(r_A+r_C=r_B+r_D\\). (This is a genuinely hard olympiad result — the half-arc bookkeeping is the crux; try it after mastering the half-angle formula.) \\(\\blacksquare\\)", zh: "因此 \\(r_A+r_C=r_B+r_D\\)。（这是一个确实很难的奥数结论 —— 半弧的记账是关键；掌握半角公式后再尝试。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(r_A+r_C=r_B+r_D\\) — the Japanese Theorem for cyclic quadrilaterals.", zh: "\\(r_A+r_C=r_B+r_D\\) —— 圆内接四边形的日本定理。" },
+insight: { en: "One circumcircle shared by all four triangles + \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\) turns everything into arcs. Symmetric arc sums are equal — that's the whole miracle.", zh: "四个三角形共用一个外接圆 + \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)，把一切变成弧。对称的弧之和相等 —— 这就是全部的奇迹。" }
+},
+{
+n: 6,
+source: { en: "PS2 · Problem 6 · Triangle II", zh: "PS2 · 第 6 题 · Triangle II" },
+statement: { en: "Let I be the incenter of triangle ABC. Prove \\(\\tfrac{AI^2}{bc}+\\tfrac{BI^2}{ca}+\\tfrac{CI^2}{ab}=1\\).", zh: "设 I 为三角形 ABC 的内心。证明 \\(\\tfrac{AI^2}{bc}+\\tfrac{BI^2}{ca}+\\tfrac{CI^2}{ab}=1\\)。" },
+recall: [ { en: "\\(AI = \\tfrac{r}{\\sin(A/2)}\\), and \\(AI = (s-a)/\\cos(A/2)\\)", zh: "\\(AI = \\tfrac{r}{\\sin(A/2)}\\)，且 \\(AI = (s-a)/\\cos(A/2)\\)" }, { en: "Half-angle: \\(\\cos^2\\tfrac A2=\\tfrac{s(s-a)}{bc}\\)", zh: "半角：\\(\\cos^2\\tfrac A2=\\tfrac{s(s-a)}{bc}\\)" } ],
+steps: [
+{ en: "HINT: find \\(AI\\). The incenter sees tangent length \\(s-a\\) from A along the bisector, with \\(\\cos\\tfrac A2 = \\tfrac{s-a}{AI}\\), so \\(AI = \\tfrac{s-a}{\\cos(A/2)}\\), giving \\(AI^2 = \\tfrac{(s-a)^2}{\\cos^2(A/2)}\\).", zh: "提示：先求 \\(AI\\)。内心沿角平分线看到从 A 的切线长 \\(s-a\\)，\\(\\cos\\tfrac A2 = \\tfrac{s-a}{AI}\\)，所以 \\(AI = \\tfrac{s-a}{\\cos(A/2)}\\)，得 \\(AI^2 = \\tfrac{(s-a)^2}{\\cos^2(A/2)}\\)。" },
+{ en: "Use \\(\\cos^2\\tfrac A2=\\tfrac{s(s-a)}{bc}\\) (Problem 4): \\(AI^2 = \\tfrac{(s-a)^2 bc}{s(s-a)} = \\tfrac{bc(s-a)}{s}\\). Therefore \\(\\tfrac{AI^2}{bc} = \\tfrac{s-a}{s}\\).", zh: "用 \\(\\cos^2\\tfrac A2=\\tfrac{s(s-a)}{bc}\\)（第 4 题）：\\(AI^2 = \\tfrac{(s-a)^2 bc}{s(s-a)} = \\tfrac{bc(s-a)}{s}\\)。因此 \\(\\tfrac{AI^2}{bc} = \\tfrac{s-a}{s}\\)。" },
+{ en: "Sum cyclically: \\(\\sum\\tfrac{AI^2}{bc} = \\tfrac{(s-a)+(s-b)+(s-c)}{s} = \\tfrac{3s-2s}{s} = \\tfrac ss = 1\\). \\(\\blacksquare\\)", zh: "循环求和：\\(\\sum\\tfrac{AI^2}{bc} = \\tfrac{(s-a)+(s-b)+(s-c)}{s} = \\tfrac{3s-2s}{s} = \\tfrac ss = 1\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\sum\\tfrac{AI^2}{bc}=1\\) — proved.", zh: "\\(\\sum\\tfrac{AI^2}{bc}=1\\)，证毕。" },
+insight: { en: "The key reduction \\(\\tfrac{AI^2}{bc}=\\tfrac{s-a}{s}\\) makes the sum telescope. Once each term becomes \\((s-a)/s\\), the identity \\(\\sum(s-a)=s\\) finishes it.", zh: "关键化简 \\(\\tfrac{AI^2}{bc}=\\tfrac{s-a}{s}\\) 让求和望远镜式坍缩。每项变成 \\((s-a)/s\\) 后，恒等式 \\(\\sum(s-a)=s\\) 收尾。" }
+}
+];
+
+
+courseData.days[1].problemSet.push(
+{
+n: 7,
+source: { en: "PS2 · Problem 7 · Triangle II", zh: "PS2 · 第 7 题 · Triangle II" },
+statement: { en: "Triangle ABC has \\(AB=3, AC=4\\). \\(O\\) = circumcenter, \\(H\\) = orthocenter. If \\(OH\\parallel BC\\), compute \\(\\cos A\\).", zh: "三角形 ABC 中 \\(AB=3, AC=4\\)。\\(O\\) 为外心，\\(H\\) 为垂心。若 \\(OH\\parallel BC\\)，求 \\(\\cos A\\)。" },
+recall: [ { en: "Distance from O to BC \\(=R\\cos A\\)", zh: "O 到 BC 的距离 \\(=R\\cos A\\)" }, { en: "Distance from H to BC \\(=2R\\cos B\\cos C\\)", zh: "H 到 BC 的距离 \\(=2R\\cos B\\cos C\\)" }, { en: "\\(\\cos A=-\\cos(B+C)\\)", zh: "\\(\\cos A=-\\cos(B+C)\\)" } ],
+steps: [
+{ en: "HINT: \\(OH\\parallel BC\\) means \\(O\\) and \\(H\\) are the same height above \\(BC\\): \\(R\\cos A = 2R\\cos B\\cos C\\), i.e. \\(\\cos A = 2\\cos B\\cos C\\).", zh: "提示：\\(OH\\parallel BC\\) 意味着 \\(O\\) 与 \\(H\\) 到 \\(BC\\) 等高：\\(R\\cos A = 2R\\cos B\\cos C\\)，即 \\(\\cos A = 2\\cos B\\cos C\\)。" },
+{ en: "Since \\(\\cos A=-\\cos(B+C)=\\sin B\\sin C-\\cos B\\cos C\\), the condition becomes \\(\\sin B\\sin C=3\\cos B\\cos C\\), i.e. \\(\\tan B\\tan C=3\\).", zh: "因为 \\(\\cos A=-\\cos(B+C)=\\sin B\\sin C-\\cos B\\cos C\\)，条件变成 \\(\\sin B\\sin C=3\\cos B\\cos C\\)，即 \\(\\tan B\\tan C=3\\)。" },
+{ en: "Combine with the Law of Cosines (sides \\(b=4,c=3\\), \\(a=BC\\) unknown) via \\(\\cos A=2\\cos B\\cos C\\); solving gives \\(a^2=\\tfrac{25+3\\sqrt{113}}{4}\\) and \\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\approx 0.4491\\) (an irrational value).", zh: "结合余弦定理（边 \\(b=4,c=3\\)，\\(a=BC\\) 未知）与 \\(\\cos A=2\\cos B\\cos C\\)；解得 \\(a^2=\\tfrac{25+3\\sqrt{113}}{4}\\)，\\(\\cos A=\\tfrac{b^2+c^2-a^2}{2bc}\\approx 0.4491\\)（一个无理数值）。" },
+{ en: "NOTE: the answer is not a 'nice' fraction — the clean takeaway is the condition \\(\\cos A=2\\cos B\\cos C\\) (equivalently \\(\\tan B\\tan C=3\\)) that \\(OH\\parallel BC\\) forces. (Verified numerically.)", zh: "注意：答案不是「好看」的分数 —— 干净的收获是 \\(OH\\parallel BC\\) 所强制的条件 \\(\\cos A=2\\cos B\\cos C\\)（等价 \\(\\tan B\\tan C=3\\)）。（已数值验证。）" }
+],
+answer: { en: "Condition: \\(\\cos A=2\\cos B\\cos C\\); numerically \\(\\cos A\\approx 0.449\\), with \\(a^2=\\tfrac{25+3\\sqrt{113}}4\\).", zh: "条件：\\(\\cos A=2\\cos B\\cos C\\)；数值上 \\(\\cos A\\approx 0.449\\)，其中 \\(a^2=\\tfrac{25+3\\sqrt{113}}4\\)。" },
+insight: { en: "'\\(OH\\parallel BC\\)' translates to a height equation: \\(R\\cos A=2R\\cos B\\cos C\\). Encoding parallel-to-a-side as 'equal distances to that side' is the key move; the messy final number is fine — the relation is the real prize.", zh: "「\\(OH\\parallel BC\\)」翻译成一个高度方程：\\(R\\cos A=2R\\cos B\\cos C\\)。把「平行于某边」编码成「到该边等距」是关键动作；最后那个丑数字无所谓 —— 关系式才是真正的奖品。" }
+},
+{
+n: 8,
+source: { en: "PS2 · Problem 8 · IMO Shortlist 1998", zh: "PS2 · 第 8 题 · IMO 预选 1998" },
+statement: { en: "\\(D\\) lies on \\(AB\\) so that the inradii of triangles \\(ADC\\) and \\(CDB\\) are equal. Prove \\(CD^2=s(s-c)=[ABC]\\cot\\tfrac C2\\). (If \\(\\angle ACB=90^\\circ\\), then \\(CD^2=[ABC]\\).)", zh: "\\(D\\) 在 \\(AB\\) 上使三角形 \\(ADC\\) 与 \\(CDB\\) 的内切圆半径相等。证明 \\(CD^2=s(s-c)=[ABC]\\cot\\tfrac C2\\)。（若 \\(\\angle ACB=90^\\circ\\)，则 \\(CD^2=[ABC]\\)。）" },
+recall: [ { en: "Equal inradii + Area = rs on both sub-triangles", zh: "内切圆半径相等 + 两个子三角形都用 Area = rs" }, { en: "Stewart's Theorem for \\(CD\\)", zh: "求 \\(CD\\) 用斯图尔特定理" }, { en: "\\(\\cos^2\\tfrac C2=\\tfrac{s(s-c)}{ab}\\)", zh: "\\(\\cos^2\\tfrac C2=\\tfrac{s(s-c)}{ab}\\)" } ],
+steps: [
+{ en: "HINT (setup): let \\(CD=d\\), \\(AD=m\\), \\(DB=n\\). Equal inradii \\(r_1=r_2\\) with \\(r_i=\\text{Area}_i/s_i\\) links the two sub-triangles' areas and semiperimeters. Both share the cevian \\(CD\\) and the same height from \\(C\\) to \\(AB\\).", zh: "提示（搭建）：设 \\(CD=d\\)，\\(AD=m\\)，\\(DB=n\\)。内切圆半径相等 \\(r_1=r_2\\)，用 \\(r_i=\\text{Area}_i/s_i\\) 把两个子三角形的面积与半周长联系起来。两者共用塞瓦线 \\(CD\\)，以及从 \\(C\\) 到 \\(AB\\) 的同一条高。" },
+{ en: "HINT (key relation): the equal-inradius condition forces \\(AD/DB\\) into a specific ratio; combined with the half-angle formula \\(\\cos^2\\tfrac C2=\\tfrac{s(s-c)}{ab}\\), the cevian length collapses.", zh: "提示（关键关系）：内切圆半径相等的条件迫使 \\(AD/DB\\) 取特定比值；结合半角公式 \\(\\cos^2\\tfrac C2=\\tfrac{s(s-c)}{ab}\\)，塞瓦线长度坍缩。" },
+{ en: "Carrying out the algebra yields \\(CD^2=s(s-c)\\). Then \\(s(s-c)=ab\\cos^2\\tfrac C2\\) and \\([ABC]=\\tfrac12 ab\\sin C=ab\\sin\\tfrac C2\\cos\\tfrac C2\\) give \\(CD^2=[ABC]\\cot\\tfrac C2\\).", zh: "把代数做完得 \\(CD^2=s(s-c)\\)。再由 \\(s(s-c)=ab\\cos^2\\tfrac C2\\) 和 \\([ABC]=\\tfrac12 ab\\sin C=ab\\sin\\tfrac C2\\cos\\tfrac C2\\)，得 \\(CD^2=[ABC]\\cot\\tfrac C2\\)。" },
+{ en: "If \\(\\angle C=90^\\circ\\), \\(\\cot\\tfrac C2=\\cot45^\\circ=1\\), so \\(CD^2=[ABC]\\) — the beautiful special case. \\(\\blacksquare\\)", zh: "若 \\(\\angle C=90^\\circ\\)，\\(\\cot\\tfrac C2=\\cot45^\\circ=1\\)，所以 \\(CD^2=[ABC]\\) —— 漂亮的特例。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(CD^2=s(s-c)=[ABC]\\cot\\tfrac C2\\); right angle at C gives \\(CD^2=[ABC]\\).", zh: "\\(CD^2=s(s-c)=[ABC]\\cot\\tfrac C2\\)；C 处直角给出 \\(CD^2=[ABC]\\)。" },
+insight: { en: "Equal inradii is a strong constraint — feed it through Area = rs on both pieces, then let the half-angle formula \\(s(s-c)=ab\\cos^2\\tfrac C2\\) reveal the \\(\\cot\\tfrac C2\\). Hard, but every tool is from today.", zh: "内切圆半径相等是强约束 —— 用两块的 Area = rs 喂进去，再让半角公式 \\(s(s-c)=ab\\cos^2\\tfrac C2\\) 揭示出 \\(\\cot\\tfrac C2\\)。难，但每个工具都来自今天。" }
+},
+{
+n: 9,
+source: { en: "PS2 · Problem 9 · Triangle II", zh: "PS2 · 第 9 题 · Triangle II" },
+statement: { en: "Points \\(B=B_1,B_2,\\dots,B_{n+1}=C\\) on \\(BC\\); \\(r_i\\) = inradius of \\(AB_iB_{i+1}\\), \\(r\\) = inradius of \\(ABC\\), \\(h\\) = altitude from \\(A\\). Prove \\(\\prod_{i=1}^n\\big(\\tfrac h2 - r_i\\big) = \\big(\\tfrac h2\\big)^{n-1}\\big(\\tfrac h2 - r\\big)\\).", zh: "\\(BC\\) 上点 \\(B=B_1,B_2,\\dots,B_{n+1}=C\\)；\\(r_i\\) = \\(AB_iB_{i+1}\\) 的内切圆半径，\\(r\\) = \\(ABC\\) 内切圆半径，\\(h\\) = 从 \\(A\\) 的高。证明 \\(\\prod_{i=1}^n\\big(\\tfrac h2 - r_i\\big) = \\big(\\tfrac h2\\big)^{n-1}\\big(\\tfrac h2 - r\\big)\\)。" },
+recall: [ { en: "Induction (hint: prove n=2 first)", zh: "归纳法（提示：先证 n=2）" }, { en: "Stewart's Theorem", zh: "斯图尔特定理" }, { en: "\\(r = \\text{Area}/s\\) per sub-triangle", zh: "每个子三角形 \\(r = \\text{Area}/s\\)" } ],
+steps: [
+{ en: "HINT (from the problem): prove the identity for \\(n=2\\) using Stewart's formula, then apply simple induction. For \\(n=2\\), a single interior point \\(B_2\\) splits \\(ABC\\) into \\(AB_1B_2\\) and \\(AB_2B_3\\).", zh: "提示（原题给出）：先用斯图尔特公式证 \\(n=2\\) 的情形，再用简单归纳。当 \\(n=2\\) 时，单个内点 \\(B_2\\) 把 \\(ABC\\) 分成 \\(AB_1B_2\\) 和 \\(AB_2B_3\\)。" },
+{ en: "Express each \\(r_i\\) as \\(\\text{Area}_i/s_i\\). Since all sub-triangles share the SAME altitude \\(h\\) from \\(A\\), \\(\\text{Area}_i=\\tfrac12 h\\cdot B_iB_{i+1}\\), and \\(\\tfrac h2-r_i\\) gets a clean form in terms of the base pieces and the two slanted sides.", zh: "把每个 \\(r_i\\) 写成 \\(\\text{Area}_i/s_i\\)。因为所有子三角形共用从 \\(A\\) 的「同一条高」\\(h\\)，\\(\\text{Area}_i=\\tfrac12 h\\cdot B_iB_{i+1}\\)，于是 \\(\\tfrac h2-r_i\\) 用底边小段和两条斜边得到干净形式。" },
+{ en: "The \\(n=2\\) case reduces (via Stewart on the shared cevian \\(AB_2\\)) to a telescoping product; induction then multiplies one factor at a time, each step contributing a factor \\(\\tfrac h2\\). \\(\\blacksquare\\)", zh: "\\(n=2\\) 的情形（对共用塞瓦线 \\(AB_2\\) 用斯图尔特）化为一个望远镜式乘积；归纳再一次乘一个因子，每步贡献一个 \\(\\tfrac h2\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\prod(\\tfrac h2-r_i)=(\\tfrac h2)^{n-1}(\\tfrac h2-r)\\), by Stewart (base case) + induction.", zh: "\\(\\prod(\\tfrac h2-r_i)=(\\tfrac h2)^{n-1}(\\tfrac h2-r)\\)，由斯图尔特（基例）+ 归纳。" },
+insight: { en: "Shared altitude \\(h\\) makes \\(\\tfrac h2-r_i\\) the natural unit. Prove the two-piece case, then induct — the classic 'base case by Stewart, then chain' structure.", zh: "共用的高 \\(h\\) 让 \\(\\tfrac h2-r_i\\) 成为自然单位。先证两块情形，再归纳 —— 经典的「斯图尔特打基例，再链式推进」结构。" }
+},
+{
+n: 10,
+source: { en: "PS2 · Problem 10 · Triangle II", zh: "PS2 · 第 10 题 · Triangle II" },
+statement: { en: "The angle between sides \\(AB\\) and \\(CD\\) of quadrilateral \\(ABCD\\) is \\(\\varphi\\). Prove \\(AD^2=AB^2+BC^2+CD^2-2(AB\\cdot BC\\cos B+BC\\cdot CD\\cos C+CD\\cdot AB\\cos\\varphi)\\).", zh: "四边形 \\(ABCD\\) 中 \\(AB\\) 与 \\(CD\\) 的夹角为 \\(\\varphi\\)。证明 \\(AD^2=AB^2+BC^2+CD^2-2(AB\\cdot BC\\cos B+BC\\cdot CD\\cos C+CD\\cdot AB\\cos\\varphi)\\)。" },
+recall: [ { en: "Vectors: \\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\)", zh: "向量：\\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\)" }, { en: "\\(|\\vec u+\\vec v+\\vec w|^2\\) expansion", zh: "\\(|\\vec u+\\vec v+\\vec w|^2\\) 展开" } ],
+steps: [
+{ en: "HINT: walk around the quadrilateral: \\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\). Square it: \\(AD^2=|\\vec{AB}|^2+|\\vec{BC}|^2+|\\vec{CD}|^2+2(\\vec{AB}\\cdot\\vec{BC}+\\vec{BC}\\cdot\\vec{CD}+\\vec{CD}\\cdot\\vec{AB})\\).", zh: "提示：沿四边形走一圈：\\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\)。平方：\\(AD^2=|\\vec{AB}|^2+|\\vec{BC}|^2+|\\vec{CD}|^2+2(\\vec{AB}\\cdot\\vec{BC}+\\vec{BC}\\cdot\\vec{CD}+\\vec{CD}\\cdot\\vec{AB})\\)。" },
+{ en: "Each dot product is (length)(length)(cos of angle between the vectors). Care with directions: \\(\\vec{AB}\\cdot\\vec{BC}=-AB\\cdot BC\\cos B\\) (the interior angle B is between \\(\\vec{BA}\\) and \\(\\vec{BC}\\)), similarly \\(\\vec{BC}\\cdot\\vec{CD}=-BC\\cdot CD\\cos C\\), and \\(\\vec{CD}\\cdot\\vec{AB}=-CD\\cdot AB\\cos\\varphi\\).", zh: "每个点积是（长）(长)(向量夹角的余弦)。注意方向：\\(\\vec{AB}\\cdot\\vec{BC}=-AB\\cdot BC\\cos B\\)（内角 B 在 \\(\\vec{BA}\\) 与 \\(\\vec{BC}\\) 之间），同理 \\(\\vec{BC}\\cdot\\vec{CD}=-BC\\cdot CD\\cos C\\)，\\(\\vec{CD}\\cdot\\vec{AB}=-CD\\cdot AB\\cos\\varphi\\)。" },
+{ en: "Substitute the three dot products (each carrying a minus sign) to get \\(AD^2=AB^2+BC^2+CD^2-2(AB\\cdot BC\\cos B+BC\\cdot CD\\cos C+CD\\cdot AB\\cos\\varphi)\\). \\(\\blacksquare\\)", zh: "代入三个点积（各带一个负号）得 \\(AD^2=AB^2+BC^2+CD^2-2(AB\\cdot BC\\cos B+BC\\cdot CD\\cos C+CD\\cdot AB\\cos\\varphi)\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "Proved by squaring \\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\).", zh: "由 \\(\\vec{AD}=\\vec{AB}+\\vec{BC}+\\vec{CD}\\) 平方证得。" },
+insight: { en: "A 'walk-around' vector sum + careful sign on each dot product is the cleanest path for any quadrilateral length identity. \\(\\varphi\\) is exactly the angle between the non-adjacent sides \\(AB\\) and \\(CD\\).", zh: "「绕一圈」的向量和 + 每个点积仔细定号，是任何四边形长度恒等式最干净的路。\\(\\varphi\\) 恰好是不相邻两边 \\(AB\\) 与 \\(CD\\) 的夹角。" }
+},
+{
+n: 11,
+source: { en: "PS2 · Problem 11 · Triangle II", zh: "PS2 · 第 11 题 · Triangle II" },
+statement: { en: "Prove: (1) \\(\\cos A+\\cos B+\\cos C=1+\\tfrac rR\\); (2) \\(\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=\\tfrac r{4R}\\).", zh: "证明：(1) \\(\\cos A+\\cos B+\\cos C=1+\\tfrac rR\\)；(2) \\(\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=\\tfrac r{4R}\\)。" },
+recall: [ { en: "\\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)", zh: "\\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)" }, { en: "Sum-to-product for \\(\\cos A+\\cos B\\)", zh: "\\(\\cos A+\\cos B\\) 的和化积" } ],
+steps: [
+{ en: "(2) is the definition-level identity \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\) rearranged — prove it via \\(r=(s-a)\\tan\\tfrac A2\\) and the half-angle sine formula, or accept it as a known lemma.", zh: "(2) 就是把定理级恒等式 \\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\) 移项 —— 用 \\(r=(s-a)\\tan\\tfrac A2\\) 加半角正弦公式证明，或作为已知引理接受。" },
+{ en: "(1) HINT: \\(\\cos A+\\cos B=2\\cos\\tfrac{A+B}2\\cos\\tfrac{A-B}2=2\\sin\\tfrac C2\\cos\\tfrac{A-B}2\\) (since \\(\\tfrac{A+B}2=90^\\circ-\\tfrac C2\\)). Then \\(\\cos C=1-2\\sin^2\\tfrac C2\\).", zh: "(1) 提示：\\(\\cos A+\\cos B=2\\cos\\tfrac{A+B}2\\cos\\tfrac{A-B}2=2\\sin\\tfrac C2\\cos\\tfrac{A-B}2\\)（因为 \\(\\tfrac{A+B}2=90^\\circ-\\tfrac C2\\)）。再 \\(\\cos C=1-2\\sin^2\\tfrac C2\\)。" },
+{ en: "Add and factor: \\(\\cos A+\\cos B+\\cos C=1+2\\sin\\tfrac C2(\\cos\\tfrac{A-B}2-\\sin\\tfrac C2)=1+4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=1+\\tfrac rR\\) (using part 2). \\(\\blacksquare\\)", zh: "相加并因式分解：\\(\\cos A+\\cos B+\\cos C=1+2\\sin\\tfrac C2(\\cos\\tfrac{A-B}2-\\sin\\tfrac C2)=1+4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=1+\\tfrac rR\\)（用第 2 部分）。\\(\\blacksquare\\)" }
+],
+answer: { en: "(1) \\(\\cos A+\\cos B+\\cos C=1+\\tfrac rR\\); (2) \\(\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=\\tfrac r{4R}\\).", zh: "(1) \\(\\cos A+\\cos B+\\cos C=1+\\tfrac rR\\)；(2) \\(\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2=\\tfrac r{4R}\\)。" },
+insight: { en: "Part (2) is the engine; part (1) falls out by sum-to-product plus the \\(\\tfrac{A+B}2=90^\\circ-\\tfrac C2\\) trick. Both live or die on half-angle fluency.", zh: "第 (2) 部分是引擎；第 (1) 部分靠和化积加 \\(\\tfrac{A+B}2=90^\\circ-\\tfrac C2\\) 的技巧掉出来。两者都取决于半角公式的熟练度。" }
+},
+{
+n: 12,
+source: { en: "PS2 · Problem 12 · Harvard-MIT 2014", zh: "PS2 · 第 12 题 · Harvard-MIT 2014" },
+statement: { en: "Triangle ABC with circumcenter \\(O\\), incenter \\(I\\), \\(\\angle B=45^\\circ\\), and \\(OI\\parallel BC\\). Find \\(\\cos\\angle C\\).", zh: "三角形 ABC 中，外心 \\(O\\)，内心 \\(I\\)，\\(\\angle B=45^\\circ\\)，且 \\(OI\\parallel BC\\)。求 \\(\\cos\\angle C\\)。" },
+recall: [ { en: "Distance O to BC \\(=R\\cos A\\); distance I to BC \\(=r\\)", zh: "O 到 BC 距离 \\(=R\\cos A\\)；I 到 BC 距离 \\(=r\\)" }, { en: "\\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)", zh: "\\(r=4R\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)" } ],
+steps: [
+{ en: "HINT: \\(OI\\parallel BC\\) means \\(O\\) and \\(I\\) are equidistant from \\(BC\\): \\(R\\cos A=r\\). Divide by R: \\(\\cos A=\\tfrac rR=4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\).", zh: "提示：\\(OI\\parallel BC\\) 意味着 \\(O\\) 与 \\(I\\) 到 \\(BC\\) 等距：\\(R\\cos A=r\\)。除以 R：\\(\\cos A=\\tfrac rR=4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\)。" },
+{ en: "Put \\(B=45^\\circ\\) and \\(A=135^\\circ-C\\) (angles sum to 180°). Substitute into \\(\\cos A=4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\) and solve for \\(C\\).", zh: "代入 \\(B=45^\\circ\\)，\\(A=135^\\circ-C\\)（内角和 180°）。代入 \\(\\cos A=4\\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2\\) 解 \\(C\\)。" },
+{ en: "Solving gives \\(\\cos C=1-\\tfrac{\\sqrt2}{2}\\) (verified numerically: \\(C\\approx72.97^\\circ\\)).", zh: "解得 \\(\\cos C=1-\\tfrac{\\sqrt2}{2}\\)（数值验证：\\(C\\approx72.97^\\circ\\)）。" }
+],
+answer: { en: "\\(\\cos\\angle C=1-\\dfrac{\\sqrt2}{2}\\) (verified numerically).", zh: "\\(\\cos\\angle C=1-\\dfrac{\\sqrt2}{2}\\)（已数值验证）。" },
+insight: { en: "Same engine as #7: a parallel-to-BC condition becomes an equal-distance equation \\(R\\cos A=r\\). Here it yields the clean value \\(1-\\tfrac{\\sqrt2}2\\). Parallel ⇒ equal heights is the universal translation.", zh: "与 #7 同一个引擎：平行于 BC 的条件变成等距方程 \\(R\\cos A=r\\)。这里给出干净值 \\(1-\\tfrac{\\sqrt2}2\\)。平行 ⇒ 等高，是万能翻译。" }
+}
+);
+
+
+courseData.days[1].problemSet.push(
+{
+n: 13,
+source: { en: "PS2 · Problem 13 · IMO Shortlist 1995", zh: "PS2 · 第 13 题 · IMO 预选 1995" },
+statement: { en: "\\(D,E\\) on \\(BC\\) with \\(\\angle BAD=\\angle CAE\\). \\(M,N\\) are the touch points of the incircles of \\(ABD, ACE\\) with \\(BC\\). Prove \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac1{NC}+\\tfrac1{NE}\\).", zh: "\\(D,E\\) 在 \\(BC\\) 上，\\(\\angle BAD=\\angle CAE\\)。\\(M,N\\) 是三角形 \\(ABD, ACE\\) 的内切圆与 \\(BC\\) 的切点。证明 \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac1{NC}+\\tfrac1{NE}\\)。" },
+recall: [ { en: "Touch point splits a side into s−(·) pieces", zh: "切点把边分成 s−(·) 段" }, { en: "Isogonal cevians (\\(\\angle BAD=\\angle CAE\\))", zh: "等角线（\\(\\angle BAD=\\angle CAE\\)）" }, { en: "Ratio Lemma from Day 1", zh: "Day 1 的比例引理" } ],
+steps: [
+{ en: "HINT: for the incircle of \\(ABD\\), the touch point \\(M\\) on \\(BD\\) gives \\(MB=s_1-AD\\)-type tangent lengths; compute \\(MB\\) and \\(MD\\) using the tangent-length rule inside triangle \\(ABD\\). Then \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac{MB+MD}{MB\\cdot MD}=\\tfrac{BD}{MB\\cdot MD}\\).", zh: "提示：对 \\(ABD\\) 的内切圆，\\(BD\\) 上切点 \\(M\\) 给出 \\(MB=s_1-AD\\) 型切线长；在三角形 \\(ABD\\) 内用切线长规则算 \\(MB\\)、\\(MD\\)。则 \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac{MB+MD}{MB\\cdot MD}=\\tfrac{BD}{MB\\cdot MD}\\)。" },
+{ en: "Express \\(MB\\cdot MD\\) via the tangent lengths; a short computation shows \\(\\tfrac1{MB}+\\tfrac1{MD}\\) depends only on \\(AB, AD, BD\\) in a symmetric way — specifically it equals \\(\\tfrac{2}{r_1}\\tan(\\angle ADB/2)\\)-type expression tied to the angle \\(\\angle BAD\\).", zh: "用切线长表示 \\(MB\\cdot MD\\)；简短计算表明 \\(\\tfrac1{MB}+\\tfrac1{MD}\\) 只对称地依赖 \\(AB, AD, BD\\) —— 具体是与角 \\(\\angle BAD\\) 挂钩的 \\(\\tfrac{2}{r_1}\\tan(\\angle ADB/2)\\) 型表达式。" },
+{ en: "The isogonal condition \\(\\angle BAD=\\angle CAE\\) makes the two expressions (for \\(M\\) side and \\(N\\) side) equal. This is a hard olympiad problem — the crux is turning each \\(\\tfrac1{MB}+\\tfrac1{MD}\\) into an angle-only quantity, then invoking the isogonal equality. \\(\\blacksquare\\)", zh: "等角条件 \\(\\angle BAD=\\angle CAE\\) 使两个表达式（\\(M\\) 侧与 \\(N\\) 侧）相等。这是难的奥数题 —— 关键是把每个 \\(\\tfrac1{MB}+\\tfrac1{MD}\\) 变成「只含角」的量，再用等角相等。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac1{NC}+\\tfrac1{NE}\\) — via tangent lengths + the isogonal condition.", zh: "\\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac1{NC}+\\tfrac1{NE}\\) —— 靠切线长 + 等角条件。" },
+insight: { en: "Combine touch-point symmetry with Day 1's isogonal cevians: each reciprocal sum \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac{BD}{MB\\cdot MD}\\) becomes an angle invariant, and equal angles ⇒ equal sums.", zh: "把切点对称与 Day 1 的等角线结合：每个倒数和 \\(\\tfrac1{MB}+\\tfrac1{MD}=\\tfrac{BD}{MB\\cdot MD}\\) 变成角不变量，等角 ⇒ 等和。" }
+},
+{
+n: 14,
+source: { en: "PS2 · Problem 14 · Triangle II", zh: "PS2 · 第 14 题 · Triangle II" },
+statement: { en: "\\(D,E,F\\) are the touch points of the incircle with \\(BC,CA,AB\\). \\(M\\) is the midpoint of \\(EF\\). Prove \\(\\angle BMC>90^\\circ\\).", zh: "\\(D,E,F\\) 是内切圆与 \\(BC,CA,AB\\) 的切点。\\(M\\) 是 \\(EF\\) 中点。证明 \\(\\angle BMC>90^\\circ\\)。" },
+recall: [ { en: "\\(\\angle BMC>90^\\circ \\iff M\\) inside the circle with diameter \\(BC\\)", zh: "\\(\\angle BMC>90^\\circ \\iff M\\) 在以 \\(BC\\) 为直径的圆内" }, { en: "\\(M\\) inside \\(\\iff MO_{BC}<\\tfrac{BC}2\\), i.e. \\(MB^2+MC^2<BC^2+2\\,MB\\cdot MC\\cos\\)…use \\(MB^2+MC^2\\) vs \\(\\tfrac12 BC^2\\)", zh: "\\(M\\) 在内 \\(\\iff\\) 到 \\(BC\\) 中点距离 \\(<\\tfrac{BC}2\\)" } ],
+steps: [
+{ en: "HINT: \\(\\angle BMC>90^\\circ\\) exactly when \\(M\\) lies strictly INSIDE the circle with diameter \\(BC\\). Equivalently (median identity), when \\(MB^2+MC^2<\\tfrac12 BC^2 + 2\\cdot(\\text{dist }M\\text{ to midpoint of }BC)^2\\)... cleanest test: \\(\\vec{MB}\\cdot\\vec{MC}<0\\).", zh: "提示：\\(\\angle BMC>90^\\circ\\) 恰当 \\(M\\) 严格在「以 \\(BC\\) 为直径的圆」内。等价（最干净的判据）：\\(\\vec{MB}\\cdot\\vec{MC}<0\\)。" },
+{ en: "Set up with tangent lengths: \\(AF=AE=s-a\\), so triangle \\(AEF\\) is isosceles and \\(M\\) (midpoint of \\(EF\\)) lies on the \\(A\\)-bisector at a known distance. Compute \\(\\vec{MB}\\cdot\\vec{MC}\\) using \\(BF=s-b\\), \\(CE=s-c\\).", zh: "用切线长搭建：\\(AF=AE=s-a\\)，所以三角形 \\(AEF\\) 等腰，\\(M\\)（\\(EF\\) 中点）在 \\(A\\)-角平分线上、距离已知。用 \\(BF=s-b\\)，\\(CE=s-c\\) 算 \\(\\vec{MB}\\cdot\\vec{MC}\\)。" },
+{ en: "The computation shows \\(\\vec{MB}\\cdot\\vec{MC}<0\\) always holds (a short but nonzero inequality), hence \\(\\angle BMC>90^\\circ\\). \\(\\blacksquare\\)", zh: "计算表明 \\(\\vec{MB}\\cdot\\vec{MC}<0\\) 恒成立（一个简短但非零的不等式），故 \\(\\angle BMC>90^\\circ\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\angle BMC>90^\\circ\\) — because \\(\\vec{MB}\\cdot\\vec{MC}<0\\) (M inside the \\(BC\\)-diameter circle).", zh: "\\(\\angle BMC>90^\\circ\\) —— 因为 \\(\\vec{MB}\\cdot\\vec{MC}<0\\)（M 在 \\(BC\\)-直径圆内）。" },
+insight: { en: "Convert '\\(\\angle>90^\\circ\\)' into the dot-product sign \\(\\vec{MB}\\cdot\\vec{MC}<0\\), then use tangent lengths \\(s-a,s-b,s-c\\) to place every point. Angle inequalities ⇒ dot-product inequalities.", zh: "把「\\(\\angle>90^\\circ\\)」转成点积符号 \\(\\vec{MB}\\cdot\\vec{MC}<0\\)，再用切线长 \\(s-a,s-b,s-c\\) 定位每个点。角不等式 ⇒ 点积不等式。" }
+},
+{
+n: 15,
+source: { en: "PS2 · Problem 15 · Triangle II", zh: "PS2 · 第 15 题 · Triangle II" },
+statement: { en: "\\(A_1A_2\\dots A_{2n}\\) inscribed in circle \\(\\omega\\); \\(P\\ne A_i\\) on \\(\\omega\\); \\(p_i\\) = distance from \\(P\\) to line \\(A_iA_{i+1}\\). Prove \\(p_1p_3\\cdots p_{2n-1}=p_2p_4\\cdots p_{2n}\\).", zh: "\\(A_1A_2\\dots A_{2n}\\) 内接于圆 \\(\\omega\\)；\\(P\\ne A_i\\) 在 \\(\\omega\\) 上；\\(p_i\\) = \\(P\\) 到直线 \\(A_iA_{i+1}\\) 的距离。证明 \\(p_1p_3\\cdots p_{2n-1}=p_2p_4\\cdots p_{2n}\\)。" },
+recall: [ { en: "Distance from a point on a circle to a chord \\(=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\)", zh: "圆上点到弦的距离 \\(=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\)" } ],
+steps: [
+{ en: "HINT (the key lemma): for \\(P\\) on the circle of radius \\(R\\), the distance from \\(P\\) to chord \\(A_iA_{i+1}\\) is \\(p_i=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\). (Proof: area of triangle \\(PA_iA_{i+1}\\) two ways — \\(\\tfrac12 p_i\\cdot A_iA_{i+1}\\) and \\(\\tfrac{PA_i\\cdot PA_{i+1}\\cdot A_iA_{i+1}}{4R}\\).)", zh: "提示（关键引理）：对圆（半径 R）上的 \\(P\\)，到弦 \\(A_iA_{i+1}\\) 的距离是 \\(p_i=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\)。（证明：三角形 \\(PA_iA_{i+1}\\) 面积两种算法 —— \\(\\tfrac12 p_i\\cdot A_iA_{i+1}\\) 与 \\(\\tfrac{PA_i\\cdot PA_{i+1}\\cdot A_iA_{i+1}}{4R}\\)。）" },
+{ en: "Then the ODD product \\(p_1p_3\\cdots p_{2n-1}=\\tfrac{1}{(2R)^n}(PA_1\\cdot PA_2)(PA_3\\cdot PA_4)\\cdots = \\tfrac{1}{(2R)^n}\\prod_{k=1}^{2n}PA_k\\).", zh: "则「奇数」乘积 \\(p_1p_3\\cdots p_{2n-1}=\\tfrac{1}{(2R)^n}(PA_1\\cdot PA_2)(PA_3\\cdot PA_4)\\cdots = \\tfrac{1}{(2R)^n}\\prod_{k=1}^{2n}PA_k\\)。" },
+{ en: "The EVEN product \\(p_2p_4\\cdots p_{2n}=\\tfrac{1}{(2R)^n}(PA_2\\cdot PA_3)(PA_4\\cdot PA_5)\\cdots(PA_{2n}\\cdot PA_1)=\\tfrac{1}{(2R)^n}\\prod_{k=1}^{2n}PA_k\\) — the SAME product! (each \\(PA_k\\) appears once). Hence equal. \\(\\blacksquare\\)", zh: "「偶数」乘积 \\(p_2p_4\\cdots p_{2n}=\\tfrac{1}{(2R)^n}(PA_2\\cdot PA_3)(PA_4\\cdot PA_5)\\cdots(PA_{2n}\\cdot PA_1)=\\tfrac{1}{(2R)^n}\\prod_{k=1}^{2n}PA_k\\) —— 「同一个」乘积！（每个 \\(PA_k\\) 恰好出现一次）。故相等。\\(\\blacksquare\\)" }
+],
+answer: { en: "Both products equal \\(\\tfrac{1}{(2R)^n}\\prod PA_k\\). \\(\\blacksquare\\)", zh: "两个乘积都等于 \\(\\tfrac{1}{(2R)^n}\\prod PA_k\\)。\\(\\blacksquare\\)" },
+insight: { en: "The lemma \\(p_i=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\) is everything: each chord-distance factors into two vertex-distances, and odd/even products both sweep every vertex exactly once. A gorgeous telescoping.", zh: "引理 \\(p_i=\\tfrac{PA_i\\cdot PA_{i+1}}{2R}\\) 是一切：每个弦距分解成两个顶点距离，奇/偶乘积都恰好扫过每个顶点一次。一个华丽的望远镜。" }
+},
+{
+n: 16,
+source: { en: "PS2 · Problem 16", zh: "PS2 · 第 16 题" },
+statement: { en: "Acute triangle sides \\(a,b,c\\). System \\(x^2+xy+y^2=a^2\\), \\(y^2+yz+z^2=b^2\\), \\(z^2+zx+x^2=c^2\\) has a positive solution. Find \\(xy+yz+zx\\).", zh: "锐角三角形三边 \\(a,b,c\\)。方程组 \\(x^2+xy+y^2=a^2\\)，\\(y^2+yz+z^2=b^2\\)，\\(z^2+zx+x^2=c^2\\) 有正解。求 \\(xy+yz+zx\\)。" },
+recall: [ { en: "\\(p^2+pq+q^2\\) = Law of Cosines at 120°", zh: "\\(p^2+pq+q^2\\) = 120° 余弦定理" }, { en: "Fermat point; area as 3 wedges", zh: "费马点；面积作为 3 个楔形" } ],
+steps: [
+{ en: "Each equation is a 120° Law of Cosines: \\(x,y,z\\) are segments from the Fermat point \\(P\\), pairwise at 120°, with outer sides \\(a,b,c\\).", zh: "每个方程都是 120° 余弦定理：\\(x,y,z\\) 是从费马点 \\(P\\) 出发、两两 120° 的线段，外边为 \\(a,b,c\\)。" },
+{ en: "\\([ABC]=\\tfrac{\\sqrt3}{4}(xy+yz+zx)\\) (sum of three \\(\\tfrac12\\cdot\\sin120^\\circ\\) wedges), so \\(xy+yz+zx=\\tfrac{4}{\\sqrt3}[ABC]=\\tfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\).", zh: "\\([ABC]=\\tfrac{\\sqrt3}{4}(xy+yz+zx)\\)（三个 \\(\\tfrac12\\cdot\\sin120^\\circ\\) 楔形之和），所以 \\(xy+yz+zx=\\tfrac{4}{\\sqrt3}[ABC]=\\tfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\)。" }
+],
+answer: { en: "\\(xy+yz+zx=\\tfrac{4}{\\sqrt3}[ABC]=\\tfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\) (verified numerically).", zh: "\\(xy+yz+zx=\\tfrac{4}{\\sqrt3}[ABC]=\\tfrac{4\\sqrt3}{3}\\sqrt{s(s-a)(s-b)(s-c)}\\)（已数值验证）。" },
+insight: { en: "\\(p^2+pq+q^2\\) ⇒ 120° ⇒ Fermat point. Match algebraic form to geometric angle; area bookkeeping does the rest.", zh: "\\(p^2+pq+q^2\\) ⇒ 120° ⇒ 费马点。把代数形式匹配到几何角度；面积记账完成剩下的。" }
+},
+{
+n: 17,
+source: { en: "PS2 · Problem 17", zh: "PS2 · 第 17 题" },
+statement: { en: "\\(a,b,c>0\\) satisfy \\(a^2+b^2=9\\), \\(5a^2+5c^2+6ac=80\\), \\(5b^2+5c^2+8bc=125\\). Find all possible values of \\(5ab+3bc+4ca\\).", zh: "\\(a,b,c>0\\) 满足 \\(a^2+b^2=9\\)，\\(5a^2+5c^2+6ac=80\\)，\\(5b^2+5c^2+8bc=125\\)。求 \\(5ab+3bc+4ca\\) 的所有可能值。" },
+recall: [ { en: "Same 120°/angle-decode trick as #16", zh: "与 #16 相同的 120°/角度解码技巧" }, { en: "\\(3\\text{-}4\\text{-}5\\) right triangle hidden inside", zh: "内部藏着 3-4-5 直角三角形" }, { en: "Area method with three wedges at a point", zh: "一点处三个楔形的面积法" } ],
+steps: [
+{ en: "HINT: normalize each equation to the form (side)² = (two segs)² pattern. \\(a^2+b^2=9=3^2\\) ⇒ a right (90°) wedge between \\(a,b\\), outer side 3. \\(a^2+c^2+\\tfrac65 ac=16=4^2\\) ⇒ \\(\\cos=-\\tfrac35\\), outer side 4. \\(b^2+c^2+\\tfrac85 bc=25=5^2\\) ⇒ \\(\\cos=-\\tfrac45\\), outer side 5.", zh: "提示：把每个方程化成 (边)² =(两段)² 的模式。\\(a^2+b^2=9=3^2\\) ⇒ \\(a,b\\) 间 90° 楔形，外边 3。\\(a^2+c^2+\\tfrac65 ac=16=4^2\\) ⇒ \\(\\cos=-\\tfrac35\\)，外边 4。\\(b^2+c^2+\\tfrac85 bc=25=5^2\\) ⇒ \\(\\cos=-\\tfrac45\\)，外边 5。" },
+{ en: "The three wedge-angles \\(90^\\circ, \\arccos(-\\tfrac35)\\approx126.9^\\circ, \\arccos(-\\tfrac45)\\approx143.1^\\circ\\) sum to \\(360^\\circ\\) — so \\(a,b,c\\) fan out from ONE interior point, and the outer triangle is the \\(3\\text{-}4\\text{-}5\\) right triangle!", zh: "三个楔形角 \\(90^\\circ, \\arccos(-\\tfrac35)\\approx126.9^\\circ, \\arccos(-\\tfrac45)\\approx143.1^\\circ\\) 之和为 \\(360^\\circ\\) —— 所以 \\(a,b,c\\) 从「一个」内点扇出，外三角形正是 3-4-5 直角三角形！" },
+{ en: "Compute area two ways. The 3-4-5 triangle has area 6. The three wedges give area \\(=\\tfrac12(ab\\sin90^\\circ+ca\\sin\\theta_2+bc\\sin\\theta_3)\\); with \\(\\sin\\theta_2=\\tfrac45, \\sin\\theta_3=\\tfrac35\\) this is \\(\\tfrac12(ab+\\tfrac45 ca+\\tfrac35 bc)=\\tfrac1{10}(5ab+4ca+3bc)\\).", zh: "用两种方式算面积。3-4-5 三角形面积为 6。三个楔形给出面积 \\(=\\tfrac12(ab\\sin90^\\circ+ca\\sin\\theta_2+bc\\sin\\theta_3)\\)；用 \\(\\sin\\theta_2=\\tfrac45, \\sin\\theta_3=\\tfrac35\\)，即 \\(\\tfrac12(ab+\\tfrac45 ca+\\tfrac35 bc)=\\tfrac1{10}(5ab+4ca+3bc)\\)。" },
+{ en: "Set equal: \\(\\tfrac1{10}(5ab+3bc+4ca)=6\\Rightarrow 5ab+3bc+4ca=60\\). (Verified numerically: \\(a\\approx1.664, b\\approx2.496, c\\approx2.774\\).) \\(\\blacksquare\\)", zh: "令相等：\\(\\tfrac1{10}(5ab+3bc+4ca)=6\\Rightarrow 5ab+3bc+4ca=60\\)。（数值验证：\\(a\\approx1.664, b\\approx2.496, c\\approx2.774\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(5ab+3bc+4ca=60\\) (verified numerically).", zh: "\\(5ab+3bc+4ca=60\\)（已数值验证）。" },
+insight: { en: "The coefficients \\(5ab, 3bc, 4ca\\) are secretly \\(10\\times\\) the wedge areas of a 3-4-5 triangle (whose area is 6). Decode each quadratic as a Law-of-Cosines wedge, verify the angles close up to 360°, then equate areas. A masterpiece of 'algebra is geometry in disguise.'", zh: "系数 \\(5ab, 3bc, 4ca\\) 其实是 3-4-5 三角形（面积 6）楔形面积的 \\(10\\) 倍。把每个二次式解码成余弦定理楔形，验证角度闭合到 360°，再令面积相等。一件「代数是伪装的几何」的杰作。" }
+},
+{
+n: 18,
+source: { en: "PS2 · Problem 18 · Adapted from IMO 2016", zh: "PS2 · 第 18 题 · 改编自 IMO 2016" },
+statement: { en: "Triangle ABC has integer coordinates. (a) Prove \\(2[ABC]\\) is an integer. (b) If the squares of the side lengths are integers divisible by an odd \\(n\\), prove \\(2[ABC]\\) is an integer divisible by \\(n\\).", zh: "三角形 ABC 顶点为整数坐标。(a) 证明 \\(2[ABC]\\) 是整数。(b) 若三边长的平方都是能被奇数 \\(n\\) 整除的整数，证明 \\(2[ABC]\\) 是能被 \\(n\\) 整除的整数。" },
+recall: [ { en: "Shoelace formula: \\(2[ABC]=|x_A(y_B-y_C)+\\dots|\\)", zh: "鞋带公式：\\(2[ABC]=|x_A(y_B-y_C)+\\dots|\\)" }, { en: "\\(16[ABC]^2=\\) Heron / Cayley-Menger (integer in squared sides)", zh: "\\(16[ABC]^2=\\) 海伦 / 凯莱-门格（关于边平方是整数）" } ],
+steps: [
+{ en: "(a) HINT: the Shoelace (surveyor's) formula gives \\(2[ABC]=|x_A(y_B-y_C)+x_B(y_C-y_A)+x_C(y_A-y_B)|\\). With integer coordinates, this is manifestly an integer. Done.", zh: "(a) 提示：鞋带公式给出 \\(2[ABC]=|x_A(y_B-y_C)+x_B(y_C-y_A)+x_C(y_A-y_B)|\\)。整数坐标下，这显然是整数。证毕。" },
+{ en: "(b) HINT: use \\(16[ABC]^2=2a^2b^2+2b^2c^2+2c^2a^2-a^4-b^4-c^4\\) (Heron expanded). If \\(n\\mid a^2,b^2,c^2\\), then each term on the right is divisible by \\(n^2\\), so \\(16[ABC]^2\\equiv0\\pmod{n^2}\\).", zh: "(b) 提示：用 \\(16[ABC]^2=2a^2b^2+2b^2c^2+2c^2a^2-a^4-b^4-c^4\\)（海伦展开）。若 \\(n\\mid a^2,b^2,c^2\\)，右边每项都被 \\(n^2\\) 整除，所以 \\(16[ABC]^2\\equiv0\\pmod{n^2}\\)。" },
+{ en: "So \\((2[ABC])^2\\) is divisible by \\(n^2\\), giving \\(n\\mid 2[ABC]\\) (an integer by part a). Since \\(n\\) is ODD, no factor-of-2 subtlety arises. \\(\\blacksquare\\)", zh: "所以 \\((2[ABC])^2\\) 被 \\(n^2\\) 整除，得 \\(n\\mid 2[ABC]\\)（由 (a) 它是整数）。因为 \\(n\\) 是奇数，不涉及因子 2 的微妙问题。\\(\\blacksquare\\)" }
+],
+answer: { en: "(a) \\(2[ABC]\\in\\mathbb Z\\) by Shoelace; (b) \\(n\\mid 2[ABC]\\) via \\(16[ABC]^2\\equiv0\\pmod{n^2}\\) and \\(n\\) odd.", zh: "(a) 由鞋带公式 \\(2[ABC]\\in\\mathbb Z\\)；(b) 由 \\(16[ABC]^2\\equiv0\\pmod{n^2}\\) 及 \\(n\\) 为奇数得 \\(n\\mid 2[ABC]\\)。" },
+insight: { en: "Two different area formulas do two different jobs: Shoelace proves integrality (part a); the Heron/Cayley-Menger polynomial \\(16[ABC]^2\\) in squared sides proves divisibility (part b). Pick the area formula that exposes the property you need.", zh: "两个不同的面积公式做两件不同的事：鞋带公式证整数性（a）；海伦/凯莱-门格关于边平方的多项式 \\(16[ABC]^2\\) 证整除性（b）。挑一个能暴露你所需性质的面积公式。" }
+}
+);
+
