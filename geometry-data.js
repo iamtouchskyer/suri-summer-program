@@ -1007,3 +1007,337 @@ insight: { en: "Two different area formulas do two different jobs: Shoelace prov
 }
 );
 
+
+
+/* ===================== DAY 3 — Tangential Polygons & Pitot's Theorem / 圆外切多边形与 Pitot 定理 ===================== */
+courseData.days.push({
+id: 3,
+unit: "Geometry L2",
+date: { en: "Day 3", zh: "第 3 天" },
+title: { en: "Tangential Polygons & Pitot's Theorem", zh: "圆外切多边形与 Pitot 定理" },
+subtitle: {
+en: "Every triangle has an incircle — but a quadrilateral usually does NOT. The single question 'does an inscribed circle exist?' has one clean answer for quadrilaterals: Pitot's Theorem (opposite sides must have equal sums). Master the equal-tangent bookkeeping and a whole family of 'prove it's tangential' problems collapses to one addition.",
+zh: "每个三角形都有内切圆 —— 但四边形通常「没有」。「内切圆到底存不存在？」这一个问题，对四边形有一个干净的答案：Pitot 定理（两组对边之和必须相等）。把「等切线记账」练熟，一整族「证明它是圆外切的」问题都会坍缩成一次加法。"
+},
+tags: [
+{ en: "Tangential Quadrilateral", zh: "圆外切四边形" },
+{ en: "Pitot's Theorem", zh: "Pitot 定理" },
+{ en: "Equal Tangents", zh: "等切线" },
+{ en: "Incircle Existence", zh: "内切圆存在性" }
+],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+/* ---------- Day3 知识点 ---------- */
+courseData.days[2].knowledgePoints = [
+{
+name: { en: "Tangential polygon — what it means", zh: "圆外切多边形 —— 它是什么意思" },
+detail: {
+en: "A polygon is called tangential (or circumscribed) if there is ONE circle tangent to all the lines containing its sides — the incircle. For triangles this is free: EVERY triangle has an incircle (the three angle bisectors always meet at the incenter). But for a quadrilateral or any n-gon with n ≥ 4, it is a special property that usually FAILS. So the central question of today is a yes/no question: 'given these side lengths, does an inscribed circle exist?' The whole lesson is about the clean test that answers it.",
+zh: "一个多边形，如果存在「一个」圆与它所有边所在的直线都相切，就称为「圆外切」（或「切线多边形」）—— 这个圆叫内切圆。\n对三角形这是白送的：「每个」三角形都有内切圆（三条角平分线永远交于内心）。但对四边形、或任何 n≥4 的多边形，「有内切圆」是一个特殊性质，通常「不成立」。\n所以今天的核心是一个「是 / 否」问题：「给定这些边长，内切圆存不存在？」整节课就是那个回答它的干净判据。"
+},
+formula: "\\[ \\text{tangential} \\iff \\exists\\text{ one circle tangent to all side-lines (the incircle)} \\]"
+},
+{
+name: { en: "Pitot's Theorem (the master test)", zh: "Pitot 定理（那个核心判据）" },
+detail: {
+en: "Here is the whole engine of the day. A convex quadrilateral ABCD has an inscribed circle IF AND ONLY IF the two pairs of opposite sides have equal sums: AB + CD = BC + AD. That's it. One addition decides everything. The 'only if' direction comes straight from the Equal Tangents Lemma: if an incircle touches the four sides, label the tangent length from each vertex; each side is a sum of two tangent lengths, and adding opposite sides gathers ALL four tangent lengths on both sides — so the two sums are automatically equal. The 'if' direction (equal sums ⟹ incircle exists) is the deeper half. Memorize it as: 'opposite sides add up the same.'",
+zh: "这就是今天的整个引擎。凸四边形 ABCD 有内切圆，「当且仅当」两组对边之和相等：\nAB + CD = BC + AD。\n就这样。一次加法决定一切。\n「必要」方向直接来自等切线引理：如果内切圆碰到四条边，把每个顶点的切线长标出来；每条边都是两段切线长之和，把对边相加就把「全部」四段切线长都收集到两边 —— 于是两个和自动相等。\n「充分」方向（和相等 ⟹ 内切圆存在）是更深的一半。把它记成一句话：「对边加起来一样」。"
+},
+formula: "\\[ ABCD \\text{ tangential} \\iff AB + CD = BC + AD \\]",
+example: {
+en: "A quadrilateral with sides 5, 8, 7, 10 in order: opposite sums are 5+7 = 12 and 8+10 = 18. Not equal ⇒ NO incircle. Sides 6, 8, 9, 7: 6+9 = 15 and 8+7 = 15. Equal ⇒ an incircle exists.",
+zh: "顺次边长为 5, 8, 7, 10 的四边形：对边和为 5+7 = 12 与 8+10 = 18。不相等 ⇒ 没有内切圆。边长 6, 8, 9, 7：6+9 = 15 与 8+7 = 15。相等 ⇒ 内切圆存在。"
+}
+},
+{
+name: { en: "Why the tangent-length bookkeeping works", zh: "为什么「切线长记账」奏效" },
+detail: {
+en: "The reason Pitot is true is worth internalizing, because the SAME move solves almost every problem today. Suppose the incircle touches sides AB, BC, CD, DA at points. From each vertex there are two tangent segments to the circle, and by the Equal Tangents Lemma they are equal. Call the tangent length from A, B, C, D equal to w, x, y, z. Then AB = w+x, BC = x+y, CD = y+z, DA = z+w. Now: AB + CD = (w+x)+(y+z) = w+x+y+z, and BC + DA = (x+y)+(z+w) = w+x+y+z. Identical! The tangent lengths are the hidden variables that make opposite-side sums equal. When you see a tangential polygon, immediately label these tangent lengths.",
+zh: "Pitot 成立的原因值得内化，因为「同一个动作」能解今天几乎所有题。设内切圆碰到边 AB, BC, CD, DA。从每个顶点向圆有两条切线段，由等切线引理它们相等。把从 A, B, C, D 的切线长记为 w, x, y, z。于是\nAB = w+x，BC = x+y，CD = y+z，DA = z+w。\n那么：AB + CD =(w+x)+(y+z)= w+x+y+z，BC + DA =(x+y)+(z+w)= w+x+y+z。完全相同！\n切线长就是那个「隐藏变量」，让对边之和相等。看到圆外切多边形，立刻把这些切线长标出来。"
+},
+formula: "\\[ AB{+}CD = (w{+}x){+}(y{+}z) = (x{+}y){+}(z{+}w) = BC{+}DA \\]"
+},
+{
+name: { en: "Concave & general tangential polygons", zh: "凹四边形与一般圆外切多边形" },
+detail: {
+en: "Pitot's clean form is for CONVEX quadrilaterals. For a concave (non-convex) quadrilateral that is tangential, a signed version holds: AB + CD = BC + AD still, but you must be careful about which circle is tangent to which side-line (the circle may touch an extension). For a general tangential n-gon, the same tangent-length labeling works: assign a tangent length to each vertex, and every side is the sum of its two endpoint tangent lengths. This lets you turn 'the pentagon has an incircle' into a solvable linear system in the tangent lengths — exactly how you crack the inscribed-pentagon problem.",
+zh: "Pitot 的干净形式是给「凸」四边形的。对一个有内切圆的「凹」（非凸）四边形，成立一个带符号的版本：仍是 AB + CD = BC + AD，但要小心「圆和哪条边所在直线相切」（圆可能切在延长线上）。\n对一般的圆外切 n 边形，同样的「切线长标注」照样奏效：给每个顶点分配一个切线长，每条边都是它两端点切线长之和。\n这让你能把「这个五边形有内切圆」变成一个关于切线长的可解线性方程组 —— 正是攻破「内切五边形」问题的方法。"
+},
+formula: "\\[ \\text{each side} = (\\text{tangent length at one end}) + (\\text{tangent length at other end}) \\]"
+},
+{
+name: { en: "Area of a tangential polygon = r·s", zh: "圆外切多边形的面积 = r·s" },
+detail: {
+en: "A tangential polygon inherits the triangle's beautiful area formula. If a polygon has an incircle of radius r and semiperimeter s (半周长 = half the total perimeter), then its area is exactly Area = r·s. Proof: join the incenter to every vertex, splitting the polygon into triangles each with height r onto its side; summing ½r·(each side) = ½r·(perimeter) = r·s. This is why, once you know a polygon is tangential and you can find r and s, the area is immediate. For the inscribed pentagon, s is half the perimeter and r comes from the tangent-length/angle conditions — then Area = rs finishes it.",
+zh: "圆外切多边形继承了三角形那个漂亮的面积公式。若多边形有半径为 r 的内切圆、半周长为 s（周长的一半），则面积恰好是 Area = r·s。\n证明：把内心连到每个顶点，多边形被分成若干三角形，每个的高都是 r；求和 ½r·(每条边) = ½r·(周长) = r·s。\n这就是为什么：一旦你知道多边形是圆外切的、又能求出 r 和 s，面积立刻出来。对内切五边形，s 是周长一半，r 由切线长/角度条件得出 —— 再用 Area = rs 收尾。"
+},
+formula: "\\[ \\text{Area} = r\\cdot s \\qquad (s = \\tfrac12\\,\\text{perimeter}) \\]"
+},
+{
+name: { en: "Incircle in a quadrilateral: finding r from tangent lengths", zh: "四边形内切圆：由切线长求 r" },
+detail: {
+en: "When an incircle touches side AB at P, the two tangent lengths AP and PB are known-or-findable, and the RADIUS connects them through the angles at A and B. A clean relation: if the incircle touches AB at P, then the tangent length AP and the radius r satisfy tan(A/2) = r/AP (the radius is perpendicular to AB at P, and the incenter lies on the bisector of angle A). Summing the four half-angles of a quadrilateral gives 180°, which pins down r once the tangent lengths are known. This is exactly the engine behind the AIME quadrilateral problem: AP=19, PB=26, CQ=37, QD=23 force r² = 647 via the four half-angle-sum condition.",
+zh: "当内切圆碰边 AB 于 P，两段切线长 AP、PB 是已知或可求的，而「半径」通过 A、B 处的角把它们连起来。一个干净关系：若内切圆碰 AB 于 P，则切线长 AP 与半径 r 满足 tan(A/2) = r/AP（半径在 P 处垂直于 AB，内心在角 A 的平分线上）。\n把四边形的四个半角相加得 180°，一旦切线长已知，这就把 r 钉死。\n这正是 AIME 四边形题背后的引擎：AP=19, PB=26, CQ=37, QD=23，通过「四个半角之和」条件强制 r² = 647。"
+},
+formula: "\\[ \\tan\\tfrac A2 = \\frac{r}{AP},\\qquad \\tfrac A2+\\tfrac B2+\\tfrac C2+\\tfrac D2 = 180^\\circ \\]"
+},
+{
+name: { en: "The 'common tangent' viewpoint", zh: "「公切线」视角" },
+detail: {
+en: "Many hard incircle problems secretly ask: do two circles have a COMMON tangent line along a shared segment? A key lemma: two circles inscribed in adjacent regions that share a cevian have a common tangent (other than the cevian) if and only if a certain sum of tangent lengths matches. This 'equal-tangent-sum' condition chains beautifully: if it holds for one pair of regions, and for a neighbor, it propagates. That propagation is exactly how the 'assume the red circles exist, prove ABCD is tangential' problems work — each small tangency condition adds one equal-sum relation, and they telescope into Pitot's condition for the whole quadrilateral.",
+zh: "许多难的内切圆问题，其实在偷偷问：两个圆是否沿一段公共线段有「公切线」？一个关键引理：内切于相邻区域、共用一条塞瓦线的两个圆，有一条（除塞瓦线外的）公切线，当且仅当某个切线长之和相等。\n这个「等切线和」条件能漂亮地链式传递：如果它对一对区域成立、对相邻的也成立，就会传播下去。\n这正是「假设红圆存在，证明 ABCD 圆外切」这类题的运作方式 —— 每个小相切条件加一条等和关系，它们望远镜式地汇成整个四边形的 Pitot 条件。"
+},
+formula: "\\[ \\text{common tangent exists} \\iff \\text{matching tangent-length sums} \\]"
+},
+{
+name: { en: "Midpoints & the '3AB' trick (H3 #1 preview)", zh: "中点与「3AB」技巧（H3 #1 预览）" },
+detail: {
+en: "A recurring setup: a condition like AC + BC = 3·AB combined with MIDPOINTS produces a tangential quadrilateral. The trick is that a midpoint halves a side, and the segment joining two midpoints (a midsegment) is parallel to and half of the third side. So a midpoint configuration converts the given side-sum condition into exactly the Pitot equation for the smaller quadrilateral. When you see 'M, N are midpoints' plus a linear side condition, your instinct should be: compute the four sides of the inner quadrilateral in terms of a, b, c, then check Pitot. It will work out precisely because the condition was engineered to make it work.",
+zh: "一个反复出现的设置：像 AC + BC = 3·AB 这样的条件，配上「中点」，会产生一个圆外切四边形。诀窍在于：中点把一条边平分，而连接两个中点的线段（中位线）平行且等于第三条边的一半。\n所以中点构型把给定的「边之和」条件，恰好转化成较小四边形的 Pitot 方程。\n当你看到「M, N 是中点」加上一个线性边条件，你的直觉应该是：用 a, b, c 算出内四边形的四条边，再验证 Pitot。它一定会正好成立，因为这个条件就是为此设计的。"
+},
+formula: "\\[ AC+BC = 3\\,AB \\;\\xrightarrow{\\text{midpoints}}\\; \\text{Pitot holds for } ABNM \\]"
+}
+];
+
+
+/* ---------- Day3 课堂例题精讲 ---------- */
+courseData.days[2].problems = [
+{
+source: { en: "H3 · Problem 1 · Incircles", zh: "习题 H3 · 第 1 题 · Incircles" },
+statement: {
+en: "Let ABC be a triangle with \\(AC + BC = 3\\,AB\\). Let M and N be the midpoints of CA and CB. Prove that quadrilateral ABNM is tangential (has an inscribed circle).",
+zh: "设三角形 ABC 满足 \\(AC + BC = 3\\,AB\\)。设 M、N 分别为 CA、CB 的中点。证明四边形 ABNM 是圆外切的（有内切圆）。"
+},
+recall: [
+{ en: "Pitot's Theorem: convex quadrilateral tangential ⟺ opposite sides sum equally", zh: "Pitot 定理：凸四边形圆外切 ⟺ 对边和相等" },
+{ en: "Midsegment: joins two midpoints, parallel & half the third side", zh: "中位线：连两中点，平行且等于第三边一半" }
+],
+guide: {
+en: "To prove a quadrilateral is tangential, there is exactly ONE tool: Pitot's Theorem. So the whole job is to (a) write down the four sides of ABNM, then (b) check that one pair of opposite sides sums to the same as the other pair. Two of the sides are midsegment-related: M, N are midpoints, so BN is half of CB, MA is half of CA, and MN (the midsegment) is half of AB. The fourth side is AB itself. Now just plug into Pitot and watch the condition AC+BC=3AB be EXACTLY what you need. The problem was reverse-engineered so Pitot holds.",
+zh: "要证一个四边形圆外切，工具只有一个：Pitot 定理。所以整个任务就是：(a) 写出 ABNM 的四条边，(b) 验证一组对边之和等于另一组。\n其中两条边和中位线有关：M, N 是中点，所以 BN 是 CB 的一半，MA 是 CA 的一半，MN（中位线）是 AB 的一半。第四条边就是 AB 本身。\n现在代入 Pitot，看着条件 AC+BC=3AB 恰好就是你需要的那个。这道题是「逆向设计」的，就为了让 Pitot 成立。"
+},
+steps: [
+{ en: "Label sides \\(a = BC\\), \\(b = CA\\), \\(c = AB\\). The condition is \\(a + b = 3c\\).",
+zh: "记边 \\(a = BC\\)，\\(b = CA\\)，\\(c = AB\\)。条件是 \\(a + b = 3c\\)。" },
+{ en: "The four sides of quadrilateral ABNM (in order A→B→N→M): \\(AB = c\\); \\(BN = \\tfrac12 CB = \\tfrac a2\\); \\(NM = \\tfrac12 AB = \\tfrac c2\\) (midsegment); \\(MA = \\tfrac12 CA = \\tfrac b2\\).",
+zh: "四边形 ABNM 的四条边（顺序 A→B→N→M）：\\(AB = c\\)；\\(BN = \\tfrac12 CB = \\tfrac a2\\)；\\(NM = \\tfrac12 AB = \\tfrac c2\\)（中位线）；\\(MA = \\tfrac12 CA = \\tfrac b2\\)。" },
+{ en: "Pitot's condition for ABNM: \\(AB + NM = BN + MA\\), i.e. \\(c + \\tfrac c2 = \\tfrac a2 + \\tfrac b2\\), i.e. \\(\\tfrac{3c}2 = \\tfrac{a+b}2\\), i.e. \\(a + b = 3c\\).",
+zh: "ABNM 的 Pitot 条件：\\(AB + NM = BN + MA\\)，即 \\(c + \\tfrac c2 = \\tfrac a2 + \\tfrac b2\\)，即 \\(\\tfrac{3c}2 = \\tfrac{a+b}2\\)，即 \\(a + b = 3c\\)。" },
+{ en: "This is exactly the given condition \\(AC + BC = 3\\,AB\\). So Pitot holds and ABNM has an inscribed circle. \\(\\blacksquare\\) (Verified symbolically.)",
+zh: "这正是给定条件 \\(AC + BC = 3\\,AB\\)。所以 Pitot 成立，ABNM 有内切圆。\\(\\blacksquare\\)（已符号验证。）" }
+],
+answer: { en: "ABNM is tangential because Pitot's condition \\(AB+NM=BN+MA\\) reduces exactly to \\(AC+BC=3AB\\).", zh: "ABNM 圆外切，因为 Pitot 条件 \\(AB+NM=BN+MA\\) 恰好化为 \\(AC+BC=3AB\\)。" },
+insight: {
+en: "'Prove tangential' ALWAYS means 'check Pitot'. Midpoints turn side lengths into halves, so a linear condition on a, b, c becomes precisely the opposite-sides-equal-sum equation. Recognize the setup and the proof writes itself.",
+zh: "「证明圆外切」永远意味着「验证 Pitot」。中点把边长变成一半，所以一个关于 a, b, c 的线性条件，恰好变成「对边等和」方程。认出这个套路，证明就自己写出来了。"
+}
+},
+{
+source: { en: "2014 AIME II · Problem 8", zh: "2014 AIME II · 第 8 题" },
+statement: {
+en: "A circle is inscribed in quadrilateral ABCD, tangent to \\(\\overline{AB}\\) at P and to \\(\\overline{CD}\\) at Q. Given \\(AP=19\\), \\(PB=26\\), \\(CQ=37\\), \\(QD=23\\), find the square of the radius of the circle.",
+zh: "一个圆内切于四边形 ABCD，切 \\(\\overline{AB}\\) 于 P，切 \\(\\overline{CD}\\) 于 Q。已知 \\(AP=19\\)，\\(PB=26\\)，\\(CQ=37\\)，\\(QD=23\\)，求这个圆半径的平方。"
+},
+recall: [
+{ en: "Tangent length from a vertex is shared by both sides it touches", zh: "顶点的切线长被它相邻两边共享" },
+{ en: "\\(\\tan(\\text{half-angle}) = r/(\\text{tangent length})\\)", zh: "\\(\\tan(\\text{半角}) = r/(\\text{切线长})\\)" },
+{ en: "Four half-angles of a quadrilateral sum to 180°", zh: "四边形四个半角之和为 180°" }
+],
+guide: {
+en: "The tangent lengths are handed to you: from A it's 19, from B it's 26, from C it's 37, from D it's 23 (each vertex's two tangents are equal). At each vertex, the incenter sits on the angle bisector, and the radius drops perpendicular to the side at the touch point — so tan(half the vertex angle) = r / (tangent length from that vertex). The four vertex angles of a quadrilateral sum to 360°, so the four HALF-angles sum to 180°. That single equation — the four arctans adding to 180° — determines r. Set (halfA + halfB) = 180° − (halfC + halfD), take tangent of both sides, and solve.",
+zh: "切线长直接给你了：从 A 是 19，从 B 是 26，从 C 是 37，从 D 是 23（每个顶点的两条切线相等）。\n在每个顶点，内心在角平分线上，半径在切点处垂直于边 —— 所以 tan(顶点角的一半) = r /(该顶点的切线长)。\n四边形四个顶点角之和为 360°，所以四个「半角」之和为 180°。这一个方程 —— 四个反正切加起来等于 180° —— 就决定了 r。\n令（halfA + halfB）= 180° −（halfC + halfD），两边取正切，解出即可。"
+},
+steps: [
+{ en: "Tangent lengths: from A = 19, B = 26, C = 37, D = 23. Half-angles satisfy \\(\\tan\\tfrac A2=\\tfrac r{19}\\), \\(\\tan\\tfrac B2=\\tfrac r{26}\\), \\(\\tan\\tfrac C2=\\tfrac r{37}\\), \\(\\tan\\tfrac D2=\\tfrac r{23}\\).",
+zh: "切线长：从 A = 19，B = 26，C = 37，D = 23。半角满足 \\(\\tan\\tfrac A2=\\tfrac r{19}\\)，\\(\\tan\\tfrac B2=\\tfrac r{26}\\)，\\(\\tan\\tfrac C2=\\tfrac r{37}\\)，\\(\\tan\\tfrac D2=\\tfrac r{23}\\)。" },
+{ en: "The four half-angles sum to \\(180^\\circ\\): \\(\\tfrac A2+\\tfrac B2+\\tfrac C2+\\tfrac D2 = 180^\\circ\\). So \\(\\tfrac A2+\\tfrac B2 = 180^\\circ - (\\tfrac C2+\\tfrac D2)\\), giving \\(\\tan(\\tfrac A2+\\tfrac B2) = -\\tan(\\tfrac C2+\\tfrac D2)\\).",
+zh: "四个半角之和为 \\(180^\\circ\\)：\\(\\tfrac A2+\\tfrac B2+\\tfrac C2+\\tfrac D2 = 180^\\circ\\)。所以 \\(\\tfrac A2+\\tfrac B2 = 180^\\circ -(\\tfrac C2+\\tfrac D2)\\)，得 \\(\\tan(\\tfrac A2+\\tfrac B2) = -\\tan(\\tfrac C2+\\tfrac D2)\\)。" },
+{ en: "Apply \\(\\tan(x+y)=\\tfrac{\\tan x+\\tan y}{1-\\tan x\\tan y}\\): \\(\\dfrac{\\tfrac r{19}+\\tfrac r{26}}{1-\\tfrac{r^2}{19\\cdot26}} = -\\dfrac{\\tfrac r{37}+\\tfrac r{23}}{1-\\tfrac{r^2}{37\\cdot23}}\\).",
+zh: "用 \\(\\tan(x+y)=\\tfrac{\\tan x+\\tan y}{1-\\tan x\\tan y}\\)：\\(\\dfrac{\\tfrac r{19}+\\tfrac r{26}}{1-\\tfrac{r^2}{19\\cdot26}} = -\\dfrac{\\tfrac r{37}+\\tfrac r{23}}{1-\\tfrac{r^2}{37\\cdot23}}\\)。" },
+{ en: "Clearing denominators and simplifying yields \\(r^2 = 647\\). \\(\\big(r=\\sqrt{647}\\big)\\) (verified symbolically).",
+zh: "去分母并化简得 \\(r^2 = 647\\)。\\(\\big(r=\\sqrt{647}\\big)\\)（已符号验证）。" }
+],
+answer: { en: "\\(r^2 = 647\\).", zh: "\\(r^2 = 647\\)。" },
+insight: {
+en: "The magic bridge is tan(half-angle) = r/(tangent length), turning four lengths into four angles whose halves sum to 180°. 'Sum of half-angles = 180°' plus the tangent addition formula is the whole solution. This is the single most important incircle-in-a-quadrilateral technique.",
+zh: "神奇的桥是 tan(半角) = r/(切线长)，把四个长度变成四个角，其半角之和为 180°。「半角之和 = 180°」加正切和角公式，就是全部解法。这是「四边形内切圆」最重要的单一技巧。"
+}
+},
+{
+source: { en: "AIME · Convex Pentagon with Incircle", zh: "AIME · 有内切圆的凸五边形" },
+statement: {
+en: "Convex pentagon ABCDE has side lengths \\(AB=5\\), \\(BC=CD=DE=6\\), \\(EA=7\\), and has an inscribed circle (tangent to each side). Find the area of ABCDE.",
+zh: "凸五边形 ABCDE 边长 \\(AB=5\\)，\\(BC=CD=DE=6\\)，\\(EA=7\\)，且有内切圆（与每条边相切）。求 ABCDE 的面积。"
+},
+recall: [
+{ en: "Tangent length labeling for a tangential polygon", zh: "圆外切多边形的切线长标注" },
+{ en: "Area of a tangential polygon = r·s", zh: "圆外切多边形面积 = r·s" },
+{ en: "Half-angles: \\(\\tan(\\text{half}) = r/(\\text{tangent length})\\), sum of interior angles of a pentagon = 540°", zh: "半角：\\(\\tan(\\text{半}) = r/(\\text{切线长})\\)，五边形内角和 = 540°" }
+],
+guide: {
+en: "Two-step plan. STEP 1 — find the tangent lengths. Assign a tangent length to each vertex (w at A, x at B, ...); each side is the sum of its two endpoint tangent lengths. That's five linear equations (AB=w+x, etc.) in five unknowns — solve them. STEP 2 — find r, then area. Since the pentagon is tangential, Area = r·s where s = half the perimeter. To get r, use that each half-vertex-angle has tan = r/(tangent length), and the five interior angles sum to 540°, so the five half-angles sum to 270°. Solve that one equation for r. Then Area = rs.",
+zh: "两步计划。\n第 1 步 —— 求切线长。给每个顶点分配一个切线长（A 处 w，B 处 x，……）；每条边是它两端点切线长之和。这是五个线性方程（AB=w+x 等）解五个未知数 —— 解出来。\n第 2 步 —— 求 r，再求面积。因为五边形圆外切，Area = r·s，s 是周长的一半。求 r：用「每个半顶角的正切 = r/(切线长)」，五个内角和为 540°，所以五个半角之和为 270°。解这一个方程得 r。再 Area = rs。"
+},
+steps: [
+{ en: "STEP 1 — tangent lengths \\(w,x,y,z,v\\) at \\(A,B,C,D,E\\): \\(w+x=5\\), \\(x+y=6\\), \\(y+z=6\\), \\(z+v=6\\), \\(v+w=7\\). Solving: \\(w=3, x=2, y=4, z=2, v=4\\).",
+zh: "第 1 步 —— A,B,C,D,E 处切线长 \\(w,x,y,z,v\\)：\\(w+x=5\\)，\\(x+y=6\\)，\\(y+z=6\\)，\\(z+v=6\\)，\\(v+w=7\\)。解得：\\(w=3, x=2, y=4, z=2, v=4\\)。" },
+{ en: "Semiperimeter \\(s = \\tfrac{5+6+6+6+7}{2} = 15\\).",
+zh: "半周长 \\(s = \\tfrac{5+6+6+6+7}{2} = 15\\)。" },
+{ en: "STEP 2 — the five half-angles satisfy \\(\\tan(\\cdot) = r/(\\text{tangent length})\\) and sum to \\(270^\\circ\\): \\(\\sum \\arctan\\tfrac r{(\\text{3,2,4,2,4})} = 270^\\circ\\). Solving gives \\(r = 4\\).",
+zh: "第 2 步 —— 五个半角满足 \\(\\tan(\\cdot) = r/(\\text{切线长})\\) 且和为 \\(270^\\circ\\)：\\(\\sum \\arctan\\tfrac r{(\\text{3,2,4,2,4})} = 270^\\circ\\)。解得 \\(r = 4\\)。" },
+{ en: "Area \\(= r\\cdot s = 4\\times 15 = 60\\). (Verified numerically.)",
+zh: "面积 \\(= r\\cdot s = 4\\times 15 = 60\\)。（已数值验证。）" }
+],
+answer: { en: "Area \\(= 60\\).", zh: "面积 \\(= 60\\)。" },
+insight: {
+en: "A tangential polygon splits into two clean subproblems: tangent lengths (a linear system) and the inradius (one half-angle-sum equation). Then Area = rs delivers the answer. The tangent-length labeling is the universal first move for ANY circumscribed polygon.",
+zh: "圆外切多边形拆成两个干净的子问题：切线长（线性方程组）和内切圆半径（一个半角和方程）。再用 Area = rs 给出答案。「切线长标注」是「任何」圆外切多边形的通用第一步。"
+}
+}
+];
+
+
+/* ---------- Day3 强化练习 ---------- */
+courseData.days[2].enhancements = [
+{
+level: "★",
+statement: {
+en: "A convex quadrilateral has side lengths \\(7, 10, 9, 6\\) in order. Does it have an inscribed circle? A second quadrilateral has sides \\(5, 8, 7, 10\\) in order — does it?",
+zh: "一个凸四边形顺次边长为 \\(7, 10, 9, 6\\)。它有内切圆吗？另一个四边形顺次边长为 \\(5, 8, 7, 10\\) —— 它有吗？"
+},
+hint: {
+en: "Pitot: tangential ⟺ opposite sides sum equally. First: \\(7+9\\) vs \\(10+6\\). Second: \\(5+7\\) vs \\(8+10\\).",
+zh: "Pitot：圆外切 ⟺ 对边和相等。第一个：\\(7+9\\) 对 \\(10+6\\)。第二个：\\(5+7\\) 对 \\(8+10\\)。"
+},
+answer: { en: "First: \\(7+9=16=10+6\\) ✓ YES (has an incircle). Second: \\(5+7=12\\ne 8+10=18\\) ✗ NO.", zh: "第一个：\\(7+9=16=10+6\\) ✓ 有内切圆。第二个：\\(5+7=12\\ne 8+10=18\\) ✗ 没有。" }
+},
+{
+level: "★★",
+statement: {
+en: "A tangential quadrilateral ABCD (in order) has \\(AB=10\\), \\(BC=12\\), \\(CD=15\\). Find \\(DA\\).",
+zh: "圆外切四边形 ABCD（顺次）有 \\(AB=10\\)，\\(BC=12\\)，\\(CD=15\\)。求 \\(DA\\)。"
+},
+hint: {
+en: "Pitot forces \\(AB+CD=BC+DA\\). Solve for \\(DA = AB+CD-BC\\).",
+zh: "Pitot 强制 \\(AB+CD=BC+DA\\)。解出 \\(DA = AB+CD-BC\\)。"
+},
+answer: { en: "\\(DA = 10+15-12 = 13\\).", zh: "\\(DA = 10+15-12 = 13\\)。" }
+},
+{
+level: "★★★",
+statement: {
+en: "A bicentric quadrilateral (both an incircle AND a circumcircle) has sides \\(5, 8, 9, 6\\) in order. (a) Verify it can be tangential. (b) Its area is \\(\\sqrt{abcd}\\) for a bicentric quadrilateral — find the area and the inradius \\(r\\).",
+zh: "一个双心四边形（既有内切圆「又」有外接圆）顺次边长为 \\(5, 8, 9, 6\\)。(a) 验证它可以圆外切。(b) 双心四边形面积为 \\(\\sqrt{abcd}\\) —— 求面积和内切圆半径 \\(r\\)。"
+},
+hint: {
+en: "(a) Pitot: \\(5+9\\) vs \\(8+6\\). (b) Area \\(=\\sqrt{5\\cdot8\\cdot9\\cdot6}=\\sqrt{2160}\\). Then \\(r=\\text{Area}/s\\) with \\(s=(5+8+9+6)/2=14\\).",
+zh: "(a) Pitot：\\(5+9\\) 对 \\(8+6\\)。(b) 面积 \\(=\\sqrt{5\\cdot8\\cdot9\\cdot6}=\\sqrt{2160}\\)。再 \\(r=\\text{Area}/s\\)，\\(s=(5+8+9+6)/2=14\\)。"
+},
+answer: { en: "(a) \\(5+9=14=8+6\\) ✓ tangential. (b) Area \\(=\\sqrt{2160}=12\\sqrt{15}\\approx 46.48\\); \\(r=\\tfrac{12\\sqrt{15}}{14}=\\tfrac{6\\sqrt{15}}{7}\\approx 3.32\\) (verified).", zh: "(a) \\(5+9=14=8+6\\) ✓ 圆外切。(b) 面积 \\(=\\sqrt{2160}=12\\sqrt{15}\\approx 46.48\\)；\\(r=\\tfrac{12\\sqrt{15}}{14}=\\tfrac{6\\sqrt{15}}{7}\\approx 3.32\\)（已验证）。" }
+}
+];
+
+
+/* ---------- Day3 完整习题 逐题精解 ---------- */
+courseData.days[2].problemSet = [
+{
+n: 1,
+source: { en: "H3 · Problem 1 · Incircles", zh: "H3 · 第 1 题 · Incircles" },
+statement: { en: "Triangle ABC with \\(AC+BC=3AB\\); \\(M,N\\) midpoints of \\(CA,CB\\). Prove ABNM is tangential.", zh: "三角形 ABC 满足 \\(AC+BC=3AB\\)；\\(M,N\\) 为 \\(CA,CB\\) 中点。证明 ABNM 圆外切。" },
+recall: [ { en: "Pitot's Theorem", zh: "Pitot 定理" }, { en: "Midsegment = half the third side", zh: "中位线 = 第三边一半" } ],
+steps: [
+{ en: "Sides of ABNM: \\(AB=c\\), \\(BN=\\tfrac a2\\), \\(NM=\\tfrac c2\\) (midsegment), \\(MA=\\tfrac b2\\).", zh: "ABNM 的边：\\(AB=c\\)，\\(BN=\\tfrac a2\\)，\\(NM=\\tfrac c2\\)（中位线），\\(MA=\\tfrac b2\\)。" },
+{ en: "Pitot: \\(AB+NM=BN+MA \\iff c+\\tfrac c2=\\tfrac a2+\\tfrac b2 \\iff a+b=3c\\), the given condition. \\(\\blacksquare\\)", zh: "Pitot：\\(AB+NM=BN+MA \\iff c+\\tfrac c2=\\tfrac a2+\\tfrac b2 \\iff a+b=3c\\)，即给定条件。\\(\\blacksquare\\)" }
+],
+answer: { en: "Tangential — Pitot reduces to \\(AC+BC=3AB\\). (Verified symbolically.)", zh: "圆外切 —— Pitot 化为 \\(AC+BC=3AB\\)。（已符号验证。）" },
+insight: { en: "'Prove tangential' = 'check Pitot'. Midpoints make the linear condition line up exactly.", zh: "「证圆外切」=「验 Pitot」。中点让线性条件恰好对上。" }
+},
+{
+n: 2,
+source: { en: "H3 · Problem 2 · Incircles", zh: "H3 · 第 2 题 · Incircles" },
+statement: { en: "In trapezoid ABCD, the bisectors of angles \\(A\\) and \\(D\\) meet at point \\(E\\) on \\(BC\\). These bisectors split the trapezoid into three triangles, each with an incircle. One incircle touches base \\(AB\\) at \\(K\\); the other two are tangent to bisector \\(DE\\) at \\(M\\) and \\(N\\). Prove \\(BK=MN\\).", zh: "梯形 ABCD 中，角 \\(A\\) 与 \\(D\\) 的平分线交于 \\(BC\\) 上一点 \\(E\\)。这两条平分线把梯形分成三个三角形，每个都有内切圆。其中一个内切圆切底边 \\(AB\\) 于 \\(K\\)；另两个与平分线 \\(DE\\) 相切于 \\(M,N\\)。证明 \\(BK=MN\\)。" },
+recall: [ { en: "Equal Tangents Lemma", zh: "等切线引理" }, { en: "Tangent length = s − (opposite side) in each sub-triangle", zh: "每个子三角形中 切线长 = s − 对边" }, { en: "Angle bisector creates equal angles", zh: "角平分线造出相等的角" } ],
+steps: [
+{ en: "HINT (setup): the three triangles are \\(ABE\\), \\(AED\\) (the middle one along both bisectors), and \\(DEC\\). Label the tangent lengths of each incircle at every vertex using the Equal Tangents Lemma.", zh: "提示（搭建）：三个三角形是 \\(ABE\\)、\\(AED\\)（沿两条平分线的中间那个）、\\(DEC\\)。用等切线引理给每个内切圆在各顶点标切线长。" },
+{ en: "HINT (key): \\(BK\\) is a tangent length in triangle \\(ABE\\); \\(M\\) and \\(N\\) are the touch points on the shared line \\(DE\\), so \\(MN=|EM-EN|\\) (or \\(EM+ND\\) depending on configuration) is a difference of tangent lengths from \\(E\\) in the two triangles sharing \\(DE\\).", zh: "提示（关键）：\\(BK\\) 是三角形 \\(ABE\\) 中的切线长；\\(M,N\\) 是共用直线 \\(DE\\) 上的切点，所以 \\(MN=|EM-EN|\\)（或按构型为 \\(EM+ND\\)）是共用 \\(DE\\) 的两个三角形中从 \\(E\\) 的切线长之差。" },
+{ en: "Express both \\(BK\\) and \\(MN\\) via the semiperimeters/tangent lengths; the angle-bisector conditions (\\(\\angle A, \\angle D\\) bisected, \\(E\\) on \\(BC\\)) make the two expressions equal. \\(\\blacksquare\\)", zh: "把 \\(BK\\) 和 \\(MN\\) 都用半周长/切线长表示；角平分线条件（\\(\\angle A, \\angle D\\) 被平分、\\(E\\) 在 \\(BC\\) 上）使两个表达式相等。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BK=MN\\) — via equal-tangent bookkeeping across the three sub-triangles.", zh: "\\(BK=MN\\) —— 靠三个子三角形的等切线记账。" },
+insight: { en: "Touch points on a shared line are differences of tangent lengths from the shared vertex. Label everything with the Equal Tangents Lemma and the bisector conditions do the rest.", zh: "共用直线上的切点，是从共用顶点算的切线长之差。用等切线引理标注一切，平分线条件完成剩下的。" }
+},
+{
+n: 3,
+source: { en: "H3 · Problem 3 · Incircles", zh: "H3 · 第 3 题 · Incircles" },
+statement: { en: "Let ABCD be a circumscribed (tangential) quadrilateral. Point \\(P\\) lies on side \\(CD\\). Prove that there exists a common tangent to the incircles of triangles \\(ABP\\), \\(BCP\\), and \\(ADP\\).", zh: "设 ABCD 是圆外切四边形。点 \\(P\\) 在边 \\(CD\\) 上。证明三角形 \\(ABP\\)、\\(BCP\\)、\\(ADP\\) 的内切圆有一条公切线。" },
+recall: [ { en: "Common tangent ⟺ equal tangent-length sums", zh: "公切线 ⟺ 切线长和相等" }, { en: "Pitot for ABCD: \\(AB+CD=BC+AD\\)", zh: "ABCD 的 Pitot：\\(AB+CD=BC+AD\\)" } ],
+steps: [
+{ en: "HINT (the criterion): two incircles of triangles sharing a common line segment (here segments along \\(BP\\), or along \\(CD\\)) admit a common tangent iff a specific sum of tangent lengths matches. Reduce 'common tangent exists' to an equal-sum equation.", zh: "提示（判据）：共用一条线段的两个三角形内切圆（这里沿 \\(BP\\) 或沿 \\(CD\\)），存在公切线当且仅当某个切线长之和相等。把「存在公切线」化为一个等和方程。" },
+{ en: "HINT (use Pitot): the given fact that ABCD is tangential gives \\(AB+CD=BC+AD\\). Split \\(CD=CP+PD\\) and write the tangent-length sums for the three small triangles; the Pitot relation is exactly what makes the required sums line up.", zh: "提示（用 Pitot）：已知 ABCD 圆外切，给出 \\(AB+CD=BC+AD\\)。把 \\(CD=CP+PD\\) 拆开，写出三个小三角形的切线长和；Pitot 关系正好让所需的和对上。" },
+{ en: "Assembling the equal-sum relations shows the three incircles share a common tangent line. \\(\\blacksquare\\)", zh: "把等和关系拼起来，就证明三个内切圆有一条公切线。\\(\\blacksquare\\)" }
+],
+answer: { en: "A common tangent exists — the tangential condition on ABCD (Pitot) forces the tangent-length sums to match.", zh: "公切线存在 —— ABCD 的圆外切条件（Pitot）迫使切线长和对上。" },
+insight: { en: "'Common tangent' problems reduce to equal-sum-of-tangent-lengths conditions. The global Pitot equation for ABCD supplies exactly the relation the local tangencies need.", zh: "「公切线」问题化为「切线长等和」条件。ABCD 的整体 Pitot 方程，恰好提供局部相切所需的关系。" }
+},
+{
+n: 4,
+source: { en: "Lecture 3 · Example 3.1 · IMO Shortlist 1986", zh: "Lecture 3 · 例 3.1 · IMO 预选 1986" },
+statement: { en: "Cevians \\(AD, BE, CF\\) of triangle ABC meet at \\(P\\). Quadrilaterals \\(AFPE\\) and \\(FBDP\\) are tangential. Prove \\(CEPD\\) is also tangential.", zh: "三角形 ABC 的塞瓦线 \\(AD, BE, CF\\) 交于 \\(P\\)。四边形 \\(AFPE\\) 与 \\(FBDP\\) 圆外切。证明 \\(CEPD\\) 也圆外切。" },
+recall: [ { en: "Pitot for each small quadrilateral", zh: "每个小四边形的 Pitot" }, { en: "Tangent segments along the cevians cancel when summed", zh: "沿塞瓦线的切线段相加时抵消" } ],
+steps: [
+{ en: "HINT: apply Pitot to each of the three quadrilaterals around \\(P\\). For \\(AFPE\\): \\(AF+PE=FP+EA\\). For \\(FBDP\\): \\(FB+PD=BD+PF\\). Write the analogous Pitot expression for \\(CEPD\\): \\(CE+PD... \\) — you want to PROVE \\(CD+PE=EC+DP\\)-type equality.", zh: "提示：对 \\(P\\) 周围三个四边形各用 Pitot。对 \\(AFPE\\)：\\(AF+PE=FP+EA\\)。对 \\(FBDP\\)：\\(FB+PD=BD+PF\\)。写出 \\(CEPD\\) 的类似 Pitot 表达式 —— 你要「证明」\\(CEPD\\) 的对边等和。" },
+{ en: "HINT (add & cancel): add the two given Pitot equations. The segments along the cevians \\(PE, PF, PD\\) and \\(PA-\\)parts appear on both sides and telescope. What remains rearranges exactly into the Pitot condition for \\(CEPD\\).", zh: "提示（相加消去）：把两个已知 Pitot 方程相加。沿塞瓦线的线段 \\(PE, PF, PD\\) 等在两边都出现并望远镜式抵消。剩下的正好重排成 \\(CEPD\\) 的 Pitot 条件。" },
+{ en: "Therefore \\(CEPD\\) satisfies Pitot and is tangential. \\(\\blacksquare\\) (This is the classic 'three tangential quadrilaterals around a cevian point' result.)", zh: "因此 \\(CEPD\\) 满足 Pitot，是圆外切的。\\(\\blacksquare\\)（这是经典的「塞瓦点周围三个圆外切四边形」结论。）" }
+],
+answer: { en: "\\(CEPD\\) is tangential — adding the Pitot relations of \\(AFPE\\) and \\(FBDP\\) yields Pitot for \\(CEPD\\).", zh: "\\(CEPD\\) 圆外切 —— 把 \\(AFPE\\) 与 \\(FBDP\\) 的 Pitot 关系相加，得出 \\(CEPD\\) 的 Pitot。" },
+insight: { en: "Three quadrilaterals share the cevian segments at \\(P\\). Summing two Pitot equations cancels those shared segments and hands you the third Pitot equation for free — a beautiful telescoping.", zh: "三个四边形共用 \\(P\\) 处的塞瓦线段。把两个 Pitot 方程相加，消掉共享线段，白送你第三个 Pitot 方程 —— 一个漂亮的望远镜。" }
+}
+];
+
+
+courseData.days[2].problemSet.push(
+{
+n: 5,
+source: { en: "题库精选 · 2014 AIME II · Problem 8", zh: "题库精选 · 2014 AIME II · 第 8 题" },
+statement: { en: "A circle is inscribed in quadrilateral ABCD, tangent to \\(AB\\) at \\(P\\) and to \\(CD\\) at \\(Q\\). \\(AP=19, PB=26, CQ=37, QD=23\\). Find \\(r^2\\).", zh: "圆内切于四边形 ABCD，切 \\(AB\\) 于 \\(P\\)，切 \\(CD\\) 于 \\(Q\\)。\\(AP=19, PB=26, CQ=37, QD=23\\)。求 \\(r^2\\)。" },
+recall: [ { en: "\\(\\tan(\\text{half-angle})=r/(\\text{tangent length})\\)", zh: "\\(\\tan(\\text{半角})=r/(\\text{切线长})\\)" }, { en: "Four half-angles sum to 180°", zh: "四个半角之和为 180°" } ],
+steps: [
+{ en: "Tangent lengths: A=19, B=26, C=37, D=23. \\(\\tan\\tfrac A2=\\tfrac r{19}\\), etc.", zh: "切线长：A=19, B=26, C=37, D=23。\\(\\tan\\tfrac A2=\\tfrac r{19}\\) 等。" },
+{ en: "\\(\\tfrac A2+\\tfrac B2+\\tfrac C2+\\tfrac D2=180^\\circ\\Rightarrow \\tan(\\tfrac A2+\\tfrac B2)=-\\tan(\\tfrac C2+\\tfrac D2)\\).", zh: "\\(\\tfrac A2+\\tfrac B2+\\tfrac C2+\\tfrac D2=180^\\circ\\Rightarrow \\tan(\\tfrac A2+\\tfrac B2)=-\\tan(\\tfrac C2+\\tfrac D2)\\)。" },
+{ en: "Tangent addition + clearing denominators \\(\\Rightarrow r^2=647\\). (Verified symbolically.)", zh: "正切和角 + 去分母 \\(\\Rightarrow r^2=647\\)。（已符号验证。）" }
+],
+answer: { en: "\\(r^2=647\\).", zh: "\\(r^2=647\\)。" },
+insight: { en: "\\(\\tan(\\text{half})=r/(\\text{tangent length})\\) + '半角之和 = 180°' is THE quadrilateral-incircle engine.", zh: "\\(\\tan(\\text{半})=r/(\\text{切线长})\\) + 「半角之和 = 180°」就是四边形内切圆的引擎。" }
+},
+{
+n: 6,
+source: { en: "题库精选 · Convex Pentagon with Incircle", zh: "题库精选 · 有内切圆的凸五边形" },
+statement: { en: "Convex pentagon ABCDE, \\(AB=5, BC=CD=DE=6, EA=7\\), has an inscribed circle. Find its area.", zh: "凸五边形 ABCDE，\\(AB=5, BC=CD=DE=6, EA=7\\)，有内切圆。求面积。" },
+recall: [ { en: "Tangent-length linear system", zh: "切线长线性方程组" }, { en: "Area = r·s; half-angles sum to 270°", zh: "面积 = r·s；半角和 270°" } ],
+steps: [
+{ en: "Tangent lengths \\(w,x,y,z,v\\): \\(w+x=5, x+y=6, y+z=6, z+v=6, v+w=7\\) \\(\\Rightarrow (w,x,y,z,v)=(3,2,4,2,4)\\).", zh: "切线长 \\(w,x,y,z,v\\)：\\(w+x=5, x+y=6, y+z=6, z+v=6, v+w=7\\) \\(\\Rightarrow (w,x,y,z,v)=(3,2,4,2,4)\\)。" },
+{ en: "\\(s=15\\). The five half-angles \\(\\arctan\\tfrac r{3},\\arctan\\tfrac r{2},\\arctan\\tfrac r{4},\\arctan\\tfrac r{2},\\arctan\\tfrac r{4}\\) sum to \\(270^\\circ\\); solving gives \\(r=4\\).", zh: "\\(s=15\\)。五个半角 \\(\\arctan\\tfrac r{3},\\arctan\\tfrac r{2},\\arctan\\tfrac r{4},\\arctan\\tfrac r{2},\\arctan\\tfrac r{4}\\) 之和为 \\(270^\\circ\\)；解得 \\(r=4\\)。" },
+{ en: "Area \\(=rs=4\\times15=60\\). (Verified numerically.)", zh: "面积 \\(=rs=4\\times15=60\\)。（已数值验证。）" }
+],
+answer: { en: "Area \\(=60\\).", zh: "面积 \\(=60\\)。" },
+insight: { en: "Tangential polygon = tangent-length system + one half-angle-sum equation, then Area = rs. Same recipe for any n.", zh: "圆外切多边形 = 切线长方程组 + 一个半角和方程，再 Area = rs。对任意 n 都是同一个配方。" }
+},
+{
+n: 7,
+source: { en: "题库精选 · Equal Incircles on a Cevian", zh: "题库精选 · 塞瓦线上等内切圆" },
+statement: { en: "In \\(\\triangle ABC\\) with \\(AB=12, BC=13, AC=15\\), \\(M\\) is on \\(AC\\) so that the incircles of \\(\\triangle ABM\\) and \\(\\triangle BCM\\) have equal radii. Find \\(\\tfrac{AM}{CM}=\\tfrac pq\\) (lowest terms), then \\(p+q\\).", zh: "三角形 ABC 中 \\(AB=12, BC=13, AC=15\\)，\\(M\\) 在 \\(AC\\) 上使 \\(\\triangle ABM\\) 与 \\(\\triangle BCM\\) 内切圆半径相等。求 \\(\\tfrac{AM}{CM}=\\tfrac pq\\)（最简），再求 \\(p+q\\)。" },
+recall: [ { en: "\\(r=\\text{Area}/s\\) for each sub-triangle", zh: "每个子三角形 \\(r=\\text{Area}/s\\)" }, { en: "Same height from B ⇒ areas in ratio \\(AM:CM\\)", zh: "从 B 同高 ⇒ 面积比 = \\(AM:CM\\)" }, { en: "Stewart's Theorem for \\(BM\\)", zh: "求 \\(BM\\) 用斯图尔特定理" } ],
+steps: [
+{ en: "HINT (this echoes Day 2 #8, IMO SL 1998): let \\(AM=x\\), \\(CM=15-x\\). Both triangles share height \\(h\\) from \\(B\\) to \\(AC\\), so \\([ABM]:[BCM]=x:(15-x)\\).", zh: "提示（呼应 Day 2 #8，IMO SL 1998）：设 \\(AM=x\\)，\\(CM=15-x\\)。两三角形共用从 \\(B\\) 到 \\(AC\\) 的高 \\(h\\)，所以 \\([ABM]:[BCM]=x:(15-x)\\)。" },
+{ en: "Equal inradii: \\(\\tfrac{[ABM]}{s_1}=\\tfrac{[BCM]}{s_2}\\). Get \\(BM\\) from Stewart's Theorem, form the two semiperimeters \\(s_1,s_2\\), and set the equation.", zh: "内切圆半径相等：\\(\\tfrac{[ABM]}{s_1}=\\tfrac{[BCM]}{s_2}\\)。由斯图尔特定理求 \\(BM\\)，组成两个半周长 \\(s_1,s_2\\)，列方程。" },
+{ en: "Solving gives \\(x=\\tfrac{22}{3}\\), so \\(\\tfrac{AM}{CM}=\\tfrac{22/3}{15-22/3}=\\tfrac{22}{23}\\). Thus \\(p+q=22+23=45\\). (Verified symbolically.)", zh: "解得 \\(x=\\tfrac{22}{3}\\)，所以 \\(\\tfrac{AM}{CM}=\\tfrac{22/3}{15-22/3}=\\tfrac{22}{23}\\)。故 \\(p+q=22+23=45\\)。（已符号验证。）" }
+],
+answer: { en: "\\(\\tfrac{AM}{CM}=\\tfrac{22}{23}\\), so \\(p+q=45\\).", zh: "\\(\\tfrac{AM}{CM}=\\tfrac{22}{23}\\)，故 \\(p+q=45\\)。" },
+insight: { en: "Equal inradii + shared height + Stewart is the exact toolkit from Day 2's IMO SL problem. Recognizing the recurring structure is the real skill — the same idea appears at AIME and IMO level.", zh: "等内切圆 + 共高 + 斯图尔特，正是 Day 2 那道 IMO SL 题的工具组合。认出反复出现的结构才是真本事 —— 同一个想法在 AIME 和 IMO 层面都出现。" }
+}
+);
+
