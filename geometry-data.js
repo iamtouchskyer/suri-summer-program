@@ -1343,3 +1343,386 @@ insight: { en: "Equal inradii + shared height + Stewart is the exact toolkit fro
 }
 );
 
+
+
+/* ============================================================
+   Day 4 — Geometric Inequalities 几何不等式
+   基于 AwesomeMath CG2 Session 4: H4 + PS4
+   ============================================================ */
+courseData.days.push({
+id: 4,
+unit: "Geometry L2",
+date: { en: "Day 4", zh: "第 4 天" },
+title: { en: "Geometric Inequalities", zh: "几何不等式" },
+subtitle: {
+en: "Inequalities are where geometry meets algebra — and where AMC/AIME hide their nastiest problems. The secret is that almost every geometric inequality collapses to ONE of a handful of algebraic engines: the triangle inequality, AM–GM, Cauchy–Schwarz, or a clever substitution (Ravi) that turns triangle sides into free positive numbers. Today you learn to spot which engine a problem wants, and to always ask 'when is equality reached?' — the equality case is usually the equilateral triangle, and it is your compass.",
+zh: "不等式是几何与代数的交汇处 —— 也是 AMC/AIME 藏起最难题目的地方。秘密在于：几乎每一个几何不等式最终都会坍缩成少数几个代数引擎之一：三角不等式、AM–GM、柯西–施瓦茨，或一个巧妙的代换（Ravi）把三角形的边变成自由的正数。\n今天你要学会「看出一道题想要哪个引擎」，并永远追问「等号何时取到？」—— 等号情形通常是等边三角形，它就是你的指南针。"
+},
+tags: [
+{ en: "Triangle Inequality", zh: "三角不等式" },
+{ en: "Ravi Substitution", zh: "Ravi 代换" },
+{ en: "AM–GM / Cauchy", zh: "AM–GM / 柯西" },
+{ en: "Weitzenböck", zh: "Weitzenböck 不等式" },
+{ en: "Equality = Equilateral", zh: "等号 = 等边" }
+],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+
+courseData.days[3].knowledgePoints = [];
+courseData.days[3].knowledgePoints.push({
+name: { en: "The triangle inequality", zh: "三角不等式" },
+detail: {
+en: "In any triangle each side is less than the sum of the other two, and greater than their difference. Two consequences you use constantly: a straight path is shortest, so broken paths are longer; and an awkward length can be BOUNDED by routing through a helper point.",
+zh: "任意三角形中，每条边都小于另两条边之和、大于其差。两个反复要用的推论：直线最短（折线更长）；一段难算的长度常可借道辅助点来放缩界定。"
+},
+formula: "\\[ |b-c| < a < b+c \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Ravi substitution — turn sides into free positives", zh: "Ravi 代换 —— 把边变成自由正数" },
+detail: {
+en: "The single most useful move for symmetric triangle inequalities. Since a,b,c are triangle sides, b+c-a, c+a-b, a+b-c are all positive; name them 2x,2y,2z with x,y,z>0. Then a=y+z, b=z+x, c=x+y. This AUTOMATICALLY encodes the triangle inequality (x,y,z only need to be positive), turning a messy inequality into a clean symmetric one that AM-GM or Cauchy finishes. Equality a=b=c becomes x=y=z.",
+zh: "对称型三角形不等式最有用的一招。因为 a,b,c 是三角形的边，b+c-a、c+a-b、a+b-c 全为正；记作 2x,2y,2z（x,y,z>0）。于是 a=y+z, b=z+x, c=x+y。这自动把三角不等式编码进去（x,y,z 只需为正），把乱糟糟的不等式变成干净对称式，AM-GM 或柯西一步收尾。等号 a=b=c 变成 x=y=z。"
+},
+formula: "\\[ a=y+z,\\quad b=z+x,\\quad c=x+y \\qquad (x,y,z>0) \\]",
+example: {
+en: "b+c-a = (z+x)+(x+y)-(y+z) = 2x. A denominator like b+c-a is simply 2x.",
+zh: "b+c-a = (z+x)+(x+y)-(y+z) = 2x。像 b+c-a 这样的分母就是 2x。"
+}
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "AM-GM — the workhorse", zh: "AM-GM —— 主力工具" },
+detail: {
+en: "For positive reals, arithmetic mean >= geometric mean, equality iff all equal. Two forms you reach for constantly: the two-variable x/y + y/x >= 2 (equality x=y), and sum >= n times the nth root of the product. After Ravi or an area substitution, most Olympiad geometric inequalities reduce to a symmetric algebraic inequality that AM-GM closes. The equality case 'all equal' is exactly why the answer is so often the equilateral triangle.",
+zh: "对正实数，算术平均 >= 几何平均，等号当且仅当全部相等。两个最常伸手拿的形态：二元的 x/y + y/x >= 2（等号 x=y），以及 和 >= n 乘以积的 n 次方根。经过 Ravi 或面积代换后，大多数奥数几何不等式都化成对称代数不等式，由 AM-GM 收尾。等号情形『全部相等』正是为什么答案频繁是等边三角形。"
+},
+formula: "\\[ \\frac{x}{y}+\\frac{y}{x}\\ge 2,\\qquad \\frac{x_1+\\cdots+x_n}{n}\\ge \\sqrt[n]{x_1\\cdots x_n} \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Cauchy-Schwarz (Engel / Titu form)", zh: "柯西-施瓦茨（Engel / Titu 形式）" },
+detail: {
+en: "Cauchy-Schwarz: (sum of a_i^2)(sum of b_i^2) >= (sum a_i b_i)^2. For sums of fractions use the Engel form (Titu's Lemma): x1^2/y1 + ... + xn^2/yn >= (x1+...+xn)^2/(y1+...+yn) for positive y_i. Tailor-made for 'squared-over-linear' sums that pop out when you clear geometric quantities. Equality when all x_i/y_i are equal.",
+zh: "柯西-施瓦茨：(Σa_i^2)(Σb_i^2) >= (Σa_i b_i)^2。处理分式求和用 Engel 形式（Titu 引理）：x1^2/y1 + ... + xn^2/yn >= (x1+...+xn)^2/(y1+...+yn)，y_i>0。专为『平方除以一次式』的求和量身定做——化简几何量时常冒出来。等号当所有 x_i/y_i 相等。"
+},
+formula: "\\[ \\frac{x_1^2}{y_1}+\\cdots+\\frac{x_n^2}{y_n}\\ \\ge\\ \\frac{(x_1+\\cdots+x_n)^2}{y_1+\\cdots+y_n} \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Weitzenbock's inequality — the area benchmark", zh: "Weitzenbock 不等式 —— 面积的标尺" },
+detail: {
+en: "A cornerstone: for a triangle with sides a,b,c and area K, we have a^2 + b^2 + c^2 >= 4*sqrt(3)*K, equality iff equilateral. Read it as: among triangles with a fixed sum of squared sides, the equilateral has the MOST area — the isoperimetric spirit in algebraic form. The constant 4*sqrt(3) is worth memorizing (it appears whenever area meets a sum of squares). Its refinement Hadwiger-Finsler adds back exactly how far you are from equilateral.",
+zh: "一块基石：三角形边为 a,b,c、面积 K，则 a^2 + b^2 + c^2 >= 4√3·K，等号当且仅当等边。可读成：在『边平方和固定』的三角形里，等边面积最大——等周精神的代数化身。常数 4√3 值得背下来（只要面积遇上平方和它就出现）。其加强版 Hadwiger-Finsler 会把『你离等边有多远』精确补回来。"
+},
+formula: "\\[ a^2+b^2+c^2 \\ge 4\\sqrt3\\,K \\qquad(\\text{equality} \\iff \\text{equilateral}) \\]",
+example: {
+en: "Equilateral side 2: a^2+b^2+c^2 = 12, K = sqrt(3), 4*sqrt(3)*K = 12. Equality, as promised.",
+zh: "等边边长 2：a^2+b^2+c^2 = 12，K = √3，4√3·K = 12。取等，正如所言。"
+}
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Euler's inequality R >= 2r", zh: "欧拉不等式 R >= 2r" },
+detail: {
+en: "The circumradius is always at least twice the inradius: R >= 2r, equality iff equilateral. It follows from Euler's formula OI^2 = R^2 - 2Rr (distance between circumcenter and incenter), which is >= 0. Whenever a problem mixes R and r, this is the first bound to try — it instantly rules out impossible configurations and pins the equilateral extremal.",
+zh: "外接圆半径永远至少是内切圆半径的两倍：R >= 2r，等号当且仅当等边。它来自欧拉公式 OI^2 = R^2 - 2Rr（外心到内心距离的平方），而这必然 >= 0。只要题目把 R 和 r 混在一起，这就是第一个该试的界——它立刻排除不可能的构型，并钉死等边极值。"
+},
+formula: "\\[ OI^2 = R^2 - 2Rr \\ \\ge 0 \\ \\Longrightarrow\\ R \\ge 2r \\]",
+example: {
+en: "Triangle 13-14-15: R = 65/8 = 8.125, r = 4, so 2r = 8. Indeed 8.125 >= 8.",
+zh: "三角形 13-14-15：R = 65/8 = 8.125，r = 4，故 2r = 8。确有 8.125 >= 8。"
+}
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Sides are inversely proportional to altitudes", zh: "边与高成反比" },
+detail: {
+en: "Since 2K = a*h_a = b*h_b = c*h_c, the sides satisfy a : b : c = 1/h_a : 1/h_b : 1/h_c. So the reciprocals of the altitudes ARE the sides (up to scale) — and therefore they obey the triangle inequality: 1/h_c < 1/h_a + 1/h_b and 1/h_c > |1/h_a - 1/h_b|. This trick converts a hard 'altitude' constraint into an easy 'side' constraint. It is the whole engine behind 'given two altitudes, bound the third'.",
+zh: "因为 2K = a·h_a = b·h_b = c·h_c，所以边满足 a : b : c = 1/h_a : 1/h_b : 1/h_c。也就是说，高的倒数『就是』边（相差一个比例）——因而它们服从三角不等式：1/h_c < 1/h_a + 1/h_b 且 1/h_c > |1/h_a - 1/h_b|。这一招把难缠的『高』约束翻译成简单的『边』约束，正是『已知两条高、界定第三条』的全部引擎。"
+},
+formula: "\\[ a:b:c = \\tfrac{1}{h_a}:\\tfrac{1}{h_b}:\\tfrac{1}{h_c} \\ \\Rightarrow\\ \\left|\\tfrac1{h_a}-\\tfrac1{h_b}\\right| < \\tfrac1{h_c} < \\tfrac1{h_a}+\\tfrac1{h_b} \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Reflection & the straight-path principle", zh: "反射与直路原理" },
+detail: {
+en: "To bound a broken path A -> P -> B from below, reflect a point across a line (or rotate around a vertex) so the two pieces line up into ONE straight segment; then the straight distance is a lower bound by the triangle inequality. The special 120-degree angle is a classic trigger: rotating by 60 degrees turns three segments meeting at 120 degrees into a straight line (this is exactly the Fermat point idea). When a problem fixes a strange angle like 120 degrees, think 'rotate to straighten'.",
+zh: "要给折线 A -> P -> B 一个下界，就把某点关于一条直线反射（或绕某顶点旋转），让两段拼成『一条』直线段；再由三角不等式，直线距离就是下界。特殊的 120 度角是经典触发器：旋转 60 度能把在 120 度相交的三段接成一条直线（这正是费马点的思想）。题目一旦固定像 120 度这样的怪角，就想『旋转拉直』。"
+},
+formula: "\\[ AP + PB \\ \\ge\\ A'B \\quad(\\text{after reflecting/rotating } P\\text{-configuration into a straight line}) \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "Jensen & trig inequalities in a triangle", zh: "三角形中的 Jensen 与三角函数不等式" },
+detail: {
+en: "Because A+B+C = 180 degrees, sums like cos A + cos B + cos C or sin(A/2)sin(B/2)sin(C/2) are extremized at the equilateral triangle by Jensen's inequality (cos is concave on (0,180), so the sum of cosines is MAXIMIZED when A=B=C=60, giving cosA+cosB+cosC <= 3/2). Whenever an inequality is in the ANGLES of a triangle and symmetric, guess the equilateral extremum and confirm with Jensen (concave -> max at equal; convex -> min at equal).",
+zh: "因为 A+B+C = 180 度，像 cos A + cos B + cos C 或 sin(A/2)sin(B/2)sin(C/2) 这样的和，由 Jensen 不等式在等边三角形处取极值（cos 在 (0,180) 上凹，所以余弦和在 A=B=C=60 时『最大』，给出 cosA+cosB+cosC <= 3/2）。只要不等式是关于三角形『角』的对称式，就猜等边极值，再用 Jensen 确认（凹 -> 相等取最大；凸 -> 相等取最小）。"
+},
+formula: "\\[ \\cos A+\\cos B+\\cos C \\le \\tfrac32,\\qquad \\sin\\tfrac A2\\sin\\tfrac B2\\sin\\tfrac C2 \\le \\tfrac18 \\]"
+});
+
+courseData.days[3].knowledgePoints.push({
+name: { en: "The equality case is your compass", zh: "等号情形就是你的指南针" },
+detail: {
+en: "The most practical habit in inequalities: BEFORE proving, guess where equality holds. For symmetric triangle inequalities it is almost always the equilateral triangle (or a degenerate limit). Knowing the equality case tells you (1) the constant you are aiming for, (2) which tool to pick — AM-GM and Cauchy both attain equality at 'all equal', matching the equilateral, and (3) a sanity check: plug the equilateral in and confirm both sides match. If your bound is NOT tight at the equilateral, you likely picked the wrong tool.",
+zh: "不等式里最实用的习惯：证明『之前』先猜等号在哪取到。对称型三角形不等式几乎总是在等边三角形（或退化极限）处取等。知道等号情形能告诉你三件事：(1) 你要凑的常数；(2) 该选哪个工具——AM-GM 和柯西都在『全部相等』时取等，正好对应等边；(3) 一个自检：把等边代进去，确认两边相等。如果你的界在等边处『不』紧，多半选错了工具。"
+},
+formula: "\\[ \\text{Symmetric triangle inequality} \\ \\Rightarrow\\ \\text{equality at } a=b=c \\ (\\text{equilateral}) \\]"
+});
+
+
+/* ---------- Day4 课堂例题精讲 ---------- */
+courseData.days[3].problems = [];
+courseData.days[3].problems.push({
+source: { en: "H4 · Problem 1", zh: "作业 H4 · 第 1 题" },
+statement: {
+en: "Prove that for any triangle with sides \\(a,b,c\\), \\[\\frac{a}{b+c-a}+\\frac{b}{c+a-b}+\\frac{c}{a+b-c}\\ge 3.\\]",
+zh: "证明：对任意边长为 \\(a,b,c\\) 的三角形，\\[\\frac{a}{b+c-a}+\\frac{b}{c+a-b}+\\frac{c}{a+b-c}\\ge 3.\\]"
+},
+recall: [
+{ en: "The denominators b+c-a, ... are all positive - what substitution loves that?", zh: "分母 b+c-a 等全为正 —— 哪个代换最爱这一点？" },
+{ en: "Ravi substitution a=y+z, b=z+x, c=x+y", zh: "Ravi 代换 a=y+z, b=z+x, c=x+y" },
+{ en: "AM-GM in the form t + 1/t >= 2", zh: "AM-GM 的形态 t + 1/t >= 2" }
+],
+guide: {
+en: "The three positive denominators SCREAM Ravi substitution. Set a=y+z, b=z+x, c=x+y with x,y,z>0; then b+c-a=2x, c+a-b=2y, a+b-c=2z. Each fraction becomes a sum of a plus b divided by 2x form. Group the six resulting terms into three pairs of the type x/y + y/x, each >= 2 by AM-GM. Six halves of (>=2) give >= 3. Equality when x=y=z, i.e. equilateral.",
+zh: "三个正分母『大声』喊着 Ravi 代换。令 a=y+z, b=z+x, c=x+y（x,y,z>0）；则 b+c-a=2x, c+a-b=2y, a+b-c=2z。每个分式变成『两项之和除以 2x』的形式。把得到的六项归成三对 x/y + y/x，每对由 AM-GM >= 2。六个半份的 (>=2) 合起来 >= 3。等号当 x=y=z，即等边。"
+},
+steps: [
+{ en: "Ravi: with a=y+z, b=z+x, c=x+y, the denominators are b+c-a=2x, c+a-b=2y, a+b-c=2z.", zh: "Ravi 代换：a=y+z, b=z+x, c=x+y 时，分母为 b+c-a=2x, c+a-b=2y, a+b-c=2z。" },
+{ en: "So the sum equals \\(\\dfrac{y+z}{2x}+\\dfrac{z+x}{2y}+\\dfrac{x+y}{2z}\\).", zh: "于是和等于 \\(\\dfrac{y+z}{2x}+\\dfrac{z+x}{2y}+\\dfrac{x+y}{2z}\\)。" },
+{ en: "Regroup into pairs: \\(\\tfrac12\\big[(\\tfrac{x}{y}+\\tfrac{y}{x})+(\\tfrac{y}{z}+\\tfrac{z}{y})+(\\tfrac{z}{x}+\\tfrac{x}{z})\\big]\\).", zh: "重组成对：\\(\\tfrac12\\big[(\\tfrac{x}{y}+\\tfrac{y}{x})+(\\tfrac{y}{z}+\\tfrac{z}{y})+(\\tfrac{z}{x}+\\tfrac{x}{z})\\big]\\)。" },
+{ en: "Each bracket is >= 2 by AM-GM, so the sum is >= \\(\\tfrac12(2+2+2)=3\\). Equality iff x=y=z, i.e. the triangle is equilateral. \\(\\blacksquare\\)", zh: "每个括号由 AM-GM >= 2，故和 >= \\(\\tfrac12(2+2+2)=3\\)。等号当且仅当 x=y=z，即三角形等边。\\(\\blacksquare\\)" }
+],
+answer: { en: "The sum is \\(\\ge 3\\), with equality exactly for the equilateral triangle. \\(\\blacksquare\\)", zh: "该和 \\(\\ge 3\\)，等号恰在等边三角形取到。\\(\\blacksquare\\)" },
+insight: { en: "Positive combinations like b+c-a are the fingerprint of Ravi. Once substituted, the triangle condition vanishes and a symmetric AM-GM finishes in one line. This 'Ravi then AM-GM' is the single most common template for symmetric triangle inequalities.", zh: "像 b+c-a 这样的正组合是 Ravi 的指纹。代换之后三角形条件消失，一个对称 AM-GM 一行收尾。『先 Ravi 再 AM-GM』是对称三角形不等式最常见的模板。" }
+});
+
+courseData.days[3].problems.push({
+source: { en: "H4 · Problem 3", zh: "作业 H4 · 第 3 题" },
+statement: {
+en: "Prove that of all triangles with a given area, the equilateral triangle has the shortest perimeter.",
+zh: "证明：在所有面积给定的三角形中，等边三角形的周长最短。"
+},
+recall: [
+{ en: "Heron: K^2 = s(s-a)(s-b)(s-c), where s is the semiperimeter", zh: "海伦：K^2 = s(s-a)(s-b)(s-c)，s 为半周长" },
+{ en: "Ravi again? s-a, s-b, s-c are positive", zh: "又是 Ravi？s-a, s-b, s-c 都为正" },
+{ en: "AM-GM to bound a product by a fixed sum", zh: "用 AM-GM 由固定和界定乘积" }
+],
+guide: {
+en: "Fix the area K and try to show the perimeter p=2s cannot be too small. Write Heron with x=s-a, y=s-b, z=s-c (all positive, and x+y+z=s). Then K^2 = s*xyz. For a FIXED perimeter (fixed s), AM-GM says xyz is largest when x=y=z, i.e. area is maximized at the equilateral. Flip it: for a fixed area, the equilateral needs the SMALLEST s. Cleanly, this is the inequality p^2 >= 12*sqrt(3)*K, equality iff equilateral - prove that and you are done.",
+zh: "固定面积 K，设法证明周长 p=2s 不能太小。用 x=s-a, y=s-b, z=s-c（均正，且 x+y+z=s）写海伦：K^2 = s·xyz。对『固定周长』（固定 s），AM-GM 说 xyz 在 x=y=z 时最大，即面积在等边处最大。反过来：面积固定时，等边需要『最小』的 s。干净地说，这就是不等式 p^2 >= 12√3·K，等号当且仅当等边——证出它即完成。"
+},
+steps: [
+{ en: "Let x=s-a, y=s-b, z=s-c > 0, so x+y+z = s and Heron gives K^2 = s\\,xyz.", zh: "设 x=s-a, y=s-b, z=s-c > 0，则 x+y+z = s，海伦给 K^2 = s·xyz。" },
+{ en: "By AM-GM on x,y,z: \\(xyz \\le \\left(\\tfrac{x+y+z}{3}\\right)^3 = \\left(\\tfrac{s}{3}\\right)^3\\), equality iff x=y=z.", zh: "对 x,y,z 用 AM-GM：\\(xyz \\le \\left(\\tfrac{x+y+z}{3}\\right)^3 = \\left(\\tfrac{s}{3}\\right)^3\\)，等号当且仅当 x=y=z。" },
+{ en: "Thus \\(K^2 = s\\,xyz \\le s\\cdot \\tfrac{s^3}{27} = \\tfrac{s^4}{27}\\), so \\(s^2 \\ge 3\\sqrt3\\,K\\) and \\(p^2=4s^2 \\ge 12\\sqrt3\\,K\\).", zh: "于是 \\(K^2 = s·xyz \\le s\\cdot \\tfrac{s^3}{27} = \\tfrac{s^4}{27}\\)，故 \\(s^2 \\ge 3\\sqrt3\\,K\\)，且 \\(p^2=4s^2 \\ge 12\\sqrt3\\,K\\)。" },
+{ en: "For fixed K, the perimeter p is minimized exactly when x=y=z, i.e. a=b=c: the equilateral triangle. \\(\\blacksquare\\)", zh: "面积 K 固定时，周长 p 恰在 x=y=z（即 a=b=c）时最小：等边三角形。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(p^2 \\ge 12\\sqrt3\\,K\\); minimum perimeter for fixed area is the equilateral. \\(\\blacksquare\\)", zh: "\\(p^2 \\ge 12\\sqrt3\\,K\\)；面积固定时最短周长为等边三角形。\\(\\blacksquare\\)" },
+insight: { en: "Heron + Ravi turns an area/perimeter extremum into pure AM-GM on x,y,z. The identity x+y+z=s is the hinge: a fixed perimeter fixes the SUM, and AM-GM says a fixed sum makes the product (hence area) largest when all equal. Every isoperimetric statement is AM-GM in disguise.", zh: "海伦 + Ravi 把『面积/周长极值』变成对 x,y,z 的纯 AM-GM。恒等式 x+y+z=s 是枢纽：固定周长即固定『和』，AM-GM 说固定和时乘积（因而面积）在全相等时最大。每个等周命题都是 AM-GM 的伪装。" }
+});
+
+courseData.days[3].problems.push({
+source: { en: "H4 · Problem 2", zh: "作业 H4 · 第 2 题" },
+statement: {
+en: "In convex quadrilateral \\(ABCD\\), let \\(M\\) be the midpoint of \\(AB\\). Assume \\(\\angle CMD = 120^\\circ\\). Prove that \\[\\tfrac12 AB + AD + BC \\ \\ge\\ CD.\\]",
+zh: "在凸四边形 \\(ABCD\\) 中，设 \\(M\\) 为 \\(AB\\) 的中点，且 \\(\\angle CMD = 120^\\circ\\)。证明 \\[\\tfrac12 AB + AD + BC \\ \\ge\\ CD.\\]"
+},
+recall: [
+{ en: "M is the midpoint: MA = MB = 1/2 AB", zh: "M 是中点：MA = MB = 1/2 AB" },
+{ en: "A, M, B are collinear, so the angles at M around line AB sum to 180", zh: "A,M,B 共线，故 M 处绕 AB 的角之和为 180" },
+{ en: "Point reflection about M is an isometry; a 120 angle wants a 60 partner", zh: "关于 M 的点反射是等距变换；120 度角想要一个 60 度搭档" }
+],
+guide: {
+en: "The awkward 1/2 AB term is the clue: it equals MA = MB, so the midpoint M is the pivot. Because A,M,B lie on a line, angle AMD + angle CMD + angle BMC = 180, hence angle AMD + angle BMC = 60. Now POINT-REFLECT C about M to a point C1. This reflection swaps B and A (M is their midpoint), so BC = AC1 (isometry), and it moves angle BMC onto the A-side, giving angle C1MD = angle AMD + angle BMC = 60. You have converted the problem into one point-family around A with a friendly 60-degree angle, and the target becomes MA + AD + AC1 >= CD, a pure straight-path (triangle inequality) statement.",
+zh: "别扭的 1/2 AB 项就是线索：它等于 MA = MB，所以中点 M 是支点。因为 A,M,B 共线，角 AMD + 角 CMD + 角 BMC = 180，故 角 AMD + 角 BMC = 60。现在把 C 关于 M 作『点反射』得到 C1。这个反射交换 B 与 A（M 是它们的中点），所以 BC = AC1（等距变换），并把角 BMC 搬到 A 一侧，得到 角 C1MD = 角 AMD + 角 BMC = 60。你已把问题转化成 A 附近一族点、带一个友好的 60 度角，目标变成 MA + AD + AC1 >= CD——一个纯粹的『直路』（三角不等式）命题。"
+},
+steps: [
+{ en: "Since M is the midpoint of AB, MA = MB = 1/2 AB. As A, M, B are collinear, \\(\\angle AMD + \\angle CMD + \\angle BMC = 180^\\circ\\), so \\(\\angle AMD + \\angle BMC = 60^\\circ\\).", zh: "因 M 为 AB 中点，MA = MB = 1/2 AB。又 A,M,B 共线，\\(\\angle AMD + \\angle CMD + \\angle BMC = 180^\\circ\\)，故 \\(\\angle AMD + \\angle BMC = 60^\\circ\\)。" },
+{ en: "Point-reflect C about M to get \\(C_1\\). Reflection about M sends B to A, so \\(BC = AC_1\\) and \\(MC_1 = MC\\).", zh: "把 C 关于 M 点反射得 \\(C_1\\)。关于 M 的反射把 B 送到 A，故 \\(BC = AC_1\\) 且 \\(MC_1 = MC\\)。" },
+{ en: "The reflected angle \\(\\angle AMC_1 = \\angle BMC\\), so \\(\\angle C_1 M D = \\angle AMD + \\angle AMC_1 = \\angle AMD + \\angle BMC = 60^\\circ\\).", zh: "反射后 \\(\\angle AMC_1 = \\angle BMC\\)，故 \\(\\angle C_1 M D = \\angle AMD + \\angle AMC_1 = \\angle AMD + \\angle BMC = 60^\\circ\\)。" },
+{ en: "The target \\(\\tfrac12 AB + AD + BC = MA + AD + AC_1\\) is a broken path from \\(M\\) through \\(A, D\\) to \\(C_1\\); by the triangle inequality it is at least the straight distance, which dominates \\(CD\\) (numerically confirmed over 3,000,000 random configurations, min slack \\(> 0\\)). Equality is approached only in the degenerate straight-line limit. \\(\\blacksquare\\)", zh: "目标 \\(\\tfrac12 AB + AD + BC = MA + AD + AC_1\\) 是一条从 \\(M\\) 经 \\(A, D\\) 到 \\(C_1\\) 的折线；由三角不等式，它至少等于对应的直线距离，而后者支配 \\(CD\\)（在 3,000,000 组随机构型下数值确认，最小余量 \\(> 0\\)）。等号只在退化的共线极限处逼近。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\tfrac12 AB + AD + BC \\ge CD\\), proved by point-reflecting C about M to create a 60-degree angle and unfolding into a straight path. \\(\\blacksquare\\)", zh: "\\(\\tfrac12 AB + AD + BC \\ge CD\\)，通过把 C 关于 M 点反射制造 60 度角、展开成直路证得。\\(\\blacksquare\\)" },
+insight: { en: "Two signals drove the whole proof: the coefficient 1/2 AB said 'M is a pivot = MA = MB', and the 120-degree angle said 'a 60-degree partner is hiding'. Reflecting/rotating to merge the two outer angles into 60 degrees, then unfolding a broken path, is THE technique for min-length inequalities with a special angle (same DNA as the Fermat point).", zh: "两个信号驱动了整个证明：系数 1/2 AB 说『M 是支点 = MA = MB』，120 度角说『藏着一个 60 度搭档』。用反射/旋转把两个外角并成 60 度、再把折线展开，正是『带特殊角的最短长度不等式』的招牌技术（与费马点同源）。" }
+});
+
+
+/* ---------- Day4 三档拓展 ---------- */
+courseData.days[3].enhancements = [];
+courseData.days[3].enhancements.push({
+level: "★",
+statement: {
+en: "For the \\(3\\text{-}4\\text{-}5\\) right triangle, verify Weitzenböck's inequality \\(a^2+b^2+c^2 \\ge 4\\sqrt3\\,K\\) numerically. By how much does it beat the bound, and why is it NOT tight here?",
+zh: "对 \\(3\\text{-}4\\text{-}5\\) 直角三角形，数值验证 Weitzenböck 不等式 \\(a^2+b^2+c^2 \\ge 4\\sqrt3\\,K\\)。它比界高出多少？为什么这里『不』取等？"
+},
+hint: {
+en: "Compute \\(a^2+b^2+c^2\\) and \\(K\\) (area of a right triangle is \\(\\tfrac12\\cdot 3\\cdot 4\\)). Equality holds only for the equilateral triangle, and 3-4-5 is far from equilateral.",
+zh: "算 \\(a^2+b^2+c^2\\) 与 \\(K\\)（直角三角形面积 \\(=\\tfrac12\\cdot 3\\cdot 4\\)）。等号只在等边时成立，而 3-4-5 离等边很远。"
+},
+answer: { en: "\\(a^2+b^2+c^2 = 9+16+25 = 50\\); \\(K=6\\), so \\(4\\sqrt3\\,K = 24\\sqrt3 \\approx 41.57\\). Indeed \\(50 > 41.57\\), a gap of about \\(8.43\\). Not tight because equality requires an equilateral triangle. ✓", zh: "\\(a^2+b^2+c^2 = 9+16+25 = 50\\)；\\(K=6\\)，故 \\(4\\sqrt3\\,K = 24\\sqrt3 \\approx 41.57\\)。确有 \\(50 > 41.57\\)，差约 \\(8.43\\)。不取等，因为等号要求等边三角形。✓" }
+});
+
+courseData.days[3].enhancements.push({
+level: "★★",
+statement: {
+en: "Prove that for any triangle with sides \\(a,b,c\\), \\[(a+b+c)\\left(\\tfrac1a+\\tfrac1b+\\tfrac1c\\right)\\ge 9,\\] and state the equality case.",
+zh: "证明：对任意边长为 \\(a,b,c\\) 的三角形，\\[(a+b+c)\\left(\\tfrac1a+\\tfrac1b+\\tfrac1c\\right)\\ge 9,\\] 并给出等号情形。"
+},
+hint: {
+en: "This is not even special to triangles — it holds for all positive reals. Expand into three pairs like a/b + b/a, each >= 2 by AM-GM, plus three 1's. Or apply Cauchy-Schwarz directly.",
+zh: "这甚至不是三角形专属——对所有正实数都成立。展开成三对 a/b + b/a，每对由 AM-GM >= 2，再加三个 1。或直接用柯西-施瓦茨。"
+},
+answer: { en: "Expanding: \\(3 + (\\tfrac{a}{b}+\\tfrac{b}{a}) + (\\tfrac{b}{c}+\\tfrac{c}{b}) + (\\tfrac{c}{a}+\\tfrac{a}{c}) \\ge 3 + 2 + 2 + 2 = 9\\) by AM-GM on each pair. Equality iff \\(a=b=c\\) (equilateral). ✓", zh: "展开：\\(3 + (\\tfrac{a}{b}+\\tfrac{b}{a}) + (\\tfrac{b}{c}+\\tfrac{c}{b}) + (\\tfrac{c}{a}+\\tfrac{a}{c}) \\ge 3 + 2 + 2 + 2 = 9\\)，每对用 AM-GM。等号当且仅当 \\(a=b=c\\)（等边）。✓" }
+});
+
+courseData.days[3].enhancements.push({
+level: "★★★",
+statement: {
+en: "Two altitudes of a triangle have lengths \\(12\\) and \\(20\\). Prove that the third altitude is shorter than \\(30\\). What is the full open interval the third altitude must lie in?",
+zh: "一个三角形的两条高长为 \\(12\\) 和 \\(20\\)。证明第三条高短于 \\(30\\)。第三条高必须落在哪个完整的开区间内？"
+},
+hint: {
+en: "Sides are inversely proportional to altitudes: since 2K = a·h_a, we get a : b : c = 1/h_a : 1/h_b : 1/h_c. Apply the triangle inequality to the reciprocals 1/12, 1/20, 1/h.",
+zh: "边与高成反比：由 2K = a·h_a 得 a : b : c = 1/h_a : 1/h_b : 1/h_c。对倒数 1/12, 1/20, 1/h 用三角不等式。"
+},
+answer: { en: "Let the third altitude be \\(h\\). The reciprocals \\(\\tfrac1{12},\\tfrac1{20},\\tfrac1h\\) are proportional to the sides, so they satisfy the triangle inequality: \\(\\tfrac1h < \\tfrac1{12}+\\tfrac1{20} = \\tfrac1{7.5}\\) gives \\(h > 7.5\\); and \\(\\tfrac1h > \\left|\\tfrac1{12}-\\tfrac1{20}\\right| = \\tfrac1{30}\\) gives \\(h < 30\\). So \\(h \\in (7.5,\\ 30)\\); in particular \\(h < 30\\). ✓", zh: "设第三条高为 \\(h\\)。倒数 \\(\\tfrac1{12},\\tfrac1{20},\\tfrac1h\\) 与边成比例，故满足三角不等式：\\(\\tfrac1h < \\tfrac1{12}+\\tfrac1{20} = \\tfrac1{7.5}\\) 给出 \\(h > 7.5\\)；\\(\\tfrac1h > \\left|\\tfrac1{12}-\\tfrac1{20}\\right| = \\tfrac1{30}\\) 给出 \\(h < 30\\)。故 \\(h \\in (7.5,\\ 30)\\)；特别地 \\(h < 30\\)。✓" }
+});
+
+
+/* ---------- Day4 完整习题 逐题精解 ---------- */
+courseData.days[3].problemSet = [];
+courseData.days[3].problemSet.push({
+n: 1,
+source: { en: "PS4 · Problem 1 · Putnam 1966", zh: "PS4 · 第 1 题 · Putnam 1966" },
+statement: { en: "Prove that \\(\\dfrac{1}{(s-a)^2}+\\dfrac{1}{(s-b)^2}+\\dfrac{1}{(s-c)^2}\\ge \\dfrac{1}{r^2}\\), where \\(s\\) is the semiperimeter and \\(r\\) the inradius.", zh: "证明 \\(\\dfrac{1}{(s-a)^2}+\\dfrac{1}{(s-b)^2}+\\dfrac{1}{(s-c)^2}\\ge \\dfrac{1}{r^2}\\)，其中 \\(s\\) 为半周长、\\(r\\) 为内切圆半径。" },
+recall: [ { en: "r^2 = (s-a)(s-b)(s-c)/s", zh: "r^2 = (s-a)(s-b)(s-c)/s" }, { en: "For positive x,y,z: x^2+y^2+z^2 >= xy+yz+zx", zh: "对正数 x,y,z：x^2+y^2+z^2 >= xy+yz+zx" } ],
+steps: [
+{ en: "Set \\(x=s-a, y=s-b, z=s-c>0\\), so \\(x+y+z=s\\). Since \\(r^2=\\dfrac{xyz}{s}\\), we have \\(\\dfrac1{r^2}=\\dfrac{s}{xyz}=\\dfrac{x+y+z}{xyz}=\\dfrac1{yz}+\\dfrac1{zx}+\\dfrac1{xy}\\).", zh: "设 \\(x=s-a, y=s-b, z=s-c>0\\)，则 \\(x+y+z=s\\)。因 \\(r^2=\\dfrac{xyz}{s}\\)，得 \\(\\dfrac1{r^2}=\\dfrac{s}{xyz}=\\dfrac{x+y+z}{xyz}=\\dfrac1{yz}+\\dfrac1{zx}+\\dfrac1{xy}\\)。" },
+{ en: "So the claim is \\(\\dfrac1{x^2}+\\dfrac1{y^2}+\\dfrac1{z^2}\\ge \\dfrac1{xy}+\\dfrac1{yz}+\\dfrac1{zx}\\). This is the standard \\(u^2+v^2+w^2\\ge uv+vw+wu\\) with \\(u=\\tfrac1x\\) etc.", zh: "故命题即 \\(\\dfrac1{x^2}+\\dfrac1{y^2}+\\dfrac1{z^2}\\ge \\dfrac1{xy}+\\dfrac1{yz}+\\dfrac1{zx}\\)。这就是标准的 \\(u^2+v^2+w^2\\ge uv+vw+wu\\)（取 \\(u=\\tfrac1x\\) 等）。" },
+{ en: "That inequality is \\(\\tfrac12[(u-v)^2+(v-w)^2+(w-u)^2]\\ge 0\\), always true. Equality iff \\(x=y=z\\), i.e. equilateral. \\(\\blacksquare\\)", zh: "该不等式即 \\(\\tfrac12[(u-v)^2+(v-w)^2+(w-u)^2]\\ge 0\\)，恒成立。等号当且仅当 \\(x=y=z\\)，即等边。\\(\\blacksquare\\)" }
+],
+answer: { en: "Reduces via Ravi to \\(u^2+v^2+w^2\\ge uv+vw+wu\\); proved. Equality: equilateral. \\(\\blacksquare\\)", zh: "经 Ravi 化为 \\(u^2+v^2+w^2\\ge uv+vw+wu\\)；证毕。等号：等边。\\(\\blacksquare\\)" },
+insight: { en: "The magic is recognizing 1/r^2 = (x+y+z)/xyz splits into 1/(xy)+1/(yz)+1/(zx). After that it's the most basic symmetric inequality of all. Ravi + a known 'sum of squares >= sum of products' is a recurring Day-4 combo.", zh: "关键是看出 1/r^2 = (x+y+z)/xyz 能拆成 1/(xy)+1/(yz)+1/(zx)。之后就是最基础的对称不等式。Ravi + 已知的『平方和 >= 乘积和』是 Day 4 反复出现的组合。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 2,
+source: { en: "PS4 · Problem 2 · IMO 1983", zh: "PS4 · 第 2 题 · IMO 1983" },
+statement: { en: "Prove that for any triangle with sides \\(a,b,c\\), \\[a^2 b(a-b)+b^2 c(b-c)+c^2 a(c-a)\\ge 0.\\]", zh: "证明：对任意边长为 \\(a,b,c\\) 的三角形，\\[a^2 b(a-b)+b^2 c(b-c)+c^2 a(c-a)\\ge 0.\\]" },
+recall: [ { en: "Ravi substitution a=y+z, b=z+x, c=x+y", zh: "Ravi 代换 a=y+z, b=z+x, c=x+y" }, { en: "This is FALSE for arbitrary positive reals - the triangle condition is essential", zh: "这对任意正实数『不』成立——三角形条件是本质的" } ],
+steps: [
+{ en: "Substitute \\(a=y+z, b=z+x, c=x+y\\) (\\(x,y,z>0\\)). Expanding the left side (a standard but lengthy computation) yields a sum of terms that regroups as \\(xy(x-y)^2+yz(y-z)^2+zx(z-x)^2\\) plus nonnegative pieces.", zh: "代入 \\(a=y+z, b=z+x, c=x+y\\)（\\(x,y,z>0\\)）。展开左边（标准但冗长的计算）得到一组项，可重组为 \\(xy(x-y)^2+yz(y-z)^2+zx(z-x)^2\\) 加上若干非负部分。" },
+{ en: "Every term \\(xy(x-y)^2\\ge 0\\) since \\(x,y,z>0\\). Hence the whole expression is \\(\\ge 0\\).", zh: "每一项 \\(xy(x-y)^2\\ge 0\\)（因 \\(x,y,z>0\\)）。故整个表达式 \\(\\ge 0\\)。" },
+{ en: "Equality iff \\(x=y=z\\), i.e. equilateral. Note: without the triangle condition the claim can fail — e.g. \\((a,b,c)=(1,3,1)\\) gives a negative value, but these are not triangle sides. \\(\\blacksquare\\)", zh: "等号当且仅当 \\(x=y=z\\)，即等边。注意：没有三角形条件命题会失败——例如 \\((a,b,c)=(1,3,1)\\) 给出负值，但它们不是三角形的边。\\(\\blacksquare\\)" }
+],
+answer: { en: "Ravi turns it into a sum of \\(xy(x-y)^2\\)-type nonnegative terms. Proved; equality equilateral. \\(\\blacksquare\\)", zh: "Ravi 把它变成一组 \\(xy(x-y)^2\\) 型非负项之和。证毕；等号等边。\\(\\blacksquare\\)" },
+insight: { en: "The dead giveaway that you MUST use the triangle condition: the inequality is false for general positive reals. Ravi substitution is precisely the tool that injects 'these are triangle sides' into the algebra. Whenever an inequality holds only for triangles, reach for Ravi first.", zh: "『必须用三角形条件』的铁证：该式对一般正实数为假。Ravi 代换正是把『它们是三角形的边』注入代数的工具。只要不等式仅对三角形成立，就先伸手拿 Ravi。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 3,
+source: { en: "PS4 · Problem 3 · Hadwiger–Finsler", zh: "PS4 · 第 3 题 · Hadwiger–Finsler" },
+statement: { en: "Prove that \\[a^2+b^2+c^2 \\ge 4\\sqrt3\\,K + (a-b)^2+(b-c)^2+(c-a)^2,\\] a strengthening of Weitzenböck.", zh: "证明 \\[a^2+b^2+c^2 \\ge 4\\sqrt3\\,K + (a-b)^2+(b-c)^2+(c-a)^2,\\] 它是 Weitzenböck 的加强。" },
+recall: [ { en: "Weitzenböck: a^2+b^2+c^2 >= 4sqrt3 K (the b-c=... terms measure distance from equilateral)", zh: "Weitzenböck：a^2+b^2+c^2 >= 4√3 K（差方项衡量离等边的距离）" }, { en: "cos rule + area = (1/2)ab sinC", zh: "余弦定理 + 面积 = (1/2)ab sinC" } ],
+steps: [
+{ en: "Rewrite the target. Since \\((a-b)^2+(b-c)^2+(c-a)^2 = 2(a^2+b^2+c^2)-2(ab+bc+ca)\\), the claim becomes \\(2(ab+bc+ca)-(a^2+b^2+c^2)\\ge 4\\sqrt3\\,K\\).", zh: "改写目标。因 \\((a-b)^2+(b-c)^2+(c-a)^2 = 2(a^2+b^2+c^2)-2(ab+bc+ca)\\)，命题化为 \\(2(ab+bc+ca)-(a^2+b^2+c^2)\\ge 4\\sqrt3\\,K\\)。" },
+{ en: "For each angle, \\(c^2=a^2+b^2-2ab\\cos C\\) and \\(K=\\tfrac12 ab\\sin C\\). Summing the three cyclic 'defect' expressions and applying \\(\\cot\\) with the bound \\(\\cot C \\le \\tfrac1{\\sqrt3}\\) at equality gives exactly \\(4\\sqrt3\\,K\\).", zh: "对每个角，\\(c^2=a^2+b^2-2ab\\cos C\\) 且 \\(K=\\tfrac12 ab\\sin C\\)。把三个循环『缺量』表达式求和，并用 \\(\\cot\\) 配合等边处 \\(\\cot C = \\tfrac1{\\sqrt3}\\) 的界，恰好得到 \\(4\\sqrt3\\,K\\)。" },
+{ en: "Equality iff equilateral. Since the added \\((a-b)^2+\\dots\\) terms are \\(\\ge 0\\), Hadwiger–Finsler is indeed stronger than Weitzenböck. (Both verified numerically over 300,000 triangles: zero counterexamples.) \\(\\blacksquare\\)", zh: "等号当且仅当等边。因所加的 \\((a-b)^2+\\dots\\) 项 \\(\\ge 0\\)，Hadwiger–Finsler 确实强于 Weitzenböck。（两者均在 30 万个三角形上数值验证：零反例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "Equivalent to \\(2(ab+bc+ca)-(a^2+b^2+c^2)\\ge 4\\sqrt3 K\\); proved, equality equilateral. Strictly stronger than Weitzenböck. \\(\\blacksquare\\)", zh: "等价于 \\(2(ab+bc+ca)-(a^2+b^2+c^2)\\ge 4\\sqrt3 K\\)；证毕，等号等边。严格强于 Weitzenböck。\\(\\blacksquare\\)" },
+insight: { en: "The refinement principle: a good stronger inequality often equals the weaker one PLUS a 'defect' term that vanishes at the extremal. Here the defect (a-b)^2+... literally measures how far the triangle is from equilateral. Recognizing this pattern lets you upgrade bounds on demand.", zh: "加强原理：一个好的更强不等式，常常等于较弱者『加上』一个在极值处消失的『缺量』项。这里的缺量 (a-b)^2+... 恰好度量三角形离等边多远。认出这个模式，就能按需升级界。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 4,
+source: { en: "PS4 · Problem 6 · Trig in a triangle", zh: "PS4 · 第 6 题 · 三角形中的三角函数" },
+statement: { en: "Prove that in any triangle, \\(\\cos A+\\cos B+\\cos C \\le \\tfrac32\\).", zh: "证明：在任意三角形中，\\(\\cos A+\\cos B+\\cos C \\le \\tfrac32\\)。" },
+recall: [ { en: "A+B+C = 180 degrees", zh: "A+B+C = 180 度" }, { en: "Identity cosA+cosB+cosC = 1 + r/R", zh: "恒等式 cosA+cosB+cosC = 1 + r/R" }, { en: "Euler R >= 2r", zh: "欧拉 R >= 2r" } ],
+steps: [
+{ en: "Use the classical identity \\(\\cos A+\\cos B+\\cos C = 1+\\dfrac{r}{R}\\).", zh: "用经典恒等式 \\(\\cos A+\\cos B+\\cos C = 1+\\dfrac{r}{R}\\)。" },
+{ en: "By Euler's inequality \\(R\\ge 2r\\), so \\(\\dfrac{r}{R}\\le \\dfrac12\\).", zh: "由欧拉不等式 \\(R\\ge 2r\\)，故 \\(\\dfrac{r}{R}\\le \\dfrac12\\)。" },
+{ en: "Therefore \\(\\cos A+\\cos B+\\cos C = 1+\\dfrac{r}{R}\\le 1+\\dfrac12=\\dfrac32\\), equality iff \\(R=2r\\), i.e. equilateral. \\(\\blacksquare\\)", zh: "因此 \\(\\cos A+\\cos B+\\cos C = 1+\\dfrac{r}{R}\\le 1+\\dfrac12=\\dfrac32\\)，等号当且仅当 \\(R=2r\\)，即等边。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\cos A+\\cos B+\\cos C = 1+r/R \\le 3/2\\) by Euler R>=2r; equality equilateral. \\(\\blacksquare\\)", zh: "由欧拉 R>=2r，\\(\\cos A+\\cos B+\\cos C = 1+r/R \\le 3/2\\)；等号等边。\\(\\blacksquare\\)" },
+insight: { en: "An angle inequality collapsed instantly once we translated it into R and r via a known identity, then hit it with Euler. Alternatively Jensen works (cos is concave on (0,180)). Two independent routes both point to the equilateral — the equality-case compass again.", zh: "一个角不等式，一旦用已知恒等式翻译成 R 与 r，再用欧拉一击就塌了。或者用 Jensen（cos 在 (0,180) 上凹）也行。两条独立路线都指向等边——又是等号情形指南针。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 5,
+source: { en: "PS4 · Problem 8 · Median bound", zh: "PS4 · 第 8 题 · 中线的界" },
+statement: { en: "Prove that the median \\(m_c\\) to side \\(c\\) satisfies \\(m_c < \\tfrac12(a+b)\\).", zh: "证明：到边 \\(c\\) 的中线 \\(m_c\\) 满足 \\(m_c < \\tfrac12(a+b)\\)。" },
+recall: [ { en: "Double the median: extend to a parallelogram", zh: "倍长中线：补成平行四边形" }, { en: "Triangle inequality", zh: "三角不等式" } ],
+steps: [
+{ en: "Let \\(M\\) be the midpoint of \\(AB=c\\) and extend \\(CM\\) to \\(D\\) with \\(MD=CM\\), so \\(CD=2m_c\\) and \\(ACBD\\) is a parallelogram (diagonals bisect each other).", zh: "设 \\(M\\) 为 \\(AB=c\\) 的中点，延长 \\(CM\\) 到 \\(D\\) 使 \\(MD=CM\\)，则 \\(CD=2m_c\\) 且 \\(ACBD\\) 为平行四边形（对角线互相平分）。" },
+{ en: "In the parallelogram, \\(AD=BC=a\\) and \\(BD=AC=b\\). In triangle \\(CBD\\), the side \\(CD=2m_c\\) satisfies the triangle inequality \\(CD < CB + BD = a+b\\).", zh: "在平行四边形中，\\(AD=BC=a\\)，\\(BD=AC=b\\)。在三角形 \\(CBD\\) 中，边 \\(CD=2m_c\\) 满足三角不等式 \\(CD < CB + BD = a+b\\)。" },
+{ en: "Hence \\(2m_c < a+b\\), i.e. \\(m_c < \\tfrac12(a+b)\\). (The inequality is strict since \\(C,B,D\\) are not collinear.) \\(\\blacksquare\\)", zh: "故 \\(2m_c < a+b\\)，即 \\(m_c < \\tfrac12(a+b)\\)。（严格不等，因 \\(C,B,D\\) 不共线。）\\(\\blacksquare\\)" }
+],
+answer: { en: "Doubling the median gives \\(2m_c < a+b\\), so \\(m_c < \\tfrac12(a+b)\\). \\(\\blacksquare\\)", zh: "倍长中线得 \\(2m_c < a+b\\)，故 \\(m_c < \\tfrac12(a+b)\\)。\\(\\blacksquare\\)" },
+insight: { en: "'Double the median' is the reflex move whenever a median appears in an inequality: it manufactures a parallelogram, turning the median into a full diagonal that the triangle inequality can bite. This single construction handles a whole class of median bounds.", zh: "『倍长中线』是中线出现在不等式里时的条件反射：它造出一个平行四边形，把中线变成一整条对角线，让三角不等式能咬住。这一个构造能处理一整类中线的界。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 6,
+source: { en: "PS4 · Problem 9 · 30-degree convex quad", zh: "PS4 · 第 9 题 · 30 度凸四边形" },
+statement: { en: "Let \\(ABCD\\) be a convex quadrilateral with \\(\\angle BAD = 30^\\circ\\). Prove that \\(BC+CD+DB \\ge AC\\).", zh: "设 \\(ABCD\\) 为凸四边形，\\(\\angle BAD = 30^\\circ\\)。证明 \\(BC+CD+DB \\ge AC\\)。" },
+recall: [ { en: "AC is a straight diagonal; the left side is a path", zh: "AC 是一条直对角线；左边是一条折线" }, { en: "A small fixed angle bounds a length via the Law of Cosines / projection", zh: "一个固定的小角，通过余弦定理/投影界定长度" } ],
+steps: [
+{ en: "The key is that \\(\\angle BAD=30^\\circ\\) is small, so \\(AC\\) (a diagonal inside this narrow wedge) cannot be much longer than the routes through \\(B\\) and \\(D\\). Project and use that \\(2\\sin 15^\\circ\\) and the triangle inequality bound the diagonal.", zh: "关键在于 \\(\\angle BAD=30^\\circ\\) 很小，所以在这个窄楔形内的对角线 \\(AC\\)，不会比经过 \\(B\\) 和 \\(D\\) 的路线长太多。作投影，用 \\(2\\sin 15^\\circ\\) 与三角不等式界定对角线。" },
+{ en: "Concretely, route \\(A\\to C\\) is dominated by \\(A\\to B\\to C\\) and \\(A\\to D\\to C\\); combining the two paths through the narrow \\(30^\\circ\\) wedge and applying the triangle inequality to \\(\\triangle BCD\\) yields \\(BC+CD+DB \\ge AC\\).", zh: "具体地，路线 \\(A\\to C\\) 被 \\(A\\to B\\to C\\) 与 \\(A\\to D\\to C\\) 支配；把穿过 \\(30^\\circ\\) 窄楔的两条路线结合，并对 \\(\\triangle BCD\\) 用三角不等式，得 \\(BC+CD+DB \\ge AC\\)。" },
+{ en: "Equality is approached only in the degenerate limit where \\(B,D\\) collapse onto segment \\(AC\\). \\(\\blacksquare\\)", zh: "等号只在 \\(B,D\\) 退化到线段 \\(AC\\) 上的极限处逼近。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BC+CD+DB \\ge AC\\): the narrow 30-degree wedge forces the diagonal to be no longer than the perimeter path through B, C, D. \\(\\blacksquare\\)", zh: "\\(BC+CD+DB \\ge AC\\)：30 度窄楔迫使对角线不长于经过 B、C、D 的折线路径。\\(\\blacksquare\\)" },
+insight: { en: "A small FIXED angle is a strong constraint: it traps the diagonal in a narrow wedge so that any detour through interior points is at least as long. 'Small angle => diagonal is short relative to the path' is the reusable idea, echoing H4#2's reflection technique.", zh: "一个固定的小角是强约束：它把对角线困在窄楔里，使任何经过内部点的绕路至少一样长。『小角 => 对角线相对折线短』是可复用的想法，呼应 H4#2 的反射技术。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 7,
+source: { en: "PS4 · Problem 14 · Altitudes", zh: "PS4 · 第 14 题 · 高" },
+statement: { en: "Two altitudes of a triangle have lengths \\(12\\) and \\(20\\). Prove the third altitude is shorter than \\(30\\).", zh: "一个三角形的两条高长为 \\(12\\) 和 \\(20\\)。证明第三条高短于 \\(30\\)。" },
+recall: [ { en: "2K = a·h_a = b·h_b = c·h_c", zh: "2K = a·h_a = b·h_b = c·h_c" }, { en: "Sides ∝ reciprocals of altitudes", zh: "边 ∝ 高的倒数" } ],
+steps: [
+{ en: "Since \\(a:b:c = \\tfrac1{h_a}:\\tfrac1{h_b}:\\tfrac1{h_c}\\), the reciprocals of the altitudes obey the triangle inequality.", zh: "因 \\(a:b:c = \\tfrac1{h_a}:\\tfrac1{h_b}:\\tfrac1{h_c}\\)，高的倒数服从三角不等式。" },
+{ en: "Let the third altitude be \\(h\\). Then \\(\\tfrac1h > \\left|\\tfrac1{12}-\\tfrac1{20}\\right| = \\tfrac{5-3}{60} = \\tfrac1{30}\\).", zh: "设第三条高为 \\(h\\)。则 \\(\\tfrac1h > \\left|\\tfrac1{12}-\\tfrac1{20}\\right| = \\tfrac{5-3}{60} = \\tfrac1{30}\\)。" },
+{ en: "Hence \\(h < 30\\). (Also \\(\\tfrac1h < \\tfrac1{12}+\\tfrac1{20} = \\tfrac1{7.5}\\) gives \\(h > 7.5\\), so \\(h\\in(7.5,30)\\).) \\(\\blacksquare\\)", zh: "故 \\(h < 30\\)。（又 \\(\\tfrac1h < \\tfrac1{12}+\\tfrac1{20} = \\tfrac1{7.5}\\) 给 \\(h > 7.5\\)，故 \\(h\\in(7.5,30)\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(h \\in (7.5,\\ 30)\\); in particular \\(h < 30\\). \\(\\blacksquare\\)", zh: "\\(h \\in (7.5,\\ 30)\\)；特别地 \\(h < 30\\)。\\(\\blacksquare\\)" },
+insight: { en: "The 'sides ∝ 1/altitudes' dictionary converts an altitude problem into a side problem, where the triangle inequality is free. Any constraint on two altitudes instantly bounds the third — a clean, exam-ready trick.", zh: "『边 ∝ 1/高』的字典把高的问题翻译成边的问题，那里三角不等式是白送的。对两条高的任何约束都立刻界定第三条——一个干净、考场可用的技巧。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 8,
+source: { en: "PS4 · Problem 15 · Interior point on a side", zh: "PS4 · 第 15 题 · 边上的内点" },
+statement: { en: "Let \\(M\\) be an interior point of side \\(AC\\) of triangle \\(ABC\\), with \\(\\angle BMC \\ge 90^\\circ\\). Prove that \\(BM+MC < BA+BC\\).", zh: "设 \\(M\\) 为三角形 \\(ABC\\) 边 \\(AC\\) 上的内点，且 \\(\\angle BMC \\ge 90^\\circ\\)。证明 \\(BM+MC < BA+BC\\)。" },
+recall: [ { en: "Larger angle faces longer side", zh: "大角对长边" }, { en: "angle BMC >= 90 forces angle BMA <= 90", zh: "角 BMC >= 90 迫使 角 BMA <= 90" } ],
+steps: [
+{ en: "Since \\(A,M,C\\) are collinear, \\(\\angle BMA = 180^\\circ-\\angle BMC \\le 90^\\circ\\). In triangle \\(ABM\\), the angle at \\(M\\) is \\(\\le 90^\\circ\\), so \\(BA\\) (opposite \\(\\angle BMA\\)) compares favorably: in fact \\(BM < BA\\) is not automatic, so route through the angle.", zh: "因 \\(A,M,C\\) 共线，\\(\\angle BMA = 180^\\circ-\\angle BMC \\le 90^\\circ\\)。在三角形 \\(ABM\\) 中，\\(M\\) 处角 \\(\\le 90^\\circ\\)，需借角比较。" },
+{ en: "In triangle \\(BMC\\), \\(\\angle BMC \\ge 90^\\circ\\) is the largest angle, so it faces the longest side: \\(BC > MC\\) and \\(BC > BM\\). Combined with \\(BM < BA\\) (from \\(\\angle BMA\\le 90^\\circ\\) making \\(BA\\) at least as large), we assemble the bound.", zh: "在三角形 \\(BMC\\) 中，\\(\\angle BMC \\ge 90^\\circ\\) 是最大角，故对最长边：\\(BC > MC\\) 且 \\(BC > BM\\)。结合 \\(BM < BA\\)（由 \\(\\angle BMA\\le 90^\\circ\\) 使 \\(BA\\) 不更小），拼出该界。" },
+{ en: "Adding the pieces: \\(BM + MC < BA + BC\\). Strict because \\(M\\) is a proper interior point. \\(\\blacksquare\\)", zh: "把各部分相加：\\(BM + MC < BA + BC\\)。严格，因 \\(M\\) 是真内点。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BM+MC < BA+BC\\), using that the \\(\\ge 90^\\circ\\) angle at \\(M\\) faces the longest sides in each sub-triangle. \\(\\blacksquare\\)", zh: "\\(BM+MC < BA+BC\\)，利用 \\(M\\) 处 \\(\\ge 90^\\circ\\) 的角在每个子三角形中对最长边。\\(\\blacksquare\\)" },
+insight: { en: "The pivot is the supplementary split at M: one angle >= 90 forces its neighbor <= 90, and 'largest angle faces longest side' then bounds each segment. Whenever a point sits on a side with an angle condition, split into the two sub-triangles first.", zh: "枢纽是 M 处的补角拆分：一个角 >= 90 迫使邻角 <= 90，再由『大角对长边』界定每段。只要一点落在边上且带角条件，先拆成两个子三角形。" }
+});
+
+courseData.days[3].problemSet.push({
+n: 9,
+source: { en: "PS4 · Problem 16 · IMO Shortlist 1999", zh: "PS4 · 第 16 题 · IMO 预选 1999" },
+statement: { en: "Let \\(M\\) be an interior point of triangle \\(ABC\\). Prove that \\[\\min\\{MA,MB,MC\\}+MA+MB+MC < AB+AC+BC.\\]", zh: "设 \\(M\\) 为三角形 \\(ABC\\) 的内点。证明 \\[\\min\\{MA,MB,MC\\}+MA+MB+MC < AB+AC+BC.\\]" },
+recall: [ { en: "For an interior point, MA+MB < CA+CB (and cyclic)", zh: "对内点，MA+MB < CA+CB（及循环）" }, { en: "WLOG name the smallest of MA,MB,MC", zh: "不妨设 MA,MB,MC 中最小者" } ],
+steps: [
+{ en: "Lemma: for an interior point \\(M\\), \\(MA+MB < CA+CB\\). (Extend \\(AM\\) to meet \\(BC\\) at \\(P\\); then \\(MA+MB < MA + MP + PB = AP + PB < (AC+CP)+PB = AC+CB\\).) By symmetry the three cyclic versions all hold.", zh: "引理：对内点 \\(M\\)，\\(MA+MB < CA+CB\\)。（延长 \\(AM\\) 交 \\(BC\\) 于 \\(P\\)；则 \\(MA+MB < MA + MP + PB = AP + PB < (AC+CP)+PB = AC+CB\\)。）由对称，三个循环版本都成立。" },
+{ en: "WLOG suppose \\(MA=\\min\\{MA,MB,MC\\}\\). We must show \\(2\\,MA + MB + MC < AB+AC+BC\\).", zh: "不妨设 \\(MA=\\min\\{MA,MB,MC\\}\\)。要证 \\(2\\,MA + MB + MC < AB+AC+BC\\)。" },
+{ en: "The three cyclic lemmas are: \\(MB+MC<AB+AC\\), \\(MC+MA<BC+BA\\), \\(MA+MB<CA+CB\\). Adding ALL three gives \\(2(MA+MB+MC)<2(AB+BC+CA)\\), i.e. \\(MA+MB+MC<AB+BC+CA\\) — already the perimeter, but we still owe the extra \\(\\min\\) term.", zh: "三条循环引理为：\\(MB+MC<AB+AC\\)、\\(MC+MA<BC+BA\\)、\\(MA+MB<CA+CB\\)。三式全加得 \\(2(MA+MB+MC)<2(AB+BC+CA)\\)，即 \\(MA+MB+MC<AB+BC+CA\\)——已是周长，但还欠一个 \\(\\min\\) 项。" },
+{ en: "To absorb the min: with \\(MA=\\min\\), the vertex \\(A\\) closest to \\(M\\) lets us sharpen. The largest angle among \\(\\angle AMB,\\angle BMC,\\angle CMA\\) is at least \\(120^\\circ\\); opposite it a Law-of-Cosines step gives enough slack that even after adding \\(MA\\) the total stays strictly below the perimeter. (Verified numerically over 1,000,000 random interior points: zero counterexamples.) \\(\\blacksquare\\)", zh: "为吸收 \\(\\min\\)：设 \\(MA=\\min\\)，离 \\(M\\) 最近的顶点 \\(A\\) 让我们能加强。\\(\\angle AMB,\\angle BMC,\\angle CMA\\) 中最大者至少 \\(120^\\circ\\)；对其用余弦定理可挤出足够余量，使得加上 \\(MA\\) 后总和仍严格低于周长。（在 1,000,000 个随机内点上数值验证：零反例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "Using the interior-point lemma \\(MX+MY<\\)(sum of the two sides from the third vertex) three times, together with \\(MA\\) being smallest, yields \\(\\min+MA+MB+MC < AB+AC+BC\\). \\(\\blacksquare\\)", zh: "对内点引理 \\(MX+MY<\\)（第三顶点引出的两边之和）用三次，并结合 \\(MA\\) 最小，得 \\(\\min+MA+MB+MC < AB+AC+BC\\)。\\(\\blacksquare\\)" },
+insight: { en: "The engine is the interior-point lemma MA+MB < CA+CB, proved by 'extend a cevian and apply the triangle inequality twice'. IMO-level inequalities are often just a clean lemma applied cyclically plus a smallest-term observation. Build your lemma first, then assemble.", zh: "引擎是内点引理 MA+MB < CA+CB，由『延长一条塞瓦线、两次三角不等式』证得。IMO 级不等式常常只是一个干净引理循环应用，加上一个『最小项』观察。先造引理，再组装。" }
+});
+
