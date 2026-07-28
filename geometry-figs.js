@@ -240,4 +240,135 @@ FIG.ab_stewart = `<svg viewBox="0 0 340 220" role="img" aria-label="bisector len
 <text class="lbl-ang" x="232" y="185">n</text>
 </svg>`;
 
+/* =============================================================
+Geometry Level 2 — NEW figures for Day 2–6 (appended to FIG)
+Same CSS classes as geometry-figs.js (.geo-fig .s-main .pt .lbl ...).
+This file is a staging file; contents get merged into geometry-figs.js.
+============================================================= */
+
+/* ---- Ptolemy: cyclic quadrilateral ABCD with both diagonals ---- */
+FIG.ptolemy_cyclic = `<svg viewBox="0 0 320 260" role="img" aria-label="Cyclic quadrilateral ABCD with diagonals, Ptolemy">
+<circle class="s-thin" cx="160" cy="130" r="110"/>
+<polygon class="f-fill" points="160,20 268,150 150,240 58,120"/>
+<polygon class="s-main" points="160,20 268,150 150,240 58,120"/>
+<line class="s-hi" x1="160" y1="20" x2="150" y2="240"/>
+<line class="s-hi" x1="268" y1="150" x2="58" y2="120"/>
+<circle class="pt" cx="160" cy="20" r="3"/><text class="lbl" x="154" y="14">A</text>
+<circle class="pt" cx="268" cy="150" r="3"/><text class="lbl" x="273" y="152">B</text>
+<circle class="pt" cx="150" cy="240" r="3"/><text class="lbl" x="144" y="255">C</text>
+<circle class="pt" cx="58" cy="120" r="3"/><text class="lbl" x="40" y="118">D</text>
+<text class="lbl-ang" x="120" y="150">AC&#183;BD = AB&#183;CD + AD&#183;BC</text>
+</svg>`;
+
+/* ---- Pitot: tangential quadrilateral with incircle ---- */
+FIG.pitot_quad = `<svg viewBox="0 0 320 240" role="img" aria-label="Tangential quadrilateral with incircle, Pitot theorem">
+<polygon class="f-fill2" points="70,40 250,60 280,190 40,180"/>
+<polygon class="s-main" points="70,40 250,60 280,190 40,180"/>
+<circle class="s-aux" cx="160" cy="118" r="62"/>
+<circle class="pt-hi" cx="160" cy="118" r="3"/><text class="lbl" x="166" y="114">I</text>
+<circle class="pt" cx="70" cy="40" r="3"/><text class="lbl" x="58" y="32">A</text>
+<circle class="pt" cx="250" cy="60" r="3"/><text class="lbl" x="256" y="56">B</text>
+<circle class="pt" cx="280" cy="190" r="3"/><text class="lbl" x="286" y="194">C</text>
+<circle class="pt" cx="40" cy="180" r="3"/><text class="lbl" x="26" y="194">D</text>
+<text class="lbl-ang" x="92" y="120">AB + CD = BC + DA</text>
+</svg>`;
+
+/* ---- Euler's inequality R >= 2r : circumcircle + incircle ---- */
+FIG.ineq_euler = `<svg viewBox="0 0 300 260" role="img" aria-label="Euler inequality R at least 2r, circumcircle and incircle">
+<circle class="s-main" cx="150" cy="135" r="115"/>
+<polygon class="f-fill" points="150,20 258,205 42,205"/>
+<polygon class="s-main" points="150,20 258,205 42,205"/>
+<circle class="s-hi" cx="150" cy="150" r="52"/>
+<circle class="pt-hi" cx="150" cy="150" r="3"/><text class="lbl" x="156" y="148">I</text>
+<circle class="pt-hi" cx="150" cy="135" r="3"/><text class="lbl" x="132" y="132">O</text>
+<circle class="pt" cx="150" cy="20" r="3"/><text class="lbl" x="144" y="14">A</text>
+<circle class="pt" cx="258" cy="205" r="3"/><text class="lbl" x="263" y="209">B</text>
+<circle class="pt" cx="42" cy="205" r="3"/><text class="lbl" x="28" y="209">C</text>
+<line class="s-thin" x1="150" y1="135" x2="265" y2="135"/>
+<text class="lbl-len" x="200" y="128">R</text>
+<line class="s-thin" x1="150" y1="150" x2="202" y2="150"/>
+<text class="lbl-len" x="170" y="166">r</text>
+<text class="lbl-ang" x="96" y="240">R &#8805; 2r</text>
+</svg>`;
+
+/* ---- Fermat point: triangle with point seeing each side at 120 deg ---- */
+FIG.fermat_point = `<svg viewBox="0 0 300 250" role="img" aria-label="Fermat point, three segments meeting at 120 degrees">
+<polygon class="f-fill2" points="150,30 50,210 260,190"/>
+<polygon class="s-main" points="150,30 50,210 260,190"/>
+<circle class="pt-hi" cx="152" cy="150" r="3"/><text class="lbl" x="158" y="146">F</text>
+<line class="s-hi" x1="152" y1="150" x2="150" y2="30"/>
+<line class="s-hi" x1="152" y1="150" x2="50" y2="210"/>
+<line class="s-hi" x1="152" y1="150" x2="260" y2="190"/>
+<circle class="pt" cx="150" cy="30" r="3"/><text class="lbl" x="144" y="22">A</text>
+<circle class="pt" cx="50" cy="210" r="3"/><text class="lbl" x="36" y="224">B</text>
+<circle class="pt" cx="260" cy="190" r="3"/><text class="lbl" x="266" y="194">C</text>
+<text class="lbl-ang" x="120" y="128">120&#176;</text>
+<text class="lbl-ang" x="150" y="175">120&#176;</text>
+<text class="lbl-ang" x="185" y="150">120&#176;</text>
+<text class="lbl-len" x="70" y="240">FA + FB + FC minimal</text>
+</svg>`;
+
+/* ---- Casey's theorem: big circle with four inscribed circles ---- */
+FIG.casey_circles = `<svg viewBox="0 0 300 300" role="img" aria-label="Casey theorem, four circles inside a big circle">
+<circle class="s-main" cx="150" cy="150" r="130"/>
+<circle class="s-hi" cx="150" cy="34" r="18"/>
+<circle class="s-hi" cx="266" cy="150" r="18"/>
+<circle class="s-hi" cx="150" cy="266" r="18"/>
+<circle class="s-hi" cx="34" cy="150" r="18"/>
+<text class="lbl" x="146" y="38">1</text>
+<text class="lbl" x="262" y="154">2</text>
+<text class="lbl" x="146" y="270">3</text>
+<text class="lbl" x="30" y="154">4</text>
+<line class="s-thin" x1="150" y1="52" x2="248" y2="150"/>
+<line class="s-thin" x1="150" y1="52" x2="150" y2="248"/>
+<text class="lbl-len" x="196" y="96">t&#8321;&#8322;</text>
+<text class="lbl-ang" x="60" y="292">t&#8321;&#8323;&#183;t&#8322;&#8324; = t&#8321;&#8322;&#183;t&#8323;&#8324; + t&#8322;&#8323;&#183;t&#8321;&#8324;</text>
+</svg>`;
+
+/* ---- Area method: cevian splits triangle area in base ratio ---- */
+FIG.area_cevian = `<svg viewBox="0 0 340 220" role="img" aria-label="Cevian AD splits triangle area in ratio BD to DC">
+<polygon class="f-fill" points="150,25 40,190 300,190"/>
+<polygon class="s-main" points="150,25 40,190 300,190"/>
+<line class="s-hi" x1="150" y1="25" x2="190" y2="190"/>
+<circle class="pt" cx="150" cy="25" r="3"/><text class="lbl" x="144" y="18">A</text>
+<circle class="pt" cx="40" cy="190" r="3"/><text class="lbl" x="26" y="205">B</text>
+<circle class="pt" cx="300" cy="190" r="3"/><text class="lbl" x="305" y="205">C</text>
+<circle class="pt-hi" cx="190" cy="190" r="3"/><text class="lbl" x="184" y="207">D</text>
+<text class="lbl-len" x="100" y="205">BD</text>
+<text class="lbl-len" x="240" y="205">DC</text>
+<text class="lbl-ang" x="86" y="120">[ABD]</text>
+<text class="lbl-ang" x="212" y="120">[ADC]</text>
+<text class="lbl-ang" x="96" y="165">[ABD]/[ADC] = BD/DC</text>
+</svg>`;
+
+/* ---- Varignon: midpoint quadrilateral is a parallelogram ---- */
+FIG.varignon = `<svg viewBox="0 0 320 240" role="img" aria-label="Varignon parallelogram from midpoints of a quadrilateral">
+<polygon class="s-main" points="60,40 250,30 280,180 40,200"/>
+<polygon class="f-fill" points="155,35 265,105 160,190 50,120"/>
+<polygon class="s-hi" points="155,35 265,105 160,190 50,120"/>
+<circle class="pt" cx="60" cy="40" r="3"/><text class="lbl" x="48" y="32">A</text>
+<circle class="pt" cx="250" cy="30" r="3"/><text class="lbl" x="255" y="26">B</text>
+<circle class="pt" cx="280" cy="180" r="3"/><text class="lbl" x="286" y="184">C</text>
+<circle class="pt" cx="40" cy="200" r="3"/><text class="lbl" x="26" y="214">D</text>
+<circle class="pt-hi" cx="155" cy="35" r="3"/><text class="lbl" x="150" y="28">P</text>
+<circle class="pt-hi" cx="265" cy="105" r="3"/><text class="lbl" x="270" y="108">Q</text>
+<circle class="pt-hi" cx="160" cy="190" r="3"/><text class="lbl" x="155" y="205">R</text>
+<circle class="pt-hi" cx="50" cy="120" r="3"/><text class="lbl" x="34" y="118">S</text>
+<text class="lbl-ang" x="120" y="120">PQRS parallelogram</text>
+</svg>`;
+
+/* ---- Shoelace: coordinate triangle for signed area ---- */
+FIG.shoelace = `<svg viewBox="0 0 300 240" role="img" aria-label="Coordinate triangle for the shoelace formula">
+<line class="s-thin" x1="30" y1="205" x2="285" y2="205"/>
+<line class="s-thin" x1="45" y1="220" x2="45" y2="20"/>
+<polygon class="f-fill2" points="90,160 240,110 130,50"/>
+<polygon class="s-main" points="90,160 240,110 130,50"/>
+<circle class="pt" cx="90" cy="160" r="3"/><text class="lbl" x="70" y="176">(x&#8321;,y&#8321;)</text>
+<circle class="pt" cx="240" cy="110" r="3"/><text class="lbl" x="246" y="112">(x&#8322;,y&#8322;)</text>
+<circle class="pt" cx="130" cy="50" r="3"/><text class="lbl" x="104" y="44">(x&#8323;,y&#8323;)</text>
+<text class="lbl" x="278" y="220">x</text>
+<text class="lbl" x="30" y="24">y</text>
+<text class="lbl-ang" x="70" y="118">[ABC] = &#189;|x&#8321;(y&#8322;&#8722;y&#8323;)+&#8230;|</text>
+</svg>`;
+
 if (typeof module !== "undefined" && module.exports) module.exports = FIG;
