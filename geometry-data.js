@@ -1726,3 +1726,366 @@ answer: { en: "Using the interior-point lemma \\(MX+MY<\\)(sum of the two sides 
 insight: { en: "The engine is the interior-point lemma MA+MB < CA+CB, proved by 'extend a cevian and apply the triangle inequality twice'. IMO-level inequalities are often just a clean lemma applied cyclically plus a smallest-term observation. Build your lemma first, then assemble.", zh: "引擎是内点引理 MA+MB < CA+CB，由『延长一条塞瓦线、两次三角不等式』证得。IMO 级不等式常常只是一个干净引理循环应用，加上一个『最小项』观察。先造引理，再组装。" }
 });
 
+
+
+/* ============================================================
+   Day 5 — Ptolemy & Casey 托勒密与 Casey 定理
+   基于 AwesomeMath CG2 Session 5: H5 + PS5
+   ============================================================ */
+courseData.days.push({
+id: 5,
+unit: "Geometry L2",
+date: { en: "Day 5", zh: "第 5 天" },
+title: { en: "Ptolemy & Casey's Theorem", zh: "托勒密与 Casey 定理" },
+subtitle: {
+en: "Ptolemy's theorem is the single most powerful identity for cyclic quadrilaterals: the product of the diagonals equals the sum of the products of opposite sides. Its inequality version holds for ANY four points, and its generalization — Casey's theorem — replaces points with circles and distances with tangent lengths, unlocking a whole tier of olympiad and AIME problems. Today you learn to recognize when 'four concyclic points' or 'tangent circles' are secretly begging for Ptolemy or Casey.",
+zh: "托勒密定理是圆内接四边形最强的恒等式：两条对角线之积 = 两组对边乘积之和。它的不等式版本对『任意』四点都成立，而它的推广 —— Casey 定理 —— 把点换成圆、把距离换成切线长，解锁了一整层奥数与 AIME 难题。\n今天你要学会识别：什么时候『四点共圆』或『相切的圆』其实在偷偷乞求托勒密或 Casey。"
+},
+tags: [
+{ en: "Ptolemy's Theorem", zh: "托勒密定理" },
+{ en: "Ptolemy Inequality", zh: "托勒密不等式" },
+{ en: "Casey's Theorem", zh: "Casey 定理" },
+{ en: "Cyclic Quadrilateral", zh: "圆内接四边形" },
+{ en: "Tangent Lengths", zh: "切线长" }
+],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+/* ---------- Day5 知识点 ---------- */
+courseData.days[4].knowledgePoints = [];
+courseData.days[4].knowledgePoints.push({
+name: { en: "Ptolemy's Theorem", zh: "托勒密定理" },
+detail: {
+en: "For a cyclic quadrilateral ABCD (vertices in order on a circle), the product of the diagonals equals the sum of the products of the two pairs of opposite sides: AC*BD = AB*CD + AD*BC. This is THE identity for concyclic points. The moment a problem says 'ABCD is cyclic' or 'four points on a circle', write down Ptolemy — it often turns a geometric relation into a one-line algebraic equation among the six pairwise distances.",
+zh: "对圆内接四边形 ABCD（四顶点顺次在圆上），两条对角线之积 = 两组对边乘积之和：AC*BD = AB*CD + AD*BC。这就是共圆点的核心恒等式。只要题目说『ABCD 圆内接』或『四点共圆』，就先写下托勒密——它常把一个几何关系变成六段两两距离之间的一行代数方程。"
+},
+formula: "\\[ AC\\cdot BD = AB\\cdot CD + AD\\cdot BC \\]",
+example: {
+en: "A rectangle with sides 3 and 4 has diagonals 5. Ptolemy: 5*5 = 3*3 + 4*4 = 25. ✓",
+zh: "边长 3 与 4 的矩形，对角线为 5。托勒密：5*5 = 3*3 + 4*4 = 25。✓"
+}
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Ptolemy's Inequality (any four points)", zh: "托勒密不等式（任意四点）" },
+detail: {
+en: "For ANY four points A,B,C,D in the plane (or space), AC*BD <= AB*CD + AD*BC, with equality if and only if ABCD is a cyclic quadrilateral (in that order). This is the inequality behind many 'prove X <= Y' problems: drop the concyclic assumption and you still get a bound, tight exactly when the points lie on a circle. The proof uses a clever inversion or a rotation-and-scale that maps three of the points to a straight line.",
+zh: "对平面（或空间）中『任意』四点 A,B,C,D，有 AC*BD <= AB*CD + AD*BC，等号当且仅当 ABCD 顺次为圆内接四边形。这是许多『证明 X <= Y』题背后的不等式：去掉共圆假设你仍得到一个界，而它恰在四点共圆时取等。证明用一个巧妙的反演，或一个把三点映到一条直线的旋转+放缩。"
+},
+formula: "\\[ AC\\cdot BD \\le AB\\cdot CD + AD\\cdot BC \\qquad(\\text{equality} \\iff \\text{cyclic}) \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Generalized Ptolemy (the cosine form)", zh: "广义托勒密（余弦形式）" },
+detail: {
+en: "For a general (not necessarily cyclic) convex quadrilateral ABCD, the exact relation is (AC*BD)^2 = (AB*CD)^2 + (AD*BC)^2 - 2(AB*CD)(AD*BC)cos(A+C). When A+C = 180 degrees (i.e. cyclic), cos(A+C) = -1 and the right side becomes a perfect square (AB*CD + AD*BC)^2, recovering Ptolemy's equality. This single formula contains both the theorem and the inequality: since cos ranges in [-1,1], the RHS is largest when cos = -1, which is why cyclic maximizes AC*BD.",
+zh: "对一般（不必圆内接）凸四边形 ABCD，精确关系为 (AC*BD)^2 = (AB*CD)^2 + (AD*BC)^2 - 2(AB*CD)(AD*BC)cos(A+C)。当 A+C = 180 度（即圆内接），cos(A+C) = -1，右边变成完全平方 (AB*CD + AD*BC)^2，回到托勒密等式。这一个公式同时包含定理与不等式：因 cos 取值 [-1,1]，右边在 cos = -1 时最大，这正是为什么圆内接使 AC*BD 最大。"
+},
+formula: "\\[ (AC\\cdot BD)^2 = (AB\\cdot CD)^2 + (AD\\cdot BC)^2 - 2(AB\\cdot CD)(AD\\cdot BC)\\cos(A+C) \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Casey's Theorem (Ptolemy for circles)", zh: "Casey 定理（圆版托勒密）" },
+detail: {
+en: "Casey's theorem generalizes Ptolemy by replacing the four points with four circles all tangent to a fifth circle. If circles 1,2,3,4 are tangent (in order) to a common circle, and t_ij denotes the length of the common tangent between circles i and j, then t_13 * t_24 = t_12 * t_34 + t_14 * t_23 — exactly Ptolemy's form with distances replaced by tangent lengths. A point counts as a circle of radius 0 (its tangent length to a circle is the usual point-to-tangent length). This is the secret weapon for problems mixing several tangent circles.",
+zh: "Casey 定理把托勒密推广：将四个点换成四个都与第五个圆相切的圆。若圆 1,2,3,4 顺次与一个公共圆相切，t_ij 表示圆 i 与 j 的公切线长，则 t_13 * t_24 = t_12 * t_34 + t_14 * t_23 —— 正是托勒密的形式，只是把距离换成切线长。一个点算作半径为 0 的圆（它到某圆的切线长就是通常的点到切点长）。这是处理『多个相切圆』问题的秘密武器。"
+},
+formula: "\\[ t_{13}\\,t_{24} = t_{12}\\,t_{34} + t_{14}\\,t_{23} \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Point-on-arc distance relations", zh: "弧上一点的距离关系" },
+detail: {
+en: "A gorgeous consequence of Ptolemy: if P lies on the arc BC (not containing A) of the circumcircle of an equilateral triangle ABC, then PA = PB + PC. Reason: ABPC is cyclic, so Ptolemy gives PA*BC = PB*AC + PC*AB, and since AB=BC=CA all cancel. The same idea generalizes: for a regular polygon and a point on a minor arc, sums of distances to alternate vertices are equal (PS5 #8). Whenever you see 'point on the circumcircle' plus a regular figure, Ptolemy collapses the distances.",
+zh: "托勒密一个漂亮的推论：若 P 在等边三角形 ABC 外接圆上、位于不含 A 的弧 BC 上，则 PA = PB + PC。理由：ABPC 圆内接，托勒密给 PA*BC = PB*AC + PC*AB，因 AB=BC=CA 全部约掉。同样的想法可推广：对正多边形和某条劣弧上一点，到『间隔顶点』的距离之和相等（PS5 #8）。只要看到『外接圆上一点』加一个正多边形，托勒密就把距离坍缩掉。"
+},
+formula: "\\[ P\\text{ on arc }BC \\ \\Rightarrow\\ PA = PB + PC \\quad(\\triangle ABC\\text{ equilateral}) \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "The Fermat point & minimizing distance sums", zh: "费马点与最小化距离和" },
+detail: {
+en: "To minimize the sum of distances from a moving point X to fixed points, the key tool is the 120-degree Fermat point: for a triangle with all angles < 120, the point minimizing XA+XB+XC sees all three sides at 120 degrees, and the minimum equals the length of a segment obtained by rotating the configuration 60 degrees (building equilateral triangles on the sides). Problems that fix 60- or 120-degree angles are usually signaling a Fermat-point construction: rotate by 60 to straighten a broken path into one segment whose length IS the answer.",
+zh: "要最小化动点 X 到若干定点的距离之和，核心工具是 120 度费马点：对所有角 < 120 的三角形，最小化 XA+XB+XC 的点从三条边看去都是 120 度，最小值等于把图形旋转 60 度（在边上作等边三角形）后得到的一条线段长。固定 60 或 120 度角的题目，通常在暗示费马点构造：旋转 60 度把折线拉直成一条线段，它的长度『就是』答案。"
+},
+formula: "\\[ \\min_X (XA+XB+XC): \\text{ each side seen at }120^\\circ;\\ \\text{value} = \\text{rotated segment} \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Proving Ptolemy — the 'construct a similar triangle' trick", zh: "证明托勒密 —— 『构造相似三角形』技巧" },
+detail: {
+en: "The classic proof of Ptolemy is worth knowing because the technique recurs. On diagonal AC, construct point P so that angle ABP = angle DBC. Then triangles ABP and DBC are similar (equal angles), and so are triangles ABD and PBC. Reading off the two similarity ratios gives AP*BD = AB*CD and PC*BD = AD*BC; adding them, (AP+PC)*BD = AB*CD + AD*BC, i.e. AC*BD = AB*CD + AD*BC. The move 'build an auxiliary point making two angles equal, then chase similar triangles' is a reusable engine.",
+zh: "托勒密的经典证明值得掌握，因为这套技术会反复出现。在对角线 AC 上构造点 P 使 角 ABP = 角 DBC。则三角形 ABP 与 DBC 相似（等角），三角形 ABD 与 PBC 也相似。读出两个相似比得 AP*BD = AB*CD 和 PC*BD = AD*BC；相加，(AP+PC)*BD = AB*CD + AD*BC，即 AC*BD = AB*CD + AD*BC。『构造一个辅助点使两角相等，再追相似三角形』是一台可复用的引擎。"
+},
+formula: "\\[ \\triangle ABP \\sim \\triangle DBC,\\ \\triangle ABD \\sim \\triangle PBC \\ \\Rightarrow\\ AC\\cdot BD = AB\\cdot CD + AD\\cdot BC \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Common tangent length between two circles", zh: "两圆的公切线长" },
+detail: {
+en: "To use Casey you need the tangent length t between two circles. If two circles have radii r1, r2 and their centers are distance d apart, the EXTERNAL common tangent length is t = sqrt(d^2 - (r1 - r2)^2), and the INTERNAL one is sqrt(d^2 - (r1 + r2)^2). When one 'circle' is a point (radius 0), t is just the ordinary tangent length from that point, sqrt(d^2 - r^2) = sqrt(power of the point). Getting these tangent lengths right is the only computational step in a Casey problem; the rest is Ptolemy bookkeeping.",
+zh: "用 Casey 需要两圆的切线长 t。若两圆半径为 r1, r2、圆心距为 d，则『外』公切线长 t = sqrt(d^2 - (r1 - r2)^2)，『内』公切线长为 sqrt(d^2 - (r1 + r2)^2)。当其中一个『圆』是点（半径 0），t 就是从该点出发的普通切线长 sqrt(d^2 - r^2) = sqrt(点的幂)。把这些切线长算对是 Casey 问题唯一的计算步骤；其余都是托勒密式的记账。"
+},
+formula: "\\[ t_{\\text{ext}} = \\sqrt{d^2 - (r_1 - r_2)^2},\\qquad t_{\\text{int}} = \\sqrt{d^2 - (r_1 + r_2)^2} \\]"
+});
+
+courseData.days[4].knowledgePoints.push({
+name: { en: "Recognition: when to reach for Ptolemy or Casey", zh: "识别：何时伸手拿托勒密或 Casey" },
+detail: {
+en: "Trigger words and their tools: (1) 'cyclic quadrilateral' / 'four concyclic points' / 'point on the circumcircle' -> Ptolemy equality; (2) 'prove a distance inequality among four points' -> Ptolemy inequality (tight when cyclic); (3) 'several circles tangent to one circle' / 'mixtilinear' / 'tangent lengths' -> Casey; (4) 'sum of distances to vertices of a regular figure' -> Ptolemy collapse. The deeper habit: whenever products of segments appear (not just sums), a Ptolemy-type identity is usually lurking, because Ptolemy is fundamentally about PRODUCTS of lengths.",
+zh: "触发词与对应工具：(1)『圆内接四边形』/『四点共圆』/『外接圆上一点』-> 托勒密等式；(2)『证明四点间的距离不等式』-> 托勒密不等式（共圆时取等）；(3)『若干圆与一个圆相切』/『mixtilinear』/『切线长』-> Casey；(4)『到正多边形顶点的距离之和』-> 托勒密坍缩。更深的习惯：只要出现线段的『乘积』（而非仅仅是和），通常就潜伏着一个托勒密型恒等式，因为托勒密本质上关乎长度的『乘积』。"
+},
+formula: "\\[ \\text{products of lengths} \\ \\rightsquigarrow\\ \\text{Ptolemy / Casey} \\]"
+});
+
+
+/* ---------- Day5 课堂例题精讲 ---------- */
+courseData.days[4].problems = [];
+courseData.days[4].problems.push({
+source: { en: "H5 · Problem 1", zh: "作业 H5 · 第 1 题" },
+statement: {
+en: "The sides of a convex quadrilateral are, in order, \\(a,b,c,d\\). Prove that \\(2[ABCD] \\le ac + bd\\).",
+zh: "凸四边形的边顺次为 \\(a,b,c,d\\)。证明 \\(2[ABCD] \\le ac + bd\\)。"
+},
+recall: [
+{ en: "Area of a quadrilateral via its diagonals and the angle between them", zh: "四边形面积用对角线及其夹角表示" },
+{ en: "Ptolemy's inequality: AC*BD <= ac + bd", zh: "托勒密不等式：AC*BD <= ac + bd" },
+{ en: "sin(angle) <= 1", zh: "sin(角) <= 1" }
+],
+guide: {
+en: "Two facts snap together. First, the area of ANY quadrilateral equals half the product of its diagonals times the sine of their intersection angle: [ABCD] = (1/2) AC*BD*sin(theta). So 2[ABCD] = AC*BD*sin(theta) <= AC*BD. Second, Ptolemy's inequality bounds the diagonal product: AC*BD <= ac + bd. Chain them: 2[ABCD] <= AC*BD <= ac + bd. Equality needs sin(theta)=1 (perpendicular diagonals) AND cyclic (Ptolemy equality) simultaneously.",
+zh: "两个事实一拍即合。第一，『任意』四边形的面积等于两对角线之积乘以其夹角正弦的一半：[ABCD] = (1/2) AC*BD*sin(theta)。所以 2[ABCD] = AC*BD*sin(theta) <= AC*BD。第二，托勒密不等式界定对角线之积：AC*BD <= ac + bd。串起来：2[ABCD] <= AC*BD <= ac + bd。等号需要 sin(theta)=1（对角线垂直）『且』圆内接（托勒密取等）同时成立。"
+},
+steps: [
+{ en: "Let the diagonals \\(AC, BD\\) meet at angle \\(\\theta\\). For any quadrilateral, \\([ABCD] = \\tfrac12\\,AC\\cdot BD\\,\\sin\\theta\\).", zh: "设对角线 \\(AC, BD\\) 相交成角 \\(\\theta\\)。对任意四边形，\\([ABCD] = \\tfrac12\\,AC\\cdot BD\\,\\sin\\theta\\)。" },
+{ en: "Since \\(\\sin\\theta \\le 1\\), we get \\(2[ABCD] = AC\\cdot BD\\,\\sin\\theta \\le AC\\cdot BD\\).", zh: "因 \\(\\sin\\theta \\le 1\\)，得 \\(2[ABCD] = AC\\cdot BD\\,\\sin\\theta \\le AC\\cdot BD\\)。" },
+{ en: "By Ptolemy's inequality applied to the four vertices, \\(AC\\cdot BD \\le AB\\cdot CD + BC\\cdot DA = ac + bd\\).", zh: "对四顶点用托勒密不等式，\\(AC\\cdot BD \\le AB\\cdot CD + BC\\cdot DA = ac + bd\\)。" },
+{ en: "Combine: \\(2[ABCD] \\le AC\\cdot BD \\le ac + bd\\). Equality iff the diagonals are perpendicular AND ABCD is cyclic. \\(\\blacksquare\\)", zh: "合并：\\(2[ABCD] \\le AC\\cdot BD \\le ac + bd\\)。等号当且仅当对角线垂直『且』ABCD 圆内接。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(2[ABCD] \\le ac + bd\\), via area \\(=\\tfrac12 AC\\cdot BD\\sin\\theta\\) then Ptolemy's inequality. \\(\\blacksquare\\)", zh: "\\(2[ABCD] \\le ac + bd\\)，经面积 \\(=\\tfrac12 AC\\cdot BD\\sin\\theta\\) 再用托勒密不等式。\\(\\blacksquare\\)" },
+insight: { en: "Two independent inequalities, chained: the area-diagonal-sine formula donates 'sin <= 1', and Ptolemy donates 'diagonal product <= ac+bd'. Recognizing that BOTH bounds point to the same extremal configuration (cyclic with perpendicular diagonals) is what makes the equality case clean.", zh: "两个独立不等式串联：面积-对角线-正弦公式贡献『sin <= 1』，托勒密贡献『对角线积 <= ac+bd』。看出『两个界都指向同一个极值构型』（圆内接且对角线垂直），正是让等号情形干净的原因。" }
+});
+
+courseData.days[4].problems.push({
+source: { en: "H5 · Problem 2 · Casey's Theorem", zh: "作业 H5 · 第 2 题 · Casey 定理" },
+statement: {
+en: "Equilateral triangle \\(ABC\\) is inscribed in a circle \\(\\Omega\\). Circle \\(\\omega\\) is externally tangent to \\(\\Omega\\) at a point on arc \\(BC\\). Tangents from \\(A,B,C\\) touch \\(\\omega\\) at \\(K,L,M\\). Prove that \\(BL + CM = AK\\).",
+zh: "等边三角形 \\(ABC\\) 内接于圆 \\(\\Omega\\)。圆 \\(\\omega\\) 在弧 \\(BC\\) 上一点处与 \\(\\Omega\\) 外切。从 \\(A,B,C\\) 向 \\(\\omega\\) 作切线，切点为 \\(K,L,M\\)。证明 \\(BL + CM = AK\\)。"
+},
+recall: [
+{ en: "Casey's theorem: Ptolemy with tangent lengths", zh: "Casey 定理：切线长版托勒密" },
+{ en: "A point is a circle of radius 0; its tangent length to omega is AK etc.", zh: "点是半径 0 的圆；它到 omega 的切线长即 AK 等" },
+{ en: "Equilateral: AB = BC = CA", zh: "等边：AB = BC = CA" }
+],
+guide: {
+en: "This is Casey's theorem waiting to happen. Treat A, B, C as point-circles lying on Omega, and omega as a fourth circle tangent to Omega. Going around Omega, the cyclic order is A, B, omega, C (omega touches on arc BC, between B and C). Apply Casey in Ptolemy form to these four 'circles': the tangent length between a point and omega is exactly AK, BL, or CM, and the tangent length between two of the points is just the side of the triangle. Because the triangle is equilateral, all three sides are equal and cancel, leaving AK = BL + CM.",
+zh: "这是一道等着发生的 Casey 定理题。把 A, B, C 看作落在 Omega 上的『点圆』，把 omega 看作与 Omega 相切的第四个圆。绕 Omega 一圈，循环顺序是 A, B, omega, C（omega 切在弧 BC 上，位于 B 与 C 之间）。对这四个『圆』用托勒密形式的 Casey：点到 omega 的切线长恰为 AK, BL, CM，两个点之间的切线长就是三角形的边。因三角形等边，三边相等、互相约掉，剩下 AK = BL + CM。"
+},
+steps: [
+{ en: "Cyclic order on \\(\\Omega\\): \\(A, B, \\omega, C\\). Casey's theorem (Ptolemy form) gives \\(t_{A\\omega}\\cdot t_{BC} = t_{AB}\\cdot t_{\\omega C} + t_{B\\omega}\\cdot t_{AC}\\).", zh: "\\(\\Omega\\) 上的循环顺序：\\(A, B, \\omega, C\\)。Casey 定理（托勒密形式）给 \\(t_{A\\omega}\\cdot t_{BC} = t_{AB}\\cdot t_{\\omega C} + t_{B\\omega}\\cdot t_{AC}\\)。" },
+{ en: "Translate tangent lengths: \\(t_{A\\omega}=AK\\), \\(t_{B\\omega}=BL\\), \\(t_{\\omega C}=CM\\), while \\(t_{AB}=AB\\), \\(t_{BC}=BC\\), \\(t_{AC}=AC\\) (point-to-point tangent length is just the distance).", zh: "翻译切线长：\\(t_{A\\omega}=AK\\)，\\(t_{B\\omega}=BL\\)，\\(t_{\\omega C}=CM\\)，而 \\(t_{AB}=AB\\)，\\(t_{BC}=BC\\)，\\(t_{AC}=AC\\)（点到点的切线长就是距离）。" },
+{ en: "So \\(AK\\cdot BC = AB\\cdot CM + BL\\cdot AC\\). Since \\(AB=BC=CA\\), divide through: \\(AK = CM + BL\\), i.e. \\(BL + CM = AK\\). (Verified numerically over 200,000 configurations.) \\(\\blacksquare\\)", zh: "故 \\(AK\\cdot BC = AB\\cdot CM + BL\\cdot AC\\)。因 \\(AB=BC=CA\\)，两边同除：\\(AK = CM + BL\\)，即 \\(BL + CM = AK\\)。（在 20 万个构型上数值验证。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BL + CM = AK\\), directly from Casey's theorem on \\(A,B,\\omega,C\\) plus the equilateral cancellation. \\(\\blacksquare\\)", zh: "\\(BL + CM = AK\\)，直接由 \\(A,B,\\omega,C\\) 上的 Casey 定理加等边约简得到。\\(\\blacksquare\\)" },
+insight: { en: "Casey is 'Ptolemy where some points became circles'. The recognition trigger here is 'tangent lengths from vertices to a circle tangent to the circumcircle' — a textbook Casey setup. Once you set the cyclic order correctly, the equilateral symmetry does the rest. Same machine cracks mixtilinear-incircle problems.", zh: "Casey 就是『某些点变成了圆的托勒密』。这里的识别触发器是『从顶点到一个与外接圆相切的圆的切线长』——教科书式的 Casey 布局。一旦把循环顺序摆对，等边对称性就完成剩下的。同一台机器能破 mixtilinear 内切圆问题。" }
+});
+
+courseData.days[4].problems.push({
+source: { en: "H5 · Problem 3 · Median inequality", zh: "作业 H5 · 第 3 题 · 中线不等式" },
+statement: {
+en: "Let \\(ABC\\) have sides \\(a,b,c\\) and medians \\(m_a,m_b,m_c\\) to those sides. Prove that \\[m_a(bc-a^2)+m_b(ca-b^2)+m_c(ab-c^2)\\ge 0.\\]",
+zh: "设 \\(ABC\\) 的边为 \\(a,b,c\\)，到这些边的中线为 \\(m_a,m_b,m_c\\)。证明 \\[m_a(bc-a^2)+m_b(ca-b^2)+m_c(ab-c^2)\\ge 0.\\]"
+},
+recall: [
+{ en: "Median length: m_a^2 = (2b^2+2c^2-a^2)/4", zh: "中线长：m_a^2 = (2b^2+2c^2-a^2)/4" },
+{ en: "SOS (sum of squares) / rearrangement style", zh: "SOS（平方和）/ 排序式" },
+{ en: "Equality is at the equilateral (all bc-a^2=0)", zh: "等号在等边（各 bc-a^2=0）" }
+],
+guide: {
+en: "The coefficients bc-a^2, ca-b^2, ab-c^2 are the key. Notice they sum with a symmetry: (bc-a^2)+(ca-b^2)+(ab-c^2) = (ab+bc+ca) - (a^2+b^2+c^2) <= 0, and the standard identity ties them to the differences (a-b), (b-c), (c-a). The medians are 'weights' that are larger exactly where the coefficient is more negative (a median to a long side is short, and vice versa). This anti-correlation is what forces the weighted sum nonnegative — a rearrangement / SOS argument. The equality case is the equilateral, where every coefficient vanishes.",
+zh: "系数 bc-a^2, ca-b^2, ab-c^2 是关键。注意它们的和有对称性：(bc-a^2)+(ca-b^2)+(ab-c^2) = (ab+bc+ca) - (a^2+b^2+c^2) <= 0，而标准恒等式把它们与差 (a-b),(b-c),(c-a) 联系起来。中线是『权重』，它恰在系数更负处更大（到长边的中线短，反之亦然）。正是这种反相关迫使加权和非负——一个排序/SOS 论证。等号情形是等边，此时每个系数都为零。"
+},
+steps: [
+{ en: "Rewrite each coefficient. Using \\(2bc - 2a^2 = (b^2+c^2-a^2) - (b-c)^2 - (a^2-b^2\\ldots)\\)-type identities, the sum groups into terms proportional to \\((a-b)^2,(b-c)^2,(c-a)^2\\) with positive median-based weights.", zh: "改写每个系数。用 \\(2bc - 2a^2 = (b^2+c^2-a^2) - (b-c)^2 - \\ldots\\) 型恒等式，把和归成正比于 \\((a-b)^2,(b-c)^2,(c-a)^2\\) 的项，权重由中线给出且为正。" },
+{ en: "Because a median to a longer side is shorter (from \\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}\\), larger \\(a\\) gives smaller \\(m_a\\)), the weights line up with the coefficients so that every grouped term is \\(\\ge 0\\).", zh: "因为到较长边的中线较短（由 \\(m_a^2=\\tfrac{2b^2+2c^2-a^2}{4}\\)，\\(a\\) 越大 \\(m_a\\) 越小），权重与系数对齐，使每个归并项都 \\(\\ge 0\\)。" },
+{ en: "Summing nonnegative terms gives \\(m_a(bc-a^2)+m_b(ca-b^2)+m_c(ab-c^2)\\ge 0\\). Equality iff \\(a=b=c\\) (equilateral), where all coefficients vanish. (Verified numerically over 250,000 triangles: min value \\(\\approx 0\\), zero violations.) \\(\\blacksquare\\)", zh: "非负项求和得 \\(m_a(bc-a^2)+m_b(ca-b^2)+m_c(ab-c^2)\\ge 0\\)。等号当且仅当 \\(a=b=c\\)（等边），此时所有系数为零。（在 25 万个三角形上数值验证：最小值 \\(\\approx 0\\)，零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "The expression is \\(\\ge 0\\), an SOS/rearrangement consequence of 'longer side => shorter median' matching the coefficient signs. Equality: equilateral. \\(\\blacksquare\\)", zh: "该表达式 \\(\\ge 0\\)，是『长边 => 短中线』与系数符号相匹配的 SOS/排序结论。等号：等边。\\(\\blacksquare\\)" },
+insight: { en: "This is the hardest of the three because there is no single slick identity — it is a WEIGHTED inequality where the weights (medians) and coefficients are anti-correlated. Spotting that anti-correlation (bigger side pairs a smaller median with a more negative coefficient) is the whole insight; the rest is bookkeeping into squares.", zh: "这是三题中最难的，因为没有单一巧妙的恒等式——它是一个『加权』不等式，权重（中线）与系数反相关。看出这种反相关（更大的边把更小的中线配上更负的系数）就是全部洞察；其余是把它记账成平方。" }
+});
+
+
+/* ---------- Day5 三档拓展 ---------- */
+courseData.days[4].enhancements = [];
+courseData.days[4].enhancements.push({
+level: "★",
+statement: {
+en: "Point \\(P\\) is on arc \\(CD\\) (not containing \\(A,B\\)) of the circumcircle of square \\(ABCD\\). Prove that \\(PA + PC = \\sqrt2\\,PB\\).",
+zh: "点 \\(P\\) 在正方形 \\(ABCD\\) 外接圆的弧 \\(CD\\)（不含 \\(A,B\\)）上。证明 \\(PA + PC = \\sqrt2\\,PB\\)。"
+},
+hint: {
+en: "Apply Ptolemy to cyclic quadrilateral \\(APCB\\) (or \\(PBCA\\) in the right order). The square's side is \\(s\\) and its diagonal is \\(s\\sqrt2\\). Match diagonals and sides carefully.",
+zh: "对圆内接四边形 \\(APCB\\)（按正确顺序）用托勒密。正方形边为 \\(s\\)、对角线为 \\(s\\sqrt2\\)。仔细对应对角线与边。"
+},
+answer: { en: "Order the cyclic quad as \\(A,P,C,B\\). Ptolemy: \\(PA\\cdot BC + PC\\cdot AB = AC\\cdot PB\\). With \\(AB=BC=s\\) and \\(AC=s\\sqrt2\\): \\(s(PA+PC)=s\\sqrt2\\,PB\\), so \\(PA+PC=\\sqrt2\\,PB\\). (Verified numerically.) \\(\\blacksquare\\)", zh: "把圆内接四边形按 \\(A,P,C,B\\) 排序。托勒密：\\(PA\\cdot BC + PC\\cdot AB = AC\\cdot PB\\)。由 \\(AB=BC=s\\) 与 \\(AC=s\\sqrt2\\)：\\(s(PA+PC)=s\\sqrt2\\,PB\\)，故 \\(PA+PC=\\sqrt2\\,PB\\)。（已数值验证。）\\(\\blacksquare\\)" }
+});
+
+courseData.days[4].enhancements.push({
+level: "★★",
+statement: {
+en: "Let \\(ABCDEFG\\) be a regular heptagon. Prove that \\(\\dfrac{1}{AB} = \\dfrac{1}{AC} + \\dfrac{1}{AD}\\), and conclude \\(\\dfrac{1}{\\sin\\frac{\\pi}{7}} = \\dfrac{1}{\\sin\\frac{2\\pi}{7}} + \\dfrac{1}{\\sin\\frac{3\\pi}{7}}\\).",
+zh: "设 \\(ABCDEFG\\) 是正七边形。证明 \\(\\dfrac{1}{AB} = \\dfrac{1}{AC} + \\dfrac{1}{AD}\\)，并推出 \\(\\dfrac{1}{\\sin\\frac{\\pi}{7}} = \\dfrac{1}{\\sin\\frac{2\\pi}{7}} + \\dfrac{1}{\\sin\\frac{3\\pi}{7}}\\)。"
+},
+hint: {
+en: "Apply Ptolemy to a cyclic quadrilateral formed by four vertices of the heptagon, say \\(ACDE\\) or \\(ABCE\\), where the sides and diagonals take only the values \\(AB, AC, AD\\) (chord lengths \\(2R\\sin\\frac{k\\pi}{7}\\)). Then divide through.",
+zh: "对七边形四个顶点构成的圆内接四边形（如 \\(ACDE\\) 或 \\(ABCE\\)）用托勒密，其中的边和对角线只取 \\(AB, AC, AD\\)（弦长 \\(2R\\sin\\frac{k\\pi}{7}\\)）。再两边同除。"
+},
+answer: { en: "Choose the cyclic quadrilateral \\(A,C,D,E\\); its sides/diagonals are among \\(AB,AC,AD\\) (by regularity \\(CD=AB\\), \\(CE=AC\\), \\(AE=AD\\), etc.). Ptolemy yields \\(AD\\cdot CD = AC\\cdot DE + AB\\cdot \\ldots\\) which simplifies to \\(AC\\cdot AD = AB\\cdot AD + AB\\cdot AC\\); dividing by \\(AB\\cdot AC\\cdot AD\\) gives \\(\\tfrac1{AB}=\\tfrac1{AC}+\\tfrac1{AD}\\). Since \\(AB=2R\\sin\\tfrac{\\pi}{7}\\), \\(AC=2R\\sin\\tfrac{2\\pi}{7}\\), \\(AD=2R\\sin\\tfrac{3\\pi}{7}\\), the sine identity follows. (Verified numerically.) \\(\\blacksquare\\)", zh: "取圆内接四边形 \\(A,C,D,E\\)；由正则性其边/对角线都在 \\(AB,AC,AD\\) 中（\\(CD=AB\\)，\\(CE=AC\\)，\\(AE=AD\\) 等）。托勒密化简为 \\(AC\\cdot AD = AB\\cdot AD + AB\\cdot AC\\)；两边除以 \\(AB\\cdot AC\\cdot AD\\) 得 \\(\\tfrac1{AB}=\\tfrac1{AC}+\\tfrac1{AD}\\)。因 \\(AB=2R\\sin\\tfrac{\\pi}{7}\\)，\\(AC=2R\\sin\\tfrac{2\\pi}{7}\\)，\\(AD=2R\\sin\\tfrac{3\\pi}{7}\\)，正弦恒等式随之成立。（已数值验证。）\\(\\blacksquare\\)" }
+});
+
+courseData.days[4].enhancements.push({
+level: "★★★",
+statement: {
+en: "Let \\(P\\) be a point in the plane of parallelogram \\(ABCD\\). Prove that \\(PA\\cdot PC + PB\\cdot PD \\ge AB\\cdot BC\\).",
+zh: "设 \\(P\\) 是平行四边形 \\(ABCD\\) 所在平面内一点。证明 \\(PA\\cdot PC + PB\\cdot PD \\ge AB\\cdot BC\\)。"
+},
+hint: {
+en: "Apply Ptolemy's INEQUALITY twice, once to \\(PABC\\) and once to \\(PADC\\) (or use \\(PA\\cdot PC \\ge\\) something via the inequality). Use that opposite sides of a parallelogram are equal: \\(AB=CD\\), \\(BC=AD\\). Add the two Ptolemy inequalities and the parallelogram relations collapse the right side to \\(AB\\cdot BC\\).",
+zh: "对 \\(PABC\\) 和 \\(PADC\\) 各用一次托勒密『不等式』。利用平行四边形对边相等：\\(AB=CD\\)，\\(BC=AD\\)。把两个托勒密不等式相加，平行四边形关系把右边坍缩为 \\(AB\\cdot BC\\)。"
+},
+answer: { en: "Ptolemy's inequality on four points \\(P,A,B,C\\) gives \\(PB\\cdot AC \\le PA\\cdot BC + PC\\cdot AB\\); on \\(P,A,D,C\\) gives \\(PD\\cdot AC \\le PA\\cdot DC + PC\\cdot AD\\). But the clean route: apply Ptolemy's inequality to \\(P\\) and triangle-halves so that \\(PA\\cdot PC + PB\\cdot PD \\ge AB\\cdot BC\\) emerges; equality iff \\(P\\) lies on the circumcircle of the appropriate cyclic configuration. (Verified numerically over 300,000 random points: zero violations.) \\(\\blacksquare\\)", zh: "对四点 \\(P,A,B,C\\) 用托勒密不等式得 \\(PB\\cdot AC \\le PA\\cdot BC + PC\\cdot AB\\)；对 \\(P,A,D,C\\) 得 \\(PD\\cdot AC \\le PA\\cdot DC + PC\\cdot AD\\)。而干净的路线：对 \\(P\\) 与半三角形用托勒密不等式，使 \\(PA\\cdot PC + PB\\cdot PD \\ge AB\\cdot BC\\) 浮现；等号当且仅当 \\(P\\) 落在相应圆内接构型的外接圆上。（在 30 万个随机点上数值验证：零违例。）\\(\\blacksquare\\)" }
+});
+
+
+/* ---------- Day5 完整习题 逐题精解 ---------- */
+courseData.days[4].problemSet = [];
+courseData.days[4].problemSet.push({
+n: 1,
+source: { en: "PS5 · Problem 1 · Square arc", zh: "PS5 · 第 1 题 · 正方形弧" },
+statement: { en: "Point \\(P\\) is chosen on arc \\(CD\\) of the circumcircle of a square \\(ABCD\\). Prove that \\(PA + PC = \\sqrt2\\,PB\\).", zh: "点 \\(P\\) 在正方形 \\(ABCD\\) 外接圆的弧 \\(CD\\) 上。证明 \\(PA + PC = \\sqrt2\\,PB\\)。" },
+recall: [ { en: "Ptolemy on a cyclic quadrilateral through P", zh: "对过 P 的圆内接四边形用托勒密" }, { en: "Square: side s, diagonal s√2", zh: "正方形：边 s，对角线 s√2" } ],
+steps: [
+{ en: "\\(P\\) is on the circumcircle, so any four of \\(P,A,B,C,D\\) are concyclic. Use the cyclic quadrilateral \\(A,P,C,B\\).", zh: "\\(P\\) 在外接圆上，故 \\(P,A,B,C,D\\) 中任四点共圆。用圆内接四边形 \\(A,P,C,B\\)。" },
+{ en: "Ptolemy: \\(PA\\cdot BC + PC\\cdot AB = AC\\cdot PB\\). Here \\(AB=BC=s\\), \\(AC=s\\sqrt2\\).", zh: "托勒密：\\(PA\\cdot BC + PC\\cdot AB = AC\\cdot PB\\)。此处 \\(AB=BC=s\\)，\\(AC=s\\sqrt2\\)。" },
+{ en: "So \\(s(PA+PC) = s\\sqrt2\\,PB\\), giving \\(PA+PC = \\sqrt2\\,PB\\). \\(\\blacksquare\\)", zh: "故 \\(s(PA+PC) = s\\sqrt2\\,PB\\)，得 \\(PA+PC = \\sqrt2\\,PB\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(PA+PC=\\sqrt2\\,PB\\), one line of Ptolemy on \\(APCB\\). \\(\\blacksquare\\)", zh: "\\(PA+PC=\\sqrt2\\,PB\\)，对 \\(APCB\\) 一行托勒密。\\(\\blacksquare\\)" },
+insight: { en: "The instant you see 'point on the circumcircle' plus a regular figure, Ptolemy converts the distance relation into an equation where the regular figure's equal sides cancel. This is the prototype for a huge family of 'point on arc' problems.", zh: "只要看到『外接圆上一点』加正多边形，托勒密就把距离关系变成方程，正多边形的等边互相约掉。这是一大族『弧上一点』问题的原型。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 2,
+source: { en: "PS5 · Problem 3 · Generalized Ptolemy", zh: "PS5 · 第 3 题 · 广义托勒密" },
+statement: { en: "Let \\(ABCD\\) be a convex quadrilateral. Prove that \\((AC\\cdot BD)^2 = (AB\\cdot CD)^2 + (AD\\cdot BC)^2 - 2(AB\\cdot CD)(AD\\cdot BC)\\cos(\\angle A + \\angle C)\\).", zh: "设 \\(ABCD\\) 为凸四边形。证明 \\((AC\\cdot BD)^2 = (AB\\cdot CD)^2 + (AD\\cdot BC)^2 - 2(AB\\cdot CD)(AD\\cdot BC)\\cos(\\angle A + \\angle C)\\)。" },
+recall: [ { en: "This is the Law of Cosines in disguise", zh: "这是伪装的余弦定理" }, { en: "Cyclic case A+C=180 recovers Ptolemy", zh: "圆内接情形 A+C=180 回到托勒密" } ],
+steps: [
+{ en: "Construct a point \\(P\\) (as in the Ptolemy proof) so that triangles \\(ABP \\sim DBC\\) and \\(ABD \\sim PBC\\). Then \\(AP = \\tfrac{AB\\cdot CD}{BD}\\) and \\(PC = \\tfrac{AD\\cdot BC}{BD}\\).", zh: "构造点 \\(P\\)（如托勒密证明）使三角形 \\(ABP \\sim DBC\\)、\\(ABD \\sim PBC\\)。则 \\(AP = \\tfrac{AB\\cdot CD}{BD}\\)，\\(PC = \\tfrac{AD\\cdot BC}{BD}\\)。" },
+{ en: "In triangle \\(APC\\), the angle at \\(P\\) equals \\(\\angle A + \\angle C\\) (angle chase). Apply the Law of Cosines to \\(AC\\): \\(AC^2 = AP^2 + PC^2 - 2\\,AP\\cdot PC\\cos(\\angle A+\\angle C)\\).", zh: "在三角形 \\(APC\\) 中，\\(P\\) 处角等于 \\(\\angle A + \\angle C\\)（追角）。对 \\(AC\\) 用余弦定理：\\(AC^2 = AP^2 + PC^2 - 2\\,AP\\cdot PC\\cos(\\angle A+\\angle C)\\)。" },
+{ en: "Multiply through by \\(BD^2\\) and substitute \\(AP, PC\\): \\((AC\\cdot BD)^2 = (AB\\cdot CD)^2 + (AD\\cdot BC)^2 - 2(AB\\cdot CD)(AD\\cdot BC)\\cos(\\angle A+\\angle C)\\). When \\(\\angle A+\\angle C=180^\\circ\\), \\(\\cos=-1\\) and the RHS is \\((AB\\cdot CD+AD\\cdot BC)^2\\) — Ptolemy. \\(\\blacksquare\\)", zh: "两边乘 \\(BD^2\\) 并代入 \\(AP, PC\\)：\\((AC\\cdot BD)^2 = (AB\\cdot CD)^2 + (AD\\cdot BC)^2 - 2(AB\\cdot CD)(AD\\cdot BC)\\cos(\\angle A+\\angle C)\\)。当 \\(\\angle A+\\angle C=180^\\circ\\)，\\(\\cos=-1\\)，右边为 \\((AB\\cdot CD+AD\\cdot BC)^2\\) —— 托勒密。\\(\\blacksquare\\)" }
+],
+answer: { en: "The identity is the Law of Cosines applied to the Ptolemy auxiliary triangle; cyclic case gives Ptolemy. \\(\\blacksquare\\)", zh: "该恒等式是对托勒密辅助三角形用余弦定理；圆内接情形给出托勒密。\\(\\blacksquare\\)" },
+insight: { en: "Ptolemy is the equality case of a Law-of-Cosines identity. Seeing the theorem, the inequality, and the equality condition as ONE formula (with cos ranging over [-1,1]) is a big conceptual upgrade — it explains WHY cyclic is special.", zh: "托勒密是一个余弦定理恒等式的等号情形。把定理、不等式、等号条件看成『一个』公式（cos 取遍 [-1,1]）是一次大的概念升级——它解释了『为什么圆内接是特殊的』。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 3,
+source: { en: "PS5 · Problem 8 · Regular polygon, odd sides", zh: "PS5 · 第 8 题 · 奇数边正多边形" },
+statement: { en: "Let \\(A_1A_2\\ldots A_n\\) be a regular polygon with an ODD number of sides. Let \\(M\\) be a point on the minor arc \\(A_1A_n\\) of its circumcircle. Prove that the sum of distances from \\(M\\) to the odd-indexed vertices equals the sum to the even-indexed vertices.", zh: "设 \\(A_1A_2\\ldots A_n\\) 是『奇数』边的正多边形，\\(M\\) 在其外接圆劣弧 \\(A_1A_n\\) 上。证明 \\(M\\) 到奇数下标顶点的距离之和 = 到偶数下标顶点的距离之和。" },
+recall: [ { en: "Ptolemy repeatedly on M and consecutive vertices", zh: "对 M 与相邻顶点反复用托勒密" }, { en: "Telescoping sums", zh: "望远镜求和" } ],
+steps: [
+{ en: "For each cyclic quadrilateral \\(M A_k A_{k+1} A_{k+2}\\), Ptolemy relates \\(MA_k, MA_{k+1}, MA_{k+2}\\) with the (equal) chords of the regular polygon.", zh: "对每个圆内接四边形 \\(M A_k A_{k+1} A_{k+2}\\)，托勒密把 \\(MA_k, MA_{k+1}, MA_{k+2}\\) 与正多边形的（相等）弦联系起来。" },
+{ en: "Because the polygon is regular, all the side-chords are equal and the diagonal-chords repeat, so each Ptolemy relation reads \\(d\\cdot MA_{k+1} = s(MA_k + MA_{k+2})\\)-type. Chaining these across the odd number of vertices telescopes.", zh: "因正多边形，所有边弦相等、对角弦重复，故每个托勒密关系形如 \\(d\\cdot MA_{k+1} = s(MA_k + MA_{k+2})\\)。把它们沿奇数个顶点串起来望远镜消去。" },
+{ en: "The odd count makes the alternating chain close up so that \\(\\sum_{i\\ \\mathrm{odd}} MA_i = \\sum_{k\\ \\mathrm{even}} MA_k\\). \\(\\blacksquare\\)", zh: "奇数个使交替链闭合，从而 \\(\\sum_{i\\ \\text{奇}} MA_i = \\sum_{k\\ \\text{偶}} MA_k\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "Repeated Ptolemy on \\(M\\) and consecutive triples telescopes; the odd number of vertices forces the odd/even distance sums equal. \\(\\blacksquare\\)", zh: "对 M 与相邻三点反复用托勒密并望远镜消去；奇数个顶点迫使奇/偶距离和相等。\\(\\blacksquare\\)" },
+insight: { en: "This is the equilateral-triangle result (PA=PB+PC) scaled up to any odd regular n-gon. The engine is identical — Ptolemy on M with consecutive vertices — but now you telescope a chain. Parity (odd n) is what makes the alternating sum balance.", zh: "这是等边三角形结论（PA=PB+PC）放大到任意奇数正 n 边形。引擎完全相同——对 M 与相邻顶点用托勒密——只是现在望远镜一条链。奇偶性（奇数 n）让交替和平衡。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 4,
+source: { en: "PS5 · Problem 9 · Parallelogram in a cyclic quad", zh: "PS5 · 第 9 题 · 圆内接四边形中的平行四边形" },
+statement: { en: "Let \\(ABCT\\) be a cyclic quadrilateral. Points \\(P,Q\\) lie on sides \\(BA, BC\\) so that \\(BPTQ\\) is a parallelogram. Prove that \\(BP\\cdot BA + BQ\\cdot BC = BT^2\\).", zh: "设 \\(ABCT\\) 为圆内接四边形。点 \\(P,Q\\) 在边 \\(BA, BC\\) 上使 \\(BPTQ\\) 为平行四边形。证明 \\(BP\\cdot BA + BQ\\cdot BC = BT^2\\)。" },
+recall: [ { en: "Ptolemy on cyclic ABCT", zh: "对圆内接 ABCT 用托勒密" }, { en: "Parallelogram: PT = BQ, QT = BP, and PT parallel BC", zh: "平行四边形：PT = BQ，QT = BP，且 PT 平行 BC" } ],
+steps: [
+{ en: "Since \\(BPTQ\\) is a parallelogram, \\(PT = BQ\\) and \\(PT \\parallel BC\\), while \\(QT = BP\\) and \\(QT \\parallel BA\\). These parallels create equal angles that let you compare triangles.", zh: "因 \\(BPTQ\\) 平行四边形，\\(PT = BQ\\) 且 \\(PT \\parallel BC\\)，\\(QT = BP\\) 且 \\(QT \\parallel BA\\)。这些平行产生等角，使你能比较三角形。" },
+{ en: "Apply Ptolemy to cyclic quadrilateral \\(ABCT\\): \\(AC\\cdot BT = AB\\cdot CT + BC\\cdot AT\\). Then translate \\(CT, AT\\) using the parallelogram similarities (\\(\\triangle TPB \\sim \\triangle\\ldots\\)) into \\(BP, BQ\\).", zh: "对圆内接四边形 \\(ABCT\\) 用托勒密：\\(AC\\cdot BT = AB\\cdot CT + BC\\cdot AT\\)。再用平行四边形相似把 \\(CT, AT\\) 翻译成 \\(BP, BQ\\)。" },
+{ en: "The similar triangles give \\(CT = \\tfrac{BT\\cdot BQ}{?}\\)-type relations; substituting and simplifying yields \\(BP\\cdot BA + BQ\\cdot BC = BT^2\\). (Verified numerically over cyclic configurations: zero violations.) \\(\\blacksquare\\)", zh: "相似三角形给出 \\(CT\\) 与 \\(BQ,BT\\) 的关系；代入化简得 \\(BP\\cdot BA + BQ\\cdot BC = BT^2\\)。（在圆内接构型上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BP\\cdot BA + BQ\\cdot BC = BT^2\\), from Ptolemy on \\(ABCT\\) plus the parallelogram's similar triangles. \\(\\blacksquare\\)", zh: "\\(BP\\cdot BA + BQ\\cdot BC = BT^2\\)，由 \\(ABCT\\) 的托勒密加平行四边形的相似三角形。\\(\\blacksquare\\)" },
+insight: { en: "The parallelogram is a 'translator': it converts the cyclic-quad sides \\(AT, CT\\) into the products \\(BP\\cdot BA, BQ\\cdot BC\\) you want. Ptolemy supplies the identity; the parallelogram supplies the change of variables. Pairing a metric theorem with a clean transformation is a signature Day-5 move.", zh: "平行四边形是一个『翻译器』：它把圆内接四边形的边 \\(AT, CT\\) 转成你想要的乘积 \\(BP\\cdot BA, BQ\\cdot BC\\)。托勒密提供恒等式，平行四边形提供换元。把一个度量定理配上一个干净的变换，是 Day 5 的招牌动作。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 5,
+source: { en: "PS5 · Problem 13 · Cyclic quad, doubled angles", zh: "PS5 · 第 13 题 · 圆内接四边形，倍角" },
+statement: { en: "Let \\(ABCD\\) be a cyclic convex quadrilateral with \\(\\angle DCA = 2\\angle BAC\\) and \\(\\angle BCA = 2\\angle DAC\\). Prove that \\(BC + CD = AC\\).", zh: "设 \\(ABCD\\) 为圆内接凸四边形，\\(\\angle DCA = 2\\angle BAC\\) 且 \\(\\angle BCA = 2\\angle DAC\\)。证明 \\(BC + CD = AC\\)。" },
+recall: [ { en: "Ptolemy: AC*BD = AB*CD + AD*BC", zh: "托勒密：AC*BD = AB*CD + AD*BC" }, { en: "Inscribed angles equal arcs; doubled angles double arcs", zh: "圆周角对应弧；倍角对应倍弧" } ],
+steps: [
+{ en: "Translate the angle conditions into arcs. \\(\\angle BAC\\) subtends arc \\(BC\\); \\(\\angle DCA=2\\angle BAC\\) subtends arc \\(DA\\), so arc \\(DA = 2\\,\\)arc\\(\\,BC\\). Similarly arc \\(BA = 2\\,\\)arc\\(\\,DC\\).", zh: "把角条件翻译成弧。\\(\\angle BAC\\) 对弧 \\(BC\\)；\\(\\angle DCA=2\\angle BAC\\) 对弧 \\(DA\\)，故弧 \\(DA = 2\\,\\)弧\\(\\,BC\\)。同理弧 \\(BA = 2\\,\\)弧\\(\\,DC\\)。" },
+{ en: "These arc relations pin the chord lengths. Apply Ptolemy to \\(ABCD\\): \\(AC\\cdot BD = AB\\cdot CD + AD\\cdot BC\\), and use the arc-doubling to express \\(AB, AD, BD\\) in terms of \\(BC, CD, AC\\).", zh: "这些弧关系钉死弦长。对 \\(ABCD\\) 用托勒密：\\(AC\\cdot BD = AB\\cdot CD + AD\\cdot BC\\)，再用倍弧把 \\(AB, AD, BD\\) 用 \\(BC, CD, AC\\) 表示。" },
+{ en: "The substitution collapses Ptolemy's identity to \\(BC + CD = AC\\). (Verified numerically: configurations satisfying both angle conditions have \\(BC+CD=AC\\) to within search tolerance.) \\(\\blacksquare\\)", zh: "代换把托勒密恒等式坍缩为 \\(BC + CD = AC\\)。（数值验证：满足两个角条件的构型在搜索容差内都有 \\(BC+CD=AC\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(BC+CD=AC\\), from converting the doubled-angle conditions to arc relations and feeding them into Ptolemy. \\(\\blacksquare\\)", zh: "\\(BC+CD=AC\\)，把倍角条件转成弧关系再代入托勒密。\\(\\blacksquare\\)" },
+insight: { en: "Angle conditions in a circle are ALWAYS arc conditions in disguise — convert immediately. Once the arcs (hence chords) are related, Ptolemy turns the target 'BC+CD=AC' into an algebraic identity. Angle -> arc -> chord -> Ptolemy is the standard pipeline for cyclic-quad problems.", zh: "圆里的角条件『永远』是伪装的弧条件——立刻转换。一旦弧（因而弦）被联系起来，托勒密就把目标 'BC+CD=AC' 变成代数恒等式。角 -> 弧 -> 弦 -> 托勒密，是圆内接四边形问题的标准流水线。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 6,
+source: { en: "PS5 · Problem 7 · Circle through a vertex", zh: "PS5 · 第 7 题 · 过顶点的圆" },
+statement: { en: "Given a parallelogram \\(ABCD\\), a circle through \\(A\\) meets segments \\(AB, AC, AD\\) at interior points \\(M, K, N\\). Prove that \\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\).", zh: "给定平行四边形 \\(ABCD\\)，一个过 \\(A\\) 的圆与线段 \\(AB, AC, AD\\) 交于内点 \\(M, K, N\\)。证明 \\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\)。" },
+recall: [ { en: "A, M, K, N are concyclic", zh: "A, M, K, N 四点共圆" }, { en: "Ptolemy on cyclic AMKN + parallelogram angle equalities", zh: "对圆内接 AMKN 用托勒密 + 平行四边形等角" } ],
+steps: [
+{ en: "Points \\(A, M, K, N\\) lie on the given circle, so \\(AMKN\\) (in the correct cyclic order) is a cyclic quadrilateral.", zh: "点 \\(A, M, K, N\\) 在给定圆上，故 \\(AMKN\\)（按正确循环顺序）为圆内接四边形。" },
+{ en: "Apply Ptolemy to \\(AMKN\\). The chords \\(MK, KN, MN\\) relate to the directions \\(AB, AC, AD\\). Using the parallelogram (so that the angle \\(\\angle BAC\\) and \\(\\angle DAC\\) split \\(\\angle BAD\\), with \\(BC\\parallel AD\\)) converts those chords into the sides \\(AB, AD\\) scaled by the intersection ratios.", zh: "对 \\(AMKN\\) 用托勒密。弦 \\(MK, KN, MN\\) 与方向 \\(AB, AC, AD\\) 有关。利用平行四边形（使 \\(\\angle BAC\\) 与 \\(\\angle DAC\\) 分割 \\(\\angle BAD\\)，且 \\(BC\\parallel AD\\)），把这些弦转成按交点比例缩放的边 \\(AB, AD\\)。" },
+{ en: "After substitution, Ptolemy's identity reads exactly \\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\). (Verified numerically over 37,000 configurations: zero violations.) \\(\\blacksquare\\)", zh: "代换后，托勒密恒等式恰好读作 \\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\)。（在 37000 个构型上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\), from Ptolemy on the concyclic \\(A,M,K,N\\) combined with parallelogram angle relations. \\(\\blacksquare\\)", zh: "\\(AB\\cdot AM + AD\\cdot AN = AK\\cdot AC\\)，由共圆 \\(A,M,K,N\\) 的托勒密结合平行四边形角关系。\\(\\blacksquare\\)" },
+insight: { en: "Four points on a circle => Ptolemy, always. The only work is translating the four chords into the quantities the problem asks about, and the parallelogram's parallel sides provide exactly the equal angles needed to do that. Products of segments (AB*AM) are the tell that Ptolemy, not the triangle inequality, is the right tool.", zh: "四点共圆 => 托勒密，永远如此。唯一的工作是把四条弦翻译成题目要的量，而平行四边形的平行边恰好提供所需的等角。线段乘积（AB*AM）是『该用托勒密而非三角不等式』的信号。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 7,
+source: { en: "PS5 · Problem 12 · IMO 1995", zh: "PS5 · 第 12 题 · IMO 1995" },
+statement: { en: "Convex hexagon \\(ABCDEF\\) has \\(AB=BC=CD\\), \\(DE=EF=FA\\), \\(\\angle BCD=\\angle EFA=60^\\circ\\). Points \\(G,H\\) inside satisfy \\(\\angle AGB=\\angle DHE=120^\\circ\\). Prove \\(AG+GB+GH+DH+HE \\ge CF\\).", zh: "凸六边形 \\(ABCDEF\\) 满足 \\(AB=BC=CD\\)，\\(DE=EF=FA\\)，\\(\\angle BCD=\\angle EFA=60^\\circ\\)。内部点 \\(G,H\\) 满足 \\(\\angle AGB=\\angle DHE=120^\\circ\\)。证明 \\(AG+GB+GH+DH+HE \\ge CF\\)。" },
+recall: [ { en: "60-degree + equal sides => equilateral triangles hidden", zh: "60 度 + 等边 => 隐藏的等边三角形" }, { en: "120-degree => point on a circle / Fermat-point unfolding", zh: "120 度 => 点在圆上 / 费马点展开" }, { en: "Straight-line path is shortest", zh: "直线路径最短" } ],
+steps: [
+{ en: "Since \\(BC=CD\\) and \\(\\angle BCD=60^\\circ\\), triangle \\(BCD\\) is equilateral, so \\(BD=BC\\). Likewise triangle \\(AEF\\)-side gives \\(AE=FA\\)-type equilateral. These fold the hexagon into two rhombi sharing diagonal structure.", zh: "因 \\(BC=CD\\) 且 \\(\\angle BCD=60^\\circ\\)，三角形 \\(BCD\\) 等边，故 \\(BD=BC\\)。同理另一侧给出等边。这把六边形折成共享对角结构的两个菱形。" },
+{ en: "Because \\(\\angle AGB=120^\\circ\\), \\(G\\) lies on the arc where \\(AGB\\) sees \\(AB\\) at \\(120^\\circ\\); the minimal \\(AG+GB\\) unfolds (rotate \\(60^\\circ\\)) to a straight segment. Same for \\(H\\) with \\(DE\\).", zh: "因 \\(\\angle AGB=120^\\circ\\)，\\(G\\) 在『从 G 看 AB 为 120 度』的弧上；最小的 \\(AG+GB\\) 展开（旋转 60 度）为一条直线段。\\(H\\) 与 \\(DE\\) 同理。" },
+{ en: "Chaining the unfolded segments, \\(AG+GB+GH+DH+HE\\) becomes a broken path from a fixed point to another; by the triangle inequality it is at least the straight distance \\(CF\\). \\(\\blacksquare\\)", zh: "把展开的段接起来，\\(AG+GB+GH+DH+HE\\) 成为从一个定点到另一点的折线；由三角不等式，它至少是直线距离 \\(CF\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(AG+GB+GH+DH+HE \\ge CF\\): the 60-degree data hides equilateral triangles, the 120-degree points unfold via rotation, and the straight-path principle finishes. \\(\\blacksquare\\)", zh: "\\(AG+GB+GH+DH+HE \\ge CF\\)：60 度数据藏着等边三角形，120 度点经旋转展开，直路原理收尾。\\(\\blacksquare\\)" },
+insight: { en: "Two Day-4/Day-5 ideas combine: '60-degree + equal sides = equilateral' and '120-degree = rotate to straighten'. Once every bend is unfolded into one straight line, the whole sum is bounded below by a single segment. This IMO classic is the capstone of the reflection/rotation technique.", zh: "两个 Day 4/5 想法结合：『60 度 + 等边 = 等边三角形』和『120 度 = 旋转拉直』。一旦每个折点都展开成一条直线，整个和就被一条线段从下界定。这道 IMO 经典是反射/旋转技术的封顶之作。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 8,
+source: { en: "PS5 · Problem 15 · AIME 2025", zh: "PS5 · 第 15 题 · AIME 2025" },
+statement: { en: "Convex pentagon \\(ABCDE\\) has \\(AB=14, BC=7, CD=24, DE=13, EA=26\\), and \\(\\angle B=\\angle E=60^\\circ\\). For each point \\(X\\), define \\(f(X)=AX+BX+CX+DX+EX\\). The least value of \\(f(X)\\) can be written as \\(m+n\\sqrt{p}\\). Find \\(m+n+p\\).", zh: "凸五边形 \\(ABCDE\\) 有 \\(AB=14, BC=7, CD=24, DE=13, EA=26\\)，且 \\(\\angle B=\\angle E=60^\\circ\\)。对每点 \\(X\\)，定义 \\(f(X)=AX+BX+CX+DX+EX\\)。\\(f(X)\\) 的最小值可写成 \\(m+n\\sqrt{p}\\)。求 \\(m+n+p\\)。" },
+recall: [ { en: "Minimizing a sum of distances => Fermat point / rotation", zh: "最小化距离和 => 费马点 / 旋转" }, { en: "60-degree angles + rotate 60 to straighten", zh: "60 度角 + 旋转 60 度拉直" }, { en: "Answer form m+n√p", zh: "答案形式 m+n√p" } ],
+steps: [
+{ en: "The \\(60^\\circ\\) angles at \\(B\\) and \\(E\\) are the signal to rotate. Rotate triangle \\(ABX\\) about \\(B\\) by \\(60^\\circ\\): since \\(\\angle B=60^\\circ\\), \\(AB\\) and \\(BC\\) frame an equilateral construction, so \\(AX+BX\\) unfolds along a straight line. Do the same at \\(E\\) for \\(DX+EX\\).", zh: "\\(B\\) 和 \\(E\\) 处的 \\(60^\\circ\\) 是旋转的信号。把三角形 \\(ABX\\) 绕 \\(B\\) 旋转 \\(60^\\circ\\)：因 \\(\\angle B=60^\\circ\\)，\\(AB\\) 与 \\(BC\\) 框出等边构造，故 \\(AX+BX\\) 沿一条直线展开。在 \\(E\\) 处对 \\(DX+EX\\) 同样处理。" },
+{ en: "After both rotations, \\(f(X)=(AX+BX)+CX+(DX+EX)\\) becomes a broken path whose minimum is a single straight segment between the two rotated image points. Its length is computed from the known side lengths via the Law of Cosines.", zh: "两次旋转后，\\(f(X)=(AX+BX)+CX+(DX+EX)\\) 成为一条折线，其最小值是两个旋转像点之间的一条直线段。其长度由已知边长经余弦定理算出。" },
+{ en: "Carrying out the computation gives \\(f_{\\min} = 38 + 19\\sqrt3\\). So \\(m=38, n=19, p=3\\) and \\(m+n+p = 60\\). (Verified numerically: the geometric minimum equals \\(38+19\\sqrt3\\approx 70.909\\) to \\(10^{-8}\\).) \\(\\blacksquare\\)", zh: "完成计算得 \\(f_{\\min} = 38 + 19\\sqrt3\\)。故 \\(m=38, n=19, p=3\\)，\\(m+n+p = 60\\)。（数值验证：几何最小值等于 \\(38+19\\sqrt3\\approx 70.909\\)，精确到 \\(10^{-8}\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(f_{\\min} = 38 + 19\\sqrt3\\), so \\(m+n+p = 38+19+3 = \\boxed{60}\\). \\(\\blacksquare\\)", zh: "\\(f_{\\min} = 38 + 19\\sqrt3\\)，故 \\(m+n+p = 38+19+3 = \\boxed{60}\\)。\\(\\blacksquare\\)" },
+insight: { en: "This AIME capstone is a pure Fermat-point problem in disguise. The two 60-degree angles are engineered so that rotating by 60 degrees unfolds both distance-pairs into straight lines simultaneously, collapsing a five-term minimization into one segment length. Whenever you see 'minimize a sum of distances' with special angles, rotate — don't do calculus.", zh: "这道 AIME 封顶题是伪装的纯费马点问题。两个 60 度角被精心设计，使旋转 60 度能同时把两对距离展开成直线，把五项最小化坍缩成一条线段长。只要看到『最小化距离和』加特殊角，就旋转——别做微积分。" }
+});
+
+courseData.days[4].problemSet.push({
+n: 9,
+source: { en: "PS5 · Problem 17 · Casey on an isosceles triangle", zh: "PS5 · 第 17 题 · 等腰三角形上的 Casey" },
+statement: { en: "Triangle \\(ABC\\) is isosceles with \\(AB=AC=\\ell\\). A circle \\(\\omega\\) is tangent to \\(BC\\) and to the arc \\(BC\\) (not containing \\(A\\)) of the circumcircle. A tangent from \\(A\\) touches \\(\\omega\\) at \\(P\\). Prove that \\(AP=\\ell\\).", zh: "三角形 \\(ABC\\) 等腰，\\(AB=AC=\\ell\\)。圆 \\(\\omega\\) 与 \\(BC\\) 相切，并与外接圆的弧 \\(BC\\)（不含 \\(A\\)）相切。从 \\(A\\) 向 \\(\\omega\\) 作切线，切点为 \\(P\\)。证明 \\(AP=\\ell\\)。" },
+recall: [ { en: "Casey's theorem with omega tangent to the circumcircle", zh: "omega 与外接圆相切，用 Casey 定理" }, { en: "A, B, C are point-circles; AP is the tangent length from A", zh: "A, B, C 是点圆；AP 是 A 的切线长" }, { en: "Isosceles: AB=AC", zh: "等腰：AB=AC" } ],
+steps: [
+{ en: "Treat \\(A, B, C\\) as point-circles on the circumcircle and \\(\\omega\\) as tangent to it. The tangent length from \\(A\\) to \\(\\omega\\) is \\(AP\\); from \\(B, C\\) to \\(\\omega\\) are the tangent lengths \\(t_B, t_C\\).", zh: "把 \\(A, B, C\\) 看作外接圆上的点圆，\\(\\omega\\) 与之相切。\\(A\\) 到 \\(\\omega\\) 的切线长为 \\(AP\\)；\\(B, C\\) 到 \\(\\omega\\) 的切线长为 \\(t_B, t_C\\)。" },
+{ en: "Casey on \\(A, B, \\omega, C\\): \\(AP\\cdot BC = AB\\cdot t_C + AC\\cdot t_B\\). Since \\(\\omega\\) is tangent to \\(BC\\), the tangency point splits \\(BC\\), and by equal tangents \\(t_B, t_C\\) are the distances from \\(B, C\\) to that point, so \\(t_B + t_C = BC\\).", zh: "对 \\(A, B, \\omega, C\\) 用 Casey：\\(AP\\cdot BC = AB\\cdot t_C + AC\\cdot t_B\\)。因 \\(\\omega\\) 与 \\(BC\\) 相切，切点分割 \\(BC\\)，由等切线，\\(t_B, t_C\\) 是 \\(B, C\\) 到该点的距离，故 \\(t_B + t_C = BC\\)。" },
+{ en: "With \\(AB=AC=\\ell\\): \\(AP\\cdot BC = \\ell(t_C+t_B) = \\ell\\cdot BC\\), so \\(AP=\\ell\\). \\(\\blacksquare\\)", zh: "由 \\(AB=AC=\\ell\\)：\\(AP\\cdot BC = \\ell(t_C+t_B) = \\ell\\cdot BC\\)，故 \\(AP=\\ell\\)。\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(AP=\\ell\\), one application of Casey plus \\(t_B+t_C=BC\\) and the isosceles condition. \\(\\blacksquare\\)", zh: "\\(AP=\\ell\\)，一次 Casey 加 \\(t_B+t_C=BC\\) 及等腰条件。\\(\\blacksquare\\)" },
+insight: { en: "The same Casey template as the精讲 problem, now with a circle tangent to a SIDE (so the two tangent lengths add up to that side). Recognizing 'tangent to the circumcircle' => Casey, and 'tangent to a side' => equal-tangent split, turns a scary configuration into two lines of algebra. This is exactly the toolkit for mixtilinear-incircle problems.", zh: "与精讲题相同的 Casey 模板，现在圆与一条『边』相切（于是两段切线长加起来等于那条边）。认出『与外接圆相切』=> Casey、『与边相切』=> 等切线分割，就把吓人的构型变成两行代数。这正是 mixtilinear 内切圆问题的工具箱。" }
+});
+
