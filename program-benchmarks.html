@@ -69,7 +69,7 @@ main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px 9
 /* Benchmark card */
 .bm{background:var(--card);border:1.5px solid var(--ink);border-radius:18px;margin-top:34px;overflow:hidden;box-shadow:0 2px 0 var(--shadow);scroll-margin-top:90px;}
 .bm-top{padding:24px 28px 20px;border-bottom:1.5px solid var(--ink);background:var(--paper-2);position:relative;}
-.bm-rail{position:absolute;top:0;left:0;width:6px;height:100%;}
+.bm-rail{position:absolute;top:18px;right:18px;left:auto;width:10px;height:10px;border-radius:50%;}
 .bm.t-comp .bm-rail{background:var(--accent);}
 .bm.t-proof .bm-rail{background:var(--accent-2);}
 .bm.t-bridge .bm-rail{background:var(--gold);}
@@ -128,9 +128,19 @@ main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px 9
 }
 
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visible,.gcard:focus-visible{outline:2.5px solid var(--accent-2);outline-offset:3px;border-radius:6px;}
+
+/* —— Lucide 内联图标：跟随强调色、随字号缩放 —— */
+.ic-svg{width:1em;height:1em;display:inline-block;vertical-align:-.14em;stroke:var(--accent);flex:none;}
+.gc-ic .ic-svg{width:1.55rem;height:1.55rem;vertical-align:0;stroke:var(--accent);}
+.lg .ic .ic-svg{width:1.15rem;height:1.15rem;stroke:var(--accent);}
+.brow .k .kic{display:inline-flex;vertical-align:-.16em;margin-right:7px;}
+.brow .k .kic .ic-svg{width:1.05em;height:1.05em;stroke:var(--accent);}
+.suri .sh .ic-svg{width:.95rem;height:.95rem;stroke:var(--accent);}
+.mast-link .ic-svg{width:1.02em;height:1.02em;stroke:currentColor;margin-right:5px;}
 </style>
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="ic-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></symbol><symbol id="ic-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol><symbol id="ic-book" viewBox="0 0 24 24"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></symbol><symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol><symbol id="ic-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol><symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol><symbol id="ic-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="ic-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol></g></defs></svg>
 <div class="grain"></div>
 
 <header class="masthead">
@@ -144,7 +154,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     </a>
     <div class="mast-actions">
       <a class="mast-link" href="summer-programs.html"> 夏校规划总览</a>
-      <a class="mast-link solid" href="index.html"> 总览</a>
+      <a class="mast-link solid" href="index.html"><svg class="ic-svg" aria-hidden="true"><use href="#ic-home"/></svg>总览</a>
     </div>
   </div>
 </header>
@@ -169,12 +179,12 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     <h2>怎么读这些卡片</h2>
     <p style="font-size:.95rem;color:var(--ink-soft);max-width:72ch">每张卡片用统一的栏目结构，方便横向对比。重点看四件事：<strong>① 真正的门槛</strong>（考什么）、<strong>② 必须掌握的知识点</strong>、<strong>③ 能力水平线</strong>（具体到 AMC/AIME 分数或证明能力）、<strong>④ 给 Suri 的行动建议</strong>（含"现在能不能冲"的就绪度标签）。</p>
     <div class="legend">
-      <div class="lg"><span class="ic"></span><div><strong>真正的门槛</strong>：录取真正打分的东西</div></div>
-      <div class="lg"><span class="ic"></span><div><strong>知识点清单</strong>：进门前要掌握的数学内容</div></div>
-      <div class="lg"><span class="ic"></span><div><strong>能力水平线</strong>：具体的分数 / 证明能力基准</div></div>
-      <div class="lg"><span class="ic"></span><div><strong>推荐资源</strong>：练这些能力用什么书 / 题</div></div>
-      <div class="lg"><span class="ic">⏱</span><div><strong>准备周期</strong>：从现在起大概要多久</div></div>
-      <div class="lg"><span class="ic"></span><div><strong>给 Suri</strong>：就绪度 + 具体下一步</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span><div><strong>真正的门槛</strong>：录取真正打分的东西</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span><div><strong>知识点清单</strong>：进门前要掌握的数学内容</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span><div><strong>能力水平线</strong>：具体的分数 / 证明能力基准</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span><div><strong>推荐资源</strong>：练这些能力用什么书 / 题</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span><div><strong>准备周期</strong>：从现在起大概要多久</div></div>
+      <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg></span><div><strong>给 Suri</strong>：就绪度 + 具体下一步</div></div>
     </div>
     <div style="margin-top:16px;font-size:.85rem;color:var(--ink-faint)">就绪度标签：<span class="readiness r-now" style="margin-top:0">现在可冲</span> <span class="readiness r-soon" style="margin-top:0">1-2 年后</span> <span class="readiness r-later" style="margin-top:0">2-3 年后</span></div>
   </section>
@@ -207,22 +217,22 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中（分级，能从当前水平起步）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份<strong>分级入学测试</strong>（奥赛式简答）。它不淘汰人，而是把你<em>分到合适的班</em>。所以关键不是"过不过"，而是<strong>分数越高、班级越高</strong>。这是唯一的录取依据。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份<strong>分级入学测试</strong>（奥赛式简答）。它不淘汰人，而是把你<em>分到合适的班</em>。所以关键不是"过不过"，而是<strong>分数越高、班级越高</strong>。这是唯一的录取依据。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>代数：</strong>因式分解、韦达定理、二次/多项式、不等式（AM-GM 入门）</li>
         <li><strong>数论：</strong>整除、质因数分解、同余/模运算入门、gcd/lcm</li>
         <li><strong>组合：</strong>计数原理、排列组合、容斥入门、简单概率</li>
         <li><strong>几何：</strong>相似三角形、圆幂、面积法、坐标几何</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">进门：<span class="bn">AMC10 约 90+</span>即可分到可用级别。<br>想进高班（更接近 AIME/奥赛）：<span class="bn">AMC10 110-120+</span> 或 <span class="bn">已晋级 AIME</span>。Suri 当前 100-120，目标是<strong>冲高班</strong>。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">进门：<span class="bn">AMC10 约 90+</span>即可分到可用级别。<br>想进高班（更接近 AIME/奥赛）：<span class="bn">AMC10 110-120+</span> 或 <span class="bn">已晋级 AIME</span>。Suri 当前 100-120，目标是<strong>冲高班</strong>。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>AoPS《Introduction to / Intermediate》系列（代数、数论、计数）</li>
         <li>AwesomeMath 自家教材（Titu Andreescu 系列）+ 历年入学测试样题</li>
         <li>历年 AMC10/12 真题（按知识点分类刷）</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v">已达标，<strong>立即可申</strong>。分级测试建议提前 4-6 周针对性刷题，冲更高班。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v">已达标，<strong>立即可申</strong>。分级测试建议提前 4-6 周针对性刷题，冲更高班。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>她现在<strong>稳过门槛</strong>。这一卡的目标不是"进得去"，而是<strong>分级测试要冲高分、进高班</strong>：只有高班才会系统训练 AMC 第 21-25 题那种多知识点综合题，正好打她的短板。</p>
         <p>具体下一步：把入学测试当成一次正式模考来准备，重点练<strong>"一道题套多个知识点"</strong>的综合卷。</p>
         <span class="readiness r-now">现在可冲</span>
@@ -244,21 +254,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（看履历 + 潜力）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v"><strong>明确告诉你：不要 PSAT、没有标化分数线。</strong>它是<em>综合评估</em>：书面申请 + 数学短文（讲你的兴趣与经历）+ 数学老师推荐信 + 你的<strong>竞赛/课程履历</strong>。竞赛成绩是最硬的加分项。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v"><strong>明确告诉你：不要 PSAT、没有标化分数线。</strong>它是<em>综合评估</em>：书面申请 + 数学短文（讲你的兴趣与经历）+ 数学老师推荐信 + 你的<strong>竞赛/课程履历</strong>。竞赛成绩是最硬的加分项。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>扎实的竞赛数学</strong>（AMC/AIME 四大块），证明它你"做数学到了一定深度"</li>
         <li><strong>对数论/抽象数学的好奇心</strong>：营内核心是数论与抽象代数、做研究项目</li>
         <li>能写一点<strong>初步证明</strong>（归纳法、整除证明）会让申请更突出</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">有竞争力的画像：<span class="bn">AMC10 ~110+</span>，最好<span class="bn">已晋级 AIME</span>（哪怕 AIME 3-5 分也是强信号）。再加一个能讲出来的"数学热爱证据"：一个项目、一个证明、一道你钻研过的难题。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">有竞争力的画像：<span class="bn">AMC10 ~110+</span>，最好<span class="bn">已晋级 AIME</span>（哪怕 AIME 3-5 分也是强信号）。再加一个能讲出来的"数学热爱证据"：一个项目、一个证明、一道你钻研过的难题。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>数论入门：Niven《An Introduction to the Theory of Numbers》或 AoPS 数论</li>
         <li>证明入门：《How to Prove It》(Velleman)：为营内研究打底</li>
         <li>持续刷 AIME 真题，把"晋级 AIME"做成硬指标</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 1-2 年</strong>。申请约 12 月 1 日开放。需要先把 AIME 晋级和一个"证明故事"做出来。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 1-2 年</strong>。申请约 12 月 1 日开放。需要先把 AIME 晋级和一个"证明故事"做出来。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>直接回答你的例子：<strong>HSMC 不需要 PSAT，也没有分数线。</strong>它看的是 AMC/AIME 履历 + 数学热情。Suri 的路径很清晰：<strong>把 AMC10 提到 120+、晋级 AIME、攒一个证明故事</strong>。</p>
         <p>具体下一步：今年 11 月 AMC 力争晋级 AIME；同时用 Algebra 2.5 起步写证明，明年作为"升 9/10 年级 + 已晋级 AIME"的画像去申请，竞争力很强。</p>
         <span class="readiness r-soon">1-2 年后</span>
@@ -280,21 +290,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（看证明思维，不看速度）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份带回家做的<strong>探索性测试（Exploratory Test）</strong>：自由作答、偏证明，<em>不是竞赛</em>。评分看你能不能把一个陌生问题想清楚、并<strong>写出清晰的逻辑论证</strong>。不看你做题多快、也不看竞赛分。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份带回家做的<strong>探索性测试（Exploratory Test）</strong>：自由作答、偏证明，<em>不是竞赛</em>。评分看你能不能把一个陌生问题想清楚、并<strong>写出清晰的逻辑论证</strong>。不看你做题多快、也不看竞赛分。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>逻辑与证明基本功</strong>：能完整论证一个结论，而非只给答案</li>
         <li>不要求高中以外的内容，但要求<strong>愿意"换角度想"、深挖一个问题</strong></li>
         <li>组合/数论的探索性思维（找规律、归纳、构造）很吃香</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无分数线。"水平"= 能不能把一道开放题<strong>写成一段逻辑严密、表达清楚的论证</strong>。这是<em>质</em>不是<em>量</em>。Suri 现在差的正是这种<strong>书面证明表达</strong>。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无分数线。"水平"= 能不能把一道开放题<strong>写成一段逻辑严密、表达清楚的论证</strong>。这是<em>质</em>不是<em>量</em>。Suri 现在差的正是这种<strong>书面证明表达</strong>。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>《How to Prove It》(Velleman)：系统学证明写法</li>
         <li>历年 MathILy 探索性测试样题（官网有）</li>
         <li>AoPS 论坛的证明题，练习"把思路写成文字"</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 1-2 年</strong>（进高中后）。核心是把证明写作练到能拿得出手。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 1-2 年</strong>（进高中后）。核心是把证明写作练到能拿得出手。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>这是她<strong>从竞赛转向证明的最佳第一站</strong>：门槛友好、又真正训练证明文化。它的探索性测试本身就是低风险的证明练习场，做了即使没录取也是赚的。</p>
         <p>具体下一步：等 Algebra 2.5 的证明基础打牢后，拿 MathILy 的样题练手，把它当作"证明能力体检"。</p>
         <span class="readiness r-soon">1-2 年后</span>
@@ -317,21 +327,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">高（大学级纯数学 + 极挑剔）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份<strong>入学测试（数学问题集）</strong> + 申请短文。<strong>年级硬卡在 10-11</strong>。极度挑剔：住宿约 40 席、线上约 64 席。AMC/AIME 强会加分，但<em>替代不了</em>测试本身的证明表现。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份<strong>入学测试（数学问题集）</strong> + 申请短文。<strong>年级硬卡在 10-11</strong>。极度挑剔：住宿约 40 席、线上约 64 席。AMC/AIME 强会加分，但<em>替代不了</em>测试本身的证明表现。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>预备微积分学完</strong>，且能自学抽象内容</li>
         <li>能读写<strong>证明</strong>（这是核心）</li>
         <li>课程二选一方向：<strong>抽象代数 + 数论</strong> 或 <strong>代数拓扑</strong>：申请前对其一有兴趣储备</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能独立读懂大学一年级的证明并自己写出来</strong>。竞赛上 <span class="bn">AMC 高分 / AIME 晋级</span>是常见画像，但测试看的是抽象与证明，不是速度。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能独立读懂大学一年级的证明并自己写出来</strong>。竞赛上 <span class="bn">AMC 高分 / AIME 晋级</span>是常见画像，但测试看的是抽象与证明，不是速度。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>群论入门：《A Book of Abstract Algebra》(Pinter)</li>
         <li>数论：《Elementary Number Theory》(Burton) 或 AoPS 数论</li>
         <li>《How to Prove It》打底；历年 SUMaC 入学测试样题</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 2-3 年</strong>（年级门槛卡到 10-11 年级）。现在该练的是证明熟练度，不是某个分数。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 2-3 年</strong>（年级门槛卡到 10-11 年级）。现在该练的是证明熟练度，不是某个分数。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>因为<strong>年级硬门槛</strong>，至少要等到 10 年级。这是一个值得"储备"的旗舰目标。现在唯一该做的准备，就是把<strong>证明能力</strong>慢慢养起来：其入学测试要的正是这个。</p>
         <p>具体下一步：先不碰它，把精力放在 AwesomeMath + 证明基础上；10 年级前再启动抽象代数/数论的系统自学。</p>
         <span class="readiness r-later">2-3 年后</span>
@@ -353,21 +363,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">高（深度原创证明思维）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">著名的 <strong>Qualifying Quiz（资格测验）</strong>：5-10 道难题，需提交<strong>完整书面证明</strong>。官方明说"不需要高中以外的背景""不是竞赛式设计"：它筛的是<strong>深度、原创的证明思维</strong>。年龄不设限，<em>唯一门槛就是这份测验</em>。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">著名的 <strong>Qualifying Quiz（资格测验）</strong>：5-10 道难题，需提交<strong>完整书面证明</strong>。官方明说"不需要高中以外的背景""不是竞赛式设计"：它筛的是<strong>深度、原创的证明思维</strong>。年龄不设限，<em>唯一门槛就是这份测验</em>。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>高中数学的扎实基础</strong>（不需更多课程内容）</li>
         <li>核心是<strong>证明工具</strong>：归纳法、抽屉原理、反证法、构造法</li>
         <li>能对一道陌生题<strong>持续深挖数天</strong>并写出严密论证</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无分数线、不看竞赛分。能力线 = <strong>能把一道难证明题写成逻辑无懈可击的完整解答</strong>。这是"质"的门槛：一道写透，胜过十道半成品。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无分数线、不看竞赛分。能力线 = <strong>能把一道难证明题写成逻辑无懈可击的完整解答</strong>。这是"质"的门槛：一道写透，胜过十道半成品。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>《How to Prove It》(Velleman) + 《How to Solve It》(Polya)</li>
         <li>历年 Qualifying Quiz 真题（官网全部公开，是最好的练习）</li>
         <li>官网的"Tips on Writing Proofs"指南</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 1-2 年</strong>。测验每年 1 月发布、春季截止。可以<em>提早试做</em>，年龄不是障碍。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 1-2 年</strong>。测验每年 1 月发布、春季截止。可以<em>提早试做</em>，年龄不是障碍。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>这是她<strong>能最早尝试的顶级证明项目</strong>：因为年龄不卡，唯一门槛是测验。<strong>强烈建议：每年 1 月测验一发布就去做</strong>，哪怕暂不提交，也是市面上最好的免费证明写作训练。</p>
         <p>具体下一步：把今年/明年的 Qualifying Quiz 当作 Algebra 2.5 之后的"证明实战靶场"，做完拿给我逐题批改严谨度。</p>
         <span class="readiness r-soon">1-2 年后（测验现在就能练）</span>
@@ -389,21 +399,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中高（好奇心 + 耐力优先）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">申请里有一组<strong>开放式数学题</strong>，重点看你<em>怎么想</em>、思路怎么展开，而不是标准答案或竞赛分。录取偏好<strong>好奇心强、愿意探索、能扛 6 周高强度浸泡</strong>的学生。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">申请里有一组<strong>开放式数学题</strong>，重点看你<em>怎么想</em>、思路怎么展开，而不是标准答案或竞赛分。录取偏好<strong>好奇心强、愿意探索、能扛 6 周高强度浸泡</strong>的学生。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li>不依赖特定课程，<strong>看的是数学思维方式</strong></li>
         <li>能对开放问题<strong>主动探索、提出猜想、尝试论证</strong></li>
         <li>每天 4 小时上午课 + 晚间问题课的<strong>耐力与投入度</strong></li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无分数线。能力线 = <strong>面对一个没见过的问题，能饶有兴致地钻进去、写下自己的探索过程</strong>。成熟度（能否享受 6 周纯数学）也是隐性门槛。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无分数线。能力线 = <strong>面对一个没见过的问题，能饶有兴致地钻进去、写下自己的探索过程</strong>。成熟度（能否享受 6 周纯数学）也是隐性门槛。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>《How to Solve It》(Polya)：培养探索式思维</li>
         <li>《Mathematical Circles》(俄式数学圈)：开放问题练习</li>
         <li>官网申请题往年版本，练习"写下思考过程"</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 2 年</strong>（进入高中、且真正享受证明后）。申请冬末开放，常滚动招满。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 2 年</strong>（进入高中、且真正享受证明后）。申请冬末开放，常滚动招满。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>等她<strong>真正享受"为证明而证明"</strong>之后，10-11 年级是绝佳的纯数学浸泡。它对竞赛分要求最低、对"好奇心与表达"要求最高：和当前以速度见长的她正好互补。</p>
         <p>具体下一步：本轮先不考虑；在练证明时刻意培养"写下思考过程"的习惯，正是它看重的能力。</p>
         <span class="readiness r-later">2-3 年后</span>
@@ -426,21 +436,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">很高（真正写出原创证明）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（偏数论、需写证明），是录取的<em>绝对核心</em>。题目刻意开放、需要数周钻研。看的是你<strong>能不能自己猜想 + 严格证明</strong>，而非做题速度。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（偏数论、需写证明），是录取的<em>绝对核心</em>。题目刻意开放、需要数周钻研。看的是你<strong>能不能自己猜想 + 严格证明</strong>，而非做题速度。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li><strong>初等数论</strong>：整除、同余、模运算、费马小定理（营内核心）</li>
         <li><strong>证明成熟度</strong>：归纳、反证、构造，能写出完整严密的论证</li>
         <li>"发现法"思维：从具体例子出发找规律、提出并证明猜想</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能产出真正的书面证明</strong>。常见画像具 <span class="bn">AIME 级</span>成熟度，但<em>竞赛分既非必需也不充分</em>：决定性的是申请问题集里证明的质量。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无标化分数线。能力线 = <strong>能产出真正的书面证明</strong>。常见画像具 <span class="bn">AIME 级</span>成熟度，但<em>竞赛分既非必需也不充分</em>：决定性的是申请问题集里证明的质量。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>数论：《Elementary Number Theory》(Burton) 或 Niven</li>
         <li>《How to Prove It》(Velleman) 系统打底</li>
         <li>历年 PROMYS 申请问题集（官网公开，提前数月开始做）</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 2-3 年</strong>。申请 2 月初开放、<strong>优先截止约 3 月 15</strong>。申请问题集是数月工程，需提前整整一年打数论 + 证明底子。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 2-3 年</strong>。申请 2 月初开放、<strong>优先截止约 3 月 15</strong>。申请问题集是数月工程，需提前整整一年打数论 + 证明底子。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>一颗"北极星"，瞄准 10-11 年级。它和 Ross 共享同一套准备，所以<strong>现在投入的数论 + 证明会有双倍回报</strong>。</p>
         <p>具体下一步：9 年级起系统学初等数论 + 证明；10 年级正式拿当年申请问题集逐题攻坚（这正是我们 Algebra 2.5 之后的自然延伸）。</p>
         <span class="readiness r-later">2-3 年后</span>
@@ -462,21 +472,21 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">很高（深度证明探索）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（书面证明），与 PROMYS 同源同理念。看重<strong>"对简单的事物深刻地思考"</strong>：把一个看似基础的数论问题挖到很深。营地在 Otterbein（俄亥俄）与 Rose-Hulman（印第安纳）。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份高难度<strong>申请问题集</strong>（书面证明），与 PROMYS 同源同理念。看重<strong>"对简单的事物深刻地思考"</strong>：把一个看似基础的数论问题挖到很深。营地在 Otterbein（俄亥俄）与 Rose-Hulman（印第安纳）。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li>与 PROMYS 几乎一致：<strong>初等数论 + 严格证明</strong></li>
         <li>强调<strong>深度而非广度</strong>：少而精、钻到底</li>
         <li>能独立、耐心地展开长链条推理</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无分数线。能力线同 PROMYS：<strong>写出真正深入的原创证明</strong>。录取多为 <span class="bn">16-17 岁</span>，是对 Suri 而言可申请时间<em>最晚</em>的项目之一。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无分数线。能力线同 PROMYS：<strong>写出真正深入的原创证明</strong>。录取多为 <span class="bn">16-17 岁</span>，是对 Suri 而言可申请时间<em>最晚</em>的项目之一。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>与 PROMYS 完全通用：Burton 数论 + Velleman 证明</li>
         <li>历年 Ross 申请问题集（官网公开）</li>
         <li>练习"对一个简单结论给出多种证明"</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>约 3 年</strong>（年龄通常 16+）。申请冬季开放。准备内容与 PROMYS 互通。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>约 3 年</strong>（年龄通常 16+）。申请冬季开放。准备内容与 PROMYS 互通。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>与 PROMYS 并列作为 10-11 年级<strong>双目标</strong>，一套准备同时覆盖两家。年龄门槛偏晚，所以放在 PROMYS 之后作为"加申"。</p>
         <p>具体下一步：和 PROMYS 共用数论 + 证明的长期训练，到时一起申请、提高命中率。</p>
         <span class="readiness r-later">2-3 年后</span>
@@ -498,20 +508,20 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="meter"><span class="ml">能力难度</span><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">中（专为"会解题、初学证明"设计）</span></div>
     </div>
     <div class="bm-body">
-      <div class="brow"><div class="k">真正的门槛</div><div class="v">一份<strong>入学测试</strong>，专门面向<strong>"竞赛解题强、但刚接触证明"</strong>的学生。理念是明确架起"解出来  证出来"的桥。<strong> 2026 年住宿项目暂停</strong>（本为隔年举办）。</div></div>
-      <div class="brow"><div class="k">必须掌握的知识点</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">一份<strong>入学测试</strong>，专门面向<strong>"竞赛解题强、但刚接触证明"</strong>的学生。理念是明确架起"解出来  证出来"的桥。<strong> 2026 年住宿项目暂停</strong>（本为隔年举办）。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>必须掌握的知识点</div><div class="v"><ul>
         <li>扎实的<strong>竞赛解题背景</strong>（这是前提）</li>
         <li>对<strong>证明写作</strong>的初步意愿（营内主攻这个）</li>
         <li>逻辑严谨性：不满足于"算对"，追求"证明对"</li>
       </ul></div></div>
-      <div class="brow"><div class="k">能力水平线</div><div class="v">无分数线。能力线 = <strong>解题能力已强、正准备迈入严谨证明</strong>：和 Suri 的画像在理念上高度契合。</div></div>
-      <div class="brow"><div class="k">推荐资源</div><div class="v"><ul>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>能力水平线</div><div class="v">无分数线。能力线 = <strong>解题能力已强、正准备迈入严谨证明</strong>：和 Suri 的画像在理念上高度契合。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>推荐资源</div><div class="v"><ul>
         <li>《How to Prove It》(Velleman)：与其课程理念一致</li>
         <li>关注官网复办公告</li>
       </ul></div></div>
-      <div class="brow"><div class="k">准备周期</div><div class="v"><strong>暂不可用</strong>。把它的<em>理念</em>当作准备目标即可。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>准备周期</div><div class="v"><strong>暂不可用</strong>。把它的<em>理念</em>当作准备目标即可。</div></div>
       <div class="suri">
-        <div class="sh"><span></span>给 Suri 的判断</div>
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断</div>
         <p>理念上是她理想的"第一个证明营"：可惜目前暂停。所以我们<strong>自己用 Algebra 2.5 搭这座"解题证明"的桥</strong>，把它的目标内化成日常训练。</p>
         <p>具体下一步：关注官网；若复办，把它的入学测试当作证明能力的阶段性检验。</p>
         <span class="readiness r-later">暂停 ｜ 关注复办</span>

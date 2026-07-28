@@ -69,7 +69,7 @@ main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px 9
 /* Track callout */
 .tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px;}
 .track{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:24px 22px;position:relative;overflow:hidden;}
-.track::before{content:"";position:absolute;top:0;left:0;width:5px;height:100%;}
+.track::before{content:"";position:absolute;top:16px;right:16px;left:auto;width:9px;height:9px;border-radius:50%;}
 .track.comp::before{background:var(--accent);}
 .track.proof::before{background:var(--accent-2);}
 .track h3{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:6px;}
@@ -206,8 +206,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
 
       <a class="mast-link" href="index.html"> <span class="en">Home</span><span class="zh">返回总览</span></a>
       <div class="lang-toggle" id="langToggle">
-        <button data-l="zh">中文</button>
-        <button data-l="en" class="on">EN</button>
+        <button type="button" data-l="zh">中文</button>
+        <button type="button" data-l="en" class="on">EN</button>
       </div>
     </div>
   </div>

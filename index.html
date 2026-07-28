@@ -84,7 +84,7 @@ main{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 28px 9
 .pcard:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:0 6px 0 var(--shadow);}
 .pcard.locked{opacity:.72;}
 .pcard.locked:hover{transform:none;border-color:var(--line);box-shadow:none;cursor:default;}
-.pcard-rail{height:6px;width:100%;}
+.pcard-rail{position:absolute;top:16px;right:16px;width:9px;height:9px;border-radius:50%;z-index:2;}
 .rail-comp{background:var(--accent);}
 .rail-geo{background:var(--accent-2);}
 .rail-proof{background:var(--gold);}
@@ -113,9 +113,19 @@ body.lang-en .zh-only{display:none;}body.lang-en .en-only{display:initial;}
 @media(max-width:600px){.hero h1{font-size:2.1rem;}}
 
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visible,.gcard:focus-visible{outline:2.5px solid var(--accent-2);outline-offset:3px;border-radius:6px;}
+
+/* —— Lucide 内联图标：跟随强调色、随字号缩放 —— */
+.ic-svg{width:1em;height:1em;display:inline-block;vertical-align:-.14em;stroke:var(--accent);flex:none;}
+.gc-ic .ic-svg{width:1.55rem;height:1.55rem;vertical-align:0;stroke:var(--accent);}
+.lg .ic .ic-svg{width:1.15rem;height:1.15rem;stroke:var(--accent);}
+.brow .k .kic{display:inline-flex;vertical-align:-.16em;margin-right:7px;}
+.brow .k .kic .ic-svg{width:1.05em;height:1.05em;stroke:var(--accent);}
+.suri .sh .ic-svg{width:.95rem;height:.95rem;stroke:var(--accent);}
+.mast-link .ic-svg{width:1.02em;height:1.02em;stroke:currentColor;margin-right:5px;}
 </style>
 </head>
 <body class="lang-zh">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><defs><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="ic-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></symbol><symbol id="ic-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol><symbol id="ic-book" viewBox="0 0 24 24"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></symbol><symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol><symbol id="ic-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol><symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol><symbol id="ic-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol><symbol id="ic-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol></g></defs></svg>
 <div class="grain"></div>
 
 <header class="masthead">
@@ -128,8 +138,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       </div>
     </a>
     <div class="lang-toggle" id="langToggle">
-      <button data-l="zh" class="on">中文</button>
-      <button data-l="en">EN</button>
+      <button type="button" data-l="zh" class="on">中文</button>
+      <button type="button" data-l="en">EN</button>
     </div>
   </div>
 </header>
@@ -152,20 +162,25 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
   </div>
   <div class="gen-grid">
     <a class="gcard accent" href="summer-programs.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sun"/></svg></span>
       <span class="gc-title"><span class="zh-only">夏校规划</span><span class="en-only">Summer Programs</span></span>
       <span class="gc-desc"><span class="zh-only">9 大夏校深度调研 + 两条赛道 + 季度行动计划</span><span class="en-only">9 programs, 2 tracks, quarterly action plan</span></span>
       <span class="gc-go"><span class="zh-only">查看规划</span><span class="en-only">Explore</span> </span>
     </a>
     <a class="gcard" href="program-benchmarks.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>
       <span class="gc-title"><span class="zh-only">能力基准卡</span><span class="en-only">Ability Benchmarks</span></span>
       <span class="gc-desc"><span class="zh-only">9 张卡：每个项目要练成什么样、具体分数线</span><span class="en-only">9 cards: exact ability bar per program</span></span>
       <span class="gc-go"><span class="zh-only">查看基准</span><span class="en-only">Open cards</span> </span>
     </a>
     <a class="gcard" href="algebra-level2.html#textbook">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>
       <span class="gc-title"><span class="zh-only">知识点教材</span><span class="en-only">Concept Textbook</span></span>
       <span class="gc-desc"><span class="zh-only">每个核心知识点的深度手把手讲义</span><span class="en-only">Deep, hand-held lessons on each core idea</span></span>
-      <span class="gc-go"><span class="zh-only">进入教材</span><span class="en-only">    </a>
+      <span class="gc-go"><span class="zh-only">进入教材</span><span class="en-only">Open</span> </span>
+    </a>
     <a class="gcard" href="qbank.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-layers"/></svg></span>
       <span class="gc-title"><span class="zh-only">压轴题分级库</span><span class="en-only">Question Bank</span></span>
       <span class="gc-desc"><span class="zh-only">1339 道 AMC/AIME 题，按知识点+难度筛选，专攻第21-25题</span><span class="en-only">1339 AMC/AIME problems, filter by topic & difficulty</span></span>
       <span class="gc-go"><span class="zh-only">刷题</span><span class="en-only">Browse</span> </span>
