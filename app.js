@@ -332,7 +332,7 @@ function psetRow(item) {
       <div class="problem-head">
         <div class="problem-index">${item.n}</div>
         <div class="problem-headtext">
-          <div class="problem-source">${item.source}${solved ? "" : " · " + ui("tapToOpen")}</div>
+          <div class="problem-source">${t(item.source)}${solved ? "" : " · " + ui("tapToOpen")}</div>
           <div class="problem-statement">${t(item.statement)}</div>
         </div>
         <div class="chevron">›</div>
