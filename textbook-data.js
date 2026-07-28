@@ -1000,545 +1000,8 @@ textbookData[5].sections.push({
    CONCEPT 07 — Number Theory: Divisibility & Congruences
    ============================================================*/
 textbookData.push({
-  id: "numbertheory",
-  badge: { en: "Concept 07", zh: "知识点 07" },
-  title: { en: "Divisibility & Congruences", zh: "数论技巧（整除与同余）" },
-  subtitle: { en: "Modular arithmetic is 'clock math'. Once you can compute with remainders directly, huge number problems shrink to tiny ones.",
-              zh: "模运算就是「时钟数学」。一旦你能直接用余数计算，巨大的数论问题就缩成小问题。" },
-  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
-  sections: [
-
-  /* ---------- 0. WHY ---------- */
-  {
-    heading: { en: "0 · You already do modular arithmetic", zh: "0 · 你早就在做模运算了" },
-    blocks: [
-      { type: "para", en: "It's 10 o'clock. In 5 hours, what time is it? You said 3, not 15. You just did modular arithmetic \u2014 you wrapped around after 12. That 'wrap-around' is the entire idea of working 'mod \\(n\\)'.",
-        zh: "现在 10 点。过 5 小时是几点？你会说 3 点，不是 15 点。你刚刚就做了模运算 \u2014\u2014 你在过了 12 之后「绕回来」了。这个「绕回来」就是「模 \\(n\\)」运算的全部想法。" },
-      { type: "para", en: "We write \\(a\\equiv b\\pmod n\\) to mean '\\(a\\) and \\(b\\) leave the same remainder when divided by \\(n\\)', equivalently '\\(n\\) divides \\(a-b\\)'. On a 12-hour clock, \\(15\\equiv 3\\pmod{12}.\\)",
-        zh: "我们写 \\(a\\equiv b\\pmod n\\) 表示「\\(a\\) 和 \\(b\\) 除以 \\(n\\) 余数相同」，等价于「\\(n\\) 整除 \\(a-b\\)」。在 12 小时制时钟上，\\(15\\equiv 3\\pmod{12}\\)。" },
-      { type: "formula", tex: "\\[ a\\equiv b \\pmod n \\quad\\Longleftrightarrow\\quad n \\mid (a-b) \\]" },
-      { type: "note", en: "The magic of congruences: you can ADD, SUBTRACT, and MULTIPLY them just like equations. If \\(a\\equiv b\\) and \\(c\\equiv d\\pmod n,\\) then \\(a+c\\equiv b+d\\) and \\(ac\\equiv bd\\pmod n.\\) This is what lets you replace a giant number by its tiny remainder BEFORE computing \u2014 the whole reason mod is powerful.",
-        zh: "同余的魔力：你可以像方程一样对它们「加、减、乘」。若 \\(a\\equiv b\\) 且 \\(c\\equiv d\\pmod n\\)，则 \\(a+c\\equiv b+d\\)、\\(ac\\equiv bd\\pmod n\\)。这让你能在计算「之前」就把一个巨大的数换成它小小的余数 \u2014\u2014 这正是模运算强大的全部原因。" },
-      { type: "ask", en: "Warm-up: what is the remainder of \\(7\\times 8\\) when divided by 5? Slow way: \\(56=5\\cdot11+1,\\) remainder 1. Fast way: \\(7\\equiv2,\\ 8\\equiv3,\\) so \\(7\\cdot8\\equiv2\\cdot3=6\\equiv1\\pmod5.\\) Same answer, less work.",
-        zh: "热身：\\(7\\times 8\\) 除以 5 的余数是多少？慢法：\\(56=5\\cdot11+1\\)，余 1。快法：\\(7\\equiv2,\\ 8\\equiv3\\)，所以 \\(7\\cdot8\\equiv2\\cdot3=6\\equiv1\\pmod5\\)。同样答案，更少工作量。" }
-    ]
-  },
-
-  /* ---------- 1. POWER TOWERS ---------- */
-  {
-    heading: { en: "1 · Taming huge powers with mod", zh: "1 · 用模运算驯服巨大的幂" },
-    blocks: [
-      { type: "para", en: "The classic contest question: 'what is the last digit of \\(7^{100}?\\)' or 'what is \\(3^{2024}\\bmod 5?\\)' You can't compute \\(7^{100}\\) directly \u2014 it has 85 digits. But mod arithmetic makes it easy by finding a CYCLE.",
-        zh: "经典竞赛题：「\\(7^{100}\\) 的末位是几？」或「\\(3^{2024}\\bmod 5\\) 是多少？」你没法直接算 \\(7^{100}\\) \u2014\u2014 它有 85 位数字。但模运算靠找「循环」让它变简单。" },
-      { type: "step", n: "1", title: { en: "Find the cycle", zh: "找出循环" },
-        en: "Compute \\(3^{2024}\\bmod 5.\\) List powers of 3 mod 5:\n\u2022 \\(3^1\\equiv3,\\ 3^2\\equiv9\\equiv4,\\ 3^3\\equiv12\\equiv2,\\ 3^4\\equiv6\\equiv1.\\)\n\u2022 At \\(3^4\\equiv1,\\) the pattern RESETS. The cycle length is 4: \\((3,4,2,1)\\) repeating.",
-        zh: "计算 \\(3^{2024}\\bmod 5\\)。列出 3 的幂模 5：\n\u2022 \\(3^1\\equiv3,\\ 3^2\\equiv9\\equiv4,\\ 3^3\\equiv12\\equiv2,\\ 3^4\\equiv6\\equiv1\\)。\n\u2022 在 \\(3^4\\equiv1\\) 处，模式「重置」。循环长度是 4：\\((3,4,2,1)\\) 不断重复。" },
-      { type: "step", n: "2", title: { en: "Use the cycle position", zh: "用循环里的位置" },
-        en: "Since the cycle length is 4, only the exponent's remainder mod 4 matters. \\(2024=4\\cdot506,\\) so \\(2024\\equiv0\\pmod4\\) \u2014 it lands exactly at the end of a cycle, the '\\(3^4\\equiv1\\)' spot.\n\u2022 Therefore \\(3^{2024}\\equiv(3^4)^{506}\\equiv1^{506}\\equiv1\\pmod5.\\)",
-        zh: "因为循环长度是 4，只有指数「模 4 的余数」要紧。\\(2024=4\\cdot506\\)，所以 \\(2024\\equiv0\\pmod4\\) \u2014\u2014 它正好落在一个循环的末尾，那个「\\(3^4\\equiv1\\)」的位置。\n\u2022 因此 \\(3^{2024}\\equiv(3^4)^{506}\\equiv1^{506}\\equiv1\\pmod5\\)。" },
-      { type: "note", en: "The universal recipe for \\(a^N\\bmod n\\): (1) compute powers of \\(a\\) until you hit 1 \u2014 that's the cycle length \\(L;\\) (2) reduce the exponent \\(N\\bmod L;\\) (3) read off the answer. Finding the cycle turns an 85-digit monster into counting on one hand.",
-        zh: "求 \\(a^N\\bmod n\\) 的万能配方：(1) 不断算 \\(a\\) 的幂直到出现 1 \u2014\u2014 那就是循环长度 \\(L\\)；(2) 把指数 \\(N\\) 约简成 \\(N\\bmod L\\)；(3) 读出答案。找到循环，就把一个 85 位的怪物变成了掰手指头数数。" },
-      { type: "ask", en: "Your turn: find the last digit of \\(7^{100}.\\) (Last digit = mod 10. Powers of 7 mod 10: \\(7,9,3,1,\\) cycle 4. Since \\(100\\equiv0\\pmod4,\\) you land on the '\\(7^4\\equiv1\\)' spot. Answer: \\(1.\\))",
-        zh: "轮到你：求 \\(7^{100}\\) 的末位。（末位 = 模 10。7 的幂模 10：\\(7,9,3,1\\)，循环 4。因为 \\(100\\equiv0\\pmod4\\)，落在「\\(7^4\\equiv1\\)」处。答案：\\(1\\)。）" }
-    ]
-  }
-  ]
-});
-
-
-
-/* ---------- 2. DIVISIBILITY RULES ---------- */
-textbookData[6].sections.push({
-  heading: { en: "2 · Why divisibility rules actually work", zh: "2 · 整除规则为什么真的成立" },
-  blocks: [
-    { type: "para", en: "You memorized 'a number is divisible by 9 if its digit sum is'. But WHY? Mod arithmetic reveals the secret, and once you see it, you'll never forget the rule \u2014 and you'll be able to invent new ones.",
-      zh: "你背过「一个数能被 9 整除，当且仅当它的数字和能被 9 整除」。但为什么？模运算揭开秘密，一旦你看懂，就再也忘不掉这个规则 \u2014\u2014 而且能自己发明新规则。" },
-    { type: "para", en: "The key fact: \\(10\\equiv1\\pmod9.\\) So every power of 10 is also \\(\\equiv1:\\) \\(100\\equiv1,\\ 1000\\equiv1,\\) and so on. That means a number like \\(\\overline{d_kd_{k-1}\\dots d_0}=\\sum d_i\\cdot10^i\\) collapses mod 9 to just \\(\\sum d_i\\) \u2014 the digit sum.",
-      zh: "关键事实：\\(10\\equiv1\\pmod9\\)。所以 10 的每个幂也都 \\(\\equiv1\\)：\\(100\\equiv1,\\ 1000\\equiv1\\)，依此类推。这意味着一个数 \\(\\overline{d_kd_{k-1}\\dots d_0}=\\sum d_i\\cdot10^i\\) 在模 9 下塌缩成 \\(\\sum d_i\\) \u2014\u2014 就是数字和。" },
-    { type: "formula", tex: "\\[ N=\\sum_i d_i\\,10^i \\;\\equiv\\; \\sum_i d_i\\,(1)^i \\;=\\; \\sum_i d_i \\pmod 9 \\]" },
-    { type: "example", en: "Is \\(12345\\) divisible by 9? Digit sum \\(=1+2+3+4+5=15.\\) And \\(15\\) has digit sum \\(6,\\) not a multiple of 9. So \\(12345\\equiv6\\pmod9\\) \u2014 NOT divisible by 9, but its remainder is exactly 6. The digit-sum trick gives you the remainder for free.",
-      zh: "\\(12345\\) 能被 9 整除吗？数字和 \\(=1+2+3+4+5=15\\)。而 \\(15\\) 的数字和是 \\(6\\)，不是 9 的倍数。所以 \\(12345\\equiv6\\pmod9\\) \u2014\u2014「不」能被 9 整除，但余数正好是 6。数字和技巧免费送你余数。" },
-    { type: "note", en: "Same logic builds the rule for 11. Here \\(10\\equiv-1\\pmod{11},\\) so powers of 10 alternate \\(+1,-1,+1,\\dots.\\) That's why the 11-rule uses the ALTERNATING digit sum: \\(d_0-d_1+d_2-\\cdots.\\) Every divisibility rule is just '\\(10^i\\bmod n\\)' in disguise.",
-      zh: "同样的逻辑能造出 11 的规则。这里 \\(10\\equiv-1\\pmod{11}\\)，所以 10 的幂交替为 \\(+1,-1,+1,\\dots\\)。这就是为什么 11 的规则用「交替数字和」：\\(d_0-d_1+d_2-\\cdots\\)。每一条整除规则，都只是换了装的「\\(10^i\\bmod n\\)」。" },
-    { type: "ask", en: "Invent-a-rule: since \\(10\\equiv3\\pmod7,\\) the powers of 10 mod 7 cycle \\(1,3,2,6,4,5,\\dots.\\) Divisibility-by-7 has no simple digit rule \u2014 can you see why? (The mod-7 residues of \\(10^i\\) don't settle to \\(\\pm1,\\) so no clean alternating/summing trick exists.)",
-      zh: "自创规则：因为 \\(10\\equiv3\\pmod7\\)，10 的幂模 7 循环为 \\(1,3,2,6,4,5,\\dots\\)。被 7 整除「没有」简单的数字规则 \u2014\u2014 你能看出为什么吗？（\\(10^i\\) 模 7 的余数不会稳定在 \\(\\pm1\\)，所以不存在干净的交替/求和技巧。）" }
-  ]
-});
-
-/* ---------- 3. FERMAT ---------- */
-textbookData[6].sections.push({
-  heading: { en: "3 · Fermat's Little Theorem — a power shortcut", zh: "3 · 费马小定理 —— 幂的捷径" },
-  blocks: [
-    { type: "para", en: "Finding cycles by hand is fine for small cases, but there's a theorem that hands you the cycle length for free whenever the modulus is PRIME. It's called Fermat's Little Theorem, and it's a contest workhorse.",
-      zh: "手动找循环对小情形没问题，但有一个定理，每当模数是「素数」时，它免费把循环长度交给你。它叫费马小定理，是竞赛的主力。" },
-    { type: "formula", tex: "\\[ \\text{If } p \\text{ is prime and } p\\nmid a, \\text{ then } \\; a^{p-1}\\equiv 1 \\pmod p. \\]" },
-    { type: "para", en: "Read it as a promise: for a prime \\(p,\\) raising any non-multiple \\(a\\) to the power \\(p-1\\) always gives remainder 1. So the cycle length always DIVIDES \\(p-1\\) \u2014 you get a ceiling on the cycle without computing anything.",
-      zh: "把它读成一个承诺：对素数 \\(p\\)，把任何非倍数 \\(a\\) 升到 \\(p-1\\) 次方，总是余 1。所以循环长度总是「整除」\\(p-1\\) \u2014\u2014 不用算任何东西，你就得到循环的上限。" },
-    { type: "step", n: "1", title: { en: "Fermat kills a huge power", zh: "费马秒杀巨大的幂" },
-      en: "Compute \\(2^{100}\\bmod 13.\\)\n\u2022 13 is prime, and \\(13\\nmid2,\\) so Fermat gives \\(2^{12}\\equiv1\\pmod{13}.\\)\n\u2022 Reduce the exponent mod 12: \\(100=12\\cdot8+4,\\) so \\(100\\equiv4\\pmod{12}.\\)\n\u2022 Thus \\(2^{100}\\equiv2^{4}=16\\equiv3\\pmod{13}.\\)",
-      zh: "计算 \\(2^{100}\\bmod 13\\)。\n\u2022 13 是素数，且 \\(13\\nmid2\\)，所以费马给出 \\(2^{12}\\equiv1\\pmod{13}\\)。\n\u2022 把指数模 12 约简：\\(100=12\\cdot8+4\\)，所以 \\(100\\equiv4\\pmod{12}\\)。\n\u2022 因此 \\(2^{100}\\equiv2^{4}=16\\equiv3\\pmod{13}\\)。" },
-    { type: "note", en: "The pattern is always the same three moves: (1) modulus prime? Fermat says the cycle divides \\(p-1.\\) (2) Reduce the exponent mod \\((p-1).\\) (3) Compute the small leftover power. Fermat is just an automatic cycle-finder for prime moduli \u2014 it saves the hand-listing from Section 1.",
-      zh: "套路永远是同样三步：(1) 模数是素数吗？费马说循环整除 \\(p-1\\)。(2) 把指数模 \\((p-1)\\) 约简。(3) 算那个剩下的小幂。费马就是素数模下的自动循环查找器 \u2014\u2014 它省掉了第 1 节的手动列举。" },
-    { type: "ask", en: "Try: compute \\(5^{2024}\\bmod 7.\\) (7 prime, so \\(5^6\\equiv1.\\) \\(2024=6\\cdot337+2,\\) so \\(2024\\equiv2\\pmod6.\\) Then \\(5^{2024}\\equiv5^2=25\\equiv4\\pmod7.\\))",
-      zh: "试试：计算 \\(5^{2024}\\bmod 7\\)。（7 是素数，所以 \\(5^6\\equiv1\\)。\\(2024=6\\cdot337+2\\)，所以 \\(2024\\equiv2\\pmod6\\)。则 \\(5^{2024}\\equiv5^2=25\\equiv4\\pmod7\\)。）" }
-  ]
-});
-
-
-
-/* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[6].sections.push({
-  heading: { en: "4 · Worked examples — remainders under fire", zh: "4 · 例题精讲 —— 实战中的余数" },
-  blocks: [
-    { type: "para", en: "Three problems. Each becomes easy the moment you switch to remainders instead of the giant numbers themselves. Read the first line, then try.",
-      zh: "三道题。一旦你切换到「余数」而不是巨大数本身，每道都变简单。读完第一行，自己试。" },
-    { type: "step", n: "A", title: { en: "Last two digits (mod 100)", zh: "末两位（模 100）" },
-      en: "Find the last two digits of \\(3^{10}.\\)\n\u2022 'Last two digits' means mod 100.\n\u2022 \\(3^1=3,\\ 3^2=9,\\ 3^3=27,\\ 3^4=81,\\ 3^5=243\\equiv43.\\)\n\u2022 \\(3^{10}=(3^5)^2\\equiv43^2=1849\\equiv49\\pmod{100}.\\)\n\u2022 Last two digits: \\(49.\\) (Check: \\(3^{10}=59049.\\) \u2713)",
-      zh: "求 \\(3^{10}\\) 的末两位。\n\u2022「末两位」即模 100。\n\u2022 \\(3^1=3,\\ 3^2=9,\\ 3^3=27,\\ 3^4=81,\\ 3^5=243\\equiv43\\)。\n\u2022 \\(3^{10}=(3^5)^2\\equiv43^2=1849\\equiv49\\pmod{100}\\)。\n\u2022 末两位：\\(49\\)。（验证：\\(3^{10}=59049\\)。\u2713）" },
-    { type: "step", n: "B", title: { en: "A divisibility proof", zh: "一个整除性证明" },
-      en: "Show that \\(n^3-n\\) is divisible by 6 for every integer \\(n.\\)\n\u2022 Factor: \\(n^3-n=n(n-1)(n+1)\\) \u2014 three CONSECUTIVE integers.\n\u2022 Among any 3 consecutive integers, one is divisible by 3, so \\(3\\mid n^3-n.\\)\n\u2022 Among any 2 consecutive integers, one is even, so \\(2\\mid n^3-n.\\)\n\u2022 Since \\(2\\) and \\(3\\) both divide it and are coprime, \\(6\\mid n^3-n.\\) \u2713",
-      zh: "证明对每个整数 \\(n\\)，\\(n^3-n\\) 都能被 6 整除。\n\u2022 分解：\\(n^3-n=n(n-1)(n+1)\\) \u2014\u2014 三个「连续」整数。\n\u2022 任意 3 个连续整数中，必有一个是 3 的倍数，所以 \\(3\\mid n^3-n\\)。\n\u2022 任意 2 个连续整数中，必有一个是偶数，所以 \\(2\\mid n^3-n\\)。\n\u2022 因为 \\(2\\) 和 \\(3\\) 都整除它且互素，所以 \\(6\\mid n^3-n\\)。\u2713" },
-    { type: "step", n: "C", title: { en: "Fermat on a contest power", zh: "费马解竞赛幂题" },
-      en: "Compute \\(7^{222}\\bmod 11.\\)\n\u2022 11 prime, \\(11\\nmid7,\\) so \\(7^{10}\\equiv1\\pmod{11}.\\)\n\u2022 \\(222=10\\cdot22+2,\\) so \\(222\\equiv2\\pmod{10}.\\)\n\u2022 \\(7^{222}\\equiv7^2=49\\equiv5\\pmod{11}.\\)",
-      zh: "计算 \\(7^{222}\\bmod 11\\)。\n\u2022 11 是素数，\\(11\\nmid7\\)，所以 \\(7^{10}\\equiv1\\pmod{11}\\)。\n\u2022 \\(222=10\\cdot22+2\\)，所以 \\(222\\equiv2\\pmod{10}\\)。\n\u2022 \\(7^{222}\\equiv7^2=49\\equiv5\\pmod{11}\\)。" },
-    { type: "note", en: "Notice the shared move: never wrestle the giant number. Replace it by a remainder, factor into consecutive integers, or apply Fermat \u2014 each trick shrinks the problem to something you can do by hand. 'Think in remainders' is the number-theorist's core habit.",
-      zh: "注意共同的动作：永远别去硬碰巨大的数。把它换成余数、分解成连续整数、或用费马 \u2014\u2014 每个技巧都把问题缩成你能手算的东西。「用余数思考」是数论者的核心习惯。" }
-  ]
-});
-
-/* ---------- 5. SELF-TEST ---------- */
-textbookData[6].sections.push({
-  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
-  blocks: [
-    { type: "para", en: "Cover the answers. For each, switch to remainders before computing.",
-      zh: "盖住答案。每道题先切换到余数再计算。" },
-    { type: "ask", en: "Q1. What is the remainder when \\(2^{30}\\) is divided by 7?",
-      zh: "Q1. \\(2^{30}\\) 除以 7 的余数是多少？" },
-    { type: "ask", en: "Q2. What is the last digit of \\(3^{2024}?\\)",
-      zh: "Q2. \\(3^{2024}\\) 的末位是几？" },
-    { type: "ask", en: "Q3. Find the remainder when \\(13^{100}\\) is divided by 11.",
-      zh: "Q3. \\(13^{100}\\) 除以 11 的余数是多少？" },
-    { type: "divider" },
-    { type: "note", en: "ANSWERS.\nQ1: \\(2^3=8\\equiv1\\pmod7,\\) cycle 3. \\(30\\equiv0\\pmod3,\\) so \\(2^{30}\\equiv(2^3)^{10}\\equiv1.\\) Remainder \\(1.\\)\nQ2: last digit = mod 10. Powers of 3 mod 10: \\(3,9,7,1,\\) cycle 4. \\(2024\\equiv0\\pmod4,\\) lands on \\(3^4\\equiv1.\\) Last digit \\(1.\\)\nQ3: \\(13\\equiv2\\pmod{11},\\) so \\(13^{100}\\equiv2^{100}.\\) Fermat: \\(2^{10}\\equiv1,\\) \\(100\\equiv0\\pmod{10},\\) so \\(2^{100}\\equiv1.\\) Remainder \\(1.\\)",
-      zh: "答案。\nQ1：\\(2^3=8\\equiv1\\pmod7\\)，循环 3。\\(30\\equiv0\\pmod3\\)，所以 \\(2^{30}\\equiv(2^3)^{10}\\equiv1\\)。余 \\(1\\)。\nQ2：末位 = 模 10。3 的幂模 10：\\(3,9,7,1\\)，循环 4。\\(2024\\equiv0\\pmod4\\)，落在 \\(3^4\\equiv1\\)。末位 \\(1\\)。\nQ3：\\(13\\equiv2\\pmod{11}\\)，所以 \\(13^{100}\\equiv2^{100}\\)。费马：\\(2^{10}\\equiv1\\)，\\(100\\equiv0\\pmod{10}\\)，所以 \\(2^{100}\\equiv1\\)。余 \\(1\\)。" },
-    { type: "para", en: "You now have the number theorist's starter kit: congruences as clock math, cycles for powers, divisibility rules from \\(10^i\\bmod n,\\) and Fermat for prime moduli. The next lesson uses all of this to solve SYSTEMS of remainder conditions at once \u2014 the Chinese Remainder Theorem.",
-      zh: "你现在有了数论者的入门套装：把同余当时钟数学、用循环算幂、从 \\(10^i\\bmod n\\) 导出整除规则、用费马处理素数模。下一节课会用上这一切，一次性解出「一组」余数条件 \u2014\u2014 中国剩余定理。" }
-  ]
-});
-
-
-
-/* ============================================================
-   CONCEPT 08 — The Chinese Remainder Theorem
-   ============================================================*/
-textbookData.push({
-  id: "crt",
-  badge: { en: "Concept 08", zh: "知识点 08" },
-  title: { en: "The Chinese Remainder Theorem", zh: "中国剩余定理" },
-  subtitle: { en: "When a problem gives you several remainder conditions at once, CRT stitches them into a single answer — guaranteed to exist and to be unique.",
-              zh: "当一道题同时给你好几个余数条件，中国剩余定理把它们缝成一个答案 —— 保证存在，且保证唯一。" },
-  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
-  sections: [
-
-  /* ---------- 0. WHY ---------- */
-  {
-    heading: { en: "0 · An ancient puzzle", zh: "0 · 一道古老的谜题" },
-    blocks: [
-      { type: "para", en: "Around 1600 years ago, the Chinese mathematician Sunzi posed this: 'There is an unknown number of things. Counted by threes, 2 remain; by fives, 3 remain; by sevens, 2 remain. How many things?' This is a SYSTEM of remainder conditions, and the theorem that solves it bears China's name.",
-        zh: "大约 1600 年前，中国数学家孙子提出：「今有物不知其数。三三数之剩二，五五数之剩三，七七数之剩二。问物几何？」这是一组「余数条件」，而解它的定理，以中国命名。" },
-      { type: "formula", tex: "\\[ x\\equiv2\\pmod3,\\qquad x\\equiv3\\pmod5,\\qquad x\\equiv2\\pmod7 \\]" },
-      { type: "para", en: "Each condition alone has infinitely many answers. The question is whether some single \\(x\\) satisfies ALL THREE at once \u2014 and if so, how to find it. The Chinese Remainder Theorem (CRT) answers both: yes, it always exists, and here's how.",
-        zh: "每个条件单独都有无穷多答案。问题是：是否存在某个「单一的」\\(x\\) 同时满足「全部三个」\u2014\u2014 如果有，怎么找。中国剩余定理（CRT）回答了两者：是的，它总是存在，而且这样找。" },
-      { type: "note", en: "The big guarantee: if the moduli are pairwise COPRIME (no shared factors), then for any choice of remainders, there is EXACTLY ONE solution modulo the product of all moduli. Here \\(3,5,7\\) are pairwise coprime, product \\(105,\\) so there's a unique answer in \\(\\{0,1,\\dots,104\\}.\\)",
-        zh: "重大保证：如果这些模数「两两互素」（没有公因子），那么对任意一组余数，在「所有模数之积」的范围内「恰好有一个」解。这里 \\(3,5,7\\) 两两互素，积为 \\(105\\)，所以在 \\(\\{0,1,\\dots,104\\}\\) 中有唯一答案。" },
-      { type: "ask", en: "Before the method: just by listing, find a number that is \\(\\equiv2\\pmod3\\) and \\(\\equiv3\\pmod5.\\) Try the '\\(\\equiv3\\pmod5\\)' list: \\(3,8,13,18,\\dots\\) Which of these is \\(\\equiv2\\pmod3?\\) (\\(8\\): since \\(8=3\\cdot2+2.\\))",
-        zh: "在学方法之前：靠列举，找一个 \\(\\equiv2\\pmod3\\) 且 \\(\\equiv3\\pmod5\\) 的数。试「\\(\\equiv3\\pmod5\\)」的列表：\\(3,8,13,18,\\dots\\) 哪个 \\(\\equiv2\\pmod3\\)？（\\(8\\)：因为 \\(8=3\\cdot2+2\\)。）" }
-    ]
-  },
-
-  /* ---------- 1. SUBSTITUTION METHOD ---------- */
-  {
-    heading: { en: "1 · The reliable method: substitution", zh: "1 · 最可靠的方法：代入法" },
-    blocks: [
-      { type: "para", en: "Forget memorizing a formula. The method that NEVER fails is to combine conditions two at a time. Take the first congruence, write \\(x\\) in its general form, and substitute into the second. Let's solve Sunzi's puzzle step by step.",
-        zh: "别去背公式。「永不失败」的方法是「两两合并」条件。拿第一个同余式，把 \\(x\\) 写成它的一般形式，代入第二个。我们一步步解孙子的谜题。" },
-      { type: "step", n: "1", title: { en: "Write the first condition generally", zh: "把第一个条件写成一般式" },
-        en: "From \\(x\\equiv2\\pmod3,\\) every such \\(x\\) has the form \\(x=3k+2\\) for some integer \\(k.\\) This captures ALL solutions of the first condition in one expression.",
-        zh: "由 \\(x\\equiv2\\pmod3\\)，每个这样的 \\(x\\) 都有形式 \\(x=3k+2\\)（\\(k\\) 为整数）。这一个表达式装下了第一个条件的「所有」解。" },
-      { type: "step", n: "2", title: { en: "Substitute into the second", zh: "代入第二个" },
-        en: "Put \\(x=3k+2\\) into \\(x\\equiv3\\pmod5:\\) \\(3k+2\\equiv3\\pmod5\\Rightarrow3k\\equiv1\\pmod5.\\)\n\u2022 We need the inverse of 3 mod 5. Since \\(3\\cdot2=6\\equiv1,\\) the inverse is 2.\n\u2022 Multiply: \\(k\\equiv2\\cdot1=2\\pmod5,\\) so \\(k=5m+2.\\)\n\u2022 Then \\(x=3(5m+2)+2=15m+8.\\) So far: \\(x\\equiv8\\pmod{15}.\\)",
-        zh: "把 \\(x=3k+2\\) 代入 \\(x\\equiv3\\pmod5\\)：\\(3k+2\\equiv3\\pmod5\\Rightarrow3k\\equiv1\\pmod5\\)。\n\u2022 我们需要 3 模 5 的逆。因为 \\(3\\cdot2=6\\equiv1\\)，逆是 2。\n\u2022 两边乘：\\(k\\equiv2\\cdot1=2\\pmod5\\)，所以 \\(k=5m+2\\)。\n\u2022 则 \\(x=3(5m+2)+2=15m+8\\)。到此：\\(x\\equiv8\\pmod{15}\\)。" },
-      { type: "step", n: "3", title: { en: "Fold in the third condition", zh: "并入第三个条件" },
-        en: "Now use \\(x\\equiv2\\pmod7\\) with \\(x=15m+8:\\) \\(15m+8\\equiv2\\pmod7.\\)\n\u2022 Reduce: \\(15\\equiv1,\\ 8\\equiv1,\\) so \\(m+1\\equiv2\\Rightarrow m\\equiv1\\pmod7,\\) i.e. \\(m=7j+1.\\)\n\u2022 Then \\(x=15(7j+1)+8=105j+23.\\)\n\u2022 So \\(x\\equiv23\\pmod{105}.\\) The unique answer mod 105 is \\(\\boxed{23}.\\)",
-        zh: "现在用 \\(x\\equiv2\\pmod7\\)，代 \\(x=15m+8\\)：\\(15m+8\\equiv2\\pmod7\\)。\n\u2022 约简：\\(15\\equiv1,\\ 8\\equiv1\\)，所以 \\(m+1\\equiv2\\Rightarrow m\\equiv1\\pmod7\\)，即 \\(m=7j+1\\)。\n\u2022 则 \\(x=15(7j+1)+8=105j+23\\)。\n\u2022 所以 \\(x\\equiv23\\pmod{105}\\)。模 105 的唯一答案是 \\(\\boxed{23}\\)。" },
-      { type: "note", en: "Check it: \\(23=3\\cdot7+2\\) (\\(\\equiv2\\bmod3\\)\u2713), \\(23=5\\cdot4+3\\) (\\(\\equiv3\\bmod5\\)\u2713), \\(23=7\\cdot3+2\\) (\\(\\equiv2\\bmod7\\)\u2713). All three hold. The substitution method is slower than a formula but it never lets you down \u2014 and it teaches you what CRT actually does: merge conditions one modulus at a time.",
-        zh: "验证：\\(23=3\\cdot7+2\\)（\\(\\equiv2\\bmod3\\)\u2713），\\(23=5\\cdot4+3\\)（\\(\\equiv3\\bmod5\\)\u2713），\\(23=7\\cdot3+2\\)（\\(\\equiv2\\bmod7\\)\u2713）。三个全对。代入法比公式慢，但它从不掉链子 \u2014\u2014 而且它教会你 CRT 到底在做什么：一次合并一个模数。" }
-    ]
-  }
-  ]
-});
-
-
-
-/* ---------- 2. MODULAR INVERSE ---------- */
-textbookData[7].sections.push({
-  heading: { en: "2 · The one skill CRT needs: modular inverses", zh: "2 · CRT 需要的唯一技能：模逆元" },
-  blocks: [
-    { type: "para", en: "In Step 2 above we needed 'the inverse of 3 mod 5'. This is the single sub-skill CRT depends on, so let's make it solid. The inverse of \\(a\\) mod \\(n\\) is the number \\(a^{-1}\\) with \\(a\\cdot a^{-1}\\equiv1\\pmod n.\\) It's the modular version of 'dividing'.",
-      zh: "在上面第 2 步，我们需要「3 模 5 的逆」。这是 CRT 依赖的唯一子技能，所以我们把它弄扎实。\\(a\\) 模 \\(n\\) 的逆，是那个满足 \\(a\\cdot a^{-1}\\equiv1\\pmod n\\) 的数 \\(a^{-1}\\)。它是「除法」的模版本。" },
-    { type: "formula", tex: "\\[ a^{-1} \\text{ is the } b \\text{ with } a\\,b\\equiv 1\\pmod n; \\;\\text{ it exists iff } \\gcd(a,n)=1. \\]" },
-    { type: "para", en: "For small moduli, you find an inverse by just TESTING. To invert 3 mod 7, run through \\(3\\cdot1,3\\cdot2,3\\cdot3,\\dots\\) mod 7 until you hit 1.",
-      zh: "对小模数，靠「试」就能找到逆。要求 3 模 7 的逆，把 \\(3\\cdot1,3\\cdot2,3\\cdot3,\\dots\\) 模 7 挨个算，直到得到 1。" },
-    { type: "step", n: "1", title: { en: "Find an inverse by testing", zh: "用试值法求逆" },
-      en: "Find \\(3^{-1}\\bmod 7.\\)\n\u2022 \\(3\\cdot1=3,\\ 3\\cdot2=6,\\ 3\\cdot3=9\\equiv2,\\ 3\\cdot4=12\\equiv5,\\ 3\\cdot5=15\\equiv1.\\) Hit!\n\u2022 So \\(3^{-1}\\equiv5\\pmod7.\\) Check: \\(3\\cdot5=15=2\\cdot7+1.\\) \u2713",
-      zh: "求 \\(3^{-1}\\bmod 7\\)。\n\u2022 \\(3\\cdot1=3,\\ 3\\cdot2=6,\\ 3\\cdot3=9\\equiv2,\\ 3\\cdot4=12\\equiv5,\\ 3\\cdot5=15\\equiv1\\)。命中！\n\u2022 所以 \\(3^{-1}\\equiv5\\pmod7\\)。验证：\\(3\\cdot5=15=2\\cdot7+1\\)。\u2713" },
-    { type: "note", en: "Why does the inverse only exist when \\(\\gcd(a,n)=1?\\) If \\(a\\) and \\(n\\) shared a factor \\(d>1,\\) then every multiple \\(a\\cdot b\\) is also divisible by \\(d,\\) so it could never be \\(\\equiv1\\) (which isn't divisible by \\(d\\)). Coprimality is exactly the condition that lets you 'divide' in modular arithmetic.",
-      zh: "为什么逆只在 \\(\\gcd(a,n)=1\\) 时存在？如果 \\(a\\) 和 \\(n\\) 共享一个因子 \\(d>1\\)，那么每个倍数 \\(a\\cdot b\\) 也都能被 \\(d\\) 整除，所以它永远不可能 \\(\\equiv1\\)（1 不能被 \\(d\\) 整除）。互素，正是让你能在模运算里「做除法」的那个条件。" },
-    { type: "ask", en: "Try: find \\(5^{-1}\\bmod 11.\\) Run \\(5\\cdot1,5\\cdot2,\\dots\\) mod 11. (\\(5\\cdot9=45=44+1\\equiv1,\\) so \\(5^{-1}\\equiv9.\\))",
-      zh: "试试：求 \\(5^{-1}\\bmod 11\\)。算 \\(5\\cdot1,5\\cdot2,\\dots\\) 模 11。（\\(5\\cdot9=45=44+1\\equiv1\\)，所以 \\(5^{-1}\\equiv9\\)。）" }
-  ]
-});
-
-/* ---------- 3. WHY COPRIME MATTERS ---------- */
-textbookData[7].sections.push({
-  heading: { en: "3 · The coprime condition — when CRT breaks", zh: "3 · 互素条件 —— CRT 何时失效" },
-  blocks: [
-    { type: "para", en: "CRT's guarantee comes with one big string attached: the moduli must be pairwise coprime. When they share a factor, the clean 'unique solution' promise can fail \u2014 sometimes there's NO solution, sometimes many. Understanding this keeps you out of traps.",
-      zh: "CRT 的保证附带一个大前提：模数必须两两互素。当它们共享因子时，那个干净的「唯一解」承诺可能失效 \u2014\u2014 有时「无解」，有时「多解」。理解这点能让你避开陷阱。" },
-    { type: "example", en: "Try \\(x\\equiv1\\pmod4\\) and \\(x\\equiv2\\pmod6.\\) The moduli \\(4,6\\) share factor 2 \u2014 NOT coprime. The first says \\(x\\) is odd; the second says \\(x\\) is even. Contradiction! There is NO solution. A naive CRT formula would give nonsense here.",
-      zh: "试 \\(x\\equiv1\\pmod4\\) 和 \\(x\\equiv2\\pmod6\\)。模数 \\(4,6\\) 共享因子 2 \u2014\u2014「不」互素。第一个说 \\(x\\) 是奇数；第二个说 \\(x\\) 是偶数。矛盾！「无解」。天真地套 CRT 公式在这里会给出胡话。" },
-    { type: "note", en: "The fix when moduli aren't coprime: check CONSISTENCY on the shared part. Conditions \\(x\\equiv a\\pmod m\\) and \\(x\\equiv b\\pmod n\\) have a solution iff \\(a\\equiv b\\pmod{\\gcd(m,n)}.\\) If they agree there, a unique solution exists modulo \\(\\text{lcm}(m,n).\\) Always test coprimality (or this gcd-consistency) BEFORE solving.",
-      zh: "模数不互素时的补救：在「共享部分」检查「相容性」。条件 \\(x\\equiv a\\pmod m\\) 和 \\(x\\equiv b\\pmod n\\) 有解，当且仅当 \\(a\\equiv b\\pmod{\\gcd(m,n)}\\)。若在那里一致，则在 \\(\\text{lcm}(m,n)\\) 范围内有唯一解。求解「之前」永远先测互素（或这个 gcd 相容性）。" },
-    { type: "example", en: "A consistent non-coprime case: \\(x\\equiv1\\pmod4\\) and \\(x\\equiv5\\pmod6.\\) Here \\(\\gcd(4,6)=2,\\) and we need \\(1\\equiv5\\pmod2:\\) both are odd \u2014 consistent! So a solution exists mod \\(\\text{lcm}(4,6)=12.\\) Testing: \\(x=5\\) gives \\(5\\equiv1\\pmod4\\)\u2713 and \\(5\\equiv5\\pmod6\\)\u2713. Answer \\(x\\equiv5\\pmod{12}.\\)",
-      zh: "一个相容的非互素例子：\\(x\\equiv1\\pmod4\\) 和 \\(x\\equiv5\\pmod6\\)。这里 \\(\\gcd(4,6)=2\\)，需要 \\(1\\equiv5\\pmod2\\)：两个都是奇数 \u2014\u2014 相容！所以在 \\(\\text{lcm}(4,6)=12\\) 范围内有解。试：\\(x=5\\) 给出 \\(5\\equiv1\\pmod4\\)\u2713 且 \\(5\\equiv5\\pmod6\\)\u2713。答案 \\(x\\equiv5\\pmod{12}\\)。" },
-    { type: "ask", en: "Decide: does \\(x\\equiv3\\pmod6,\\ x\\equiv0\\pmod9\\) have a solution? Check \\(\\gcd(6,9)=3:\\) need \\(3\\equiv0\\pmod3.\\) Both are \\(\\equiv0\\pmod3\\) \u2014 consistent. (Solution exists mod \\(\\text{lcm}=18;\\) it's \\(x\\equiv9\\pmod{18}.\\))",
-      zh: "判断：\\(x\\equiv3\\pmod6,\\ x\\equiv0\\pmod9\\) 有解吗？查 \\(\\gcd(6,9)=3\\)：需 \\(3\\equiv0\\pmod3\\)。两个都 \\(\\equiv0\\pmod3\\) \u2014\u2014 相容。（解在 \\(\\text{lcm}=18\\) 范围内存在；是 \\(x\\equiv9\\pmod{18}\\)。）" }
-  ]
-});
-
-
-
-/* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[7].sections.push({
-  heading: { en: "4 · Worked examples — stitching conditions", zh: "4 · 例题精讲 —— 缝合条件" },
-  blocks: [
-    { type: "para", en: "Three problems. Each is a system of remainder conditions \u2014 solve by substitution, merging two at a time, and always sanity-check the coprimality. Read the first line, then try.",
-      zh: "三道题。每道都是一组余数条件 \u2014\u2014 用代入法、两两合并求解，并永远检查互素。读完第一行，自己试。" },
-    { type: "step", n: "A", title: { en: "A two-condition system", zh: "一个两条件方程组" },
-      en: "Find the smallest positive \\(x\\) with \\(x\\equiv2\\pmod5\\) and \\(x\\equiv3\\pmod7.\\)\n\u2022 \\(5,7\\) coprime \u2014 unique solution mod 35.\n\u2022 Write \\(x=5k+2,\\) sub into second: \\(5k+2\\equiv3\\pmod7\\Rightarrow5k\\equiv1\\pmod7.\\)\n\u2022 \\(5^{-1}\\equiv3\\pmod7\\) (since \\(5\\cdot3=15\\equiv1\\)), so \\(k\\equiv3\\pmod7,\\ k=7m+3.\\)\n\u2022 \\(x=5(7m+3)+2=35m+17.\\) Smallest positive: \\(17.\\)",
-      zh: "求满足 \\(x\\equiv2\\pmod5\\) 且 \\(x\\equiv3\\pmod7\\) 的最小正整数 \\(x\\)。\n\u2022 \\(5,7\\) 互素 \u2014\u2014 模 35 唯一解。\n\u2022 写 \\(x=5k+2\\)，代入第二个：\\(5k+2\\equiv3\\pmod7\\Rightarrow5k\\equiv1\\pmod7\\)。\n\u2022 \\(5^{-1}\\equiv3\\pmod7\\)（因 \\(5\\cdot3=15\\equiv1\\)），所以 \\(k\\equiv3\\pmod7,\\ k=7m+3\\)。\n\u2022 \\(x=5(7m+3)+2=35m+17\\)。最小正整数：\\(17\\)。" },
-    { type: "step", n: "B", title: { en: "The 'basket of eggs' classic", zh: "经典「一篮鸡蛋」问题" },
-      en: "Eggs in a basket: in groups of 3, one remains; groups of 5, two remain; groups of 7, three remain. Fewest eggs?\n\u2022 System: \\(x\\equiv1\\pmod3,\\ x\\equiv2\\pmod5,\\ x\\equiv3\\pmod7.\\)\n\u2022 First two: \\(x=3k+1,\\ 3k+1\\equiv2\\pmod5\\Rightarrow3k\\equiv1\\Rightarrow k\\equiv2\\pmod5\\) (using \\(3^{-1}\\equiv2\\)). So \\(x\\equiv7\\pmod{15}.\\)\n\u2022 Fold in third: \\(x=15m+7,\\ 15m+7\\equiv3\\pmod7\\Rightarrow m+0\\equiv3\\Rightarrow m\\equiv3\\pmod7.\\)\n\u2022 \\(x=15(7j+3)+7=105j+52.\\) Fewest eggs: \\(52.\\)",
-      zh: "一篮鸡蛋：三个一组余一，五个一组余二，七个一组余三。最少几个蛋？\n\u2022 方程组：\\(x\\equiv1\\pmod3,\\ x\\equiv2\\pmod5,\\ x\\equiv3\\pmod7\\)。\n\u2022 前两个：\\(x=3k+1,\\ 3k+1\\equiv2\\pmod5\\Rightarrow3k\\equiv1\\Rightarrow k\\equiv2\\pmod5\\)（用 \\(3^{-1}\\equiv2\\)）。所以 \\(x\\equiv7\\pmod{15}\\)。\n\u2022 并入第三个：\\(x=15m+7,\\ 15m+7\\equiv3\\pmod7\\Rightarrow m+0\\equiv3\\Rightarrow m\\equiv3\\pmod7\\)。\n\u2022 \\(x=15(7j+3)+7=105j+52\\)。最少：\\(52\\) 个蛋。" },
-    { type: "step", n: "C", title: { en: "Spotting a no-solution trap", zh: "识破无解陷阱" },
-      en: "Does \\(x\\equiv3\\pmod4\\) and \\(x\\equiv0\\pmod8\\) have a solution?\n\u2022 Moduli \\(4,8\\) NOT coprime: \\(\\gcd=4.\\)\n\u2022 Consistency test: need \\(3\\equiv0\\pmod4.\\) But \\(3\\not\\equiv0\\pmod4.\\)\n\u2022 Inconsistent \u2014 NO solution exists. (The second forces \\(x\\) divisible by 8, hence by 4, so \\(x\\equiv0\\pmod4,\\) clashing with \\(x\\equiv3.\\))",
-      zh: "\\(x\\equiv3\\pmod4\\) 和 \\(x\\equiv0\\pmod8\\) 有解吗？\n\u2022 模数 \\(4,8\\)「不」互素：\\(\\gcd=4\\)。\n\u2022 相容性测试：需 \\(3\\equiv0\\pmod4\\)。但 \\(3\\not\\equiv0\\pmod4\\)。\n\u2022 不相容 \u2014\u2014「无解」。（第二个逼 \\(x\\) 被 8 整除，从而被 4 整除，所以 \\(x\\equiv0\\pmod4\\)，与 \\(x\\equiv3\\) 冲突。）" },
-    { type: "note", en: "The full CRT discipline, every time: (1) check coprimality / gcd-consistency first \u2014 catch no-solution cases early; (2) merge two conditions via substitution, finding the needed inverse; (3) repeat until one congruence remains; (4) verify the final answer against every original condition. Slow, steady, never wrong.",
-      zh: "完整的 CRT 纪律，每次都做：(1) 先查互素 / gcd 相容性 \u2014\u2014 及早抓住无解情形；(2) 用代入法合并两个条件，求出需要的逆；(3) 重复到只剩一个同余式；(4) 拿最终答案核对每一个原始条件。慢、稳、永不出错。" }
-  ]
-});
-
-/* ---------- 5. SELF-TEST ---------- */
-textbookData[7].sections.push({
-  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
-  blocks: [
-    { type: "para", en: "Cover the answers. Solve by substitution, and check coprimality first.",
-      zh: "盖住答案。用代入法求解，并先检查互素。" },
-    { type: "ask", en: "Q1. Find the smallest positive \\(x\\) with \\(x\\equiv1\\pmod3\\) and \\(x\\equiv1\\pmod4.\\)",
-      zh: "Q1. 求满足 \\(x\\equiv1\\pmod3\\) 且 \\(x\\equiv1\\pmod4\\) 的最小正整数 \\(x\\)。" },
-    { type: "ask", en: "Q2. Find the smallest positive \\(x\\) with \\(x\\equiv2\\pmod3,\\ x\\equiv3\\pmod5,\\ x\\equiv4\\pmod7.\\)",
-      zh: "Q2. 求满足 \\(x\\equiv2\\pmod3,\\ x\\equiv3\\pmod5,\\ x\\equiv4\\pmod7\\) 的最小正整数 \\(x\\)。" },
-    { type: "ask", en: "Q3. Does \\(x\\equiv2\\pmod6\\) and \\(x\\equiv1\\pmod9\\) have a solution? Explain.",
-      zh: "Q3. \\(x\\equiv2\\pmod6\\) 和 \\(x\\equiv1\\pmod9\\) 有解吗？说明理由。" },
-    { type: "divider" },
-    { type: "note", en: "ANSWERS.\nQ1: \\(3,4\\) coprime. \\(x\\equiv1\\) to both means \\(x\\equiv1\\pmod{12}.\\) Smallest positive: \\(1.\\)\nQ2: \\(x=3k+2;\\ 3k+2\\equiv3\\pmod5\\Rightarrow k\\equiv2\\pmod5\\Rightarrow x\\equiv8\\pmod{15}.\\) Then \\(15m+8\\equiv4\\pmod7\\Rightarrow m+1\\equiv4\\Rightarrow m\\equiv3\\pmod7\\Rightarrow x=105j+53.\\) Smallest: \\(53.\\)\nQ3: \\(\\gcd(6,9)=3.\\) Need \\(2\\equiv1\\pmod3,\\) but \\(2\\not\\equiv1\\pmod3.\\) Inconsistent \u2014 NO solution.",
-      zh: "答案。\nQ1：\\(3,4\\) 互素。两个都 \\(x\\equiv1\\) 即 \\(x\\equiv1\\pmod{12}\\)。最小正整数：\\(1\\)。\nQ2：\\(x=3k+2\\)；\\(3k+2\\equiv3\\pmod5\\Rightarrow k\\equiv2\\pmod5\\Rightarrow x\\equiv8\\pmod{15}\\)。然后 \\(15m+8\\equiv4\\pmod7\\Rightarrow m+1\\equiv4\\Rightarrow m\\equiv3\\pmod7\\Rightarrow x=105j+53\\)。最小：\\(53\\)。\nQ3：\\(\\gcd(6,9)=3\\)。需 \\(2\\equiv1\\pmod3\\)，但 \\(2\\not\\equiv1\\pmod3\\)。不相容 \u2014\u2014「无解」。" },
-    { type: "para", en: "That completes the number-theory arc: congruences, cycles, Fermat, and now CRT for whole systems. From a 1600-year-old riddle about counting objects to a tool that powers modern cryptography \u2014 you've climbed the same ladder. When a problem hands you several remainders at once, you now know they fit together into exactly one answer.",
-      zh: "数论这条线到此完整：同余、循环、费马，再到现在解整组方程的 CRT。从一道 1600 年前数物件的谜题，到一个支撑现代密码学的工具 \u2014\u2014 你爬的是同一把梯子。当一道题一次性丢给你好几个余数，你现在知道：它们能拼成「恰好一个」答案。" }
-  ]
-});
-
-
-
-/* ============================================================
-   CONCEPT 09 — Combinatorial Counting (Inclusion-Exclusion & Stars and Bars)
-   ============================================================*/
-textbookData.push({
-  id: "counting",
-  badge: { en: "Concept 09", zh: "知识点 09" },
-  title: { en: "Combinatorial Counting", zh: "组合计数（容斥与隔板法）" },
-  subtitle: { en: "Two engines that count what looks impossible: Inclusion–Exclusion to fix double-counting, and Stars-and-Bars to distribute identical things.",
-              zh: "两台引擎，数清看似数不清的东西：用「容斥原理」修正重复计数，用「隔板法」分配相同的物品。" },
-  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
-  sections: [
-
-  /* ---------- 0. WHY ---------- */
-  {
-    heading: { en: "0 · The two hardest words in counting: 'overlap' and 'identical'", zh: "0 · 计数里最难的两个词：「重叠」和「相同」" },
-    blocks: [
-      { type: "para", en: "Most counting mistakes come from exactly two traps. The first: counting some things TWICE because categories overlap. The second: not knowing how to count when the objects are IDENTICAL. This lesson gives you one master tool for each.",
-        zh: "大多数计数错误，恰好来自两个陷阱。第一个：因为类别「重叠」而把某些东西「数了两次」。第二个：当物品「相同」时不知道怎么数。本节课为每个陷阱给你一把主力工具。" },
-      { type: "example", en: "In a class of 30, 18 play soccer, 15 play basketball, and 8 play both. How many play at least one sport? Tempting answer: \\(18+15=33.\\) But that's more than the whole class! We double-counted the 8 who play both. Correct: \\(18+15-8=25.\\)",
-        zh: "30 人的班级，18 人踢足球，15 人打篮球，8 人两者都玩。至少玩一项运动的有几人？诱人的答案：\\(18+15=33\\)。但这比全班还多！我们把那 8 个「都玩」的人数了两次。正确：\\(18+15-8=25\\)。" },
-      { type: "formula", tex: "\\[ |A\\cup B| = |A| + |B| - |A\\cap B| \\]" },
-      { type: "note", en: "That subtraction is the seed of Inclusion\u2013Exclusion: add up the pieces, then SUBTRACT the overlaps you counted twice. The whole theory is just bookkeeping this idea carefully when there are more than two overlapping sets.",
-        zh: "那个减法，正是「容斥原理」的种子：把各部分加起来，再「减掉」你数了两次的重叠。整个理论不过是当重叠集合超过两个时，仔细地为这个想法记账。" },
-      { type: "ask", en: "Hold this question: with THREE overlapping sets \\(A,B,C,\\) if you add \\(|A|+|B|+|C|\\) and subtract all three pairwise overlaps, have you handled the items in ALL THREE correctly? (We'll see they get over-subtracted \u2014 that's the twist.)",
-        zh: "记住这个问题：有「三个」重叠集合 \\(A,B,C\\)，如果你加 \\(|A|+|B|+|C|\\) 再减掉三个两两重叠，那些「同时在三个集合里」的元素处理对了吗？（我们会看到它们被「减过头」了 \u2014\u2014 这正是转折点。）" }
-    ]
-  },
-
-  /* ---------- 1. INCLUSION-EXCLUSION ---------- */
-  {
-    heading: { en: "1 · Inclusion–Exclusion in full", zh: "1 · 完整的容斥原理" },
-    blocks: [
-      { type: "para", en: "With three sets, the careful count alternates: ADD singles, SUBTRACT pairs, ADD back the triple. The triple overlap got added 3 times then subtracted 3 times \u2014 vanishing \u2014 so we add it once more to include it correctly.",
-        zh: "三个集合时，仔细的计数是「交替」的：加单个、减两两、再加回三重。三重重叠被加了 3 次又减了 3 次 \u2014\u2014 消失了 \u2014\u2014 所以我们再加一次，才能正确地包含它。" },
-      { type: "formula", tex: "\\[ |A\\cup B\\cup C| = |A|+|B|+|C| - |A\\cap B| - |A\\cap C| - |B\\cap C| + |A\\cap B\\cap C| \\]" },
-      { type: "step", n: "1", title: { en: "Counting multiples (a classic)", zh: "数倍数（一道经典题）" },
-        en: "How many integers from 1 to 100 are divisible by 2, 3, or 5?\n\u2022 Singles: \\(\\lfloor100/2\\rfloor=50,\\ \\lfloor100/3\\rfloor=33,\\ \\lfloor100/5\\rfloor=20.\\)\n\u2022 Pairs (divisible by lcm): \\(\\lfloor100/6\\rfloor=16,\\ \\lfloor100/10\\rfloor=10,\\ \\lfloor100/15\\rfloor=6.\\)\n\u2022 Triple: \\(\\lfloor100/30\\rfloor=3.\\)\n\u2022 I\u2013E: \\(50+33+20-16-10-6+3=74.\\)",
-        zh: "1 到 100 中，能被 2、3 或 5 整除的整数有多少个？\n\u2022 单个：\\(\\lfloor100/2\\rfloor=50,\\ \\lfloor100/3\\rfloor=33,\\ \\lfloor100/5\\rfloor=20\\)。\n\u2022 两两（被最小公倍数整除）：\\(\\lfloor100/6\\rfloor=16,\\ \\lfloor100/10\\rfloor=10,\\ \\lfloor100/15\\rfloor=6\\)。\n\u2022 三重：\\(\\lfloor100/30\\rfloor=3\\)。\n\u2022 容斥：\\(50+33+20-16-10-6+3=74\\)。" },
-      { type: "note", en: "The alternating sign pattern \\(+,-,+,-\\dots\\) continues for any number of sets: add odd-sized overlaps, subtract even-sized ones. The reason is that each element must be counted exactly ONCE in the end, and the alternating signs are precisely what cancels the over- and under-counting.",
-        zh: "交替符号模式 \\(+,-,+,-\\dots\\) 对任意多个集合都继续：加「奇数个集合的交」，减「偶数个集合的交」。原因是：每个元素最终必须「恰好」被数一次，而交替符号正好抵消掉多数和少数的部分。" },
-      { type: "ask", en: "Try the complement view: how many integers from 1 to 100 are divisible by NONE of 2, 3, 5? (Total minus the 74 above: \\(100-74=26.\\) These are exactly the numbers coprime to 30.)",
-        zh: "试试「补集」视角：1 到 100 中，2、3、5 都「不」能整除的有几个？（总数减去上面的 74：\\(100-74=26\\)。这些正是与 30 互素的数。）" }
-    ]
-  }
-  ]
-});
-
-
-
-/* ---------- 2. STARS AND BARS ---------- */
-textbookData[8].sections.push({
-  heading: { en: "2 · Stars and Bars — distributing identical things", zh: "2 · 隔板法 —— 分配相同的物品" },
-  blocks: [
-    { type: "para", en: "Now the second trap: counting when objects are IDENTICAL. How many ways can you give 7 identical candies to 3 kids (some may get none)? You can't 'choose which candy' \u2014 they're the same. The trick is a beautiful picture.",
-      zh: "现在第二个陷阱：物品「相同」时怎么数。把 7 颗「相同」的糖分给 3 个孩子（有人可以分到 0 颗），有多少种分法？你没法「挑哪颗糖」\u2014\u2014 它们一样。窍门是一幅漂亮的图。" },
-    { type: "para", en: "Draw the 7 candies as stars: \\(\\star\\star\\star\\star\\star\\star\\star.\\) To split them among 3 kids, insert 2 BARS as dividers. Everything left of the first bar goes to kid 1, between the bars to kid 2, right of the second to kid 3.",
-      zh: "把 7 颗糖画成星星：\\(\\star\\star\\star\\star\\star\\star\\star\\)。要分给 3 个孩子，插入 2 个「隔板」作为分界。第一个隔板左边的归孩子 1，两个隔板之间的归孩子 2，第二个隔板右边的归孩子 3。" },
-    { type: "formula", tex: "\\[ \\star\\star\\,|\\,\\star\\star\\star\\,|\\,\\star\\star \\quad\\Longrightarrow\\quad (2,3,2) \\]" },
-    { type: "para", en: "So every arrangement of 7 stars and 2 bars in a row gives exactly one distribution! Now counting is easy: we have \\(7+2=9\\) positions, and we choose which 2 are bars. That's \\(\\binom{9}{2}.\\)",
-      zh: "所以「7 颗星 + 2 个隔板」排成一行的每一种排法，恰好对应一种分法！现在计数就简单了：共有 \\(7+2=9\\) 个位置，从中选 2 个放隔板。那就是 \\(\\binom{9}{2}\\)。" },
-    { type: "formula", tex: "\\[ \\text{distribute } n \\text{ identical items into } k \\text{ groups: } \\binom{n+k-1}{k-1} \\]" },
-    { type: "step", n: "1", title: { en: "The candy count", zh: "数糖果分法" },
-      en: "7 candies, 3 kids: \\(n=7,\\ k=3.\\)\n\u2022 Formula: \\(\\binom{7+3-1}{3-1}=\\binom{9}{2}.\\)\n\u2022 \\(\\binom{9}{2}=\\dfrac{9\\cdot8}{2}=36.\\)\n\u2022 So there are \\(36\\) ways.",
-      zh: "7 颗糖，3 个孩子：\\(n=7,\\ k=3\\)。\n\u2022 公式：\\(\\binom{7+3-1}{3-1}=\\binom{9}{2}\\)。\n\u2022 \\(\\binom{9}{2}=\\dfrac{9\\cdot8}{2}=36\\)。\n\u2022 所以有 \\(36\\) 种分法。" },
-    { type: "note", en: "Recognize the shape: stars-and-bars counts solutions to \\(x_1+x_2+\\cdots+x_k=n\\) in NON-NEGATIVE integers. Whenever a problem says 'how many ways to write \\(n\\) as an ordered sum of \\(k\\) non-negative parts', or 'distribute identical items', reach for \\(\\binom{n+k-1}{k-1}.\\)",
-      zh: "认出形状：隔板法数的是 \\(x_1+x_2+\\cdots+x_k=n\\) 在「非负」整数下的解的个数。每当题目说「把 \\(n\\) 写成 \\(k\\) 个非负部分的有序和有多少种」，或「分配相同物品」，就拿起 \\(\\binom{n+k-1}{k-1}\\)。" }
-  ]
-});
-
-/* ---------- 3. STARS AND BARS VARIANTS ---------- */
-textbookData[8].sections.push({
-  heading: { en: "3 · The 'at least one' twist", zh: "3 · 「每人至少一个」的变形" },
-  blocks: [
-    { type: "para", en: "Contests love adding a constraint: 'each kid gets AT LEAST one candy'. The fix is elegant \u2014 give everyone their required minimum FIRST, then stars-and-bars the rest.",
-      zh: "竞赛爱加一个约束：「每个孩子至少分到一颗糖」。解法很优雅 \u2014\u2014 「先」发给每人所需的最低数量，再对剩下的用隔板法。" },
-    { type: "step", n: "1", title: { en: "Positive-integer distribution", zh: "正整数分配" },
-      en: "7 candies, 3 kids, each gets at least 1.\n\u2022 First hand each kid 1 candy. That uses 3, leaving \\(7-3=4.\\)\n\u2022 Now distribute the remaining 4 freely (zero allowed) among 3 kids: \\(\\binom{4+3-1}{3-1}=\\binom{6}{2}=15.\\)\n\u2022 So there are \\(15\\) ways with the 'at least one' rule.",
-      zh: "7 颗糖，3 个孩子，每人至少 1 颗。\n\u2022 先发给每个孩子 1 颗。用掉 3 颗，剩 \\(7-3=4\\)。\n\u2022 现在把剩下的 4 颗自由分配（允许 0）给 3 个孩子：\\(\\binom{4+3-1}{3-1}=\\binom{6}{2}=15\\)。\n\u2022 所以满足「至少一个」规则的有 \\(15\\) 种。" },
-    { type: "formula", tex: "\\[ x_1+\\cdots+x_k=n,\\; x_i\\ge1 \\;\\Longrightarrow\\; \\binom{n-1}{k-1} \\]" },
-    { type: "note", en: "The general 'at least one' formula is \\(\\binom{n-1}{k-1}\\) \u2014 derived exactly by the 'pre-give one each' trick, which converts \\(x_i\\ge1\\) into \\(y_i=x_i-1\\ge0.\\) The same substitution handles ANY lower bound: to require \\(x_i\\ge3,\\) pre-give 3 each and reduce \\(n\\) by \\(3k.\\)",
-      zh: "一般的「至少一个」公式是 \\(\\binom{n-1}{k-1}\\) \u2014\u2014 正是用「预先各发一个」的技巧推出的，它把 \\(x_i\\ge1\\) 转化成 \\(y_i=x_i-1\\ge0\\)。同样的代换能处理「任何」下界：要求 \\(x_i\\ge3\\)，就预先各发 3 个，并把 \\(n\\) 减去 \\(3k\\)。" },
-    { type: "example", en: "How many positive-integer solutions does \\(a+b+c+d=12\\) have? Here \\(n=12,\\ k=4,\\) all \\(\\ge1.\\) Answer: \\(\\binom{12-1}{4-1}=\\binom{11}{3}=\\dfrac{11\\cdot10\\cdot9}{6}=165.\\)",
-      zh: "\\(a+b+c+d=12\\) 有多少个正整数解？这里 \\(n=12,\\ k=4\\)，全 \\(\\ge1\\)。答案：\\(\\binom{12-1}{4-1}=\\binom{11}{3}=\\dfrac{11\\cdot10\\cdot9}{6}=165\\)。" },
-    { type: "ask", en: "Try: how many non-negative solutions does \\(x+y+z=10\\) have? (\\(n=10,k=3,\\) zero allowed: \\(\\binom{10+3-1}{3-1}=\\binom{12}{2}=66.\\))",
-      zh: "试试：\\(x+y+z=10\\) 有多少个非负整数解？（\\(n=10,k=3\\)，允许 0：\\(\\binom{10+3-1}{3-1}=\\binom{12}{2}=66\\)。）" }
-  ]
-});
-
-
-
-/* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[8].sections.push({
-  heading: { en: "4 · Worked examples — count without double-counting", zh: "4 · 例题精讲 —— 不重不漏地数" },
-  blocks: [
-    { type: "para", en: "Three problems. Each needs you to spot whether the trap is OVERLAP (use I\u2013E) or IDENTICAL items (use stars-and-bars). Read the first line, then try.",
-      zh: "三道题。每道都要你看出陷阱是「重叠」（用容斥）还是「相同物品」（用隔板法）。读完第一行，自己试。" },
-    { type: "step", n: "A", title: { en: "Inclusion–Exclusion on letters", zh: "字母上的容斥" },
-      en: "How many integers from 1 to 1000 are divisible by neither 6 nor 10?\n\u2022 Count divisible by 6 or 10, then subtract from 1000.\n\u2022 \\(\\lfloor1000/6\\rfloor=166,\\ \\lfloor1000/10\\rfloor=100.\\)\n\u2022 Overlap = divisible by \\(\\text{lcm}(6,10)=30:\\) \\(\\lfloor1000/30\\rfloor=33.\\)\n\u2022 Divisible by 6 or 10: \\(166+100-33=233.\\)\n\u2022 Neither: \\(1000-233=767.\\)",
-      zh: "1 到 1000 中，6 和 10 都「不」整除的有多少个？\n\u2022 先数能被 6 或 10 整除的，再从 1000 减去。\n\u2022 \\(\\lfloor1000/6\\rfloor=166,\\ \\lfloor1000/10\\rfloor=100\\)。\n\u2022 重叠 = 被 \\(\\text{lcm}(6,10)=30\\) 整除：\\(\\lfloor1000/30\\rfloor=33\\)。\n\u2022 被 6 或 10 整除：\\(166+100-33=233\\)。\n\u2022 都不：\\(1000-233=767\\)。" },
-    { type: "step", n: "B", title: { en: "Stars and bars with a minimum", zh: "带下界的隔板法" },
-      en: "A teacher splits 20 identical pencils among 4 students, each getting at least 2.\n\u2022 Pre-give 2 to each: uses 8, leaving \\(20-8=12.\\)\n\u2022 Distribute 12 freely among 4 (zero allowed): \\(\\binom{12+4-1}{4-1}=\\binom{15}{3}.\\)\n\u2022 \\(\\binom{15}{3}=\\dfrac{15\\cdot14\\cdot13}{6}=455.\\)",
-      zh: "老师把 20 支「相同」的铅笔分给 4 名学生，每人至少 2 支。\n\u2022 先给每人 2 支：用掉 8 支，剩 \\(20-8=12\\)。\n\u2022 把 12 支自由分给 4 人（允许 0）：\\(\\binom{12+4-1}{4-1}=\\binom{15}{3}\\)。\n\u2022 \\(\\binom{15}{3}=\\dfrac{15\\cdot14\\cdot13}{6}=455\\)。" },
-    { type: "step", n: "C", title: { en: "I–E counts surjections (no empty box)", zh: "容斥数满射（无空盒）" },
-      en: "How many ways to put 5 DISTINCT balls into 3 DISTINCT boxes with no box empty?\n\u2022 Total placements: \\(3^5=243\\) (each ball picks a box).\n\u2022 Subtract arrangements missing a box. Miss a specific box: \\(2^5=32,\\) and there are \\(\\binom{3}{1}=3\\) boxes to miss: \\(3\\cdot32=96.\\)\n\u2022 Add back missing two boxes (over-subtracted): \\(1^5=1,\\) times \\(\\binom{3}{2}=3:\\) \\(3.\\)\n\u2022 I\u2013E: \\(243-96+3=150.\\)",
-      zh: "把 5 个「不同」的球放进 3 个「不同」的盒子，且没有空盒，有多少种方法？\n\u2022 总放法：\\(3^5=243\\)（每个球选一个盒子）。\n\u2022 减去「缺某个盒子」的放法。缺某个固定盒子：\\(2^5=32\\)，共有 \\(\\binom{3}{1}=3\\) 个盒子可缺：\\(3\\cdot32=96\\)。\n\u2022 加回「缺两个盒子」的（被减过头）：\\(1^5=1\\)，乘 \\(\\binom{3}{2}=3\\)：\\(3\\)。\n\u2022 容斥：\\(243-96+3=150\\)。" },
-    { type: "note", en: "The watershed question every counting problem starts with: are the objects IDENTICAL or DISTINCT? Identical \u2192 stars-and-bars. Distinct with a 'no-empty / at-least-one-of-each' twist \u2192 Inclusion\u2013Exclusion. Naming the type first is half the solution.",
-      zh: "每道计数题开头都要问的分水岭问题：物品是「相同」还是「不同」？相同 \u2192 隔板法。不同且带「无空盒 / 每种至少一个」的转折 \u2192 容斥。先认出类型，就解决了一半。" }
-  ]
-});
-
-/* ---------- 5. SELF-TEST ---------- */
-textbookData[8].sections.push({
-  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
-  blocks: [
-    { type: "para", en: "Cover the answers. First name the type (overlap or identical), then count.",
-      zh: "盖住答案。先认出类型（重叠 还是 相同），再计数。" },
-    { type: "ask", en: "Q1. How many integers from 1 to 60 are divisible by 2 or 3?",
-      zh: "Q1. 1 到 60 中，能被 2 或 3 整除的有多少个？" },
-    { type: "ask", en: "Q2. How many non-negative integer solutions does \\(a+b+c=8\\) have?",
-      zh: "Q2. \\(a+b+c=8\\) 有多少个非负整数解？" },
-    { type: "ask", en: "Q3. Distribute 10 identical apples to 3 children, each getting at least 1. How many ways?",
-      zh: "Q3. 把 10 个相同的苹果分给 3 个孩子，每人至少 1 个，有多少种方法？" },
-    { type: "divider" },
-    { type: "note", en: "ANSWERS.\nQ1: \\(\\lfloor60/2\\rfloor+\\lfloor60/3\\rfloor-\\lfloor60/6\\rfloor=30+20-10=40.\\)\nQ2: stars-and-bars \\(n=8,k=3:\\) \\(\\binom{8+3-1}{3-1}=\\binom{10}{2}=45.\\)\nQ3: pre-give 1 each, distribute \\(10-3=7:\\) \\(\\binom{7+3-1}{3-1}=\\binom{9}{2}=36.\\) (Or directly \\(\\binom{10-1}{3-1}=\\binom{9}{2}=36.\\))",
-      zh: "答案。\nQ1：\\(\\lfloor60/2\\rfloor+\\lfloor60/3\\rfloor-\\lfloor60/6\\rfloor=30+20-10=40\\)。\nQ2：隔板法 \\(n=8,k=3\\)：\\(\\binom{8+3-1}{3-1}=\\binom{10}{2}=45\\)。\nQ3：先各发 1 个，分配 \\(10-3=7\\)：\\(\\binom{7+3-1}{3-1}=\\binom{9}{2}=36\\)。（或直接 \\(\\binom{10-1}{3-1}=\\binom{9}{2}=36\\)。）" },
-    { type: "para", en: "You now hold the two great counting engines. Inclusion\u2013Exclusion fixes overlap by alternating add-and-subtract; Stars-and-Bars distributes identical items with a single binomial. Before counting anything, ask: identical or distinct? overlapping or clean? The answer points to the right engine.",
-      zh: "你现在握有两台伟大的计数引擎。容斥靠交替加减修正重叠；隔板法用一个二项式分配相同物品。数任何东西之前，先问：相同还是不同？重叠还是干净？答案会指向正确的引擎。" }
-  ]
-});
-
-
-
-/* ============================================================
-   CONCEPT 10 — Geometry: Similarity & Power of a Point
-   ============================================================*/
-textbookData.push({
-  id: "geometry",
-  badge: { en: "Concept 10", zh: "知识点 10" },
-  title: { en: "Similarity & Power of a Point", zh: "几何技巧（相似与圆幂）" },
-  subtitle: { en: "Two ideas behind most contest geometry: proportions from similar triangles, and the surprising constant a point carries with respect to a circle.",
-              zh: "撑起大多数竞赛几何的两个想法：相似三角形给出的比例，以及一个点相对于圆所携带的那个惊人的常数。" },
-  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
-  sections: [
-
-  /* ---------- 0. WHY ---------- */
-  {
-    heading: { en: "0 · Why similar triangles run geometry", zh: "0 · 为什么相似三角形主宰几何" },
-    blocks: [
-      { type: "para", en: "If you learn ONE geometry idea deeply, make it similarity. Two triangles are similar when they have the same shape but possibly different sizes \u2014 equal angles, proportional sides. Almost every length you can't compute directly, you can get from a pair of similar triangles.",
-        zh: "如果你只深学「一个」几何想法，就选相似。两个三角形「相似」，是指它们形状相同但大小可能不同 \u2014\u2014 角相等、边成比例。几乎每一条你没法直接算的长度，都能从一对相似三角形里得到。" },
-      { type: "para", en: "The key shortcut: you don't need all three angles. If TWO angles match, the third must too (angles sum to 180\u00b0), so the triangles are similar. This 'AA' rule is the workhorse \u2014 spot two equal angles and you instantly have proportional sides.",
-        zh: "关键捷径：你不需要三个角全相等。如果「两个」角相等，第三个也必然相等（三角形内角和 180\u00b0），所以两三角形相似。这条「AA」规则是主力 \u2014\u2014 看到两个相等的角，你立刻就有了成比例的边。" },
-      { type: "formula", tex: "\\[ \\triangle ABC \\sim \\triangle DEF \\;\\Longrightarrow\\; \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{CA}{FD} \\]" },
-      { type: "example", en: "A 6-ft person casts a 4-ft shadow. A nearby tree casts a 20-ft shadow at the same time. How tall is the tree? The sun's rays make equal angles, so the two right triangles are similar: \\(\\dfrac{\\text{tree}}{20}=\\dfrac{6}{4}.\\) Thus tree \\(=20\\cdot\\dfrac{6}{4}=30\\) ft.",
-        zh: "一个 6 英尺高的人投下 4 英尺的影子。同一时刻，附近一棵树投下 20 英尺的影子。树多高？阳光的角度相等，所以两个直角三角形相似：\\(\\dfrac{\\text{树}}{20}=\\dfrac{6}{4}\\)。于是树 \\(=20\\cdot\\dfrac{6}{4}=30\\) 英尺。" },
-      { type: "note", en: "That shadow problem captures the whole power of similarity: an UNREACHABLE length (tree height) is found from REACHABLE ones (person, two shadows) via a single proportion. Train your eye to hunt for the two equal angles \u2014 they unlock the ratio.",
-        zh: "那道影子题浓缩了相似的全部威力：一个「够不着」的长度（树高），靠「够得着」的长度（人、两个影子），通过一个比例求出。训练你的眼睛去寻找两个相等的角 \u2014\u2014 它们解锁比例。" }
-    ]
-  },
-
-  /* ---------- 1. FINDING SIMILAR TRIANGLES ---------- */
-  {
-    heading: { en: "1 · Spotting similar triangles in a figure", zh: "1 · 在图形中认出相似三角形" },
-    blocks: [
-      { type: "para", en: "The skill isn't knowing similarity exists \u2014 it's SEEING the similar pair hidden in a complicated figure. Three configurations appear again and again. Learn to recognize them instantly.",
-        zh: "本事不在于知道「相似」存在 \u2014\u2014 而在于「看见」藏在复杂图形里的那一对相似。三种配置反复出现。学会瞬间认出它们。" },
-      { type: "table",
-        head: { en: ["Configuration", "Why similar", "The proportion you get"], zh: ["配置", "为何相似", "你得到的比例"] },
-        rows: { en: [
-          ["A line parallel to one side of a triangle", "AA (parallel \u2192 equal angles)", "splits sides proportionally"],
-          ["Altitude to the hypotenuse of a right triangle", "creates 3 similar triangles", "geometric-mean relations"],
-          ["Two chords/secants crossing", "AA (same arc angles)", "products of segments equal"]
-        ], zh: [
-          ["平行于三角形一边的直线", "AA（平行 \u2192 等角）", "按比例分割两边"],
-          ["直角三角形斜边上的高", "造出 3 个相似三角形", "几何平均关系"],
-          ["两条相交的弦/割线", "AA（同弧对等角）", "线段乘积相等"]
-        ] },
-        caption: { en: "Three high-frequency similarity setups \u2014 memorize the picture for each.", zh: "三种高频相似配置 \u2014\u2014 把每种的图记住。" }
-      },
-      { type: "step", n: "1", title: { en: "The right-triangle altitude", zh: "直角三角形的高" },
-        en: "In right triangle \\(ABC\\) with the right angle at \\(C,\\) drop an altitude \\(CD\\) to the hypotenuse \\(AB.\\) This creates a famous relation: \\(CD\\) is the geometric mean of the two segments it cuts.\n\\[ CD^2 = AD\\cdot DB. \\]\nExample: if \\(AD=4\\) and \\(DB=9,\\) then \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6.\\)",
-        zh: "在直角三角形 \\(ABC\\) 中（直角在 \\(C\\)），从 \\(C\\) 向斜边 \\(AB\\) 作高 \\(CD\\)。这造出一个著名关系：\\(CD\\) 是它分出的两段的几何平均。\n\\[ CD^2 = AD\\cdot DB. \\]\n例：若 \\(AD=4\\)、\\(DB=9\\)，则 \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6\\)。" },
-      { type: "note", en: "Why \\(CD^2=AD\\cdot DB?\\) The altitude splits the big right triangle into two small ones, each similar to the big one (they share an angle plus the right angle \u2014 AA). Matching \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) gives \\(CD^2=AD\\cdot DB.\\) Similarity literally manufactures the geometric mean.",
-        zh: "为什么 \\(CD^2=AD\\cdot DB\\)？高把大直角三角形分成两个小的，每个都与大三角形相似（共享一个角加直角 \u2014\u2014 AA）。对应 \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) 就得到 \\(CD^2=AD\\cdot DB\\)。相似活生生造出了几何平均。" },
-      { type: "ask", en: "Predict: in the same setup, the leg \\(AC\\) satisfies \\(AC^2=AD\\cdot AB\\) (another geometric mean!). If \\(AD=4,\\ AB=13,\\) what is \\(AC?\\) (\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}.\\))",
-        zh: "预测：同一配置中，直角边 \\(AC\\) 满足 \\(AC^2=AD\\cdot AB\\)（又一个几何平均！）。若 \\(AD=4,\\ AB=13\\)，\\(AC\\) 是多少？（\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}\\)。）" }
-    ]
-  }
-  ]
-});
-
-
-
-/* ---------- 2. POWER OF A POINT ---------- */
-textbookData[9].sections.push({
-  heading: { en: "2 · Power of a Point — one constant, three forms", zh: "2 · 圆幂定理 —— 一个常数，三种形态" },
-  blocks: [
-    { type: "para", en: "Here is one of the most beautiful facts in circle geometry. Pick any point \\(P\\) and any line through it that hits a circle. The line meets the circle at two points; the PRODUCT of the two distances from \\(P\\) is the SAME no matter which line you draw. That constant is called the power of the point.",
-      zh: "这是圆几何里最美的事实之一。取任意一点 \\(P\\) 和任意一条过它、且与圆相交的直线。这条线与圆交于两点；从 \\(P\\) 到这两点的「距离之积」，无论你画哪条线都「相同」。这个常数叫这个点的「幂」。" },
-    { type: "step", n: "1", title: { en: "Two chords crossing inside", zh: "圆内两弦相交" },
-      en: "If two chords \\(AB\\) and \\(CD\\) cross at \\(P\\) inside the circle, then\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\nExample: chords cross at \\(P;\\) one is split into \\(3\\) and \\(8,\\) the other into \\(4\\) and \\(x.\\) Then \\(3\\cdot8=4\\cdot x\\Rightarrow x=6.\\)",
-      zh: "若两弦 \\(AB\\) 和 \\(CD\\) 在圆内交于 \\(P\\)，则\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\n例：两弦交于 \\(P\\)；一条被分成 \\(3\\) 和 \\(8\\)，另一条分成 \\(4\\) 和 \\(x\\)。则 \\(3\\cdot8=4\\cdot x\\Rightarrow x=6\\)。" },
-    { type: "para", en: "Why is the product constant? Because the crossing creates two similar triangles \u2014 \\(\\triangle PAC\\sim\\triangle PDB\\) by AA (they share vertical angles at \\(P,\\) and equal inscribed angles subtending the same arc). Matching ratios gives \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB},\\) i.e. \\(PA\\cdot PB=PC\\cdot PD.\\) Power of a Point is similarity in disguise!",
-      zh: "为什么乘积恒定？因为相交造出两个相似三角形 \u2014\u2014 \\(\\triangle PAC\\sim\\triangle PDB\\)（AA：在 \\(P\\) 处共享对顶角，且对同一弧的圆周角相等）。对应比例给出 \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB}\\)，即 \\(PA\\cdot PB=PC\\cdot PD\\)。圆幂定理是换了装的相似！" },
-    { type: "step", n: "2", title: { en: "Two secants from outside", zh: "圆外两条割线" },
-      en: "If \\(P\\) is OUTSIDE the circle and two secants go through it, the same product rule holds using whole-segment \u00d7 outer-segment:\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\nwhere \\(PA,PC\\) reach the FAR intersections. Example: one secant has outer \\(3,\\) far \\(3+5=8;\\) other has outer \\(4,\\) far \\(4+x.\\) Then \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2.\\)",
-      zh: "若 \\(P\\) 在圆「外」，两条割线过它，同样的乘积规则成立，用「整段 \u00d7 外段」：\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\n其中 \\(PA,PC\\) 到「远」交点。例：一条割线外段 \\(3\\)、远段 \\(3+5=8\\)；另一条外段 \\(4\\)、远段 \\(4+x\\)。则 \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2\\)。" },
-    { type: "note", en: "The third form: if one line is a TANGENT touching at \\(T,\\) the two intersection points merge into one, so \\(PA\\cdot PB\\) becomes \\(PT^2.\\) Thus \\(PT^2=PA\\cdot PB\\) \u2014 the tangent length is the geometric mean of any secant's two segments. Three pictures (two chords, two secants, tangent-secant) are ONE theorem.",
-      zh: "第三种形态：若一条线是「切线」，切于 \\(T\\)，两个交点合并成一个，所以 \\(PA\\cdot PB\\) 变成 \\(PT^2\\)。于是 \\(PT^2=PA\\cdot PB\\) \u2014\u2014 切线长是任意割线两段的几何平均。三幅图（两弦、两割线、切线-割线）是「同一个」定理。" }
-  ]
-});
-
-/* ---------- 3. UNIFIED VIEW ---------- */
-textbookData[9].sections.push({
-  heading: { en: "3 · The unifying formula", zh: "3 · 统一的公式" },
-  blocks: [
-    { type: "para", en: "All three forms collapse into one clean idea using the distance from \\(P\\) to the circle's center. If the circle has center \\(O\\) and radius \\(r,\\) the power of \\(P\\) is exactly:",
-      zh: "用 \\(P\\) 到圆心的距离，三种形态都塌缩成一个干净的想法。若圆心为 \\(O\\)、半径为 \\(r\\)，则 \\(P\\) 的幂恰好是：" },
-    { type: "formula", tex: "\\[ \\text{pow}(P) = OP^2 - r^2 \\]" },
-    { type: "para", en: "Read the sign: if \\(P\\) is OUTSIDE, \\(OP>r,\\) so the power is positive \u2014 equal to \\(PT^2.\\) If \\(P\\) is INSIDE, \\(OP<r,\\) the power is negative, and its absolute value equals \\(PA\\cdot PB.\\) If \\(P\\) is ON the circle, the power is exactly zero. One number tells you where the point sits relative to the circle.",
-      zh: "读符号：若 \\(P\\) 在「外」，\\(OP>r\\)，幂为正 \u2014\u2014 等于 \\(PT^2\\)。若 \\(P\\) 在「内」，\\(OP<r\\)，幂为负，其绝对值等于 \\(PA\\cdot PB\\)。若 \\(P\\) 在圆「上」，幂恰为零。一个数就告诉你点相对于圆的位置。" },
-    { type: "step", n: "1", title: { en: "Compute a power directly", zh: "直接计算一个幂" },
-      en: "A circle has radius \\(5,\\) and point \\(P\\) is \\(8\\) from the center.\n\u2022 Power \\(=OP^2-r^2=8^2-5^2=64-25=39.\\)\n\u2022 Positive \u2014 so \\(P\\) is outside, and any tangent from \\(P\\) has length \\(PT=\\sqrt{39}.\\)\n\u2022 Any secant through \\(P\\) satisfies (outer)\u00d7(far) \\(=39.\\)",
-      zh: "一个圆半径 \\(5\\)，点 \\(P\\) 到圆心 \\(8\\)。\n\u2022 幂 \\(=OP^2-r^2=8^2-5^2=64-25=39\\)。\n\u2022 正 \u2014\u2014 所以 \\(P\\) 在外，从 \\(P\\) 引的任意切线长为 \\(PT=\\sqrt{39}\\)。\n\u2022 过 \\(P\\) 的任意割线满足（外段）\u00d7（远段）\\(=39\\)。" },
-    { type: "ask", en: "Predict: a point \\(P\\) is inside a circle of radius \\(10,\\) at distance \\(6\\) from center. A chord through \\(P\\) is cut into pieces \\(a\\) and \\(b.\\) What is \\(a\\cdot b?\\) (Power magnitude \\(=r^2-OP^2=100-36=64,\\) so \\(a\\cdot b=64.\\))",
-      zh: "预测：点 \\(P\\) 在半径 \\(10\\) 的圆内，到圆心距离 \\(6\\)。过 \\(P\\) 的一条弦被分成 \\(a\\) 和 \\(b\\)。\\(a\\cdot b\\) 是多少？（幂的大小 \\(=r^2-OP^2=100-36=64\\)，所以 \\(a\\cdot b=64\\)。）" }
-  ]
-});
-
-
-
-/* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[9].sections.push({
-  heading: { en: "4 · Worked examples — proportions & products", zh: "4 · 例题精讲 —— 比例与乘积" },
-  blocks: [
-    { type: "para", en: "Three problems. Each asks for a length you can't measure directly \u2014 reach for similar triangles or power of a point. Read the first line, then try.",
-      zh: "三道题。每道都求一个你没法直接量的长度 \u2014\u2014 拿起相似三角形或圆幂定理。读完第一行，自己试。" },
-    { type: "step", n: "A", title: { en: "Similar triangles from a parallel line", zh: "平行线生成的相似三角形" },
-      en: "In triangle \\(ABC,\\) a line parallel to \\(BC\\) meets \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E.\\) If \\(AD=3,\\ DB=6,\\ AE=4,\\) find \\(EC.\\)\n\u2022 Parallel \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\) (AA).\n\u2022 Proportional sides: \\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}.\\)\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12,\\) so \\(EC=AC-AE=12-4=8.\\)",
-      zh: "三角形 \\(ABC\\) 中，一条平行于 \\(BC\\) 的线交 \\(AB\\) 于 \\(D\\)、交 \\(AC\\) 于 \\(E\\)。若 \\(AD=3,\\ DB=6,\\ AE=4\\)，求 \\(EC\\)。\n\u2022 平行 \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\)（AA）。\n\u2022 边成比例：\\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}\\)。\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12\\)，所以 \\(EC=AC-AE=12-4=8\\)。" },
-    { type: "step", n: "B", title: { en: "Tangent-secant power", zh: "切线-割线圆幂" },
-      en: "From external point \\(P,\\) a tangent touches a circle at \\(T\\) with \\(PT=6,\\) and a secant through \\(P\\) hits the circle at \\(A\\) (near) and \\(B\\) (far) with \\(PA=4.\\) Find \\(AB.\\)\n\u2022 Power: \\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9.\\)\n\u2022 \\(AB=PB-PA=9-4=5.\\)",
-      zh: "从外部点 \\(P\\)，一条切线切圆于 \\(T\\)，\\(PT=6\\)；一条过 \\(P\\) 的割线交圆于 \\(A\\)（近）和 \\(B\\)（远），\\(PA=4\\)。求 \\(AB\\)。\n\u2022 圆幂：\\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9\\)。\n\u2022 \\(AB=PB-PA=9-4=5\\)。" },
-    { type: "step", n: "C", title: { en: "Crossing chords", zh: "相交弦" },
-      en: "Two chords of a circle cross at \\(P.\\) The first is divided into segments \\(6\\) and \\(8.\\) The second has total length \\(16\\) and is divided into \\(y\\) and \\(16-y.\\) Find the two pieces.\n\u2022 Power: \\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2.\\)\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) or \\(12.\\)\n\u2022 The two pieces are \\(4\\) and \\(12.\\) (Same split either way.)",
-      zh: "圆的两弦交于 \\(P\\)。第一条被分成 \\(6\\) 和 \\(8\\)。第二条总长 \\(16\\)，被分成 \\(y\\) 和 \\(16-y\\)。求这两段。\n\u2022 圆幂：\\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2\\)。\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) 或 \\(12\\)。\n\u2022 两段是 \\(4\\) 和 \\(12\\)。（两种取法同样的分割。）" },
-    { type: "note", en: "Notice example C fused TWO lessons: power of a point set up the equation, and factoring (Concept 03) solved the quadratic. Contest geometry rarely stays purely geometric \u2014 it sets up an algebra problem, and your algebra toolkit finishes it.",
-      zh: "注意例题 C 融合了「两节课」：圆幂定理列出方程，而因式分解（知识点 03）解出那个二次式。竞赛几何很少纯粹停留在几何 \u2014\u2014 它列出一个代数问题，而你的代数工具箱把它做完。" }
-  ]
-});
-
-/* ---------- 5. SELF-TEST ---------- */
-textbookData[9].sections.push({
-  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
-  blocks: [
-    { type: "para", en: "Cover the answers. First decide: similar triangles, or power of a point?",
-      zh: "盖住答案。先决定：相似三角形，还是圆幂定理？" },
-    { type: "ask", en: "Q1. In right triangle \\(ABC\\) (right angle at \\(C\\)), the altitude to the hypotenuse cuts it into \\(AD=9\\) and \\(DB=16.\\) Find the altitude \\(CD.\\)",
-      zh: "Q1. 直角三角形 \\(ABC\\)（直角在 \\(C\\)），斜边上的高把斜边分成 \\(AD=9\\) 和 \\(DB=16\\)。求高 \\(CD\\)。" },
-    { type: "ask", en: "Q2. From external point \\(P,\\) a tangent has length \\(PT=8.\\) A secant through \\(P\\) has near distance \\(PA=4.\\) Find the far distance \\(PB.\\)",
-      zh: "Q2. 从外部点 \\(P\\)，切线长 \\(PT=8\\)。过 \\(P\\) 的割线近段 \\(PA=4\\)。求远段 \\(PB\\)。" },
-    { type: "ask", en: "Q3. A circle has radius \\(13.\\) Point \\(P\\) is \\(5\\) from the center. A chord through \\(P\\) is split into \\(a\\) and \\(b.\\) Find \\(a\\cdot b.\\)",
-      zh: "Q3. 一个圆半径 \\(13\\)。点 \\(P\\) 到圆心 \\(5\\)。过 \\(P\\) 的弦被分成 \\(a\\) 和 \\(b\\)。求 \\(a\\cdot b\\)。" },
-    { type: "divider" },
-    { type: "note", en: "ANSWERS.\nQ1: \\(CD^2=AD\\cdot DB=9\\cdot16=144,\\) so \\(CD=12.\\)\nQ2: \\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16.\\)\nQ3: \\(P\\) inside, power magnitude \\(=r^2-OP^2=169-25=144,\\) so \\(a\\cdot b=144.\\)",
-      zh: "答案。\nQ1：\\(CD^2=AD\\cdot DB=9\\cdot16=144\\)，所以 \\(CD=12\\)。\nQ2：\\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16\\)。\nQ3：\\(P\\) 在内，幂的大小 \\(=r^2-OP^2=169-25=144\\)，所以 \\(a\\cdot b=144\\)。" },
-    { type: "para", en: "Two geometry engines now: similar triangles turn an unknown length into a proportion, and power of a point turns crossing lines into equal products. Both come from the same root \u2014 AA similarity. When a geometry problem stalls, hunt for two equal angles or a circle with crossing lines. That's where the answer hides.",
-      zh: "现在有两台几何引擎：相似三角形把未知长度变成比例，圆幂定理把相交直线变成相等乘积。两者同根 \u2014\u2014 都来自 AA 相似。当几何题卡住，去找两个相等的角，或一个有相交直线的圆。答案就藏在那里。" }
-  ]
-});
-
-
-
-/* ============================================================
-   CONCEPT 11 — Recursion & Sequences
-   ============================================================*/
-textbookData.push({
   id: "recursion",
-  badge: { en: "Concept 11", zh: "知识点 11" },
+  badge: { en: "Concept 07", zh: "知识点 07" },
   title: { en: "Recursion & Sequences", zh: "递归与数列" },
   subtitle: { en: "Instead of finding a hard number directly, describe how each step grows from the last. Recursion turns scary counting into a short, repeatable rule.",
               zh: "与其直接去求一个难算的数，不如描述「每一步如何从上一步长出来」。递归把吓人的计数，变成一条简短、可重复的规则。" },
@@ -1585,7 +1048,7 @@ textbookData.push({
 
 
 /* ---------- 2. ARITHMETIC & GEOMETRIC ---------- */
-textbookData[10].sections.push({
+textbookData[6].sections.push({
   heading: { en: "2 · The two sequences you can solve in closed form", zh: "2 · 两种能写出通项公式的数列" },
   blocks: [
     { type: "para", en: "Not every recurrence needs step-by-step climbing. Two famous families have a CLOSED FORM \u2014 a direct formula for the \\(n\\)-th term, no climbing needed. Recognizing them saves enormous time.",
@@ -1605,7 +1068,7 @@ textbookData[10].sections.push({
 });
 
 /* ---------- 3. CHARACTERISTIC ROOTS ---------- */
-textbookData[10].sections.push({
+textbookData[6].sections.push({
   heading: { en: "3 · Solving linear recurrences with roots", zh: "3 · 用「根」解线性递推" },
   blocks: [
     { type: "para", en: "Here's a beautiful bridge back to Concepts 01\u201302. A recurrence like \\(a_n=5a_{n-1}-6a_{n-2}\\) has a CLOSED FORM you can find by guessing \\(a_n=x^n\\) and solving a quadratic \u2014 the same Vieta-style polynomial thinking from the symmetric-polynomial lessons.",
@@ -1626,7 +1089,7 @@ textbookData[10].sections.push({
 
 
 /* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[10].sections.push({
+textbookData[6].sections.push({
   heading: { en: "4 · Worked examples — recurse, then compute", zh: "4 · 例题精讲 —— 先递归，再计算" },
   blocks: [
     { type: "para", en: "Three problems. Each is solved by finding a recurrence (condition on the last step) or recognizing an arithmetic/geometric pattern. Read the first line, then try.",
@@ -1646,7 +1109,7 @@ textbookData[10].sections.push({
 });
 
 /* ---------- 5. SELF-TEST ---------- */
-textbookData[10].sections.push({
+textbookData[6].sections.push({
   heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
   blocks: [
     { type: "para", en: "Cover the answers. First decide: recurrence, arithmetic/geometric, or telescoping?",
@@ -1672,7 +1135,7 @@ textbookData[10].sections.push({
    ============================================================*/
 textbookData.push({
   id: "nonneg-square",
-  badge: { en: "Concept 12", zh: "知识点 12" },
+  badge: { en: "Concept 08", zh: "知识点 08" },
   title: { en: "Non-negative Polynomials & the Perfect-Square Method", zh: "恒非负多项式与完全平方法" },
   subtitle: { en: "The signature AIME finisher: a curve sits above a line and touches it at several points. One chain of ideas \u2014 from geometry to Vieta \u2014 cracks the whole family.",
               zh: "AIME 压轴的标志题型：一条曲线落在直线上方，并在几个点相切。一条完整的思维链 \u2014\u2014 从几何到韦达 \u2014\u2014 通杀这一整类题。" },
@@ -1720,7 +1183,7 @@ textbookData.push({
 
 
 /* ---------- 2. GEOMETRY TO ALGEBRA ---------- */
-textbookData[11].sections.push({
+textbookData[7].sections.push({
   heading: { en: "2 · Translating 'above the line' into algebra", zh: "2 · 把「在直线上方」翻译成代数" },
   blocks: [
     { type: "para", en: "Contest problems rarely hand you '\\(P(x)\\ge0\\)' directly. They DESCRIBE it geometrically: 'the curve \\(y=f(x)\\) lies on or above the line \\(y=\\ell(x),\\) touching it at two points.' Your first move is always the same translation.",
@@ -1739,7 +1202,7 @@ textbookData[11].sections.push({
 });
 
 /* ---------- 3. DEGREE COUNTING ---------- */
-textbookData[11].sections.push({
+textbookData[7].sections.push({
   heading: { en: "3 · Counting degrees — making the roots fit exactly", zh: "3 · 数次数 —— 让根恰好凑满" },
   blocks: [
     { type: "para", en: "This is the step that makes the whole method click, and it's pure counting. You know the DEGREE of \\(D(x)\\) (from its leading term), and you know each touch point eats up an even chunk of that degree. The art is making the budget balance EXACTLY.",
@@ -1761,7 +1224,7 @@ textbookData[11].sections.push({
 
 
 /* ---------- 4. SQUARE EXPANSION & MATCHING ---------- */
-textbookData[11].sections.push({
+textbookData[7].sections.push({
   heading: { en: "4 · Squaring the cubic & matching coefficients", zh: "4 · 把三次式平方 & 系数比对" },
   blocks: [
     { type: "para", en: "We now know \\(P(x)=\\big(g(x)\\big)^2\\) with \\(g\\) a cubic. Write the cubic in Vieta-ready form \\(g(x)=x^3-px^2+qx-w,\\) so that (by Concept 01) \\(p,q,w\\) are the elementary symmetric polynomials of its three roots \u2014 which ARE the touch points. Now we expand and match.",
@@ -1795,7 +1258,7 @@ textbookData[11].sections.push({
 
 
 /* ---------- 5. THE FLAGSHIP EXAMPLE ---------- */
-textbookData[11].sections.push({
+textbookData[7].sections.push({
   heading: { en: "5 · The flagship example — every idea at once", zh: "5 · 旗舰例题 —— 所有想法一次到位" },
   blocks: [
     { type: "para", en: "Now we run the entire machine on one problem. Watch how geometry, even multiplicity, degree counting, square expansion, coefficient matching, and Vieta all fire in sequence. This is the exact shape of an AIME finisher.",
@@ -1822,7 +1285,7 @@ textbookData[11].sections.push({
 });
 
 /* ---------- 6. SELF-TEST ---------- */
-textbookData[11].sections.push({
+textbookData[7].sections.push({
   heading: { en: "6 · Test yourself (answers below)", zh: "6 · 自我检测（答案在下方）" },
   blocks: [
     { type: "para", en: "Cover the answers. Walk the chain each time: touch \u2192 even root \u2192 budget \u2192 square \u2192 match \u2192 Vieta.",
@@ -1847,173 +1310,8 @@ textbookData[11].sections.push({
    CONCEPT 13 — Probability & Expected Value
    ============================================================*/
 textbookData.push({
-  id: "probability",
-  badge: { en: "Concept 13", zh: "知识点 13" },
-  title: { en: "Probability & Expected Value", zh: "概率与期望" },
-  subtitle: { en: "The most common #18\u2013#24 topic on the AMC. Four reliable tools \u2014 counting, complement, conditioning, and linearity of expectation \u2014 turn 'I have no idea' into a routine.",
-              zh: "AMC 第 18\u201324 题最常见的主题。四件可靠工具 \u2014\u2014 计数、补集、条件、期望的线性性 \u2014\u2014 把「完全没思路」变成例行公事。" },
-  readingTime: { en: "~30 min deep read", zh: "约 30 分钟深读" },
-  sections: [
-
-  /* ---------- 0. WHY ---------- */
-  {
-    heading: { en: "0 · Probability is just careful counting", zh: "0 · 概率不过是仔细的计数" },
-    blocks: [
-      { type: "para", en: "Here is the secret that makes contest probability far less scary than it looks: almost every problem is a COUNTING problem in disguise. If all outcomes are equally likely, probability is simply 'how many outcomes I want' divided by 'how many outcomes total'. Your real job is to count two numbers.",
-        zh: "有一个秘密，能让竞赛概率没那么吓人：几乎每道题都是「计数题」的伪装。如果所有结果「等可能」，概率就是「我想要的结果数」除以「全部结果数」。你真正的活儿，是数两个数。" },
-      { type: "formula", tex: "\\[ P(\\text{event}) = \\frac{\\text{number of favorable outcomes}}{\\text{number of total outcomes}} \\]" },
-      { type: "example", en: "Roll two fair dice. What's the probability the sum is 7? Total outcomes: \\(6\\times6=36.\\) Favorable (sum 7): \\((1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\) \u2014 six of them. So \\(P=\\dfrac{6}{36}=\\dfrac16.\\) No magic, just count the top and the bottom.",
-        zh: "掷两个公平骰子。和为 7 的概率？总结果：\\(6\\times6=36\\)。有利（和为 7）：\\((1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\) \u2014\u2014 六个。所以 \\(P=\\dfrac{6}{36}=\\dfrac16\\)。没有魔法，就是数上面和下面。" },
-      { type: "note", en: "This is why Concept 09 (counting) is the foundation of probability. Every tool you built there \u2014 inclusion\u2013exclusion, stars-and-bars, combinations \u2014 is now a probability tool. When you freeze on a probability problem, the first move is always: 'what am I counting, and what's the total?'",
-        zh: "这就是为什么知识点 09（计数）是概率的地基。你在那里搭的每件工具 \u2014\u2014 容斥、隔板法、组合数 \u2014\u2014 现在都是概率工具。当你卡在一道概率题上，第一步永远是：「我在数什么，总数是多少？」" },
-      { type: "ask", en: "Warm-up to hold: a bag has 3 red and 2 blue balls. You draw one. \\(P(\\text{red})=?\\) Now you draw TWO without replacing. How many total ways to pick 2 of 5? (\\(P(\\text{red})=\\tfrac35;\\) and \\(\\binom52=10\\) ways for two.)",
-        zh: "热身：袋里 3 红 2 蓝。取一个，\\(P(\\text{红})=?\\) 现在不放回取「两个」。从 5 个里取 2 个共多少种？（\\(P(\\text{红})=\\tfrac35\\)；取两个有 \\(\\binom52=10\\) 种。）" }
-    ]
-  },
-
-  /* ---------- 1. COMPLEMENT ---------- */
-  {
-    heading: { en: "1 · The complement trick \u2014 count what you DON'T want", zh: "1 · 补集技巧 \u2014\u2014 数你「不」想要的" },
-    blocks: [
-      { type: "para", en: "Sometimes the event you want is a tangled mess of cases, but its OPPOSITE is a single clean case. The complement trick says: instead of counting the event directly, count the opposite and subtract from 1.",
-        zh: "有时候你想要的事件是一团纠缠的情形，但它的「反面」是一个干净的单一情形。补集技巧说：与其直接数这个事件，不如数它的反面，再用 1 减去。" },
-      { type: "formula", tex: "\\[ P(\\text{event}) = 1 - P(\\text{not event}) \\]" },
-      { type: "para", en: "The signal to use it is the phrase 'at least'. 'At least one' almost always means 'count the opposite' \u2014 because the opposite of 'at least one' is the single clean case 'none'.",
-        zh: "用它的信号词是「至少」。「至少一个」几乎总是意味着「数反面」\u2014\u2014 因为「至少一个」的反面，是那个干净的单一情形「一个都没有」。" },
-      { type: "step", n: "1", title: { en: "At least one six", zh: "至少一个六" },
-        en: "Roll four dice. What's the probability of getting AT LEAST one six?\n\u2022 Direct: messy \u2014 exactly one six, exactly two, three, four\u2026 four cases to add.\n\u2022 Complement: 'no sixes at all'. Each die avoids six with probability \\(\\tfrac56,\\) and the dice are independent.\n\u2022 \\(P(\\text{no six})=\\left(\\tfrac56\\right)^4=\\tfrac{625}{1296}.\\)\n\u2022 \\(P(\\text{at least one six})=1-\\tfrac{625}{1296}=\\tfrac{671}{1296}.\\)",
-        zh: "掷四个骰子。「至少」出现一个六的概率？\n\u2022 直接算：很乱 \u2014\u2014 恰好一个六、恰好两个、三个、四个……四种情形要加。\n\u2022 补集：「一个六都没有」。每个骰子避开六的概率是 \\(\\tfrac56\\)，且骰子相互独立。\n\u2022 \\(P(\\text{没有六})=\\left(\\tfrac56\\right)^4=\\tfrac{625}{1296}\\)。\n\u2022 \\(P(\\text{至少一个六})=1-\\tfrac{625}{1296}=\\tfrac{671}{1296}\\)。" },
-      { type: "note", en: "Look how the complement collapsed four messy cases into one clean power. This is the single highest-value reflex in contest probability: the moment you read 'at least', your hand should reach for \\(1-P(\\text{none}).\\) The opposite is almost always simpler.",
-        zh: "看补集如何把四种乱情形坍缩成一个干净的幂。这是竞赛概率里价值最高的一个条件反射：你一读到「至少」，手就该伸向 \\(1-P(\\text{一个都没有})\\)。反面几乎总是更简单。" },
-      { type: "ask", en: "Try it: flip a fair coin 5 times. What's the probability of at least one head? (Complement: all tails \\(=(\\tfrac12)^5=\\tfrac1{32},\\) so answer \\(=1-\\tfrac1{32}=\\tfrac{31}{32}.\\))",
-        zh: "试试：抛公平硬币 5 次。至少一个正面的概率？（补集：全反面 \\(=(\\tfrac12)^5=\\tfrac1{32}\\)，所以答案 \\(=1-\\tfrac1{32}=\\tfrac{31}{32}\\)。）" }
-    ]
-  }
-  ]
-});
-
-
-
-/* ---------- 2. CONDITIONAL & INDEPENDENCE ---------- */
-textbookData[12].sections.push({
-  heading: { en: "2 · Conditioning \u2014 'given that', and independence", zh: "2 · 条件概率 \u2014\u2014「已知」，以及独立性" },
-  blocks: [
-    { type: "para", en: "Many problems give you partial information: 'given that the first card is red, what's the probability\u2026' That word GIVEN shrinks your world. You're no longer counting all outcomes \u2014 only the ones consistent with what you were told.",
-      zh: "许多题给你部分信息：「已知第一张牌是红的，那么……的概率是多少」。「已知」这个词缩小了你的世界。你不再数全部结果 \u2014\u2014 只数那些与告诉你的信息「相符」的结果。" },
-    { type: "formula", tex: "\\[ P(A \\mid B) = \\frac{P(A \\text{ and } B)}{P(B)} \\]" },
-    { type: "para", en: "Read it as: 'the fraction of the B-world in which A also happens'. The denominator \\(P(B)\\) is your new, shrunken total; the numerator counts how much of that overlaps with A.",
-      zh: "读作：「在 B 的世界里，A 也发生的那部分比例」。分母 \\(P(B)\\) 是你新的、缩小后的总数；分子数的是其中与 A 重叠的部分。" },
-    { type: "step", n: "1", title: { en: "Conditioning on a draw", zh: "对一次抽取做条件" },
-      en: "A box has 5 red and 3 blue. You draw two without replacement. Given the first is red, what's the probability the second is also red?\n\u2022 'Given first is red' shrinks the box: 4 red and 3 blue remain, 7 total.\n\u2022 \\(P(\\text{second red}\\mid\\text{first red})=\\dfrac{4}{7}.\\)\n\u2022 The condition simply updated the counts \u2014 that's all conditioning ever does.",
-      zh: "盒里 5 红 3 蓝。不放回取两个。已知第一个是红，第二个也是红的概率？\n\u2022「已知第一个是红」缩小了盒子：剩 4 红 3 蓝，共 7 个。\n\u2022 \\(P(\\text{第二个红}\\mid\\text{第一个红})=\\dfrac{4}{7}\\)。\n\u2022 条件只是更新了计数 \u2014\u2014 条件概率做的全部就是这件事。" },
-    { type: "note", en: "Special case worth memorizing: two events are INDEPENDENT when knowing one tells you nothing about the other, and then \\(P(A\\text{ and }B)=P(A)\\cdot P(B)\\) \u2014 you just multiply. Dice rolls, coin flips, and draws WITH replacement are independent. Draws WITHOUT replacement are NOT \u2014 each draw changes the next, which is exactly why conditioning matters there.",
-      zh: "值得背的特例：两个事件「独立」，是指知道一个对另一个毫无信息，此时 \\(P(A\\text{ 且 }B)=P(A)\\cdot P(B)\\) \u2014\u2014 直接相乘。掷骰、抛币、「有放回」抽取都是独立的。「不放回」抽取「不」独立 \u2014\u2014 每次抽取改变下一次，这正是那里需要条件概率的原因。" },
-    { type: "ask", en: "Independent or not? You flip a coin then roll a die. \\(P(\\text{head and a 6})?\\) (Independent: \\(\\tfrac12\\cdot\\tfrac16=\\tfrac1{12}.\\)) Now: draw 2 cards from a deck, \\(P(\\text{both aces})?\\) (NOT independent: \\(\\tfrac{4}{52}\\cdot\\tfrac{3}{51}.\\))",
-      zh: "独立还是不独立？先抛硬币再掷骰子。\\(P(\\text{正面且六})?\\)（独立：\\(\\tfrac12\\cdot\\tfrac16=\\tfrac1{12}\\)。）再看：从一副牌抽 2 张，\\(P(\\text{都是 A})?\\)（「不」独立：\\(\\tfrac{4}{52}\\cdot\\tfrac{3}{51}\\)。）" }
-  ]
-});
-
-/* ---------- 3. GEOMETRIC PROBABILITY ---------- */
-textbookData[12].sections.push({
-  heading: { en: "3 · Geometric probability \u2014 when outcomes are continuous", zh: "3 · 几何概率 \u2014\u2014 当结果是连续的" },
-  blocks: [
-    { type: "para", en: "What if the outcomes aren't a finite list you can count, but a continuous range \u2014 a random point on a line, in a square, a random time? Then 'counting' becomes 'measuring'. Probability is the ratio of LENGTHS, AREAS, or VOLUMES.",
-      zh: "如果结果不是你能数的有限清单，而是一个连续范围 \u2014\u2014 线段上的随机点、正方形里的随机点、随机时刻 \u2014\u2014 怎么办？那么「计数」变成「测量」。概率是「长度」「面积」或「体积」的比。" },
-    { type: "formula", tex: "\\[ P(\\text{event}) = \\frac{\\text{measure (length/area) of favorable region}}{\\text{measure of total region}} \\]" },
-    { type: "step", n: "1", title: { en: "A point on a segment", zh: "线段上的一点" },
-      en: "A point is chosen at random on a segment of length 10. What's the probability it lands within 2 of the left end?\n\u2022 Total: length \\(10.\\)\n\u2022 Favorable: the sub-segment from 0 to 2, length \\(2.\\)\n\u2022 \\(P=\\dfrac{2}{10}=\\dfrac15.\\) Counting became measuring length.",
-      zh: "在长为 10 的线段上随机取一点。它落在距左端 2 以内的概率？\n\u2022 总：长度 \\(10\\)。\n\u2022 有利：从 0 到 2 的子段，长度 \\(2\\)。\n\u2022 \\(P=\\dfrac{2}{10}=\\dfrac15\\)。计数变成了量长度。" },
-    { type: "step", n: "2", title: { en: "The meeting problem (area version)", zh: "约会问题（面积版）" },
-      en: "Two friends each arrive at a random time between 0 and 1 hour, and each waits 15 minutes (\\(\\tfrac14\\) hour). What's the probability they meet?\n\u2022 Model arrivals as a point \\((x,y)\\) in the unit square \u2014 total area \\(1.\\)\n\u2022 They meet when \\(|x-y|\\le\\tfrac14.\\) The MISS region is two corner triangles, each with legs \\(\\tfrac34.\\)\n\u2022 Miss area \\(=2\\cdot\\tfrac12\\left(\\tfrac34\\right)^2=\\tfrac{9}{16}.\\) Meet area \\(=1-\\tfrac{9}{16}=\\tfrac{7}{16}.\\)",
-      zh: "两个朋友各自在 0 到 1 小时间的随机时刻到达，每人等 15 分钟（\\(\\tfrac14\\) 小时）。他们相遇的概率？\n\u2022 把到达时刻建模成单位正方形里的点 \\((x,y)\\) \u2014\u2014 总面积 \\(1\\)。\n\u2022 相遇当且仅当 \\(|x-y|\\le\\tfrac14\\)。「错过」区域是两个角上的三角形，每个直角边 \\(\\tfrac34\\)。\n\u2022 错过面积 \\(=2\\cdot\\tfrac12\\left(\\tfrac34\\right)^2=\\tfrac{9}{16}\\)。相遇面积 \\(=1-\\tfrac{9}{16}=\\tfrac{7}{16}\\)。" },
-    { type: "note", en: "The meeting problem secretly used the complement trick AGAIN \u2014 it was easier to measure the 'miss' triangles and subtract. Geometric probability marries Concept 10 (geometry: areas) with the complement reflex. Always ask: is the favorable region easier to measure, or its opposite?",
-      zh: "约会问题暗地里「又」用了补集技巧 \u2014\u2014 量「错过」的三角形再减掉更容易。几何概率把知识点 10（几何：面积）和补集反射联姻。永远问：是有利区域更好量，还是它的反面？" },
-    { type: "ask", en: "Try: a point \\((x,y)\\) is random in the unit square. What's the probability that \\(x+y\\le1?\\) (That region is a triangle of area \\(\\tfrac12,\\) so \\(P=\\tfrac12.\\))",
-      zh: "试试：点 \\((x,y)\\) 在单位正方形里随机。\\(x+y\\le1\\) 的概率？（那个区域是面积 \\(\\tfrac12\\) 的三角形，所以 \\(P=\\tfrac12\\)。）" }
-  ]
-});
-
-
-
-/* ---------- 4. EXPECTED VALUE & LINEARITY ---------- */
-textbookData[12].sections.push({
-  heading: { en: "4 · Expected value & the magic of linearity", zh: "4 · 期望值与「线性性」的魔法" },
-  blocks: [
-    { type: "para", en: "Expected value is the long-run AVERAGE of a random quantity. You compute it by weighting each possible value by its probability and summing. It answers 'on average, how much?'",
-      zh: "期望值是一个随机量在「长期」下的「平均」。你把每个可能取值用它的概率加权再求和。它回答「平均来说，多少？」" },
-    { type: "formula", tex: "\\[ E[X] = \\sum (\\text{value}) \\times (\\text{its probability}) \\]" },
-    { type: "step", n: "1", title: { en: "Expected value of one die", zh: "一个骰子的期望" },
-      en: "Roll one fair die. Expected value of the number shown?\n\u2022 \\(E[X]=1\\cdot\\tfrac16+2\\cdot\\tfrac16+\\cdots+6\\cdot\\tfrac16=\\tfrac{1+2+3+4+5+6}{6}=\\tfrac{21}{6}=3.5.\\)\n\u2022 You can never actually roll 3.5 \u2014 expected value is the AVERAGE over many rolls, not a single outcome.",
-      zh: "掷一个公平骰子。点数的期望？\n\u2022 \\(E[X]=1\\cdot\\tfrac16+2\\cdot\\tfrac16+\\cdots+6\\cdot\\tfrac16=\\tfrac{1+2+3+4+5+6}{6}=\\tfrac{21}{6}=3.5\\)。\n\u2022 你永远掷不出 3.5 \u2014\u2014 期望是多次掷的「平均」，不是单次结果。" },
-    { type: "note", en: "Now the most powerful idea in all of contest probability: LINEARITY OF EXPECTATION. The expected value of a SUM equals the sum of the expected values \u2014 ALWAYS, even when the parts are NOT independent. \\(E[X+Y]=E[X]+E[Y].\\) This one fact solves problems that look completely hopeless.",
-      zh: "现在是整个竞赛概率里最强大的想法：「期望的线性性」。一个「和」的期望，等于各部分期望之和 \u2014\u2014「永远」成立，即使各部分「不」独立。\\(E[X+Y]=E[X]+E[Y]\\)。这一个事实，能解开那些看起来完全没希望的题。" },
-    { type: "para", en: "The trick to using it: break a complicated random quantity into a SUM of simple 0-or-1 'indicator' pieces, find each tiny expectation, and add. Because linearity ignores dependence, you never worry about how the pieces interact.",
-      zh: "用它的诀窍：把一个复杂的随机量拆成一堆简单的「0 或 1」指示器之和，求每个小期望，再相加。因为线性性「无视」相关性，你永远不用操心这些部分如何相互影响。" },
-    { type: "step", n: "2", title: { en: "Expected number of fixed points", zh: "期望的不动点个数" },
-      en: "Five people randomly grab one hat each from five hats. What's the expected number who get their OWN hat?\n\u2022 Let \\(X_i=1\\) if person \\(i\\) gets their own hat, else \\(0.\\) The total is \\(X=X_1+\\cdots+X_5.\\)\n\u2022 Each person gets their own hat with probability \\(\\tfrac15,\\) so \\(E[X_i]=\\tfrac15.\\)\n\u2022 By linearity: \\(E[X]=5\\cdot\\tfrac15=1.\\)\n\u2022 The hats are deeply dependent \u2014 yet linearity didn't care. The answer is just \\(1.\\)",
-      zh: "五个人各自从五顶帽子里随机抓一顶。期望有几个人拿到「自己的」帽子？\n\u2022 令 \\(X_i=1\\) 表示第 \\(i\\) 人拿到自己的帽子，否则 \\(0\\)。总数 \\(X=X_1+\\cdots+X_5\\)。\n\u2022 每人拿到自己帽子的概率是 \\(\\tfrac15\\)，所以 \\(E[X_i]=\\tfrac15\\)。\n\u2022 由线性性：\\(E[X]=5\\cdot\\tfrac15=1\\)。\n\u2022 帽子之间高度相关 \u2014\u2014 但线性性根本不在乎。答案就是 \\(1\\)。" },
-    { type: "note", en: "Feel why this is magic: computing the full distribution of fixed points (derangements!) is genuinely hard, but the AVERAGE fell out in two lines. The indicator-sum technique \u2014 split into 0/1 pieces, add tiny expectations \u2014 is the single highest-leverage trick for AMC/AIME expected-value problems. Whenever you're asked 'expected number of\u2026', reach for indicators.",
-      zh: "感受为什么这是魔法：算出不动点的完整分布（错排！）是真的难，但「平均」两行就掉出来了。指示器求和技巧 \u2014\u2014 拆成 0/1 小块、加小期望 \u2014\u2014 是 AMC/AIME 期望题里杠杆率最高的一招。每当被问「期望有几个……」，就拿起指示器。" },
-    { type: "ask", en: "Try: flip a fair coin 10 times. Expected number of heads? Use indicators: each flip is a head with probability \\(\\tfrac12,\\) so \\(E=10\\cdot\\tfrac12=5.\\) (Notice you didn't need the binomial distribution at all.)",
-      zh: "试试：抛公平硬币 10 次。期望几个正面？用指示器：每次正面概率 \\(\\tfrac12\\)，所以 \\(E=10\\cdot\\tfrac12=5\\)。（注意你根本不需要二项分布。）" }
-  ]
-});
-
-
-
-/* ---------- 5. WORKED EXAMPLES ---------- */
-textbookData[12].sections.push({
-  heading: { en: "5 · Worked examples \u2014 picking the right tool", zh: "5 · 例题精讲 \u2014\u2014 选对工具" },
-  blocks: [
-    { type: "para", en: "Four problems, one per tool. The whole skill is reading the problem and knowing WHICH tool fits: count directly, complement, condition, or expectation. Read the first line, then try.",
-      zh: "四道题，每个工具一道。全部本事在于读题、判断「哪个工具」合适：直接计数、补集、条件、还是期望。读完第一行，自己试。" },
-    { type: "step", n: "A", title: { en: "Direct counting (AMC-style)", zh: "直接计数（AMC 风格）" },
-      en: "Three fair dice are rolled. What's the probability all three show different numbers?\n\u2022 Total outcomes: \\(6^3=216.\\)\n\u2022 Favorable: first die any of 6, second must differ (5), third must differ from both (4): \\(6\\cdot5\\cdot4=120.\\)\n\u2022 \\(P=\\dfrac{120}{216}=\\dfrac{5}{9}.\\)",
-      zh: "掷三个公平骰子。三个点数都不同的概率？\n\u2022 总结果：\\(6^3=216\\)。\n\u2022 有利：第一个骰子任意 6 种，第二个必须不同（5），第三个必须与前两个都不同（4）：\\(6\\cdot5\\cdot4=120\\)。\n\u2022 \\(P=\\dfrac{120}{216}=\\dfrac{5}{9}\\)。" },
-    { type: "step", n: "B", title: { en: "Complement", zh: "补集" },
-      en: "Flip a fair coin 6 times. Probability of at least one head?\n\u2022 'At least one' \u2192 complement. Opposite is 'all tails'.\n\u2022 \\(P(\\text{all tails})=\\left(\\tfrac12\\right)^6=\\tfrac1{64}.\\)\n\u2022 \\(P(\\text{at least one head})=1-\\tfrac1{64}=\\tfrac{63}{64}.\\)",
-      zh: "抛公平硬币 6 次。至少一个正面的概率？\n\u2022「至少一个」\u2192 补集。反面是「全反面」。\n\u2022 \\(P(\\text{全反面})=\\left(\\tfrac12\\right)^6=\\tfrac1{64}\\)。\n\u2022 \\(P(\\text{至少一正面})=1-\\tfrac1{64}=\\tfrac{63}{64}\\)。" },
-    { type: "step", n: "C", title: { en: "Conditioning / dependence", zh: "条件 / 相关" },
-      en: "Draw two cards from a standard 52-card deck. Probability both are hearts (13 hearts)?\n\u2022 Draws without replacement \u2014 dependent, so condition.\n\u2022 First heart: \\(\\tfrac{13}{52}.\\) Given that, second heart: \\(\\tfrac{12}{51}.\\)\n\u2022 \\(P=\\tfrac{13}{52}\\cdot\\tfrac{12}{51}=\\tfrac{156}{2652}=\\tfrac{1}{17}.\\)",
-      zh: "从标准 52 张牌抽两张。两张都是红心（13 张红心）的概率？\n\u2022 不放回抽取 \u2014\u2014 相关，所以用条件。\n\u2022 第一张红心：\\(\\tfrac{13}{52}\\)。已知后，第二张红心：\\(\\tfrac{12}{51}\\)。\n\u2022 \\(P=\\tfrac{13}{52}\\cdot\\tfrac{12}{51}=\\tfrac{156}{2652}=\\tfrac{1}{17}\\)。" },
-    { type: "step", n: "D", title: { en: "Linearity of expectation", zh: "期望的线性性" },
-      en: "A standard deck is shuffled. What's the expected number of cards that land in their 'correct' position (card \\(k\\) in slot \\(k\\))?\n\u2022 Indicator: \\(X_i=1\\) if card \\(i\\) is in slot \\(i.\\) Total \\(X=\\sum X_i.\\)\n\u2022 Each card is in its correct slot with probability \\(\\tfrac1{52},\\) so \\(E[X_i]=\\tfrac1{52}.\\)\n\u2022 By linearity: \\(E[X]=52\\cdot\\tfrac1{52}=1.\\) (Same answer as 5 hats \u2014 the deck size cancels!)",
-      zh: "一副标准牌被洗乱。期望有几张牌落在「正确」位置（第 \\(k\\) 张在第 \\(k\\) 个位置）？\n\u2022 指示器：\\(X_i=1\\) 表示第 \\(i\\) 张在第 \\(i\\) 个位置。总数 \\(X=\\sum X_i\\)。\n\u2022 每张在正确位置的概率是 \\(\\tfrac1{52}\\)，所以 \\(E[X_i]=\\tfrac1{52}\\)。\n\u2022 由线性性：\\(E[X]=52\\cdot\\tfrac1{52}=1\\)。（和 5 顶帽子同样的答案 \u2014\u2014 牌数被约掉了！）" },
-    { type: "note", en: "Step back and see the decision tree: 'all different' \u2192 count directly; 'at least' \u2192 complement; 'without replacement' \u2192 condition; 'expected number of\u2026' \u2192 indicators + linearity. Matching the PHRASE to the TOOL is 90% of contest probability. The arithmetic afterward is easy.",
-      zh: "退一步看这棵决策树：「都不同」\u2192 直接数；「至少」\u2192 补集；「不放回」\u2192 条件；「期望有几个……」\u2192 指示器 + 线性性。把「措辞」对应到「工具」，是九成的竞赛概率。之后的算术很简单。" }
-  ]
-});
-
-/* ---------- 6. SELF-TEST ---------- */
-textbookData[12].sections.push({
-  heading: { en: "6 · Test yourself (answers below)", zh: "6 · 自我检测（答案在下方）" },
-  blocks: [
-    { type: "para", en: "Cover the answers. For each, first name the tool (count / complement / condition / expectation), then solve.",
-      zh: "盖住答案。每道题先说出工具（计数 / 补集 / 条件 / 期望），再求解。" },
-    { type: "ask", en: "Q1. Roll two dice. Probability the two numbers are different?",
-      zh: "Q1. 掷两个骰子。两个点数不同的概率？" },
-    { type: "ask", en: "Q2. Flip a fair coin 5 times. Probability of at least one tail?",
-      zh: "Q2. 抛公平硬币 5 次。至少一个反面的概率？" },
-    { type: "ask", en: "Q3. A box has 4 white and 6 black balls. Draw two without replacement. Probability both are white?",
-      zh: "Q3. 盒里 4 白 6 黑。不放回取两个。两个都白的概率？" },
-    { type: "ask", en: "Q4. Roll four dice. What is the expected number of sixes?",
-      zh: "Q4. 掷四个骰子。期望出现几个六？" },
-    { type: "divider" },
-    { type: "note", en: "ANSWERS.\nQ1: count/complement. Different \\(=1-P(\\text{same})=1-\\tfrac{6}{36}=1-\\tfrac16=\\tfrac56.\\)\nQ2: complement. \\(1-(\\tfrac12)^5=1-\\tfrac1{32}=\\tfrac{31}{32}.\\)\nQ3: condition. \\(\\tfrac{4}{10}\\cdot\\tfrac{3}{9}=\\tfrac{12}{90}=\\tfrac{2}{15}.\\)\nQ4: expectation/indicators. \\(E=4\\cdot\\tfrac16=\\tfrac{2}{3}.\\)",
-      zh: "答案。\nQ1：计数/补集。不同 \\(=1-P(\\text{相同})=1-\\tfrac{6}{36}=1-\\tfrac16=\\tfrac56\\)。\nQ2：补集。\\(1-(\\tfrac12)^5=1-\\tfrac1{32}=\\tfrac{31}{32}\\)。\nQ3：条件。\\(\\tfrac{4}{10}\\cdot\\tfrac{3}{9}=\\tfrac{12}{90}=\\tfrac{2}{15}\\)。\nQ4：期望/指示器。\\(E=4\\cdot\\tfrac16=\\tfrac{2}{3}\\)。" },
-    { type: "para", en: "You now carry the four-tool probability kit: direct counting (on Concept 09's foundation), the complement reflex for 'at least', conditioning for dependent draws, and linearity of expectation for 'expected number of\u2026'. The hardest AMC probability problems are rarely about a new idea \u2014 they're about reading the phrase and grabbing the matching tool. That recognition is the real skill, and now it's yours.",
-      zh: "你现在带着四件套概率工具：直接计数（建立在知识点 09 的地基上）、对付「至少」的补集反射、处理相关抽取的条件概率、以及对付「期望有几个……」的期望线性性。最难的 AMC 概率题，很少是关于一个新想法 \u2014\u2014 而是关于读出措辞、抓起匹配的工具。那个识别，才是真正的本事，现在它是你的了。" }
-  ]
-});
-
-
-
-/* ============================================================
-   CONCEPT 14 — Trigonometric Identities & Evaluation
-   ============================================================*/
-textbookData.push({
   id: "trig",
-  badge: { en: "Concept 14", zh: "知识点 14" },
+  badge: { en: "Concept 09", zh: "知识点 09" },
   title: { en: "Trigonometric Identities & Evaluation", zh: "三角恒等式与求值" },
   subtitle: { en: "Three engines tame almost every contest trig problem: the Pythagorean identity, the addition formulas, and the symmetry tricks that collapse ugly sums.",
               zh: "三台引擎驯服几乎所有竞赛三角题：毕达哥拉斯恒等式、加法公式，以及让丑陋求和坍缩的对称技巧。" },
@@ -2063,7 +1361,7 @@ textbookData.push({
 
 
 /* ---------- 2. PRODUCT-TO-SUM & TELESCOPING ---------- */
-textbookData[13].sections.push({
+textbookData[8].sections.push({
   heading: { en: "2 · Collapsing sums \u2014 product-to-sum & telescoping", zh: "2 · 让求和坍缩 \u2014\u2014 积化和差与裂项" },
   blocks: [
     { type: "para", en: "Contest trig loves long sums like \\(\\sin1^\\circ+\\sin2^\\circ+\\cdots\\) or products of many cosines. The key move is to convert a PRODUCT into a SUM (or a difference), so neighboring terms cancel \u2014 exactly the telescoping idea from Concept 11, now in trig.",
@@ -2083,7 +1381,7 @@ textbookData[13].sections.push({
 });
 
 /* ---------- 3. SYMMETRY TRICKS ---------- */
-textbookData[13].sections.push({
+textbookData[8].sections.push({
   heading: { en: "3 · Symmetry tricks \u2014 pairing angles", zh: "3 · 对称技巧 \u2014\u2014 角度配对" },
   blocks: [
     { type: "para", en: "The fastest contest trig solutions rarely compute anything \u2014 they PAIR terms that are secretly related. The two relationships to watch for: complementary angles (summing to \\(90^\\circ\\)) and supplementary angles (summing to \\(180^\\circ\\)).",
@@ -2104,7 +1402,7 @@ textbookData[13].sections.push({
 
 
 /* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[13].sections.push({
+textbookData[8].sections.push({
   heading: { en: "4 · Worked examples \u2014 identities under fire", zh: "4 · 例题精讲 \u2014\u2014 实战中的恒等式" },
   blocks: [
     { type: "para", en: "Three problems. Each is unlocked by choosing the right engine: Pythagorean, addition formula, or symmetry/product collapse. Read the first line, then try.",
@@ -2124,7 +1422,7 @@ textbookData[13].sections.push({
 });
 
 /* ---------- 5. SELF-TEST ---------- */
-textbookData[13].sections.push({
+textbookData[8].sections.push({
   heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
   blocks: [
     { type: "para", en: "Cover the answers. For each, first name the engine (Pythagorean / addition / symmetry), then solve.",
@@ -2152,7 +1450,7 @@ textbookData[13].sections.push({
    ============================================================*/
 textbookData.push({
   id: "logexp",
-  badge: { en: "Concept 15", zh: "知识点 15" },
+  badge: { en: "Concept 10", zh: "知识点 10" },
   title: { en: "Logarithms & Exponents", zh: "对数与指数" },
   subtitle: { en: "A logarithm is just the question 'what power?' Master three laws and the change-of-base trick, and a whole class of AMC #15\u2013#20 problems becomes routine.",
               zh: "对数不过是「几次方？」这个问题。掌握三条法则和换底技巧，一整类 AMC 第 15\u201320 题就变成例行公事。" },
@@ -2203,7 +1501,7 @@ textbookData.push({
 
 
 /* ---------- 2. CHANGE OF BASE ---------- */
-textbookData[14].sections.push({
+textbookData[9].sections.push({
   heading: { en: "2 · Change of base \u2014 the universal converter", zh: "2 · 换底公式 \u2014\u2014 万能转换器" },
   blocks: [
     { type: "para", en: "Calculators only know two bases (10 and \\(e\\)), but contests throw every base at you. The change-of-base formula converts ANY logarithm into a ratio of logs in a base you prefer. It is the bridge between different bases.",
@@ -2222,7 +1520,7 @@ textbookData[14].sections.push({
 });
 
 /* ---------- 3. EXPONENTIAL EQUATIONS ---------- */
-textbookData[14].sections.push({
+textbookData[9].sections.push({
   heading: { en: "3 · Exponential equations \u2014 substitution returns", zh: "3 · 指数方程 \u2014\u2014 代换法回归" },
   blocks: [
     { type: "para", en: "Many exponential equations look terrifying until you notice a repeated chunk and name it \u2014 exactly the substitution skill from Concept 04. The most common pattern hides a quadratic inside.",
@@ -2245,7 +1543,7 @@ textbookData[14].sections.push({
 
 
 /* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[14].sections.push({
+textbookData[9].sections.push({
   heading: { en: "4 · Worked examples \u2014 logs under fire", zh: "4 · 例题精讲 \u2014\u2014 实战中的对数" },
   blocks: [
     { type: "para", en: "Three problems. Each is unlocked by one move: change to a common base, bring an exponent down, or substitute. Read the first line, then try.",
@@ -2265,7 +1563,7 @@ textbookData[14].sections.push({
 });
 
 /* ---------- 5. SELF-TEST ---------- */
-textbookData[14].sections.push({
+textbookData[9].sections.push({
   heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
   blocks: [
     { type: "para", en: "Cover the answers. For each, name the move first (rewrite / law / change base / substitute), then solve.",
@@ -2293,7 +1591,7 @@ textbookData[14].sections.push({
    ============================================================*/
 textbookData.push({
   id: "complex",
-  badge: { en: "Concept 16", zh: "知识点 16" },
+  badge: { en: "Concept 11", zh: "知识点 11" },
   title: { en: "Complex Numbers & Roots of Unity", zh: "复数与单位根" },
   subtitle: { en: "The big weapon for AMC #25 and AIME: numbers that live on a plane, multiply by rotating, and split the circle into perfect equal pieces.",
               zh: "AMC 第 25 题与 AIME 的大杀器：活在平面上、相乘即旋转、把圆切成完美等份的数。" },
@@ -2342,7 +1640,7 @@ textbookData.push({
 
 
 /* ---------- 2. ROOTS OF UNITY ---------- */
-textbookData[15].sections.push({
+textbookData[10].sections.push({
   heading: { en: "2 · Roots of unity \u2014 cutting the circle evenly", zh: "2 · 单位根 \u2014\u2014 把圆均匀切开" },
   blocks: [
     { type: "para", en: "Now the centerpiece. The \\(n\\)-th ROOTS OF UNITY are the solutions of \\(z^n=1.\\) There are exactly \\(n\\) of them, and \u2014 this is the beautiful part \u2014 they sit as \\(n\\) equally spaced points around the unit circle, like the vertices of a regular \\(n\\)-gon.",
@@ -2361,7 +1659,7 @@ textbookData[15].sections.push({
 });
 
 /* ---------- 3. ROOTS OF UNITY FILTER ---------- */
-textbookData[15].sections.push({
+textbookData[10].sections.push({
   heading: { en: "3 · The roots-of-unity filter", zh: "3 · 单位根筛子" },
   blocks: [
     { type: "para", en: "Here is the single most powerful contest technique built from roots of unity. Suppose you want the sum of only SOME coefficients of a polynomial \u2014 say every third one. Plugging in roots of unity acts as a FILTER that keeps the terms you want and cancels the rest.",
@@ -2382,7 +1680,7 @@ textbookData[15].sections.push({
 
 
 /* ---------- 4. WORKED EXAMPLES ---------- */
-textbookData[15].sections.push({
+textbookData[10].sections.push({
   heading: { en: "4 · Worked examples \u2014 the plane at work", zh: "4 · 例题精讲 \u2014\u2014 平面在工作" },
   blocks: [
     { type: "para", en: "Three problems. Each is unlocked by one complex idea: the power cycle, rotation/De Moivre, or the roots-of-unity filter. Read the first line, then try.",
@@ -2402,7 +1700,7 @@ textbookData[15].sections.push({
 });
 
 /* ---------- 5. SELF-TEST ---------- */
-textbookData[15].sections.push({
+textbookData[10].sections.push({
   heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
   blocks: [
     { type: "para", en: "Cover the answers. For each, name the idea (power cycle / rotation / roots-of-unity), then solve.",

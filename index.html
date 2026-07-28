@@ -122,6 +122,9 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
 .brow .k .kic .ic-svg{width:1.05em;height:1.05em;stroke:var(--accent);}
 .suri .sh .ic-svg{width:.95rem;height:.95rem;stroke:var(--accent);}
 .mast-link .ic-svg{width:1.02em;height:1.02em;stroke:currentColor;margin-right:5px;}
+
+.strand-note{margin:2px 0 14px;font-size:.9rem;color:var(--ink-faint);max-width:66ch;}
+.strand-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
 </style>
 </head>
 <body class="lang-zh">
@@ -149,7 +152,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
   <section class="hero">
     <span class="eyebrow"><span class="zh-only">Suri 的数学成长地图</span><span class="en-only">Suri's math roadmap</span></span>
     <h1><span class="zh-only">一张地图，<span class="big">看清</span>每一步</span><span class="en-only">One map, <span class="big">every step</span> clear</span></h1>
-    <p class="sub"><span class="zh-only">上面是通用资源（夏校规划、能力基准、课程教材），下面是按年份推进的成长时间线。点开任意一张课程卡，进入逐题精讲的学习日志。</span><span class="en-only">General resources up top (camp planning, ability benchmarks, textbook); below is a year-by-year growth timeline. Open any course card to enter the step-by-step study journal.</span></p>
+    <p class="sub"><span class="zh-only">上面是通用资源（夏校规划、能力基准、课程教材），下面是按年份推进的成长时间线。点开任意一张课程卡，进入逐题精讲的学习日志。</span><span class="en-only">General resources up top (camp planning, benchmarks, question bank); then the concept textbook in four strands; below is a year-by-year growth timeline.</span></p>
   </section>
 
   <!-- GENERAL ROW -->
@@ -173,17 +176,47 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <span class="gc-desc"><span class="zh-only">9 张卡：每个项目要练成什么样、具体分数线</span><span class="en-only">9 cards: exact ability bar per program</span></span>
       <span class="gc-go"><span class="zh-only">查看基准</span><span class="en-only">Open cards</span> </span>
     </a>
-    <a class="gcard" href="algebra-level2.html#textbook">
-      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>
-      <span class="gc-title"><span class="zh-only">知识点教材</span><span class="en-only">Concept Textbook</span></span>
-      <span class="gc-desc"><span class="zh-only">每个核心知识点的深度手把手讲义</span><span class="en-only">Deep, hand-held lessons on each core idea</span></span>
-      <span class="gc-go"><span class="zh-only">进入教材</span><span class="en-only">Open</span> </span>
-    </a>
     <a class="gcard" href="qbank.html">
       <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-layers"/></svg></span>
       <span class="gc-title"><span class="zh-only">压轴题分级库</span><span class="en-only">Question Bank</span></span>
       <span class="gc-desc"><span class="zh-only">1339 道 AMC/AIME 题，按知识点+难度筛选，专攻第21-25题</span><span class="en-only">1339 AMC/AIME problems, filter by topic & difficulty</span></span>
       <span class="gc-go"><span class="zh-only">刷题</span><span class="en-only">Browse</span> </span>
+    </a>
+  </div>
+
+  <!-- CONCEPT TEXTBOOK — four strands -->
+  <div class="row-label">
+    <div>
+      <div class="rl-eyebrow">Concept Textbook</div>
+      <h2><span class="zh-only">知识点教材 ｜ 四大板块</span><span class="en-only">Concept Textbook ｜ Four Strands</span></h2>
+    </div>
+    <span class="rule"></span>
+  </div>
+  <p class="strand-note"><span class="zh-only">按竞赛数学的四大板块组织。每个板块里：上半是系统的「知识点教材」，下半是按上课时间排的「每日一课」。</span><span class="en-only">Organized by the four strands of contest math. Inside each strand: a systematic concept textbook on top, and a day-by-day class journal below.</span></p>
+  <div class="gen-grid strand-grid">
+    <a class="gcard" href="algebra-level2.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>
+      <span class="gc-title"><span class="zh-only">代数 Algebra</span><span class="en-only">Algebra</span></span>
+      <span class="gc-desc"><span class="zh-only">11 个知识点 · 9 天课堂日志</span><span class="en-only">11 concepts · 9-day journal</span></span>
+      <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
+    </a>
+    <a class="gcard" href="geometry-level2.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>
+      <span class="gc-title"><span class="zh-only">几何 Geometry</span><span class="en-only">Geometry</span></span>
+      <span class="gc-desc"><span class="zh-only">4 个知识点 · 6 天课堂日志</span><span class="en-only">4 concepts · 6-day journal</span></span>
+      <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
+    </a>
+    <a class="gcard" href="number-level2.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>
+      <span class="gc-title"><span class="zh-only">数论 Number Theory</span><span class="en-only">Number Theory</span></span>
+      <span class="gc-desc"><span class="zh-only">2 个知识点 · 课堂日志待开</span><span class="en-only">2 concepts · journal soon</span></span>
+      <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
+    </a>
+    <a class="gcard" href="counting-level2.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>
+      <span class="gc-title"><span class="zh-only">组合 Counting</span><span class="en-only">Counting &amp; Probability</span></span>
+      <span class="gc-desc"><span class="zh-only">2 个知识点 · 课堂日志待开</span><span class="en-only">2 concepts · journal soon</span></span>
+      <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
     </a>
   </div>
 

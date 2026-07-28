@@ -516,3 +516,146 @@ textbookData[2].sections.push({
   ]
 });
 
+
+
+textbookData.push({
+  id: "simpop",
+  badge: { en: "Geometry · Concept 04", zh: "几何 · 知识点 04" },
+  title: { en: "Similarity & Power of a Point", zh: "几何技巧（相似与圆幂）" },
+  subtitle: { en: "Two ideas behind most contest geometry: proportions from similar triangles, and the surprising constant a point carries with respect to a circle.",
+              zh: "撑起大多数竞赛几何的两个想法：相似三角形给出的比例，以及一个点相对于圆所携带的那个惊人的常数。" },
+  readingTime: { en: "~25 min deep read", zh: "约 25 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · Why similar triangles run geometry", zh: "0 · 为什么相似三角形主宰几何" },
+    blocks: [
+      { type: "para", en: "If you learn ONE geometry idea deeply, make it similarity. Two triangles are similar when they have the same shape but possibly different sizes \u2014 equal angles, proportional sides. Almost every length you can't compute directly, you can get from a pair of similar triangles.",
+        zh: "如果你只深学「一个」几何想法，就选相似。两个三角形「相似」，是指它们形状相同但大小可能不同 \u2014\u2014 角相等、边成比例。几乎每一条你没法直接算的长度，都能从一对相似三角形里得到。" },
+      { type: "para", en: "The key shortcut: you don't need all three angles. If TWO angles match, the third must too (angles sum to 180\u00b0), so the triangles are similar. This 'AA' rule is the workhorse \u2014 spot two equal angles and you instantly have proportional sides.",
+        zh: "关键捷径：你不需要三个角全相等。如果「两个」角相等，第三个也必然相等（三角形内角和 180\u00b0），所以两三角形相似。这条「AA」规则是主力 \u2014\u2014 看到两个相等的角，你立刻就有了成比例的边。" },
+      { type: "formula", tex: "\\[ \\triangle ABC \\sim \\triangle DEF \\;\\Longrightarrow\\; \\frac{AB}{DE}=\\frac{BC}{EF}=\\frac{CA}{FD} \\]" },
+      { type: "example", en: "A 6-ft person casts a 4-ft shadow. A nearby tree casts a 20-ft shadow at the same time. How tall is the tree? The sun's rays make equal angles, so the two right triangles are similar: \\(\\dfrac{\\text{tree}}{20}=\\dfrac{6}{4}.\\) Thus tree \\(=20\\cdot\\dfrac{6}{4}=30\\) ft.",
+        zh: "一个 6 英尺高的人投下 4 英尺的影子。同一时刻，附近一棵树投下 20 英尺的影子。树多高？阳光的角度相等，所以两个直角三角形相似：\\(\\dfrac{\\text{树}}{20}=\\dfrac{6}{4}\\)。于是树 \\(=20\\cdot\\dfrac{6}{4}=30\\) 英尺。" },
+      { type: "note", en: "That shadow problem captures the whole power of similarity: an UNREACHABLE length (tree height) is found from REACHABLE ones (person, two shadows) via a single proportion. Train your eye to hunt for the two equal angles \u2014 they unlock the ratio.",
+        zh: "那道影子题浓缩了相似的全部威力：一个「够不着」的长度（树高），靠「够得着」的长度（人、两个影子），通过一个比例求出。训练你的眼睛去寻找两个相等的角 \u2014\u2014 它们解锁比例。" }
+    ]
+  },
+
+  /* ---------- 1. FINDING SIMILAR TRIANGLES ---------- */
+  {
+    heading: { en: "1 · Spotting similar triangles in a figure", zh: "1 · 在图形中认出相似三角形" },
+    blocks: [
+      { type: "para", en: "The skill isn't knowing similarity exists \u2014 it's SEEING the similar pair hidden in a complicated figure. Three configurations appear again and again. Learn to recognize them instantly.",
+        zh: "本事不在于知道「相似」存在 \u2014\u2014 而在于「看见」藏在复杂图形里的那一对相似。三种配置反复出现。学会瞬间认出它们。" },
+      { type: "table",
+        head: { en: ["Configuration", "Why similar", "The proportion you get"], zh: ["配置", "为何相似", "你得到的比例"] },
+        rows: { en: [
+          ["A line parallel to one side of a triangle", "AA (parallel \u2192 equal angles)", "splits sides proportionally"],
+          ["Altitude to the hypotenuse of a right triangle", "creates 3 similar triangles", "geometric-mean relations"],
+          ["Two chords/secants crossing", "AA (same arc angles)", "products of segments equal"]
+        ], zh: [
+          ["平行于三角形一边的直线", "AA（平行 \u2192 等角）", "按比例分割两边"],
+          ["直角三角形斜边上的高", "造出 3 个相似三角形", "几何平均关系"],
+          ["两条相交的弦/割线", "AA（同弧对等角）", "线段乘积相等"]
+        ] },
+        caption: { en: "Three high-frequency similarity setups \u2014 memorize the picture for each.", zh: "三种高频相似配置 \u2014\u2014 把每种的图记住。" }
+      },
+      { type: "step", n: "1", title: { en: "The right-triangle altitude", zh: "直角三角形的高" },
+        en: "In right triangle \\(ABC\\) with the right angle at \\(C,\\) drop an altitude \\(CD\\) to the hypotenuse \\(AB.\\) This creates a famous relation: \\(CD\\) is the geometric mean of the two segments it cuts.\n\\[ CD^2 = AD\\cdot DB. \\]\nExample: if \\(AD=4\\) and \\(DB=9,\\) then \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6.\\)",
+        zh: "在直角三角形 \\(ABC\\) 中（直角在 \\(C\\)），从 \\(C\\) 向斜边 \\(AB\\) 作高 \\(CD\\)。这造出一个著名关系：\\(CD\\) 是它分出的两段的几何平均。\n\\[ CD^2 = AD\\cdot DB. \\]\n例：若 \\(AD=4\\)、\\(DB=9\\)，则 \\(CD=\\sqrt{4\\cdot9}=\\sqrt{36}=6\\)。" },
+      { type: "note", en: "Why \\(CD^2=AD\\cdot DB?\\) The altitude splits the big right triangle into two small ones, each similar to the big one (they share an angle plus the right angle \u2014 AA). Matching \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) gives \\(CD^2=AD\\cdot DB.\\) Similarity literally manufactures the geometric mean.",
+        zh: "为什么 \\(CD^2=AD\\cdot DB\\)？高把大直角三角形分成两个小的，每个都与大三角形相似（共享一个角加直角 \u2014\u2014 AA）。对应 \\(\\dfrac{AD}{CD}=\\dfrac{CD}{DB}\\) 就得到 \\(CD^2=AD\\cdot DB\\)。相似活生生造出了几何平均。" },
+      { type: "ask", en: "Predict: in the same setup, the leg \\(AC\\) satisfies \\(AC^2=AD\\cdot AB\\) (another geometric mean!). If \\(AD=4,\\ AB=13,\\) what is \\(AC?\\) (\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}.\\))",
+        zh: "预测：同一配置中，直角边 \\(AC\\) 满足 \\(AC^2=AD\\cdot AB\\)（又一个几何平均！）。若 \\(AD=4,\\ AB=13\\)，\\(AC\\) 是多少？（\\(AC=\\sqrt{4\\cdot13}=\\sqrt{52}=2\\sqrt{13}\\)。）" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- 2. POWER OF A POINT ---------- */
+textbookData[3].sections.push({
+  heading: { en: "2 · Power of a Point — one constant, three forms", zh: "2 · 圆幂定理 —— 一个常数，三种形态" },
+  blocks: [
+    { type: "para", en: "Here is one of the most beautiful facts in circle geometry. Pick any point \\(P\\) and any line through it that hits a circle. The line meets the circle at two points; the PRODUCT of the two distances from \\(P\\) is the SAME no matter which line you draw. That constant is called the power of the point.",
+      zh: "这是圆几何里最美的事实之一。取任意一点 \\(P\\) 和任意一条过它、且与圆相交的直线。这条线与圆交于两点；从 \\(P\\) 到这两点的「距离之积」，无论你画哪条线都「相同」。这个常数叫这个点的「幂」。" },
+    { type: "step", n: "1", title: { en: "Two chords crossing inside", zh: "圆内两弦相交" },
+      en: "If two chords \\(AB\\) and \\(CD\\) cross at \\(P\\) inside the circle, then\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\nExample: chords cross at \\(P;\\) one is split into \\(3\\) and \\(8,\\) the other into \\(4\\) and \\(x.\\) Then \\(3\\cdot8=4\\cdot x\\Rightarrow x=6.\\)",
+      zh: "若两弦 \\(AB\\) 和 \\(CD\\) 在圆内交于 \\(P\\)，则\n\\[ PA\\cdot PB = PC\\cdot PD. \\]\n例：两弦交于 \\(P\\)；一条被分成 \\(3\\) 和 \\(8\\)，另一条分成 \\(4\\) 和 \\(x\\)。则 \\(3\\cdot8=4\\cdot x\\Rightarrow x=6\\)。" },
+    { type: "para", en: "Why is the product constant? Because the crossing creates two similar triangles \u2014 \\(\\triangle PAC\\sim\\triangle PDB\\) by AA (they share vertical angles at \\(P,\\) and equal inscribed angles subtending the same arc). Matching ratios gives \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB},\\) i.e. \\(PA\\cdot PB=PC\\cdot PD.\\) Power of a Point is similarity in disguise!",
+      zh: "为什么乘积恒定？因为相交造出两个相似三角形 \u2014\u2014 \\(\\triangle PAC\\sim\\triangle PDB\\)（AA：在 \\(P\\) 处共享对顶角，且对同一弧的圆周角相等）。对应比例给出 \\(\\dfrac{PA}{PD}=\\dfrac{PC}{PB}\\)，即 \\(PA\\cdot PB=PC\\cdot PD\\)。圆幂定理是换了装的相似！" },
+    { type: "step", n: "2", title: { en: "Two secants from outside", zh: "圆外两条割线" },
+      en: "If \\(P\\) is OUTSIDE the circle and two secants go through it, the same product rule holds using whole-segment \u00d7 outer-segment:\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\nwhere \\(PA,PC\\) reach the FAR intersections. Example: one secant has outer \\(3,\\) far \\(3+5=8;\\) other has outer \\(4,\\) far \\(4+x.\\) Then \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2.\\)",
+      zh: "若 \\(P\\) 在圆「外」，两条割线过它，同样的乘积规则成立，用「整段 \u00d7 外段」：\n\\[ PA\\cdot PB = PC\\cdot PD, \\]\n其中 \\(PA,PC\\) 到「远」交点。例：一条割线外段 \\(3\\)、远段 \\(3+5=8\\)；另一条外段 \\(4\\)、远段 \\(4+x\\)。则 \\(3\\cdot8=4\\cdot(4+x)\\Rightarrow 24=16+4x\\Rightarrow x=2\\)。" },
+    { type: "note", en: "The third form: if one line is a TANGENT touching at \\(T,\\) the two intersection points merge into one, so \\(PA\\cdot PB\\) becomes \\(PT^2.\\) Thus \\(PT^2=PA\\cdot PB\\) \u2014 the tangent length is the geometric mean of any secant's two segments. Three pictures (two chords, two secants, tangent-secant) are ONE theorem.",
+      zh: "第三种形态：若一条线是「切线」，切于 \\(T\\)，两个交点合并成一个，所以 \\(PA\\cdot PB\\) 变成 \\(PT^2\\)。于是 \\(PT^2=PA\\cdot PB\\) \u2014\u2014 切线长是任意割线两段的几何平均。三幅图（两弦、两割线、切线-割线）是「同一个」定理。" }
+  ]
+});
+
+/* ---------- 3. UNIFIED VIEW ---------- */
+textbookData[3].sections.push({
+  heading: { en: "3 · The unifying formula", zh: "3 · 统一的公式" },
+  blocks: [
+    { type: "para", en: "All three forms collapse into one clean idea using the distance from \\(P\\) to the circle's center. If the circle has center \\(O\\) and radius \\(r,\\) the power of \\(P\\) is exactly:",
+      zh: "用 \\(P\\) 到圆心的距离，三种形态都塌缩成一个干净的想法。若圆心为 \\(O\\)、半径为 \\(r\\)，则 \\(P\\) 的幂恰好是：" },
+    { type: "formula", tex: "\\[ \\text{pow}(P) = OP^2 - r^2 \\]" },
+    { type: "para", en: "Read the sign: if \\(P\\) is OUTSIDE, \\(OP>r,\\) so the power is positive \u2014 equal to \\(PT^2.\\) If \\(P\\) is INSIDE, \\(OP<r,\\) the power is negative, and its absolute value equals \\(PA\\cdot PB.\\) If \\(P\\) is ON the circle, the power is exactly zero. One number tells you where the point sits relative to the circle.",
+      zh: "读符号：若 \\(P\\) 在「外」，\\(OP>r\\)，幂为正 \u2014\u2014 等于 \\(PT^2\\)。若 \\(P\\) 在「内」，\\(OP<r\\)，幂为负，其绝对值等于 \\(PA\\cdot PB\\)。若 \\(P\\) 在圆「上」，幂恰为零。一个数就告诉你点相对于圆的位置。" },
+    { type: "step", n: "1", title: { en: "Compute a power directly", zh: "直接计算一个幂" },
+      en: "A circle has radius \\(5,\\) and point \\(P\\) is \\(8\\) from the center.\n\u2022 Power \\(=OP^2-r^2=8^2-5^2=64-25=39.\\)\n\u2022 Positive \u2014 so \\(P\\) is outside, and any tangent from \\(P\\) has length \\(PT=\\sqrt{39}.\\)\n\u2022 Any secant through \\(P\\) satisfies (outer)\u00d7(far) \\(=39.\\)",
+      zh: "一个圆半径 \\(5\\)，点 \\(P\\) 到圆心 \\(8\\)。\n\u2022 幂 \\(=OP^2-r^2=8^2-5^2=64-25=39\\)。\n\u2022 正 \u2014\u2014 所以 \\(P\\) 在外，从 \\(P\\) 引的任意切线长为 \\(PT=\\sqrt{39}\\)。\n\u2022 过 \\(P\\) 的任意割线满足（外段）\u00d7（远段）\\(=39\\)。" },
+    { type: "ask", en: "Predict: a point \\(P\\) is inside a circle of radius \\(10,\\) at distance \\(6\\) from center. A chord through \\(P\\) is cut into pieces \\(a\\) and \\(b.\\) What is \\(a\\cdot b?\\) (Power magnitude \\(=r^2-OP^2=100-36=64,\\) so \\(a\\cdot b=64.\\))",
+      zh: "预测：点 \\(P\\) 在半径 \\(10\\) 的圆内，到圆心距离 \\(6\\)。过 \\(P\\) 的一条弦被分成 \\(a\\) 和 \\(b\\)。\\(a\\cdot b\\) 是多少？（幂的大小 \\(=r^2-OP^2=100-36=64\\)，所以 \\(a\\cdot b=64\\)。）" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[3].sections.push({
+  heading: { en: "4 · Worked examples — proportions & products", zh: "4 · 例题精讲 —— 比例与乘积" },
+  blocks: [
+    { type: "para", en: "Three problems. Each asks for a length you can't measure directly \u2014 reach for similar triangles or power of a point. Read the first line, then try.",
+      zh: "三道题。每道都求一个你没法直接量的长度 \u2014\u2014 拿起相似三角形或圆幂定理。读完第一行，自己试。" },
+    { type: "step", n: "A", title: { en: "Similar triangles from a parallel line", zh: "平行线生成的相似三角形" },
+      en: "In triangle \\(ABC,\\) a line parallel to \\(BC\\) meets \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E.\\) If \\(AD=3,\\ DB=6,\\ AE=4,\\) find \\(EC.\\)\n\u2022 Parallel \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\) (AA).\n\u2022 Proportional sides: \\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}.\\)\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12,\\) so \\(EC=AC-AE=12-4=8.\\)",
+      zh: "三角形 \\(ABC\\) 中，一条平行于 \\(BC\\) 的线交 \\(AB\\) 于 \\(D\\)、交 \\(AC\\) 于 \\(E\\)。若 \\(AD=3,\\ DB=6,\\ AE=4\\)，求 \\(EC\\)。\n\u2022 平行 \u2192 \\(\\triangle ADE\\sim\\triangle ABC\\)（AA）。\n\u2022 边成比例：\\(\\dfrac{AD}{AB}=\\dfrac{AE}{AC}\\)。\n\u2022 \\(\\dfrac{3}{9}=\\dfrac{4}{AC}\\Rightarrow AC=12\\)，所以 \\(EC=AC-AE=12-4=8\\)。" },
+    { type: "step", n: "B", title: { en: "Tangent-secant power", zh: "切线-割线圆幂" },
+      en: "From external point \\(P,\\) a tangent touches a circle at \\(T\\) with \\(PT=6,\\) and a secant through \\(P\\) hits the circle at \\(A\\) (near) and \\(B\\) (far) with \\(PA=4.\\) Find \\(AB.\\)\n\u2022 Power: \\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9.\\)\n\u2022 \\(AB=PB-PA=9-4=5.\\)",
+      zh: "从外部点 \\(P\\)，一条切线切圆于 \\(T\\)，\\(PT=6\\)；一条过 \\(P\\) 的割线交圆于 \\(A\\)（近）和 \\(B\\)（远），\\(PA=4\\)。求 \\(AB\\)。\n\u2022 圆幂：\\(PT^2=PA\\cdot PB\\Rightarrow 36=4\\cdot PB\\Rightarrow PB=9\\)。\n\u2022 \\(AB=PB-PA=9-4=5\\)。" },
+    { type: "step", n: "C", title: { en: "Crossing chords", zh: "相交弦" },
+      en: "Two chords of a circle cross at \\(P.\\) The first is divided into segments \\(6\\) and \\(8.\\) The second has total length \\(16\\) and is divided into \\(y\\) and \\(16-y.\\) Find the two pieces.\n\u2022 Power: \\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2.\\)\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) or \\(12.\\)\n\u2022 The two pieces are \\(4\\) and \\(12.\\) (Same split either way.)",
+      zh: "圆的两弦交于 \\(P\\)。第一条被分成 \\(6\\) 和 \\(8\\)。第二条总长 \\(16\\)，被分成 \\(y\\) 和 \\(16-y\\)。求这两段。\n\u2022 圆幂：\\(6\\cdot8 = y(16-y)\\Rightarrow 48=16y-y^2\\)。\n\u2022 \\(y^2-16y+48=0\\Rightarrow(y-4)(y-12)=0\\Rightarrow y=4\\) 或 \\(12\\)。\n\u2022 两段是 \\(4\\) 和 \\(12\\)。（两种取法同样的分割。）" },
+    { type: "note", en: "Notice example C fused TWO lessons: power of a point set up the equation, and factoring (Concept 03) solved the quadratic. Contest geometry rarely stays purely geometric \u2014 it sets up an algebra problem, and your algebra toolkit finishes it.",
+      zh: "注意例题 C 融合了「两节课」：圆幂定理列出方程，而因式分解（知识点 03）解出那个二次式。竞赛几何很少纯粹停留在几何 \u2014\u2014 它列出一个代数问题，而你的代数工具箱把它做完。" }
+  ]
+});
+
+/* ---------- 5. SELF-TEST ---------- */
+textbookData[3].sections.push({
+  heading: { en: "5 · Test yourself (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Cover the answers. First decide: similar triangles, or power of a point?",
+      zh: "盖住答案。先决定：相似三角形，还是圆幂定理？" },
+    { type: "ask", en: "Q1. In right triangle \\(ABC\\) (right angle at \\(C\\)), the altitude to the hypotenuse cuts it into \\(AD=9\\) and \\(DB=16.\\) Find the altitude \\(CD.\\)",
+      zh: "Q1. 直角三角形 \\(ABC\\)（直角在 \\(C\\)），斜边上的高把斜边分成 \\(AD=9\\) 和 \\(DB=16\\)。求高 \\(CD\\)。" },
+    { type: "ask", en: "Q2. From external point \\(P,\\) a tangent has length \\(PT=8.\\) A secant through \\(P\\) has near distance \\(PA=4.\\) Find the far distance \\(PB.\\)",
+      zh: "Q2. 从外部点 \\(P\\)，切线长 \\(PT=8\\)。过 \\(P\\) 的割线近段 \\(PA=4\\)。求远段 \\(PB\\)。" },
+    { type: "ask", en: "Q3. A circle has radius \\(13.\\) Point \\(P\\) is \\(5\\) from the center. A chord through \\(P\\) is split into \\(a\\) and \\(b.\\) Find \\(a\\cdot b.\\)",
+      zh: "Q3. 一个圆半径 \\(13\\)。点 \\(P\\) 到圆心 \\(5\\)。过 \\(P\\) 的弦被分成 \\(a\\) 和 \\(b\\)。求 \\(a\\cdot b\\)。" },
+    { type: "divider" },
+    { type: "note", en: "ANSWERS.\nQ1: \\(CD^2=AD\\cdot DB=9\\cdot16=144,\\) so \\(CD=12.\\)\nQ2: \\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16.\\)\nQ3: \\(P\\) inside, power magnitude \\(=r^2-OP^2=169-25=144,\\) so \\(a\\cdot b=144.\\)",
+      zh: "答案。\nQ1：\\(CD^2=AD\\cdot DB=9\\cdot16=144\\)，所以 \\(CD=12\\)。\nQ2：\\(PT^2=PA\\cdot PB\\Rightarrow 64=4\\cdot PB\\Rightarrow PB=16\\)。\nQ3：\\(P\\) 在内，幂的大小 \\(=r^2-OP^2=169-25=144\\)，所以 \\(a\\cdot b=144\\)。" },
+    { type: "para", en: "Two geometry engines now: similar triangles turn an unknown length into a proportion, and power of a point turns crossing lines into equal products. Both come from the same root \u2014 AA similarity. When a geometry problem stalls, hunt for two equal angles or a circle with crossing lines. That's where the answer hides.",
+      zh: "现在有两台几何引擎：相似三角形把未知长度变成比例，圆幂定理把相交直线变成相等乘积。两者同根 \u2014\u2014 都来自 AA 相似。当几何题卡住，去找两个相等的角，或一个有相交直线的圆。答案就藏在那里。" }
+  ]
+});
+
+
+
+/* ============================================================
+   CONCEPT 11 — Recursion & Sequences
+   ============================================================*/
