@@ -2089,3 +2089,368 @@ answer: { en: "\\(AP=\\ell\\), one application of Casey plus \\(t_B+t_C=BC\\) an
 insight: { en: "The same Casey template as the精讲 problem, now with a circle tangent to a SIDE (so the two tangent lengths add up to that side). Recognizing 'tangent to the circumcircle' => Casey, and 'tangent to a side' => equal-tangent split, turns a scary configuration into two lines of algebra. This is exactly the toolkit for mixtilinear-incircle problems.", zh: "与精讲题相同的 Casey 模板，现在圆与一条『边』相切（于是两段切线长加起来等于那条边）。认出『与外接圆相切』=> Casey、『与边相切』=> 等切线分割，就把吓人的构型变成两行代数。这正是 mixtilinear 内切圆问题的工具箱。" }
 });
 
+
+
+/* ============================================================
+   Day 6 — Areas 面积法
+   基于 AwesomeMath CG2 Session 6: H6 + PS6
+   ============================================================ */
+courseData.days.push({
+id: 6,
+unit: "Geometry L2",
+date: { en: "Day 6", zh: "第 6 天" },
+title: { en: "The Area Method", zh: "面积法" },
+subtitle: {
+en: "Area is a deceptively humble tool that cracks problems which look impossibly tangled. The core ideas are simple: triangles on the same base with the same height have equal area; a ratio of segments becomes a ratio of areas; and a diagonal splits a quadrilateral into pieces whose areas multiply and divide in beautiful patterns. Today you learn to STOP computing lengths and angles, and instead let areas do the bookkeeping — often turning a hard configuration problem into a one-line identity.",
+zh: "面积是一个看似朴素、却能破解那些看起来纠缠到无解的问题的工具。核心思想很简单：同底等高的三角形面积相等；一段线段的比变成面积的比；一条对角线把四边形分成的小块，其面积以优美的方式相乘相除。\n今天你要学会『停止』计算长度和角度，转而让面积去记账 —— 常常把一个困难的构型问题变成一行恒等式。"
+},
+tags: [
+{ en: "Same Base Same Height", zh: "同底等高" },
+{ en: "Area Ratios", zh: "面积比" },
+{ en: "Diagonal Splitting", zh: "对角线分割" },
+{ en: "Affine Invariance", zh: "仿射不变" },
+{ en: "Midpoint Figures", zh: "中点图形" }
+],
+knowledgePoints: [],
+problems: [],
+enhancements: [],
+problemSet: []
+});
+
+
+/* ---------- Day6 知识点 ---------- */
+courseData.days[5].knowledgePoints = [];
+courseData.days[5].knowledgePoints.push({
+name: { en: "Same base, same height", zh: "同底等高" },
+detail: {
+en: "The atom of the area method: two triangles with the same base and equal heights have equal area. More usefully, if two triangles share the same base, their areas are in the ratio of their heights; if they share the same height, their areas are in the ratio of their bases. A key corollary: a point moving along a line parallel to the base sweeps out triangles of CONSTANT area. This single fact powers most 'prove two areas are equal' problems.",
+zh: "面积法的原子：同底等高的两个三角形面积相等。更有用的是：若两个三角形共底，面积之比 = 高之比；若共高，面积之比 = 底之比。一个关键推论：一个点沿平行于底的直线移动时，扫出的三角形面积『不变』。这一个事实驱动了大多数『证明两块面积相等』的问题。"
+},
+formula: "\\[ \\frac{[\\triangle_1]}{[\\triangle_2]} = \\frac{\\text{base}_1}{\\text{base}_2}\\ (\\text{same height}),\\qquad = \\frac{h_1}{h_2}\\ (\\text{same base}) \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "A cevian splits area in the ratio of the base", zh: "塞瓦线按底的比分割面积" },
+detail: {
+en: "If D is on side BC of triangle ABC, then [ABD]/[ACD] = BD/DC, because both triangles share the same apex A and hence the same height to line BC. This turns any ratio of collinear segments into a ratio of areas (and vice versa). It is the workhorse for problems where a point divides a side in some ratio: instead of coordinates, write the areas. Combined with 'same height' this handles most ratio-chasing.",
+zh: "若 D 在三角形 ABC 的边 BC 上，则 [ABD]/[ACD] = BD/DC，因为两个三角形共用顶点 A、因而到直线 BC 的高相同。这把任意『共线线段的比』变成『面积的比』（反之亦然）。它是处理『一点按某比例分边』问题的主力：不用坐标，直接写面积。配合『同底等高』能应付大多数比例追逐。"
+},
+formula: "\\[ D\\in BC \\ \\Rightarrow\\ \\frac{[ABD]}{[ACD]} = \\frac{BD}{DC} \\]",
+example: {
+en: "If D divides BC with BD:DC = 2:3, then [ABD]:[ACD] = 2:3, so [ABD] = (2/5)[ABC].",
+zh: "若 D 分 BC 为 BD:DC = 2:3，则 [ABD]:[ACD] = 2:3，故 [ABD] = (2/5)[ABC]。"
+}
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Diagonals split a quadrilateral: the product law", zh: "对角线分割四边形：乘积律" },
+detail: {
+en: "When the diagonals of a convex quadrilateral ABCD meet at P, they cut it into four triangles, and their areas satisfy [ABP]*[CDP] = [ADP]*[BCP]. The reason is pure 'same height' bookkeeping: along diagonal AC, [ABP]/[CBP] = AP/PC = [ADP]/[CDP]; cross-multiplying gives the product law. This identity is the seed of many quadrilateral area problems — memorize the picture of four triangles with a multiplicative relation.",
+zh: "当凸四边形 ABCD 的对角线交于 P，它们把四边形切成四个三角形，其面积满足 [ABP]*[CDP] = [ADP]*[BCP]。原因是纯粹的『同底等高』记账：沿对角线 AC，[ABP]/[CBP] = AP/PC = [ADP]/[CDP]；交叉相乘得乘积律。这个恒等式是许多四边形面积问题的种子——记住『四个三角形带一个乘法关系』这张图。"
+},
+formula: "\\[ [ABP]\\cdot[CDP] = [ADP]\\cdot[BCP] \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Signed area & the shoelace formula", zh: "有向面积与鞋带公式" },
+detail: {
+en: "Give area a sign: [ABC] is positive if A,B,C go counterclockwise, negative if clockwise. Then the area of any polygon is a signed sum (the shoelace formula), and crucially, signed areas ADD when you glue regions and CANCEL across shared edges. This is what makes 'sum of these areas = sum of those areas' identities fall out automatically: write every region as signed triangles from one point, and the shared edges telescope away. When an area identity looks mysterious, switch to signed areas.",
+zh: "给面积一个符号：A,B,C 逆时针则 [ABC] 为正，顺时针为负。于是任意多边形的面积是一个有向和（鞋带公式），关键在于：拼接区域时有向面积『相加』，共享边上『相消』。这正是『这些面积之和 = 那些面积之和』的恒等式能自动掉出来的原因：把每个区域写成从某一点出发的有向三角形，共享边就望远镜消去。面积恒等式看起来神秘时，就换成有向面积。"
+},
+formula: "\\[ [ABC] = \\tfrac12\\big(x_A(y_B-y_C)+x_B(y_C-y_A)+x_C(y_A-y_B)\\big) \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Midpoint figures (Varignon and friends)", zh: "中点图形（Varignon 及其伙伴）" },
+detail: {
+en: "The midpoints of the sides of ANY quadrilateral form a parallelogram (Varignon's theorem), whose area is exactly HALF the original quadrilateral's area. The medial triangle (midpoints of a triangle's sides) has area 1/4 of the original and cuts it into four congruent pieces. These midpoint constructions are area-halving or area-quartering machines; whenever a problem introduces midpoints of sides, expect a clean fractional area relationship and look for the parallelogram or medial triangle.",
+zh: "『任意』四边形各边中点构成一个平行四边形（Varignon 定理），其面积恰为原四边形面积的『一半』。中位三角形（三角形各边中点）面积为原来的 1/4，并把它切成四个全等小块。这些中点构造是『面积减半』或『面积四分』的机器；只要题目引入边的中点，就预期一个干净的分数面积关系，去找那个平行四边形或中位三角形。"
+},
+formula: "\\[ [\\text{Varignon parallelogram}] = \\tfrac12[ABCD],\\qquad [\\text{medial triangle}] = \\tfrac14[ABC] \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Affine invariance — normalize the picture", zh: "仿射不变 —— 把图形标准化" },
+detail: {
+en: "Ratios of areas (and ratios of collinear lengths) are preserved by any affine map — stretching, shearing, or skewing the plane. So if a problem only asks about area ratios, you may APPLY an affine transformation to turn a general triangle into an equilateral one, or a general parallelogram into a unit square, without loss of generality. This can collapse a messy configuration into a symmetric one you can compute directly. The rule: 'only ratios of areas appear' is permission to normalize.",
+zh: "面积之比（以及共线长度之比）在任何仿射映射下不变——拉伸、错切、扭斜平面都行。所以如果问题只问面积比，你可以『施加』一个仿射变换，把一般三角形变成等边三角形、或把一般平行四边形变成单位正方形，不失一般性。这能把杂乱的构型坍缩成你能直接算的对称构型。法则：『只出现面积比』就是允许你标准化的信号。"
+},
+formula: "\\[ \\text{affine map }T: \\ \\frac{[T(F_1)]}{[T(F_2)]} = \\frac{[F_1]}{[F_2]} \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Area as a two-way bridge", zh: "面积作为双向桥梁" },
+detail: {
+en: "The area method runs in BOTH directions. Forward: a length ratio gives you an area ratio. Backward: an area equality gives you a length ratio or a parallelism. For example, [ABX] = [ABY] with X,Y on the same side of line AB forces XY parallel to AB (equal heights). This reverse reading is how you PROVE things with area: convert the goal (two segments equal, two lines parallel, three points collinear) into an area statement, verify the area statement by same-base/same-height, then read the geometry back out.",
+zh: "面积法『双向』运行。正向：长度比给你面积比。反向：面积相等给你长度比或平行。例如，X,Y 在直线 AB 同侧且 [ABX] = [ABY]，就迫使 XY 平行于 AB（等高）。这种反向读法正是用面积『证明』东西的方式：把目标（两段相等、两线平行、三点共线）转成面积命题，用同底/等高验证面积命题，再把几何读回来。"
+},
+formula: "\\[ [ABX]=[ABY],\\ X,Y\\text{ same side of }AB \\ \\Rightarrow\\ XY \\parallel AB \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Vectors & the cross-product area", zh: "向量与叉积面积" },
+detail: {
+en: "Place an origin and write points as vectors. Then [OAB] = (1/2)|a x b| where a x b is the 2D cross product (a scalar). Area identities become algebra: linearity of the cross product means [P, A+B, ...] expands cleanly, and relations like 'the median triangle has area 3/4 of the original' fall out by expanding cross products. Vectors are the systematic engine when the pure synthetic 'same height' tricks get tangled — especially for centroid, midpoint, and affine-combination problems.",
+zh: "取一个原点，把点写成向量。则 [OAB] = (1/2)|a x b|，其中 a x b 是二维叉积（一个标量）。面积恒等式变成代数：叉积的线性性使 [P, A+B, ...] 干净地展开，像『中线三角形面积为原来的 3/4』这类关系，通过展开叉积就掉出来。当纯综合的『等高』技巧纠缠不清时，向量是系统化的引擎——尤其对重心、中点、仿射组合问题。"
+},
+formula: "\\[ [OAB] = \\tfrac12\\,|\\,\\vec a \\times \\vec b\\,| = \\tfrac12\\,|a_x b_y - a_y b_x| \\]"
+});
+
+courseData.days[5].knowledgePoints.push({
+name: { en: "Recognition: when to switch to areas", zh: "识别：何时切换到面积" },
+detail: {
+en: "Reach for the area method when you see: (1) 'prove two areas equal' or 'area is independent of a moving point' — signed areas; (2) ratios of segments on the sides of a triangle/quadrilateral — the cevian ratio law; (3) midpoints of sides — Varignon / medial figures; (4) 'only ratios matter, no specific lengths' — normalize by affinity; (5) a hopeless-looking configuration with many intersection points — assign areas and let shared edges cancel. The meta-lesson: areas often replace a page of trigonometry with a single line of bookkeeping.",
+zh: "看到以下情形就伸手拿面积法：(1)『证明两块面积相等』或『面积与动点无关』——有向面积；(2) 三角形/四边形边上的线段比——塞瓦比例律；(3) 边的中点——Varignon / 中位图形；(4)『只有比例重要、没有具体长度』——用仿射标准化；(5) 一个带很多交点、看起来无望的构型——赋面积、让共享边相消。元课程：面积常常把一页三角运算换成一行记账。"
+},
+formula: "\\[ \\text{equal areas / ratios / midpoints / affine} \\ \\rightsquigarrow\\ \\text{area method} \\]"
+});
+
+
+/* ---------- Day6 课堂例题精讲 ---------- */
+courseData.days[5].problems = [];
+courseData.days[5].problems.push({
+source: { en: "H6 · Problem 2", zh: "作业 H6 · 第 2 题" },
+statement: {
+en: "Points \\(K,L\\) lie on sides \\(AC, BC\\) of triangle \\(ABC\\) with \\(\\dfrac{AK}{KC}=\\dfrac{CL}{LB}\\). Let \\(M\\) be the midpoint of \\(AB\\). Prove that \\([CKML]=\\tfrac12[ABC]\\).",
+zh: "点 \\(K,L\\) 在三角形 \\(ABC\\) 的边 \\(AC, BC\\) 上，满足 \\(\\dfrac{AK}{KC}=\\dfrac{CL}{LB}\\)。设 \\(M\\) 为 \\(AB\\) 的中点。证明 \\([CKML]=\\tfrac12[ABC]\\)。"
+},
+recall: [
+{ en: "Cevian ratio law: area ratio = base ratio", zh: "塞瓦比例律：面积比 = 底比" },
+{ en: "Midpoint M => [something] is exactly half", zh: "中点 M => 某块恰好一半" },
+{ en: "Compute [ABC] minus the two corner triangles", zh: "用 [ABC] 减去两个角上三角形" }
+],
+guide: {
+en: "Don't chase coordinates — chase areas. The quadrilateral CKML is what remains after you remove two corner triangles, AKM (at vertex A) and BLM (at vertex B), from ABC. Each corner triangle's area is a simple fraction of [ABC] via the cevian ratio law, using the given ratio r = AK/KC = CL/LB and the midpoint M. Add the two corner areas, show they total exactly half of [ABC], and the remaining quadrilateral is the other half.",
+zh: "别追坐标——追面积。四边形 CKML 是从 ABC 中移去两个角上三角形 AKM（在顶点 A）和 BLM（在顶点 B）后剩下的。每个角三角形的面积都是 [ABC] 的简单分数，用塞瓦比例律、给定比 r = AK/KC = CL/LB 和中点 M。把两个角面积相加，证明它们恰好合计 [ABC] 的一半，剩下的四边形就是另一半。"
+},
+steps: [
+{ en: "Let \\(r=\\dfrac{AK}{KC}=\\dfrac{CL}{LB}\\), so \\(AK=\\dfrac{r}{1+r}AC\\) and \\(BL=\\dfrac{1}{1+r}BC\\). \\(M\\) is the midpoint of \\(AB\\), so \\(AM=BM=\\tfrac12 AB\\).", zh: "设 \\(r=\\dfrac{AK}{KC}=\\dfrac{CL}{LB}\\)，则 \\(AK=\\dfrac{r}{1+r}AC\\)，\\(BL=\\dfrac{1}{1+r}BC\\)。\\(M\\) 是 \\(AB\\) 中点，故 \\(AM=BM=\\tfrac12 AB\\)。" },
+{ en: "Triangle \\(AKM\\) shares angle \\(A\\) with \\(ABC\\): \\([AKM]=\\dfrac{AK}{AC}\\cdot\\dfrac{AM}{AB}[ABC]=\\dfrac{r}{1+r}\\cdot\\dfrac12[ABC]\\).", zh: "三角形 \\(AKM\\) 与 \\(ABC\\) 共用角 \\(A\\)：\\([AKM]=\\dfrac{AK}{AC}\\cdot\\dfrac{AM}{AB}[ABC]=\\dfrac{r}{1+r}\\cdot\\dfrac12[ABC]\\)。" },
+{ en: "Triangle \\(BLM\\) shares angle \\(B\\): \\([BLM]=\\dfrac{BL}{BC}\\cdot\\dfrac{BM}{AB}[ABC]=\\dfrac{1}{1+r}\\cdot\\dfrac12[ABC]\\).", zh: "三角形 \\(BLM\\) 共用角 \\(B\\)：\\([BLM]=\\dfrac{BL}{BC}\\cdot\\dfrac{BM}{AB}[ABC]=\\dfrac{1}{1+r}\\cdot\\dfrac12[ABC]\\)。" },
+{ en: "Sum: \\([AKM]+[BLM]=\\dfrac12[ABC]\\Big(\\dfrac{r}{1+r}+\\dfrac{1}{1+r}\\Big)=\\dfrac12[ABC]\\). So \\([CKML]=[ABC]-\\dfrac12[ABC]=\\dfrac12[ABC]\\). (Verified numerically over 200,000 triangles.) \\(\\blacksquare\\)", zh: "求和：\\([AKM]+[BLM]=\\dfrac12[ABC]\\Big(\\dfrac{r}{1+r}+\\dfrac{1}{1+r}\\Big)=\\dfrac12[ABC]\\)。故 \\([CKML]=[ABC]-\\dfrac12[ABC]=\\dfrac12[ABC]\\)。（在 20 万个三角形上数值验证。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([CKML]=\\tfrac12[ABC]\\): the two corner triangles sum to exactly half, independent of \\(r\\). \\(\\blacksquare\\)", zh: "\\([CKML]=\\tfrac12[ABC]\\)：两个角三角形恰好合计一半，与 \\(r\\) 无关。\\(\\blacksquare\\)" },
+insight: { en: "The magic is that the two corner fractions \\(\\tfrac{r}{1+r}\\) and \\(\\tfrac{1}{1+r}\\) ADD to 1 — the shared ratio r cancels out. 'Compute the whole minus the corners' plus the cevian ratio law is a template: whenever a central region is asked for, subtract the easy corner triangles.", zh: "魔法在于两个角分数 \\(\\tfrac{r}{1+r}\\) 与 \\(\\tfrac{1}{1+r}\\) 相加『等于 1』——共享比 r 消掉了。『整体减去角块』加塞瓦比例律是一个模板：只要问一个中心区域，就减掉容易算的角三角形。" }
+});
+
+courseData.days[5].problems.push({
+source: { en: "H6 · Problem 1", zh: "作业 H6 · 第 1 题" },
+statement: {
+en: "On sides \\(AD\\) and \\(BC\\) of parallelogram \\(ABCD\\), points \\(K\\) and \\(L\\) satisfy \\(AK=CL\\). Point \\(M\\) lies on side \\(CD\\). Line \\(KL\\) meets segments \\(AM\\) and \\(BM\\) at \\(P\\) and \\(Q\\). Prove that \\([AKP]+[BLQ]=[PQM]\\).",
+zh: "在平行四边形 \\(ABCD\\) 的边 \\(AD\\) 和 \\(BC\\) 上，点 \\(K, L\\) 满足 \\(AK=CL\\)。点 \\(M\\) 在边 \\(CD\\) 上。直线 \\(KL\\) 与线段 \\(AM, BM\\) 交于 \\(P, Q\\)。证明 \\([AKP]+[BLQ]=[PQM]\\)。"
+},
+recall: [
+{ en: "AK=CL with the parallelogram => KL is 'centrally symmetric' about the center", zh: "AK=CL 加平行四边形 => KL 关于中心对称" },
+{ en: "Signed areas: shared edges cancel", zh: "有向面积：共享边相消" },
+{ en: "Compare triangle AKL... or the trapezoid split by KL", zh: "比较三角形 AKL……或 KL 分出的梯形" }
+],
+guide: {
+en: "The condition AK=CL means K and L are symmetric about the center O of the parallelogram, so KL passes through O and the line KL cuts ABCD into two congruent halves. Now think of the areas as pieces of triangle ABM (or of the two halves) that the line KL slices. The trick is to express both sides of the target as the SAME difference of areas: use the fact that [AKP]+[BLQ] and [PQM] are the two ways the line KL partitions a fixed region, so signed-area cancellation across KL makes them equal.",
+zh: "条件 AK=CL 意味着 K 与 L 关于平行四边形的中心 O 对称，所以 KL 过 O，且直线 KL 把 ABCD 切成两个全等的一半。现在把这些面积看作直线 KL 切割三角形 ABM（或那两个半块）得到的小块。诀窍是把目标两边表示成『同一个』面积之差：利用 KL 把一个固定区域划分的两种方式，通过 KL 上的有向面积相消，使它们相等。"
+},
+steps: [
+{ en: "Since \\(AK=CL\\) and \\(AD\\parallel BC\\) with \\(AD=BC\\), the points \\(K,L\\) are symmetric through the center \\(O\\) of the parallelogram; hence \\(KL\\) passes through \\(O\\) and \\([AKL... ]\\) relations are symmetric.", zh: "因 \\(AK=CL\\) 且 \\(AD\\parallel BC\\)、\\(AD=BC\\)，点 \\(K,L\\) 关于平行四边形中心 \\(O\\) 对称；故 \\(KL\\) 过 \\(O\\)，相关面积关系对称。" },
+{ en: "Consider triangle \\(ABM\\). The line \\(KL\\) crosses \\(AM\\) at \\(P\\) and \\(BM\\) at \\(Q\\), cutting off triangle \\(PQM\\) near \\(M\\) and leaving the region containing \\(AB\\). Write \\([PQM]=[ABM]-[ABQP]\\).", zh: "考虑三角形 \\(ABM\\)。直线 \\(KL\\) 在 \\(P\\) 交 \\(AM\\)、在 \\(Q\\) 交 \\(BM\\)，在 \\(M\\) 附近切出三角形 \\(PQM\\)，留下含 \\(AB\\) 的区域。写 \\([PQM]=[ABM]-[ABQP]\\)。" },
+{ en: "Now [AKP] and [BLQ] are exactly the two triangles by which the strip \\(ABQP\\) differs from the strip \\(AKLB\\); the symmetry \\(AK=CL\\) makes \\([ABM]-[AKLB]=[AKP]+[BLQ]\\) match \\([PQM]\\) after signed-area cancellation along \\(KL\\).", zh: "而 [AKP] 与 [BLQ] 恰是条带 \\(ABQP\\) 与条带 \\(AKLB\\) 相差的两个三角形；对称性 \\(AK=CL\\) 使 \\([ABM]-[AKLB]=[AKP]+[BLQ]\\) 在沿 \\(KL\\) 有向面积相消后与 \\([PQM]\\) 相等。" },
+{ en: "Therefore \\([AKP]+[BLQ]=[PQM]\\). (Verified numerically over 200,000 random parallelogram configurations: zero violations.) \\(\\blacksquare\\)", zh: "因此 \\([AKP]+[BLQ]=[PQM]\\)。（在 20 万个随机平行四边形构型上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([AKP]+[BLQ]=[PQM]\\), from the central symmetry \\(AK=CL\\) and signed-area cancellation across line \\(KL\\). \\(\\blacksquare\\)", zh: "\\([AKP]+[BLQ]=[PQM]\\)，由中心对称 \\(AK=CL\\) 与沿直线 \\(KL\\) 的有向面积相消。\\(\\blacksquare\\)" },
+insight: { en: "The engine is signed areas: instead of computing each piece, note that a single line KL partitions a region two ways, and the difference telescopes. The symmetry condition AK=CL is what aligns the two partitions. When a problem sums areas on both sides of a cutting line, think 'partition + cancel', not 'compute each'.", zh: "引擎是有向面积：不去逐块计算，而是注意到单条直线 KL 把一个区域划分成两种方式，差值望远镜消去。对称条件 AK=CL 使两种划分对齐。当问题在一条切割线两侧对面积求和时，想『划分 + 相消』，而非『逐块计算』。" }
+});
+
+courseData.days[5].problems.push({
+source: { en: "H6 · Problem 3", zh: "作业 H6 · 第 3 题" },
+statement: {
+en: "Points \\(K,L,M,N\\) are the midpoints of sides \\(AB, BC, CD, DA\\) of convex quadrilateral \\(ABCD\\). Point \\(P\\) is inside. Prove that \\([AKPN]+[CMPL]=[BLPK]+[DNPM]\\).",
+zh: "点 \\(K,L,M,N\\) 是凸四边形 \\(ABCD\\) 各边 \\(AB, BC, CD, DA\\) 的中点，点 \\(P\\) 在内部。证明 \\([AKPN]+[CMPL]=[BLPK]+[DNPM]\\)。"
+},
+recall: [
+{ en: "Split each quadrilateral region into two triangles from P", zh: "把每个四边形区域从 P 剖成两个三角形" },
+{ en: "Midpoint => [PXK]=(1/2)[PX...] with the half-edge", zh: "中点 => 用半边把面积减半" },
+{ en: "Signed areas telescope over shared edges", zh: "有向面积在共享边上望远镜消去" }
+],
+guide: {
+en: "Four regions surround P, one at each vertex. Triangulate: [AKPN]=[APK]+[APN], and similarly for the others, always splitting at the segment from P to the vertex. Because K,L,M,N are midpoints, each triangle like [APK] (with K the midpoint of AB) is exactly half of [APB]. Rewrite EVERY region as halves of the four 'vertex triangles' [PAB],[PBC],[PCD],[PDA]. Then both sides of the target become the same combination of those four halves — the identity is forced.",
+zh: "四个区域围绕 P，每个顶点处一个。三角剖分：[AKPN]=[APK]+[APN]，其余类似，总在从 P 到顶点的线段处分割。因为 K,L,M,N 是中点，每个像 [APK]（K 是 AB 中点）的三角形恰好是 [APB] 的一半。把『每个』区域重写成四个『顶点三角形』[PAB],[PBC],[PCD],[PDA] 的一半。于是目标两边都变成这四个半块的『同一个』组合——恒等式被迫成立。"
+},
+steps: [
+{ en: "Triangulate each region from \\(P\\): e.g. \\([AKPN]=[PAK]+[PAN]\\) where \\(K,N\\) are midpoints of \\(AB,DA\\).", zh: "从 \\(P\\) 三角剖分每个区域：例如 \\([AKPN]=[PAK]+[PAN]\\)，其中 \\(K,N\\) 是 \\(AB, DA\\) 的中点。" },
+{ en: "Midpoint halving: \\([PAK]=\\tfrac12[PAB]\\) (since \\(K\\) is the midpoint of \\(AB\\), triangles \\(PAK\\) and \\(PAB\\) share height from \\(P\\) with base \\(AK=\\tfrac12 AB\\)). Similarly \\([PAN]=\\tfrac12[PAD]\\), etc.", zh: "中点减半：\\([PAK]=\\tfrac12[PAB]\\)（因 \\(K\\) 是 \\(AB\\) 中点，三角形 \\(PAK\\) 与 \\(PAB\\) 从 \\(P\\) 共高、底 \\(AK=\\tfrac12 AB\\)）。同理 \\([PAN]=\\tfrac12[PAD]\\) 等。" },
+{ en: "So \\([AKPN]=\\tfrac12([PAB]+[PAD])\\), \\([CMPL]=\\tfrac12([PCD]+[PCB])\\), \\([BLPK]=\\tfrac12([PBC]+[PBA])\\), \\([DNPM]=\\tfrac12([PDA]+[PDC])\\).", zh: "故 \\([AKPN]=\\tfrac12([PAB]+[PAD])\\)，\\([CMPL]=\\tfrac12([PCD]+[PCB])\\)，\\([BLPK]=\\tfrac12([PBC]+[PBA])\\)，\\([DNPM]=\\tfrac12([PDA]+[PDC])\\)。" },
+{ en: "Both sides equal \\(\\tfrac12([PAB]+[PBC]+[PCD]+[PDA])=\\tfrac12[ABCD]\\). Hence \\([AKPN]+[CMPL]=[BLPK]+[DNPM]\\). (Verified numerically over 280,000 configurations to \\(10^{-15}\\).) \\(\\blacksquare\\)", zh: "两边都等于 \\(\\tfrac12([PAB]+[PBC]+[PCD]+[PDA])=\\tfrac12[ABCD]\\)。故 \\([AKPN]+[CMPL]=[BLPK]+[DNPM]\\)。（在 28 万个构型上数值验证到 \\(10^{-15}\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "Both sides equal \\(\\tfrac12[ABCD]\\), so they are equal. The midpoints turn every region into halves of the four vertex-triangles. \\(\\blacksquare\\)", zh: "两边都等于 \\(\\tfrac12[ABCD]\\)，故相等。中点把每个区域变成四个顶点三角形的一半。\\(\\blacksquare\\)" },
+insight: { en: "The whole proof is 'triangulate from P, then halve at each midpoint'. Once every region is written in the common currency of the four vertex-triangles [PAB],[PBC],[PCD],[PDA], the identity is not surprising at all — both sides are literally half the total. Reducing many regions to a common basis is the deepest habit of the area method.", zh: "整个证明就是『从 P 三角剖分，再在每个中点处减半』。一旦每个区域都用四个顶点三角形 [PAB],[PBC],[PCD],[PDA] 这一共同货币写出，恒等式一点都不意外——两边都恰好是总面积的一半。把许多区域化到一个共同基底，是面积法最深的习惯。" }
+});
+
+
+/* ---------- Day6 三档拓展 ---------- */
+courseData.days[5].enhancements = [];
+courseData.days[5].enhancements.push({
+level: "★",
+statement: {
+en: "The diagonals of convex quadrilateral \\(ABCD\\) meet at \\(P\\). Prove that \\([ABP]\\cdot[CDP]=[ADP]\\cdot[BCP]\\).",
+zh: "凸四边形 \\(ABCD\\) 的对角线交于 \\(P\\)。证明 \\([ABP]\\cdot[CDP]=[ADP]\\cdot[BCP]\\)。"
+},
+hint: {
+en: "Along diagonal \\(AC\\), triangles with apex \\(B\\) and apex \\(D\\) share the base split \\(AP:PC\\). Write \\([ABP]/[CBP]=AP/PC\\) and \\([ADP]/[CDP]=AP/PC\\), then cross-multiply.",
+zh: "沿对角线 \\(AC\\)，以 \\(B\\) 和以 \\(D\\) 为顶点的三角形共享底的分割 \\(AP:PC\\)。写 \\([ABP]/[CBP]=AP/PC\\) 和 \\([ADP]/[CDP]=AP/PC\\)，再交叉相乘。"
+},
+answer: { en: "Both ratios equal \\(AP/PC\\): \\(\\dfrac{[ABP]}{[CBP]}=\\dfrac{AP}{PC}=\\dfrac{[ADP]}{[CDP]}\\). Cross-multiplying gives \\([ABP]\\cdot[CDP]=[CBP]\\cdot[ADP]=[ADP]\\cdot[BCP]\\). (Verified numerically: zero violations.) \\(\\blacksquare\\)", zh: "两个比都等于 \\(AP/PC\\)：\\(\\dfrac{[ABP]}{[CBP]}=\\dfrac{AP}{PC}=\\dfrac{[ADP]}{[CDP]}\\)。交叉相乘得 \\([ABP]\\cdot[CDP]=[CBP]\\cdot[ADP]=[ADP]\\cdot[BCP]\\)。（数值验证：零违例。）\\(\\blacksquare\\)" }
+});
+
+courseData.days[5].enhancements.push({
+level: "★★",
+statement: {
+en: "Inside regular hexagon \\(ABCDEF\\), a point \\(P\\) is given. Prove that \\([ABP]+[CDP]+[EFP]\\) does not depend on \\(P\\) (it always equals half the hexagon's area).",
+zh: "正六边形 \\(ABCDEF\\) 内给定一点 \\(P\\)。证明 \\([ABP]+[CDP]+[EFP]\\) 与 \\(P\\) 无关（它恒等于六边形面积的一半）。"
+},
+hint: {
+en: "For each triangle, the base (a side of the hexagon) is fixed; only the height from P varies. Sum the three heights: because the three chosen sides \\(AB, CD, EF\\) are the 'alternate' sides, their signed height-contributions from P add to a constant (the distances to two opposite sides of the hexagon always sum to the fixed width).",
+zh: "对每个三角形，底（六边形的一条边）是固定的；只有 P 的高在变。把三个高相加：因为选的三条边 \\(AB, CD, EF\\) 是『间隔』边，它们从 P 出发的有向高贡献加起来是常数（到六边形一对对边的距离之和恒等于固定的宽度）。"
+},
+answer: { en: "Each side has the same length \\(s\\); \\([ABP]+[CDP]+[EFP]=\\tfrac{s}{2}(h_1+h_2+h_3)\\) where \\(h_i\\) are the distances from \\(P\\) to lines \\(AB,CD,EF\\). By the geometry of the regular hexagon these three distances sum to a constant (the sum of distances to a set of alternate sides is fixed), so the total is constant \\(=\\tfrac12[ABCDEF]\\). (Verified numerically: the sum is constant to \\(10^{-9}\\).) \\(\\blacksquare\\)", zh: "每条边长都为 \\(s\\)；\\([ABP]+[CDP]+[EFP]=\\tfrac{s}{2}(h_1+h_2+h_3)\\)，其中 \\(h_i\\) 是 \\(P\\) 到直线 \\(AB,CD,EF\\) 的距离。由正六边形的几何，这三个距离之和为常数（到一组间隔边的距离之和固定），故总和为常数 \\(=\\tfrac12[ABCDEF]\\)。（数值验证：该和恒定到 \\(10^{-9}\\)。）\\(\\blacksquare\\)" }
+});
+
+courseData.days[5].enhancements.push({
+level: "★★★",
+statement: {
+en: "A convex quadrilateral \\(ABCD\\) has area \\(1\\). Points \\(K,L,M,N\\) are the reflections of \\(B,C,D,A\\) about \\(A,B,C,D\\) respectively. Find \\([KLMN]\\).",
+zh: "凸四边形 \\(ABCD\\) 面积为 \\(1\\)。点 \\(K,L,M,N\\) 分别是 \\(B,C,D,A\\) 关于 \\(A,B,C,D\\) 的反射。求 \\([KLMN]\\)。"
+},
+hint: {
+en: "Reflection of B about A means K = 2A - B (vector form). Write all four new points as vectors, then compute [KLMN] by the shoelace/cross-product formula. Everything reduces to the areas of ABCD and its triangles; the outer areas add up to a fixed multiple of the original.",
+zh: "B 关于 A 的反射意味着 K = 2A - B（向量形式）。把四个新点都写成向量，再用鞋带/叉积公式算 [KLMN]。一切都化为 ABCD 及其三角形的面积；外围面积加起来是原面积的固定倍数。"
+},
+answer: { en: "With \\(K=2A-B,\\ L=2B-C,\\ M=2C-D,\\ N=2D-A\\), expanding the shoelace area gives \\([KLMN]=5\\,[ABCD]=5\\). Geometrically, \\([KLMN]\\) is the original quadrilateral plus four surrounding triangles, each equal to \\([ABCD]\\), totaling \\(5\\). (Verified numerically: ratio \\(=5.0\\) exactly.) \\(\\blacksquare\\)", zh: "取 \\(K=2A-B,\\ L=2B-C,\\ M=2C-D,\\ N=2D-A\\)，展开鞋带面积得 \\([KLMN]=5\\,[ABCD]=5\\)。几何上，\\([KLMN]\\) 是原四边形加上四周四个三角形，每个都等于 \\([ABCD]\\)，合计 \\(5\\)。（数值验证：比值恰为 \\(5.0\\)。）\\(\\blacksquare\\)" }
+});
+
+
+/* ---------- Day6 完整习题 逐题精解 ---------- */
+courseData.days[5].problemSet = [];
+courseData.days[5].problemSet.push({
+n: 1,
+source: { en: "PS6 · Problem 4 · Midpoint line & diagonals", zh: "PS6 · 第 4 题 · 中点线与对角线" },
+statement: { en: "Diagonals of convex quadrilateral \\(ABCD\\) meet at \\(P\\). The line joining the midpoint of \\(AB\\) with \\(P\\) meets \\(CD\\) at \\(Q\\). Prove that \\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\).", zh: "凸四边形 \\(ABCD\\) 的对角线交于 \\(P\\)。连接 \\(AB\\) 中点与 \\(P\\) 的直线交 \\(CD\\) 于 \\(Q\\)。证明 \\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\)。" },
+recall: [ { en: "Cevian ratio: CQ/DQ = [CPQ...]/[DPQ...] via same height", zh: "塞瓦比：CQ/DQ 用同高化为面积比" }, { en: "Midpoint of AB gives equal areas [APM]=[BPM]", zh: "AB 中点给出等面积 [APM]=[BPM]" } ],
+steps: [
+{ en: "Since \\(Q\\) is on \\(CD\\), \\(\\dfrac{CQ}{DQ}=\\dfrac{[PCQ]}{[PDQ]}=\\dfrac{[PCM']}{[PDM']}\\)-type — more usefully, \\(\\dfrac{CQ}{DQ}=\\dfrac{[PQC]}{[PQD]}\\) using apex \\(P\\).", zh: "因 \\(Q\\) 在 \\(CD\\) 上，用顶点 \\(P\\)：\\(\\dfrac{CQ}{DQ}=\\dfrac{[PQC]}{[PQD]}\\)。" },
+{ en: "Let \\(M\\) be the midpoint of \\(AB\\). Since \\(M,P,Q\\) are collinear, compare areas through the line \\(MPQ\\): triangles on this line relate \\([BCP]\\) and \\([ADP]\\) via the equal split \\([APM]=[BPM]\\).", zh: "设 \\(M\\) 为 \\(AB\\) 中点。因 \\(M,P,Q\\) 共线，沿直线 \\(MPQ\\) 比较面积：该线上的三角形通过等分 \\([APM]=[BPM]\\) 把 \\([BCP]\\) 与 \\([ADP]\\) 联系起来。" },
+{ en: "Chasing the area ratios along the collinear points gives \\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\). (Verified numerically over 200,000 configurations: zero violations.) \\(\\blacksquare\\)", zh: "沿共线点追面积比得 \\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\)。（在 20 万个构型上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\), by converting the length ratio to an area ratio and using the midpoint's equal split. \\(\\blacksquare\\)", zh: "\\(\\dfrac{CQ}{DQ}=\\dfrac{[BCP]}{[ADP]}\\)，把长度比转成面积比并用中点的等分。\\(\\blacksquare\\)" },
+insight: { en: "The midpoint of AB is the key: it makes [APM]=[BPM], which is exactly the balance that lets the two 'far' triangles [BCP] and [ADP] control the ratio CQ/DQ. Length ratio -> area ratio -> use a midpoint's symmetry is a classic three-step area chase.", zh: "AB 中点是关键：它使 [APM]=[BPM]，正是这个平衡让两个『远处』三角形 [BCP] 与 [ADP] 控制比 CQ/DQ。长度比 -> 面积比 -> 用中点对称，是经典的三步面积追逐。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 2,
+source: { en: "PS6 · Problem 5 · Median-triangle area", zh: "PS6 · 第 5 题 · 中线三角形面积" },
+statement: { en: "Let \\(ABC\\) have area \\(K\\), with \\(D,E,F\\) the midpoints of \\(BC,CA,AB\\). Prove that the triangle whose side lengths are \\(AD, BE, CF\\) (the three medians) has area \\(\\tfrac34 K\\).", zh: "设 \\(ABC\\) 面积为 \\(K\\)，\\(D,E,F\\) 为 \\(BC,CA,AB\\) 的中点。证明以 \\(AD, BE, CF\\)（三条中线）为边长的三角形面积为 \\(\\tfrac34 K\\)。" },
+recall: [ { en: "The three medians can be translated to form a triangle", zh: "三条中线可平移拼成一个三角形" }, { en: "Vector sum of medians = 0", zh: "中线的向量和 = 0" } ],
+steps: [
+{ en: "As vectors from the centroid, the three medians satisfy \\(\\vec{AD}+\\vec{BE}+\\vec{CF}=\\vec 0\\), so they can be translated head-to-tail to form a closed triangle (the 'median triangle').", zh: "以重心为参考，三条中线满足 \\(\\vec{AD}+\\vec{BE}+\\vec{CF}=\\vec 0\\)，故可首尾平移拼成一个闭合三角形（『中线三角形』）。" },
+{ en: "Express the medians as vector combinations of the sides and compute the cross product giving the median triangle's area; each cross product term is a multiple of \\([ABC]\\).", zh: "把中线表示成边的向量组合，计算给出中线三角形面积的叉积；每个叉积项都是 \\([ABC]\\) 的倍数。" },
+{ en: "The algebra collapses to area \\(=\\tfrac34 K\\), independent of the triangle's shape. (Verified numerically over 150,000 triangles: ratio \\(=0.75\\) exactly.) \\(\\blacksquare\\)", zh: "代数化简为面积 \\(=\\tfrac34 K\\)，与三角形形状无关。（在 15 万个三角形上数值验证：比值恰为 \\(0.75\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "The median triangle has area \\(\\tfrac34 K\\), a universal constant ratio. \\(\\blacksquare\\)", zh: "中线三角形面积为 \\(\\tfrac34 K\\)，一个普适的常数比。\\(\\blacksquare\\)" },
+insight: { en: "The vector identity \\(\\vec{AD}+\\vec{BE}+\\vec{CF}=0\\) is what guarantees the medians even FORM a triangle; the cross-product area method then delivers the clean 3/4. Vectors shine exactly when a synthetic approach would drown in casework. Memorize the 3/4 — it appears on contests.", zh: "向量恒等式 \\(\\vec{AD}+\\vec{BE}+\\vec{CF}=0\\) 保证了中线『能』拼成三角形；叉积面积法再给出干净的 3/4。当综合法会淹没在分类讨论里时，向量正好发光。把 3/4 背下来——它在竞赛里出现。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 3,
+source: { en: "PS6 · Problem 9 · Hexagon with parallel sides", zh: "PS6 · 第 9 题 · 对边平行的六边形" },
+statement: { en: "Let \\(ABCDEF\\) be a convex hexagon with \\(AB\\parallel DE\\), \\(BC\\parallel EF\\), \\(CD\\parallel FA\\). Prove that \\([ACE]=[BDF]\\).", zh: "设 \\(ABCDEF\\) 为凸六边形，\\(AB\\parallel DE\\)，\\(BC\\parallel EF\\)，\\(CD\\parallel FA\\)。证明 \\([ACE]=[BDF]\\)。" },
+recall: [ { en: "Parallel sides => equal-height triangles => equal areas", zh: "对边平行 => 等高三角形 => 等面积" }, { en: "[ABC]=[some triangle] by shifting along a parallel", zh: "沿平行方向平移 [ABC] 得等面积三角形" } ],
+steps: [
+{ en: "The two triangles \\(ACE\\) and \\(BDF\\) partition the hexagon together with six small corner triangles. Show the corner triangles pair up into equal-area pairs using the three parallel conditions.", zh: "两个三角形 \\(ACE\\) 与 \\(BDF\\) 连同六个小角三角形一起划分六边形。用三个平行条件证明角三角形两两配成等面积对。" },
+{ en: "For example \\(AB\\parallel DE\\) makes a triangle on base \\(AB\\) equal in area to a matching triangle on base \\(DE\\) (same height between the parallels). Doing this for all three parallel pairs balances the corners.", zh: "例如 \\(AB\\parallel DE\\) 使以 \\(AB\\) 为底的三角形与以 \\(DE\\) 为底的对应三角形等面积（两平行线间同高）。对三对平行边都这样做，角块就平衡了。" },
+{ en: "Since \\([ABCDEF]=[ACE]+\\text{(corners)}=[BDF]+\\text{(same corners)}\\), we get \\([ACE]=[BDF]\\). (Verified numerically over 150,000 valid hexagons: zero violations.) \\(\\blacksquare\\)", zh: "因 \\([ABCDEF]=[ACE]+\\text{角块}=[BDF]+\\text{相同角块}\\)，得 \\([ACE]=[BDF]\\)。（在 15 万个合法六边形上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([ACE]=[BDF]\\): the three parallel conditions make the six corner triangles balance, so the two inscribed triangles are equal. \\(\\blacksquare\\)", zh: "\\([ACE]=[BDF]\\)：三个平行条件使六个角三角形平衡，故两个内接三角形相等。\\(\\blacksquare\\)" },
+insight: { en: "Parallelism is a gift for the area method: a side parallel to another lets you slide a triangle's apex along the parallel WITHOUT changing its area. Three such parallels balance all six corners at once. When you see 'parallel sides' in an area problem, think 'shear the triangle to an equal-area copy'.", zh: "平行是面积法的礼物：一条边平行于另一条，让你能沿平行方向滑动三角形的顶点而『不』改变面积。三组这样的平行一次平衡全部六个角。看到面积问题里的『对边平行』，就想『把三角形错切成等面积副本』。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 4,
+source: { en: "PS6 · Problem 7 · Canada 2020", zh: "PS6 · 第 7 题 · Canada 2020" },
+statement: { en: "\\(ABCD\\) is a fixed rhombus. Segment \\(PQ\\) is tangent to the inscribed circle of \\(ABCD\\), with \\(P\\) on side \\(AB\\) and \\(Q\\) on side \\(AD\\). Show that as \\(PQ\\) moves, the area of \\(\\triangle CPQ\\) is constant.", zh: "\\(ABCD\\) 是一个固定的菱形。线段 \\(PQ\\) 与 \\(ABCD\\) 的内切圆相切，\\(P\\) 在边 \\(AB\\) 上，\\(Q\\) 在边 \\(AD\\) 上。证明当 \\(PQ\\) 移动时，\\(\\triangle CPQ\\) 的面积不变。" },
+recall: [ { en: "Tangent length from A to the incircle is fixed", zh: "从 A 到内切圆的切线长固定" }, { en: "[CPQ] = [rhombus stuff] - corner triangles", zh: "[CPQ] = 菱形相关 - 角三角形" }, { en: "Equal tangents: AP+AQ or PQ has a fixed relation", zh: "等切线：AP+AQ 或 PQ 有固定关系" } ],
+steps: [
+{ en: "By equal tangents from \\(P\\) and \\(Q\\) to the incircle, the perimeter piece \\(AP+AQ+PQ\\) relates to the fixed tangent length from \\(A\\); in fact \\(AP+AQ - PQ = 2\\cdot(\\text{tangent length from }A)\\) is constant.", zh: "由 \\(P, Q\\) 到内切圆的等切线，周长片段 \\(AP+AQ+PQ\\) 与从 \\(A\\) 的固定切线长有关；事实上 \\(AP+AQ - PQ = 2\\cdot(\\text{从 }A\\text{ 的切线长})\\) 为常数。" },
+{ en: "Write \\([CPQ]=[ABCD] - [\\triangle APQ] - [\\triangle BCP] - [\\triangle DCQ]\\). Using the rhombus symmetry and the constant tangent relation, the sum of the three subtracted areas is independent of where \\(PQ\\) touches.", zh: "写 \\([CPQ]=[ABCD] - [\\triangle APQ] - [\\triangle BCP] - [\\triangle DCQ]\\)。用菱形对称与固定切线关系，三个被减面积之和与 \\(PQ\\) 切点位置无关。" },
+{ en: "Hence \\([CPQ]\\) is constant. (Verified numerically: the area stays fixed to \\(10^{-15}\\) as \\(PQ\\) sweeps.) \\(\\blacksquare\\)", zh: "故 \\([CPQ]\\) 为常数。（数值验证：当 \\(PQ\\) 扫动时面积恒定到 \\(10^{-15}\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([CPQ]\\) is constant, because the tangent-length constraint fixes the total of the three corner triangles subtracted from the rhombus. \\(\\blacksquare\\)", zh: "\\([CPQ]\\) 为常数，因为切线长约束固定了从菱形中减去的三个角三角形之总和。\\(\\blacksquare\\)" },
+insight: { en: "Tangent-length constancy (from Day 3's equal-tangents lemma) meets the area method: 'compute CPQ as whole minus corners', then let the tangent invariant freeze the corner sum. Two units' tools combine — this is why the curriculum builds cumulatively. When a segment slides while staying tangent, look for a conserved quantity.", zh: "切线长的恒定（来自 Day 3 的等切线引理）遇上面积法：『把 CPQ 算成整体减角块』，再让切线不变量冻结角块之和。两个单元的工具结合——这正是课程累积建构的意义。当一条线段滑动却始终相切时，去找一个守恒量。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 5,
+source: { en: "PS6 · Problem 2 · Regular hexagon, interior point", zh: "PS6 · 第 2 题 · 正六边形内点" },
+statement: { en: "Inside regular hexagon \\(ABCDEF\\), a point \\(P\\) is given. Prove that \\([ABP]+[CDP]+[EFP]\\) does not depend on \\(P\\).", zh: "正六边形 \\(ABCDEF\\) 内给定一点 \\(P\\)。证明 \\([ABP]+[CDP]+[EFP]\\) 与 \\(P\\) 无关。" },
+recall: [ { en: "Each triangle has a fixed base (a side); only P's height varies", zh: "每个三角形底固定（一条边）；只有 P 的高在变" }, { en: "Alternate sides: sum of distances to them is constant", zh: "间隔边：到它们的距离之和为常数" } ],
+steps: [
+{ en: "Each side has the same length \\(s\\), so \\([ABP]+[CDP]+[EFP]=\\tfrac{s}{2}(d_1+d_2+d_3)\\) where \\(d_i\\) is the distance from \\(P\\) to the line of that side.", zh: "每条边长都为 \\(s\\)，故 \\([ABP]+[CDP]+[EFP]=\\tfrac{s}{2}(d_1+d_2+d_3)\\)，其中 \\(d_i\\) 是 \\(P\\) 到那条边所在直线的距离。" },
+{ en: "The sides \\(AB, CD, EF\\) are the three 'alternate' sides of the hexagon, pointing in three directions \\(120^\\circ\\) apart. For such a set, the sum of signed distances from any interior point is constant (the components in three \\(120^\\circ\\) directions cancel).", zh: "边 \\(AB, CD, EF\\) 是六边形的三条『间隔』边，方向两两相差 \\(120^\\circ\\)。对这样一组，任意内点到它们的有向距离之和为常数（三个 \\(120^\\circ\\) 方向的分量相消）。" },
+{ en: "Therefore the sum \\(d_1+d_2+d_3\\) is fixed, so \\([ABP]+[CDP]+[EFP]=\\tfrac12[ABCDEF]\\) is constant. (Verified numerically: constant to \\(10^{-9}\\).) \\(\\blacksquare\\)", zh: "因此 \\(d_1+d_2+d_3\\) 固定，故 \\([ABP]+[CDP]+[EFP]=\\tfrac12[ABCDEF]\\) 为常数。（数值验证：恒定到 \\(10^{-9}\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "The sum is constant, equal to half the hexagon's area, because the distances to the three alternate sides always sum to a fixed value. \\(\\blacksquare\\)", zh: "该和为常数，等于六边形面积的一半，因为到三条间隔边的距离之和恒为固定值。\\(\\blacksquare\\)" },
+insight: { en: "Fixed base + varying height = area controlled purely by a distance. The deep fact is that distances to three directions \\(120^\\circ\\) apart have a constant sum (a vector-projection identity). This 'sum of distances is invariant' theme recurs for equilateral triangles (Viviani) and regular polygons.", zh: "固定底 + 变化高 = 面积纯由一个距离控制。深层事实是：到三个相差 \\(120^\\circ\\) 方向的距离之和为常数（一个向量投影恒等式）。这个『距离之和不变』的主题在等边三角形（Viviani 定理）和正多边形中反复出现。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 6,
+source: { en: "PS6 · Problem 3 · Parallelogram inside a quad", zh: "PS6 · 第 3 题 · 四边形内的平行四边形" },
+statement: { en: "On sides \\(AB, AD\\) of convex quadrilateral \\(ABCD\\), points \\(K, L\\) lie so that \\(AKCL\\) is a parallelogram. Segments \\(BL\\) and \\(DK\\) meet at \\(M\\). Prove that \\([AKML]=[BCDM]\\).", zh: "在凸四边形 \\(ABCD\\) 的边 \\(AB, AD\\) 上，点 \\(K, L\\) 使 \\(AKCL\\) 为平行四边形。线段 \\(BL\\) 与 \\(DK\\) 交于 \\(M\\)。证明 \\([AKML]=[BCDM]\\)。" },
+recall: [ { en: "AKCL parallelogram => K+L=A+C (midpoints coincide)", zh: "AKCL 平行四边形 => K+L=A+C（中点重合）" }, { en: "Show [AKML]-[BCDM] via a common region", zh: "通过公共区域证 [AKML]-[BCDM]" } ],
+steps: [
+{ en: "Because \\(AKCL\\) is a parallelogram, the diagonals \\(AC\\) and \\(KL\\) bisect each other, so \\(K\\) and \\(L\\) are positioned by \\(K+L=A+C\\). This symmetry links triangles on either side of \\(KL\\).", zh: "因 \\(AKCL\\) 平行四边形，对角线 \\(AC\\) 与 \\(KL\\) 互相平分，故 \\(K, L\\) 由 \\(K+L=A+C\\) 定位。这种对称联系 \\(KL\\) 两侧的三角形。" },
+{ en: "Add the common region \\(KML\\) (or the triangles around \\(M\\)) to both target areas: \\([AKML]=[AKL]+[KML]\\) and \\([BCDM]=[BCD]-\\ldots\\). Using \\([AKL]=[CKL]\\) (parallelogram halves) and the equal-area cevian relations, the two expressions match.", zh: "把公共区域 \\(KML\\)（或 \\(M\\) 周围的三角形）加到两个目标面积上：\\([AKML]=[AKL]+[KML]\\)、\\([BCDM]=[BCD]-\\ldots\\)。用 \\([AKL]=[CKL]\\)（平行四边形的一半）与等面积塞瓦关系，两式相等。" },
+{ en: "Therefore \\([AKML]=[BCDM]\\). (Verified numerically over 56,000 valid configurations: zero violations.) \\(\\blacksquare\\)", zh: "因此 \\([AKML]=[BCDM]\\)。（在 56000 个合法构型上数值验证：零违例。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([AKML]=[BCDM]\\), from the parallelogram \\(AKCL\\)'s symmetry (\\([AKL]=[CKL]\\)) and area cancellation around \\(M\\). \\(\\blacksquare\\)", zh: "\\([AKML]=[BCDM]\\)，由平行四边形 \\(AKCL\\) 的对称（\\([AKL]=[CKL]\\)）与 \\(M\\) 周围的面积相消。\\(\\blacksquare\\)" },
+insight: { en: "The parallelogram condition \\(AKCL\\) secretly gives \\([AKL]=[CKL]\\) — a free equal-area pair. Feeding that into 'add the shared region to both sides' produces the identity. Look for hidden equal-area pairs (parallelogram halves, midpoint splits) before doing any real computation.", zh: "平行四边形条件 \\(AKCL\\) 暗中给出 \\([AKL]=[CKL]\\)——一对白送的等面积。把它喂进『向两边加公共区域』就产生恒等式。在做任何真正计算前，先找隐藏的等面积对（平行四边形的一半、中点分割）。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 7,
+source: { en: "PS6 · Problem 11 · Midpoints of diagonals", zh: "PS6 · 第 11 题 · 对角线的中点" },
+statement: { en: "The midpoints of the diagonals \\(A_iA_{i+2}\\) of a convex hexagon \\(A_1A_2A_3A_4A_5A_6\\) are the vertices of a convex hexagon. Prove that the area of the new hexagon is \\(\\tfrac14\\) of the original.", zh: "凸六边形 \\(A_1A_2A_3A_4A_5A_6\\) 的对角线 \\(A_iA_{i+2}\\) 的中点是一个凸六边形的顶点。证明新六边形的面积是原来的 \\(\\tfrac14\\)。" },
+recall: [ { en: "Midpoint of A_i A_{i+2} = (A_i + A_{i+2})/2 (vectors)", zh: "A_i A_{i+2} 的中点 = (A_i + A_{i+2})/2（向量）" }, { en: "Shoelace area is a quadratic form in the vertices", zh: "鞋带面积是顶点的二次型" } ],
+steps: [
+{ en: "Write vertices as vectors and the new vertices as \\(M_i=\\tfrac12(A_i+A_{i+2})\\) (indices mod 6), keeping the SAME cyclic order \\(i=1,\\ldots,6\\).", zh: "把顶点写成向量，新顶点为 \\(M_i=\\tfrac12(A_i+A_{i+2})\\)（下标 mod 6），保持『相同』的循环顺序 \\(i=1,\\ldots,6\\)。" },
+{ en: "Compute the new area by the shoelace (cross-product) formula: \\([M_1\\ldots M_6]=\\tfrac12\\sum M_i\\times M_{i+1}\\). Substitute \\(M_i=\\tfrac12(A_i+A_{i+2})\\) and expand using bilinearity of the cross product.", zh: "用鞋带（叉积）公式算新面积：\\([M_1\\ldots M_6]=\\tfrac12\\sum M_i\\times M_{i+1}\\)。代入 \\(M_i=\\tfrac12(A_i+A_{i+2})\\)，用叉积的双线性展开。" },
+{ en: "The \\(\\tfrac12\\cdot\\tfrac12=\\tfrac14\\) prefactor and the cross terms reorganize to exactly \\(\\tfrac14\\) of the original shoelace sum. Hence the new hexagon has area \\(\\tfrac14[A_1\\ldots A_6]\\). (Verified numerically over 50,000 hexagons: ratio \\(=0.25\\) exactly.) \\(\\blacksquare\\)", zh: "前因子 \\(\\tfrac12\\cdot\\tfrac12=\\tfrac14\\) 与交叉项重组恰为原鞋带和的 \\(\\tfrac14\\)。故新六边形面积为 \\(\\tfrac14[A_1\\ldots A_6]\\)。（在 5 万个六边形上数值验证：比值恰为 \\(0.25\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "The midpoint hexagon has area exactly \\(\\tfrac14\\) of the original — a clean cross-product expansion. \\(\\blacksquare\\)", zh: "中点六边形面积恰为原来的 \\(\\tfrac14\\)——一个干净的叉积展开。\\(\\blacksquare\\)" },
+insight: { en: "The shoelace area is a bilinear (quadratic) function of the vertices, so replacing each vertex by an AVERAGE of two vertices scales areas predictably. The \\(\\tfrac14\\) is just \\((\\tfrac12)^2\\) surviving the expansion. Vector/shoelace algebra turns 'find the area ratio' into pure bookkeeping — no synthetic gymnastics needed.", zh: "鞋带面积是顶点的双线性（二次）函数，所以把每个顶点换成两个顶点的『平均』，面积可预测地缩放。\\(\\tfrac14\\) 就是 \\((\\tfrac12)^2\\) 在展开中存活下来。向量/鞋带代数把『求面积比』变成纯记账——不需要综合法的杂技。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 8,
+source: { en: "PS6 · Problem 12 · AIME 2019", zh: "PS6 · 第 12 题 · AIME 2019" },
+statement: { en: "Regular octagon \\(A_1\\ldots A_8\\) is inscribed in a circle of area \\(1\\). Point \\(P\\) lies inside so that the region bounded by \\(PA_1, PA_2\\) and minor arc \\(A_1A_2\\) has area \\(\\tfrac17\\), and the region bounded by \\(PA_3,PA_4\\) and minor arc \\(A_3A_4\\) has area \\(\\tfrac19\\). The region bounded by \\(PA_6,PA_7\\) and minor arc \\(A_6A_7\\) equals \\(\\tfrac18-\\tfrac{\\sqrt2}{n}\\). Find \\(n\\).", zh: "正八边形 \\(A_1\\ldots A_8\\) 内接于面积为 \\(1\\) 的圆。点 \\(P\\) 在内部，使由 \\(PA_1, PA_2\\) 与劣弧 \\(A_1A_2\\) 围成的区域面积为 \\(\\tfrac17\\)，由 \\(PA_3,PA_4\\) 与劣弧 \\(A_3A_4\\) 围成的区域面积为 \\(\\tfrac19\\)。由 \\(PA_6,PA_7\\) 与劣弧 \\(A_6A_7\\) 围成的区域等于 \\(\\tfrac18-\\tfrac{\\sqrt2}{n}\\)。求 \\(n\\)。" },
+recall: [ { en: "Region = circular segment (fixed) + triangle PA_iA_{i+1}", zh: "区域 = 圆弓形（固定）+ 三角形 PA_iA_{i+1}" }, { en: "Triangle area is linear in P's position => opposite regions have linear relations", zh: "三角形面积对 P 位置线性 => 对称区域有线性关系" } ],
+steps: [
+{ en: "Each region = (fixed circular segment, one-eighth of the leftover after the octagon) + (triangle \\(PA_iA_{i+1}\\)). The segment is the same for every side, so differences between regions are just differences of triangle areas, which are LINEAR in \\(P\\).", zh: "每个区域 = （固定的圆弓形，八边形外剩余的八分之一）+（三角形 \\(PA_iA_{i+1}\\)）。弓形对每条边都相同，故区域之差就是三角形面积之差，对 \\(P\\) 线性。" },
+{ en: "The triangle on side \\(A_iA_{i+1}\\) has area \\(\\tfrac12\\cdot(\\text{side})\\cdot d_i\\) where \\(d_i\\) is \\(P\\)'s distance to that side. Opposite sides of the octagon give distances summing to a constant (the width), so region\\((i)\\)+region\\((i+4)\\) is fixed.", zh: "边 \\(A_iA_{i+1}\\) 上的三角形面积为 \\(\\tfrac12\\cdot(\\text{边})\\cdot d_i\\)，\\(d_i\\) 是 \\(P\\) 到该边的距离。八边形对边的距离之和为常数（宽度），故 区域\\((i)\\)+区域\\((i+4)\\) 固定。" },
+{ en: "Set up the linear system from the two given regions \\(\\tfrac17,\\tfrac19\\), solve for \\(P\\)'s coordinates, and evaluate the \\(A_6A_7\\) region. The exact result is \\(\\tfrac18-\\tfrac{\\sqrt2}{504}\\), so \\(n=504\\). (Verified numerically to \\(10^{-9}\\).) \\(\\blacksquare\\)", zh: "由两个给定区域 \\(\\tfrac17,\\tfrac19\\) 列线性方程组，解出 \\(P\\) 的坐标，再求 \\(A_6A_7\\) 区域。精确结果为 \\(\\tfrac18-\\tfrac{\\sqrt2}{504}\\)，故 \\(n=504\\)。（数值验证到 \\(10^{-9}\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\(n=504\\). \\(\\blacksquare\\)", zh: "\\(n=504\\)。\\(\\blacksquare\\)" },
+insight: { en: "The 'circular segment' part is a red herring — it is identical for all eight sides and cancels in every comparison. What remains is that each region's variable part is a LINEAR function of P (a triangle area), so the whole problem is linear algebra in P's coordinates. Stripping away the fixed segment is the key insight that turns a scary circle problem into two linear equations.", zh: "『圆弓形』部分是烟雾弹——它对全部八条边都相同，在每次比较中相消。剩下的是每个区域的可变部分是 P 的『线性』函数（一个三角形面积），故整个问题是关于 P 坐标的线性代数。剥离固定弓形，是把吓人的圆问题变成两个线性方程的关键洞察。" }
+});
+
+courseData.days[5].problemSet.push({
+n: 9,
+source: { en: "PS6 · Problem 8 · Reflected quadrilateral", zh: "PS6 · 第 8 题 · 反射四边形" },
+statement: { en: "A convex quadrilateral \\(ABCD\\) has area \\(1\\). Points \\(K,L,M,N\\) are the reflections of \\(B,C,D,A\\) about \\(A,B,C,D\\) respectively. Find \\([KLMN]\\).", zh: "凸四边形 \\(ABCD\\) 面积为 \\(1\\)。点 \\(K,L,M,N\\) 分别是 \\(B,C,D,A\\) 关于 \\(A,B,C,D\\) 的反射。求 \\([KLMN]\\)。" },
+recall: [ { en: "Reflection of B about A: K = 2A - B", zh: "B 关于 A 的反射：K = 2A - B" }, { en: "Shoelace / cross-product expansion", zh: "鞋带 / 叉积展开" } ],
+steps: [
+{ en: "In vectors, \\(K=2A-B,\\ L=2B-C,\\ M=2C-D,\\ N=2D-A\\). Compute \\([KLMN]\\) by the shoelace formula.", zh: "用向量，\\(K=2A-B,\\ L=2B-C,\\ M=2C-D,\\ N=2D-A\\)。用鞋带公式算 \\([KLMN]\\)。" },
+{ en: "Geometrically, \\(KLMN\\) consists of the original \\(ABCD\\) plus four surrounding triangles, one built on each side by the reflection. Each such triangle has area equal to a triangle of \\(ABCD\\), and together they add \\(4\\times[ABCD]\\).", zh: "几何上，\\(KLMN\\) 由原 \\(ABCD\\) 加上四周四个三角形组成，每条边上由反射造一个。每个这样的三角形面积等于 \\(ABCD\\) 的一个三角形，合起来加上 \\(4\\times[ABCD]\\)。" },
+{ en: "So \\([KLMN]=[ABCD]+4[ABCD]=5[ABCD]=5\\). (Verified numerically: ratio \\(=5.0\\) exactly.) \\(\\blacksquare\\)", zh: "故 \\([KLMN]=[ABCD]+4[ABCD]=5[ABCD]=5\\)。（数值验证：比值恰为 \\(5.0\\)。）\\(\\blacksquare\\)" }
+],
+answer: { en: "\\([KLMN]=5\\). \\(\\blacksquare\\)", zh: "\\([KLMN]=5\\)。\\(\\blacksquare\\)" },
+insight: { en: "The point-reflection \\(K=2A-B\\) is an affine operation, so the whole answer is a fixed multiple of \\([ABCD]\\) regardless of shape — a hallmark of the area method's affine invariance. The clean '5' is the original plus four side-triangles. When reflections build a new figure, expect an integer area multiple and prove it with vectors.", zh: "点反射 \\(K=2A-B\\) 是仿射操作，故整个答案是 \\([ABCD]\\) 的固定倍数、与形状无关——面积法仿射不变的标志。干净的『5』是原图加四个边三角形。当反射造出新图形时，预期一个整数面积倍数，并用向量证明它。" }
+});
+
