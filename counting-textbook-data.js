@@ -302,3 +302,413 @@ textbookData[1].sections.push({
 /* ============================================================
    CONCEPT 14 — Trigonometric Identities & Evaluation
    ============================================================*/
+
+
+/* =======================================================
+   Counting · Concept 03 — Expected Value (deep dive)
+   ======================================================= */
+textbookData.push({
+  id: "expectation",
+  badge: { en: "Counting · Concept 03", zh: "组合 · 知识点 03" },
+  title: { en: "Expected Value, in Depth", zh: "期望值（深度专题）" },
+  subtitle: { en: "The single most disguised idea in AMC 21–25. Learn to HEAR expected value in words like 'average', 'in the long run', 'on average how many' — then crush it with one superpower: linearity.",
+              zh: "AMC 第 21–25 题里伪装最深的一个想法。学会从「平均」「长期来看」「平均有几个」这类词里「听」出期望 —— 然后用一件超能力把它秒掉：期望的线性性。" },
+  readingTime: { en: "~30 min deep read", zh: "约 30 分钟深读" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · Expected value is just a weighted average", zh: "0 · 期望值不过是「加权平均」" },
+    blocks: [
+      { type: "para", en: "Before any formula, feel the idea. If a game pays you $1 half the time and $9 the other half, what do you 'expect' per play in the long run? Not $1, not $9 — the average, weighted by how often each happens.",
+        zh: "在任何公式之前，先感受这个想法。如果一个游戏有一半的时候付你 1 元、另一半付你 9 元，长期来看你每次「期望」拿到多少？不是 1 元，也不是 9 元 —— 是「加权平均」，按每种情况发生的频率来加权。" },
+      { type: "example", en: "Half the time $1, half the time $9: expected value \\(=\\tfrac12(1)+\\tfrac12(9)=5.\\) Over 1000 plays you'd collect about $5000. That's the whole meaning of 'expected': the long-run average per trial.",
+        zh: "一半时候 1 元，一半时候 9 元：期望值 \\(=\\tfrac12(1)+\\tfrac12(9)=5\\)。玩 1000 次，你大约收到 5000 元。这就是「期望」的全部含义：每次试验的「长期平均」。" },
+      { type: "formula", tex: "\\[ E[X] = \\sum_{k} k\\cdot P(X=k) \\qquad\\text{(value} \\times \\text{probability, summed)} \\]" },
+      { type: "note", en: "Read the formula as a sentence: 'each possible value, times how likely it is, all added up.' The expected value need NOT be a value you can actually get — the expected number on a fair die is \\(3.5,\\) which no face shows. It is a balance point, not an outcome.",
+        zh: "把公式当句子读：「每个可能的值，乘以它发生的概率，全部加起来」。期望值「不一定」是你真能拿到的值 —— 一颗公平骰子的期望点数是 \\(3.5\\)，可没有哪一面是 3.5。它是一个「平衡点」，不是某个具体结果。" },
+      { type: "ask", en: "A hard AMC problem almost never says 'find the expected value.' It says 'on average, how many ___?' or 'what is the average number of ___?' Train your ear: those phrasings ARE asking for \\(E[X].\\) What everyday words might hide an expectation?",
+        zh: "一道难的 AMC 题几乎「从不」直接说「求期望值」。它会说「平均而言，有多少个 ___？」或「___ 的平均数量是多少？」。训练你的耳朵：这些说法「就是」在问 \\(E[X]\\)。还有哪些日常词汇可能藏着一个期望？" }
+    ]
+  },
+
+  /* ---------- 1. LINEARITY — the superpower ---------- */
+  {
+    heading: { en: "1 · Linearity of expectation — the superpower", zh: "1 · 期望的线性性 —— 那件超能力" },
+    blocks: [
+      { type: "para", en: "Here is the single most powerful fact in all of contest probability. The expected value of a SUM is the SUM of the expected values — ALWAYS, even when the parts depend on each other, even when they are not independent. This is almost magic, and it breaks open problems that look impossible.",
+        zh: "这是整个竞赛概率里「最强」的一个事实。一个「和」的期望，等于各部分期望的「和」—— 「永远」成立，哪怕各部分互相依赖、哪怕它们不独立。这几乎是魔法，它能撬开那些看起来无从下手的题。" },
+      { type: "formula", tex: "\\[ E[X_1+X_2+\\cdots+X_n] = E[X_1]+E[X_2]+\\cdots+E[X_n] \\]" },
+      { type: "note", en: "Why is this a superpower? Because computing \\(E\\) of a complicated total directly means summing over every messy outcome. But if you BREAK the total into tiny yes/no pieces, each piece's expectation is trivial — and you just add them. Independence is NOT required. Memorize that: linearity does not care about independence.",
+        zh: "为什么这是超能力？因为直接算一个复杂总量的期望，意味着要在所有杂乱的结果上求和。但如果你把总量「拆」成一个个小的「是/否」碎片，每个碎片的期望都简单到不行 —— 你只要把它们加起来。「不」需要独立性。记牢：线性性不在乎独立不独立。" },
+      { type: "step", n: "1", title: { en: "Indicator variables — the key technique", zh: "示性变量 —— 核心技巧" },
+        en: "The trick to USE linearity: for each thing you might count, define an indicator \\(X_i\\) that is \\(1\\) if it happens and \\(0\\) if not. Then the total count is \\(X=\\sum X_i,\\) and \\(E[X_i]=P(\\text{it happens}).\\) So \\(E[X]=\\sum P(\\text{event }i).\\) A hard count becomes a sum of easy probabilities.",
+        zh: "使用线性性的窍门：对每一个你可能要数的东西，定义一个「示性变量」\\(X_i\\)，它在「发生」时取 \\(1\\)、「不发生」时取 \\(0\\)。那么总数就是 \\(X=\\sum X_i\\)，而 \\(E[X_i]=P(\\text{它发生})\\)。于是 \\(E[X]=\\sum P(\\text{事件 }i)\\)。一个困难的计数，变成一串简单概率的和。" },
+      { type: "example", en: "Roll 5 dice. On average, how many show a six? Let \\(X_i=1\\) if die \\(i\\) is a six. Each \\(E[X_i]=\\tfrac16.\\) Total sixes \\(X=\\sum X_i,\\) so \\(E[X]=5\\cdot\\tfrac16=\\tfrac56.\\) No casework over 'how many sixes' at all.",
+        zh: "掷 5 颗骰子。平均有几颗显示 6？令 \\(X_i=1\\) 表示第 \\(i\\) 颗是 6。每个 \\(E[X_i]=\\tfrac16\\)。总的 6 的个数 \\(X=\\sum X_i\\)，所以 \\(E[X]=5\\cdot\\tfrac16=\\tfrac56\\)。完全不用对「有几颗 6」分情况讨论。" },
+      { type: "ask", en: "Feel the leverage: even if the dice were somehow linked (say, glued so two always match), linearity would STILL give \\(E[X]=\\sum E[X_i]\\) — only each \\(E[X_i]\\) might change. Where else could 'count on average' hide? (Fixed points of a shuffle, matching pairs, empty boxes…)",
+        zh: "感受这个杠杆：即使骰子之间以某种方式关联（比如粘在一起、两颗永远相同），线性性「依然」给出 \\(E[X]=\\sum E[X_i]\\) —— 只是每个 \\(E[X_i]\\) 可能变了。还有哪些地方藏着「平均数几个」？（洗牌的不动点、配对、空盒子……）" }
+    ]
+  }
+  ]
+});
+
+
+/* ---------- 2. THE INDICATOR METHOD IN ACTION ---------- */
+textbookData[2].sections.push({
+  heading: { en: "2 · The indicator method in action", zh: "2 · 示性变量法实战" },
+  blocks: [
+    { type: "para", en: "Let's use indicators on the classic problems that scare people. The pattern is always the same three moves: (1) name what you're counting, (2) split it into yes/no indicators, (3) add up each indicator's probability. Watch how mechanical it becomes.",
+      zh: "我们把示性变量用到那些吓人的经典题上。套路永远是同样三步：(1) 命名你要数的东西，(2) 把它拆成一个个「是/否」示性变量，(3) 把每个示性变量的概率加起来。看它变得多么机械。" },
+    { type: "step", n: "1", title: { en: "Expected fixed points of a shuffle", zh: "洗牌的期望不动点数" },
+      en: "Shuffle \\(n\\) cards randomly. On average, how many end up in their ORIGINAL position? Let \\(X_i=1\\) if card \\(i\\) is in slot \\(i.\\) By symmetry \\(P(X_i=1)=\\tfrac1n.\\) So \\(E[X]=n\\cdot\\tfrac1n=1.\\) Astonishing: no matter how big \\(n\\) is, on average exactly ONE card stays put.",
+      zh: "把 \\(n\\) 张牌随机洗开。平均有几张回到「原来的位置」？令 \\(X_i=1\\) 表示第 \\(i\\) 张牌在第 \\(i\\) 个位置。由对称性 \\(P(X_i=1)=\\tfrac1n\\)。所以 \\(E[X]=n\\cdot\\tfrac1n=1\\)。惊人：无论 \\(n\\) 多大，平均「恰好一张」牌留在原地。" },
+    { type: "note", en: "Notice we did NOT need independence: whether card 1 is fixed clearly affects whether card 2 can be — yet linearity ignored that entirely. This is exactly why indicators beat casework: the dependence washes out of the SUM of expectations.",
+      zh: "注意我们「不」需要独立性：第 1 张是否在原位，显然影响第 2 张能否在原位 —— 但线性性完全无视这点。这正是示性变量胜过分类讨论的原因：依赖关系在「期望之和」里被冲掉了。" },
+    { type: "step", n: "2", title: { en: "Expected number of adjacent matching pairs", zh: "期望的相邻配对数" },
+      en: "Arrange 4 red and 4 blue balls in a row at random (8 positions). On average, how many adjacent pairs have the SAME color? There are 7 adjacent gaps. Let \\(X_i=1\\) if gap \\(i\\) joins two same-color balls. \\(P(\\text{same})=P(RR)+P(BB)=\\tfrac{4}{8}\\cdot\\tfrac{3}{7}+\\tfrac{4}{8}\\cdot\\tfrac{3}{7}=\\tfrac{3}{7}.\\) So \\(E[X]=7\\cdot\\tfrac37=3.\\)",
+      zh: "把 4 红 4 蓝共 8 个球随机排成一行（8 个位置）。平均有几对相邻球「同色」？共有 7 个相邻缝隙。令 \\(X_i=1\\) 表示第 \\(i\\) 个缝隙连接两个同色球。\\(P(\\text{同色})=P(RR)+P(BB)=\\tfrac{4}{8}\\cdot\\tfrac{3}{7}+\\tfrac{4}{8}\\cdot\\tfrac{3}{7}=\\tfrac{3}{7}\\)。所以 \\(E[X]=7\\cdot\\tfrac37=3\\)。" },
+    { type: "ask", en: "The template never changes: count of somethings = sum of indicators = sum of probabilities. Before reading on, try: 10 people randomly sit around a round table; on average how many are next to their best friend (each has exactly one)? (Hint: 10 seat-gaps, each probability \\(\\tfrac{2}{9}.\\))",
+      zh: "模板从不改变：某物的个数 = 示性变量之和 = 概率之和。往下读之前，试试：10 个人随机围圆桌坐下，平均有几人挨着自己的挚友（每人恰有一个）？（提示：10 个座位缝隙，每个概率 \\(\\tfrac{2}{9}\\)。）" }
+  ]
+});
+
+
+/* ---------- 3. EXPECTATION VIA RECURSION ---------- */
+textbookData[2].sections.push({
+  heading: { en: "3 · When there is no sum: expectation by recursion", zh: "3 · 当没有「和」可拆：用递推求期望" },
+  blocks: [
+    { type: "para", en: "Some expectations are not a sum of little pieces — they involve REPEATING until something happens ('keep flipping until two heads in a row', 'roll until you get a six'). For these, set up an equation where the expected value refers to ITSELF after one step.",
+      zh: "有些期望不是小碎片之和 —— 它们涉及「重复直到某事发生」（「一直掷到出现连续两个正面」「一直掷到出现 6」）。对这类问题，建立一个方程，让期望值在「走一步之后」指向它「自己」。" },
+    { type: "step", n: "1", title: { en: "Expected rolls to see a six", zh: "掷到 6 的期望次数" },
+      en: "Let \\(E\\) be the expected number of rolls to get a six. One roll always happens (that's \\(+1\\)). With prob \\(\\tfrac16\\) we're done; with prob \\(\\tfrac56\\) we're back to the start, needing \\(E\\) more. So \\(E = 1 + \\tfrac56 E.\\) Solve: \\(\\tfrac16 E = 1,\\) so \\(E=6.\\)",
+      zh: "令 \\(E\\) 为掷到 6 的期望次数。总要掷一次（这是 \\(+1\\)）。以概率 \\(\\tfrac16\\) 结束；以概率 \\(\\tfrac56\\) 回到起点，还需要 \\(E\\) 次。所以 \\(E = 1 + \\tfrac56 E\\)。解出：\\(\\tfrac16 E = 1\\)，即 \\(E=6\\)。" },
+    { type: "note", en: "The move is called 'one-step analysis': take a single step, then let the leftover situation be described by the same unknown \\(E\\) (or a related one). This converts an infinite process into a small equation. It is the probability cousin of the recursion you use in counting.",
+      zh: "这个动作叫「一步分析法」：先走一步，再让剩下的局面用同一个未知量 \\(E\\)（或相关的量）来描述。这把一个无限过程变成一个小方程。它是你在计数里用的递推在概率里的「表亲」。" },
+    { type: "example", en: "Expected flips to get the first head (fair coin): \\(E=1+\\tfrac12 E\\Rightarrow E=2.\\) General rule: if success has probability \\(p\\) each trial, the expected number of trials until the first success is \\(\\tfrac1p.\\) (Six has \\(p=\\tfrac16\\Rightarrow 6;\\) head has \\(p=\\tfrac12\\Rightarrow 2.\\))",
+      zh: "掷到第一个正面的期望次数（公平硬币）：\\(E=1+\\tfrac12 E\\Rightarrow E=2\\)。一般规律：若每次试验成功概率为 \\(p\\)，则「直到首次成功」的期望试验次数是 \\(\\tfrac1p\\)。（6 的 \\(p=\\tfrac16\\Rightarrow 6\\)；正面的 \\(p=\\tfrac12\\Rightarrow 2\\)。）" },
+    { type: "ask", en: "Two doors: door A leads out in 3 hours; door B loops back to start after 1 hour. You pick uniformly at random each time. What's the expected time to escape? Set \\(E=\\tfrac12(3)+\\tfrac12(1+E)\\) and solve. (Answer: \\(E=5.\\)) Feel how 'back to start' becomes '\\(+E\\)'.",
+      zh: "两扇门：A 门 3 小时后出去；B 门 1 小时后绕回起点。你每次等概率随机选。逃出的期望时间是多少？令 \\(E=\\tfrac12(3)+\\tfrac12(1+E)\\) 求解。（答案：\\(E=5\\)。）体会「绕回起点」如何变成「\\(+E\\)」。" }
+  ]
+});
+
+
+
+/* ---------- 4. WORKED EXAMPLES ---------- */
+textbookData[2].sections.push({
+  heading: { en: "4 · Worked examples — hearing the disguise", zh: "4 · 例题精讲 —— 听出伪装" },
+  blocks: [
+    { type: "para", en: "Each of these is written the way AMC writes them: the word 'expected' is often hidden. Your first job is to TRANSLATE the sentence into 'find \\(E[X]\\)', then pick linearity or recursion.",
+      zh: "下面每道题都用 AMC 的写法：「期望」这个词往往被藏起来。你的第一件事是把句子「翻译」成「求 \\(E[X]\\)」，再选用线性性或递推。" },
+    { type: "step", n: "1", title: { en: "The disguised average (AMC-style)", zh: "被伪装的平均（AMC 风格）" },
+      en: "\"A fair coin is flipped 100 times. What is the expected number of times two consecutive flips are both heads?\"\nTranslate: count of 'HH at position \\(i\\)', \\(i=1..99.\\) Indicator \\(X_i=1\\) if flips \\(i,i{+}1\\) are both heads: \\(P=\\tfrac12\\cdot\\tfrac12=\\tfrac14.\\)\nLinearity: \\(E[X]=99\\cdot\\tfrac14=\\tfrac{99}{4}=24.75.\\)",
+      zh: "「一枚公平硬币掷 100 次。连续两次都是正面的期望次数是多少？」\n翻译：数「位置 \\(i\\) 处出现 HH」，\\(i=1..99\\)。示性变量 \\(X_i=1\\) 表示第 \\(i,i{+}1\\) 次都是正面：\\(P=\\tfrac12\\cdot\\tfrac12=\\tfrac14\\)。\n线性性：\\(E[X]=99\\cdot\\tfrac14=\\tfrac{99}{4}=24.75\\)。" },
+    { type: "step", n: "2", title: { en: "Expected empty boxes", zh: "期望的空盒子数" },
+      en: "\"5 distinct balls are thrown independently into 3 boxes uniformly at random. On average, how many boxes are empty?\"\nIndicator \\(X_j=1\\) if box \\(j\\) is empty. A single ball misses box \\(j\\) with prob \\(\\tfrac23,\\) and all 5 miss with prob \\((\\tfrac23)^5=\\tfrac{32}{243}.\\)\nLinearity: \\(E[X]=3\\cdot\\tfrac{32}{243}=\\tfrac{96}{243}=\\tfrac{32}{81}.\\)",
+      zh: "「5 个不同的球，各自独立、等概率地投进 3 个盒子。平均有几个盒子是空的？」\n示性变量 \\(X_j=1\\) 表示盒子 \\(j\\) 为空。单个球没进盒子 \\(j\\) 的概率是 \\(\\tfrac23\\)，5 个球全没进的概率是 \\((\\tfrac23)^5=\\tfrac{32}{243}\\)。\n线性性：\\(E[X]=3\\cdot\\tfrac{32}{243}=\\tfrac{96}{243}=\\tfrac{32}{81}\\)。" },
+    { type: "step", n: "3", title: { en: "When linearity fails — use recursion", zh: "线性性失效时 —— 改用递推" },
+      en: "\"You repeatedly roll a die, summing the results, and stop the instant your running total is 3 or more. What is the expected number of rolls?\"\nThis is not a fixed sum of indicators — the number of rolls is random. One-step: after the first roll (always \\(+1\\)), if you rolled \\(\\ge3\\) (prob \\(\\tfrac46\\)) you stop; if you rolled \\(1\\) or \\(2\\) you continue from a total that still needs work. Careful state analysis on totals \\(0,1,2\\) gives \\(E=\\tfrac{49}{36}.\\) The point: recognize that the STOPPING is random, so linearity of a fixed sum does not apply — set up states instead.",
+      zh: "「你反复掷骰子并累加点数，一旦累计总和达到 3 或以上就立刻停止。掷骰次数的期望是多少？」\n这不是固定个数示性变量之和 —— 掷的次数本身是随机的。一步分析：第一次掷后（总是 \\(+1\\)），若掷到 \\(\\ge3\\)（概率 \\(\\tfrac46\\)）就停；若掷到 \\(1\\) 或 \\(2\\) 则从一个仍需继续的总和出发。对总和 \\(0,1,2\\) 做仔细的状态分析得 \\(E=\\tfrac{49}{36}\\)。要点：识别出「停止」是随机的，所以固定和的线性性不适用 —— 改为建立状态。" },
+    { type: "note", en: "Decision rule you can memorize: if you are counting 'how many of a FIXED set of things happen', use indicators + linearity. If the process REPEATS an unknown number of times until a stopping condition, use one-step recursion. Ninety percent of AMC expectation problems fall into one of these two.",
+      zh: "可以背下来的判断法则：如果你在数「一个「固定集合」里有几件事发生」，用示性变量 + 线性性。如果过程「重复」未知次数直到某个停止条件，用一步递推。九成的 AMC 期望题都落在这两类之一。" }
+  ]
+});
+
+
+/* ---------- 5. SELF-CHECK ---------- */
+textbookData[2].sections.push({
+  heading: { en: "5 · Self-check (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "para", en: "Translate each into '\\(E[X]\\)', decide indicator-vs-recursion, then compute. Answers follow — try first.",
+      zh: "把每题翻译成「\\(E[X]\\)」，判断用示性变量还是递推，再计算。答案在后面 —— 先自己试。" },
+    { type: "step", n: "Q1", title: { en: "Sixes in eight rolls", zh: "八次掷骰的 6 的个数" },
+      en: "Roll a die 8 times. Expected number of sixes?",
+      zh: "掷骰子 8 次。6 出现的期望次数？" },
+    { type: "step", n: "Q2", title: { en: "Fixed points", zh: "不动点" },
+      en: "A random permutation of \\(\\{1,2,\\dots,7\\}.\\) Expected number of values left in their own position?",
+      zh: "\\(\\{1,2,\\dots,7\\}\\) 的一个随机排列。有几个值停在自己位置上的期望？" },
+    { type: "step", n: "Q3", title: { en: "Until first head", zh: "直到首个正面" },
+      en: "Flip a fair coin until the first head. Expected number of flips?",
+      zh: "掷公平硬币直到第一个正面。掷的期望次数？" },
+    { type: "step", n: "Q4", title: { en: "Adjacent same-color", zh: "相邻同色" },
+      en: "Arrange 3 red and 3 blue in a row at random. Expected number of adjacent same-color pairs?",
+      zh: "把 3 红 3 蓝随机排成一行。相邻同色对的期望数？" },
+    { type: "divider" },
+    { type: "note", en: "Answers. Q1: \\(8\\cdot\\tfrac16=\\tfrac43.\\)  Q2: \\(7\\cdot\\tfrac17=1.\\)  Q3: \\(\\tfrac{1}{1/2}=2.\\)  Q4: 5 gaps, each same-color prob \\(P(RR)+P(BB)=\\tfrac36\\cdot\\tfrac25+\\tfrac36\\cdot\\tfrac25=\\tfrac25;\\) so \\(5\\cdot\\tfrac25=2.\\)",
+      zh: "答案。Q1：\\(8\\cdot\\tfrac16=\\tfrac43\\)。 Q2：\\(7\\cdot\\tfrac17=1\\)。 Q3：\\(\\tfrac{1}{1/2}=2\\)。 Q4：5 个缝隙，每个同色概率 \\(P(RR)+P(BB)=\\tfrac36\\cdot\\tfrac25+\\tfrac36\\cdot\\tfrac25=\\tfrac25\\)；所以 \\(5\\cdot\\tfrac25=2\\)。" },
+    { type: "note", en: "One-line summary of Concept 03: hear 'average / on average how many' as \\(E[X];\\) if it's a fixed set of events, use indicators + linearity (independence never required); if it repeats until it stops, use one-step recursion. This is the workhorse of AMC 21–25 probability.",
+      zh: "知识点 03 一句话总结：把「平均 / 平均有几个」听成 \\(E[X]\\)；若是固定的一组事件，用示性变量 + 线性性（永远不需要独立性）；若重复到停止为止，用一步递推。这是 AMC 第 21–25 题概率的主力工具。" }
+  ]
+});
+
+
+
+/* =======================================================
+   Counting · Concept 04 — Recursion & Symmetry in Counting
+   ======================================================= */
+textbookData.push({
+  id: "recursion-count",
+  badge: { en: "Counting · Concept 04", zh: "组合 · 知识点 04" },
+  title: { en: "Recursion & Symmetry in Counting", zh: "递归计数与对称计数" },
+  subtitle: { en: "The two moves that crack 'complex counting' in AMC 21–25: build big counts from smaller ones (recursion), and refuse to count the same thing twice (symmetry & overcount-then-divide).",
+              zh: "破解 AMC 第 21–25 题「复杂计数」的两招：用小的计数搭出大的计数（递归），以及拒绝把同一个东西数两遍（对称性与「先多算再除」）。" },
+  readingTime: { en: "~28 min deep read", zh: "约 28 分钟深读" },
+  sections: [
+
+  {
+    heading: { en: "0 · When brute force explodes, build up instead", zh: "0 · 当暴力枚举爆炸时，改用「搭建」" },
+    blocks: [
+      { type: "para", en: "Hard counting problems have too many cases to list. The escape: don't count the big thing directly — express it in terms of SMALLER versions of the same problem, then let the small ones build the big one. That relationship is a recursion.",
+        zh: "难的计数题，情况多到列不完。出路：不要直接数那个大的东西 —— 把它用同一个问题的「更小版本」表达出来，再让小的搭出大的。这个关系就是「递归」。" },
+      { type: "example", en: "How many ways to tile a \\(2\\times n\\) strip with \\(1\\times2\\) dominoes? Let \\(f(n)\\) be the answer. Look at the last column: either one vertical domino (leaving \\(2\\times(n{-}1)\\)), or two horizontal ones stacked (leaving \\(2\\times(n{-}2)\\)). So \\(f(n)=f(n{-}1)+f(n{-}2)\\) — the Fibonacci numbers!",
+        zh: "用 \\(1\\times2\\) 的多米诺骨牌铺 \\(2\\times n\\) 的长条，有多少种方式？令 \\(f(n)\\) 为答案。看最后一列：要么竖放一块（剩 \\(2\\times(n{-}1)\\)），要么横着叠两块（剩 \\(2\\times(n{-}2)\\)）。所以 \\(f(n)=f(n{-}1)+f(n{-}2)\\) —— 斐波那契数！" },
+      { type: "formula", tex: "\\[ f(n) = f(n-1) + f(n-2), \\qquad f(1)=1,\\ f(2)=2 \\]" },
+      { type: "note", en: "The recursion recipe is always three questions: (1) What is the LAST choice/piece? (2) After fixing it, what smaller sub-problem remains? (3) Sum over the possibilities for that last choice. If different last-choices leave different-sized sub-problems, you get a multi-term recursion.",
+        zh: "递归配方永远是三个问题：(1) 「最后一个」选择/块是什么？(2) 定下它之后，剩下什么「更小的子问题」？(3) 对那个最后选择的各种可能求和。若不同的「最后选择」留下不同大小的子问题，你就得到一个多项递归。" },
+      { type: "ask", en: "Hold this: recursion turns 'count everything at once' into 'count one step, then trust the smaller answer.' What must you always pin down before a recursion is valid? (The base cases — the smallest sizes you compute by hand.)",
+        zh: "记住：递归把「一次数完所有」变成「只数一步，再信任更小的答案」。在递归成立之前，你必须永远钉死什么？（基础情形 —— 最小的那几个规模，靠手算得到。）" }
+    ]
+  }
+  ]
+});
+
+/* ---------- 1. RECURSION PATTERNS ---------- */
+textbookData[3].sections.push({
+  heading: { en: "1 · Three recursion patterns worth memorizing", zh: "1 · 值得背下来的三种递归模式" },
+  blocks: [
+    { type: "step", n: "1", title: { en: "No-two-adjacent (Fibonacci in disguise)", zh: "不相邻选择（伪装的斐波那契）" },
+      en: "How many subsets of \\(\\{1,2,\\dots,n\\}\\) contain no two consecutive numbers? Condition on whether \\(n\\) is used: if not, \\(g(n{-}1)\\) ways; if yes, then \\(n{-}1\\) is banned, giving \\(g(n{-}2)\\) ways. So \\(g(n)=g(n{-}1)+g(n{-}2)\\) — Fibonacci again. Any 'no two adjacent' condition hides this.",
+      zh: "\\(\\{1,2,\\dots,n\\}\\) 有多少子集不含两个连续的数？按 \\(n\\) 是否被选来分类：不选，\\(g(n{-}1)\\) 种；选，则 \\(n{-}1\\) 被禁，得 \\(g(n{-}2)\\) 种。所以 \\(g(n)=g(n{-}1)+g(n{-}2)\\) —— 又是斐波那契。任何「不相邻」条件都藏着它。" },
+    { type: "step", n: "2", title: { en: "Sequences avoiding a pattern", zh: "回避某种模式的序列" },
+      en: "Count binary strings of length \\(n\\) with no two consecutive 1s. Same logic by the last bit: end in 0 → \\(a(n{-}1);\\) end in 1 → the bit before must be 0 → \\(a(n{-}2).\\) So \\(a(n)=a(n{-}1)+a(n{-}2).\\) The skill is CONDITIONING on the last symbol.",
+      zh: "数长度为 \\(n\\)、没有两个连续 1 的二进制串。按最后一位同样分类：以 0 结尾 → \\(a(n{-}1)\\)；以 1 结尾 → 前一位必须是 0 → \\(a(n{-}2)\\)。所以 \\(a(n)=a(n{-}1)+a(n{-}2)\\)。技巧就是对「最后一个符号」分类。" },
+    { type: "step", n: "3", title: { en: "Multi-way branching", zh: "多路分支" },
+      en: "Ways to climb \\(n\\) stairs taking 1, 2, or 3 at a time: \\(h(n)=h(n{-}1)+h(n{-}2)+h(n{-}3),\\) because the LAST step is 1, 2, or 3, leaving three different sub-problems. More options in one step → more terms in the recursion.",
+      zh: "每步走 1、2 或 3 级台阶，爬 \\(n\\) 级的方式数：\\(h(n)=h(n{-}1)+h(n{-}2)+h(n{-}3)\\)，因为「最后一步」是 1、2 或 3 级，留下三个不同的子问题。一步里选项越多 → 递归的项越多。" },
+    { type: "note", en: "See the unifying idea: all three condition on the LAST thing and sum the resulting sub-counts. When a problem says 'no two adjacent', 'consecutive', 'in a row', or 'each step you may…', your reflex should be: set up a recursion on the last position.",
+      zh: "看这个统一思想：三者都对「最后一个东西」分类，并把由此得到的子计数相加。当一道题说「不相邻」「连续」「一排」或「每步你可以…」，你的反射应该是：对最后一个位置建立递归。" }
+  ]
+});
+
+/* ---------- 2. SYMMETRY & OVERCOUNT ---------- */
+textbookData[3].sections.push({
+  heading: { en: "2 · Symmetry: overcount on purpose, then divide", zh: "2 · 对称性：故意多算，再除掉" },
+  blocks: [
+    { type: "para", en: "The other half of complex counting is refusing to count a thing twice. The cleanest tool: count as if everything is distinguishable (easy!), then DIVIDE by how many times you counted each real object. This is 'overcount-then-divide', and symmetry tells you the divisor.",
+      zh: "复杂计数的另一半，是拒绝把一个东西数两遍。最干净的工具：先「假装」所有东西都可区分来数（简单！），再「除以」你把每个真实对象数了几遍。这就是「先多算再除」，而对称性告诉你除数是多少。" },
+    { type: "example", en: "Seat 6 people around a round table; rotations are the same arrangement. Line them up: \\(6!\\) ways. But each real circular arrangement was counted once for each of its 6 rotations. So divide: \\(6!/6=120.\\) The divisor 6 IS the rotational symmetry.",
+      zh: "6 人围圆桌就座；旋转视为同一种排法。先排成一行：\\(6!\\) 种。但每个真实的圆排列，被它的 6 个旋转各数了一次。所以除掉：\\(6!/6=120\\)。那个除数 6「就是」旋转对称性。" },
+    { type: "step", n: "1", title: { en: "Necklaces: rotations AND flips", zh: "项链：旋转「加」翻转" },
+      en: "Arrange 5 distinct beads on a necklace where rotations and reflections are equal. Linear: \\(5!=120.\\) Rotations (5 of them) and a flip double it: divide by \\(5\\times2=10.\\) Answer \\(120/10=12.\\) Always ask: what motions leave the object 'the same'? Those form your divisor.",
+      zh: "把 5 颗不同的珠子排成项链，旋转和翻转都算相同。线排：\\(5!=120\\)。旋转（5 种）和一次翻转使之翻倍：除以 \\(5\\times2=10\\)。答案 \\(120/10=12\\)。永远要问：哪些「动作」让对象保持「不变」？它们构成你的除数。" },
+    { type: "note", en: "Caution: overcount-then-divide only works cleanly when EVERY object is overcounted the SAME number of times. When some objects have extra symmetry (e.g. a palindrome under flipping), plain division fails and you must handle those cases separately. On AMC 10 the clean case is the usual one — but check!",
+      zh: "警告：「先多算再除」只有在「每个」对象都被多算「同样」次数时才干净。当某些对象有额外对称性（比如翻转下的回文），单纯除法会失效，你必须把那些情况单独处理。在 AMC 10 上，干净的情形是常见的 —— 但一定要检查！" },
+    { type: "ask", en: "Before moving on: how many ways to arrange the letters of BANANA? Overcount as if distinct: \\(6!.\\) Then divide by the symmetries among identical letters: \\(3!\\) for the A's, \\(2!\\) for the N's. Answer \\(6!/(3!\\,2!)=60.\\) Same principle as the round table.",
+      zh: "继续之前：BANANA 的字母有多少种排列？先当作全不同来多算：\\(6!\\)。再除以相同字母之间的对称：A 有 \\(3!\\)、N 有 \\(2!\\)。答案 \\(6!/(3!\\,2!)=60\\)。和圆桌是同一个原理。" }
+  ]
+});
+
+/* ---------- 3. WORKED + SELF-CHECK ---------- */
+textbookData[3].sections.push({
+  heading: { en: "3 · Worked examples & self-check", zh: "3 · 例题精讲与自我检测" },
+  blocks: [
+    { type: "step", n: "1", title: { en: "Recursion: paths on a grid", zh: "递归：网格上的路径" },
+      en: "From \\((0,0)\\) to \\((m,n)\\) moving only right or up, the count \\(P(m,n)=P(m{-}1,n)+P(m,n{-}1)\\) (last step was right or up). This builds Pascal's triangle and equals \\(\\binom{m+n}{m}.\\) Recursion and the binomial coefficient are the same fact.",
+      zh: "从 \\((0,0)\\) 到 \\((m,n)\\) 只能向右或向上，路径数 \\(P(m,n)=P(m{-}1,n)+P(m,n{-}1)\\)（最后一步向右或向上）。它搭出帕斯卡三角，等于 \\(\\binom{m+n}{m}\\)。递归和二项式系数是同一个事实。" },
+    { type: "step", n: "2", title: { en: "Symmetry: bracelets", zh: "对称：手链" },
+      en: "How many distinct ways to color the 4 corners of a square with 2 colors, where rotations are considered the same? This needs care (Burnside-style), but a hands-on count gives 6. On AMC 10, small cases are safest counted by careful listing after removing symmetry.",
+      zh: "用 2 种颜色给正方形的 4 个角上色，旋转视为相同，有多少种不同方式？这需要小心（Burnside 式），但动手数得 6。在 AMC 10 上，小情况最稳妥的办法是「去掉对称后仔细列举」。" },
+    { type: "divider" },
+    { type: "step", n: "Q1", title: { en: "Tilings", zh: "铺砖" },
+      en: "Ways to tile a \\(2\\times5\\) strip with dominoes? (Use \\(f(n)=f(n{-}1)+f(n{-}2),\\ f(1)=1,f(2)=2.\\))",
+      zh: "用多米诺骨牌铺 \\(2\\times5\\) 长条的方式数？（用 \\(f(n)=f(n{-}1)+f(n{-}2),\\ f(1)=1,f(2)=2\\)。）" },
+    { type: "step", n: "Q2", title: { en: "No two adjacent", zh: "不相邻" },
+      en: "Subsets of \\(\\{1,\\dots,6\\}\\) with no two consecutive elements?",
+      zh: "\\(\\{1,\\dots,6\\}\\) 中不含两个连续元素的子集数？" },
+    { type: "step", n: "Q3", title: { en: "Round table", zh: "圆桌" },
+      en: "Seat 5 people at a round table (rotations equal). How many arrangements?",
+      zh: "5 人围圆桌就座（旋转相同）。有多少排法？" },
+    { type: "divider" },
+    { type: "note", en: "Answers. Q1: \\(f(5)=1,2,3,5,8\\Rightarrow 8.\\)  Q2: \\(g(6)=g(5)+g(4);\\) with \\(g(1)=2,g(2)=3\\Rightarrow 3,5,8,13,21\\Rightarrow g(6)=21.\\)  Q3: \\(5!/5=24.\\)",
+      zh: "答案。Q1：\\(f(5)=1,2,3,5,8\\Rightarrow 8\\)。 Q2：\\(g(6)=g(5)+g(4)\\)；以 \\(g(1)=2,g(2)=3\\Rightarrow 3,5,8,13,21\\Rightarrow g(6)=21\\)。 Q3：\\(5!/5=24\\)。" },
+    { type: "note", en: "One-line summary of Concept 04: for 'complex counting', either build up with a recursion on the last choice, or overcount-then-divide using symmetry. Reach for recursion on words like 'adjacent/consecutive/each step'; reach for symmetry on 'round/rotations/identical'.",
+      zh: "知识点 04 一句话总结：面对「复杂计数」，要么对「最后一个选择」建立递归来搭建，要么用对称性「先多算再除」。看到「相邻/连续/每步」就想递归；看到「圆形/旋转/相同」就想对称。" }
+  ]
+});
+
+
+/* =======================================================
+   Counting · Concept 05 — Inclusion-Exclusion, Advanced
+   ======================================================= */
+textbookData.push({
+  id: "ie-advanced",
+  badge: { en: "Counting · Concept 05", zh: "组合 · 知识点 05" },
+  title: { en: "Inclusion–Exclusion, Advanced", zh: "容斥原理（进阶）" },
+  subtitle: { en: "Where AMC hides its hardest counts: derangements ('nobody in their own seat'), surjections ('every box used'), and counting by forbidden properties. All are one idea — subtract the bad, add back the double-subtracted.",
+              zh: "AMC 把最难的计数藏在这里：错排（「没人坐自己座位」）、满射（「每个盒子都用上」）、以及按「禁止性质」计数。它们都是一个想法 —— 减掉坏的，再加回被减重的。" },
+  readingTime: { en: "~28 min deep read", zh: "约 28 分钟深读" },
+  sections: [
+
+  {
+    heading: { en: "0 · The complement mindset: count the bad, subtract", zh: "0 · 补集思维：数坏的，再减掉" },
+    blocks: [
+      { type: "para", en: "Many hard counts are easier upside-down. Instead of counting arrangements WITH a property, count the total and subtract those WITHOUT it. Inclusion–Exclusion is the precise machine for 'subtract the bad cases' when the bad cases themselves overlap.",
+        zh: "很多难的计数，「倒过来」更容易。与其数「具有」某性质的排列，不如数总数、再减去「不具有」的。当那些「坏情况」本身互相重叠时，容斥原理正是「减掉坏情况」的精密机器。" },
+      { type: "example", en: "How many arrangements of \\(1..5\\) have at least one number in its own position? Count the COMPLEMENT (none in place) is hard directly — but 'at least one fixed' via I–E over the 5 'is-fixed' events is clean. This flip is the heart of the chapter.",
+        zh: "\\(1..5\\) 的排列中，「至少有一个」数字在自己位置上的有多少个？直接数「补集」（一个都不在位）很难 —— 但用容斥对 5 个「某位固定」事件求「至少一个固定」却很干净。这个翻转是本章的核心。" },
+      { type: "note", en: "Reflex to build: the phrases 'at least one', 'none of', 'every ___ is used', 'no ___ occurs' are I–E signals. Define the 'bad' events \\(A_i\\) ('property \\(i\\) violated'), then apply the alternating-sign formula.",
+        zh: "要建立的反射：「至少一个」「一个都没有」「每个 ___ 都用上」「没有 ___ 出现」这些短语都是容斥信号。定义「坏」事件 \\(A_i\\)（「性质 \\(i\\) 被违反」），再套用交替符号公式。" }
+    ]
+  }
+  ]
+});
+
+/* ---------- 1. DERANGEMENTS ---------- */
+textbookData[4].sections.push({
+  heading: { en: "1 · Derangements — nobody in their own seat", zh: "1 · 错排 —— 没人坐自己的座位" },
+  blocks: [
+    { type: "para", en: "A derangement is a permutation with NO fixed point: nobody ends up where they started. Count it by I–E. Let \\(A_i\\) be 'element \\(i\\) IS fixed'. We want none of the \\(A_i,\\) i.e. total minus \\(|A_1\\cup\\cdots\\cup A_n|.\\)",
+      zh: "错排是「没有不动点」的排列：没有人回到起点。用容斥来数。令 \\(A_i\\) 为「元素 \\(i\\) 被固定」。我们要「一个 \\(A_i\\) 都不发生」，即总数减 \\(|A_1\\cup\\cdots\\cup A_n|\\)。" },
+    { type: "para", en: "Fixing a chosen set of \\(k\\) elements and permuting the rest freely gives \\((n{-}k)!\\) arrangements, and there are \\(\\binom{n}{k}\\) ways to choose which \\(k.\\) I–E with alternating signs collapses beautifully:",
+      zh: "固定选定的 \\(k\\) 个元素、其余自由排列，得 \\((n{-}k)!\\) 种，而选哪 \\(k\\) 个有 \\(\\binom{n}{k}\\) 种。带交替符号的容斥漂亮地收拢成：" },
+    { type: "formula", tex: "\\[ D_n = n!\\left(1 - \\frac{1}{1!} + \\frac{1}{2!} - \\frac{1}{3!} + \\cdots + \\frac{(-1)^n}{n!}\\right) \\]" },
+    { type: "step", n: "1", title: { en: "Small values you should know", zh: "该记住的小数值" },
+      en: "\\(D_1=0,\\ D_2=1,\\ D_3=2,\\ D_4=9,\\ D_5=44.\\) There is also a clean recursion \\(D_n=(n-1)(D_{n-1}+D_{n-2}),\\) handy when you don't want to expand the sum. Memorize up to \\(D_5\\) — AMC rarely needs more.",
+      zh: "\\(D_1=0,\\ D_2=1,\\ D_3=2,\\ D_4=9,\\ D_5=44\\)。还有一个干净的递归 \\(D_n=(n-1)(D_{n-1}+D_{n-2})\\)，当你不想展开求和时很好用。背到 \\(D_5\\) —— AMC 很少需要更多。" },
+    { type: "note", en: "A gorgeous fact: \\(D_n/n! \\to 1/e \\approx 0.368.\\) So the probability a random shuffle leaves nobody in place is about \\(37\\%,\\) essentially independent of \\(n.\\) Pair this with Concept 03's result that the EXPECTED number of fixed points is exactly 1 — two faces of the same shuffle.",
+      zh: "一个绝美的事实：\\(D_n/n! \\to 1/e \\approx 0.368\\)。所以随机洗牌后「没人在原位」的概率约 \\(37\\%\\)，几乎与 \\(n\\) 无关。把它和知识点 03 的结论「不动点的『期望』恰好是 1」放一起 —— 同一次洗牌的两个侧面。" },
+    { type: "ask", en: "Try: 4 letters into 4 addressed envelopes at random; probability NONE matches? That's \\(D_4/4!=9/24=3/8.\\) Notice how I–E turned a scary 'no match' condition into a tidy alternating sum.",
+      zh: "试试：4 封信随机放进 4 个写好地址的信封，「一封都不匹配」的概率？就是 \\(D_4/4!=9/24=3/8\\)。注意容斥如何把吓人的「无匹配」条件变成整洁的交替和。" }
+  ]
+});
+
+/* ---------- 2. SURJECTIONS ---------- */
+textbookData[4].sections.push({
+  heading: { en: "2 · Surjections — every box gets used", zh: "2 · 满射 —— 每个盒子都用上" },
+  blocks: [
+    { type: "para", en: "How many ways to map \\(n\\) distinct items ONTO \\(k\\) boxes so that NO box is empty? 'No box empty' is another 'none of the bad events' — bad event \\(A_j\\) = 'box \\(j\\) is empty'. I–E gives the surjection count.",
+      zh: "把 \\(n\\) 个不同的物品「映满」\\(k\\) 个盒子，使「没有盒子为空」，有多少种？「没有空盒」又是一个「坏事件都不发生」—— 坏事件 \\(A_j\\) =「盒子 \\(j\\) 为空」。容斥给出满射计数。" },
+    { type: "formula", tex: "\\[ \\text{Surj}(n,k) = \\sum_{j=0}^{k} (-1)^j \\binom{k}{j}(k-j)^n \\]" },
+    { type: "step", n: "1", title: { en: "Reading the formula", zh: "读懂公式" },
+      en: "Total maps into \\(k\\) boxes: \\(k^n.\\) Subtract those missing at least one box. Choosing \\(j\\) boxes to leave empty and mapping into the rest gives \\(\\binom{k}{j}(k-j)^n,\\) with alternating signs. Example \\(n=4,k=3:\\) \\(3^4-\\binom31 2^4+\\binom32 1^4=81-48+3=36.\\)",
+      zh: "映入 \\(k\\) 个盒子的总数：\\(k^n\\)。减去「缺至少一个盒子」的。选 \\(j\\) 个盒子留空、映入其余，得 \\(\\binom{k}{j}(k-j)^n\\)，带交替符号。例 \\(n=4,k=3\\)：\\(3^4-\\binom31 2^4+\\binom32 1^4=81-48+3=36\\)。" },
+    { type: "note", en: "Surjections connect to 'distributing DISTINCT items into groups' — the counterpart of stars-and-bars (which was for IDENTICAL items). Whenever a problem insists 'each ___ is used at least once', suspect a surjection / I–E.",
+      zh: "满射与「把『不同』物品分进各组」相连 —— 它是隔板法（用于「相同」物品）的对偶。每当题目坚持「每个 ___ 至少用一次」，就怀疑是满射 / 容斥。" }
+  ]
+});
+
+/* ---------- 3. WORKED + SELF-CHECK ---------- */
+textbookData[4].sections.push({
+  heading: { en: "3 · Worked examples & self-check", zh: "3 · 例题精讲与自我检测" },
+  blocks: [
+    { type: "step", n: "1", title: { en: "Forbidden positions", zh: "禁止位置" },
+      en: "How many permutations of \\(1,2,3,4,5\\) have NONE of them fixed? Directly \\(D_5=44.\\) If instead 'exactly one fixed': choose the fixed one \\(\\binom51\\) ways, derange the other 4: \\(\\binom51 D_4=5\\cdot9=45.\\)",
+      zh: "\\(1,2,3,4,5\\) 的排列中「一个都不固定」的有几个？直接 \\(D_5=44\\)。若改问「恰好一个固定」：选出固定的那个有 \\(\\binom51\\) 种，其余 4 个错排：\\(\\binom51 D_4=5\\cdot9=45\\)。" },
+    { type: "step", n: "2", title: { en: "Onto functions", zh: "满射函数" },
+      en: "How many ways to hand out 5 distinct prizes to 3 people so everyone gets at least one? \\(\\text{Surj}(5,3)=3^5-\\binom31 2^5+\\binom32 1^5=243-96+3=150.\\)",
+      zh: "把 5 个不同的奖品发给 3 个人，使每人至少得一个，有多少种？\\(\\text{Surj}(5,3)=3^5-\\binom31 2^5+\\binom32 1^5=243-96+3=150\\)。" },
+    { type: "divider" },
+    { type: "step", n: "Q1", title: { en: "Derangement", zh: "错排" },
+      en: "Probability a random arrangement of 4 people leaves none in their own seat?",
+      zh: "4 人随机排列，没人在自己座位上的概率？" },
+    { type: "step", n: "Q2", title: { en: "Surjection", zh: "满射" },
+      en: "Number of onto functions from a 4-element set to a 2-element set?",
+      zh: "从 4 元集到 2 元集的满射函数个数？" },
+    { type: "step", n: "Q3", title: { en: "At least one multiple", zh: "至少一个倍数" },
+      en: "Integers 1–60 divisible by at least one of 2, 3, 5? (I–E.)",
+      zh: "1–60 中至少能被 2、3、5 之一整除的整数个数？（容斥。）" },
+    { type: "divider" },
+    { type: "note", en: "Answers. Q1: \\(D_4/4!=9/24=3/8.\\)  Q2: \\(2^4-\\binom21 1^4=16-2=14.\\)  Q3: \\(30+20+12-10-6-4+2=44.\\)",
+      zh: "答案。Q1：\\(D_4/4!=9/24=3/8\\)。 Q2：\\(2^4-\\binom21 1^4=16-2=14\\)。 Q3：\\(30+20+12-10-6-4+2=44\\)。" },
+    { type: "note", en: "One-line summary of Concept 05: turn 'at least one / none / every one used' into I–E over the bad events. Memorize derangements \\(D_1..D_5=0,1,2,9,44\\) and the surjection formula. These are the backbone of AMC's hardest counts.",
+      zh: "知识点 05 一句话总结：把「至少一个 / 一个都没有 / 每个都用上」翻译成对「坏事件」的容斥。背下错排 \\(D_1..D_5=0,1,2,9,44\\) 和满射公式。它们是 AMC 最难计数题的主心骨。" }
+  ]
+});
+
+
+/* =======================================================
+   Counting · Concept 06 — Probability via States & Recursion
+   ======================================================= */
+textbookData.push({
+  id: "state-probability",
+  badge: { en: "Counting · Concept 06", zh: "组合 · 知识点 06" },
+  title: { en: "Probability via States & Recursion", zh: "状态与递推概率" },
+  subtitle: { en: "The通法 behind AMC's nastiest probability problems: when a process moves step by step, name the STATES, write how probability flows between them, and solve. Plus the two shortcuts that skip the algebra: symmetry and first-step analysis.",
+              zh: "AMC 最棘手概率题背后的通法：当一个过程一步步推进时，命名「状态」，写出概率如何在状态间流动，再求解。外加两个跳过代数的捷径：对称性与首步分析。" },
+  readingTime: { en: "~28 min deep read", zh: "约 28 分钟深读" },
+  sections: [
+
+  {
+    heading: { en: "0 · When a process unfolds in steps, think in states", zh: "0 · 当过程分步展开时，用「状态」思考" },
+    blocks: [
+      { type: "para", en: "Hard probability problems often describe a PROCESS: a token moving, a game repeating, a frog jumping. You can't list every path — there are too many. The fix: identify the small number of distinct SITUATIONS ('states') the process can be in, and track probability as it flows between them.",
+        zh: "难的概率题常描述一个「过程」：棋子移动、游戏重复、青蛙跳跃。你没法列出每条路径 —— 太多了。解法：找出过程可能处于的少数几个不同「局面」（「状态」），追踪概率在它们之间「流动」。" },
+      { type: "example", en: "A frog starts at 0 on a line, each second jumps \\(+1\\) or \\(-1\\) with equal chance. Probability it's back at 0 after 4 jumps? States = current position. Instead of \\(2^4=16\\) paths, track how the probability spreads over positions each second — far fewer numbers to manage.",
+        zh: "青蛙从数轴 0 出发，每秒等概率跳 \\(+1\\) 或 \\(-1\\)。跳 4 次后回到 0 的概率？状态 = 当前位置。与其枚举 \\(2^4=16\\) 条路径，不如追踪每秒概率在各位置上的「扩散」—— 要管理的数字少得多。" },
+      { type: "note", en: "The state discipline: (1) define what a 'state' is (position, score difference, how many things remain…), (2) find transition probabilities between states, (3) either march forward step by step, or write an equation if the process can loop. Choosing the RIGHT state variable is the whole art.",
+        zh: "状态方法的纪律：(1) 定义「状态」是什么（位置、比分差、还剩几个东西……），(2) 找出状态间的转移概率，(3) 要么一步步向前推进，要么在过程可能循环时写方程。选对「状态变量」就是全部的艺术。" }
+    ]
+  }
+  ]
+});
+
+/* ---------- 1. FIRST-STEP ANALYSIS ---------- */
+textbookData[5].sections.push({
+  heading: { en: "1 · First-step analysis — the loop-breaker", zh: "1 · 首步分析 —— 打破循环" },
+  blocks: [
+    { type: "para", en: "When a process can return to an earlier state, you can't march forward forever. Instead, condition on the FIRST step: let \\(p\\) be the probability you want, take one step, and express the remaining probability in terms of \\(p\\) itself (or a neighboring state). Solve the equation.",
+      zh: "当过程可能回到更早的状态时，你没法永远向前推。改为对「第一步」分类：令 \\(p\\) 为你要的概率，走一步，再把剩余概率用 \\(p\\) 自己（或相邻状态）表示。解那个方程。" },
+    { type: "step", n: "1", title: { en: "Gambler reaching a target", zh: "赌徒达到目标" },
+      en: "You have $2; each round you gain or lose $1 with equal chance; you stop at $0 (broke) or $4 (win). Probability you reach $4 first? Let \\(w_k\\) = win-probability from \\($k.\\) Then \\(w_k=\\tfrac12 w_{k-1}+\\tfrac12 w_{k+1},\\) with \\(w_0=0,w_4=1.\\) The solution is linear: \\(w_k=k/4,\\) so \\(w_2=\\tfrac12.\\)",
+      zh: "你有 2 元；每轮等概率赢或输 1 元；到 0 元（破产）或 4 元（赢）就停。先到 4 元的概率？令 \\(w_k\\) = 从 \\(k\\) 元出发获胜的概率。则 \\(w_k=\\tfrac12 w_{k-1}+\\tfrac12 w_{k+1}\\)，且 \\(w_0=0,w_4=1\\)。解是线性的：\\(w_k=k/4\\)，所以 \\(w_2=\\tfrac12\\)。" },
+    { type: "note", en: "This 'gambler's ruin' setup — reach A before B in a fair random walk — has the clean answer 'probability = fraction of the way there'. Starting at \\(k\\) between \\(0\\) and \\(N,\\) the probability of hitting \\(N\\) first is \\(k/N.\\) Worth remembering outright.",
+      zh: "这个「赌徒破产」模型 —— 在公平随机游走中先到 A 还是 B —— 有干净的答案「概率 = 走过的比例」。从 \\(0\\) 到 \\(N\\) 之间的 \\(k\\) 出发，先到 \\(N\\) 的概率是 \\(k/N\\)。值得直接记住。" },
+    { type: "ask", en: "Feel the loop-breaker: 'from here, take one step, then I'm in a known or symmetric situation.' Where have you seen the SAME equation before? (Concept 03's expected-rolls recursion — states and expectations share this one-step DNA.)",
+      zh: "感受这个「打破循环」：「从这里走一步，然后我就到了一个已知或对称的局面」。你在哪儿见过「同一个」方程？（知识点 03 的期望次数递推 —— 状态与期望共享这套「一步」的基因。）" }
+  ]
+});
+
+/* ---------- 2. SYMMETRY SHORTCUTS ---------- */
+textbookData[5].sections.push({
+  heading: { en: "2 · Symmetry — the shortcut that skips the algebra", zh: "2 · 对称性 —— 跳过代数的捷径" },
+  blocks: [
+    { type: "para", en: "Before setting up states, always ask: is there a symmetry that makes two outcomes EQUALLY likely? If so, you may read off the answer with no computation. Symmetry is the single biggest time-saver on AMC probability.",
+      zh: "在建立状态之前，永远先问：有没有一种对称，让两个结果「等可能」？如果有，你也许不用任何计算就能读出答案。对称性是 AMC 概率题最大的省时利器。" },
+    { type: "step", n: "1", title: { en: "Who is ahead?", zh: "谁领先？" },
+      en: "Two equally-skilled players play; by symmetry each is equally likely to win. If a problem asks 'probability A finishes ahead of B' and the setup is symmetric, the answer is \\(\\tfrac12\\) (minus half the tie probability if ties exist). No path-counting needed.",
+      zh: "两个实力相当的选手对局；由对称性，各自获胜等可能。若一道题问「A 领先 B 的概率」而局面对称，答案就是 \\(\\tfrac12\\)（若可能平局，再减去一半的平局概率）。不用数路径。" },
+    { type: "step", n: "2", title: { en: "Which comes first?", zh: "谁先出现？" },
+      en: "Shuffle a deck; what's the probability the ace of spades comes before the ace of hearts? By symmetry between the two cards, exactly \\(\\tfrac12.\\) Any 'is X before Y' among symmetric objects is \\(\\tfrac12\\) — a classic AMC one-liner.",
+      zh: "洗一副牌；黑桃 A 出现在红桃 A 之前的概率？由两张牌之间的对称，恰好 \\(\\tfrac12\\)。任何「X 是否在 Y 之前」的对称问题都是 \\(\\tfrac12\\) —— 经典的 AMC 一行秒杀。" },
+    { type: "note", en: "Symmetry checklist: are two players / two cards / two directions interchangeable with no bias? If yes, equally likely. This also slashes state problems in half — a symmetric random walk visits \\(+d\\) and \\(-d\\) with equal probability, so you only track distance, not sign.",
+      zh: "对称性清单：两个选手 / 两张牌 / 两个方向，是否可无偏差地互换？若是，则等可能。这也能把状态问题砍半 —— 对称随机游走以相等概率到达 \\(+d\\) 和 \\(-d\\)，所以你只需追踪「距离」，不必管符号。" }
+  ]
+});
+
+/* ---------- 3. WORKED + SELF-CHECK ---------- */
+textbookData[5].sections.push({
+  heading: { en: "3 · Worked examples & self-check", zh: "3 · 例题精讲与自我检测" },
+  blocks: [
+    { type: "step", n: "1", title: { en: "State march: return to start", zh: "状态推进：回到起点" },
+      en: "Frog at 0 jumps \\(\\pm1\\) equally, 4 jumps. \\(P(\\text{back at }0)\\)? Paths returning to 0 need two \\(+1\\) and two \\(-1:\\) \\(\\binom42/2^4=6/16=3/8.\\) (State-marching gives the same; the binomial is the shortcut here.)",
+      zh: "青蛙在 0 处等概率跳 \\(\\pm1\\)，跳 4 次。\\(P(\\text{回到 }0)\\)？回到 0 的路径需两个 \\(+1\\) 两个 \\(-1\\)：\\(\\binom42/2^4=6/16=3/8\\)。（状态推进给出相同结果；此处二项式是捷径。）" },
+    { type: "step", n: "2", title: { en: "First-step: escape time as probability", zh: "首步：用概率求逃脱" },
+      en: "From $1, gain/lose $1 fairly, stop at $0 or $3. Probability of reaching $3 first? Gambler's ruin: \\(1/3.\\) One equation, no enumeration.",
+      zh: "从 1 元出发，公平地赢/输 1 元，到 0 元或 3 元停。先到 3 元的概率？赌徒破产：\\(1/3\\)。一个方程，无需枚举。" },
+    { type: "divider" },
+    { type: "step", n: "Q1", title: { en: "Symmetry", zh: "对称" },
+      en: "Two evenly-matched teams play a game that cannot tie. Probability team A wins?",
+      zh: "两支势均力敌、不会平局的队伍比赛。A 队获胜的概率？" },
+    { type: "step", n: "Q2", title: { en: "Before/after", zh: "先后" },
+      en: "In a random shuffle of a deck, probability the ♠A appears before the ♥A?",
+      zh: "随机洗牌，♠A 出现在 ♥A 之前的概率？" },
+    { type: "step", n: "Q3", title: { en: "Gambler's ruin", zh: "赌徒破产" },
+      en: "Start at $3 of a $0–$5 game, fair \\(\\pm\\$1\\) steps. Probability of hitting $5 before $0?",
+      zh: "在 0–5 元的游戏中从 3 元出发，公平地 \\(\\pm1\\) 元。先到 5 元（而非 0 元）的概率？" },
+    { type: "divider" },
+    { type: "note", en: "Answers. Q1: \\(\\tfrac12.\\)  Q2: \\(\\tfrac12.\\)  Q3: \\(k/N=3/5.\\)",
+      zh: "答案。Q1：\\(\\tfrac12\\)。 Q2：\\(\\tfrac12\\)。 Q3：\\(k/N=3/5\\)。" },
+    { type: "note", en: "One-line summary of Concept 06: for a step-by-step process, name the states and let probability flow; if it can loop, break it with first-step analysis; and ALWAYS check for a symmetry that hands you \\(\\tfrac12\\) or \\(k/N\\) for free. Together with Concepts 04–05, this closes the loop on AMC 21–25 counting & probability.",
+      zh: "知识点 06 一句话总结：对分步过程，命名状态、让概率流动；若可能循环，用首步分析打破它；并「永远」检查是否有对称性直接白送你 \\(\\tfrac12\\) 或 \\(k/N\\)。它与知识点 04–05 一起，闭合了 AMC 第 21–25 题的计数与概率。" }
+  ]
+});
