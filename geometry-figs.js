@@ -371,4 +371,51 @@ FIG.shoelace = `<svg viewBox="0 0 300 240" role="img" aria-label="Coordinate tri
 <text class="lbl-ang" x="70" y="118">[ABC] = &#189;|x&#8321;(y&#8322;&#8722;y&#8323;)+&#8230;|</text>
 </svg>`;
 
+
+/* ===== Day 7 — Menelaus' Theorem 专属图 ===== */
+
+/* 梅涅劳斯定理主图：横截线 ℓ 穿过三角形 ABC 三边所在直线，交于 D(BC上)、E(CA上)、F(AB延长线上) */
+FIG.menelaus_main = `<svg viewBox="0 0 380 250" role="img" aria-label="Menelaus theorem: a transversal crossing the three sides of triangle ABC">
+<polygon class="f-fill" points="120,40 60,190 280,190"/>
+<polygon class="s-main" points="120,40 60,190 280,190"/>
+<line class="s-thin" x1="280" y1="190" x2="360" y2="190"/>
+<line class="s-hi" x1="150" y1="30" x2="350" y2="205"/>
+<circle class="pt" cx="120" cy="40" r="3"/><text class="lbl" x="112" y="32">A</text>
+<circle class="pt" cx="60" cy="190" r="3"/><text class="lbl" x="46" y="205">B</text>
+<circle class="pt" cx="280" cy="190" r="3"/><text class="lbl" x="284" y="205">C</text>
+<circle class="pt-hi" cx="168" cy="112" r="3"/><text class="lbl" x="150" y="108">F</text>
+<circle class="pt-hi" cx="205" cy="145" r="3"/><text class="lbl" x="210" y="140">E</text>
+<circle class="pt-hi" cx="332" cy="190" r="3"/><text class="lbl" x="330" y="206">D</text>
+<text class="lbl-len" x="128" y="82">AF</text>
+<text class="lbl-len" x="95" y="150">FB</text>
+<text class="lbl-len" x="235" y="160">EC</text>
+<text class="lbl-len" x="168" y="130">AE</text>
+<text class="lbl-len" x="300" y="205">CD</text>
+<text class="lbl-ang" x="70" y="230">AF/FB · BD/DC · CE/EA = 1</text>
+</svg>`;
+
+/* 梅涅劳斯 vs 塞瓦 对偶：同一个三角形，塞瓦=三线共点(内)，梅涅劳斯=三点共线(截) */
+FIG.menelaus_ceva = `<svg viewBox="0 0 380 240" role="img" aria-label="Menelaus versus Ceva duality">
+<polygon class="f-fill2" points="90,30 40,200 200,200"/>
+<polygon class="s-main" points="90,30 40,200 200,200"/>
+<line class="s-hi" x1="90" y1="30" x2="120" y2="200"/>
+<line class="s-hi" x1="40" y1="200" x2="150" y2="110"/>
+<line class="s-hi" x1="200" y1="200" x2="66" y2="118"/>
+<circle class="pt-hi" cx="103" cy="128" r="3"/>
+<circle class="pt" cx="90" cy="30" r="3"/><text class="lbl" x="82" y="22">A</text>
+<circle class="pt" cx="40" cy="200" r="3"/><text class="lbl" x="26" y="214">B</text>
+<circle class="pt" cx="200" cy="200" r="3"/><text class="lbl" x="204" y="214">C</text>
+<text class="lbl-ang" x="70" y="230">Ceva：三线共点 (=1)</text>
+<polygon class="s-main" points="300,30 250,200 360,180"/>
+<line class="s-thin" x1="250" y1="200" x2="360" y2="180"/>
+<line class="s-hi" x1="285" y1="20" x2="375" y2="210"/>
+<circle class="pt" cx="300" cy="30" r="3"/><text class="lbl" x="292" y="22">A</text>
+<circle class="pt" cx="250" cy="200" r="3"/><text class="lbl" x="236" y="214">B</text>
+<circle class="pt" cx="360" cy="180" r="3"/><text class="lbl" x="364" y="184">C</text>
+<circle class="pt-hi" cx="322" cy="97" r="3"/>
+<circle class="pt-hi" cx="332" cy="128" r="3"/>
+<circle class="pt-hi" cx="357" cy="192" r="3"/>
+<text class="lbl-ang" x="250" y="230">Menelaus：三点共线 (=1)</text>
+</svg>`;
+
 if (typeof module !== "undefined" && module.exports) module.exports = FIG;
