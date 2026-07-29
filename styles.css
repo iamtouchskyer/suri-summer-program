@@ -767,3 +767,37 @@ box-shadow: 0 2px 0 var(--ink); margin-right: 4px;
   border-left-color: var(--line);
 }
 
+
+/* —— 导航分组：教材 vs 每日课堂，视觉上平行而非从属 —— */
+.day-nav { align-items: center; }
+.nav-group { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.nav-cat {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+  padding-right: 2px;
+  white-space: nowrap;
+  user-select: none;
+}
+.nav-div {
+  width: 1.5px;
+  align-self: stretch;
+  min-height: 22px;
+  background: var(--line);
+  margin: 0 6px;
+  border-radius: 1px;
+}
+/* 总览与后面的分组拉开距离，强调它是"离开本页" */
+.day-nav a.nav-summer { margin-right: 14px; }
+/* 教材类别入口：略强调，和普通日期按钮区分开 */
+.nav-textbook { margin: 0 !important; }
+.nav-textbook.active { background: var(--ink, #1a1a2e); color: #fff; }
+
+@media (max-width: 720px) {
+  .nav-cat { display: none; }
+  .nav-div { margin: 0 4px; }
+  .day-nav a.nav-summer { margin-right: 8px; }
+}

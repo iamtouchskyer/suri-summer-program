@@ -42,6 +42,8 @@ const UI = {
   source:           { en: "Source", zh: "出处" },
   tapToOpen:        { en: "tap to open", zh: "点击展开讲解" },
   navTextbook:      { en: "Textbook", zh: "教材" },
+  navDailyLabel:    { en: "Daily", zh: "每日课堂" },
+  navConceptLabel:  { en: "Concept", zh: "知识点教材" },
   tbEyebrow:        { en: "Deep concept lesson", zh: "知识点 · 深度精讲" },
   tbBackToDays:     { en: "Back to daily classes", zh: "返回每日一课" },
   tbIndex:          { en: "In this lesson", zh: "本课目录" },
@@ -55,11 +57,35 @@ const ui = (k) => t(UI[k]);
 
 function buildNav() {
   const nav = document.getElementById("dayNav");
-  var spBtn = '<a class="nav-summer" href="index.html">'+(lang==="zh"?"🏠 总览":"🏠 Home")+'</a>';
-  var tbBtn = (typeof textbookData !== "undefined" && textbookData.length)
-    ? '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>' : "";
-  var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
-  nav.innerHTML = spBtn + tbBtn + dayBtns;
+  var hasTb = (typeof textbookData !== "undefined" && textbookData.length);
+  var hasDays = (typeof courseData !== "undefined" && courseData.days && courseData.days.length);
+
+  // 总览：离开本页，单独一组，最左
+  var spBtn = '<a class="nav-summer" href="index.html">'+(lang==="zh"?"总览":"Home")+'</a>';
+
+  // 教材组：类别入口
+  var tbGroup = "";
+  if (hasTb) {
+    tbGroup = '<span class="nav-group nav-group-tb">'
+      + '<span class="nav-cat">'+ui("navConceptLabel")+'</span>'
+      + '<button class="nav-textbook" data-tb="index">'+ui("navTextbook")+'</button>'
+      + '</span>';
+  }
+
+  // 每日组：日期按钮
+  var dayGroup = "";
+  if (hasDays) {
+    var dayBtns = courseData.days.map(function(d, i){ return '<button data-i="'+i+'">'+t(d.date)+'</button>'; }).join("");
+    dayGroup = '<span class="nav-group nav-group-day">'
+      + '<span class="nav-cat">'+ui("navDailyLabel")+'</span>'
+      + dayBtns
+      + '</span>';
+  }
+
+  // 分隔线只在两组都存在时出现
+  var divider = (hasTb && hasDays) ? '<span class="nav-div" aria-hidden="true"></span>' : "";
+
+  nav.innerHTML = spBtn + tbGroup + divider + dayGroup;
   nav.querySelectorAll("button[data-i]").forEach(function(btn){ btn.addEventListener("click", function(){ selectDay(+btn.dataset.i); }); });
   var tb = nav.querySelector("button[data-tb]");
   if (tb) tb.addEventListener("click", function(){ openTextbookIndex(); });
