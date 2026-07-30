@@ -601,3 +601,362 @@ textbookData.push({
   ]
 });
 
+
+/* ============ PROBLEM 8 · Quadrilateral with two right triangles (Pythagorean chain) ============ */
+textbookData.push({
+  id: "p-quad",
+  badge: { en: "Challenge · Problem 08", zh: "压轴 · 第 08 题" },
+  title: { en: "Quadrilateral perimeter — chain two right triangles", zh: "四边形周长 —— 串起两个直角三角形" },
+  subtitle: { en: "A quadrilateral with one unknown side. The move is to spot the HIDDEN diagonal that splits it into two right triangles, then let the shared diagonal pass the Pythagorean theorem from one triangle to the next.",
+              zh: "一个只缺一条边的四边形。关键动作是找到那条「隐藏的对角线」，它把图形切成两个直角三角形，然后让这条「公共对角线」把勾股定理从一个三角形「传」到下一个。" },
+  readingTime: { en: "~12 min · AMC10-level", zh: "约 12 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "In quadrilateral \\(ABCD\\), \\(\\angle B\\) is a right angle, diagonal \\(\\overline{AC}\\) is perpendicular to \\(\\overline{CD}\\), \\(AB=18,\\ BC=21,\\) and \\(CD=14.\\) Find the perimeter of \\(ABCD.\\)",
+        zh: "四边形 \\(ABCD\\) 中，\\(\\angle B\\) 为直角，对角线 \\(\\overline{AC}\\) 垂直于 \\(\\overline{CD}\\)，\\(AB=18,\\ BC=21,\\ CD=14\\)。求 \\(ABCD\\) 的周长。" },
+      { type: "note", en: "Perimeter needs all four sides. We already have \\(AB, BC, CD\\); only \\(AD\\) is missing. The two right-angle facts are the gift — they tell us exactly where the right triangles are.",
+        zh: "周长需要四条边。我们已有 \\(AB, BC, CD\\)；只缺 \\(AD\\)。两个直角条件就是礼物 —— 它们精确地告诉我们直角三角形在哪里。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–3 · Hear, spot & split", zh: "第一～三步 · 听、识破 & 拆解" },
+    blocks: [
+      { type: "para", en: "Keyword radar: two separate 'perpendicular' facts (\\(\\angle B=90^\\circ\\) and \\(AC\\perp CD\\)). Two right angles almost never appear by accident — they mark two right triangles. What do they SHARE? The segment \\(AC\\). That shared diagonal is the bridge.",
+        zh: "关键词雷达：两个独立的「垂直」条件（\\(\\angle B=90^\\circ\\) 与 \\(AC\\perp CD\\)）。两个直角几乎从不偶然出现 —— 它们标记着两个直角三角形。它们「共享」什么？线段 \\(AC\\)。这条公共对角线就是桥梁。" },
+      { type: "table",
+        head: { en: ["Right triangle", "Legs", "Hypotenuse / target"], zh: ["直角三角形", "两直角边", "斜边 / 目标"] },
+        rows: {
+          en: [
+            ["\\(\\triangle ABC\\) (right at \\(B\\))", "\\(AB=18,\\ BC=21\\)", "\\(AC=?\\)"],
+            ["\\(\\triangle ACD\\) (right at \\(C\\))", "\\(AC,\\ CD=14\\)", "\\(AD=?\\)"]
+          ],
+          zh: [
+            ["\\(\\triangle ABC\\)（\\(B\\) 处直角）", "\\(AB=18,\\ BC=21\\)", "\\(AC=?\\)"],
+            ["\\(\\triangle ACD\\)（\\(C\\) 处直角）", "\\(AC,\\ CD=14\\)", "\\(AD=?\\)"]
+          ]
+        }
+      },
+      { type: "note", en: "See the relay: \\(AC\\) is the HYPOTENUSE of the first triangle and a LEG of the second. Compute it once, then hand it forward. This 'compute the diagonal, then reuse it' is the signature of chained-right-triangle problems.",
+        zh: "看这个接力：\\(AC\\) 是第一个三角形的「斜边」，又是第二个三角形的「直角边」。算一次，然后传给下一棒。这个「先算对角线、再复用」正是「直角三角形链」类题目的标志。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · Method & execute", zh: "第四、五步 · 选方法 & 执行" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Diagonal AC from triangle ABC", zh: "由三角形 ABC 求对角线 AC" },
+        en: "\\(AC^2 = AB^2+BC^2 = 18^2+21^2 = 324+441 = 765.\\)\n(Keep it squared — we don't even need the messy square root yet.)",
+        zh: "\\(AC^2 = AB^2+BC^2 = 18^2+21^2 = 324+441 = 765\\)。\n（保持平方形式 —— 我们现在甚至不需要那个丑陋的根号。）" },
+      { type: "step", n: "2", title: { en: "Side AD from triangle ACD", zh: "由三角形 ACD 求边 AD" },
+        en: "\\(AD^2 = AC^2 + CD^2 = 765 + 14^2 = 765 + 196 = 961.\\)\n\\(AD = \\sqrt{961} = 31.\\) (A clean integer — that's the design telling you you're right.)",
+        zh: "\\(AD^2 = AC^2 + CD^2 = 765 + 14^2 = 765 + 196 = 961\\)。\n\\(AD = \\sqrt{961} = 31\\)。（一个干净的整数 —— 这是出题设计在告诉你：你做对了。）" },
+      { type: "step", n: "3", title: { en: "Add the four sides", zh: "四边相加" },
+        en: "Perimeter \\(= AB+BC+CD+DA = 18+21+14+31 = 84.\\)",
+        zh: "周长 \\(= AB+BC+CD+DA = 18+21+14+31 = 84\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\text{perimeter} = 84\\ } \\]" },
+      { type: "note", en: "Notice we NEVER computed \\(\\sqrt{765}\\). Keeping \\(AC^2\\) as a number let it flow straight into the next Pythagorean step. Lesson: when a length is only an intermediate, carry its SQUARE — the ugly radical often cancels or resolves cleanly at the end.",
+        zh: "注意我们从头到尾没算过 \\(\\sqrt{765}\\)。把 \\(AC^2\\) 当成一个数保留，让它直接流入下一步勾股。教训：当一个长度只是中间量时，带着它的「平方」走 —— 那个丑陋的根号往往会在最后被约掉，或干净地化开。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "In quadrilateral \\(PQRS\\), \\(\\angle Q=90^\\circ\\), diagonal \\(PR\\perp RS\\), \\(PQ=9,\\ QR=12,\\ RS=8.\\) Find the perimeter. Same relay: get \\(PR^2\\) from \\(\\triangle PQR\\), then \\(PS\\) from \\(\\triangle PRS\\).",
+        zh: "四边形 \\(PQRS\\) 中，\\(\\angle Q=90^\\circ\\)，对角线 \\(PR\\perp RS\\)，\\(PQ=9,\\ QR=12,\\ RS=8\\)。求周长。同样的接力：由 \\(\\triangle PQR\\) 得 \\(PR^2\\)，再由 \\(\\triangle PRS\\) 得 \\(PS\\)。" },
+      { type: "note", en: "Check (fold away): \\(PR^2=81+144=225,\\ PS^2=225+64=289,\\ PS=17.\\) Perimeter \\(=9+12+8+17=46.\\)",
+        zh: "对答案（先盖住）：\\(PR^2=81+144=225,\\ PS^2=225+64=289,\\ PS=17\\)。周长 \\(=9+12+8+17=46\\)。" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 9 · Rotated square between two squares (coordinate bash) ============ */
+textbookData.push({
+  id: "p-rotsq",
+  badge: { en: "Challenge · Problem 09", zh: "压轴 · 第 09 题" },
+  title: { en: "The tilted square — when in doubt, use coordinates", zh: "倾斜的正方形 —— 拿不准时，上坐标" },
+  subtitle: { en: "A picture-heavy geometry problem where 'seeing' the answer is hard. The reliable weapon: drop a coordinate grid, write the tilted square's edge as a LINE, and force it through the contact point. Algebra replaces spatial intuition.",
+              zh: "一道图形复杂、靠「看」很难看出答案的几何题。可靠的武器：铺一张坐标网格，把倾斜正方形的边写成一条「直线」，让它强行过接触点。用代数代替空间直觉。" },
+  readingTime: { en: "~14 min · AMC10-level", zh: "约 14 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "Three one-inch squares sit with their bases on a line. The center square is lifted out, rotated \\(45^\\circ\\), then centered and lowered back until it TOUCHES both adjoining squares. How many inches is the top point \\(B\\) of the tilted square above the base line?",
+        zh: "三个边长 1 英寸的正方形，底边都在一条直线上。中间的正方形被取出、旋转 \\(45^\\circ\\)，再居中放回、向下降到「同时接触」两侧的正方形。倾斜正方形的顶点 \\(B\\) 距离底线多少英寸？" },
+      { type: "note", en: "Rotated \\(45^\\circ\\), a unit square becomes a diamond whose diagonals are both \\(\\sqrt2\\) long (one vertical, one horizontal). The diamond drops until its two lower edges rest on the top inner CORNERS of the side squares. Where exactly does it stop? Hard to eyeball — so let's compute.",
+        zh: "旋转 \\(45^\\circ\\) 后，单位正方形变成一个菱形，两条对角线都是 \\(\\sqrt2\\)（一竖一横）。菱形下降，直到它的两条下边搁在两侧正方形的「上内角」上。它究竟停在哪？靠眼睛看很难 —— 所以我们来算。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–3 · Set up coordinates", zh: "第一～三步 · 建立坐标" },
+    blocks: [
+      { type: "para", en: "Keyword: a tilted figure resting on fixed corners, asking for an exact height. When intuition stalls, coordinates never do. Put the base line as \\(y=0\\), and center everything on the \\(y\\)-axis by symmetry.",
+        zh: "关键词：一个倾斜图形搁在固定的角上，求精确高度。当直觉卡住时，坐标永远不会卡。把底线设为 \\(y=0\\)，由对称性让一切都以 \\(y\\) 轴为中心。" },
+      { type: "fig", svg: "<svg viewBox='0 0 300 170' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='两个单位正方形之间搁着一个旋转45度的菱形，标出接触角与顶点B'><defs><style>.sq{stroke:#4a4a44;stroke-width:1.6;fill:#e9dcc2;opacity:.5}.dm{stroke:#b5471f;stroke-width:2;fill:#b5471f;fill-opacity:.1}.ln{stroke:#4a4a44;stroke-width:1.6}.pt{fill:#b5471f}.lbl{font:600 12px 'Fraunces',serif;fill:#4a4a44}.lbl2{font:600 12px 'Fraunces',serif;fill:#b5471f}</style></defs><line class='ln' x1='10' y1='140' x2='290' y2='140'/><rect class='sq' x='40' y='90' width='50' height='50'/><rect class='sq' x='210' y='90' width='50' height='50'/><polygon class='dm' points='150,40 185,90 150,140 115,90'/><circle class='pt' cx='90' cy='90' r='3.5'/><circle class='pt' cx='210' cy='90' r='3.5'/><circle class='pt' cx='150' cy='40' r='3.5'/><text class='lbl2' x='150' y='34'>B</text><text class='lbl' x='72' y='84'>(½,1)</text><text class='lbl' x='214' y='84'>(−½,1)</text><text class='lbl' x='150' y='158'>base line y=0</text></svg>" },
+      { type: "note", en: "By symmetry the diamond's center sits on the \\(y\\)-axis at height \\(y_c\\). Its four vertices are at \\((0,y_c\\pm\\tfrac{\\sqrt2}{2})\\) and \\((\\pm\\tfrac{\\sqrt2}{2},y_c)\\), since each half-diagonal is \\(\\tfrac{\\sqrt2}{2}\\). Point \\(B\\) is the TOP vertex \\((0,\\,y_c+\\tfrac{\\sqrt2}{2}).\\)",
+        zh: "由对称性，菱形中心位于 \\(y\\) 轴、高度 \\(y_c\\) 处。四个顶点在 \\((0,y_c\\pm\\tfrac{\\sqrt2}{2})\\) 与 \\((\\pm\\tfrac{\\sqrt2}{2},y_c)\\)，因为每条半对角线都是 \\(\\tfrac{\\sqrt2}{2}\\)。点 \\(B\\) 是「顶」顶点 \\((0,\\,y_c+\\tfrac{\\sqrt2}{2})\\)。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · The contact condition & execute", zh: "第四、五步 · 接触条件 & 执行" },
+    blocks: [
+      { type: "para", en: "The two side squares have inner top corners at \\((\\tfrac12,1)\\) and \\((-\\tfrac12,1).\\) The diamond stops when its lower-right EDGE passes through \\((\\tfrac12,1).\\)",
+        zh: "两侧正方形的上内角在 \\((\\tfrac12,1)\\) 与 \\((-\\tfrac12,1)\\)。当菱形的「右下边」经过 \\((\\tfrac12,1)\\) 时，它停止下降。" },
+      { type: "step", n: "1", title: { en: "Equation of the lower-right edge", zh: "右下边的直线方程" },
+        en: "That edge runs from the bottom vertex \\((0,\\,y_c-\\tfrac{\\sqrt2}{2})\\) up to the right vertex \\((\\tfrac{\\sqrt2}{2},\\,y_c),\\) with slope \\(+1.\\) Its line is\n\\(y = (y_c-\\tfrac{\\sqrt2}{2}) + x.\\)",
+        zh: "这条边从下顶点 \\((0,\\,y_c-\\tfrac{\\sqrt2}{2})\\) 上升到右顶点 \\((\\tfrac{\\sqrt2}{2},\\,y_c)\\)，斜率为 \\(+1\\)。其方程为\n\\(y = (y_c-\\tfrac{\\sqrt2}{2}) + x\\)。" },
+      { type: "step", n: "2", title: { en: "Force it through the corner (½,1)", zh: "让它过角点 (½,1)" },
+        en: "Plug in \\(x=\\tfrac12,\\ y=1:\\)\n\\(1 = y_c - \\tfrac{\\sqrt2}{2} + \\tfrac12 \\Rightarrow y_c = \\tfrac12 + \\tfrac{\\sqrt2}{2}.\\)",
+        zh: "代入 \\(x=\\tfrac12,\\ y=1\\)：\n\\(1 = y_c - \\tfrac{\\sqrt2}{2} + \\tfrac12 \\Rightarrow y_c = \\tfrac12 + \\tfrac{\\sqrt2}{2}\\)。" },
+      { type: "step", n: "3", title: { en: "Height of B", zh: "B 的高度" },
+        en: "\\(B_y = y_c + \\tfrac{\\sqrt2}{2} = \\tfrac12 + \\tfrac{\\sqrt2}{2} + \\tfrac{\\sqrt2}{2} = \\tfrac12 + \\sqrt2.\\)",
+        zh: "\\(B_y = y_c + \\tfrac{\\sqrt2}{2} = \\tfrac12 + \\tfrac{\\sqrt2}{2} + \\tfrac{\\sqrt2}{2} = \\tfrac12 + \\sqrt2\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ B = \\sqrt2 + \\tfrac12\\ } \\]" },
+      { type: "note", en: "No clever auxiliary line, no similar triangles to guess — just a grid, one edge written as \\(y=x+b\\), and one substitution. Lesson: for 'resting/tangent at an awkward angle' problems, coordinate bash is not inelegant — it is the fastest safe path. Always have it in your pocket.",
+        zh: "没有巧妙的辅助线，没有要猜的相似三角形 —— 只有一张网格、一条写成 \\(y=x+b\\) 的边、一次代入。教训：对于「以别扭角度搁置/相切」的问题，坐标暴力法并不「不优雅」—— 它是最快的稳妥路径。口袋里永远备着它。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "Same three-square setup, but the side squares have side length \\(1\\) and are spaced so their inner top corners are at \\((\\pm 1, 1)\\) instead of \\((\\pm\\tfrac12,1).\\) Find the new height of \\(B.\\) (Redo the substitution with \\(x=1,\\ y=1.\\))",
+        zh: "同样的三正方形构型，但两侧正方形间距更大，上内角在 \\((\\pm 1, 1)\\) 而非 \\((\\pm\\tfrac12,1)\\)。求 \\(B\\) 的新高度。（用 \\(x=1,\\ y=1\\) 重做那次代入。）" },
+      { type: "note", en: "Check (fold away): \\(1 = y_c-\\tfrac{\\sqrt2}{2}+1\\Rightarrow y_c=\\tfrac{\\sqrt2}{2}.\\) Then \\(B_y=y_c+\\tfrac{\\sqrt2}{2}=\\sqrt2.\\) (Wider gap ⟹ diamond sinks lower ⟹ smaller height. Makes sense.)",
+        zh: "对答案（先盖住）：\\(1 = y_c-\\tfrac{\\sqrt2}{2}+1\\Rightarrow y_c=\\tfrac{\\sqrt2}{2}\\)。则 \\(B_y=y_c+\\tfrac{\\sqrt2}{2}=\\sqrt2\\)。（间距更大 ⟹ 菱形沉得更低 ⟹ 高度更小。合理。）" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 10 · AP becomes GP (translate words to equations) ============ */
+textbookData.push({
+  id: "p-apgp",
+  badge: { en: "Challenge · Problem 10", zh: "压轴 · 第 10 题" },
+  title: { en: "Arithmetic → Geometric — turn two sequence facts into one equation", zh: "等差变等比 —— 把两个数列条件拧成一个方程" },
+  subtitle: { en: "Two sequence conditions stacked on top of each other. The skill is disciplined TRANSLATION: name the terms with one variable, write each condition as algebra, and a quadratic falls out. Then don't forget — 'smallest' means check BOTH roots.",
+              zh: "两个数列条件叠在一起。技巧是有纪律的「翻译」：用一个变量命名各项，把每个条件写成代数式，一个二次方程就掉出来了。然后别忘了 —— 「最小」意味着要检验「两个」根。" },
+  readingTime: { en: "~13 min · AMC10-level", zh: "约 13 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "A sequence of three real numbers forms an arithmetic progression (AP) with first term \\(9.\\) If \\(2\\) is added to the second term and \\(20\\) is added to the third term, the three resulting numbers form a geometric progression (GP). What is the SMALLEST possible value for the third term of the geometric progression?",
+        zh: "三个实数构成一个等差数列（AP），首项为 \\(9\\)。若给第二项加 \\(2\\)、给第三项加 \\(20\\)，得到的三个数构成一个等比数列（GP）。求这个等比数列第三项的「最小」可能值。" },
+      { type: "note", en: "Two structures, one problem: it STARTS arithmetic and BECOMES geometric. The bridge is a single unknown — the common difference \\(d.\\) Name it, and both structures become equations in \\(d.\\)",
+        zh: "两个结构，一道题：它「开始」是等差，「变成」等比。桥梁是单个未知量 —— 公差 \\(d\\)。给它命名，两个结构就都变成关于 \\(d\\) 的方程。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–3 · Translate to algebra", zh: "第一～三步 · 翻译成代数" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Name the AP", zh: "命名等差数列" },
+        en: "First term \\(9\\), common difference \\(d\\): the three terms are \\(9,\\ 9+d,\\ 9+2d.\\)",
+        zh: "首项 \\(9\\)，公差 \\(d\\)：三项为 \\(9,\\ 9+d,\\ 9+2d\\)。" },
+      { type: "step", n: "2", title: { en: "Build the GP", zh: "构造等比数列" },
+        en: "Add \\(2\\) to the second and \\(20\\) to the third:\n\\(9,\\quad 11+d,\\quad 29+2d.\\)",
+        zh: "第二项加 \\(2\\)、第三项加 \\(20\\)：\n\\(9,\\quad 11+d,\\quad 29+2d\\)。" },
+      { type: "step", n: "3", title: { en: "Write the GP condition", zh: "写出等比条件" },
+        en: "In a GP, the middle term SQUARED equals the product of the outer two:\n\\((11+d)^2 = 9\\,(29+2d).\\)",
+        zh: "在等比数列中，中项的「平方」等于两端项之积：\n\\((11+d)^2 = 9\\,(29+2d)\\)。" },
+      { type: "note", en: "That one line \\(b^2=ac\\) is the entire content of 'geometric'. Whenever three quantities are told to be in GP, this is the equation to write. (Just as 'in AP' means \\(2b=a+c.\\))",
+        zh: "\\(b^2=ac\\) 这一行就是「等比」的全部内涵。每当三个量被告知成等比，就写这个方程。（正如「成等差」意味着 \\(2b=a+c\\)。）" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · Solve & pick the smallest", zh: "第四、五步 · 求解 & 取最小" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Expand into a quadratic", zh: "展开成二次方程" },
+        en: "\\((11+d)^2 = 9(29+2d)\\)\n\\(121 + 22d + d^2 = 261 + 18d\\)\n\\(d^2 + 4d - 140 = 0.\\)",
+        zh: "\\((11+d)^2 = 9(29+2d)\\)\n\\(121 + 22d + d^2 = 261 + 18d\\)\n\\(d^2 + 4d - 140 = 0\\)。" },
+      { type: "step", n: "2", title: { en: "Factor", zh: "因式分解" },
+        en: "\\((d+14)(d-10)=0 \\Rightarrow d = -14\\ \\text{or}\\ d = 10.\\)",
+        zh: "\\((d+14)(d-10)=0 \\Rightarrow d = -14\\ \\text{或}\\ d = 10\\)。" },
+      { type: "step", n: "3", title: { en: "Two candidates for the third GP term", zh: "等比第三项的两个候选" },
+        en: "Third GP term \\(=29+2d.\\)\n\\u2022 \\(d=10:\\ 29+20 = 49.\\)\n\\u2022 \\(d=-14:\\ 29-28 = 1.\\)\nThe SMALLEST is \\(1.\\)",
+        zh: "等比第三项 \\(=29+2d\\)。\n\\u2022 \\(d=10:\\ 29+20 = 49\\)。\n\\u2022 \\(d=-14:\\ 29-28 = 1\\)。\n最小者为 \\(1\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\text{smallest third term} = 1\\ } \\]" },
+      { type: "note", en: "The trap that eats points: solving the quadratic, seeing \\(d=10\\) gives a nice \\(49\\), and stopping. The word 'smallest' is a flashing signal to check the OTHER root — which gives \\(1.\\) Whenever a quadratic yields two valid solutions, the words 'smallest / largest / all values' mean BOTH must be evaluated.",
+        zh: "吃分的陷阱：解出二次方程，看到 \\(d=10\\) 给出漂亮的 \\(49\\)，就停了。「最小」这个词是一个闪烁的信号，提醒你检查「另一个」根 —— 它给出 \\(1\\)。每当二次方程给出两个有效解，「最小 / 最大 / 所有值」这些词就意味着「两个都要」代入求值。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "Three numbers form an AP with first term \\(5.\\) Adding \\(3\\) to the second term and \\(9\\) to the third gives a GP. Find BOTH possible values of the third GP term. Same steps: terms \\(5,5+d,5+2d\\to 5,8+d,14+2d\\); set \\((8+d)^2=5(14+2d).\\)",
+        zh: "三个数构成首项为 \\(5\\) 的等差数列。给第二项加 \\(3\\)、第三项加 \\(9\\) 得到等比数列。求等比第三项的「两个」可能值。同样步骤：各项 \\(5,5+d,5+2d\\to 5,8+d,14+2d\\)；令 \\((8+d)^2=5(14+2d)\\)。" },
+      { type: "note", en: "Check (fold away): \\(64+16d+d^2=70+10d\\Rightarrow d^2+6d-6=0\\Rightarrow d=-3\\pm\\sqrt{15}.\\) Third term \\(=14+2d=8\\pm2\\sqrt{15}.\\) (Two irrational values — the design won't always give clean integers, so trust the algebra.)",
+        zh: "对答案（先盖住）：\\(64+16d+d^2=70+10d\\Rightarrow d^2+6d-6=0\\Rightarrow d=-3\\pm\\sqrt{15}\\)。第三项 \\(=14+2d=8\\pm2\\sqrt{15}\\)。（两个无理值 —— 出题不总给干净整数，所以要相信代数。）" }
+    ]
+  }
+  ]
+});
+
+/* ============ PROBLEM 11 · Product = 6×sum, one integer = sum of other two ============ */
+textbookData.push({
+  id: "p-prodsum",
+  badge: { en: "Challenge · Problem 11", zh: "压轴 · 第 11 题" },
+  title: { en: "Product = 6 × sum — let the condition collapse a variable", zh: "积 = 6 × 和 —— 让条件替你消掉一个变量" },
+  subtitle: { en: "A number-theory word problem with three unknowns. The winning move is to feed one condition INTO the other so a whole variable disappears, leaving a simple 'find integer pairs whose product is fixed' hunt.",
+              zh: "一道三未知量的数论应用题。制胜之道是把一个条件「喂进」另一个，让一整个变量消失，只剩一个简单的「找乘积固定的整数对」搜寻。" },
+  readingTime: { en: "~13 min · AMC10-level", zh: "约 13 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "The product \\(N\\) of three positive integers is \\(6\\) times their sum, and one of the integers is the sum of the other two. Find the SUM of all possible values of \\(N.\\)",
+        zh: "三个正整数的乘积 \\(N\\) 是它们之和的 \\(6\\) 倍，且其中一个整数等于另外两个之和。求 \\(N\\) 的所有可能值之「和」。" },
+      { type: "note", en: "Three unknowns, two conditions. That's usually enough to reduce to a finite search. The clever part: the second condition ('one is the sum of the other two') is a substitution waiting to happen.",
+        zh: "三个未知量，两个条件。这通常足以把问题缩减为一个有限搜索。巧妙之处：第二个条件（「一个等于另两个之和」）是一个「等着被代入」的代换。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–3 · Substitute to kill a variable", zh: "第一～三步 · 代入以消去变量" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Name them using the second condition", zh: "用第二个条件命名" },
+        en: "Let the three integers be \\(a,\\ b,\\) and \\(c\\) where \\(c = a+b\\) (that's the 'one is the sum of the other two').",
+        zh: "设三个整数为 \\(a,\\ b,\\ c\\)，其中 \\(c = a+b\\)（这就是「一个等于另两个之和」）。" },
+      { type: "step", n: "2", title: { en: "Rewrite the sum", zh: "改写「和」" },
+        en: "Sum \\(= a+b+c = c + c = 2c.\\) The whole sum is just \\(2c\\) — the substitution already simplified it.",
+        zh: "和 \\(= a+b+c = c + c = 2c\\)。整个和就是 \\(2c\\) —— 代入已经把它化简了。" },
+      { type: "step", n: "3", title: { en: "Apply the first condition", zh: "应用第一个条件" },
+        en: "Product \\(= abc\\), and it equals \\(6\\times\\)sum:\n\\(abc = 6(2c) = 12c.\\)\nDivide both sides by \\(c\\) (positive, so legal):\n\\(ab = 12.\\)",
+        zh: "乘积 \\(= abc\\)，且等于 \\(6\\times\\)和：\n\\(abc = 6(2c) = 12c\\)。\n两边同除以 \\(c\\)（正数，合法）：\n\\(ab = 12\\)。" },
+      { type: "note", en: "Look what happened: \\(c\\) cancelled completely. A three-variable problem became a one-line condition \\(ab=12\\) with \\(c=a+b\\) riding along for free. This 'substitute, then a variable cancels' is the heart of many NT word problems.",
+        zh: "看发生了什么：\\(c\\) 被完全约掉了。一个三变量问题，变成了一行条件 \\(ab=12\\)，而 \\(c=a+b\\) 免费搭车。这个「代入后某变量被约掉」是许多数论应用题的核心。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · Hunt the integer pairs", zh: "第四、五步 · 搜寻整数对" },
+    blocks: [
+      { type: "para", en: "Now just list positive-integer factor pairs \\((a,b)\\) with \\(ab=12\\), compute \\(c=a+b\\) and \\(N=abc=12c.\\) Unordered pairs only (swapping \\(a,b\\) gives the same triple).",
+        zh: "现在只需列出满足 \\(ab=12\\) 的正整数因子对 \\((a,b)\\)，算出 \\(c=a+b\\) 与 \\(N=abc=12c\\)。只取无序对（交换 \\(a,b\\) 得到同一组三元数）。" },
+      { type: "table",
+        head: { en: ["\\((a,b)\\)", "\\(c=a+b\\)", "\\(N=12c\\)"], zh: ["\\((a,b)\\)", "\\(c=a+b\\)", "\\(N=12c\\)"] },
+        rows: {
+          en: [
+            ["\\((1,12)\\)", "13", "156"],
+            ["\\((2,6)\\)", "8", "96"],
+            ["\\((3,4)\\)", "7", "84"]
+          ],
+          zh: [
+            ["\\((1,12)\\)", "13", "156"],
+            ["\\((2,6)\\)", "8", "96"],
+            ["\\((3,4)\\)", "7", "84"]
+          ]
+        }
+      },
+      { type: "step", n: "1", title: { en: "Sum the distinct N values", zh: "把不同的 N 值相加" },
+        en: "The distinct products are \\(156,\\ 96,\\ 84.\\)\nSum \\(= 156+96+84 = 336.\\)",
+        zh: "不同的乘积为 \\(156,\\ 96,\\ 84\\)。\n和 \\(= 156+96+84 = 336\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\sum N = 336\\ } \\]" },
+      { type: "note", en: "Three tidy cases, because \\(12\\) has only three unordered factor pairs. The lesson is upstream: a smart substitution turned an intimidating three-variable statement into 'factor 12'. Always ask: can one condition be plugged into another to erase a variable?",
+        zh: "三个利落的情况，因为 \\(12\\) 只有三个无序因子对。教训在更上游：一个聪明的代入，把一个吓人的三变量陈述变成了「分解 12」。永远要问：能不能把一个条件代入另一个，来抹掉一个变量？" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "Three positive integers have product \\(N\\) equal to \\(4\\) times their sum, and one integer is the sum of the other two. Find the sum of all possible \\(N.\\) Same path: \\(c=a+b,\\) sum \\(=2c,\\) so \\(abc=4(2c)\\Rightarrow ab=8.\\) List factor pairs of \\(8.\\)",
+        zh: "三个正整数的乘积 \\(N\\) 等于它们之和的 \\(4\\) 倍，且一个整数等于另两个之和。求所有可能 \\(N\\) 之和。同样路径：\\(c=a+b\\)，和 \\(=2c\\)，故 \\(abc=4(2c)\\Rightarrow ab=8\\)。列出 \\(8\\) 的因子对。" },
+      { type: "note", en: "Check (fold away): \\(ab=8\\to(1,8)\\!:c=9,N=8c=72;\\ (2,4)\\!:c=6,N=48.\\) Sum \\(=72+48=120.\\)",
+        zh: "对答案（先盖住）：\\(ab=8\\to(1,8)\\!:c=9,N=8c=72;\\ (2,4)\\!:c=6,N=48\\)。和 \\(=72+48=120\\)。" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 12 · 3 blocks in a 5x5 grid, no shared row/column (multiply stages) ============ */
+textbookData.push({
+  id: "p-grid",
+  badge: { en: "Challenge · Problem 12", zh: "压轴 · 第 12 题" },
+  title: { en: "3 non-attacking blocks — build the count in stages", zh: "3 个互不同行列的方块 —— 分阶段搭建计数" },
+  subtitle: { en: "A grid-selection problem that looks tangled. The reliable weapon is stage-by-stage multiplication: choose the rows, choose the columns, then MATCH them up. Keeping the three stages separate stops the double-counting that sinks most attempts.",
+              zh: "一道看起来纠缠的方格选取题。可靠武器是「分阶段相乘」：先选行、再选列、最后把它们「配对」。把三个阶段分开，能挡住那个让大多数尝试翻车的重复计数。" },
+  readingTime: { en: "~12 min · AMC10-level", zh: "约 12 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "A set of \\(25\\) square blocks is arranged in a \\(5\\times5\\) square. How many different combinations of \\(3\\) blocks can be selected so that no two are in the same row or the same column?",
+        zh: "\\(25\\) 个方块排成一个 \\(5\\times5\\) 的正方形。有多少种选取 \\(3\\) 个方块的方式，使得任意两个都「不在同一行、也不在同一列」？" },
+      { type: "note", en: "'No two share a row or column' is the rooks-that-don't-attack condition. Trying to pick the three blocks all at once tangles rows and columns together. The fix: decide rows, columns, and their pairing as SEPARATE stages.",
+        zh: "「任意两个不同行不同列」就是「互不攻击的车」的条件。想「一次性」把三个方块选出来，会把行和列缠在一起。解法：把「行」「列」「配对」当成「分开的」阶段来决定。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–3 · Separate into stages", zh: "第一～三步 · 拆成阶段" },
+    blocks: [
+      { type: "para", en: "Each chosen block occupies one row and one column. Since no two share a row, the 3 blocks use 3 DISTINCT rows; likewise 3 distinct columns. So the whole choice is: pick 3 rows, pick 3 columns, then assign which column goes with which row.",
+        zh: "每个选中的方块占据一行一列。因为任意两个不同行，这 3 个方块用了 3 个「不同的行」；同理 3 个不同的列。所以整个选择是：选 3 行、选 3 列、再决定哪一列配哪一行。" },
+      { type: "table",
+        head: { en: ["Stage", "What you choose", "Count"], zh: ["阶段", "你选什么", "方式数"] },
+        rows: {
+          en: [
+            ["1", "Which 3 of the 5 rows", "\\(\\binom{5}{3}=10\\)"],
+            ["2", "Which 3 of the 5 columns", "\\(\\binom{5}{3}=10\\)"],
+            ["3", "Match the 3 rows to the 3 columns", "\\(3! = 6\\)"]
+          ],
+          zh: [
+            ["1", "5 行中选哪 3 行", "\\(\\binom{5}{3}=10\\)"],
+            ["2", "5 列中选哪 3 列", "\\(\\binom{5}{3}=10\\)"],
+            ["3", "把 3 行与 3 列配对", "\\(3! = 6\\)"]
+          ]
+        }
+      },
+      { type: "ask", en: "Why the \\(3!\\) in stage 3? Once you've fixed 3 rows and 3 columns, each block sits at a (row, column) crossing. The FIRST row can pair with any of 3 columns, the second with any remaining 2, the last with 1 — that's \\(3\\times2\\times1.\\) This is the step people forget.",
+        zh: "阶段 3 为什么是 \\(3!\\)？一旦固定了 3 行 3 列，每个方块都坐落在某个（行，列）交叉处。「第一行」可配 3 列中任一，第二行配剩下 2 列任一，最后一行配 1 列 —— 就是 \\(3\\times2\\times1\\)。这一步正是大家会漏掉的。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · Multiply & execute", zh: "第四、五步 · 相乘 & 执行" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Multiply the three stages", zh: "三个阶段相乘" },
+        en: "\\(\\binom{5}{3}\\times\\binom{5}{3}\\times 3! = 10\\times10\\times6 = 600.\\)",
+        zh: "\\(\\binom{5}{3}\\times\\binom{5}{3}\\times 3! = 10\\times10\\times6 = 600\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ 600\\ } \\]" },
+      { type: "note", en: "The classic wrong answer is \\(10\\times10=100\\) — forgetting stage 3 — or \\(\\binom{25}{3}\\) minus overlaps (a nightmare). Separating rows / columns / pairing keeps each stage independent and clean. Lesson: when objects live on a grid, count by 'which rows, which columns, how paired' rather than picking cells directly.",
+        zh: "经典的错误答案是 \\(10\\times10=100\\) —— 漏了阶段 3 —— 或者用 \\(\\binom{25}{3}\\) 减去重叠（一场噩梦）。把「行 / 列 / 配对」分开，能让每个阶段独立又干净。教训：当对象住在网格上，用「选哪些行、哪些列、如何配对」来计数，而不是直接挑格子。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "In a \\(6\\times6\\) grid, how many ways to choose \\(3\\) blocks with no two sharing a row or column? Same three stages: \\(\\binom{6}{3}\\) rows, \\(\\binom{6}{3}\\) columns, \\(3!\\) pairing.",
+        zh: "在 \\(6\\times6\\) 网格中，选 \\(3\\) 个方块使任意两个不同行不同列，有多少种？同样三阶段：\\(\\binom{6}{3}\\) 行、\\(\\binom{6}{3}\\) 列、\\(3!\\) 配对。" },
+      { type: "note", en: "Check (fold away): \\(\\binom{6}{3}=20,\\) so \\(20\\times20\\times6 = 2400.\\)",
+        zh: "对答案（先盖住）：\\(\\binom{6}{3}=20\\)，所以 \\(20\\times20\\times6 = 2400\\)。" }
+    ]
+  }
+  ]
+});
+
