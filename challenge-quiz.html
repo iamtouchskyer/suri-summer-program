@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>压轴题测验版 · Suri · Challenge Quiz</title>
+<meta name="description" content="AMC10 压轴题盲做测验：只有题目 + 五步思维链空白框，脱离答案逼出真实薄弱点。" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#2b2822; --ink-soft:#55504a; --ink-faint:#8a847c;
+    --line:#d8d0c2; --line-soft:#e8e2d6; --accent:#b5471f; --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#efe9dd; color:var(--ink);
+    font-family:"Spline Sans","Noto Sans SC",-apple-system,system-ui,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:820px; margin:26px auto; background:var(--paper);
+    padding:44px 52px 56px; box-shadow:0 2px 20px rgba(0,0,0,.08);
+    border:1px solid var(--line-soft);
+  }
+
+  /* toolbar (screen only) */
+  .bar{
+    max-width:820px; margin:20px auto 0; display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  }
+  .bar a,.bar button{
+    font:600 13px "Spline Sans",sans-serif; cursor:pointer;
+    border:1px solid var(--line); background:var(--paper); color:var(--ink);
+    padding:8px 16px; border-radius:2px; text-decoration:none; transition:.15s;
+  }
+  .bar button.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .bar a:hover,.bar button:hover{border-color:var(--accent); color:var(--accent);}
+  .bar button.primary:hover{color:#fff; opacity:.9;}
+  .bar .hint{font:400 12px "Spline Sans",sans-serif; color:var(--ink-faint);}
+
+  /* masthead */
+  .mast{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:8px;}
+  .mast .eyebrow{
+    font:500 11px "Spline Sans Mono","SFMono-Regular",monospace; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent);
+  }
+  .mast h1{
+    font:900 27px/1.15 "Fraunces","Noto Serif SC",Georgia,serif; margin:6px 0 4px; letter-spacing:-.01em;
+  }
+  .mast .sub{font:400 13.5px "Spline Sans",sans-serif; color:var(--ink-soft); margin:0;}
+  .howto{
+    background:#f7f2e8; border:1px solid var(--line-soft); border-left:3px solid var(--accent);
+    padding:14px 18px; margin:20px 0 8px; font-size:13.5px; color:var(--ink-soft);
+  }
+  .howto b{color:var(--ink);}
+  .howto ol{margin:8px 0 0; padding-left:20px;}
+  .howto li{margin:4px 0;}
+
+  /* problem */
+  .prob{
+    padding:22px 0 8px; border-top:1px solid var(--line-soft);
+    break-inside:avoid; page-break-inside:avoid;
+  }
+  .prob:first-of-type{border-top:none;}
+  .prob-head{display:flex; align-items:baseline; gap:12px; margin-bottom:10px;}
+  .prob-no{
+    font:900 15px "Fraunces",serif; color:#fff; background:var(--accent);
+    width:30px; height:30px; min-width:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+  .prob-src{font:500 11px "Spline Sans Mono",monospace; letter-spacing:.08em; color:var(--ink-faint); text-transform:uppercase;}
+  .prob-body{font-size:15px; color:var(--ink); margin:0 0 14px; padding-left:42px;}
+
+  /* five-step grid */
+  .steps{padding-left:42px; margin-bottom:6px;}
+  .step-row{
+    display:grid; grid-template-columns:118px 1fr; gap:0;
+    border:1px solid var(--line); border-bottom:none;
+  }
+  .step-row:last-child{border-bottom:1px solid var(--line);}
+  .step-label{
+    background:#f7f2e8; padding:9px 12px; border-right:1px solid var(--line);
+    font:600 12.5px "Spline Sans",sans-serif; color:var(--ink-soft); display:flex; flex-direction:column; justify-content:center;
+  }
+  .step-label .en{font:400 10px "Spline Sans Mono",monospace; color:var(--ink-faint); margin-top:2px; letter-spacing:.04em;}
+  .step-blank{min-height:46px; padding:8px 10px;}
+  .step-blank.tall{min-height:70px;}
+
+  /* self-assess */
+  .selfrow{
+    padding-left:42px; margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    font-size:12.5px; color:var(--ink-soft);
+  }
+  .selfrow b{color:var(--ink);}
+  .chk{display:inline-flex; align-items:center; gap:5px; margin-right:4px;}
+  .chk .box{width:13px; height:13px; border:1.4px solid var(--ink-faint); display:inline-block; border-radius:2px;}
+
+  /* answer key */
+  .keypage{page-break-before:always; break-before:page;}
+  .keytitle{font:900 20px "Fraunces",serif; margin:0 0 4px;}
+  .keynote{font-size:12.5px; color:var(--ink-faint); margin:0 0 16px;}
+  table.key{width:100%; border-collapse:collapse; font-size:13px;}
+  table.key th,table.key td{border:1px solid var(--line); padding:8px 10px; text-align:left;}
+  table.key th{background:#f7f2e8; font:600 12px "Spline Sans",sans-serif; letter-spacing:.03em;}
+  table.key td.ans{font-weight:700; color:var(--accent); white-space:nowrap;}
+  .foot{margin-top:26px; padding-top:14px; border-top:1px solid var(--line-soft); font-size:11.5px; color:var(--ink-faint); text-align:center;}
+
+  @media print{
+    body{background:#fff;}
+    .bar{display:none;}
+    .sheet{box-shadow:none; margin:0; max-width:none; padding:0 12mm; border:none;}
+    .prob{border-top:1px solid #ccc;}
+    .howto{background:#f4f4f4;}
+    .step-label,table.key th,.howto{background:#f4f4f4 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .prob-no{background:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    td.ans{color:#000 !important;}
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <a href="challenge-level2.html">← 返回精讲版</a>
+    <button class="primary" onclick="window.print()">🖨 打印 / 存 PDF</button>
+    <span class="hint">建议：先盲做全部 12 题，只填五步框、不翻答案；卡住就在自评里勾出卡点，做完再对最后一页答案。</span>
+  </div>
+
+  <div class="sheet" id="sheet"></div>
+
+<script>
+/* ---- 12 problems: shuffled order, technique names REMOVED (pure recognition test) ---- */
+var QUIZ = [
+  { no:1,  src:"Counting · Probability", body:"Tina randomly selects two DISTINCT numbers from \\(\\{1,2,3,4,5\\}\\), and Sergio randomly selects a number from \\(\\{1,2,\\ldots,10\\}\\). What is the probability that Sergio's number is LARGER than the SUM of Tina's two numbers?", ans:"\\(\\dfrac{2}{5}\\)" },
+  { no:2,  src:"Geometry", body:"In quadrilateral \\(ABCD\\), \\(\\angle B\\) is a right angle, diagonal \\(\\overline{AC}\\) is perpendicular to \\(\\overline{CD}\\), \\(AB=18,\\ BC=21,\\) and \\(CD=14.\\) Find the perimeter of \\(ABCD.\\)", ans:"\\(84\\)" },
+  { no:3,  src:"Algebra", body:"Let \\(f\\) be a function for which \\(f\\!\\left(\\dfrac{x}{3}\\right)=x^2+x+1.\\) Find the SUM of all values of \\(z\\) for which \\(f(3z)=7.\\)", ans:"\\(-\\dfrac{1}{9}\\)" },
+  { no:4,  src:"Counting · Probability", body:"Positive integers \\(a, b, c\\) are randomly and independently selected WITH replacement from \\(\\{1,2,3,\\ldots,2010\\}\\). What is the probability that \\(abc+ab+a\\) is divisible by \\(3\\)?", ans:"\\(\\dfrac{13}{27}\\)" },
+  { no:5,  src:"Geometry", body:"An insect lives on the surface of a regular tetrahedron with edges of length 1. It travels ON THE SURFACE from the midpoint of one edge to the midpoint of the OPPOSITE edge (two edges are opposite if they share no endpoint). What is the length of the shortest such trip?", ans:"\\(1\\)" },
+  { no:6,  src:"Algebra", body:"A sequence of three real numbers forms an arithmetic progression with first term \\(9.\\) If \\(2\\) is added to the second term and \\(20\\) is added to the third term, the three resulting numbers form a geometric progression. What is the SMALLEST possible value for the third term of the geometric progression?", ans:"\\(1\\)" },
+  { no:7,  src:"Counting · Probability", body:"Bernardo randomly picks 3 distinct numbers from \\(\\{1,2,3,4,5,6,7,8,9\\}\\) and arranges them in DESCENDING order to form a 3-digit number. Silvia randomly picks 3 distinct numbers from \\(\\{1,2,3,4,5,6,7,8\\}\\) and also arranges them in descending order. What is the probability that Bernardo's number is LARGER than Silvia's?", ans:"\\(\\dfrac{37}{56}\\)" },
+  { no:8,  src:"Geometry", body:"Points \\(E\\) and \\(F\\) are located on square \\(ABCD\\) so that \\(\\triangle BEF\\) is equilateral (with \\(E\\) on side \\(AD\\) and \\(F\\) on side \\(DC\\)). What is the ratio of the area of \\(\\triangle DEF\\) to that of \\(\\triangle ABE\\)?", ans:"\\(2\\)" },
+  { no:9,  src:"Algebra", body:"Let \\(A, M,\\) and \\(C\\) be nonnegative integers such that \\(A+M+C=10.\\) What is the maximum value of \\(A\\cdot M\\cdot C + A\\cdot M + M\\cdot C + C\\cdot A\\)?", ans:"\\(69\\)" },
+  { no:10, src:"Counting · Probability", body:"A set of \\(25\\) square blocks is arranged in a \\(5\\times5\\) square. How many different combinations of \\(3\\) blocks can be selected so that no two are in the same row or the same column?", ans:"\\(600\\)" },
+  { no:11, src:"Geometry", body:"Three one-inch squares sit with their bases on a line. The center square is lifted out, rotated \\(45^\\circ\\), then centered and lowered back until it TOUCHES both adjoining squares. How many inches is the top point \\(B\\) of the tilted square above the base line?", ans:"\\(\\sqrt{2}+\\dfrac{1}{2}\\)" },
+  { no:12, src:"Algebra · Number", body:"The product \\(N\\) of three positive integers is \\(6\\) times their sum, and one of the integers is the sum of the other two. Find the SUM of all possible values of \\(N.\\)", ans:"\\(336\\)" }
+];
+
+var STEPS = [
+  { zh:"① 听关键词", en:"hear keywords" },
+  { zh:"② 识破伪装", en:"spot the disguise" },
+  { zh:"③ 拆知识点", en:"split into tools" },
+  { zh:"④ 选方法",   en:"pick the method" },
+  { zh:"⑤ 执行 → 答案", en:"execute → answer", tall:true }
+];
+
+function esc(s){return s;}
+
+function render(){
+  var h = '';
+  // masthead
+  h += '<div class="mast">'
+     + '<div class="eyebrow">AMC10 · Last-5 · Blind Practice</div>'
+     + '<h1>压轴题测验版 · 盲做训练</h1>'
+     + '<p class="sub">12 道真实 AMC10 压轴题 · 只填五步框，先别翻答案 · for Suri</p>'
+     + '</div>';
+  // how to
+  h += '<div class="howto"><b>怎么用这份测验：</b>'
+     + '<ol>'
+     + '<li>每题<b>不许直接算答案</b>——先在五步框里写下你的<b>思路</b>：看到题面第一反应想到什么？它在伪装什么？该拆成哪些学过的知识点？</li>'
+     + '<li>只有把①②③想清楚，才动笔到④⑤。<b>识别</b>才是这份测验真正在考的东西。</li>'
+     + '<li>卡住很正常。卡住时在题目下方<b>勾出你卡在第几步</b>——这比做对更有价值，它精确告诉我们下一步练什么。</li>'
+     + '<li>12 题全部做完，再翻到最后一页对答案。对答案时只看<b>最终数值</b>，思路回精讲版核对。</li>'
+     + '</ol></div>';
+  // problems
+  QUIZ.forEach(function(p){
+    h += '<div class="prob">';
+    h += '<div class="prob-head"><span class="prob-no">'+p.no+'</span><span class="prob-src">'+p.src+'</span></div>';
+    h += '<div class="prob-body">'+p.body+'</div>';
+    h += '<div class="steps">';
+    STEPS.forEach(function(s){
+      h += '<div class="step-row"><div class="step-label">'+s.zh+'<span class="en">'+s.en+'</span></div><div class="step-blank'+(s.tall?' tall':'')+'"></div></div>';
+    });
+    h += '</div>';
+    h += '<div class="selfrow"><b>我卡在：</b>'
+       + '<span class="chk"><span class="box"></span>①</span>'
+       + '<span class="chk"><span class="box"></span>②</span>'
+       + '<span class="chk"><span class="box"></span>③</span>'
+       + '<span class="chk"><span class="box"></span>④</span>'
+       + '<span class="chk"><span class="box"></span>⑤</span>'
+       + '<span class="chk"><span class="box"></span>没卡住，独立做出</span>'
+       + '</div>';
+    h += '</div>';
+  });
+  // answer key
+  h += '<div class="keypage"><div class="keytitle">答案速查表 · Answer Key</div>'
+     + '<p class="keynote">只列最终答案。对完答案后，若某题做错或卡住，回精讲版（challenge-level2.html）核对完整五步思路。</p>'
+     + '<table class="key"><thead><tr><th style="width:64px">题号</th><th>板块</th><th style="width:120px">答案</th></tr></thead><tbody>';
+  QUIZ.forEach(function(p){
+    h += '<tr><td>#'+p.no+'</td><td>'+p.src+'</td><td class="ans">'+p.ans+'</td></tr>';
+  });
+  h += '</tbody></table>';
+  h += '<div class="foot">压轴题测验版 · 盲做的目的是逼出「识别」环节的薄弱点 · 卡在第几步，就是下一步该练的地方</div>';
+  h += '</div>';
+
+  document.getElementById('sheet').innerHTML = h;
+
+  if (window.renderMathInElement){
+    renderMathInElement(document.getElementById('sheet'), {
+      delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+      throwOnError:false
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  if (window.renderMathInElement) render();
+  else { var t=setInterval(function(){ if(window.renderMathInElement){clearInterval(t); render();} },60); }
+});
+</script>
+</body>
+</html>
