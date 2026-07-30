@@ -116,6 +116,15 @@ main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px 9
 .r-now{background:#d8ebe4;color:#155244;}
 .r-soon{background:#f3e6c2;color:#8a6206;}
 .r-later{background:#f6e0d6;color:#9a3411;}
+.r-avoid{background:#efd8d8;color:#8a1f1f;}
+.chip.paid{background:#efd8d8;color:#8a1f1f;border-color:#d9a3a3;}
+.bm.t-caution .bm-rail{background:#b23a3a;}
+.bm.t-caution .dot.on{background:#b23a3a;}
+.bm.t-caution{border-color:#d9a3a3;}
+.bm.t-caution .bm-eyebrow{color:#8a1f1f;}
+.suri.caution{background:#f9ecec;border-color:#d9a3a3;}
+.suri.caution .sh{color:#8a1f1f;}
+
 
 .site-footer{border-top:1.5px solid var(--ink);margin-top:46px;}
 .site-footer p{max-width:1080px;margin:0 auto;padding:22px 28px;font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);text-align:center;}
@@ -186,7 +195,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
       <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span><div><strong>准备周期</strong>：从现在起大概要多久</div></div>
       <div class="lg"><span class="ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg></span><div><strong>给 Suri</strong>：就绪度 + 具体下一步</div></div>
     </div>
-    <div style="margin-top:16px;font-size:.85rem;color:var(--ink-faint)">就绪度标签：<span class="readiness r-now" style="margin-top:0">现在可冲</span> <span class="readiness r-soon" style="margin-top:0">1-2 年后</span> <span class="readiness r-later" style="margin-top:0">2-3 年后</span></div>
+    <div style="margin-top:16px;font-size:.85rem;color:var(--ink-faint)">就绪度标签：<span class="readiness r-now" style="margin-top:0">现在可冲</span> <span class="readiness r-soon" style="margin-top:0">1-2 年后</span> <span class="readiness r-later" style="margin-top:0">2-3 年后</span> <span class="readiness r-avoid" style="margin-top:0">建议跳过</span></div>
   </section>
 
   <!-- JUMP -->
@@ -200,6 +209,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     <a href="#promys">⑦ PROMYS</a>
     <a href="#ross">⑧ Ross</a>
     <a href="#proveit">⑨ Prove it!</a>
+    <a href="#ncmc" style="color:#8a1f1f">⑪ NCMC ⚠</a>
   </div>
 
 
@@ -525,6 +535,34 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
         <p>理念上是她理想的"第一个证明营"：可惜目前暂停。所以我们<strong>自己用 Algebra 2.5 搭这座"解题证明"的桥</strong>，把它的目标内化成日常训练。</p>
         <p>具体下一步：关注官网；若复办，把它的入学测试当作证明能力的阶段性检验。</p>
         <span class="readiness r-later">暂停 ｜ 关注复办</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 10 NCMC (MasterScholar) — 警示卡 -->
+  <article class="bm t-caution" id="ncmc">
+    <div class="bm-top"><span class="bm-rail"></span>
+      <div class="bm-eyebrow">另一个类别 ｜ 付费背书项目 ｜ 谨慎</div>
+      <div class="bm-title"><h2>NCMC · MasterScholar North Carolina Math Camp</h2></div>
+      <div class="bm-chips">
+        <span class="chip paid">门槛：付得起学费</span>
+        <span class="chip">学费约 $6,500–12,500</span>
+        <span class="chip">2 周 ｜ 杜克教授挂名</span>
+        <span class="chip age">高中</span>
+      </div>
+      <div class="meter"><span class="ml">竞赛提分价值</span><div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span style="font-size:.78rem;color:var(--ink-faint)">低（不训练竞赛，也非硬选拔研究营）</span></div>
+    </div>
+    <div class="bm-body">
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>真正的门槛</div><div class="v">官网自称 <em>selective</em>，但查不到任何独立第三方（College Confidential、Reddit 申请圈）验证。唯一的"选拔性"背书来自其合作方 <strong>College Transitions</strong>（靠给这类项目写软文引流的咨询网站）。<strong>实质门槛是"付得起学费"</strong>，不是学术硬选拔。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-compass"/></svg></span>它到底是什么</div><div class="v"><strong>KSE Global（总部上海/纽约）旗下的商业品牌。</strong>同一套模式贴牌复制到多所大学：<br>Duke（NCMC）· Barnard · UCSB · NYU · Columbia · 帝国理工工程营……<br>套路统一：<em>找教授挂名授课 → 收 $6.5k–12.5k → 两三周结营发一篇论文 + 一封教授评估信</em>。这是一门<strong>生意</strong>，不是学术机构自办的选拔营。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>它属于哪一档</div><div class="v">明确<strong>不在</strong> RSI / MIT PRIMES / Ross / PROMYS / Mathcamp / HCSSiM 那一档（免费或象征收费、靠竞赛+测试+面试录取、录取率个位数、招生官闭眼认）。它属于<strong>"付费 research credential"品类</strong>——同类：Pioneer、Lumiere、Veritas AI。招生官对这类背书<strong>已相当脱敏</strong>。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-book"/></svg></span>"MIT 推荐"怎么看</div><div class="v">所谓"被 MIT 列为 PRIMES 替代选择"——MIT PRIMES 页面上列了<strong>一长串</strong>"没进 PRIMES 可以考虑的项目"，被列进清单 <strong>≠ MIT 背书其质量</strong>。这是这类项目常用的宣传话术，<strong>建议打七折看</strong>。杜克教授授课、评估信是实的；"MIT recommended"的光环是虚的。</div></div>
+      <div class="brow"><div class="k"><span class="kic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>性价比</div><div class="v">$6.5k–12.5k 换一篇两周赶出的论文 + 一封挂名教授的评估信。<strong>含金量撑不起定价。</strong></div></div>
+      <div class="suri caution">
+        <div class="sh"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg>给 Suri 的判断：跳过</div>
+        <p>它<strong>恰好踩在你们最想规避的"典型亚裔申请者陷阱"上</strong>：提供一份"看起来体面、但可替代性极高"的背书。同 profile 的申请者一抓一大把，论文主题和评估信画风高度相似，很容易被读成<strong>"又一份花钱买的 flex credential"</strong>，而不是真正的自主研究。</p>
+        <p>Suri 已有的东西——<strong>AIME 级数学、辩论冠军、真实的 art 竞赛+公开展览、从 G7 自己动手做的 anoncafe</strong>——都是<strong>难以复制的真实成果</strong>。NCMC 这种背书<strong>配不上、也稀释</strong>这份履历。钱和那两周的时间，投到 AwesomeMath 高班 / AMC 训练 / 她自己的真实项目上，回报高得多。</p>
+        <span class="readiness r-avoid">建议跳过</span>
       </div>
     </div>
   </article>
