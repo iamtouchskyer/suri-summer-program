@@ -315,3 +315,289 @@ textbookData.push({
   ]
 });
 
+
+/* ============ PROBLEM 4 · Insect on a tetrahedron (unfold the surface) ============ */
+textbookData.push({
+  id: "p-tetra",
+  badge: { en: "Challenge · Problem 04", zh: "压轴 · 第 04 题" },
+  title: { en: "Insect on a tetrahedron — the unfolding trick", zh: "正四面体上的昆虫 —— 展开图技巧" },
+  subtitle: { en: "A 3-D shortest-path problem that looks impossible until you do the ONE move every surface-distance problem needs: unfold the faces flat, and a curved journey becomes a straight line.",
+              zh: "一道看似无从下手的三维最短路径题 —— 直到你做出「每道曲面距离题」都需要的那「一个」动作：把面展开铺平，弯曲的旅程就变成一条直线。" },
+  readingTime: { en: "~14 min · AMC10-level", zh: "约 14 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "An insect lives on the surface of a regular tetrahedron with edges of length 1. It travels ON THE SURFACE from the midpoint of one edge to the midpoint of the OPPOSITE edge (two edges are opposite if they share no endpoint). What is the length of the shortest such trip?",
+        zh: "一只昆虫住在棱长为 1 的正四面体「表面」上。它沿「表面」从一条棱的中点，走到「对棱」的中点（两条棱若无公共端点则称为对棱）。这样的最短行程长度是多少？" },
+      { type: "note", en: "The word 'on the surface' is the whole trap. The straight-line 3-D distance would cut THROUGH the solid — illegal. The insect must stay on the faces. So how do we measure distance along a folded surface?",
+        zh: "「沿表面」这四个字就是整个陷阱。三维直线距离会「穿过」实体 —— 不合法。昆虫必须待在面上。那我们该如何测量沿一个折叠曲面的距离？" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–2 · Hear & spot", zh: "第一、二步 · 听 & 识破" },
+    blocks: [
+      { type: "para", en: "Keyword radar: 'on the surface' + 'shortest path' on a polyhedron. This pair has exactly ONE standard weapon — UNFOLD the faces into a flat plane. On a flat plane, shortest path = straight line. That is the entire idea.",
+        zh: "关键词雷达：多面体上「沿表面」+「最短路径」。这一对组合只有「一件」标准武器 —— 把面「展开」到一个平面上。在平面上，最短路径 = 直线。这就是全部的想法。" },
+      { type: "ask", en: "Which faces does the insect cross? From the midpoint of one edge to the midpoint of the opposite edge, the path runs across TWO adjacent triangular faces. So we only need to unfold those two triangles into one flat rhombus.",
+        zh: "昆虫会穿过哪些面？从一条棱的中点到对棱的中点，路径会跨过「两个」相邻的三角面。所以我们只需把这两个三角形展开成「一个」平面菱形。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 3 · The unfolding (the key figure)", zh: "第三步 · 展开（关键图）" },
+    blocks: [
+      { type: "para", en: "Take the two faces the insect walks on and rotate one about their shared edge until both lie flat. Two equilateral triangles sharing an edge form a rhombus (a 60°–120° rhombus of side 1). The start M and end N are the midpoints of the two OUTER edges.",
+        zh: "取昆虫行走的两个面，绕它们的公共棱把其中一个旋转，直到两者铺平。两个共享一条棱的等边三角形，拼成一个菱形（边长为 1、角为 60°–120° 的菱形）。起点 M 与终点 N 是两条「外侧」棱的中点。" },
+      { type: "fig", svg: "<svg viewBox='0 0 320 200' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='两个等边三角形展开成菱形，M和N是外侧边中点'><defs><style>.e{stroke:#4a4a44;stroke-width:1.6;fill:none}.f{fill:#e9dcc2;opacity:.55}.d{stroke:#b5471f;stroke-width:2.2;stroke-dasharray:6 4;fill:none}.pt{fill:#b5471f}.lbl{font:600 13px/1 'Fraunces',serif;fill:#4a4a44}.lbl2{font:600 12px/1 'Fraunces',serif;fill:#b5471f}</style></defs><polygon class='f' points='40,150 160,150 220,50 100,50'/><line class='e' x1='40' y1='150' x2='160' y2='150'/><line class='e' x1='160' y1='150' x2='220' y2='50'/><line class='e' x1='220' y1='50' x2='100' y2='50'/><line class='e' x1='100' y1='50' x2='40' y2='150'/><line class='e' x1='100' y1='50' x2='160' y2='150'/><circle class='pt' cx='70' cy='100' r='4'/><circle class='pt' cx='190' cy='100' r='4'/><line class='d' x1='70' y1='100' x2='190' y2='100'/><text class='lbl2' x='52' y='104'>M</text><text class='lbl2' x='196' y='104'>N</text><text class='lbl' x='95' y='168'>1</text><text class='lbl' x='250' y='104'>MN = straight line</text><text class='lbl' x='150' y='45'>fold edge</text></svg>" },
+      { type: "note", en: "The dashed red segment MN is the flattened path. Because unfolding preserves lengths, the shortest surface trip equals the straight distance MN in this rhombus. We turned a 3-D surface problem into a 2-D straight-line measurement.",
+        zh: "红色虚线段 MN 就是被铺平的路径。因为展开「保持长度不变」，最短的表面行程就等于这个菱形里 MN 的直线距离。我们把一个三维表面问题，变成了一次二维直线测量。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 4–5 · Method & execute", zh: "第四、五步 · 选方法 & 执行" },
+    blocks: [
+      { type: "para", en: "Place coordinates on the rhombus. Put one triangle with base on the x-axis. The rhombus vertices are \\((0,0),(1,0),(\\tfrac32,\\tfrac{\\sqrt3}{2}),(\\tfrac12,\\tfrac{\\sqrt3}{2}).\\) M and N are midpoints of the two slanted outer edges.",
+        zh: "在菱形上建坐标。把一个三角形的底边放在 x 轴上。菱形顶点为 \\((0,0),(1,0),(\\tfrac32,\\tfrac{\\sqrt3}{2}),(\\tfrac12,\\tfrac{\\sqrt3}{2})\\)。M、N 是两条倾斜外侧棱的中点。" },
+      { type: "step", n: "1", title: { en: "Coordinates of the two midpoints", zh: "两个中点的坐标" },
+        en: "M = midpoint of edge from \\((0,0)\\) to \\((\\tfrac12,\\tfrac{\\sqrt3}{2})\\) \\(=(\\tfrac14,\\tfrac{\\sqrt3}{4}).\\)\nN = midpoint of edge from \\((1,0)\\) to \\((\\tfrac32,\\tfrac{\\sqrt3}{2})\\) \\(=(\\tfrac54,\\tfrac{\\sqrt3}{4}).\\)",
+        zh: "M = 从 \\((0,0)\\) 到 \\((\\tfrac12,\\tfrac{\\sqrt3}{2})\\) 这条棱的中点 \\(=(\\tfrac14,\\tfrac{\\sqrt3}{4})\\)。\nN = 从 \\((1,0)\\) 到 \\((\\tfrac32,\\tfrac{\\sqrt3}{2})\\) 这条棱的中点 \\(=(\\tfrac54,\\tfrac{\\sqrt3}{4})\\)。" },
+      { type: "step", n: "2", title: { en: "The distance MN", zh: "距离 MN" },
+        en: "Both midpoints have the SAME height \\(\\tfrac{\\sqrt3}{4}\\), so MN is horizontal:\n\\(MN = \\tfrac54-\\tfrac14 = 1.\\)",
+        zh: "两个中点「高度相同」，都是 \\(\\tfrac{\\sqrt3}{4}\\)，所以 MN 是水平的：\n\\(MN = \\tfrac54-\\tfrac14 = 1\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\text{shortest surface trip} = 1\\ } \\]" },
+      { type: "note", en: "Clean and surprising: the shortest surface path equals one full edge length. The magic was entirely in the unfold — once flat, an 8th-grader's distance formula finishes it. Remember the reflex: surface + shortest path ⟹ unfold.",
+        zh: "干净又出人意料：最短表面路径恰好等于一整条棱长。魔法全在「展开」那一步 —— 一旦铺平，一个八年级的距离公式就能收尾。记住这个反射：表面 + 最短路径 ⟹ 展开。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "A cube has edge length 2. An ant starts at one corner and crawls ON THE SURFACE to the OPPOSITE corner (the far diagonal). Find the shortest surface distance. Reflex first: unfold two adjacent faces into a flat \\(2\\times 4\\) rectangle, then the path is the rectangle's diagonal.",
+        zh: "一个正方体棱长为 2。一只蚂蚁从一个顶点出发，沿「表面」爬到「对角顶点」（体对角线的另一端）。求最短表面距离。先用反射：把两个相邻面展开成一个 \\(2\\times 4\\) 的矩形，路径就是矩形的对角线。" },
+      { type: "note", en: "Check (fold away): unfolded rectangle is \\(2\\times 4\\) (walk across two faces of width 2 each). Diagonal \\(=\\sqrt{2^2+4^2}=\\sqrt{20}=2\\sqrt5.\\)",
+        zh: "对答案（先盖住）：展开的矩形是 \\(2\\times 4\\)（跨过两个宽为 2 的面）。对角线 \\(=\\sqrt{2^2+4^2}=\\sqrt{20}=2\\sqrt5\\)。" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 5 · Equilateral triangle in a square (set a variable) ============ */
+textbookData.push({
+  id: "p-square",
+  badge: { en: "Challenge · Problem 05", zh: "压轴 · 第 05 题" },
+  title: { en: "Equilateral triangle in a square — name the unknown", zh: "正方形里的等边三角形 —— 给未知量起名字" },
+  subtitle: { en: "A figure with no numbers on it. The winning move is to stop staring and DO something: set the side as a variable, use symmetry to place the points, and let the Pythagorean theorem turn the picture into one clean equation.",
+              zh: "一张没有任何数字的图。制胜之道是停止盯着它、去「做」点什么：把边设成变量，用对称性放置点，让勾股定理把图变成一个干净的方程。" },
+  readingTime: { en: "~15 min · AMC10-level", zh: "约 15 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "Points \\(E\\) and \\(F\\) are located on square \\(ABCD\\) so that \\(\\triangle BEF\\) is equilateral (with \\(E\\) on side \\(AD\\) and \\(F\\) on side \\(DC\\)). What is the ratio of the area of \\(\\triangle DEF\\) to that of \\(\\triangle ABE\\)?",
+        zh: "点 \\(E\\)、\\(F\\) 位于正方形 \\(ABCD\\) 上，使得 \\(\\triangle BEF\\) 为等边三角形（\\(E\\) 在边 \\(AD\\) 上，\\(F\\) 在边 \\(DC\\) 上）。求 \\(\\triangle DEF\\) 与 \\(\\triangle ABE\\) 的面积之比。" },
+      { type: "note", en: "No lengths are given, and the answer is a RATIO — a giant hint that the side length will cancel. So we are free to set the square's side to any convenient value. Set it to 1.",
+        zh: "题目没给任何长度，而答案是一个「比值」—— 这是一个巨大的暗示：边长最终会被约掉。所以我们可以把正方形的边设成任意方便的值。就设为 1。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–2 · Hear & spot", zh: "第一、二步 · 听 & 识破" },
+    blocks: [
+      { type: "para", en: "Keywords: 'equilateral triangle' + 'inside a square' + 'ratio of areas'. Two signals fire: (1) equilateral means all three sides equal — a constraint we can write as an equation; (2) the B-corner sits symmetrically between sides AD and DC, so by symmetry \\(BE=BF\\) forces \\(AE=CF\\). The figure is symmetric about diagonal \\(BD\\).",
+        zh: "关键词：「等边三角形」+「在正方形内」+「面积之比」。两个信号响起：（1）等边意味着三边相等 —— 一个可以写成方程的约束；（2）B 角对称地夹在 AD 与 DC 两边之间，由对称性 \\(BE=BF\\) 迫使 \\(AE=CF\\)。整个图形关于对角线 \\(BD\\) 对称。" },
+      { type: "fig", svg: "<svg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='正方形ABCD内的等边三角形BEF，关于对角线BD对称'><defs><style>.sq{stroke:#4a4a44;stroke-width:1.8;fill:#e9dcc2;opacity:.55}.eq{stroke:#b5471f;stroke-width:2;fill:#b5471f;fill-opacity:.12}.dg{stroke:#8a8a80;stroke-width:1;stroke-dasharray:4 3}.lbl{font:600 13px 'Fraunces',serif;fill:#4a4a44}.lbl2{font:600 12px 'Fraunces',serif;fill:#b5471f}</style></defs><rect class='sq' x='30' y='30' width='160' height='160'/><line class='dg' x1='190' y1='190' x2='30' y2='30'/><polygon class='eq' points='190,190 30,102 102,30'/><text class='lbl' x='16' y='30'>A</text><text class='lbl' x='196' y='30'>D</text><text class='lbl' x='196' y='204'>C</text><text class='lbl' x='14' y='204'>B</text><text class='lbl2' x='14' y='106'>E</text><text class='lbl2' x='104' y='22'>F</text></svg>" },
+      { type: "note", en: "Labeling note (matches this figure): B is the bottom-left corner, E on the left side, F on the top side, and the equilateral triangle BEF opens toward corner B. The dashed diagonal is the axis of symmetry, guaranteeing \\(BE=BF\\).",
+        zh: "标注说明（对应此图）：B 是左下角，E 在左边，F 在上边，等边三角形 BEF 朝 B 角张开。虚线对角线是对称轴，保证 \\(BE=BF\\)。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 3–4 · Set the variable & method", zh: "第三、四步 · 设变量 & 选方法" },
+    blocks: [
+      { type: "para", en: "Let the square have side 1, and let \\(AE = x\\). By symmetry \\(CF = x\\) too. Now express the two equal sides of the equilateral triangle and set them equal — that single equation pins down \\(x\\).",
+        zh: "设正方形边长为 1，设 \\(AE = x\\)。由对称性 \\(CF = x\\)。现在把等边三角形的两条相关边表示出来并令其相等 —— 这一个方程就能定住 \\(x\\)。" },
+      { type: "step", n: "1", title: { en: "Write BE and EF", zh: "写出 BE 与 EF" },
+        en: "\\(BE\\) is the hypotenuse of right triangle \\(ABE\\) with legs \\(AB=1\\) and \\(AE=x\\):\n\\(BE=\\sqrt{1+x^2}.\\)\n\\(EF\\) joins \\(E\\) on \\(AD\\) to \\(F\\) on \\(DC\\); both are distance \\(1-x\\) from corner \\(D\\), and angle \\(D\\) is \\(90^\\circ\\):\n\\(EF=\\sqrt{(1-x)^2+(1-x)^2}=(1-x)\\sqrt2.\\)",
+        zh: "\\(BE\\) 是直角三角形 \\(ABE\\) 的斜边，两直角边为 \\(AB=1\\) 与 \\(AE=x\\)：\n\\(BE=\\sqrt{1+x^2}\\)。\n\\(EF\\) 连接 AD 上的 \\(E\\) 与 DC 上的 \\(F\\)；两者到 D 角的距离都是 \\(1-x\\)，且 D 角为 \\(90^\\circ\\)：\n\\(EF=\\sqrt{(1-x)^2+(1-x)^2}=(1-x)\\sqrt2\\)。" },
+      { type: "step", n: "2", title: { en: "Equilateral ⟹ BE = EF", zh: "等边 ⟹ BE = EF" },
+        en: "Set them equal and square:\n\\(1+x^2 = 2(1-x)^2 = 2 - 4x + 2x^2.\\)\n\\(\\Rightarrow x^2 - 4x + 1 = 0 \\Rightarrow x = 2-\\sqrt3\\) (taking the root in \\([0,1]\\)).",
+        zh: "令其相等并平方：\n\\(1+x^2 = 2(1-x)^2 = 2 - 4x + 2x^2\\)。\n\\(\\Rightarrow x^2 - 4x + 1 = 0 \\Rightarrow x = 2-\\sqrt3\\)（取落在 \\([0,1]\\) 内的根）。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 5 · Execute (the area ratio)", zh: "第五步 · 执行（面积之比）" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Area of triangle ABE", zh: "三角形 ABE 的面积" },
+        en: "Right triangle, legs \\(1\\) and \\(x\\): \\([ABE]=\\tfrac12\\cdot 1\\cdot x = \\tfrac{x}{2}.\\)",
+        zh: "直角三角形，两直角边为 \\(1\\) 与 \\(x\\)：\\([ABE]=\\tfrac12\\cdot 1\\cdot x = \\tfrac{x}{2}\\)。" },
+      { type: "step", n: "2", title: { en: "Area of triangle DEF", zh: "三角形 DEF 的面积" },
+        en: "Right triangle at \\(D\\), both legs \\(1-x\\): \\([DEF]=\\tfrac12(1-x)^2.\\)",
+        zh: "在 D 处的直角三角形，两直角边均为 \\(1-x\\)：\\([DEF]=\\tfrac12(1-x)^2\\)。" },
+      { type: "step", n: "3", title: { en: "Take the ratio and substitute", zh: "求比并代入" },
+        en: "\\(\\dfrac{[DEF]}{[ABE]}=\\dfrac{(1-x)^2}{x}.\\)\nFrom \\(x^2-4x+1=0\\) we have \\(x^2 = 4x-1\\), and \\((1-x)^2 = 1-2x+x^2 = 1-2x+(4x-1)=2x.\\)\nSo the ratio \\(=\\dfrac{2x}{x}=2.\\)",
+        zh: "\\(\\dfrac{[DEF]}{[ABE]}=\\dfrac{(1-x)^2}{x}\\)。\n由 \\(x^2-4x+1=0\\) 得 \\(x^2 = 4x-1\\)，于是 \\((1-x)^2 = 1-2x+x^2 = 1-2x+(4x-1)=2x\\)。\n所以比值 \\(=\\dfrac{2x}{x}=2\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\dfrac{[DEF]}{[ABE]} = 2\\ } \\]" },
+      { type: "note", en: "Watch the elegance: we never needed the ugly \\(\\sqrt3\\) value of \\(x\\). The relation \\((1-x)^2=2x\\) came straight from the defining equation, and the messy radical cancelled. Lesson: after setting a variable, keep the CONSTRAINT equation handy — it often simplifies the final expression without solving for the variable explicitly.",
+        zh: "注意这份优雅：我们从头到尾都不需要 \\(x\\) 那个丑陋的 \\(\\sqrt3\\) 值。关系式 \\((1-x)^2=2x\\) 直接来自那个定义方程，丑陋的根号被约掉了。教训：设完变量后，把「约束方程」留在手边 —— 它常常能在「不显式解出变量」的情况下化简最终表达式。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "In unit square \\(ABCD\\), point \\(E\\) is on \\(AD\\) with \\(AE=x\\), and \\(\\triangle ABE\\) is folded so \\(BE\\) equals the diagonal segment... simpler version: with the SAME setup as above, find \\(EF\\) (the side of the equilateral triangle) exactly. Use \\(EF=(1-x)\\sqrt2\\) and \\(x=2-\\sqrt3\\).",
+        zh: "在单位正方形 \\(ABCD\\) 中，用与上面「相同」的构型，精确求出 \\(EF\\)（等边三角形的边长）。用 \\(EF=(1-x)\\sqrt2\\) 与 \\(x=2-\\sqrt3\\)。" },
+      { type: "note", en: "Check (fold away): \\(1-x = \\sqrt3-1\\), so \\(EF=(\\sqrt3-1)\\sqrt2=\\sqrt6-\\sqrt2\\approx 1.035.\\) (Sanity: slightly longer than the side 1 — correct, since the triangle's vertices reach across the square.)",
+        zh: "对答案（先盖住）：\\(1-x = \\sqrt3-1\\)，所以 \\(EF=(\\sqrt3-1)\\sqrt2=\\sqrt6-\\sqrt2\\approx 1.035\\)。（检验：略大于边长 1 —— 正确，因为三角形的顶点横跨了正方形。）" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 6 · Function substitution f(x/3)=x^2+x+1 ============ */
+textbookData.push({
+  id: "p-fsub",
+  badge: { en: "Challenge · Problem 06", zh: "压轴 · 第 06 题" },
+  title: { en: "f(x/3)=x²+x+1 — substitute, don't solve for f", zh: "f(x/3)=x²+x+1 —— 用代换，别去解出 f" },
+  subtitle: { en: "A function defined by a formula on a DISGUISED input. Beginners waste time finding f(x) explicitly. The pro move: substitute so the inside becomes what you want, then read off the equation directly.",
+              zh: "一个定义在「伪装输入」上的函数。初学者会浪费时间去显式求出 f(x)。高手的做法：直接代换，让括号内变成你想要的，然后直接读出方程。" },
+  readingTime: { en: "~12 min · AMC10-level", zh: "约 12 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "Let \\(f\\) be a function for which \\(f\\!\\left(\\dfrac{x}{3}\\right)=x^2+x+1.\\) Find the SUM of all values of \\(z\\) for which \\(f(3z)=7.\\)",
+        zh: "设函数 \\(f\\) 满足 \\(f\\!\\left(\\dfrac{x}{3}\\right)=x^2+x+1\\)。求使 \\(f(3z)=7\\) 成立的所有 \\(z\\) 之「和」。" },
+      { type: "note", en: "Two different arguments appear: the definition uses \\(x/3\\), the question uses \\(3z\\). The whole task is to make these match. And notice the question asks for the SUM of roots — a hint that Vieta's formulas will finish it without solving.",
+        zh: "出现了两个不同的自变量：定义用的是 \\(x/3\\)，问题用的是 \\(3z\\)。整个任务就是让它们「对上」。并且注意，问题问的是根之「和」—— 这暗示韦达定理能不解方程就收尾。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–2 · Hear & spot the disguise", zh: "第一、二步 · 听 & 识破伪装" },
+    blocks: [
+      { type: "para", en: "The disguise: it looks like you must first find a clean formula for \\(f(t)\\), then plug in \\(t=3z\\). You CAN do that, but there's a faster, safer route — force the definition's input \\(x/3\\) to equal \\(3z\\) by choosing the right \\(x\\).",
+        zh: "伪装：它看起来像是你必须先求出 \\(f(t)\\) 的干净公式，再代入 \\(t=3z\\)。你「可以」这么做，但有一条更快、更稳的路 —— 通过选对 \\(x\\)，强行让定义的输入 \\(x/3\\) 等于 \\(3z\\)。" },
+      { type: "ask", en: "If I want \\(f(3z)\\) but my rule only knows \\(f(x/3)\\), what \\(x\\) makes \\(\\dfrac{x}{3}=3z\\)? Solve for \\(x\\) first — that one substitution is the entire unlock.",
+        zh: "如果我想要 \\(f(3z)\\)，但我的规则只认识 \\(f(x/3)\\)，那什么样的 \\(x\\) 能让 \\(\\dfrac{x}{3}=3z\\)？先解出 \\(x\\) —— 这一个代换就是全部的解锁。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 3–5 · Substitute & execute", zh: "第三～五步 · 代换 & 执行" },
+    blocks: [
+      { type: "step", n: "1", title: { en: "Match the arguments", zh: "让自变量对上" },
+        en: "Want \\(\\dfrac{x}{3}=3z \\Rightarrow x=9z.\\) Substitute \\(x=9z\\) into the definition:\n\\(f(3z)=f\\!\\left(\\dfrac{9z}{3}\\right)=(9z)^2+(9z)+1=81z^2+9z+1.\\)",
+        zh: "想要 \\(\\dfrac{x}{3}=3z \\Rightarrow x=9z\\)。把 \\(x=9z\\) 代入定义：\n\\(f(3z)=f\\!\\left(\\dfrac{9z}{3}\\right)=(9z)^2+(9z)+1=81z^2+9z+1\\)。" },
+      { type: "step", n: "2", title: { en: "Set equal to 7", zh: "令其等于 7" },
+        en: "\\(81z^2+9z+1=7 \\Rightarrow 81z^2+9z-6=0 \\Rightarrow 27z^2+3z-2=0.\\)",
+        zh: "\\(81z^2+9z+1=7 \\Rightarrow 81z^2+9z-6=0 \\Rightarrow 27z^2+3z-2=0\\)。" },
+      { type: "step", n: "3", title: { en: "Vieta: sum of roots", zh: "韦达定理：根之和" },
+        en: "For \\(az^2+bz+c=0\\), the sum of roots is \\(-\\dfrac{b}{a}.\\) Here \\(a=27,\\ b=3\\):\n\\(z_1+z_2=-\\dfrac{3}{27}=-\\dfrac19.\\)",
+        zh: "对于 \\(az^2+bz+c=0\\)，根之和为 \\(-\\dfrac{b}{a}\\)。这里 \\(a=27,\\ b=3\\)：\n\\(z_1+z_2=-\\dfrac{3}{27}=-\\dfrac19\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ z_1+z_2=-\\dfrac19\\ } \\]" },
+      { type: "note", en: "We never found \\(f(t)\\) and never solved the quadratic. Two reflexes did everything: (1) substitute to match arguments, (2) Vieta for 'sum of roots'. Whenever a question asks for the SUM (or product) of solutions, resist solving — reach for Vieta.",
+        zh: "我们从头到尾没求出 \\(f(t)\\)，也没解那个二次方程。两个反射搞定了一切：（1）代换以对上自变量，（2）用韦达处理「根之和」。每当问题问「解之和」（或积），忍住别去解 —— 拿起韦达。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "Let \\(g\\) satisfy \\(g(2x-1)=x^2-x.\\) Find the sum of all \\(w\\) with \\(g(w)=6.\\) Reflex: set the inside \\(2x-1=w\\) is not needed yet — instead just set \\(x^2-x=6\\), solve the input \\(x\\)-values, then convert each to \\(w=2x-1\\) and add.",
+        zh: "设 \\(g\\) 满足 \\(g(2x-1)=x^2-x\\)。求所有满足 \\(g(w)=6\\) 的 \\(w\\) 之和。反射：先令 \\(x^2-x=6\\)，解出输入的 \\(x\\) 值，再把每个换成 \\(w=2x-1\\) 相加。" },
+      { type: "note", en: "Check (fold away): \\(x^2-x-6=0\\Rightarrow x=3\\) or \\(x=-2.\\) Then \\(w=2(3)-1=5\\) and \\(w=2(-2)-1=-5.\\) Sum \\(=0.\\) (Slick alt: \\(w=2x-1\\) is linear, so \\(\\sum w = 2\\sum x - 2 = 2(1)-2=0\\), using \\(\\sum x=1\\) from Vieta.)",
+        zh: "对答案（先盖住）：\\(x^2-x-6=0\\Rightarrow x=3\\) 或 \\(x=-2\\)。则 \\(w=2(3)-1=5\\) 与 \\(w=2(-2)-1=-5\\)。和 \\(=0\\)。（巧解：\\(w=2x-1\\) 是线性的，故 \\(\\sum w = 2\\sum x - 2 = 2(1)-2=0\\)，其中 \\(\\sum x=1\\) 由韦达得到。）" }
+    ]
+  }
+  ]
+});
+
+
+/* ============ PROBLEM 7 · Maximize AMC+AM+MC+CA with A+M+C=10 (symmetry + testing) ============ */
+textbookData.push({
+  id: "p-amc",
+  badge: { en: "Challenge · Problem 07", zh: "压轴 · 第 07 题" },
+  title: { en: "Maximize A·M·C + AM + MC + CA — symmetry says 'balance'", zh: "最大化 A·M·C + AM + MC + CA —— 对称性说「要均衡」" },
+  subtitle: { en: "An optimization with three variables and a fixed sum. The expression is fully symmetric, so the extremum lives at the most balanced point. Recognizing symmetry tells you WHERE to look before you compute anything.",
+              zh: "一个三变量、固定和的最优化问题。表达式完全对称，所以极值出现在「最均衡」的点。识别出对称性，能在你计算任何东西之前，就告诉你该往「哪里」找。" },
+  readingTime: { en: "~13 min · AMC10-level", zh: "约 13 分钟 · AMC10 压轴级" },
+  sections: [
+
+  {
+    heading: { en: "The problem", zh: "题目" },
+    blocks: [
+      { type: "example",
+        en: "Let \\(A, M,\\) and \\(C\\) be nonnegative integers such that \\(A+M+C=10.\\) What is the maximum value of \\(A\\cdot M\\cdot C + A\\cdot M + M\\cdot C + C\\cdot A\\)?",
+        zh: "设 \\(A, M, C\\) 为非负整数，满足 \\(A+M+C=10\\)。求 \\(A\\cdot M\\cdot C + A\\cdot M + M\\cdot C + C\\cdot A\\) 的最大值。" },
+      { type: "note", en: "First, read the SHAPE of the expression, not the letters. Swapping any two of \\(A,M,C\\) leaves it unchanged — it is symmetric. Symmetric expression + symmetric constraint ⟹ the extremum is at (or very near) \\(A=M=C\\).",
+        zh: "首先，读表达式的「形状」，而不是字母。交换 \\(A,M,C\\) 中任意两个，它都不变 —— 它是对称的。对称表达式 + 对称约束 ⟹ 极值出现在 \\(A=M=C\\)（或非常接近）。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 1–2 · Hear & spot", zh: "第一、二步 · 听 & 识破" },
+    blocks: [
+      { type: "para", en: "Keywords: 'nonnegative integers', 'fixed sum 10', 'maximum'. The disguise is that products like \\(AMC\\) tempt you to try extreme allocations (e.g. \\(10,0,0\\)). But every term is a PRODUCT — products of a fixed sum are maximized by SPREADING the total evenly, not piling it on one variable (which zeros the products).",
+        zh: "关键词：「非负整数」「固定和 10」「最大值」。伪装在于：像 \\(AMC\\) 这样的乘积会诱惑你尝试极端分配（比如 \\(10,0,0\\)）。但每一项都是「乘积」—— 固定和的乘积，是靠把总量「均匀铺开」来最大化的，而不是堆在一个变量上（那会让乘积归零）。" },
+      { type: "example", en: "Sanity check the extremes: \\((10,0,0)\\) gives \\(0+0+0+0=0.\\) Terrible. So the maximum is definitely in the balanced interior. Since \\(10\\) isn't divisible by 3, the most balanced integer split is \\(\\{3,3,4\\}.\\)",
+        zh: "先验一下极端：\\((10,0,0)\\) 给出 \\(0+0+0+0=0\\)。糟透了。所以最大值一定在「均衡的内部」。由于 \\(10\\) 不能被 3 整除，最均衡的整数分配是 \\(\\{3,3,4\\}\\)。" }
+    ]
+  },
+
+  {
+    heading: { en: "Step 3–5 · Test the balanced candidates", zh: "第三～五步 · 检验均衡候选" },
+    blocks: [
+      { type: "para", en: "Symmetry narrows the search to a tiny handful of near-equal splits. Just evaluate them and pick the best — no calculus needed.",
+        zh: "对称性把搜索范围缩小到极少数「近似相等」的分配。只要逐一代入、挑最大 —— 不需要微积分。" },
+      { type: "table",
+        head: { en: ["\\((A,M,C)\\)", "\\(AMC\\)", "\\(AM+MC+CA\\)", "Total"], zh: ["\\((A,M,C)\\)", "\\(AMC\\)", "\\(AM+MC+CA\\)", "总和"] },
+        rows: {
+          en: [
+            ["\\((3,3,4)\\)", "36", "\\(9+12+12=33\\)", "69"],
+            ["\\((2,4,4)\\)", "32", "\\(8+16+8=32\\)", "64"],
+            ["\\((3,3,4)\\) perms", "36", "33", "69 (same by symmetry)"],
+            ["\\((5,5,0)\\)", "0", "\\(25+0+0=25\\)", "25"]
+          ],
+          zh: [
+            ["\\((3,3,4)\\)", "36", "\\(9+12+12=33\\)", "69"],
+            ["\\((2,4,4)\\)", "32", "\\(8+16+8=32\\)", "64"],
+            ["\\((3,3,4)\\) 的排列", "36", "33", "69（对称，相同）"],
+            ["\\((5,5,0)\\)", "0", "\\(25+0+0=25\\)", "25"]
+          ]
+        }
+      },
+      { type: "step", n: "1", title: { en: "The winner", zh: "获胜者" },
+        en: "The most balanced split \\((3,3,4)\\) gives the maximum:\n\\(AMC+AM+MC+CA = 36+33 = 69.\\)",
+        zh: "最均衡的分配 \\((3,3,4)\\) 给出最大值：\n\\(AMC+AM+MC+CA = 36+33 = 69\\)。" },
+      { type: "formula", tex: "\\[ \\boxed{\\ \\text{maximum} = 69\\ } \\]" },
+      { type: "note", en: "The lesson is the RECOGNITION, not the arithmetic: a symmetric expression under a symmetric constraint peaks at the balance point. That single observation collapsed a scary 3-variable optimization into checking two or three splits by hand.",
+        zh: "教训在于「识别」，而不是算术：对称约束下的对称表达式，在「均衡点」取得峰值。这一个观察，就把一个吓人的三变量最优化，压成了手算两三个分配的检验。" }
+    ]
+  },
+
+  {
+    heading: { en: "Your turn (twin problem)", zh: "轮到你（同类变形题）" },
+    blocks: [
+      { type: "ask", en: "Let \\(x,y,z\\) be nonnegative integers with \\(x+y+z=12.\\) Maximize \\(xy+yz+zx.\\) (Simpler cousin — only the pairwise-product part.) Reflex: symmetric + fixed sum ⟹ test the balanced split \\((4,4,4)\\) first.",
+        zh: "设 \\(x,y,z\\) 为非负整数，\\(x+y+z=12\\)。最大化 \\(xy+yz+zx\\)。（更简单的表亲 —— 只有两两乘积部分。）反射：对称 + 固定和 ⟹ 先检验均衡分配 \\((4,4,4)\\)。" },
+      { type: "note", en: "Check (fold away): \\((4,4,4)\\) gives \\(16+16+16=48.\\) Any imbalance lowers it, e.g. \\((5,4,3)\\to20+12+15=47.\\) Maximum \\(=48.\\) (General fact: \\(xy+yz+zx=\\tfrac{(x+y+z)^2-(x^2+y^2+z^2)}{2}\\) is maximized when the squares are minimized, i.e. when the variables are equal.)",
+        zh: "对答案（先盖住）：\\((4,4,4)\\) 给出 \\(16+16+16=48\\)。任何不均衡都会降低它，例如 \\((5,4,3)\\to20+12+15=47\\)。最大值 \\(=48\\)。（一般结论：\\(xy+yz+zx=\\tfrac{(x+y+z)^2-(x^2+y^2+z^2)}{2}\\)，当平方和最小、即变量相等时取最大。）" }
+    ]
+  }
+  ]
+});
+
