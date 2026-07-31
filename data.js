@@ -3655,12 +3655,12 @@ zh: "第 1 步 —— 设 s1=1。牛顿给出 \(p_2=s_1^2-2s_2=1-2s_2.\)" },
 zh: "第 2 步 —— \(p_3=s_1^3-3s_1s_2+3s_3=1-3s_2+3s_3.\)" },
 { en: "STEP 3 — \(p_4=s_1p_3-s_2p_2+s_3p_1\) (k=4>n=3, but here use the k≤n form with s4=0): \(p_4=p_3-s_2p_2+s_3.\)",
 zh: "第 3 步 —— \(p_4=s_1p_3-s_2p_2+s_3p_1\)（k=4>n=3，这里用 s4=0 的形式）：\(p_4=p_3-s_2p_2+s_3.\)" },
-{ en: "STEP 4 — Plug into the equation \(p_3+s_3=p_4+1.\) After substitution and simplification it reduces to \(s_2^2-2s_2+ (\text{terms})=0,\) which repackages into a sum of squares set to 0.",
+{ en: "STEP 4 — Plug into the equation \(p_3+s_3=p_4+1.\) After substitution and simplification it reduces to \(s_2^2-2s_2+ (\\text{terms})=0,\) which repackages into a sum of squares set to 0.",
 zh: "第 4 步 —— 代入方程 \(p_3+s_3=p_4+1\)。代换化简后归约为可重打包成「平方和 = 0」的形式。" },
-{ en: "STEP 5 — Force each square to zero. The only real possibility is the symmetric point \(x=y=z=\tfrac13,\) i.e. all three equal. Check: \(3\cdot\tfrac13=1\) ✓.",
-zh: "第 5 步 —— 逼每个平方为零。唯一实数可能是对称点 \(x=y=z=\tfrac13\)，即三者相等。检验：\(3\cdot\tfrac13=1\) ✓。" }
+{ en: "STEP 5 — Force each square to zero. The only real possibility is the symmetric point \(x=y=z=\\tfrac13,\) i.e. all three equal. Check: \(3\cdot\\tfrac13=1\) ✓.",
+zh: "第 5 步 —— 逼每个平方为零。唯一实数可能是对称点 \(x=y=z=\\tfrac13\)，即三者相等。检验：\(3\cdot\\tfrac13=1\) ✓。" }
 ],
-answer: { en: "\(x=y=z=\tfrac13\)", zh: "\(x=y=z=\tfrac13\)" },
+answer: { en: "\(x=y=z=\\tfrac13\)", zh: "\(x=y=z=\\tfrac13\)" },
 insight: { en: "Convert a system mixing different power sums into one relation among s1,s2,s3 via Newton; then chase a 'sum of squares = 0' to use the real-number rule that each square must vanish. Symmetric systems love symmetric answers (all variables equal) — but you must PROVE it's the only one, not just guess it.",
 zh: "用牛顿把混合不同幂和的方程组化成只含 s1,s2,s3 的一条关系；再追「平方和 = 0」，借实数规则逼每个平方为零。对称方程组偏爱对称解（所有变量相等）—— 但你得「证明」它是唯一的，而非猜出来。" }
 }

@@ -128,6 +128,8 @@ function testCourse(label, course, FIG) {
       const dollars = (v.match(/(?<!\\)\$/g) || []).length;
       dollarTot += dollars;
       if (dollars % 2 !== 0) ok(false, label + ": 字符串内 $ 不成对: " + v.slice(0, 50));
+      // 控制字符检测：单反斜杠 LaTeX 命令(如 \\triangle 写成 \triangle)会被 JS 解析成 Tab/换行/回车
+      if (/[\t\r]/.test(v)) ok(false, label + ": 字段含 Tab/CR 控制字符(疑似 \\t/\\r 转义错误): " + JSON.stringify(v.slice(0, 50)));
     }
   });
   ok(parenOpen === paranSafe(parenClose), label + ": \\( 与 \\) 配对 (" + parenOpen + " vs " + parenClose + ")");

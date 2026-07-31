@@ -5394,13 +5394,13 @@ const courseData = {
       "zh": "内角平分线 \\(t_a,t_b,t_c\\) 交对边于 \\(U,V,W\\)；中线交之于 \\(L,M,N\\)。在所定义的交点下，证明 \\(\\frac{AR}{RU}\\cdot\\frac{BP}{PV}\\cdot\\frac{CQ}{QW}\\ge 8\\)。"
      },
      "recall": {
-      "en": "The incenter divides bisector \\(AU\\) as \\(\\frac{AI}{IU}=\\frac{b+c}{a}\\). Turn each ratio into a side expression, then AM-GM.",
-      "zh": "内心把平分线 \\(AU\\) 分成 \\(\\frac{AI}{IU}=\\frac{b+c}{a}\\)。把每个比化为边长表达式，再用 AM-GM。"
+      "en": "Careful: R,P,Q are NOT the incenter — each is a median-bisector intersection. Use Menelaus to get each ratio, e.g. apply Menelaus to \\(\\triangle ABU\\) with the median line CN. Then AM-GM.",
+      "zh": "注意：R,P,Q 都**不是内心**——它们是中线与角平分线的交点。用梅涅劳斯求每个比，例如对 \\(\\triangle ABU\\) 以中线 CN 作横截线。再用 AM-GM。"
      },
      "steps": [
       {
-       "en": "Each ratio equals a \\(\\frac{b+c}{a}\\)-type quantity: \\(\\frac{AR}{RU}=\\frac{b+c}{a},\\ \\frac{BP}{PV}=\\frac{c+a}{b},\\ \\frac{CQ}{QW}=\\frac{a+b}{c}\\).",
-       "zh": "每个比等于 \\(\\frac{b+c}{a}\\) 型：\\(\\frac{AR}{RU}=\\frac{b+c}{a},\\ \\frac{BP}{PV}=\\frac{c+a}{b},\\ \\frac{CQ}{QW}=\\frac{a+b}{c}\\)。"
+       "en": "Menelaus on \\(\\triangle ABU\\) with transversal CN (the median) gives \\(\\frac{AR}{RU}=\\frac{b+c}{b}\\). Cyclically: \\(\\frac{BP}{PV}=\\frac{c+a}{c},\\ \\frac{CQ}{QW}=\\frac{a+b}{a}\\).",
+       "zh": "对 \\(\\triangle ABU\\) 以中线 CN 作横截线，梅涅劳斯给出 \\(\\frac{AR}{RU}=\\frac{b+c}{b}\\)。轮换：\\(\\frac{BP}{PV}=\\frac{c+a}{c},\\ \\frac{CQ}{QW}=\\frac{a+b}{a}\\)。"
       },
       {
        "en": "Product \\(=\\frac{(b+c)(c+a)(a+b)}{abc}\\).",
@@ -5420,8 +5420,8 @@ const courseData = {
       "zh": "\\(\\frac{(b+c)(c+a)(a+b)}{abc}\\ge 8\\)，正三角形时取等。\\(\\blacksquare\\)"
      },
      "insight": {
-      "en": "The whole inequality is three AM-GMs in disguise. The moment you see a symmetric product of \\((b+c)/a\\)-type ratios, reach for AM-GM and expect equality at the equilateral case.",
-      "zh": "整个不等式就是三次 AM-GM 的伪装。一看到 \\((b+c)/a\\) 型比值的对称乘积，就用 AM-GM，并预期正三角形取等。"
+      "en": "The trap: R,P,Q look like the incenter but are not, so the ratio is \\((b+c)/b\\) (via Menelaus), NOT (b+c)/a. The product still telescopes to \\((b+c)(c+a)(a+b)/abc\\); AM-GM finishes it, equality at the equilateral.",
+      "zh": "陷阱：R,P,Q 看着像内心其实不是，故比值是 \\((b+c)/b\\)（用梅涅劳斯），**不是** (b+c)/a。乘积仍裂项为 \\((b+c)(c+a)(a+b)/abc\\)；AM-GM 收尾，正三角形取等。"
      }
     },
     {
