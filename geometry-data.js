@@ -5125,7 +5125,8 @@ const courseData = {
      "insight": {
       "en": "The diagonal is the whole trick: it manufactures the shared point \\(W\\) whose two ratios are reciprocals and vanish. The same 'cut with a diagonal, multiply, cancel' pattern extends Menelaus to any polygon — a transversal across \\(n\\) sides gives a product of \\(n\\) ratios equal to \\(1\\).",
       "zh": "对角线就是全部诀窍：它制造了共享点 \\(W\\)，其两个比互为倒数、自动消失。同样的「用对角线切、相乘、相消」模式把梅涅劳斯推广到任意多边形——横截线截 \\(n\\) 条边，就给出 \\(n\\) 个比的乘积等于 \\(1\\)。"
-     }
+     },
+     "fig": FIG.menelaus_quad4
     },
     {
      "source": {
@@ -5303,7 +5304,8 @@ const courseData = {
      "insight": {
       "en": "Three external bisectors = three sign flips = \\((-1)^3=-1\\), the Menelaus condition. The three INTERNAL bisectors instead give \\(+1\\) → they concur (incenter) by Ceva. Same magnitudes, opposite signs, dual conclusions.",
       "zh": "三条外角平分线 = 三次翻号 = \\((-1)^3=-1\\)，正是梅涅劳斯条件。三条**内**角平分线则给 \\(+1\\) → 由塞瓦共点（内心）。同样的绝对值、相反的符号、对偶的结论。"
-     }
+     },
+     "fig": FIG.menelaus_extaxis
     },
     {
      "n": 2,
@@ -5422,7 +5424,8 @@ const courseData = {
      "insight": {
       "en": "The trap: R,P,Q look like the incenter but are not, so the ratio is \\((b+c)/b\\) (via Menelaus), NOT (b+c)/a. The product still telescopes to \\((b+c)(c+a)(a+b)/abc\\); AM-GM finishes it, equality at the equilateral.",
       "zh": "陷阱：R,P,Q 看着像内心其实不是，故比值是 \\((b+c)/b\\)（用梅涅劳斯），**不是** (b+c)/a。乘积仍裂项为 \\((b+c)(c+a)(a+b)/abc\\)；AM-GM 收尾，正三角形取等。"
-     }
+     },
+     "fig": FIG.menelaus_median_bis
     },
     {
      "n": 5,
@@ -5570,7 +5573,8 @@ const courseData = {
      "insight": {
       "en": "Multiply the target by \\(AT\\) first: the scary reciprocal identity becomes 'two ratios sum to 1', delivered by parallels in one step.",
       "zh": "先把目标乘以 \\(AT\\)：吓人的倒数恒等式变成「两比之和为 1」，平行线一步给出。"
-     }
+     },
+     "fig": FIG.menelaus_trap_harm
     },
     {
      "n": 9,

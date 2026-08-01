@@ -418,4 +418,73 @@ FIG.menelaus_ceva = `<svg viewBox="0 0 380 240" role="img" aria-label="Menelaus 
 <text class="lbl-ang" x="250" y="230">Menelaus：三点共线 (=1)</text>
 </svg>`;
 
+
+/* ===== Day 7 追加构型图 (P1/P2/P4/P8) ===== */
+
+/* P1: 外角平分线三足 A'B'C' 共线于"外轴" */
+FIG.menelaus_extaxis = `<svg viewBox="0 0 400 250" role="img" aria-label="External bisector feet collinear on the external axis">
+<polygon class="f-fill" points="150,40 90,190 250,190"/>
+<polygon class="s-main" points="150,40 90,190 250,190"/>
+<line class="s-thin" x1="250" y1="190" x2="370" y2="190"/>
+<line class="s-thin" x1="90" y1="190" x2="20" y2="190"/>
+<line class="s-hi" x1="30" y1="205" x2="360" y2="120"/>
+<circle class="pt" cx="150" cy="40" r="3"/><text class="lbl" x="144" y="32">A</text>
+<circle class="pt" cx="90" cy="190" r="3"/><text class="lbl" x="76" y="205">B</text>
+<circle class="pt" cx="250" cy="190" r="3"/><text class="lbl" x="254" y="205">C</text>
+<circle class="pt-hi" cx="345" cy="123" r="3"/><text class="lbl" x="349" y="120">A'</text>
+<circle class="pt-hi" cx="150" cy="172" r="3"/><text class="lbl" x="150" y="164">B'</text>
+<circle class="pt-hi" cx="52" cy="200" r="3"/><text class="lbl" x="40" y="216">C'</text>
+<text class="lbl-ang" x="150" y="235">A', B', C' collinear (external axis)</text>
+</svg>`;
+
+/* P2: 凸四边形 ABCD + 横截线截四边 X/Y/Z/T + 对角线 AC 作桥点 S */
+FIG.menelaus_quad4 = `<svg viewBox="0 0 380 250" role="img" aria-label="Quadrilateral transversal with diagonal bridge">
+<polygon class="s-main" points="60,60 300,40 340,180 40,200"/>
+<line class="s-aux" x1="60" y1="60" x2="340" y2="180"/>
+<line class="s-hi" x1="20" y1="150" x2="360" y2="95"/>
+<circle class="pt" cx="60" cy="60" r="3"/><text class="lbl" x="48" y="52">A</text>
+<circle class="pt" cx="300" cy="40" r="3"/><text class="lbl" x="304" y="36">B</text>
+<circle class="pt" cx="340" cy="180" r="3"/><text class="lbl" x="344" y="184">C</text>
+<circle class="pt" cx="40" cy="200" r="3"/><text class="lbl" x="26" y="214">D</text>
+<circle class="pt-hi" cx="50" cy="151" r="3"/><text class="lbl" x="34" y="150">X</text>
+<circle class="pt-hi" cx="163" cy="132" r="3"/><text class="lbl" x="158" y="124">Y</text>
+<circle class="pt-hi" cx="322" cy="103" r="3"/><text class="lbl" x="326" y="100">Z</text>
+<circle class="pt-hi" cx="196" cy="127" r="3"/><text class="lbl" x="190" y="146">T</text>
+<circle class="pt-hi" cx="176" cy="129" r="3"/><text class="lbl" x="172" y="120">S</text>
+<text class="lbl-ang" x="90" y="235">split by diagonal AC, bridge point S cancels</text>
+</svg>`;
+
+/* P4: 三角形 + 中线 CN + 角平分线 AU 交于 R, 标注 (b+c)/b */
+FIG.menelaus_median_bis = `<svg viewBox="0 0 360 240" role="img" aria-label="Median CN and bisector AU meet at R">
+<polygon class="f-fill2" points="150,30 50,200 310,200"/>
+<polygon class="s-main" points="150,30 50,200 310,200"/>
+<line class="s-hi" x1="150" y1="30" x2="196" y2="200"/>
+<line class="s-aux" x1="310" y1="200" x2="100" y2="115"/>
+<circle class="pt" cx="150" cy="30" r="3"/><text class="lbl" x="144" y="22">A</text>
+<circle class="pt" cx="50" cy="200" r="3"/><text class="lbl" x="36" y="215">B</text>
+<circle class="pt" cx="310" cy="200" r="3"/><text class="lbl" x="314" y="215">C</text>
+<circle class="pt-hi" cx="196" cy="200" r="3"/><text class="lbl" x="190" y="217">U</text>
+<circle class="pt-hi" cx="100" cy="115" r="3"/><text class="lbl" x="82" y="112">N</text>
+<circle class="pt-hi" cx="171" cy="139" r="3"/><text class="lbl" x="176" y="135">R</text>
+<text class="lbl-len" x="86" y="90">c</text>
+<text class="lbl-len" x="235" y="105">b</text>
+<text class="lbl-ang" x="120" y="175">AR/RU = (b+c)/b</text>
+</svg>`;
+
+/* P8: 梯形 AB∥CD + 对角线 + 顶点 P + 点 X,T on AB */
+FIG.menelaus_trap_harm = `<svg viewBox="0 0 360 250" role="img" aria-label="Trapezoid harmonic relation 1/AT=1/AX+1/AB">
+<line class="s-thin" x1="40" y1="60" x2="150" y2="60"/>
+<polygon class="s-main" points="20,200 340,200 250,60 110,60"/>
+<line class="s-aux" x1="20" y1="200" x2="250" y2="60"/>
+<line class="s-aux" x1="340" y1="200" x2="110" y2="60"/>
+<circle class="pt" cx="20" cy="200" r="3"/><text class="lbl" x="8" y="215">A</text>
+<circle class="pt" cx="340" cy="200" r="3"/><text class="lbl" x="344" y="215">B</text>
+<circle class="pt" cx="250" cy="60" r="3"/><text class="lbl" x="254" y="56">C</text>
+<circle class="pt" cx="110" cy="60" r="3"/><text class="lbl" x="98" y="56">D</text>
+<circle class="pt-hi" cx="180" cy="128" r="3"/><text class="lbl" x="184" y="124">P</text>
+<circle class="pt-hi" cx="150" cy="200" r="3"/><text class="lbl" x="144" y="217">X</text>
+<circle class="pt-hi" cx="235" cy="200" r="3"/><text class="lbl" x="229" y="217">T</text>
+<text class="lbl-ang" x="60" y="235">AB ∥ CD :  1/AT = 1/AX + 1/AB</text>
+</svg>`;
+
 if (typeof module !== "undefined" && module.exports) module.exports = FIG;
