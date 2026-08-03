@@ -712,3 +712,154 @@ textbookData[5].sections.push({
       zh: "知识点 06 一句话总结：对分步过程，命名状态、让概率流动；若可能循环，用首步分析打破它；并「永远」检查是否有对称性直接白送你 \\(\\tfrac12\\) 或 \\(k/N\\)。它与知识点 04–05 一起，闭合了 AMC 第 21–25 题的计数与概率。" }
   ]
 });
+
+
+/* ==========================================================
+   CONCEPT 7 — Binomial Coefficients & Combinatorial Identities
+   Fills the biggest AIME gap: Pascal / Hockey-Stick / Binomial
+   Theorem / lattice paths / Catalan / (1+i)^n technique.
+   10 worked examples, difficulty-ascending, all verified.
+   ========================================================== */
+textbookData.push({
+  id: "binomial",
+  badge: { en: "Counting · Concept 07", zh: "组合 · 知识点 07" },
+  title: { en: "Binomial Coefficients & Identities", zh: "二项式系数与组合恒等式" },
+  subtitle: { en: "The single most common engine in AIME combinatorics. Master \\(\\binom{n}{k}\\) as a shape-shifter: it counts subsets, sits in Pascal's triangle, expands \\((a+b)^n\\), counts lattice paths, and collapses huge sums via identities.",
+              zh: "AIME 组合里出现最频繁的一台引擎。把 \\(\\binom{n}{k}\\) 当成一个「变形金刚」来掌握：它数子集、住在杨辉三角里、展开 \\((a+b)^n\\)、数格点路径，还能用恒等式把巨大的求和压缩掉。" },
+  readingTime: { en: "~30 min · AMC10→AIME", zh: "约 30 分钟 · AMC10→AIME" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · One symbol, five faces", zh: "0 · 一个符号，五张脸" },
+    blocks: [
+      { type: "para", en: "\\(\\binom{n}{k}\\) (\"n choose k\") is the number of ways to pick \\(k\\) things from \\(n\\). But its power in competition comes from how many DIFFERENT problems secretly ARE this number. Recognizing the disguise is the whole game.",
+        zh: "\\(\\binom{n}{k}\\)（「从 n 个里选 k 个」）是从 \\(n\\) 个中选 \\(k\\) 个的方法数。但它在竞赛里的威力，来自有多少「看起来不同」的问题，其实「就是」这个数。识破这层伪装，就是全部的游戏。" },
+      { type: "formula", tex: "\\[ \\binom{n}{k}=\\frac{n!}{k!\\,(n-k)!},\\qquad \\binom{n}{k}=\\binom{n}{n-k} \\]" },
+      { type: "table",
+        head: { en: ["Disguise", "It's secretly \\(\\binom{n}{k}\\) because…"], zh: ["伪装", "它其实是 \\(\\binom{n}{k}\\)，因为…"] },
+        rows: {
+          en: [
+            ["Number of \\(k\\)-element subsets", "definition"],
+            ["Lattice paths from \\((0,0)\\) to \\((a,b)\\)", "choose which \\(a\\) of the \\(a+b\\) steps go right: \\(\\binom{a+b}{a}\\)"],
+            ["Coefficient of \\(a^k b^{n-k}\\) in \\((a+b)^n\\)", "binomial theorem"],
+            ["Arrangements of \\(k\\) X's and \\(n-k\\) O's in a row", "choose positions for the X's"]
+          ],
+          zh: [
+            ["\\(k\\) 元子集的个数", "定义"],
+            ["从 \\((0,0)\\) 到 \\((a,b)\\) 的格点路径", "在 \\(a+b\\) 步里选哪 \\(a\\) 步向右：\\(\\binom{a+b}{a}\\)"],
+            ["\\((a+b)^n\\) 中 \\(a^k b^{n-k}\\) 的系数", "二项式定理"],
+            ["一行里 \\(k\\) 个 X 与 \\(n-k\\) 个 O 的排法", "选 X 的位置"]
+          ]
+        }
+      },
+      { type: "ask", en: "Hold this: if you ever see 'paths on a grid going only up/right', or 'coefficient of \\(x^3\\)', or 'how many ways to arrange these identical letters' — your hand should already be reaching for \\(\\binom{n}{k}\\).",
+        zh: "记住：只要你看到「网格上只能上/右走的路径」，或「\\(x^3\\) 的系数」，或「这些相同字母有几种排法」—— 你的手就该已经在伸向 \\(\\binom{n}{k}\\) 了。" }
+    ]
+  },
+
+  /* ---------- 1. Pascal + Hockey Stick ---------- */
+  {
+    heading: { en: "1 · Pascal's triangle & the Hockey-Stick identity", zh: "1 · 杨辉三角与曲棍球棒恒等式" },
+    blocks: [
+      { type: "para", en: "Two identities do 80% of AIME binomial work. First, Pascal's rule (every entry is the sum of the two above it). Second, the Hockey-Stick identity, which collapses a diagonal sum into a single term.",
+        zh: "两个恒等式包办了 AIME 二项式题 80% 的工作。第一，帕斯卡法则（每个数是它上方两数之和）。第二，曲棍球棒恒等式，它把一条斜线上的和压缩成「单独一项」。" },
+      { type: "formula", tex: "\\[ \\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k} \\qquad\\text{(Pascal)} \\]" },
+      { type: "formula", tex: "\\[ \\sum_{i=r}^{n}\\binom{i}{r}=\\binom{n+1}{r+1} \\qquad\\text{(Hockey Stick)} \\]" },
+      { type: "step", n: "EX 1", title: { en: "Hamburger Haven — the subset trap", zh: "汉堡店 —— 子集陷阱" },
+        en: "A stand offers 8 condiments; a customer picks 1, 2, or 3 meat patties and ANY collection of condiments. How many hamburgers?\n\u2022 Condiments: each of 8 is in or out \\(\\Rightarrow 2^8=256.\\)\n\u2022 Patties: 3 choices.\n\u2022 Total \\(=3\\times 256=768.\\)\nThe lesson: 'any collection' = a subset = \\(2^8\\), the sum \\(\\sum_{k=0}^8\\binom{8}{k}.\\)",
+        zh: "一家店有 8 种配料；顾客选 1、2 或 3 块肉饼，外加「任意」一组配料。有多少种汉堡？\n\u2022 配料：8 种每种「在或不在」\\(\\Rightarrow 2^8=256\\)。\n\u2022 肉饼：3 种选择。\n\u2022 总数 \\(=3\\times 256=768\\)。\n教训：「任意一组」= 一个子集 = \\(2^8\\)，也就是那个和 \\(\\sum_{k=0}^8\\binom{8}{k}\\)。" },
+      { type: "step", n: "EX 2", title: { en: "Hockey Stick in action", zh: "曲棍球棒实战" },
+        en: "Compute \\(\\binom{2}{2}+\\binom{3}{2}+\\binom{4}{2}+\\binom{5}{2}.\\)\n\u2022 Brute: \\(1+3+6+10=20.\\)\n\u2022 Hockey Stick: \\(\\sum_{i=2}^{5}\\binom{i}{2}=\\binom{6}{3}=20.\\)\nWhenever you sum a fixed-bottom column down the triangle, it collapses to one binomial — priceless when the top index is large (e.g. sum to \\(\\binom{100}{2}\\)).",
+        zh: "计算 \\(\\binom{2}{2}+\\binom{3}{2}+\\binom{4}{2}+\\binom{5}{2}\\)。\n\u2022 硬算：\\(1+3+6+10=20\\)。\n\u2022 曲棍球棒：\\(\\sum_{i=2}^{5}\\binom{i}{2}=\\binom{6}{3}=20\\)。\n每当你沿三角形把一个「下标固定」的列往下加，它就坍缩成一个二项式 —— 当上标很大时（比如加到 \\(\\binom{100}{2}\\)）这招无价。" },
+      { type: "note", en: "Why 'hockey stick'? On Pascal's triangle the summed diagonal plus the answer traces a hockey-stick shape. Memorize the pattern by the picture, not the formula.",
+        zh: "为什么叫「曲棍球棒」？在杨辉三角上，被加的那条斜线加上答案，勾勒出一个曲棍球棒的形状。用图形记这个模式，别死记公式。" }
+    ]
+  },
+
+  /* ---------- 2. Binomial Theorem ---------- */
+  {
+    heading: { en: "2 · The Binomial Theorem — reading off coefficients", zh: "2 · 二项式定理 —— 读出系数" },
+    blocks: [
+      { type: "formula", tex: "\\[ (a+b)^n=\\sum_{k=0}^{n}\\binom{n}{k}a^{k}b^{n-k} \\]" },
+      { type: "step", n: "EX 3", title: { en: "A single coefficient", zh: "单个系数" },
+        en: "Find the coefficient of \\(x^3\\) in \\((x+2)^5.\\)\n\u2022 General term: \\(\\binom{5}{k}x^{k}2^{5-k}.\\)\n\u2022 Want \\(x^3\\Rightarrow k=3:\\ \\binom{5}{3}2^{2}=10\\cdot4=40.\\)",
+        zh: "求 \\((x+2)^5\\) 中 \\(x^3\\) 的系数。\n\u2022 通项：\\(\\binom{5}{k}x^{k}2^{5-k}\\)。\n\u2022 要 \\(x^3\\Rightarrow k=3\\)：\\(\\binom{5}{3}2^{2}=10\\cdot4=40\\)。" },
+      { type: "step", n: "EX 4", title: { en: "Coefficients equal — solve for a ratio", zh: "系数相等 —— 解一个比" },
+        en: "In \\((ax+b)^{2000}\\) with \\(a,b\\) coprime positive integers, the coefficients of \\(x^2\\) and \\(x^3\\) are EQUAL. Find \\(a+b.\\)\n\u2022 Coeff \\(x^2:\\ \\binom{2000}{2}a^2 b^{1998};\\quad\\) Coeff \\(x^3:\\ \\binom{2000}{3}a^3 b^{1997}.\\)\n\u2022 Set equal: \\(\\binom{2000}{2}b=\\binom{2000}{3}a\\Rightarrow \\dfrac{a}{b}=\\dfrac{\\binom{2000}{2}}{\\binom{2000}{3}}=\\dfrac{3}{1998}=\\dfrac{1}{666}.\\)\n\u2022 Coprime \\(\\Rightarrow a=1,b=666,\\ a+b=667.\\)",
+        zh: "在 \\((ax+b)^{2000}\\) 中，\\(a,b\\) 为互素正整数，\\(x^2\\) 与 \\(x^3\\) 的系数「相等」。求 \\(a+b\\)。\n\u2022 \\(x^2\\) 系数：\\(\\binom{2000}{2}a^2 b^{1998}\\)；\\(x^3\\) 系数：\\(\\binom{2000}{3}a^3 b^{1997}\\)。\n\u2022 令相等：\\(\\binom{2000}{2}b=\\binom{2000}{3}a\\Rightarrow \\dfrac{a}{b}=\\dfrac{\\binom{2000}{2}}{\\binom{2000}{3}}=\\dfrac{3}{1998}=\\dfrac{1}{666}\\)。\n\u2022 互素 \\(\\Rightarrow a=1,b=666,\\ a+b=667\\)。" },
+      { type: "note", en: "The trick in EX 4: don't compute the giant binomials. Their RATIO \\(\\binom{n}{2}/\\binom{n}{3}=3/(n-2)\\) simplifies instantly. Ratios of adjacent binomials are your friend.",
+        zh: "EX 4 的窍门：别去算那些巨大的二项式。它们的「比」\\(\\binom{n}{2}/\\binom{n}{3}=3/(n-2)\\) 瞬间化简。相邻二项式的比值是你的朋友。" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- Concept 7, section 3: Lattice paths ---------- */
+textbookData[6].sections.push({
+  heading: { en: "3 · Lattice paths — binomials on a grid", zh: "3 · 格点路径 —— 网格上的二项式" },
+  blocks: [
+    { type: "para", en: "A monotonic lattice path from \\((0,0)\\) to \\((a,b)\\) takes \\(a\\) right-steps and \\(b\\) up-steps in some order. Choosing WHICH of the \\(a+b\\) steps are 'right' gives \\(\\binom{a+b}{a}\\) paths. This one idea powers a huge class of AMC/AIME problems.",
+      zh: "从 \\((0,0)\\) 到 \\((a,b)\\) 的单调格点路径，用 \\(a\\) 个向右步和 \\(b\\) 个向上步，按某种顺序走。选「\\(a+b\\) 步里哪 \\(a\\) 步向右」，给出 \\(\\binom{a+b}{a}\\) 条路径。这一个想法，驱动了一大类 AMC/AIME 题。" },
+    { type: "formula", tex: "\\[ \\text{paths }(0,0)\\to(a,b)=\\binom{a+b}{a}=\\binom{a+b}{b} \\]" },
+    { type: "step", n: "EX 5", title: { en: "Basic grid count", zh: "基础网格计数" },
+      en: "How many monotonic paths from \\((0,0)\\) to \\((5,5)\\)?\n\u2022 \\(5\\) rights, \\(5\\) ups, \\(10\\) steps total: \\(\\binom{10}{5}=252.\\)",
+      zh: "从 \\((0,0)\\) 到 \\((5,5)\\) 有多少条单调路径？\n\u2022 \\(5\\) 步右、\\(5\\) 步上、共 \\(10\\) 步：\\(\\binom{10}{5}=252\\)。" },
+    { type: "step", n: "EX 6", title: { en: "Paths through a forced point (multiply stages)", zh: "过必经点的路径（分段相乘）" },
+      en: "How many paths \\((0,0)\\to(5,5)\\) pass THROUGH \\((2,3)\\)?\n\u2022 \\((0,0)\\to(2,3):\\ \\binom{5}{2}=10.\\)\n\u2022 \\((2,3)\\to(5,5):\\ \\binom{5}{3}=10.\\)\n\u2022 Multiply: \\(10\\times10=100.\\)\nTo count paths AVOIDING a point, subtract this from the total \\(252\\).",
+      zh: "从 \\((0,0)\\) 到 \\((5,5)\\) 且「经过」\\((2,3)\\) 的路径有几条？\n\u2022 \\((0,0)\\to(2,3)\\)：\\(\\binom{5}{2}=10\\)。\n\u2022 \\((2,3)\\to(5,5)\\)：\\(\\binom{5}{3}=10\\)。\n\u2022 相乘：\\(10\\times10=100\\)。\n要数「避开」某点的路径，就用总数 \\(252\\) 减去它。" },
+    { type: "note", en: "'Through a point' = product of two independent sub-paths. 'Avoiding a point / region' = total minus through (complement). These two moves solve almost every grid-path AMC problem.",
+      zh: "「经过某点」= 两段独立子路径「相乘」。「避开某点/区域」= 总数减去经过（补集）。这两招几乎能解掉所有网格路径的 AMC 题。" }
+  ]
+});
+
+/* ---------- Concept 7, section 4: Catalan numbers ---------- */
+textbookData[6].sections.push({
+  heading: { en: "4 · Catalan numbers — paths that don't cross", zh: "4 · 卡特兰数 —— 不越界的路径" },
+  blocks: [
+    { type: "para", en: "A recurring AIME flavor: count paths (or arrangements) that never cross a boundary — balanced parentheses, non-crossing handshakes, staircase paths below the diagonal. All are counted by Catalan numbers.",
+      zh: "AIME 反复出现的一种味道：数「从不越过某条边界」的路径（或排列）—— 匹配的括号、不交叉的握手、对角线下方的阶梯路径。它们都由「卡特兰数」计数。" },
+    { type: "formula", tex: "\\[ C_n=\\frac{1}{n+1}\\binom{2n}{n}=\\binom{2n}{n}-\\binom{2n}{n+1} \\]" },
+    { type: "step", n: "EX 7", title: { en: "Balanced parentheses", zh: "匹配的括号" },
+      en: "How many ways to arrange 3 pairs of parentheses so every prefix has at least as many '(' as ')'?\n\u2022 This is \\(C_3=\\dfrac{1}{4}\\binom{6}{3}=\\dfrac{20}{4}=5.\\)\n\u2022 The 5: ()()(), (())(), ()(()), (()()), ((())).",
+      zh: "把 3 对括号排列，使每个前缀里 '(' 的个数都不少于 ')' 的个数，有几种方法？\n\u2022 这是 \\(C_3=\\dfrac{1}{4}\\binom{6}{3}=\\dfrac{20}{4}=5\\)。\n\u2022 这 5 种：()()()、(())()、()(())、(()())、((()))。" },
+    { type: "step", n: "EX 8", title: { en: "The reflection idea (why the formula works)", zh: "反射思想（公式为何成立）" },
+      en: "Count paths \\((0,0)\\to(n,n)\\) that stay weakly BELOW the diagonal \\(y=x.\\) Total paths \\(\\binom{2n}{n};\\) 'bad' paths that cross above are counted by reflecting across \\(y=x+1,\\) giving \\(\\binom{2n}{n+1}.\\) So good \\(=\\binom{2n}{n}-\\binom{2n}{n+1}=C_n.\\) For \\(n=3:\\ 20-15=5.\\)",
+      zh: "数从 \\((0,0)\\) 到 \\((n,n)\\) 且「弱」保持在对角线 \\(y=x\\) 「下方」的路径。总路径 \\(\\binom{2n}{n}\\)；越界到上方的「坏」路径，通过关于 \\(y=x+1\\) 反射来数，得 \\(\\binom{2n}{n+1}\\)。所以好路径 \\(=\\binom{2n}{n}-\\binom{2n}{n+1}=C_n\\)。当 \\(n=3\\)：\\(20-15=5\\)。" },
+    { type: "note", en: "You don't need to memorize the reflection proof for AMC10, but recognizing 'never crosses / balanced / non-crossing' \\(\\Rightarrow\\) Catalan will save you on the hardest counting problems.",
+      zh: "AMC10 不必背下反射证明，但认出「从不越界 / 平衡 / 不交叉」\\(\\Rightarrow\\) 卡特兰数，会在最难的计数题上救你一命。" }
+  ]
+});
+
+/* ---------- Concept 7, section 5: AIME-level identity tricks ---------- */
+textbookData[6].sections.push({
+  heading: { en: "5 · Two AIME-level power moves", zh: "5 · 两个 AIME 级的杀招" },
+  blocks: [
+    { type: "step", n: "EX 9", title: { en: "Prime factors of a giant binomial", zh: "巨大二项式的质因子" },
+      en: "What is the largest 2-digit prime factor of \\(\\binom{200}{100}\\)?\n\u2022 A prime \\(p\\) divides \\(\\binom{200}{100}=\\dfrac{200!}{100!\\,100!}\\) with exponent \\(\\sum_i\\left(\\lfloor 200/p^i\\rfloor-2\\lfloor 100/p^i\\rfloor\\right).\\)\n\u2022 For a prime \\(p\\) with \\(50<p<67,\\) we get \\(\\lfloor200/p\\rfloor=3,\\ 2\\lfloor100/p\\rfloor=2,\\) exponent \\(=1>0.\\)\n\u2022 Largest such 2-digit prime: check \\(p=61\\) (\\(3\\cdot61=183\\le200,\\ 2\\cdot61=122>100\\)) works; \\(p=67\\Rightarrow\\lfloor200/67\\rfloor=2,2\\lfloor100/67\\rfloor=2,\\) exponent \\(0.\\)\n\u2022 Answer: \\(61.\\)",
+      zh: "\\(\\binom{200}{100}\\) 的最大两位质因子是多少？\n\u2022 质数 \\(p\\) 整除 \\(\\binom{200}{100}=\\dfrac{200!}{100!\\,100!}\\) 的指数为 \\(\\sum_i\\left(\\lfloor 200/p^i\\rfloor-2\\lfloor 100/p^i\\rfloor\\right)\\)。\n\u2022 对满足 \\(50<p<67\\) 的质数，\\(\\lfloor200/p\\rfloor=3,\\ 2\\lfloor100/p\\rfloor=2\\)，指数 \\(=1>0\\)。\n\u2022 最大的这类两位质数：\\(p=61\\)（\\(3\\cdot61=183\\le200,\\ 2\\cdot61=122>100\\)）成立；\\(p=67\\Rightarrow\\lfloor200/67\\rfloor=2,2\\lfloor100/67\\rfloor=2\\)，指数 \\(0\\)。\n\u2022 答案：\\(61\\)。" },
+    { type: "step", n: "EX 10", title: { en: "Alternating sum via complex numbers", zh: "用复数处理交错和" },
+      en: "Evaluate \\(S=\\displaystyle\\sum_{k=0}^{49}(-1)^k\\binom{99}{2k}=\\binom{99}{0}-\\binom{99}{2}+\\cdots-\\binom{99}{98}.\\)\n\u2022 Key: \\((1+i)^{99}=\\sum_{j}\\binom{99}{j}i^j.\\) Its REAL part keeps only even \\(j=2k,\\) and \\(i^{2k}=(-1)^k\\) — exactly our sum \\(S.\\)\n\u2022 \\((1+i)^{99}=(\\sqrt2)^{99}\\,\\mathrm{cis}(99\\cdot45^\\circ).\\) Since \\(99\\cdot45^\\circ\\equiv135^\\circ,\\) real part \\(=2^{49.5}\\cos135^\\circ=2^{49.5}\\cdot(-\\tfrac{\\sqrt2}{2})=-2^{49}.\\)\n\u2022 So \\(S=-2^{49}.\\)",
+      zh: "求 \\(S=\\displaystyle\\sum_{k=0}^{49}(-1)^k\\binom{99}{2k}=\\binom{99}{0}-\\binom{99}{2}+\\cdots-\\binom{99}{98}\\)。\n\u2022 关键：\\((1+i)^{99}=\\sum_{j}\\binom{99}{j}i^j\\)。它的「实部」只留下偶数 \\(j=2k\\)，且 \\(i^{2k}=(-1)^k\\) —— 正好是我们的和 \\(S\\)。\n\u2022 \\((1+i)^{99}=(\\sqrt2)^{99}\\,\\mathrm{cis}(99\\cdot45^\\circ)\\)。因为 \\(99\\cdot45^\\circ\\equiv135^\\circ\\)，实部 \\(=2^{49.5}\\cos135^\\circ=2^{49.5}\\cdot(-\\tfrac{\\sqrt2}{2})=-2^{49}\\)。\n\u2022 所以 \\(S=-2^{49}\\)。" },
+    { type: "note", en: "EX 10's move — 'plug \\(x=i\\) into \\((1+x)^n\\) to isolate every-other-term sums' — is a signature AIME technique. Real part picks even indices with sign \\((-1)^k;\\) imaginary part picks odd indices. Keep it in your pocket.",
+      zh: "EX 10 的招式 —— 「把 \\(x=i\\) 代入 \\((1+x)^n\\)，分离出隔项求和」—— 是一个标志性的 AIME 技巧。实部挑出偶数下标（带符号 \\((-1)^k\\)）；虚部挑出奇数下标。揣在口袋里。" }
+  ]
+});
+
+/* ---------- Concept 7, section 6: self-check ---------- */
+textbookData[6].sections.push({
+  heading: { en: "6 · Self-check (answers below)", zh: "6 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "ask", en: "(a) Coefficient of \\(x^4\\) in \\((2x-1)^6\\)? (Answer: \\(\\binom{6}{4}2^4(-1)^2=15\\cdot16=240.\\))",
+      zh: "(a) \\((2x-1)^6\\) 中 \\(x^4\\) 的系数？（答案：\\(\\binom{6}{4}2^4(-1)^2=15\\cdot16=240\\)。）" },
+    { type: "ask", en: "(b) Monotonic paths \\((0,0)\\to(4,6)\\)? (Answer: \\(\\binom{10}{4}=210.\\))",
+      zh: "(b) 从 \\((0,0)\\) 到 \\((4,6)\\) 的单调路径数？（答案：\\(\\binom{10}{4}=210\\)。）" },
+    { type: "ask", en: "(c) \\(\\binom{3}{3}+\\binom{4}{3}+\\cdots+\\binom{9}{3}\\)? (Hockey Stick: \\(\\binom{10}{4}=210.\\))",
+      zh: "(c) \\(\\binom{3}{3}+\\binom{4}{3}+\\cdots+\\binom{9}{3}\\)？（曲棍球棒：\\(\\binom{10}{4}=210\\)。）" },
+    { type: "ask", en: "(d) Number of ways 4 non-crossing chords can join 8 points on a circle in pairs? (Catalan \\(C_4=14.\\))",
+      zh: "(d) 圆上 8 个点两两配对、4 条弦互不相交的方法数？（卡特兰数 \\(C_4=14\\)。）" }
+  ]
+});
+
