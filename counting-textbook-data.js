@@ -995,3 +995,71 @@ textbookData[7].sections.push({
   ]
 });
 
+
+
+/* ---------- Concept 1 (Inclusion-Exclusion & Stars-Bars): extra drills ---------- */
+textbookData[0].sections.push({
+  heading: { en: "6 · Drill set — five worked problems", zh: "6 · 实战演练 —— 五道精讲例题" },
+  blocks: [
+    { type: "step", n: "D1", title: { en: "At least one prime (complement)", zh: "至少一个质数（补集）" },
+      en: "How many subsets of \\(\\{2,3,4,5,6,7,8,9\\}\\) contain at least one PRIME?\n\u2022 Primes: \\(\\{2,3,5,7\\}\\) (4 of them); non-primes \\(\\{4,6,8,9\\}\\) (4 of them).\n\u2022 Total subsets \\(2^8=256;\\) subsets with NO prime use only the 4 non-primes: \\(2^4=16.\\)\n\u2022 At least one prime \\(=256-16=240.\\)",
+      zh: "\\(\\{2,3,4,5,6,7,8,9\\}\\) 中有多少子集「至少含一个质数」？\n\u2022 质数：\\(\\{2,3,5,7\\}\\)（4 个）；非质数 \\(\\{4,6,8,9\\}\\)（4 个）。\n\u2022 总子集 \\(2^8=256\\)；「不含」质数的子集只用 4 个非质数：\\(2^4=16\\)。\n\u2022 至少一个质数 \\(=256-16=240\\)。" },
+    { type: "step", n: "D2", title: { en: "Divisible by 2, 3, or 5", zh: "被 2、3 或 5 整除" },
+      en: "How many integers \\(1\\) to \\(100\\) are divisible by \\(2,3,\\) or \\(5\\)?\n\u2022 Singles \\(50+33+20;\\) pairs \\(-16-10-6;\\) triple \\(+3.\\)\n\u2022 \\(=74.\\)",
+      zh: "\\(1\\) 到 \\(100\\) 中有多少个被 \\(2,3\\) 或 \\(5\\) 整除？\n\u2022 单个 \\(50+33+20\\)；两两 \\(-16-10-6\\)；三重 \\(+3\\)。\n\u2022 \\(=74\\)。" },
+    { type: "step", n: "D3", title: { en: "Non-negative integer solutions", zh: "非负整数解" },
+      en: "How many solutions to \\(x_1+x_2+x_3+x_4=12\\) in non-negative integers?\n\u2022 Stars and bars: \\(\\binom{12+3}{3}=\\binom{15}{3}=455.\\)",
+      zh: "\\(x_1+x_2+x_3+x_4=12\\) 有多少组非负整数解？\n\u2022 隔板法：\\(\\binom{12+3}{3}=\\binom{15}{3}=455\\)。" },
+    { type: "step", n: "D4", title: { en: "Bounded variables (stars-bars + I-E)", zh: "有上界的变量（隔板 + 容斥）" },
+      en: "Solutions to \\(x_1+x_2+x_3+x_4=12\\) with each \\(1\\le x_i\\le5\\)?\n\u2022 Shift \\(y_i=x_i-1,\\) so \\(y_i\\ge0,\\ y_1+y_2+y_3+y_4=8,\\) each \\(y_i\\le4.\\)\n\u2022 Ignore the upper bounds first: \\(\\binom{8+3}{3}=\\binom{11}{3}=165.\\)\n\u2022 Subtract 'some \\(y_i\\ge5\\)': choose which \\(i\\) (4 ways), set \\(y_i'=y_i-5,\\) new sum \\(=3:\\) \\(4\\binom{3+3}{3}=4\\cdot20=80.\\)\n\u2022 Two variables \\(\\ge5\\) would need sum \\(\\ge10>8\\) \u2014 impossible, add back \\(0.\\)\n\u2022 Answer \\(=165-80=85.\\)",
+      zh: "\\(x_1+x_2+x_3+x_4=12\\) 且每个 \\(1\\le x_i\\le5\\) 的解数？\n\u2022 令 \\(y_i=x_i-1,\\) 则 \\(y_i\\ge0,\\ y_1+y_2+y_3+y_4=8,\\) 每个 \\(y_i\\le4\\)。\n\u2022 先忽略上界：\\(\\binom{8+3}{3}=\\binom{11}{3}=165\\)。\n\u2022 减去「某个 \\(y_i\\ge5\\)」：选哪个 \\(i\\)（4 种），令 \\(y_i'=y_i-5,\\) 新和 \\(=3\\)：\\(4\\binom{3+3}{3}=4\\cdot20=80\\)。\n\u2022 两个变量同时 \\(\\ge5\\) 需和 \\(\\ge10>8\\) —— 不可能，加回 \\(0\\)。\n\u2022 答案 \\(=165-80=85.\\)",
+      note:"" },
+    { type: "step", n: "D5", title: { en: "Each gets at least one", zh: "每人至少一个" },
+      en: "Distribute 7 identical candies to 3 kids, each at least one.\n\u2022 Give 1 each first, distribute remaining 4: \\(\\binom{4+2}{2}=\\binom{6}{2}=15.\\)\n\u2022 (Check: \\(\\binom{7-1}{3-1}=\\binom{6}{2}=15.\\))",
+      zh: "把 7 颗相同糖分给 3 个孩子，每人至少一颗。\n\u2022 先各给 1 颗，剩 4 颗分：\\(\\binom{4+2}{2}=\\binom{6}{2}=15\\)。\n\u2022 （验证：\\(\\binom{7-1}{3-1}=\\binom{6}{2}=15\\)。）" }
+  ]
+});
+
+
+
+/* ---------- Concept 5 (Advanced I-E): extra drills ---------- */
+textbookData[4].sections.push({
+  heading: { en: "4 · Drill set — five worked problems", zh: "4 · 实战演练 —— 五道精讲例题" },
+  blocks: [
+    { type: "step", n: "D1", title: { en: "Derangement of 4", zh: "4 元错排" },
+      en: "Four letters go into four addressed envelopes at random. How many ways put NONE in its correct envelope?\n\u2022 Derangement \\(D_4=4!\\left(1-\\tfrac11+\\tfrac1{2!}-\\tfrac1{3!}+\\tfrac1{4!}\\right)=24\\cdot\\tfrac{9}{24}=9.\\)",
+      zh: "四封信随机放入四个写好地址的信封。有多少种放法使「没有一封」放对？\n\u2022 错排 \\(D_4=4!\\left(1-\\tfrac11+\\tfrac1{2!}-\\tfrac1{3!}+\\tfrac1{4!}\\right)=24\\cdot\\tfrac{9}{24}=9\\)。" },
+    { type: "step", n: "D2", title: { en: "Derangement of 5", zh: "5 元错排" },
+      en: "Five people each drew a name for a gift swap; how many ways nobody draws their own name?\n\u2022 \\(D_5=44.\\) (Recurrence \\(D_n=(n-1)(D_{n-1}+D_{n-2}):\\ D_5=4(9+2)=44.\\))",
+      zh: "五个人各抽一个名字做礼物交换；有多少种「无人抽到自己」？\n\u2022 \\(D_5=44\\)。（递推 \\(D_n=(n-1)(D_{n-1}+D_{n-2})\\)：\\(D_5=4(9+2)=44\\)。）" },
+    { type: "step", n: "D3", title: { en: "Surjections 4→3 (every box used)", zh: "满射 4→3（每盒都用）" },
+      en: "How many ways to put 4 distinct balls into 3 distinct boxes with NO empty box?\n\u2022 I-E: \\(3^4-\\binom{3}{1}2^4+\\binom{3}{2}1^4=81-48+3=36.\\)",
+      zh: "把 4 个不同的球放入 3 个不同的盒子，且「没有空盒」，有几种？\n\u2022 容斥：\\(3^4-\\binom{3}{1}2^4+\\binom{3}{2}1^4=81-48+3=36\\)。" },
+    { type: "step", n: "D4", title: { en: "At least one repeated birthday-style", zh: "至少一次重复（补集）" },
+      en: "From digits \\(\\{1,\\dots,6\\},\\) how many 3-digit strings have AT LEAST one repeated digit?\n\u2022 Complement: total \\(6^3=216;\\) all-different \\(6\\cdot5\\cdot4=120.\\)\n\u2022 At least one repeat \\(=216-120=96.\\)",
+      zh: "从数字 \\(\\{1,\\dots,6\\}\\) 中，有多少个 3 位数字串「至少有一位重复」？\n\u2022 补集：总数 \\(6^3=216\\)；各位不同 \\(6\\cdot5\\cdot4=120\\)。\n\u2022 至少一次重复 \\(=216-120=96\\)。" },
+    { type: "step", n: "D5", title: { en: "None divisible by 2, 3, or 5", zh: "都不被 2、3、5 整除" },
+      en: "How many integers \\(1\\) to \\(100\\) are divisible by NONE of \\(2,3,5\\)?\n\u2022 Divisible by at least one \\(=74\\) (from Concept 1). Complement \\(=100-74=26.\\)\n\u2022 (These are exactly the integers coprime to \\(30.\\))",
+      zh: "\\(1\\) 到 \\(100\\) 中，\\(2,3,5\\) 「都不」整除的有几个？\n\u2022 被至少一个整除 \\(=74\\)（见知识点 1）。补集 \\(=100-74=26\\)。\n\u2022 （这些正是与 \\(30\\) 互素的整数。）" }
+  ]
+});
+
+/* ---------- Concept 6 (State & Recursive Probability): extra drills ---------- */
+textbookData[5].sections.push({
+  heading: { en: "4 · Drill set — four worked problems", zh: "4 · 实战演练 —— 四道精讲例题" },
+  blocks: [
+    { type: "step", n: "D1", title: { en: "Symmetric gambler's ruin", zh: "对称赌徒破产" },
+      en: "A token starts at position 2 on \\(0,1,2,3,4.\\) Each step it moves \\(\\pm1\\) with equal probability, stopping at \\(0\\) or \\(4.\\) Probability it stops at \\(4\\)?\n\u2022 Fair walk \\(\\Rightarrow\\) probability of reaching \\(N\\) before \\(0\\) from \\(k\\) is \\(k/N=2/4=\\tfrac12.\\)",
+      zh: "一枚棋子从 \\(0,1,2,3,4\\) 上的位置 2 出发。每步等概率 \\(\\pm1\\)，到 \\(0\\) 或 \\(4\\) 停止。它停在 \\(4\\) 的概率？\n\u2022 公平随机游走 \\(\\Rightarrow\\) 从 \\(k\\) 先到 \\(N\\) 而非 \\(0\\) 的概率为 \\(k/N=2/4=\\tfrac12\\)。" },
+    { type: "step", n: "D2", title: { en: "Biased gambler's ruin (first-step)", zh: "有偏赌徒（首步分析）" },
+      en: "On \\(0,1,2,3,\\) start at \\(1;\\) move right w.p. \\(\\tfrac23,\\) left w.p. \\(\\tfrac13.\\) Let \\(p_k=\\) prob. reach \\(3\\) before \\(0.\\) First-step: \\(p_1=\\tfrac23 p_2+\\tfrac13\\cdot0,\\ p_2=\\tfrac23\\cdot1+\\tfrac13 p_1.\\)\n\u2022 Solve: \\(p_2=\\tfrac23+\\tfrac13 p_1,\\ p_1=\\tfrac23 p_2=\\tfrac23(\\tfrac23+\\tfrac13 p_1)=\\tfrac49+\\tfrac29 p_1\\Rightarrow \\tfrac79 p_1=\\tfrac49\\Rightarrow p_1=\\tfrac47.\\)",
+      zh: "在 \\(0,1,2,3\\) 上从 \\(1\\) 出发；向右概率 \\(\\tfrac23\\)，向左 \\(\\tfrac13\\)。设 \\(p_k=\\) 先到 \\(3\\) 而非 \\(0\\) 的概率。首步：\\(p_1=\\tfrac23 p_2+\\tfrac13\\cdot0,\\ p_2=\\tfrac23\\cdot1+\\tfrac13 p_1\\)。\n\u2022 解：\\(p_1=\\tfrac23 p_2=\\tfrac23(\\tfrac23+\\tfrac13 p_1)=\\tfrac49+\\tfrac29 p_1\\Rightarrow \\tfrac79 p_1=\\tfrac49\\Rightarrow p_1=\\tfrac47\\)。" },
+    { type: "step", n: "D3", title: { en: "Expected flips for first head", zh: "首次正面的期望次数" },
+      en: "Flip a fair coin until the first head. Expected number of flips?\n\u2022 State recurrence: \\(E=1+\\tfrac12\\cdot0+\\tfrac12 E\\Rightarrow \\tfrac12 E=1\\Rightarrow E=2.\\)",
+      zh: "掷一枚公平硬币直到第一次正面。期望掷几次？\n\u2022 状态递推：\\(E=1+\\tfrac12\\cdot0+\\tfrac12 E\\Rightarrow \\tfrac12 E=1\\Rightarrow E=2\\)。" },
+    { type: "step", n: "D4", title: { en: "Absorbing states, symmetry shortcut", zh: "吸收态 + 对称捷径" },
+      en: "Three people A, B, C stand in a circle passing a ball; each pass goes to a neighbor at random (\\(\\tfrac12\\) each). Starting at A, probability the ball is at A after 2 passes?\n\u2022 After 1 pass: at B or C (each \\(\\tfrac12\\)), never A. After 2: from B go to A or C; from C go to A or B. Prob back at A \\(=\\tfrac12\\cdot\\tfrac12+\\tfrac12\\cdot\\tfrac12=\\tfrac12.\\)",
+      zh: "三人 A、B、C 围圈传球；每次等概率（\\(\\tfrac12\\)）传给某个邻座。从 A 开始，2 次传球后球在 A 的概率？\n\u2022 传 1 次后：在 B 或 C（各 \\(\\tfrac12\\)），绝不在 A。传 2 次：从 B 传到 A 或 C；从 C 传到 A 或 B。回到 A 的概率 \\(=\\tfrac12\\cdot\\tfrac12+\\tfrac12\\cdot\\tfrac12=\\tfrac12\\)。" }
+  ]
+});
+
