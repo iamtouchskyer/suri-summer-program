@@ -86,6 +86,18 @@
   }
   .step-label .en{font:400 10px "Spline Sans Mono",monospace; color:var(--ink-faint); margin-top:2px; letter-spacing:.04em;}
   .step-blank{min-height:46px; padding:8px 10px;}
+  .step-label .hint{font:400 10.5px "Spline Sans",sans-serif; color:var(--accent); margin-top:3px; line-height:1.3;}
+  /* worked example */
+  .demo{border:1.5px solid var(--accent); background:#fbf6ee; padding:18px 20px; margin:18px 0 6px;}
+  .demo-tag{font:700 11px "Spline Sans Mono",monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;}
+  .demo-q{font-size:14.5px; margin:0 0 6px; color:var(--ink);}
+  .demo-note{font-size:12.5px; color:var(--ink-soft); margin:0 0 14px;}
+  .demo-steps{display:flex; flex-direction:column; gap:0;}
+  .ds{display:grid; grid-template-columns:150px 1fr; border:1px solid var(--line); border-bottom:none;}
+  .ds:last-child{border-bottom:1px solid var(--line);}
+  .ds-l{background:#f2ead9; padding:9px 12px; border-right:1px solid var(--line); font:600 12.5px "Spline Sans",sans-serif; color:var(--ink); display:flex; flex-direction:column; justify-content:center;}
+  .ds-l .ds-e{font:400 9.5px "Spline Sans Mono",monospace; color:var(--ink-faint); margin-top:2px; letter-spacing:.03em;}
+  .ds-r{padding:9px 13px; font-size:13px; color:var(--ink-soft); display:flex; align-items:center;}
   .step-blank.tall{min-height:70px;}
 
   /* self-assess */
@@ -146,11 +158,11 @@ var QUIZ = [
 ];
 
 var STEPS = [
-  { zh:"① 听关键词", en:"hear keywords" },
-  { zh:"② 识破伪装", en:"spot the disguise" },
-  { zh:"③ 拆知识点", en:"split into tools" },
-  { zh:"④ 选方法",   en:"pick the method" },
-  { zh:"⑤ 执行 → 答案", en:"execute → answer", tall:true }
+  { zh:"① 特征识别", en:"Problem Recognition", hint:"题面给了哪些结构信号？" },
+  { zh:"② 本质还原", en:"Reformulation", hint:"剥掉包装，它真正在问什么？" },
+  { zh:"③ 结构分解", en:"Decomposition", hint:"拆成哪些学过的定理/技巧？" },
+  { zh:"④ 策略选择",   en:"Strategy Selection", hint:"哪条路最省力？" },
+  { zh:"⑤ 执行验证", en:"Execution & Verification", hint:"算出来，并回代检验", tall:true }
 ];
 
 function esc(s){return s;}
@@ -161,16 +173,29 @@ function render(){
   h += '<div class="mast">'
      + '<div class="eyebrow">AMC10 · Last-5 · Blind Practice</div>'
      + '<h1>压轴题测验版 · 盲做训练</h1>'
-     + '<p class="sub">12 道真实 AMC10 压轴题 · 只填五步框，先别翻答案 · for Suri</p>'
+     + '<p class="sub">12 道真实 AMC10 压轴题 · 特征识别→本质还原→结构分解→策略选择→执行验证 · for Suri</p>'
      + '</div>';
   // how to
-  h += '<div class="howto"><b>怎么用这份测验：</b>'
+  h += '<div class="howto"><b>这五步是什么：</b>它是一整套思路链——从“读懂题”到“做出题”的五个阶段。关键在前三步（<b>识别层</b>）：①特征识别、②本质还原、③结构分解——你卡住的地方几乎都在这里。'
      + '<ol>'
-     + '<li>每题<b>不许直接算答案</b>——先在五步框里写下你的<b>思路</b>：看到题面第一反应想到什么？它在伪装什么？该拆成哪些学过的知识点？</li>'
-     + '<li>只有把①②③想清楚，才动笔到④⑤。<b>识别</b>才是这份测验真正在考的东西。</li>'
-     + '<li>卡住很正常。卡住时在题目下方<b>勾出你卡在第几步</b>——这比做对更有价值，它精确告诉我们下一步练什么。</li>'
-     + '<li>12 题全部做完，再翻到最后一页对答案。对答案时只看<b>最终数值</b>，思路回精讲版核对。</li>'
+     + '<li>每题<b>不许直接算答案</b>——先把①②③的<b>思路</b>写进框里（参考上面的范例），想清楚了才动笔到④⑤。</li>'
+     + '<li>卡住很正常。卡住时在题目下方<b>勾出你卡在第几步</b>——这比做对更有诊断价值，它精确告诉我们下一步该练什么。</li>'
+     + '<li>12 题全部做完，再翻到最后一页对答案（只看<b>最终数值</b>，完整思路回精讲版核对）。</li>'
      + '</ol></div>';
+
+  // WORKED EXAMPLE (demo, not one of the 12)
+  h += '<div class="demo">'
+     + '<div class="demo-tag">先看一个范例 · Worked Example</div>'
+     + '<p class="demo-q"><b>示范题（不计分）：</b>掷两个公正的六面骰子，点数之和为 \\(7\\) 的概率是多少？</p>'
+     + '<p class="demo-note">下面把五步都填好了，给你看“每一格到底该写什么”。真正做题时，①②③写思路、④⑤才动笔算。</p>'
+     + '<div class="demo-steps">'
+     + '<div class="ds"><div class="ds-l">① 特征识别<span class="ds-e">Problem Recognition</span></div><div class="ds-r">“两个骰子”+“点数之和”+“求概率” → 古典概率题，样本空间有限且等概率。</div></div>'
+     + '<div class="ds"><div class="ds-l">② 本质还原<span class="ds-e">Reformulation</span></div><div class="ds-r">问题重写为：在全部有序结果 \\((a,b)\\) 中，满足 \\(a+b=7\\) 的占多少比例？</div></div>'
+     + '<div class="ds"><div class="ds-l">③ 结构分解<span class="ds-e">Decomposition</span></div><div class="ds-r">分母：两骰子共 \\(6\\times 6=36\\) 种等概率结果。分子：枚举和为 7 的配对。</div></div>'
+     + '<div class="ds"><div class="ds-l">④ 策略选择<span class="ds-e">Strategy Selection</span></div><div class="ds-r">直接枚举最快（而非列举 36 种）：固定第一骰，看第二骰能否凑成 7。</div></div>'
+     + '<div class="ds"><div class="ds-l">⑤ 执行验证<span class="ds-e">Execution &amp; Verification</span></div><div class="ds-r">配对：\\((1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\\) 共 \\(6\\) 种。概率 \\(=\\dfrac{6}{36}=\\dfrac{1}{6}\\)。验证：7 是最常见的和，合理。</div></div>'
+     + '</div></div>';
+
   // problems
   QUIZ.forEach(function(p){
     h += '<div class="prob">';
@@ -178,7 +203,7 @@ function render(){
     h += '<div class="prob-body">'+p.body+'</div>';
     h += '<div class="steps">';
     STEPS.forEach(function(s){
-      h += '<div class="step-row"><div class="step-label">'+s.zh+'<span class="en">'+s.en+'</span></div><div class="step-blank'+(s.tall?' tall':'')+'"></div></div>';
+      h += '<div class="step-row"><div class="step-label">'+s.zh+'<span class="en">'+s.en+'</span><span class="hint">'+s.hint+'</span></div><div class="step-blank'+(s.tall?' tall':'')+'"></div></div>';
     });
     h += '</div>';
     h += '<div class="selfrow"><b>我卡在：</b>'
