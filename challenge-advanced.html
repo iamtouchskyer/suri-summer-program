@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>进阶杀手包 · Suri · Advanced Killers</title>
+<meta name="description" content="真·AMC10 #21-25 级别（DIFFICULTY 3.5）压轴题，3 套各 4 道，五步思维链 + 卡住提示，脱离答案挑战真实天花板。" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --ink:#2b2822; --ink-soft:#55504a; --ink-faint:#8a847c;
+    --line:#d8d0c2; --line-soft:#e8e2d6; --accent:#b5471f; --paper:#fffdf8;
+    --hot:#8a2b12;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#efe9dd; color:var(--ink);
+    font-family:"Spline Sans","Noto Sans SC",-apple-system,system-ui,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:820px; margin:26px auto; background:var(--paper); padding:44px 52px 56px; box-shadow:0 2px 20px rgba(0,0,0,.08); border:1px solid var(--line-soft);}
+  .bar{max-width:820px; margin:20px auto 0; display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .bar a,.bar button{font:600 13px "Spline Sans",sans-serif; cursor:pointer; border:1px solid var(--line); background:var(--paper); color:var(--ink); padding:8px 16px; border-radius:2px; text-decoration:none; transition:.15s;}
+  .bar button.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .bar a:hover,.bar button:hover{border-color:var(--accent); color:var(--accent);}
+  .bar button.primary:hover{color:#fff; opacity:.9;}
+  .bar .hint{font:400 12px "Spline Sans",sans-serif; color:var(--ink-faint);}
+
+  .mast{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:8px;}
+  .mast .eyebrow{font:500 11px "Spline Sans Mono",monospace; letter-spacing:.16em; text-transform:uppercase; color:var(--hot);}
+  .mast h1{font:900 27px/1.15 "Fraunces","Noto Serif SC",Georgia,serif; margin:6px 0 4px; letter-spacing:-.01em;}
+  .mast .sub{font:400 13.5px "Spline Sans",sans-serif; color:var(--ink-soft); margin:0;}
+  .howto{background:#f7f2e8; border:1px solid var(--line-soft); border-left:3px solid var(--hot); padding:14px 18px; margin:20px 0 8px; font-size:13.5px; color:var(--ink-soft);}
+  .howto b{color:var(--ink);}
+  .howto ol{margin:8px 0 0; padding-left:20px;}
+  .howto li{margin:4px 0;}
+
+  /* set divider */
+  .setband{margin:30px 0 6px; padding:14px 20px; background:var(--ink); color:#fff; break-inside:avoid;}
+  .setband .st{font:900 19px "Fraunces",serif; letter-spacing:.01em;}
+  .setband .sd{font:400 12.5px "Spline Sans",sans-serif; color:#e8ddc9; margin-top:2px;}
+
+  .prob{padding:22px 0 8px; border-top:1px solid var(--line-soft); break-inside:avoid; page-break-inside:avoid;}
+  .prob-head{display:flex; align-items:baseline; gap:12px; margin-bottom:10px;}
+  .prob-no{font:900 14px "Fraunces",serif; color:#fff; background:var(--hot); width:30px; height:30px; min-width:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .prob-src{font:500 11px "Spline Sans Mono",monospace; letter-spacing:.08em; color:var(--ink-faint); text-transform:uppercase;}
+  .prob-body{font-size:15px; color:var(--ink); margin:0 0 12px; padding-left:42px;}
+
+  .steps{padding-left:42px; margin-bottom:6px;}
+  .step-row{display:grid; grid-template-columns:150px 1fr; border:1px solid var(--line); border-bottom:none;}
+  .step-row:last-child{border-bottom:1px solid var(--line);}
+  .step-label{background:#f7f2e8; padding:8px 11px; border-right:1px solid var(--line); font:600 12.5px "Spline Sans",sans-serif; color:var(--ink); display:flex; flex-direction:column; justify-content:center;}
+  .step-label .en{font:400 9.5px "Spline Sans Mono",monospace; color:var(--ink-faint); margin-top:2px; letter-spacing:.03em;}
+  .step-label .hint{font:400 10.5px "Spline Sans",sans-serif; color:var(--accent); margin-top:3px; line-height:1.3;}
+  .step-blank{min-height:44px; padding:8px 10px;}
+  .step-blank.tall{min-height:66px;}
+
+  /* stuck hint (collapsible via details) */
+  .stuck{padding-left:42px; margin-top:8px;}
+  .stuck details{border:1px dashed var(--line); background:#faf5ec; padding:0;}
+  .stuck summary{font:600 12px "Spline Sans",sans-serif; color:var(--hot); padding:7px 12px; cursor:pointer; list-style:none;}
+  .stuck summary::-webkit-details-marker{display:none;}
+  .stuck summary::before{content:"💡 "; }
+  .stuck .hbody{font-size:12.5px; color:var(--ink-soft); padding:0 12px 10px; border-top:1px solid var(--line-soft);}
+  @media print{ .stuck details{border-style:solid;} .stuck details[open] summary{border-bottom:1px solid var(--line-soft);} .stuck summary{color:var(--hot);} }
+
+  .selfrow{padding-left:42px; margin-top:10px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-soft);}
+  .selfrow b{color:var(--ink);}
+  .chk{display:inline-flex; align-items:center; gap:5px; margin-right:4px;}
+  .chk .box{width:13px; height:13px; border:1.4px solid var(--ink-faint); display:inline-block; border-radius:2px;}
+
+  .keypage{page-break-before:always; break-before:page;}
+  .keytitle{font:900 20px "Fraunces",serif; margin:0 0 4px;}
+  .keynote{font-size:12.5px; color:var(--ink-faint); margin:0 0 16px;}
+  table.key{width:100%; border-collapse:collapse; font-size:13px;}
+  table.key th,table.key td{border:1px solid var(--line); padding:8px 10px; text-align:left;}
+  table.key th{background:#f7f2e8; font:600 12px "Spline Sans",sans-serif; letter-spacing:.03em;}
+  table.key td.ans{font-weight:700; color:var(--hot); white-space:nowrap;}
+  .foot{margin-top:26px; padding-top:14px; border-top:1px solid var(--line-soft); font-size:11.5px; color:var(--ink-faint); text-align:center;}
+
+  @media print{
+    body{background:#fff;}
+    .bar{display:none;}
+    .sheet{box-shadow:none; margin:0; max-width:none; padding:0 12mm; border:none;}
+    .prob{border-top:1px solid #ccc;}
+    .step-label,table.key th,.howto,.stuck details{background:#f4f4f4 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .prob-no,.setband{background:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    td.ans{color:#000 !important;}
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <a href="challenge-level2.html">← 精讲版</a>
+    <a href="challenge-quiz.html">← 基础测验版</a>
+    <button class="primary" onclick="window.print()">🖨 打印 / 存 PDF</button>
+    <span class="hint">难度已顶到真·#21-25。卡住时点开「💡 若卡住」看一句识别提示，但执行(④⑤)自己完成。</span>
+  </div>
+
+  <div class="sheet" id="sheet"></div>
+
+<script>
+/* ===== 3 sets × 4 problems, all DIFFICULTY 3.5 (real AMC10 #21-25 / early AIME) =====
+   Each problem: body + optional 'stuck' hint (nudges ①②③ recognition, never does ④⑤). */
+
+var STEPS = [
+  { zh:"① 特征识别", en:"Problem Recognition", hint:"题面给了哪些结构信号？" },
+  { zh:"② 本质还原", en:"Reformulation", hint:"剥掉包装，它真正在问什么？" },
+  { zh:"③ 结构分解", en:"Decomposition", hint:"拆成哪些学过的定理/技巧？" },
+  { zh:"④ 策略选择", en:"Strategy Selection", hint:"哪条路最省力？" },
+  { zh:"⑤ 执行验证", en:"Execution & Verification", hint:"算出来，并回代检验", tall:true }
+];
+
+var SETS = [
+  {
+    tag:"Set A",
+    title:"套 A · 受限与比值",
+    desc:"约束条件下的计数与结构 —— 学会把「限制」翻译成数学，把「比值」变成约简。",
+    probs:[
+      { no:1, src:"Counting · Probability",
+        body:"Let \\(S\\) be the set of permutations of \\(1,2,3,4,5\\) for which the first term is NOT \\(1.\\) A permutation is chosen at random from \\(S.\\) The probability that the second term is \\(2,\\) in lowest terms, is \\(a/b.\\) What is \\(a+b\\)?",
+        hint:"条件概率：样本空间已被「首项非1」限制。先数 \\(|S|\\)，再在 \\(S\\) 里数「第二项=2」的。别用整体 120 当分母。",
+        ans:"\\(19\\)  （概率 \\(=\\tfrac{3}{16}\\)）" },
+      { no:2, src:"Counting · Probability",
+        body:"Forty slips are placed in a hat, each bearing a number \\(1\\) through \\(10,\\) with each number on four slips. Four slips are drawn at random without replacement. Let \\(p\\) be the probability all four bear the SAME number; let \\(q\\) be the probability two bear a number \\(a\\) and the other two bear a number \\(b\\neq a.\\) What is \\(q/p\\)?",
+        hint:"不用算出 \\(p,q\\) 本身——它们分母相同，求比值时约掉。只需数各自的「有利情形数」：\\(p\\) 数 vs \\(q\\) 数。",
+        ans:"\\(162\\)" },
+      { no:3, src:"Number Theory",
+        body:"What is the smallest positive integer with exactly SIX positive odd divisors and TWELVE positive even divisors?",
+        hint:"设 \\(n=2^a\\cdot m\\)（\\(m\\) 奇）。奇因子数 \\(=d(m)\\)；偶因子数 \\(=a\\cdot d(m)\\)。两条件定出 \\(a\\) 和 \\(d(m)\\)，再取最小。",
+        ans:"\\(180\\)" },
+      { no:4, src:"Geometry",
+        body:"Let \\(\\triangle XOY\\) be right-angled at \\(O.\\) Let \\(M,N\\) be the midpoints of legs \\(OX,OY\\) respectively. Given \\(XN=19\\) and \\(YM=22,\\) find \\(XY.\\)",
+        hint:"设 \\(OX=x,\\ OY=y.\\) 两条中线各写一个勾股方程，相加会神奇地凑出 \\(x^2+y^2\\)（即 \\(XY^2\\)）。",
+        ans:"\\(26\\)" }
+    ]
+  },
+  {
+    tag:"Set B",
+    title:"套 B · 对称与结构",
+    desc:"利用对称性与代数结构 —— 对称的方程组别硬解，用「相加/相乘/相减」整体处理。",
+    probs:[
+      { no:5, src:"Algebra",
+        body:"If \\(a,b,c\\) are positive reals with \\(a(b+c)=152,\\ b(c+a)=162,\\) and \\(c(a+b)=170,\\) then \\(abc=\\)?",
+        hint:"展开后三式都是 \\(ab+bc+ca\\) 的碎片。把三式相加得 \\(2(ab+bc+ca)\\)；再用「总和减去每一式」分别解出 \\(ab,bc,ca\\)，三者相乘 \\(=(abc)^2.\\)",
+        ans:"\\(720\\)" },
+      { no:6, src:"Algebra",
+        body:"It is given that \\(\\log_6 a+\\log_6 b+\\log_6 c=6,\\) where \\(a,b,c\\) are positive integers forming an INCREASING geometric sequence, and \\(b-a\\) is the square of an integer. Find \\(a+b+c.\\)",
+        hint:"对数相加 \\(\\Rightarrow abc=6^6.\\) 等比 \\(\\Rightarrow b^2=ac,\\) 所以 \\(b^3=abc\\Rightarrow b=36.\\) 再让 \\(a=36/r,\\ c=36r\\) 取整数、且 \\(b-a\\) 是完全平方。",
+        ans:"\\(111\\)  （\\(27,36,48\\)）" },
+      { no:7, src:"Number Theory",
+        body:"How many positive integers have exactly THREE proper divisors (positive divisors excluding the number itself), each of which is less than \\(50\\)?",
+        hint:"「恰好 3 个真因子」\\(\\Rightarrow\\) 共 4 个因子 \\(\\Rightarrow\\) 形如 \\(p^3\\) 或 \\(pq.\\) 两类分别数：真因子都要 \\(<50.\\)",
+        ans:"\\(109\\)" },
+      { no:8, src:"Geometry",
+        body:"In \\(\\triangle ABC,\\ AB=13,\\ BC=14,\\ AC=15.\\) Let \\(D\\) be the midpoint of \\(BC,\\) and \\(E\\) the intersection of \\(BC\\) with the bisector of \\(\\angle BAC.\\) Which is closest to the area of \\(\\triangle ADE\\)?",
+        hint:"\\(D,E\\) 都在 \\(BC\\) 上，所以 \\(\\triangle ADE\\) 的底 \\(=DE,\\) 高 \\(=\\) A 到 \\(BC\\) 的距离。角平分线定理定出 \\(E,\\) 中点定出 \\(D,\\) 相减得 \\(DE.\\)",
+        ans:"\\(3\\)" }
+    ]
+  },
+  {
+    tag:"Set C",
+    title:"套 C · 坐标与巧算",
+    desc:"坐标法与巧算 —— 当结构看不透时，铺坐标暴力算；当方程成环时，找相乘/相加的巧路。",
+    probs:[
+      { no:9, src:"Geometry · Coordinates",
+        body:"Points \\(A=(3,9),\\ B=(1,1),\\ C=(5,3),\\) and \\(D=(a,b)\\) lie in the first quadrant and form quadrilateral \\(ABCD.\\) The quadrilateral formed by joining the midpoints of \\(AB,BC,CD,DA\\) is a SQUARE. What is the sum \\(a+b\\)?",
+        hint:"关键定理（Varignon）：中点四边形的边平行于原对角线 \\(AC,BD\\) 且长为一半。它是正方形 \\(\\iff\\) \\(AC\\perp BD\\) 且 \\(|AC|=|BD|.\\) 写成 \\(D=(a,b)\\) 的两个方程。",
+        ans:"\\(10\\)  （\\(D=(7,3)\\)）" },
+      { no:10, src:"Algebra",
+        body:"If \\(x,y,z\\) are positive numbers satisfying \\(x+\\dfrac{1}{y}=4,\\quad y+\\dfrac{1}{z}=1,\\quad z+\\dfrac{1}{x}=\\dfrac{7}{3},\\) then what is \\(xyz\\)?",
+        hint:"方程「成环」。把三式左边全部相乘不好办——试着把三式各自变形后相乘，或设 \\(xyz=t\\) 并逐步代入。目标是让环闭合成一个关于 \\(t\\) 的方程。",
+        ans:"\\(1\\)" },
+      { no:11, src:"Counting · Probability",
+        body:"Each face of a cube is painted red or blue, each with probability \\(\\tfrac12,\\) independently. What is the probability that the painted cube can be placed on a horizontal surface so that the four VERTICAL faces are all the same color?",
+        hint:"「能否摆成四竖面同色」有 3 种朝向选择（3 组对面轴）。用补集或按「同色面数」分类，小心不同朝向的重复计数。总样本 \\(2^6=64.\\)",
+        ans:"\\(\\tfrac{7}{16}\\)" },
+      { no:12, src:"Geometry · AIME-level",
+        body:"An equilateral triangle is inscribed in the ellipse \\(x^2+4y^2=4.\\) One vertex is \\((0,1),\\) one altitude lies on the \\(y\\)-axis, and the square of each side length is \\(\\tfrac{m}{n}\\) with \\(m,n\\) coprime positive integers. Find \\(m+n.\\)",
+        hint:"由对称性另两顶点为 \\((\\pm s,y_0)\\) 在椭圆上。等边 \\(\\Rightarrow\\) 顶点到底边顶点距离 \\(=\\) 底边长 \\(2s.\\) 列两方程：椭圆约束 + 等边约束，解 \\(y_0.\\)",
+        ans:"\\(937\\)  （边\\(^2=\\tfrac{768}{169}\\)）" }
+    ]
+  }
+];
+
+
+function render(){
+  var h = '';
+  h += '<div class="mast">'
+     + '<div class="eyebrow">AMC10 · #21-25 tier · Difficulty 3.5</div>'
+     + '<h1>进阶杀手包 · 真·压轴挑战</h1>'
+     + '<p class="sub">3 套 × 4 题 = 12 道真·AMC10 压轴级 · 五步框 + 「若卡住」提示 · for Suri</p>'
+     + '</div>';
+
+  h += '<div class="howto"><b>这份和基础测验版有什么不同：</b>'
+     + '难度真正顶到了 <b>AMC10 第 21-25 题</b>（题库难度 3.5，部分是早期 AIME 级）。全军覆没很正常，别慌。'
+     + '<ol>'
+     + '<li>每题<b>先自己独立闯</b>——把 ①②③（识别层）写进五步框，想清楚了才动笔到 ④⑤。</li>'
+     + '<li>卡住超过 <b>5 分钟</b>，再点开题目下方的<b>「💡 若卡住」</b>——它只点破 ①②③ 的识别方向，<b>绝不替你做 ④⑤ 的执行</b>。看完提示自己把题做完。</li>'
+     + '<li>用了提示才做出来，也是进步——在自评里勾「看提示后做出」。真正要练的是：下次不看提示也能想到那个方向。</li>'
+     + '<li>三套做完再对最后一页答案。做错/卡住的，回精讲版核对同类反射。</li>'
+     + '</ol></div>';
+
+  SETS.forEach(function(set){
+    h += '<div class="setband"><div class="st">'+set.title+'</div><div class="sd">'+set.desc+'</div></div>';
+    set.probs.forEach(function(p){
+      h += '<div class="prob">';
+      h += '<div class="prob-head"><span class="prob-no">'+p.no+'</span><span class="prob-src">'+p.src+'</span></div>';
+      h += '<div class="prob-body">'+p.body+'</div>';
+      h += '<div class="steps">';
+      STEPS.forEach(function(s){
+        h += '<div class="step-row"><div class="step-label">'+s.zh+'<span class="en">'+s.en+'</span><span class="hint">'+s.hint+'</span></div><div class="step-blank'+(s.tall?' tall':'')+'"></div></div>';
+      });
+      h += '</div>';
+      if(p.hint){
+        h += '<div class="stuck"><details><summary>若卡住（只点识别方向，不代劳执行）</summary><div class="hbody">'+p.hint+'</div></details></div>';
+      }
+      h += '<div class="selfrow"><b>我卡在：</b>'
+         + '<span class="chk"><span class="box"></span>①</span>'
+         + '<span class="chk"><span class="box"></span>②</span>'
+         + '<span class="chk"><span class="box"></span>③</span>'
+         + '<span class="chk"><span class="box"></span>④</span>'
+         + '<span class="chk"><span class="box"></span>⑤</span>'
+         + '<span class="chk"><span class="box"></span>看提示后做出</span>'
+         + '<span class="chk"><span class="box"></span>独立做出</span>'
+         + '</div>';
+      h += '</div>';
+    });
+  });
+
+  // answer key
+  h += '<div class="keypage"><div class="keytitle">答案速查表 · Answer Key</div>'
+     + '<p class="keynote">只列最终答案。做错或卡住的题，回精讲版（challenge-level2.html）核对同类识别反射。</p>'
+     + '<table class="key"><thead><tr><th style="width:56px">题号</th><th>套 / 板块</th><th style="width:150px">答案</th></tr></thead><tbody>';
+  SETS.forEach(function(set){
+    set.probs.forEach(function(p){
+      h += '<tr><td>#'+p.no+'</td><td>'+set.tag+' · '+p.src+'</td><td class="ans">'+p.ans+'</td></tr>';
+    });
+  });
+  h += '</tbody></table>';
+  h += '<div class="foot">进阶杀手包 · 难度 3.5（真·AMC10 #21-25）· 用了提示不丢人，练到不看提示能想到方向，就赢了</div>';
+  h += '</div>';
+
+  document.getElementById('sheet').innerHTML = h;
+  if (window.renderMathInElement){
+    renderMathInElement(document.getElementById('sheet'), {
+      delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],
+      throwOnError:false
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  if (window.renderMathInElement) render();
+  else { var t=setInterval(function(){ if(window.renderMathInElement){clearInterval(t); render();} },60); }
+});
+</script>
+</body>
+</html>
+
