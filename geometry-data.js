@@ -5092,10 +5092,6 @@ const courseData = {
       "en": "Let \\(ABCD\\) be a convex quadrilateral. A line \\(k\\) meets \\(DA, AB, BC, CD\\) at \\(X, Y, Z, T\\) respectively. Prove that \\(\\dfrac{DX}{XA}\\cdot\\dfrac{AY}{YB}\\cdot\\dfrac{BZ}{ZC}\\cdot\\dfrac{CT}{TD}=1.\\)",
       "zh": "设 \\(ABCD\\) 是凸四边形。直线 \\(k\\) 分别交 \\(DA, AB, BC, CD\\) 于 \\(X, Y, Z, T\\)。证明 \\(\\dfrac{DX}{XA}\\cdot\\dfrac{AY}{YB}\\cdot\\dfrac{BZ}{ZC}\\cdot\\dfrac{CT}{TD}=1.\\)"
      },
-     "recall": {
-      "en": "Four ratios, one straight line cutting four sides — this is Menelaus, but a triangle has only THREE sides. How do you turn a quadrilateral into triangles?",
-      "zh": "四个比、一条直线截四条边——这是梅涅劳斯，但三角形只有**三**条边。怎么把四边形变成三角形？"
-     },
      "guide": {
       "en": "Draw a diagonal to split \\(ABCD\\) into two triangles. The line \\(k\\) also hits that diagonal at some point \\(W\\); apply triangle-Menelaus to each half. The two ratios involving \\(W\\) are reciprocals — they cancel.",
       "zh": "作一条对角线，把 \\(ABCD\\) 切成两个三角形。直线 \\(k\\) 也会交这条对角线于某点 \\(W\\)；对每一半各用一次三角形梅涅劳斯。两个含 \\(W\\) 的比互为倒数——相消。"
@@ -5137,10 +5133,6 @@ const courseData = {
       "en": "Let the external angle bisector of \\(\\angle BAC\\) meet line \\(BC\\) at \\(A'\\). Define \\(B', C'\\) analogously. Prove that \\(A', B', C'\\) are collinear.",
       "zh": "设 \\(\\angle BAC\\) 的外角平分线交直线 \\(BC\\) 于 \\(A'\\)。类似地定义 \\(B', C'\\)。证明 \\(A', B', C'\\) 三点共线。"
      },
-     "recall": {
-      "en": "You must prove three points are collinear — that word should immediately flash 'Menelaus (converse)'. What ratio does an external bisector cut on the opposite side?",
-      "zh": "要证三点共线——这个词应立刻闪出「梅涅劳斯（逆定理）」。外角平分线在对边上截出什么比？"
-     },
      "guide": {
       "en": "The external bisector from \\(A\\) divides \\(BC\\) EXTERNALLY in ratio \\(AB:AC\\), i.e. \\(\\frac{BA'}{A'C}=-\\frac{c}{b}\\) (signed). Write all three such ratios and multiply.",
       "zh": "\\(A\\) 处的外角平分线把 \\(BC\\) **外分**成比 \\(AB:AC\\)，即 \\(\\frac{BA'}{A'C}=-\\frac{c}{b}\\)（有向）。写出全部三个这样的比，相乘。"
@@ -5180,10 +5172,6 @@ const courseData = {
      "statement": {
       "en": "Let \\(ABC\\) be isosceles with \\(AB=AC\\). Points \\(X, Y, Z\\) lie on segment \\(AC\\), segment \\(AB\\), and ray \\(AC\\) (with \\(AZ>AC\\)) respectively, so that \\(AX=BY=CZ\\). Prove that the orthogonal projection of \\(X\\) onto \\(BC\\) is the midpoint of \\(YZ\\).",
       "zh": "设 \\(ABC\\) 等腰，\\(AB=AC\\)。点 \\(X, Y, Z\\) 分别在线段 \\(AC\\)、线段 \\(AB\\)、射线 \\(AC\\)（\\(AZ>AC\\)）上，使得 \\(AX=BY=CZ\\)。证明 \\(X\\) 在 \\(BC\\) 上的正交投影是 \\(YZ\\) 的中点。"
-     },
-     "recall": {
-      "en": "Three equal lengths on three different lines, plus a projection — a ratio-chase is messy here. When symmetry is strong (isosceles!) and you want a 'midpoint' fact, coordinates are often the cleanest weapon.",
-      "zh": "三条不同直线上有三段等长，还要投影——这里追比会很乱。当对称性很强（等腰！）且要证「中点」时，坐标往往是最干净的武器。"
      },
      "guide": {
       "en": "Put \\(BC\\) on the \\(x\\)-axis, symmetric about the \\(y\\)-axis. Write \\(X, Y, Z\\) using the common length \\(t=AX=BY=CZ\\), then compare the \\(x\\)-coordinate of \\(X\\) with the midpoint of \\(YZ\\).",
@@ -5279,10 +5267,6 @@ const courseData = {
       "en": "Let the external bisector of \\(\\angle BAC\\) meet line \\(BC\\) at \\(A'\\); define \\(B', C'\\) analogously. Prove \\(A', B', C'\\) are collinear.",
       "zh": "设 \\(\\angle BAC\\) 的外角平分线交直线 \\(BC\\) 于 \\(A'\\)；类似定义 \\(B', C'\\)。证明 \\(A', B', C'\\) 共线。"
      },
-     "recall": {
-      "en": "Prove three points collinear → converse of Menelaus. Each external bisector cuts the opposite side externally in the ratio of the adjacent sides.",
-      "zh": "证三点共线 → 梅涅劳斯逆定理。每条外角平分线把对边外分成邻边之比。"
-     },
      "steps": [
       {
        "en": "External bisector theorem (signed): \\(\\frac{BA'}{A'C}=-\\frac{c}{b},\\ \\frac{CB'}{B'A}=-\\frac{a}{c},\\ \\frac{AC'}{C'B}=-\\frac{b}{a}\\).",
@@ -5305,7 +5289,11 @@ const courseData = {
       "en": "Three external bisectors = three sign flips = \\((-1)^3=-1\\), the Menelaus condition. The three INTERNAL bisectors instead give \\(+1\\) → they concur (incenter) by Ceva. Same magnitudes, opposite signs, dual conclusions.",
       "zh": "三条外角平分线 = 三次翻号 = \\((-1)^3=-1\\)，正是梅涅劳斯条件。三条**内**角平分线则给 \\(+1\\) → 由塞瓦共点（内心）。同样的绝对值、相反的符号、对偶的结论。"
      },
-     "fig": FIG.menelaus_extaxis
+     "fig": FIG.menelaus_extaxis,
+     "guide": {
+      "en": "Prove three points collinear → converse of Menelaus. Each external bisector cuts the opposite side externally in the ratio of the adjacent sides.",
+      "zh": "证三点共线 → 梅涅劳斯逆定理。每条外角平分线把对边外分成邻边之比。"
+     }
     },
     {
      "n": 2,
@@ -5316,10 +5304,6 @@ const courseData = {
      "statement": {
       "en": "Convex quadrilateral \\(ABCD\\); a line meets \\(DA, AB, BC, CD\\) at \\(X, Y, Z, T\\). Prove \\(\\frac{DX}{XA}\\cdot\\frac{AY}{YB}\\cdot\\frac{BZ}{ZC}\\cdot\\frac{CT}{TD}=1\\).",
       "zh": "凸四边形 \\(ABCD\\)；一条直线交 \\(DA, AB, BC, CD\\) 于 \\(X, Y, Z, T\\)。证明 \\(\\frac{DX}{XA}\\cdot\\frac{AY}{YB}\\cdot\\frac{BZ}{ZC}\\cdot\\frac{CT}{TD}=1\\)。"
-     },
-     "recall": {
-      "en": "A triangle has three sides; a quadrilateral has four. Split with a diagonal and apply Menelaus twice.",
-      "zh": "三角形三边、四边形四边。用对角线切开，两次梅涅劳斯。"
      },
      "steps": [
       {
@@ -5342,6 +5326,10 @@ const courseData = {
      "insight": {
       "en": "The diagonal manufactures a shared point whose two ratios are reciprocal. The same trick pushes Menelaus to any \\(n\\)-gon: a transversal across \\(n\\) sides gives a product of \\(n\\) ratios equal to 1.",
       "zh": "对角线制造出一个共享点，其两个比互为倒数。同一诀窍把梅涅劳斯推向任意 \\(n\\) 边形：横截线截 \\(n\\) 边，\\(n\\) 个比之积为 1。"
+     },
+     "guide": {
+      "en": "A triangle has three sides; a quadrilateral has four. Split with a diagonal and apply Menelaus twice.",
+      "zh": "三角形三边、四边形四边。用对角线切开，两次梅涅劳斯。"
      }
     },
     {
@@ -5353,10 +5341,6 @@ const courseData = {
      "statement": {
       "en": "In \\(\\triangle ABC\\), \\(D\\in BC\\) and \\(E\\in CA\\) satisfy \\(BD=CE=AB\\). Line \\(\\ell\\) through \\(D\\) is parallel to \\(AB\\); \\(M=\\ell\\cap BE\\) and \\(F=CM\\cap AB\\). Prove \\(AE\\cdot BF\\cdot CD=(AB)^3\\).",
       "zh": "在 \\(\\triangle ABC\\) 中，\\(D\\in BC\\)、\\(E\\in CA\\) 满足 \\(BD=CE=AB\\)。过 \\(D\\) 作 \\(\\ell\\parallel AB\\)；\\(M=\\ell\\cap BE\\)、\\(F=CM\\cap AB\\)。证明 \\(AE\\cdot BF\\cdot CD=(AB)^3\\)。"
-     },
-     "recall": {
-      "en": "Note: numerical check on 5 random triangles confirms this identity holds EXACTLY (ratio = 1.00000). Set \\(c=AB\\); express each length via the parallel \\(\\ell\\) and a Menelaus/similar-triangle chase.",
-      "zh": "注：对 5 个随机三角形的数值检验证实此恒等式**精确成立**（比值 = 1.00000）。设 \\(c=AB\\)；借平行线 \\(\\ell\\) 与梅涅劳斯／相似三角形把各段长表示出来。"
      },
      "steps": [
       {
@@ -5383,6 +5367,10 @@ const courseData = {
      "insight": {
       "en": "Don't be scared off by a homogeneous-looking cubic — the three equal lengths \\(BD=CE=AB\\) plus one parallel are exactly enough constraints to force it. The parallel \\(\\ell\\) is the engine: it converts the point \\(M\\) into a similar-triangle ratio you can chase.",
       "zh": "别被这个看似齐次的三次式吓退——三段等长 \\(BD=CE=AB\\) 加一条平行线，约束恰好足够逼出它。平行线 \\(\\ell\\) 是引擎：它把点 \\(M\\) 转化成可追的相似三角形比。"
+     },
+     "guide": {
+      "en": "Note: numerical check on 5 random triangles confirms this identity holds EXACTLY (ratio = 1.00000). Set \\(c=AB\\); express each length via the parallel \\(\\ell\\) and a Menelaus/similar-triangle chase.",
+      "zh": "注：对 5 个随机三角形的数值检验证实此恒等式**精确成立**（比值 = 1.00000）。设 \\(c=AB\\)；借平行线 \\(\\ell\\) 与梅涅劳斯／相似三角形把各段长表示出来。"
      }
     },
     {
@@ -5394,10 +5382,6 @@ const courseData = {
      "statement": {
       "en": "Internal bisectors \\(t_a,t_b,t_c\\) meet the opposite sides at \\(U,V,W\\); medians meet them at \\(L,M,N\\). With the concurrency points defined, prove \\(\\frac{AR}{RU}\\cdot\\frac{BP}{PV}\\cdot\\frac{CQ}{QW}\\ge 8\\).",
       "zh": "内角平分线 \\(t_a,t_b,t_c\\) 交对边于 \\(U,V,W\\)；中线交之于 \\(L,M,N\\)。在所定义的交点下，证明 \\(\\frac{AR}{RU}\\cdot\\frac{BP}{PV}\\cdot\\frac{CQ}{QW}\\ge 8\\)。"
-     },
-     "recall": {
-      "en": "Careful: R,P,Q are NOT the incenter — each is a median-bisector intersection. Use Menelaus to get each ratio, e.g. apply Menelaus to \\(\\triangle ABU\\) with the median line CN. Then AM-GM.",
-      "zh": "注意：R,P,Q 都**不是内心**——它们是中线与角平分线的交点。用梅涅劳斯求每个比，例如对 \\(\\triangle ABU\\) 以中线 CN 作横截线。再用 AM-GM。"
      },
      "steps": [
       {
@@ -5425,7 +5409,11 @@ const courseData = {
       "en": "The trap: R,P,Q look like the incenter but are not, so the ratio is \\((b+c)/b\\) (via Menelaus), NOT (b+c)/a. The product still telescopes to \\((b+c)(c+a)(a+b)/abc\\); AM-GM finishes it, equality at the equilateral.",
       "zh": "陷阱：R,P,Q 看着像内心其实不是，故比值是 \\((b+c)/b\\)（用梅涅劳斯），**不是** (b+c)/a。乘积仍裂项为 \\((b+c)(c+a)(a+b)/abc\\)；AM-GM 收尾，正三角形取等。"
      },
-     "fig": FIG.menelaus_median_bis
+     "fig": FIG.menelaus_median_bis,
+     "guide": {
+      "en": "Careful: R,P,Q are NOT the incenter — each is a median-bisector intersection. Use Menelaus to get each ratio, e.g. apply Menelaus to \\(\\triangle ABU\\) with the median line CN. Then AM-GM.",
+      "zh": "注意：R,P,Q 都**不是内心**——它们是中线与角平分线的交点。用梅涅劳斯求每个比，例如对 \\(\\triangle ABU\\) 以中线 CN 作横截线。再用 AM-GM。"
+     }
     },
     {
      "n": 5,
@@ -5436,10 +5424,6 @@ const courseData = {
      "statement": {
       "en": "Isosceles \\(\\triangle ABC\\) (\\(AC=BC\\)); the incircle touches \\(AB\\) at \\(D\\) and \\(BC\\) at \\(E\\). A line through \\(A\\) (distinct from \\(AE\\)) meets the incircle at \\(F,G\\); line \\(AB\\) meets lines \\(EF, EG\\) at \\(K,L\\). Prove \\(DK=DL\\).",
       "zh": "等腰 \\(\\triangle ABC\\)（\\(AC=BC\\)）；内切圆切 \\(AB\\) 于 \\(D\\)、切 \\(BC\\) 于 \\(E\\)。过 \\(A\\) 的直线（异于 \\(AE\\)）交内切圆于 \\(F,G\\)；直线 \\(AB\\) 交直线 \\(EF, EG\\) 于 \\(K,L\\)。证明 \\(DK=DL\\)。"
-     },
-     "recall": {
-      "en": "Isosceles + incircle = axis of symmetry along the altitude from the apex. Prove \\(K,L\\) are symmetric about \\(D\\) via equal power / harmonic ideas.",
-      "zh": "等腰 + 内切圆 = 沿顶角高的对称轴。用等幂／调和思想证 \\(K,L\\) 关于 \\(D\\) 对称。"
      },
      "steps": [
       {
@@ -5462,6 +5446,10 @@ const courseData = {
      "insight": {
       "en": "When 'prove two distances from a fixed point are equal' meets heavy symmetry, look for the reflection that fixes that point and swaps the two others. Power-of-a-point supplies the algebraic backup.",
       "zh": "当「证从定点出发的两段距离相等」遇上强对称，就找那个固定该点、交换另两点的反射。点幂提供代数托底。"
+     },
+     "guide": {
+      "en": "Isosceles + incircle = axis of symmetry along the altitude from the apex. Prove \\(K,L\\) are symmetric about \\(D\\) via equal power / harmonic ideas.",
+      "zh": "等腰 + 内切圆 = 沿顶角高的对称轴。用等幂／调和思想证 \\(K,L\\) 关于 \\(D\\) 对称。"
      }
     },
     {
@@ -5473,10 +5461,6 @@ const courseData = {
      "statement": {
       "en": "\\(D\\in AB, E\\in AC\\) with \\(DE\\parallel BC\\). \\(P\\) is interior to \\(\\triangle ADE\\); lines \\(PB, PC\\) meet \\(DE\\) at \\(F,G\\). Prove \\(AP\\) passes through the radical axis point of the circumcircles of \\(\\triangle PDG\\) and \\(\\triangle PFE\\) — i.e. \\(AP\\) is their radical axis.",
       "zh": "\\(D\\in AB, E\\in AC\\) 且 \\(DE\\parallel BC\\)。\\(P\\) 在 \\(\\triangle ADE\\) 内；直线 \\(PB, PC\\) 交 \\(DE\\) 于 \\(F,G\\)。证明 \\(AP\\) 是 \\(\\triangle PDG\\) 与 \\(\\triangle PFE\\) 两外接圆的根轴。"
-     },
-     "recall": {
-      "en": "To show a line is the radical axis of two circles, exhibit TWO points of equal power. \\(P\\) is on both circles (power 0 to each). Find one more equal-power point on line \\(AP\\).",
-      "zh": "要证一条线是两圆根轴，找出**两个**等幂点。\\(P\\) 在两圆上（对各圆幂为 0）。再在直线 \\(AP\\) 上找一个等幂点。"
      },
      "steps": [
       {
@@ -5499,6 +5483,10 @@ const courseData = {
      "insight": {
       "en": "Radical axis proofs shrink to 'find two equal-power points'. \\(P\\) is free (on both circles); the parallel line manufactures the second one, \\(M\\).",
       "zh": "根轴证明缩减为「找两个等幂点」。\\(P\\) 是现成的（在两圆上）；平行线制造出第二个点 \\(M\\)。"
+     },
+     "guide": {
+      "en": "To show a line is the radical axis of two circles, exhibit TWO points of equal power. \\(P\\) is on both circles (power 0 to each). Find one more equal-power point on line \\(AP\\).",
+      "zh": "要证一条线是两圆根轴，找出**两个**等幂点。\\(P\\) 在两圆上（对各圆幂为 0）。再在直线 \\(AP\\) 上找一个等幂点。"
      }
     },
     {
@@ -5510,10 +5498,6 @@ const courseData = {
      "statement": {
       "en": "The incircle of \\(\\triangle ABC\\) (\\(AB\\ne AC\\)) touches \\(BC, CA, AB\\) at \\(D, E, F\\). A point \\(X\\) inside has the incircle of \\(\\triangle XBC\\) also touching \\(BC\\) at \\(D\\), and touching \\(CX, XB\\) at \\(Y, Z\\). Prove \\(EF, ZY, BC\\) concur.",
       "zh": "\\(\\triangle ABC\\)（\\(AB\\ne AC\\)）的内切圆切 \\(BC, CA, AB\\) 于 \\(D, E, F\\)。内部点 \\(X\\) 使 \\(\\triangle XBC\\) 的内切圆也切 \\(BC\\) 于 \\(D\\)，并切 \\(CX, XB\\) 于 \\(Y, Z\\)。证明 \\(EF, ZY, BC\\) 共点。"
-     },
-     "recall": {
-      "en": "Three tangent-chords meeting one common line -> think radical center of the two incircles (they share tangent point \\(D\\) on \\(BC\\)).",
-      "zh": "三条切点弦交于一条公共直线 -> 想两内切圆的根心（它们在 \\(BC\\) 上共切点 \\(D\\)）。"
      },
      "steps": [
       {
@@ -5536,6 +5520,10 @@ const courseData = {
      "insight": {
       "en": "Shared tangent point \\(D\\) makes \\(BC\\) a radical axis; the two chords are the other two; all meet at the radical center.",
       "zh": "共享切点 \\(D\\) 使 \\(BC\\) 成一条根轴；两弦是另两条；同交于根心。"
+     },
+     "guide": {
+      "en": "Three tangent-chords meeting one common line -> think radical center of the two incircles (they share tangent point \\(D\\) on \\(BC\\)).",
+      "zh": "三条切点弦交于一条公共直线 -> 想两内切圆的根心（它们在 \\(BC\\) 上共切点 \\(D\\)）。"
      }
     },
     {
@@ -5547,10 +5535,6 @@ const courseData = {
      "statement": {
       "en": "Trapezoid \\(ABCD\\), \\(AB\\parallel CD\\), \\(X\\) on \\(AB\\). \\(P=BC\\cap AD\\), \\(Y=CD\\cap PX\\), \\(R=AY\\cap BD\\), \\(T=PR\\cap AB\\). Prove \\(\\frac{1}{AT}=\\frac{1}{AX}+\\frac{1}{AB}\\).",
       "zh": "梯形 \\(ABCD\\)，\\(AB\\parallel CD\\)，\\(X\\) 在 \\(AB\\) 上。\\(P=BC\\cap AD\\)，\\(Y=CD\\cap PX\\)，\\(R=AY\\cap BD\\)，\\(T=PR\\cap AB\\)。证明 \\(\\frac{1}{AT}=\\frac{1}{AX}+\\frac{1}{AB}\\)。"
-     },
-     "recall": {
-      "en": "A reciprocal sum is the fingerprint of parallels + similar triangles. Aim to prove \\(\\frac{AT}{AX}+\\frac{AT}{AB}=1\\).",
-      "zh": "倒数和是平行线 + 相似三角形的指纹。目标证 \\(\\frac{AT}{AX}+\\frac{AT}{AB}=1\\)。"
      },
      "steps": [
       {
@@ -5574,7 +5558,11 @@ const courseData = {
       "en": "Multiply the target by \\(AT\\) first: the scary reciprocal identity becomes 'two ratios sum to 1', delivered by parallels in one step.",
       "zh": "先把目标乘以 \\(AT\\)：吓人的倒数恒等式变成「两比之和为 1」，平行线一步给出。"
      },
-     "fig": FIG.menelaus_trap_harm
+     "fig": FIG.menelaus_trap_harm,
+     "guide": {
+      "en": "A reciprocal sum is the fingerprint of parallels + similar triangles. Aim to prove \\(\\frac{AT}{AX}+\\frac{AT}{AB}=1\\).",
+      "zh": "倒数和是平行线 + 相似三角形的指纹。目标证 \\(\\frac{AT}{AX}+\\frac{AT}{AB}=1\\)。"
+     }
     },
     {
      "n": 9,
@@ -5585,10 +5573,6 @@ const courseData = {
      "statement": {
       "en": "Convex quadrilateral \\(ABCD\\), diagonals meet at \\(O\\), with a metric condition (e.g. \\(AB=CD\\)). \\(E,F\\) are midpoints of \\(AB, CD\\). Prove \\(EF\\) passes through the points where the incircle of \\(\\triangle AOD\\) touches \\(AO\\) and \\(OD\\).",
       "zh": "凸四边形 \\(ABCD\\)，对角线交于 \\(O\\)，满足某度量条件（如 \\(AB=CD\\)）。\\(E,F\\) 是 \\(AB, CD\\) 的中点。证明 \\(EF\\) 过 \\(\\triangle AOD\\) 内切圆与 \\(AO, OD\\) 的切点。"
-     },
-     "recall": {
-      "en": "Midpoints + tangency: tangent lengths from a vertex equal \\(s-\\text{opposite}\\). Note: source OCR is partly truncated; this is the standard reconstruction.",
-      "zh": "中点 + 切点：从顶点的切线长等于 \\(s-\\text{对边}\\)。注：来源 OCR 部分残缺，此为标准重构。"
      },
      "steps": [
       {
@@ -5611,6 +5595,10 @@ const courseData = {
      "insight": {
       "en": "Equal tangent lengths \\(OP=OQ=s-AD\\) pin the tangent points; midpoints supply collinearity. When the source is garbled, anchor on trustworthy invariants.",
       "zh": "等切线长 \\(OP=OQ=s-AD\\) 钉住切点；中点提供共线。题面含糊时，锚定可信的不变量。"
+     },
+     "guide": {
+      "en": "Midpoints + tangency: tangent lengths from a vertex equal \\(s-\\text{opposite}\\). Note: source OCR is partly truncated; this is the standard reconstruction.",
+      "zh": "中点 + 切点：从顶点的切线长等于 \\(s-\\text{对边}\\)。注：来源 OCR 部分残缺，此为标准重构。"
      }
     },
     {
@@ -5622,10 +5610,6 @@ const courseData = {
      "statement": {
       "en": "Isosceles \\(\\triangle ABC\\) (\\(AB=AC\\)). \\(X\\) on \\(AC\\), \\(Y\\) on \\(AB\\), \\(Z\\) on ray \\(AC\\) with \\(AZ>AC\\), and \\(AX=BY=CZ\\). Prove the foot of the perpendicular from \\(X\\) to \\(BC\\) is the midpoint of \\(YZ\\).",
       "zh": "等腰 \\(\\triangle ABC\\)（\\(AB=AC\\)）。\\(X\\) 在 \\(AC\\)，\\(Y\\) 在 \\(AB\\)，\\(Z\\) 在射线 \\(AC\\) 上且 \\(AZ>AC\\)，且 \\(AX=BY=CZ\\)。证明从 \\(X\\) 向 \\(BC\\) 的垂足是 \\(YZ\\) 的中点。"
-     },
-     "recall": {
-      "en": "Strong symmetry + a midpoint target -> coordinates aligned with the axis of symmetry beat any synthetic chase.",
-      "zh": "强对称 + 中点目标 -> 坐标对准对称轴，胜过综合追比。"
      },
      "steps": [
       {
@@ -5652,6 +5636,10 @@ const courseData = {
      "insight": {
       "en": "\\(Y, Z\\) sit at opposite heights \\(\\pm\\tfrac{th}{L}\\), symmetric across \\(BC\\), so their midpoint auto-lands on \\(BC\\). Forced by \\(AB=AC\\) plus equal lengths.",
       "zh": "\\(Y, Z\\) 处于相反高度 \\(\\pm\\tfrac{th}{L}\\)，关于 \\(BC\\) 对称，故中点自动落在 \\(BC\\) 上。由 \\(AB=AC\\) 加等长逼出。"
+     },
+     "guide": {
+      "en": "Strong symmetry + a midpoint target -> coordinates aligned with the axis of symmetry beat any synthetic chase.",
+      "zh": "强对称 + 中点目标 -> 坐标对准对称轴，胜过综合追比。"
      }
     },
     {
@@ -5663,10 +5651,6 @@ const courseData = {
      "statement": {
       "en": "In triangle ABC, D on BC, E on CA, F on AB with \\(x=\\frac{BD}{DC}, y=\\frac{CE}{EA}, z=\\frac{AF}{FB}\\). Let \\(P=AD\\cap BE, Q=BE\\cap CF, R=CF\\cap AD\\). Prove \\(\\frac{[PQR]}{[ABC]}=\\frac{(xyz-1)^2}{(xz+x+1)(yx+y+1)(zy+z+1)}\\).",
       "zh": "在三角形 ABC 中，D 在 BC 上，E 在 CA 上，F 在 AB 上，\\(x=\\frac{BD}{DC}, y=\\frac{CE}{EA}, z=\\frac{AF}{FB}\\)。设 \\(P=AD\\cap BE, Q=BE\\cap CF, R=CF\\cap AD\\)。证明 \\(\\frac{[PQR]}{[ABC]}=\\frac{(xyz-1)^2}{(xz+x+1)(yx+y+1)(zy+z+1)}\\)。"
-     },
-     "recall": {
-      "en": "This is Routh's Theorem, numerically verified to hold exactly under the statement's ratio convention. Locate each cevian intersection via Menelaus, then subtract corner areas.",
-      "zh": "这是 Routh 定理，在题面比值约定下已数值验证精确成立。用梅涅劳斯定位每个塞瓦交点，再作角面积相减。"
      },
      "steps": [
       {
@@ -5693,6 +5677,10 @@ const courseData = {
      "insight": {
       "en": "Routh unifies medians-concur and the 1/7-triangle. Engine: Menelaus for each ratio, then area subtraction. Mind the ratio convention.",
       "zh": "Routh 统一了「中线共点」与「七分之一三角形」。引擎：每个比用梅涅劳斯、再面积相减。注意比值约定。"
+     },
+     "guide": {
+      "en": "This is Routh's Theorem, numerically verified to hold exactly under the statement's ratio convention. Locate each cevian intersection via Menelaus, then subtract corner areas.",
+      "zh": "这是 Routh 定理，在题面比值约定下已数值验证精确成立。用梅涅劳斯定位每个塞瓦交点，再作角面积相减。"
      }
     }
    ]

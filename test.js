@@ -100,6 +100,18 @@ function testCourse(label, course, FIG) {
   });
   ok(objectStrings === 0, label + ": 无任何字段会渲染成 [object Object]（检查了 " + bilingualChecked + " 个双语字段）");
 
+  section(label + " — 字段类型契约（recall/knowledge/steps 必须是数组）");
+  let typeErr = 0;
+  walk(course, (obj, p) => {
+    for (const key of ["recall", "knowledge", "steps", "solution"]) {
+      if (key in obj && obj[key] != null && !Array.isArray(obj[key])) {
+        typeErr++;
+        ok(false, label + " " + p + "." + key + " 应为数组，实为 " + typeof obj[key] + "（app.js 会 .map() 崩溃）");
+      }
+    }
+  });
+  ok(typeErr === 0, label + ": recall/knowledge/steps 字段类型均正确（数组）");
+
   section(label + " — 图（FIG）引用完整性");
   let figCount = 0, badFig = 0;
   walk(course, (obj, p) => {
