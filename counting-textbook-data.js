@@ -863,3 +863,135 @@ textbookData[6].sections.push({
   ]
 });
 
+
+
+/* ==========================================================
+   CONCEPT 8 — Restricted Arrangements & Advanced Classification
+   Fills the 2nd AIME gap: adjacency (together/apart), circular,
+   multiset permutations, distributions with limits, and the
+   "classify cleanly" skill that AMC/AIME test relentlessly.
+   10 worked examples, difficulty-ascending, all verified.
+   ========================================================== */
+textbookData.push({
+  id: "restricted",
+  badge: { en: "Counting · Concept 08", zh: "组合 · 知识点 08" },
+  title: { en: "Restricted Arrangements & Classification", zh: "限制排列与高级分类" },
+  subtitle: { en: "The other half of AIME counting: arrangements with strings attached — must-be-together, must-be-apart, around a circle, with repeats. Master the four standard weapons (glue, gap, divide-by-symmetry, subtract-the-bad) and 'complex counting' stops being scary.",
+              zh: "AIME 计数的另一半：带着「附加条件」的排列 —— 必须相邻、必须分开、绕成一圈、含重复元素。掌握四件标准武器（捆绑、插空、除以对称、减掉坏的），「复杂计数」就不再吓人。" },
+  readingTime: { en: "~28 min · AMC10→AIME", zh: "约 28 分钟 · AMC10→AIME" },
+  sections: [
+
+  /* ---------- 0. WHY ---------- */
+  {
+    heading: { en: "0 · Four weapons for four kinds of restriction", zh: "0 · 四种限制，四件武器" },
+    blocks: [
+      { type: "para", en: "Almost every 'restricted arrangement' problem is one of four types. The skill is matching the restriction to its standard weapon — then the counting is routine.",
+        zh: "几乎每一道「限制排列」题，都属于四种类型之一。技巧是把「限制」对上它的「标准武器」—— 然后计数就成了例行公事。" },
+      { type: "table",
+        head: { en: ["Restriction", "Weapon", "How"], zh: ["限制", "武器", "怎么做"] },
+        rows: {
+          en: [
+            ["Two things MUST be together", "Glue (block)", "Treat them as ONE unit, then multiply by internal orders"],
+            ["Two things MUST be apart", "Gap method", "Place the others first, then slot the restricted ones into the gaps"],
+            ["Arranged in a CIRCLE", "Divide by symmetry", "Fix one element / divide by \\(n\\): \\((n-1)!\\)"],
+            ["Repeated identical items", "Divide by repeats", "\\(\\dfrac{n!}{n_1!\\,n_2!\\cdots}\\)"]
+          ],
+          zh: [
+            ["两个东西「必须相邻」", "捆绑（打包）", "把它们当成「一个」单位，再乘内部排法"],
+            ["两个东西「必须分开」", "插空法", "先排其他的，再把受限的塞进空隙"],
+            ["排成「一圈」", "除以对称", "固定一个 / 除以 \\(n\\)：\\((n-1)!\\)"],
+            ["有「重复相同」的元素", "除以重复", "\\(\\dfrac{n!}{n_1!\\,n_2!\\cdots}\\)"]
+          ]
+        }
+      },
+      { type: "ask", en: "Before any calculation, classify: does the problem say together, apart, in a circle, or with repeats? Naming the type picks the weapon for you.",
+        zh: "任何计算之前，先分类：题目说的是「相邻」「分开」「成圈」还是「有重复」？说出类型，就替你选好了武器。" }
+    ]
+  },
+
+  /* ---------- 1. Glue & Gap ---------- */
+  {
+    heading: { en: "1 · Together (glue) and apart (gap)", zh: "1 · 相邻（捆绑）与分开（插空）" },
+    blocks: [
+      { type: "step", n: "EX 1", title: { en: "Must be together — glue", zh: "必须相邻 —— 捆绑" },
+        en: "How many ways to seat 5 people in a row so that A and B are ADJACENT?\n\u2022 Glue A,B into one block \\(\\Rightarrow\\) 4 units to arrange: \\(4!=24.\\)\n\u2022 A,B internally: \\(2!=2.\\)\n\u2022 Total \\(=24\\times2=48.\\)",
+        zh: "5 个人排成一行，使 A 与 B 「相邻」，有几种？\n\u2022 把 A、B 捆成一个块 \\(\\Rightarrow\\) 剩 4 个单位排列：\\(4!=24\\)。\n\u2022 A、B 内部：\\(2!=2\\)。\n\u2022 总数 \\(=24\\times2=48\\)。" },
+      { type: "step", n: "EX 2", title: { en: "Must be apart — subtract, or gap", zh: "必须分开 —— 减法或插空" },
+        en: "Same 5 people, now A and B must NOT be adjacent.\n\u2022 Easiest: total minus together \\(=5!-48=120-48=72.\\)\n\u2022 Gap check: seat the other 3 (\\(3!=6\\)), creating 4 gaps _X_X_X_; choose 2 gaps for A,B and order them: \\(\\binom{4}{2}\\cdot2!=6\\cdot2=12;\\) total \\(6\\times12=72.\\) \u2713",
+        zh: "同样 5 人，现在 A 与 B「不能相邻」。\n\u2022 最简单：总数减相邻 \\(=5!-48=120-48=72\\)。\n\u2022 插空验证：先排另外 3 人（\\(3!=6\\)），形成 4 个空隙 _X_X_X_；从中选 2 个空放 A、B 并排序：\\(\\binom{4}{2}\\cdot2!=6\\cdot2=12\\)；总 \\(6\\times12=72\\)。\u2713" },
+      { type: "step", n: "EX 3", title: { en: "Non-consecutive scheduling", zh: "不连续排课" },
+        en: "A student schedules 3 math courses in a 6-period day so that no two math courses are in consecutive periods. How many ways?\n\u2022 Gap method: the 3 non-math periods create 4 gaps; choose 3 gaps for the math courses \\(\\binom{4}{3}=4,\\) then order the 3 distinct courses \\(3!=6.\\)\n\u2022 Total \\(=4\\times6=24.\\)",
+        zh: "一名学生在 6 节课的一天里安排 3 门数学课，使任意两门数学课都「不连续」。有几种？\n\u2022 插空法：3 节非数学课形成 4 个空隙；从中选 3 个空放数学课 \\(\\binom{4}{3}=4\\)，再给 3 门不同的课排序 \\(3!=6\\)。\n\u2022 总数 \\(=4\\times6=24\\)。" },
+      { type: "note", en: "Rule of thumb: 'apart' is usually easier as total minus together (2 items) OR by the gap method (many items). For 'no two of several are adjacent', ALWAYS use gaps.",
+        zh: "经验法则：「分开」通常用「总数减相邻」（2 个元素）或「插空法」（多个元素）更简单。对「若干个中任意两个都不相邻」，「永远」用插空法。" }
+    ]
+  },
+
+  /* ---------- 2. Circular & multiset ---------- */
+  {
+    heading: { en: "2 · Circular arrangements & repeated items", zh: "2 · 圆排列与重复元素" },
+    blocks: [
+      { type: "formula", tex: "\\[ \\text{circle of } n:\\ (n-1)! \\qquad\\qquad \\text{multiset: } \\frac{n!}{n_1!\\,n_2!\\cdots n_k!} \\]" },
+      { type: "step", n: "EX 4", title: { en: "Around a round table", zh: "绕圆桌而坐" },
+        en: "How many ways to seat 6 people around a round table (rotations are the same)?\n\u2022 Fix one person to kill rotational symmetry; arrange the other 5: \\(5!=120.\\)",
+        zh: "6 个人绕圆桌而坐（旋转视为相同），有几种？\n\u2022 固定一个人以消除旋转对称；排另外 5 人：\\(5!=120\\)。" },
+      { type: "step", n: "EX 5", title: { en: "Multiset — the MISSISSIPPI classic", zh: "多重集 —— MISSISSIPPI 经典题" },
+        en: "How many distinct arrangements of the letters in MISSISSIPPI?\n\u2022 11 letters: M\u00d71, I\u00d74, S\u00d74, P\u00d72.\n\u2022 \\(\\dfrac{11!}{1!\\,4!\\,4!\\,2!}=\\dfrac{39916800}{1\\cdot24\\cdot24\\cdot2}=34650.\\)",
+        zh: "MISSISSIPPI 的字母有多少种不同排列？\n\u2022 11 个字母：M\u00d71, I\u00d74, S\u00d74, P\u00d72。\n\u2022 \\(\\dfrac{11!}{1!\\,4!\\,4!\\,2!}=\\dfrac{39916800}{1\\cdot24\\cdot24\\cdot2}=34650\\)。" },
+      { type: "note", en: "Both are 'divide out symmetry' moves. Circle: divide by \\(n\\) rotations. Repeats: divide by the internal shuffles of each identical group. Same idea, different symmetry.",
+        zh: "两者都是「除掉对称」的动作。圆排列：除以 \\(n\\) 种旋转。重复元素：除以每组相同元素的内部乱序。同一个想法，不同的对称。" }
+    ]
+  }
+  ]
+});
+
+
+
+/* ---------- Concept 8, section 3: distributions with limits ---------- */
+textbookData[7].sections.push({
+  heading: { en: "3 · Distributions & selections with limits", zh: "3 · 带限制的分配与选取" },
+  blocks: [
+    { type: "step", n: "EX 6", title: { en: "Each group at least one — subtract the empty", zh: "每组至少一个 —— 减掉空的" },
+      en: "Two tour guides split 6 tourists; each tourist picks a guide, but each guide must get at least one. How many groupings?\n\u2022 Each tourist: 2 choices \\(\\Rightarrow 2^6=64.\\)\n\u2022 Subtract the 2 bad cases (all pick guide 1, or all pick guide 2): \\(64-2=62.\\)",
+      zh: "两名导游分 6 名游客；每位游客选一名导游，但每名导游至少分到一人。有多少种分组？\n\u2022 每位游客：2 种选择 \\(\\Rightarrow 2^6=64\\)。\n\u2022 减掉 2 种坏情况（全选导游 1，或全选导游 2）：\\(64-2=62\\)。" },
+    { type: "step", n: "EX 7", title: { en: "Identical items, each at least one — stars & bars", zh: "相同物品、每份至少一个 —— 隔板法" },
+      en: "Distribute 10 identical candies to 4 kids, each getting at least one. How many ways?\n\u2022 Give each kid 1 first (uses 4), distribute the remaining 6 freely: \\(\\binom{6+4-1}{4-1}=\\binom{9}{3}=84.\\)",
+      zh: "把 10 颗相同的糖分给 4 个孩子，每人至少一颗。有几种？\n\u2022 先给每人 1 颗（用掉 4 颗），剩 6 颗自由分：\\(\\binom{6+4-1}{4-1}=\\binom{9}{3}=84\\)。" },
+    { type: "step", n: "EX 8", title: { en: "Strictly increasing = just choose", zh: "严格递增 = 只是选取" },
+      en: "How many 7-digit strings use digits from \\(\\{1,\\dots,9\\}\\) in STRICTLY increasing order?\n\u2022 A strictly increasing string is determined by WHICH 7 digits you use — order is forced.\n\u2022 \\(\\binom{9}{7}=\\binom{9}{2}=36.\\)",
+      zh: "有多少个 7 位数字串，使用 \\(\\{1,\\dots,9\\}\\) 中的数字且「严格递增」？\n\u2022 一个严格递增的串，由「你用哪 7 个数字」唯一决定 —— 顺序是被强制的。\n\u2022 \\(\\binom{9}{7}=\\binom{9}{2}=36\\)。" },
+    { type: "note", en: "EX 8's insight recurs constantly: 'strictly increasing arrangement' erases order, so counting arrangements collapses to counting SUBSETS. Same for 'non-decreasing' \\(\\to\\) stars and bars.",
+      zh: "EX 8 的洞察反复出现：「严格递增的排列」抹掉了顺序，所以数排列坍缩成数「子集」。「非递减」也一样 \\(\\to\\) 隔板法。" }
+  ]
+});
+
+/* ---------- Concept 8, section 4: circular restriction & AIME classification ---------- */
+textbookData[7].sections.push({
+  heading: { en: "4 · Two AIME-level classifications", zh: "4 · 两个 AIME 级的分类题" },
+  blocks: [
+    { type: "step", n: "EX 9", title: { en: "Round table with a forbidden pair", zh: "圆桌 + 一对禁邻" },
+      en: "8 people sit around a round table; two specific people REFUSE to sit next to each other. How many seatings?\n\u2022 Total circular: \\((8-1)!=5040.\\)\n\u2022 The two together: glue them (\\(2\\) internal orders), arrange \\(7\\) units around the circle \\((7-1)!=720,\\) giving \\(2\\times720=1440.\\)\n\u2022 Not adjacent \\(=5040-1440=3600.\\)",
+      zh: "8 人围圆桌而坐；有两个特定的人「拒绝」相邻。有多少种坐法？\n\u2022 圆排列总数：\\((8-1)!=5040\\)。\n\u2022 两人相邻：捆绑（内部 \\(2\\) 序），把 \\(7\\) 个单位绕圆排 \\((7-1)!=720\\)，得 \\(2\\times720=1440\\)。\n\u2022 不相邻 \\(=5040-1440=3600\\)。" },
+    { type: "step", n: "EX 10", title: { en: "Pentagon diagonal coloring (AIME)", zh: "五边形对角线染色（AIME）" },
+      en: "Each vertex of convex pentagon \\(ABCDE\\) gets one of 6 colors; the two endpoints of every DIAGONAL must differ. How many colorings?\n\u2022 The 5 diagonals connect vertices two apart, forming a 5-cycle \\(A\\!-\\!C\\!-\\!E\\!-\\!B\\!-\\!D\\!-\\!A.\\)\n\u2022 So it's a proper coloring of a 5-cycle with 6 colors. Cycle chromatic count: \\((k-1)^n+(-1)^n(k-1).\\)\n\u2022 \\(n=5,k=6:\\ 5^5+(-1)^5\\cdot5=3125-5=3120.\\)",
+      zh: "凸五边形 \\(ABCDE\\) 的每个顶点染 6 色之一；每条「对角线」的两端必须异色。有多少种染法？\n\u2022 5 条对角线连接相隔两位的顶点，构成一个 5-循环 \\(A\\!-\\!C\\!-\\!E\\!-\\!B\\!-\\!D\\!-\\!A\\)。\n\u2022 所以这是用 6 色对一个 5-循环的「正常染色」。循环色数公式：\\((k-1)^n+(-1)^n(k-1)\\)。\n\u2022 \\(n=5,k=6\\)：\\(5^5+(-1)^5\\cdot5=3125-5=3120\\)。" },
+    { type: "note", en: "EX 10's leap — 'the diagonals form a 5-cycle' — is the whole problem. Redrawing a hidden constraint as a familiar graph (a cycle) turns a scary coloring into a formula. Always ask: what graph do the constraints form?",
+      zh: "EX 10 的飞跃 —— 「对角线构成一个 5-循环」—— 就是整道题。把一个隐藏的约束「重画」成一个熟悉的图（循环），就把吓人的染色变成了一个公式。永远要问：这些约束构成了什么图？" }
+  ]
+});
+
+/* ---------- Concept 8, section 5: self-check ---------- */
+textbookData[7].sections.push({
+  heading: { en: "5 · Self-check (answers below)", zh: "5 · 自我检测（答案在下方）" },
+  blocks: [
+    { type: "ask", en: "(a) Arrangements of 6 people in a row with two specific ones NOT adjacent? (Total minus together: \\(6!-2\\cdot5!=720-240=480.\\))",
+      zh: "(a) 6 人排成一行，某两人「不相邻」的排法？（总数减相邻：\\(6!-2\\cdot5!=720-240=480\\)。）" },
+    { type: "ask", en: "(b) Distinct arrangements of BANANA? (\\(\\dfrac{6!}{3!\\,2!\\,1!}=60.\\))",
+      zh: "(b) BANANA 的不同排列数？（\\(\\dfrac{6!}{3!\\,2!\\,1!}=60\\)。）" },
+    { type: "ask", en: "(c) Ways to distribute 8 identical balls into 3 distinct boxes, each box at least one? (\\(\\binom{7}{2}=21.\\))",
+      zh: "(c) 把 8 个相同的球放入 3 个不同的盒子、每盒至少一个的方法数？（\\(\\binom{7}{2}=21\\)。）" },
+    { type: "ask", en: "(d) 3 couples (6 people) around a round table, each couple adjacent? (Glue 3 couples \\(\\to\\) 3 units circular \\((3-1)!=2,\\) times \\(2^3\\) internal \\(=2\\cdot8=16.\\))",
+      zh: "(d) 3 对情侣（6 人）绕圆桌，每对相邻？（把 3 对各捆绑 \\(\\to\\) 3 个单位圆排 \\((3-1)!=2\\)，乘内部 \\(2^3=2\\cdot8=16\\)。）" }
+  ]
+});
+
