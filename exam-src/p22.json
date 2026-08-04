@@ -1,0 +1,42 @@
+{
+  "problemId": "2011-10A-22",
+  "topic": "graph coloring / chromatic polynomial",
+  "conceptTags": ["chromatic polynomial","cycle graph C5","casework coloring","path colorings","deletion-contraction"],
+  "methods": [
+    {"name":"Chromatic polynomial of a cycle","steps":[
+      "List the 5 diagonals of convex pentagon ABCDE: AC, BD, CE, DA, EB. The endpoints of each diagonal must get different colors.",
+      "Read these constraints as edges of a graph on {A,B,C,D,E}. Following them in order A-C-E-B-D-A shows every vertex has exactly two diagonal-neighbors, so the constraint graph is a single 5-cycle C5 (the pentagram).",
+      "The number of proper k-colorings of a cycle Cn is the chromatic polynomial P(Cn,k) = (k-1)^n + (-1)^n (k-1).",
+      "Substitute n=5, k=6: P(C5,6) = (6-1)^5 + (-1)^5 (6-1) = 5^5 - 5.",
+      "Compute: 5^5 = 3125, so 3125 - 5 = 3120."
+    ],"result":"3120"},
+    {"name":"Path-to-cycle recurrence (deletion of the closing edge)","steps":[
+      "Arrange the five vertices along the 5-cycle order v1=A, v2=C, v3=E, v4=B, v5=D, with edges v1v2, v2v3, v3v4, v4v5, and the closing edge v5v1.",
+      "Ignore the closing edge first: coloring the path v1-v2-v3-v4-v5 with 6 colors gives k(k-1)^4 = 6*5^4 = 3750 colorings.",
+      "Split by the closing edge: either v1 != v5 (a valid cycle coloring f(5)) or v1 = v5 (gluing gives a proper C4 coloring f(4)). Hence f(5) = k(k-1)^4 - f(4).",
+      "Recurrence f(n) = k(k-1)^(n-1) - f(n-1), starting f(3) = k(k-1)(k-2) = 6*5*4 = 120.",
+      "f(4) = 6*5^3 - 120 = 750 - 120 = 630.",
+      "f(5) = 6*5^4 - 630 = 3750 - 630 = 3120."
+    ],"result":"3120"},
+    {"name":"Step-by-step casework around the 5-cycle","steps":[
+      "Color vertices in cycle order v1=A, v2=C, v3=E, v4=B, v5=D. Edges v1v2,v2v3,v3v4,v4v5,v5v1; v5 is adjacent to BOTH v4 and v1.",
+      "Path v1-v2-v3-v4: 6*5*5*5 = 750 total colorings.",
+      "Count colorings with v4 = v1: 6*5*4 = 120 (v3 must differ from v2 and allow v4=v1 legal, giving 4 valid).",
+      "So colorings with v4 != v1 = 750 - 120 = 630.",
+      "Place v5: if v4=v1 only 1 forbidden color -> 5 choices: 120*5 = 600. If v4 != v1, 2 forbidden -> 4 choices: 630*4 = 2520.",
+      "Total = 600 + 2520 = 3120."
+    ],"result":"3120"}
+  ],
+  "similar": [
+    {"q":"Four houses stand in a row and each is painted one of 3 colors. Any two adjacent houses must be painted different colors. How many colorings are possible?","answer":"24","sketch":"Path P4: k(k-1)^(n-1) = 3*2^3 = 24.","level":"AMC10 #16"},
+    {"q":"The three vertices of a triangle are each assigned one of 5 colors so that the two endpoints of every side get different colors. How many assignments are possible?","answer":"60","sketch":"Triangle = C3 = K3: 5*4*3 = 60.","level":"AMC10 #16"},
+    {"q":"Six beads are threaded in a line (a straight strand, not a loop). Each bead is one of 4 colors and no two adjacent beads share a color. How many colorings are possible?","answer":"972","sketch":"Path P6: k(k-1)^5 = 4*3^5 = 972.","level":"AMC10 #17"},
+    {"q":"The four vertices of a square are each colored with one of 5 colors so that adjacent vertices (joined by a side) get different colors. How many colorings are possible?","answer":"260","sketch":"Cycle C4 with k=5: 4^4+4 = 260.","level":"AMC10 #17"},
+    {"q":"The five vertices of a regular pentagon are colored, one of 5 colors each, so that vertices joined by a SIDE get different colors. How many colorings are possible?","answer":"1020","sketch":"Sides form C5 with k=5: 4^5-4 = 1020.","level":"AMC10 #18"},
+    {"q":"The six vertices of a regular hexagon are each painted one of 4 colors so that adjacent vertices differ. How many colorings are possible?","answer":"732","sketch":"Cycle C6 with k=4: 3^6+3 = 732.","level":"AMC10 #19"},
+    {"q":"Four people sit at the corners of a table and each is dealt one of 6 hat colors. Every person can see every other person, and no two people may share a hat color. How many ways can the hats be assigned?","answer":"360","sketch":"Complete graph K4: 6*5*4*3 = 360.","level":"AMC10 #19"},
+    {"q":"Seven lamps are arranged in a circle. Each lamp is set to one of 3 colors, and adjacent lamps in the circle must differ. How many settings are possible?","answer":"126","sketch":"Cycle C7 with k=3: 2^7-2 = 126.","level":"AMC10 #20"},
+    {"q":"Seven vertices are joined in a single closed loop v1-v2-...-v7-v1. Each vertex is colored with one of 4 colors so that any two vertices joined by an edge of the loop differ. How many colorings are possible?","answer":"2184","sketch":"Cycle C7 with k=4: 3^7-3 = 2184.","level":"AMC10 #22"},
+    {"q":"Six vertices are placed in a circle v1-v2-...-v6-v1. Each vertex gets one of 5 colors and adjacent vertices along the circle must differ. How many colorings are possible?","answer":"4100","sketch":"Cycle C6 with k=5: 4^6+4 = 4100.","level":"early AIME"}
+  ]
+}

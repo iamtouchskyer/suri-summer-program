@@ -1,0 +1,42 @@
+{
+  "problemId": "2011-10A-25",
+  "topic": "equal-area partitional points / grid counting with gcd",
+  "conceptTags": ["equal-area partition","lattice grid counting","gcd overlap","inclusion-exclusion"],
+  "methods": [
+    {"name":"Grid-counting method (why the points form a grid)","steps":[
+      "Place the square as R = [0,1] x [0,1] and let X be an interior point. The n rays from X cut R into n triangles of equal area 1/n.",
+      "Group triangles by which side their base lies on. The triangle from X to the bottom side has area y/2; to the top (1-y)/2; to left x/2; to right (1-x)/2.",
+      "Each side's fan must consist of a whole number of the 1/n triangles, forcing x, 1-x, y, 1-y to be multiples of 1/(n/2).",
+      "So x = a/(n/2), y = b/(n/2) with 1 <= a,b <= n/2-1 (interior). The n-ray partitional points are exactly the (n/2-1) x (n/2-1) grid.",
+      "For n=100: (50-1)^2 = 49^2 = 2401. For n=60: (30-1)^2 = 29^2 = 841.",
+      "A point BOTH 100- and 60-ray must have coordinates writable as a/50 and c/30, so denominator divides gcd(50,30)=10: (10-1)^2 = 81 points.",
+      "100-ray but NOT 60-ray = 2401 - 81 = 2320."
+    ],"result":"2320"},
+    {"name":"Inclusion-exclusion / set-difference framing","steps":[
+      "Let A = 100-ray points, B = 60-ray points. Want |A \\ B| = |A| - |A ∩ B|.",
+      "|A| = 49^2 = 2401, |B| = 29^2 = 841 by the grid theorem.",
+      "A ∩ B sits on the common refinement grid with spacing 1/gcd(50,30) = 1/10, so |A ∩ B| = (10-1)^2 = 81.",
+      "|A \\ B| = 2401 - 81 = 2320.",
+      "Cross-check union: |A ∪ B| = 2401 + 841 - 81 = 3161, consistent."
+    ],"result":"2320"},
+    {"name":"Coordinate-ratio (common-denominator) method","steps":[
+      "A point is 100-ray partitional iff it equals (p/50, q/50) with 1 <= p,q <= 49.",
+      "It is 60-ray partitional iff it equals (r/30, s/30) with 1 <= r,s <= 29.",
+      "Count of 100-grid points: 49*49 = 2401.",
+      "For both, a coordinate must be a multiple of 1/50 and of 1/30, so its reduced denominator divides gcd(50,30)=10, giving values k/10 (k=1..9): 9 per axis.",
+      "Common points = 9^2 = 81. Answer = 2401 - 81 = 2320."
+    ],"result":"2320"}
+  ],
+  "similar": [
+    {"q":"Let R be a square. A point X in the interior is n-ray partitional if n rays from X divide R into n equal-area triangles. How many points are 4-ray partitional?","answer":"1","sketch":"(4/2-1)^2 = 1 (only the center).","level":"AMC10 #18"},
+    {"q":"For the same square setup, how many points are 6-ray partitional?","answer":"4","sketch":"(6/2-1)^2 = 2^2 = 4.","level":"AMC10 #19"},
+    {"q":"For the square, how many points are 12-ray partitional?","answer":"25","sketch":"(12/2-1)^2 = 5^2 = 25.","level":"AMC10 #20"},
+    {"q":"For the square, how many points are 100-ray partitional?","answer":"2401","sketch":"(100/2-1)^2 = 49^2 = 2401.","level":"AMC10 #21"},
+    {"q":"For the square, how many points are BOTH 100-ray and 60-ray partitional?","answer":"81","sketch":"gcd grid: (gcd(50,30)-1)^2 = 9^2 = 81.","level":"AMC10 #22"},
+    {"q":"For the square, how many points are 100-ray partitional OR 60-ray partitional (union)?","answer":"3161","sketch":"49^2 + 29^2 - 81 = 2401 + 841 - 81 = 3161.","level":"AMC10 #23"},
+    {"q":"For the square, how many points are 100-ray partitional but NOT 48-ray partitional?","answer":"2400","sketch":"Overlap (gcd(50,24)-1)^2 = 1; 2401 - 1 = 2400.","level":"AMC10 #24"},
+    {"q":"For the square, how many points are 120-ray partitional but NOT 80-ray partitional?","answer":"3120","sketch":"59^2 - (gcd(60,40)-1)^2 = 3481 - 361 = 3120.","level":"AMC10 #25"},
+    {"q":"For the square, how many points are 100-ray AND 50-ray partitional?","answer":"576","sketch":"(gcd(50,25)-1)^2 = 24^2 = 576.","level":"AIME (easy)"},
+    {"q":"For the square, how many points are 40-ray partitional but not 30-ray partitional?","answer":"345","sketch":"(20-1)^2 - (gcd(20,15)-1)^2 = 361 - 16 = 345.","level":"AIME"}
+  ]
+}
