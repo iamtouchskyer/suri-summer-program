@@ -103,6 +103,18 @@ h1{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1.05;marg
 .sim-ans.show{display:block;}
 .sim-ans b{color:var(--accent-2);}
 
+.hintchain{margin:14px 0;border:1.5px dashed var(--gold);border-radius:12px;background:#fdf8ee;padding:14px 16px;}
+.hc-title{font-family:var(--serif);font-weight:700;font-size:.98rem;color:#7a5c12;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.hc-sub{font-size:.8rem;color:#9a7b30;margin-bottom:12px;line-height:1.6;}
+.hc-stage{margin-top:9px;}
+.hc-btn{display:flex;width:100%;text-align:left;align-items:center;gap:10px;font-family:var(--sans);font-weight:600;font-size:.86rem;padding:11px 14px;border-radius:9px;border:1.5px solid var(--gold);background:#fbf3e4;color:#5c4409;cursor:pointer;transition:all .14s;}
+.hc-btn:hover:not(:disabled){background:#f6e9cf;}
+.hc-btn:disabled{opacity:.45;cursor:not-allowed;border-style:dashed;background:transparent;}
+.hc-btn .hc-lock{font-size:.9rem;margin-left:auto;}
+.hc-btn.opened{background:var(--accent);color:#fbf8f0;border-color:var(--accent);border-style:solid;}
+.hc-body{display:none;margin:8px 2px 4px;padding:12px 15px;background:#fff;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.75;color:#4a4030;}
+.hc-body.show{display:block;}
+.hc-done{margin-top:12px;font-size:.82rem;color:#7a5c12;font-style:italic;}
 .backlink{display:inline-block;margin:8px 0 0;font-family:var(--mono);font-size:.8rem;color:var(--accent);text-decoration:none;}
 </style>
 </head>
@@ -189,6 +201,9 @@ const I18N={
   showans:{zh:'看答案',en:'answer'},
   trap:{zh:'陷阱 / 突破口',en:'Trap / breakthrough'},
   ans:{zh:'正确答案',en:'Answer'},
+hcTitle:{zh:'🪜 卡住了？逐关提示（点开一关才解锁下一关）',en:'🪜 Stuck? Guided hints (each unlocks the next)'},
+hcSub:{zh:'规则：一次只点一关，看完提示先自己往下推，真推不动再点下一关。走完 6 关还没头绪，再去看上面的完整解法。',en:'Rule: open one stage at a time. Read it, then push forward yourself. Only unlock the next when truly stuck. Finish all 6 before revealing full methods.'},
+hcDone:{zh:'✅ 六关走完。现在把你的答案写下来，再去上面对照三种完整解法——看看你的思路最接近哪一种。',en:'✅ All six done. Write your answer, then compare with the three full methods above.'},
 };
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderKatex(el){ if(window.renderMathInElement) renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\\\(',right:'\\\\)',display:false}],throwOnError:false}); }
@@ -237,6 +252,7 @@ function renderProblems(){
       <div class="pc-opts">${optHtml}</div>
       <div class="reveal-box">
         <div class="think-prompt"><b>💡 ${I18N.think[LANG]}.</b> ${esc(p.trap[LANG])}</div>
+        ${renderHintChain(p,pi)}
         <button class="btn" id="rvbtn-${pi}" onclick="revealMethods(${pi})">${I18N.reveal[LANG]}</button>
         <div class="methods-wrap hidden" id="mw-${pi}">
           <div class="method-tabs">${tabHtml}</div>
@@ -251,6 +267,44 @@ function renderProblems(){
     renderSim(pi);
     renderKatex(card);
   });
+}
+function renderHintChain(p,pi){
+if(!p.hintChain || !p.hintChain.length) return '';
+let stages='';
+p.hintChain.forEach((h,hi)=>{
+const locked = hi>0;
+stages += '<div class="hc-stage">'
++ '<button class="hc-btn" id="hcb-'+pi+'-'+hi+'" '+(locked?'disabled':'')+' onclick="openHint('+pi+','+hi+')">'
++ '<span>'+esc(h.q[LANG])+'</span>'
++ '<span class="hc-lock" id="hcl-'+pi+'-'+hi+'">'+(locked?'\u{1F512}':'\u25B8')+'</span>'
++ '</button>'
++ '<div class="hc-body" id="hcbody-'+pi+'-'+hi+'">'+esc(h.hint[LANG])+'</div>'
++ '</div>';
+});
+return '<div class="hintchain">'
++ '<div class="hc-title">'+I18N.hcTitle[LANG]+'</div>'
++ '<div class="hc-sub">'+I18N.hcSub[LANG]+'</div>'
++ stages
++ '<div class="hc-done hidden" id="hcdone-'+pi+'">'+I18N.hcDone[LANG]+'</div>'
++ '</div>';
+}
+function openHint(pi,hi){
+const btn=document.getElementById('hcb-'+pi+'-'+hi);
+const body=document.getElementById('hcbody-'+pi+'-'+hi);
+const lock=document.getElementById('hcl-'+pi+'-'+hi);
+if(btn.disabled) return;
+const isOpen=body.classList.contains('show');
+body.classList.toggle('show');
+btn.classList.toggle('opened', !isOpen);
+if(!isOpen){
+lock.textContent='\u25BE';
+const nb=document.getElementById('hcb-'+pi+'-'+(hi+1));
+if(nb){ nb.disabled=false; const nl=document.getElementById('hcl-'+pi+'-'+(hi+1)); if(nl) nl.textContent='\u25B8'; }
+else { const d=document.getElementById('hcdone-'+pi); if(d) d.classList.remove('hidden'); }
+renderKatex(body);
+} else {
+lock.textContent='\u25B8';
+}
 }
 function revealMethods(pi){
   document.getElementById('rvbtn-'+pi).classList.add('hidden');

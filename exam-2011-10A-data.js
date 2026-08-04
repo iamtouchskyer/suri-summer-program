@@ -424,6 +424,68 @@ window.EXAM_2011_10A = {
      "sketch": "Survivor position = (3^m+1)/2 where m = number of rounds. The size chain 10^6->333333->...->2->1 has 13 rounds, so answer=(3^13+1)/2=797162.",
      "level": "AIME (hard)"
     }
+   ],
+   "hintChain": [
+    {
+     "q": {
+      "zh": "第 1 关 · 先别管 1000，只看 Alice 一个人",
+      "en": "Stage 1 · Forget 1000, look at Alice alone"
+     },
+     "hint": {
+      "zh": "把 1..1000 每三个分一组：(1,2,3)(4,5,6)(7,8,9)…。Alice「跳过每组中间那个」。你能用一个「除以 3 的余数」的条件，描述出「哪些位置会被跳过」吗？先写下来再往下。",
+      "en": "Group 1..1000 in threes: (1,2,3)(4,5,6)(7,8,9)…. Alice skips the middle of each. Can you describe WHICH positions get skipped using a 'remainder mod 3' condition? Write it before moving on."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 2 关 · 1000 太大，先把问题变小",
+      "en": "Stage 2 · 1000 is too big — shrink it"
+     },
+     "hint": {
+      "zh": "只数到 9 试试。Alice 跳过谁？把她跳过的那串数拿出来，Barbara 再对这一串做「同样的事」。你发现每个人做的动作是不是一模一样？这叫什么结构？",
+      "en": "Try counting only to 9. Who does Alice skip? Take that skipped list — Barbara does the SAME thing to it. Notice every student performs the identical operation. What kind of structure is that?"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 3 关 · 别追 1000 个数，只盯「那一个幸存者」",
+      "en": "Stage 3 · Don't track 1000 numbers — track the ONE survivor"
+     },
+     "hint": {
+      "zh": "George 数的那个数，之前每一轮都「没被人数出来、被传给了下一个人」。也就是说：它每一轮都恰好站在某组三个数的哪个位置？",
+      "en": "George's number was 'not said, passed on' in every earlier round. So in every round it sits at exactly which position within some group of three?"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 4 关 · 把「位置」的递推关系写出来",
+      "en": "Stage 4 · Write the position recurrence"
+     },
+     "hint": {
+      "zh": "设这个数在「下一轮的名单」里排第 k 位。既然它这一轮是某三个的「中间」那个，那它在「这一轮名单」里排第几位？写出这个式子（用 k 表示）。",
+      "en": "Say the number is the k-th entry in the NEXT round's list. Since it's the 'middle of three' this round, what position does it hold in THIS round's list? Write that formula in terms of k."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 5 关 · 一共几轮？然后倒着推",
+      "en": "Stage 5 · How many rounds? Then unwind"
+     },
+     "hint": {
+      "zh": "先数轮数：1000→333→111→37→12→4→1，几步到 1？然后从 George（最后剩 1 个，位置 = 1）开始，反复用第 4 关的式子往回推，一直推到最原始的名单。",
+      "en": "Count rounds: 1000→333→111→37→12→4→1 — how many steps to reach 1? Then start from George (last one, position = 1) and apply Stage-4's formula backward, all the way to the original list."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 6 关 · 合上 + 自我验证",
+      "en": "Stage 6 · Close it + self-check"
+     },
+     "hint": {
+      "zh": "倒推得到的原始位置就是答案（因为名单就是 1..1000，位置＝数字本身）。验证一招：把这个数减 1，写成三进制，应该是一串漂亮的「全是 1」——如果是，你就知道自己没算错。现在，把答案写出来。",
+      "en": "The original position you reach IS the answer (the list is 1..1000, so position = number). Self-check: subtract 1 and write it in base 3 — it should be a clean string of all 1's. If it is, you nailed it. Now write your answer."
+     }
+    }
    ]
   },
   {
