@@ -125,6 +125,39 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
 
 .strand-note{margin:2px 0 14px;font-size:.9rem;color:var(--ink-faint);max-width:66ch;}
 .strand-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+
+/* ===== Mission (进行中主线) ===== */
+.mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:820px){.mission-grid{grid-template-columns:1fr;}}
+.mcard{display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:22px 22px 20px;text-decoration:none;color:var(--ink);position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
+.mcard:hover{transform:translateY(-3px);border-color:var(--ink);box-shadow:0 7px 0 var(--shadow);}
+.mcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);}
+.mcard.m1::before{background:var(--accent-2);}
+.mcard.m2::before{background:var(--accent);}
+.mcard.m3::before{background:var(--gold);}
+.mcard .mc-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:7px;}
+.mcard .mc-tag b{color:var(--accent);font-weight:700;}
+.mcard.m1 .mc-tag b{color:var(--accent-2);}
+.mcard.m3 .mc-tag b{color:var(--gold);}
+.mcard .mc-title{font-family:var(--serif);font-weight:900;font-size:1.4rem;line-height:1.1;margin:8px 0 3px;}
+.mcard .mc-sub{font-size:.86rem;color:var(--ink-soft);margin-bottom:12px;}
+.mcard .mc-links{margin-top:auto;display:flex;flex-direction:column;gap:7px;}
+.mc-link{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.85rem;padding:8px 12px;background:var(--paper);border:1.5px solid var(--line);border-radius:9px;color:var(--ink);text-decoration:none;transition:all .15s;}
+.mc-link:hover{border-color:var(--accent);background:#fff;transform:translateX(2px);}
+.mc-link .mll{display:flex;align-items:center;gap:8px;}
+.mc-link .mll b{font-weight:600;}
+.mc-link .mlr{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+.mc-status{font-size:.66rem;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap;}
+.mc-status.live{background:#d8ebe4;color:#155244;border:1px solid #9fc9bd;}
+.mc-status.go{background:#f6e0d5;color:#8a3312;border:1px solid #e0a888;}
+.mc-status.prep{background:#f3e6c2;color:#8a6206;border:1px solid #ddc488;}
+/* countdown chip inside mission card */
+.mc-count{display:flex;align-items:baseline;gap:6px;margin:2px 0 10px;}
+.mc-count .cc-n{font-family:var(--serif);font-weight:900;font-size:2.1rem;color:var(--accent);line-height:1;}
+.mc-count .cc-u{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;}
+.mc-engines{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.mc-eng{font-family:var(--mono);font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+
 </style>
 </head>
 <body class="lang-zh">
@@ -150,10 +183,59 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
 <main>
   <!-- HERO -->
   <section class="hero">
-    <span class="eyebrow"><span class="zh-only">Suri 的数学成长地图</span><span class="en-only">Suri's math roadmap</span></span>
-    <h1><span class="zh-only">一张地图，<span class="big">看清</span>每一步</span><span class="en-only">One map, <span class="big">every step</span> clear</span></h1>
-    <p class="sub"><span class="zh-only">上面是通用资源（夏校规划、能力基准、课程教材），下面是按年份推进的成长时间线。点开任意一张课程卡，进入逐题精讲的学习日志。</span><span class="en-only">General resources up top (camp planning, benchmarks, question bank); then the concept textbook in four strands; below is a year-by-year growth timeline.</span></p>
+    <span class="eyebrow"><span class="zh-only">Suri 的数学作战地图</span><span class="en-only">Suri's math battle map</span></span>
+    <h1><span class="zh-only">三条主线，<span class="big">一个目标</span></span><span class="en-only">Three missions, <span class="big">one target</span></span></h1>
+    <p class="sub"><span class="zh-only">当下正在推进的三件事摆在最上面：跟好 AwesomeMath 暑期课、冲刺 AMC10 120+、为 AIME 打地基。往下是四大知识库和长线成长地图。</span><span class="en-only">The three things in motion sit up top: follow the AwesomeMath summer course, sprint to AMC10 120+, lay the AIME foundation. Below are the four knowledge strands and the long-range roadmap.</span></p>
   </section>
+
+  <!-- MISSION ROW (进行中主线) -->
+  <div class="row-label">
+    <div>
+      <div class="rl-eyebrow">In Motion</div>
+      <h2><span class="zh-only">🎯 进行中的主线</span><span class="en-only">🎯 Missions in Motion</span></h2>
+    </div>
+    <span class="rule"></span>
+  </div>
+  <div class="mission-grid">
+
+    <!-- ① AwesomeMath 暑期课 -->
+    <div class="mcard m1">
+      <div class="mc-tag"><b>① SUMMER</b><span class="zh-only">AwesomeMath 暑期课</span><span class="en-only">AwesomeMath course</span></div>
+      <div class="mc-title"><span class="zh-only">跟课 + 逐题日志</span><span class="en-only">Follow &amp; log</span></div>
+      <div class="mc-sub"><span class="zh-only">代数 2.5 已完课，几何 2.5 进行中。</span><span class="en-only">Algebra 2.5 done, Geometry 2.5 in progress.</span></div>
+      <div class="mc-links">
+        <a class="mc-link" href="algebra-level2.html"><span class="mll"><b>代数 Algebra 2.5</b></span><span class="mc-status live">✓ 9天</span></a>
+        <a class="mc-link" href="geometry-level2.html"><span class="mll"><b>几何 Geometry 2.5</b></span><span class="mc-status go zh-only">进行中</span><span class="mc-status go en-only">live</span></a>
+      </div>
+    </div>
+
+    <!-- ② AMC10 冲刺 -->
+    <div class="mcard m2">
+      <div class="mc-tag"><b>② AMC 10</b><span class="zh-only">冲刺 120+</span><span class="en-only">sprint to 120+</span></div>
+      <div class="mc-count"><span class="cc-n" id="cdDays">—</span><span class="cc-u"><span class="zh-only">天 · 距 11/5 AMC 10 A</span><span class="en-only">days · to Nov 5</span></span></div>
+      <div class="mc-engines">
+        <span class="mc-eng">⚡ <span class="zh-only">速度</span><span class="en-only">speed</span></span>
+        <span class="mc-eng">🎯 <span class="zh-only">最后五题</span><span class="en-only">last 5</span></span>
+      </div>
+      <div class="mc-links">
+        <a class="mc-link" href="speed.html"><span class="mll">⚡ <b><span class="zh-only">速度训练</span><span class="en-only">Speed drills</span></b></span><span class="mlr"><span class="zh-only">前20题限时</span><span class="en-only">timed Q1-20</span></span></a>
+        <a class="mc-link" href="challenge-guide.html"><span class="mll">🎯 <b><span class="zh-only">压轴训练</span><span class="en-only">Last-5 system</span></b></span><span class="mlr"><span class="zh-only">三级 · 24题</span><span class="en-only">3-tier · 24</span></span></a>
+        <a class="mc-link" href="qbank.html"><span class="mll">📚 <b><span class="zh-only">分级题库</span><span class="en-only">Question bank</span></b></span><span class="mlr">1338</span></a>
+      </div>
+    </div>
+
+    <!-- ③ AIME 预备 -->
+    <div class="mcard m3">
+      <div class="mc-tag"><b>③ AIME</b><span class="zh-only">预备 · 打地基</span><span class="en-only">prep · foundation</span></div>
+      <div class="mc-title"><span class="zh-only">进阶专题地基</span><span class="en-only">Advanced groundwork</span></div>
+      <div class="mc-sub"><span class="zh-only">二项式、复数单位根、限制排列 —— AIME 前10题的通用引擎。</span><span class="en-only">Binomials, roots of unity, restricted permutations — the engines behind AIME's first 10.</span></div>
+      <div class="mc-links">
+        <a class="mc-link" href="counting-level2.html"><span class="mll"><b><span class="zh-only">组合 · 二项式/限制排列</span><span class="en-only">Counting · binomials</span></b></span><span class="mlr zh-only">8 概念</span><span class="mlr en-only">8 concepts</span></a>
+        <a class="mc-link" href="algebra-level2.html"><span class="mll"><b><span class="zh-only">代数 · 复数单位根</span><span class="en-only">Algebra · roots of unity</span></b></span><span class="mlr zh-only">11 概念</span><span class="mlr en-only">11 concepts</span></a>
+      </div>
+    </div>
+
+  </div>
 
   <!-- GENERAL ROW -->
   <div class="row-label">
@@ -179,8 +261,14 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     <a class="gcard" href="qbank.html">
       <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-layers"/></svg></span>
       <span class="gc-title"><span class="zh-only">压轴题分级库</span><span class="en-only">Question Bank</span></span>
-      <span class="gc-desc"><span class="zh-only">1339 道 AMC/AIME 题，按知识点+难度筛选，专攻第21-25题</span><span class="en-only">1339 AMC/AIME problems, filter by topic & difficulty</span></span>
+      <span class="gc-desc"><span class="zh-only">1338 道 AMC/AIME 题，按知识点+难度筛选，专攻第21-25题</span><span class="en-only">1338 AMC/AIME problems, filter by topic & difficulty</span></span>
       <span class="gc-go"><span class="zh-only">刷题</span><span class="en-only">Browse</span> </span>
+    </a>
+    <a class="gcard" href="speed.html">
+      <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-clock"/></svg></span>
+      <span class="gc-title"><span class="zh-only">速度训练</span><span class="en-only">Speed Training</span></span>
+      <span class="gc-desc"><span class="zh-only">前20题限时冲刺：分段闯关练提速 + 整套跑验收，带 11/5 倒计时</span><span class="en-only">Timed front-20 sprints: segment drills + full runs, with a Nov-5 countdown</span></span>
+      <span class="gc-go"><span class="zh-only">开始计时</span><span class="en-only">Start clock</span> </span>
     </a>
     <a class="gcard" href="challenge-guide.html">
       <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-sparkles"/></svg></span>
@@ -215,13 +303,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     <a class="gcard" href="number-level2.html">
       <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-target"/></svg></span>
       <span class="gc-title"><span class="zh-only">数论 Number Theory</span><span class="en-only">Number Theory</span></span>
-      <span class="gc-desc"><span class="zh-only">6 个知识点 · 课堂日志待开</span><span class="en-only">6 concepts · journal soon</span></span>
+      <span class="gc-desc"><span class="zh-only">2 个知识点 · 待扩充</span><span class="en-only">2 concepts · expanding</span></span>
       <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
     </a>
     <a class="gcard" href="counting-level2.html">
       <span class="gc-ic"><svg class="ic-svg" aria-hidden="true"><use href="#ic-chart"/></svg></span>
       <span class="gc-title"><span class="zh-only">组合 Counting</span><span class="en-only">Counting &amp; Probability</span></span>
-      <span class="gc-desc"><span class="zh-only">2 个知识点 · 课堂日志待开</span><span class="en-only">2 concepts · journal soon</span></span>
+      <span class="gc-desc"><span class="zh-only">8 个知识点 · 精讲例题满配</span><span class="en-only">8 concepts · fully worked</span></span>
       <span class="gc-go"><span class="zh-only">进入</span><span class="en-only">Open</span> </span>
     </a>
   </div>
@@ -403,6 +491,17 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.pcard:focus-visib
     localStorage.setItem("am_lang", l);
     document.querySelectorAll("#langToggle button").forEach(function(x){ x.classList.toggle("on", x.dataset.l===l); });
   }
+/* countdown to AMC 10 A (Nov 5, 2026) */
+(function(){
+  var el=document.getElementById("cdDays"); if(!el) return;
+  function upd(){
+    var exam=new Date("2026-11-05T08:00:00");
+    var days=Math.ceil((exam-new Date())/(1000*60*60*24));
+    el.textContent = days>0 ? days : 0;
+  }
+  upd(); setInterval(upd, 3600000);
+})();
+
 })();
 </script>
 </body>

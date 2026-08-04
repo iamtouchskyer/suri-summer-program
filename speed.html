@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Speed Training · 前20题限时冲刺</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Noto+Serif+SC:wght@500;700;900&family=Spline+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#efe8d8; --card:#fbf8f0;
+  --ink:#2b2620; --ink-soft:#4a4136; --ink-faint:#6f6656; --line:#d8cdb5;
+  --accent:#1d5c4f; --accent-2:#b5471f; --gold:#b8860b;
+  --ok:#1d5c4f; --bad:#b5471f;
+  --serif:'Fraunces','Noto Serif SC',serif;
+  --sans:'Spline Sans','Noto Serif SC',sans-serif;
+  --mono:'Spline Sans Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;padding-bottom:60px;}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+header{background:linear-gradient(165deg,#fbf8f0,#efe4cf);border-bottom:2px solid var(--line);padding:24px 0 20px;margin-bottom:22px;}
+header .wrap{display:flex;flex-direction:column;gap:6px;}
+.crumb{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+.crumb a{color:var(--accent);text-decoration:none;}
+h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
+.sub{color:var(--ink-faint);font-size:.9rem;}
+.lang-toggle{position:absolute;top:18px;right:20px;display:flex;gap:4px;}
+.lang-toggle button{font-family:var(--mono);font-size:.7rem;padding:4px 9px;border:1.5px solid var(--line);background:var(--card);border-radius:14px;cursor:pointer;color:var(--ink-faint);}
+.lang-toggle button.on{background:var(--accent);color:#fbf8f0;border-color:var(--accent);}
+
+/* mode cards */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+.mode-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;}
+.mode-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 20px rgba(60,45,25,.10);}
+.mode-card .mtag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-2);}
+.mode-card h3{font-family:var(--serif);font-size:1.15rem;font-weight:700;margin:5px 0;}
+.mode-card p{font-size:.82rem;color:var(--ink-faint);}
+.mode-card .mmeta{margin-top:9px;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);display:flex;gap:12px;flex-wrap:wrap;}
+.mode-card.full-mode{grid-column:1/-1;background:linear-gradient(120deg,#fbf8f0,#f3ecdb);}
+
+/* countdown banner */
+.countdown{background:linear-gradient(120deg,#1d5c4f,#16463c);color:#f4efe4;border-radius:14px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.countdown .cd-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
+.countdown .cd-days{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1;}
+.countdown .cd-days span{font-size:.9rem;font-weight:400;opacity:.8;}
+.countdown .cd-date{font-family:var(--mono);font-size:.8rem;opacity:.9;}
+
+/* timer bar */
+.timerbar{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:2px solid var(--line);padding:12px 0;margin-bottom:16px;display:none;}
+.timerbar.show{display:block;}
+.timerbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.timer{font-family:var(--mono);font-weight:700;font-size:1.6rem;color:var(--accent);letter-spacing:.02em;}
+.timer.warn{color:var(--accent-2);}
+.timer.danger{color:#c0201f;animation:pulse 1s infinite;}
+@keyframes pulse{50%{opacity:.5;}}
+.tprogress{flex:1;height:8px;background:var(--paper-2);border-radius:4px;overflow:hidden;margin:0 8px;}
+.tprogress i{display:block;height:100%;background:var(--accent);transition:width .3s;}
+.tprogress.warn i{background:var(--gold);}
+.tprogress.danger i{background:var(--accent-2);}
+.qcounter{font-family:var(--mono);font-size:.82rem;color:var(--ink-faint);white-space:nowrap;}
+
+/* question */
+.qcard{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+.qnum{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:var(--accent);}
+.qmeta{font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;}
+.qtext{font-size:1rem;line-height:1.7;margin-bottom:16px;white-space:pre-wrap;}
+.opts{display:grid;gap:9px;}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;transition:all .13s;font-size:.95rem;}
+.opt:hover{border-color:var(--accent);background:#fff;}
+.opt.sel{border-color:var(--accent);background:#e8f0ec;}
+.opt .olet{font-family:var(--mono);font-weight:700;color:var(--accent);min-width:20px;}
+.opt.correct{border-color:var(--ok);background:#e3efe8;}
+.opt.wrong{border-color:var(--bad);background:#f6e6de;}
+.opt.correct .olet{color:var(--ok);}
+.opt.wrong .olet{color:var(--bad);}
+
+/* nav buttons */
+.qnav{display:flex;gap:10px;margin-top:8px;}
+.btn{font-family:var(--sans);font-weight:600;font-size:.9rem;padding:11px 22px;border-radius:10px;border:1.5px solid var(--accent);background:var(--accent);color:#fbf8f0;cursor:pointer;transition:all .15s;}
+.btn:hover{background:#16463c;}
+.btn.ghost{background:transparent;color:var(--accent);}
+.btn.ghost:hover{background:#e8f0ec;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn-skip{margin-left:auto;background:transparent;color:var(--ink-faint);border-color:var(--line);}
+.btn-skip:hover{background:var(--paper-2);color:var(--ink);}
+
+/* results */
+.results{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:24px;}
+.results h2{font-family:var(--serif);font-size:1.5rem;margin-bottom:6px;}
+.scorebig{font-family:var(--serif);font-weight:900;font-size:3rem;color:var(--accent);line-height:1;}
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:18px 0;}
+.scorebox{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:14px;text-align:center;}
+.scorebox .sv{font-family:var(--serif);font-weight:900;font-size:1.6rem;color:var(--ink);}
+.scorebox .sl{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);margin-top:3px;}
+.review-item{border-top:1px solid var(--line);padding:12px 0;font-size:.88rem;}
+.review-item .ri-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-bottom:4px;}
+.ri-verdict{font-weight:700;}
+.ri-verdict.ok{color:var(--ok);}
+.ri-verdict.bad{color:var(--bad);}
+.ri-verdict.slow{color:var(--gold);}
+.hidden{display:none !important;}
+.backlink{display:inline-block;margin-top:20px;font-family:var(--mono);font-size:.8rem;color:var(--accent);text-decoration:none;}
+.opt-adjust{display:flex;gap:8px;align-items:center;margin-top:10px;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+.opt-adjust input{width:52px;padding:4px 6px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--mono);text-align:center;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="lang-toggle">
+      <button id="lang-zh" class="on" onclick="setLang('zh')">中文</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="crumb"><a href="index.html">← Suri's Math</a> / <span data-i18n="crumb">速度训练 Speed Training</span></div>
+    <h1 data-i18n="title">⚡ 前20题限时冲刺</h1>
+    <div class="sub" data-i18n="sub">分段闯关练提速，整套跑验收 —— 把时间省给最后五题。</div>
+  </div>
+</header>
+
+<!-- ===== timer bar (shown during quiz) ===== -->
+<div class="timerbar" id="timerbar">
+  <div class="wrap">
+    <div class="timer" id="timer">00:00</div>
+    <div class="tprogress" id="tprogress"><i style="width:100%"></i></div>
+    <div class="qcounter" id="qcounter">1 / 10</div>
+    <button class="btn ghost" style="padding:6px 14px;font-size:.8rem;" onclick="abortQuiz()" data-i18n="quit">退出</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===== LANDING ===== -->
+  <div id="screen-landing">
+    <!-- countdown -->
+    <div class="countdown">
+      <div>
+        <div class="cd-label" data-i18n="cdlabel">距 AMC 10 A 还有 · Countdown to AMC 10 A</div>
+        <div class="cd-date">2026 · 11 · 05</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="cd-days" id="cd-days">— <span data-i18n="days">天 days</span></div>
+      </div>
+    </div>
+
+    <!-- segment modes -->
+    <div class="modes" id="modes"></div>
+
+    <!-- time adjust -->
+    <div class="opt-adjust">
+      <span data-i18n="adjhint">⚙ 熟练后可自行加压（调短时长）：</span>
+      <label>①<input type="number" id="adj1" min="3" max="30" value="12">′</label>
+      <label>②<input type="number" id="adj2" min="3" max="30" value="12">′</label>
+      <label>③<input type="number" id="adj3" min="3" max="30" value="16">′</label>
+      <label data-i18n="adjfull">整套<input type="number" id="adjF" min="10" max="75" value="45">′</label>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div id="screen-quiz" class="hidden">
+    <div class="qcard" id="qcard"></div>
+    <div class="qnav">
+      <button class="btn ghost" id="btn-prev" onclick="prevQ()" data-i18n="prev">← 上一题</button>
+      <button class="btn" id="btn-next" onclick="nextQ()" data-i18n="next">下一题 →</button>
+      <button class="btn btn-skip" onclick="nextQ()" data-i18n="skip">跳过 →</button>
+    </div>
+  </div>
+
+  <!-- ===== RESULTS ===== -->
+  <div id="screen-results" class="hidden">
+    <div class="results" id="resultsBox"></div>
+  </div>
+
+</div>
+
+<script src="speed-data.js"></script>
+<script>
+/* ================= i18n ================= */
+let LANG = 'zh';
+const I18N = {
+  crumb:{zh:'速度训练 Speed Training',en:'Speed Training'},
+  title:{zh:'⚡ 前20题限时冲刺',en:'⚡ Front-20 Speed Sprint'},
+  sub:{zh:'分段闯关练提速，整套跑验收 —— 把时间省给最后五题。',en:'Segment drills to build speed, full runs to test it — save your time for the last five.'},
+  cdlabel:{zh:'距 AMC 10 A 还有',en:'Countdown to AMC 10 A'},
+  days:{zh:'天',en:'days'},
+  adjhint:{zh:'⚙ 熟练后可自行加压（调短时长）：',en:'⚙ Tighten the clock as you improve:'},
+  adjfull:{zh:'整套',en:'Full'},
+  prev:{zh:'← 上一题',en:'← Prev'},
+  next:{zh:'下一题 →',en:'Next →'},
+  skip:{zh:'跳过 →',en:'Skip →'},
+  quit:{zh:'退出',en:'Quit'},
+  finish:{zh:'交卷 ✓',en:'Submit ✓'},
+};
+function setLang(l){
+  LANG=l;
+  document.getElementById('lang-zh').classList.toggle('on',l==='zh');
+  document.getElementById('lang-en').classList.toggle('on',l==='en');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(I18N[k])el.textContent=I18N[k][l];});
+  renderModes();
+  if(state.active) renderQ();
+}
+
+/* ================= countdown ================= */
+function updateCountdown(){
+  const exam=new Date(SPEED_CONFIG.examDate+'T08:00:00');
+  const now=new Date();
+  const days=Math.ceil((exam-now)/(1000*60*60*24));
+  document.getElementById('cd-days').innerHTML = (days>0?days:0)+' <span>'+I18N.days[LANG]+'</span>';
+}
+
+/* ================= deterministic shuffle ================= */
+function shuffle(arr, seed){
+  let a=arr.slice(), s=seed||Date.now()%233280;
+  for(let i=a.length-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function drawFrom(poolKey,count){
+  const pool=SPEED_POOLS[poolKey]||[];
+  return shuffle(pool).slice(0,Math.min(count,pool.length));
+}
+
+/* ================= mode cards ================= */
+function renderModes(){
+  const wrap=document.getElementById('modes');
+  wrap.innerHTML='';
+  SPEED_CONFIG.segments.forEach((seg,i)=>{
+    const min=[12,12,16][i];
+    const card=document.createElement('div');
+    card.className='mode-card';
+    card.onclick=()=>startSegment(i);
+    card.innerHTML=`<div class="mtag">SEGMENT ${i+1}</div>
+      <h3>${seg.label[LANG]}</h3>
+      <p>${seg.note[LANG]}</p>
+      <div class="mmeta"><span>📝 ${seg.count} ${LANG==='zh'?'题':'Q'}</span><span>⏱ ${seg.minutes} min</span></div>`;
+    wrap.appendChild(card);
+  });
+  // full run card
+  const f=SPEED_CONFIG.full;
+  const fc=document.createElement('div');
+  fc.className='mode-card full-mode';
+  fc.onclick=()=>startFull();
+  fc.innerHTML=`<div class="mtag">FULL RUN · ${LANG==='zh'?'实战模拟':'exam sim'}</div>
+    <h3>🏁 ${f.label[LANG]}</h3>
+    <p>${f.note[LANG]}</p>
+    <div class="mmeta"><span>📝 20 ${LANG==='zh'?'题':'Q'}</span><span>⏱ ${f.minutes} min</span><span>${LANG==='zh'?'难度曲线对齐真题':'real difficulty curve'}</span></div>`;
+  wrap.appendChild(fc);
+}
+
+/* ================= quiz state ================= */
+let state={active:false,questions:[],answers:[],times:[],cur:0,tLimit:0,tLeft:0,tick:null,qStart:0,mode:''};
+
+function startSegment(i){
+  const seg=SPEED_CONFIG.segments[i];
+  const min=parseInt(document.getElementById('adj'+(i+1)).value)||seg.minutes;
+  const qs=drawFrom(seg.poolKey,seg.count);
+  beginQuiz(qs, min*60, seg.label[LANG]);
+}
+function startFull(){
+  const f=SPEED_CONFIG.full;
+  const min=parseInt(document.getElementById('adjF').value)||f.minutes;
+  let qs=[];
+  f.mix.forEach(m=>{ qs=qs.concat(drawFrom(m.poolKey,m.count)); });
+  beginQuiz(qs, min*60, f.label[LANG]);
+}
+function beginQuiz(qs,limitSec,label){
+  state.active=true; state.questions=qs; state.answers=new Array(qs.length).fill(null);
+  state.times=new Array(qs.length).fill(0); state.cur=0; state.tLimit=limitSec; state.tLeft=limitSec;
+  state.mode=label; state.qStart=Date.now();
+  document.getElementById('screen-landing').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  document.getElementById('timerbar').classList.add('show');
+  window.scrollTo(0,0);
+  startTimer();
+  renderQ();
+}
+
+/* ================= timer ================= */
+function startTimer(){
+  clearInterval(state.tick);
+  state.tick=setInterval(()=>{
+    state.tLeft--;
+    renderTimer();
+    if(state.tLeft<=0){ clearInterval(state.tick); finishQuiz(true); }
+  },1000);
+  renderTimer();
+}
+function renderTimer(){
+  const m=Math.floor(state.tLeft/60), s=state.tLeft%60;
+  const t=document.getElementById('timer');
+  t.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const frac=state.tLeft/state.tLimit;
+  const pb=document.getElementById('tprogress');
+  pb.querySelector('i').style.width=(frac*100)+'%';
+  t.className='timer'+(frac<0.15?' danger':frac<0.35?' warn':'');
+  pb.className='tprogress'+(frac<0.15?' danger':frac<0.35?' warn':'');
+}
+
+/* ================= question render ================= */
+function renderQ(){
+  const q=state.questions[state.cur];
+  if(!q)return;
+  // strip embedded (A)... lines from text since we render options separately
+  let txt=q.text.replace(/\n?\(?[A-E]\)[^\n]*/g,'').trim();
+  const opts=q.options||{};
+  const letters=['a','b','c','d','e'];
+  let optHtml='';
+  letters.forEach(l=>{
+    if(opts[l]!==undefined){
+      const sel=state.answers[state.cur]===l.toUpperCase()?' sel':'';
+      optHtml+=`<div class="opt${sel}" onclick="pick('${l.toUpperCase()}')"><span class="olet">${l.toUpperCase()}</span><span>${opts[l]}</span></div>`;
+    }
+  });
+  document.getElementById('qcard').innerHTML=
+    `<div class="qhead"><span class="qnum">${state.cur+1}</span><span class="qmeta">${q.topic} · diff ${q.diff}</span></div>
+     <div class="qtext">${txt}</div><div class="opts">${optHtml}</div>`;
+  document.getElementById('qcounter').textContent=(state.cur+1)+' / '+state.questions.length;
+  document.getElementById('btn-prev').disabled=state.cur===0;
+  const nextBtn=document.getElementById('btn-next');
+  nextBtn.textContent = state.cur===state.questions.length-1 ? I18N.finish[LANG] : I18N.next[LANG];
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('qcard'),{delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});
+  }
+}
+function pick(letter){
+  state.answers[state.cur]=letter;
+  document.querySelectorAll('#qcard .opt').forEach(o=>o.classList.remove('sel'));
+  event.currentTarget.classList.add('sel');
+}
+function recordTime(){
+  const dt=Math.round((Date.now()-state.qStart)/1000);
+  state.times[state.cur]+=dt; state.qStart=Date.now();
+}
+function nextQ(){
+  recordTime();
+  if(state.cur<state.questions.length-1){ state.cur++; renderQ(); window.scrollTo(0,0); }
+  else finishQuiz(false);
+}
+function prevQ(){ recordTime(); if(state.cur>0){state.cur--;renderQ();window.scrollTo(0,0);} }
+function abortQuiz(){ if(confirm(LANG==='zh'?'确定退出本次训练？':'Quit this session?')){ cleanup(); showLanding(); } }
+
+/* ================= finish & results ================= */
+function finishQuiz(timedOut){
+  recordTime(); cleanup();
+  const q=state.questions, a=state.answers, t=state.times;
+  let correct=0, answered=0, totalTime=0;
+  const perSegBudget=state.tLimit/q.length;
+  const rows=q.map((qq,i)=>{
+    const ok=a[i]===qq.ans; if(a[i])answered++; if(ok)correct++; totalTime+=t[i];
+    const slow=t[i]>perSegBudget*1.5;
+    return {i,topic:qq.topic,diff:qq.diff,my:a[i],ans:qq.ans,ok,time:t[i],slow,answered:!!a[i]};
+  });
+  const acc=q.length?Math.round(correct/q.length*100):0;
+  const avgT=q.length?Math.round(totalTime/q.length):0;
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+  window.scrollTo(0,0);
+  const L=LANG;
+  let html=`<h2>${timedOut?(L==='zh'?'⏰ 时间到':'⏰ Time up'):(L==='zh'?'✓ 完成':'✓ Done')} · ${state.mode}</h2>
+    <div class="scorebig">${correct}/${q.length}</div>
+    <div class="scoregrid">
+      <div class="scorebox"><div class="sv">${acc}%</div><div class="sl">${L==='zh'?'正确率':'accuracy'}</div></div>
+      <div class="scorebox"><div class="sv">${fmtT(totalTime)}</div><div class="sl">${L==='zh'?'总用时':'total time'}</div></div>
+      <div class="scorebox"><div class="sv">${avgT}s</div><div class="sl">${L==='zh'?'每题均时':'avg/Q'}</div></div>
+      <div class="scorebox"><div class="sv">${answered}/${q.length}</div><div class="sl">${L==='zh'?'作答数':'attempted'}</div></div>
+    </div>
+    <h3 style="font-family:var(--serif);margin-bottom:4px;">${L==='zh'?'逐题复盘':'Question review'}</h3>`;
+  rows.forEach(r=>{
+    const verdict = !r.answered ? `<span class="ri-verdict slow">${L==='zh'?'未作答':'skipped'}</span>`
+      : r.ok ? `<span class="ri-verdict ok">✓ ${L==='zh'?'对':'correct'}</span>`
+      : `<span class="ri-verdict bad">✗ ${L==='zh'?'错':'wrong'}</span>`;
+    const slowTag=r.slow&&r.answered?` · <span style="color:var(--gold);">${L==='zh'?'超时':'slow'}</span>`:'';
+    const ansInfo=r.ok?'':` · ${L==='zh'?'正确答案':'ans'}: <b>${r.ans}</b>${r.my?(' · '+(L==='zh'?'你选':'you')+': '+r.my):''}`;
+    html+=`<div class="review-item"><div class="ri-head"><span>Q${r.i+1} · ${r.topic} · diff ${r.diff}${slowTag}</span><span>${r.time}s</span></div>
+      <div>${verdict}${ansInfo}</div></div>`;
+  });
+  html+=`<a class="backlink" href="javascript:showLanding()">← ${L==='zh'?'再练一组':'Practice again'}</a>`;
+  document.getElementById('resultsBox').innerHTML=html;
+}
+function fmtT(sec){const m=Math.floor(sec/60),s=sec%60;return m+':'+String(s).padStart(2,'0');}
+function cleanup(){clearInterval(state.tick);state.active=false;document.getElementById('timerbar').classList.remove('show');}
+function showLanding(){
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-landing').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+/* ================= init ================= */
+window.addEventListener('DOMContentLoaded',()=>{
+  renderModes(); updateCountdown(); setInterval(updateCountdown,3600000);
+});
+</script>
+</body>
+</html>
+
