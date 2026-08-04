@@ -152,6 +152,58 @@ window.EXAM_2011_10A = {
      "sketch": "Equal-weight ordered configs = 532; total = C(10,2)*C(8,2)=45*28=1260; 532/1260 = 19/45, so m+n = 19+45 = 64.",
      "level": "AIME (early)"
     }
+   ],
+   "hintChain": [
+    {
+     "q": {
+      "zh": "第 1 关 · 一对硬币的「重量」只有几种可能？",
+      "en": "Stage 1 · How many possible weights can a pair have?"
+     },
+     "hint": {
+      "zh": "设真币重 g、假币重 c（c≠g）。随手抓两枚，它们的总重只可能是哪几个值？把每一种对应「抓到几枚假币」列出来。",
+      "en": "Let genuine = g, counterfeit = c (c≠g). Grab any two coins — what are the only possible total weights? List each one against 'how many counterfeits are in the pair'."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 2 关 · 两对「总重相等」意味着什么？",
+      "en": "Stage 2 · What does 'two pairs weigh the same' force?"
+     },
+     "hint": {
+      "zh": "因为 g≠c，两对总重相等，等价于这两对的「假币枚数」怎么样？（提示：只有 2 枚假币，能不能两对里各塞不同数量？）",
+      "en": "Since g≠c, two pairs having equal total weight is equivalent to what about their counterfeit counts? (Hint: there are only 2 counterfeits total — can the two pairs hold different amounts?)"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 3 关 · 满足条件的情形，只有哪两类？",
+      "en": "Stage 3 · Only two scenarios survive — which?"
+     },
+     "hint": {
+      "zh": "把 2 枚假币的去向分类：要么两对都是真币（假币都没被抽到），要么每对恰好含 1 枚假币。还有第三种可能吗？为什么「一对含 2 枚假币」这类被排除？",
+      "en": "Classify where the 2 counterfeits go: either both pairs are all-genuine (counterfeits untouched), or each pair holds exactly one counterfeit. Any third case? Why is 'one pair holds both counterfeits' impossible to match?"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 4 关 · 数一数每一类的「方法数」",
+      "en": "Stage 4 · Count the ways for each scenario"
+     },
+     "hint": {
+      "zh": "条件概率 = P(都是真币 且 两对等重) ÷ P(两对等重)。分别数：①两对全真的抽法数；②每对含 1 假的抽法数。用「不放回抽两对」的思路数，别忘了对内、对间是否有序。",
+      "en": "Conditional prob = P(all genuine AND equal) / P(equal). Count: (1) ways both pairs all-genuine; (2) ways each pair holds one counterfeit. Use 'draw two pairs without replacement' — mind whether order within/between pairs matters."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 5 关 · 合上 + 自我验证",
+      "en": "Stage 5 · Close it + self-check"
+     },
+     "hint": {
+      "zh": "把两类方法数相加当分母，全真那类当分子，约分。验证一招：答案应是个略小于 1 的分数（全真是最常见的等重方式，所以概率该偏大）。把答案写出来。",
+      "en": "Sum the two counts as denominator, all-genuine count as numerator, reduce. Self-check: the answer should be a fraction just under 1 (all-genuine is the most common way to match, so probability is high). Write your answer."
+     }
+    }
    ]
   },
   {
@@ -286,6 +338,58 @@ window.EXAM_2011_10A = {
      "answer": "4100",
      "sketch": "Cycle C6 with k=5: 4^6+4 = 4100.",
      "level": "early AIME"
+    }
+   ],
+   "hintChain": [
+    {
+     "q": {
+      "zh": "第 1 关 · 到底哪些顶点「必须不同色」？",
+      "en": "Stage 1 · Which vertex pairs must differ?"
+     },
+     "hint": {
+      "zh": "题目要求「每条对角线的两端不同色」——注意是对角线，不是边！五边形 ABCDE 有几条对角线？把它们两两列出来。",
+      "en": "The rule is 'the two ends of each DIAGONAL differ' — diagonals, not sides! How many diagonals does pentagon ABCDE have? List each pair."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 2 关 · 把这些「必须不同」的连接画出来",
+      "en": "Stage 2 · Draw only the must-differ links"
+     },
+     "hint": {
+      "zh": "只画那 5 条对角线（先别画边）。A 连到哪两个？顺着连下去，你会得到一个五角星。把五角星的线「捋直」，它其实是一个什么图？（5 个点首尾相连成一个……）",
+      "en": "Draw only the 5 diagonals (ignore sides). A connects to which two? Follow around — you get a pentagram. Straighten it out: what graph is it really? (5 vertices joined head-to-tail into a …)"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 3 关 · 这变成了一个经典问题",
+      "en": "Stage 3 · This is now a classic problem"
+     },
+     "hint": {
+      "zh": "现在问题等价于：用 6 种颜色给一个「5 个点的环」染色，相邻（环上相邻）不同色，有几种？你知道「环 Cₙ 用 k 色的染色数」公式吗？不知道也没关系——试着自己推。",
+      "en": "Now it's equivalent to: color a 5-vertex CYCLE with 6 colors, adjacent-on-the-cycle differ — how many? Do you know the formula for coloring a cycle Cₙ with k colors? If not, try to derive it."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 4 关 · 推环的染色公式",
+      "en": "Stage 4 · Derive the cycle formula"
+     },
+     "hint": {
+      "zh": "沿环走一圈：第 1 点 k 种选法，之后每点要「和前一个不同」有 (k−1) 种……但走完一圈，最后一点还要和第 1 点不同，直接乘会多算。用「链的染色数 − 首尾同色的情形」或递推处理这个环闭合。环 Cₙ 的公式是 (k−1)ⁿ + (−1)ⁿ(k−1)。",
+      "en": "Walk the cycle: vertex 1 has k choices, each next 'differ from previous' gives (k−1)… but closing the loop, the last must also differ from vertex 1, so naive multiplication overcounts. Handle closure via 'path colorings − same-endpoint cases' or recurrence. The formula for Cₙ is (k−1)ⁿ + (−1)ⁿ(k−1)."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 5 关 · 代入 + 自我验证",
+      "en": "Stage 5 · Plug in + self-check"
+     },
+     "hint": {
+      "zh": "这里 n=5、k=6。算 (k−1)⁵ + (−1)⁵(k−1) = 5⁵ − 5。自我验证：5⁵=3125，减 5 得多少？如果你算出一个接近 3125 的整数，方向就对了。写出答案。",
+      "en": "Here n=5, k=6. Compute (k−1)⁵ + (−1)⁵(k−1) = 5⁵ − 5. Self-check: 5⁵=3125, minus 5 gives what? If you get an integer near 3125, you're on track. Write your answer."
+     }
     }
    ]
   },
@@ -618,6 +722,58 @@ window.EXAM_2011_10A = {
      "sketch": "C is a cube of edge 1/3, volume 1/27; ratio = (1/27)/(1/6) = 2/9.",
      "level": "AIME"
     }
+   ],
+   "hintChain": [
+    {
+     "q": {
+      "zh": "第 1 关 · 先把两个四面体「安」进立方体",
+      "en": "Stage 1 · Place the two tetrahedra in the cube"
+     },
+     "hint": {
+      "zh": "单位立方体有 8 个顶点。把它们黑白相间染色（像三维棋盘），会分成两组各 4 个。每组 4 个顶点连成一个正四面体。先在草图上把这两个四面体标出来。",
+      "en": "A unit cube has 8 vertices. Color them alternately black/white (like a 3-D checkerboard) into two groups of 4. Each group of 4 forms a regular tetrahedron. Sketch both."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 2 关 · 它们的「交集」大概长什么样？",
+      "en": "Stage 2 · What shape is their intersection?"
+     },
+     "hint": {
+      "zh": "两个四面体交叉穿插（这叫「星形八面体」）。它们公共的那块——中心那个对称的小多面体——有几个面、几个顶点？它的顶点落在立方体的什么位置上？",
+      "en": "The two tetrahedra interpenetrate (a 'stella octangula'). Their common core — the small symmetric solid in the center — how many faces and vertices? Where do its vertices sit on the cube?"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 3 关 · 找出交集的顶点坐标",
+      "en": "Stage 3 · Locate the intersection's vertices"
+     },
+     "hint": {
+      "zh": "把立方体放在 [0,1]³。那个中心多面体是正八面体，它的 6 个顶点恰好是立方体 6 个面的中心。把这 6 个面心坐标写出来（如 (½,½,0)、(½,½,1)…）。",
+      "en": "Put the cube on [0,1]³. The central solid is a regular octahedron; its 6 vertices are exactly the centers of the cube's 6 faces. Write those 6 face-center coordinates (like (½,½,0), (½,½,1)…)."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 4 关 · 算这个正八面体的体积",
+      "en": "Stage 4 · Compute the octahedron's volume"
+     },
+     "hint": {
+      "zh": "正八面体 = 两个「正四棱锥」底对底粘起来。找出它的正方形「腰截面」（连接 4 个侧面心）和上下两个顶点，用 V=⅓·底面积·高，或直接对角线公式。也可以用「立方体 − 4 个角上小四面体」的减法。",
+      "en": "An octahedron = two square pyramids base-to-base. Find its square 'equator' (the 4 side-face centers) and the top/bottom vertices, then V = ⅓·base·height, or the diagonal formula. Alternatively use 'cube − 4 corner tetrahedra' subtraction."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 5 关 · 合上 + 自我验证",
+      "en": "Stage 5 · Close it + self-check"
+     },
+     "hint": {
+      "zh": "算出体积后，自我验证：它应是个漂亮的简单分数，而且要明显小于每个四面体的体积（四面体体积是 ⅓）。你的答案比 ⅓ 小吗？写出来。",
+      "en": "Once you have the volume, self-check: it should be a clean simple fraction, and clearly smaller than each tetrahedron's volume (which is ⅓). Is your answer below ⅓? Write it."
+     }
+    }
    ]
   },
   {
@@ -752,6 +908,58 @@ window.EXAM_2011_10A = {
      "answer": "345",
      "sketch": "(20-1)^2 - (gcd(20,15)-1)^2 = 361 - 16 = 345.",
      "level": "AIME"
+    }
+   ],
+   "hintChain": [
+    {
+     "q": {
+      "zh": "第 1 关 · 先搞懂「n 分点」到底要求什么",
+      "en": "Stage 1 · Understand what an 'n-ray point' demands"
+     },
+     "hint": {
+      "zh": "点 P 在正方形内部，从 P 向外引 n 条射线，把正方形分成 n 个「面积相等」的三角形。先只试 n=4：哪些点能把正方形分成 4 个等面积三角形？（试试正中心。）",
+      "en": "Point P is inside the square; n rays from P cut it into n equal-area triangles. Try just n=4 first: which points split the square into 4 equal triangles? (Try the exact center.)"
+     }
+    },
+    {
+     "q": {
+      "zh": "第 2 关 · 小情形里找规律",
+      "en": "Stage 2 · Find the pattern in small cases"
+     },
+     "hint": {
+      "zh": "对 n=4，能做到的点其实构成一个小网格。再想 n=6、n=8……有没有一个结论：「n-分点」恰好构成正方形内部一个 (n/2−1)×(n/2−1) 的均匀网格？先接受这个结论，验证 n=4 给出 1×1=1 个点（正中心）对不对。",
+      "en": "For n=4 the valid points form a small grid. Now n=6, n=8… Is there a theorem: the n-ray points form exactly an (n/2−1)×(n/2−1) uniform grid inside the square? Accept it tentatively and check n=4 gives 1×1=1 point (the center)."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 3 关 · 把两个约束分别数出来",
+      "en": "Stage 3 · Count each constraint separately"
+     },
+     "hint": {
+      "zh": "题目要「既是 100-分点、又是 60-分点」。先分别数：100-分点有多少个？（(100/2−1)²）60-分点有多少个？（(60/2−1)²）算出这两个网格各自的点数。",
+      "en": "The problem wants points that are BOTH 100-ray AND 60-ray. Count each: how many 100-ray points? ((100/2−1)²) How many 60-ray? ((60/2−1)²) Get both grid sizes."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 4 关 · 两个网格的「交集」怎么数？",
+      "en": "Stage 4 · How to count the overlap of two grids?"
+     },
+     "hint": {
+      "zh": "100-分点网格是把边分成 50 份的格点，60-分点是分成 30 份。同时属于两者的点，坐标要同时是「50 分之整数」和「30 分之整数」——这等价于分成 gcd(50,30)=10 份的格点。数一数这个 10×10 细分下的内部公共点数。",
+      "en": "The 100-ray grid divides each side into 50; the 60-ray into 30. A point in both must have coordinates that are integer multiples of 1/50 AND 1/30 — equivalent to dividing into gcd(50,30)=10 parts. Count the interior common points of that 10-division grid."
+     }
+    },
+    {
+     "q": {
+      "zh": "第 5 关 · 容斥 + 自我验证",
+      "en": "Stage 5 · Inclusion-exclusion + self-check"
+     },
+     "hint": {
+      "zh": "题目问「是 100-分点 但 不是 60-分点」的个数 = (100-分点数) − (两者都是的数)。用第 3、4 关的结果相减。自我验证：答案应比 100-分点总数 (49²=2401) 略小。写出来。",
+      "en": "The problem asks points that are 100-ray but NOT 60-ray = (100-ray count) − (count of both). Subtract using Stages 3–4. Self-check: the answer should be a bit under the total 100-ray count (49²=2401). Write it."
+     }
     }
    ]
   }
