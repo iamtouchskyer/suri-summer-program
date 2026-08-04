@@ -303,18 +303,32 @@ function renderTimer(){
 }
 
 /* ================= question render ================= */
+/* protect literal dollar amounts ($3.63) from being read as math delimiters:
+   an odd number of $ means some are currency, not math. Escape $ that are
+   immediately followed by a digit and not part of a $...$ math span. */
+function protectDollars(str){
+  if(!str) return str;
+  // if $ count is even, assume all are math delimiters -> leave as is
+  const cnt=(str.match(/\$/g)||[]).length;
+  if(cnt%2===0) return str;
+  // odd -> currency present: escape "$<digit>" so KaTeX ignores them
+  return str.replace(/\$(?=\d)/g,'<span class="cur">$</span>');
+}
+// strip only genuine option lines: a line whose trimmed form starts with (A)/(B)...
+function stripOptionLines(text){
+  return text.split(/\n/).filter(line=>!/^\s*\(?[A-E][)\.]/.test(line.trim())).join('\n').trim();
+}
 function renderQ(){
   const q=state.questions[state.cur];
   if(!q)return;
-  // strip embedded (A)... lines from text since we render options separately
-  let txt=q.text.replace(/\n?\(?[A-E]\)[^\n]*/g,'').trim();
+  let txt=protectDollars(stripOptionLines(q.text));
   const opts=q.options||{};
   const letters=['a','b','c','d','e'];
   let optHtml='';
   letters.forEach(l=>{
     if(opts[l]!==undefined){
       const sel=state.answers[state.cur]===l.toUpperCase()?' sel':'';
-      optHtml+=`<div class="opt${sel}" onclick="pick('${l.toUpperCase()}')"><span class="olet">${l.toUpperCase()}</span><span>${opts[l]}</span></div>`;
+      optHtml+=`<div class="opt${sel}" onclick="pick('${l.toUpperCase()}')"><span class="olet">${l.toUpperCase()}</span><span>${protectDollars(String(opts[l]))}</span></div>`;
     }
   });
   document.getElementById('qcard').innerHTML=
@@ -325,7 +339,7 @@ function renderQ(){
   const nextBtn=document.getElementById('btn-next');
   nextBtn.textContent = state.cur===state.questions.length-1 ? I18N.finish[LANG] : I18N.next[LANG];
   if(window.renderMathInElement){
-    renderMathInElement(document.getElementById('qcard'),{delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});
+    renderMathInElement(document.getElementById('qcard'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false,ignoredClasses:['cur']});
   }
 }
 function pick(letter){
