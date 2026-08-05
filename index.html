@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Suri's Math Roadmap ｜ 数学训练与成长地图</title>
-<meta name="description" content="Suri 的数学训练与成长地图：AwesomeMath 课程日志、AMC10 与 AIME 训练、四大知识板块、数学题库和数学夏校规划。" />
-<meta name="theme-color" content="#111111" />
+<meta name="description" content="Suri 的数学训练中心：学习、训练、复盘与规划。专注 AwesomeMath、AMC10 最后五题与 AIME 准备。" />
+<meta name="theme-color" content="#f4f1e9" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -15,286 +15,223 @@
 <link rel="stylesheet" href="homepage.css" />
 </head>
 <body class="lang-zh">
+<a class="skip-link" href="#main"><span class="zh-only">跳到主要内容</span><span class="en-only">Skip to content</span></a>
 <header class="masthead">
   <div class="masthead-inner">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">S</span>
-      <div class="brand-text">
+    <a class="brand" href="index.html" aria-label="Suri's Math Roadmap home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span class="brand-text">
         <span class="brand-line1">Suri's Math Roadmap</span>
         <span class="brand-line2"><span class="zh-only">数学训练与成长地图</span><span class="en-only">Mathematics Training &amp; Growth</span></span>
-      </div>
+      </span>
     </a>
-    <div class="lang-toggle" id="langToggle">
+    <div class="lang-toggle" id="langToggle" aria-label="Language">
       <button type="button" data-l="zh" class="on" aria-pressed="true" onclick="window.setPageLanguage('zh')">中文</button>
       <button type="button" data-l="en" aria-pressed="false" onclick="window.setPageLanguage('en')">EN</button>
     </div>
   </div>
 </header>
 
-<main>
-  <section class="hero swiss-grid">
-    <div class="hero-copy">
-      <span class="eyebrow"><span class="zh-only">2026 / 数学训练索引</span><span class="en-only">2026 / Mathematics training index</span></span>
-      <h1><span class="zh-only">把难题，<span class="big">做成能力</span></span><span class="en-only">Train what still <span class="big">feels hard.</span></span></h1>
-      <p class="sub"><span class="zh-only">这里只记录正在学什么、哪里卡住、下一次如何练。当前重点是跟好 AwesomeMath，并把 AMC10 第 21-25 题的启动能力练出来。</span><span class="en-only">A working record of Suri’s lessons, sticking points, and next practice. Current focus: AwesomeMath and independent starts on AMC10 Questions 21-25.</span></p>
+<main id="main">
+  <section class="hero">
+    <div class="hero-copy reveal">
+      <span class="eyebrow"><span class="zh-only">SURI / 2026 数学训练中心</span><span class="en-only">SURI / 2026 MATH TRAINING CENTER</span></span>
+      <h1><span class="zh-only">下一步，<em>很清楚。</em></span><span class="en-only">Make the next move <em>obvious.</em></span></h1>
+      <p class="hero-intro"><span class="zh-only">不再到处找入口。先判断今天要做什么：学知识、练能力、复盘错题，还是看长期规划。</span><span class="en-only">No more hunting for the right page. Decide what today needs: learn, train, review, or plan.</span></p>
     </div>
-    <aside class="hero-measure" aria-label="Current target">
-      <span class="hm-label"><span class="zh-only">当前标准</span><span class="en-only">Current standard</span></span>
-      <strong>AMC 10</strong>
-      <span class="hm-note"><span class="zh-only">稳定 120+ / 为 AIME 打基础</span><span class="en-only">Stable 120+ / build toward AIME</span></span>
-    </aside>
+
+    <nav class="route-grid reveal delay-1" aria-label="Primary destinations">
+      <a class="route route-learn" href="#learn">
+        <span class="route-no">01</span>
+        <span class="route-word"><span class="zh-only">学习</span><span class="en-only">Learn</span></span>
+        <span class="route-note"><span class="zh-only">知识点与课程</span><span class="en-only">Concepts &amp; courses</span></span>
+        <span class="route-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a class="route route-train" href="#train">
+        <span class="route-no">02</span>
+        <span class="route-word"><span class="zh-only">训练</span><span class="en-only">Train</span></span>
+        <span class="route-note"><span class="zh-only">限时与压轴题</span><span class="en-only">Speed &amp; last five</span></span>
+        <span class="route-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a class="route route-review" href="#review">
+        <span class="route-no">03</span>
+        <span class="route-word"><span class="zh-only">复盘</span><span class="en-only">Review</span></span>
+        <span class="route-note"><span class="zh-only">错题与迁移</span><span class="en-only">Errors &amp; transfer</span></span>
+        <span class="route-arrow" aria-hidden="true">↓</span>
+      </a>
+      <a class="route route-plan" href="#plan">
+        <span class="route-no">04</span>
+        <span class="route-word"><span class="zh-only">规划</span><span class="en-only">Plan</span></span>
+        <span class="route-note"><span class="zh-only">目标与夏校</span><span class="en-only">Goals &amp; programs</span></span>
+        <span class="route-arrow" aria-hidden="true">↓</span>
+      </a>
+    </nav>
   </section>
 
-  <section class="section-block section-mission">
-    <div class="row-label swiss-grid">
-      <div class="section-heading">
-        <div class="rl-eyebrow">In Motion</div>
-        <h2><span class="zh-only">现在在练什么</span><span class="en-only">What is in training now</span></h2>
-      </div>
-      <span class="rule"></span>
+  <section class="now-panel reveal delay-2" aria-labelledby="now-title">
+    <div class="now-label">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="now-title"><span class="zh-only">当前主线</span><span class="en-only">Current focus</span></span>
     </div>
-    <div class="mission-grid swiss-grid">
-      <article class="mission-primary">
-        <div class="module-kicker"><b>② AMC 10</b><span class="zh-only">冲刺 120+</span><span class="en-only">sprint to 120+</span></div>
-        <div class="count-line">
-          <span class="count-number" id="cdDays">0</span>
-          <span class="count-copy"><span class="zh-only">天 / 距 11/5 AMC 10 A</span><span class="en-only">days / to Nov 5</span></span>
-        </div>
-        <div class="measure-row">
-          <span>Q1-20 <span class="zh-only">速度</span><span class="en-only">speed</span></span>
-          <span>Q21-25 <span class="zh-only">最后五题</span><span class="en-only">last 5</span></span>
-        </div>
-        <div class="index-table">
-          <a class="index-row" href="speed.html">
-            <span class="idx">01</span>
-            <span class="label"><b><span class="zh-only">速度训练</span><span class="en-only">Speed drills</span></b></span>
-            <span class="meta"><span class="zh-only">前20题限时</span><span class="en-only">timed Q1-20</span></span>
-          </a>
-          <a class="index-row" href="challenge-guide.html">
-            <span class="idx">02</span>
-            <span class="label"><b><span class="zh-only">压轴训练</span><span class="en-only">Last-5 system</span></b></span>
-            <span class="meta"><span class="zh-only">三级 / 24题</span><span class="en-only">3-tier / 24</span></span>
-          </a>
-          <a class="index-row" href="exam-2011-10A.html">
-            <span class="idx">03</span>
-            <span class="label"><b><span class="zh-only">真卷档案</span><span class="en-only">Exam archive</span></b></span>
-            <span class="meta"><span class="zh-only">2011 / 后5题</span><span class="en-only">2011 / last 5</span></span>
-          </a>
-          <a class="index-row" href="qbank.html">
-            <span class="idx">04</span>
-            <span class="label"><b><span class="zh-only">分级题库</span><span class="en-only">Question bank</span></b></span>
-            <span class="meta">1338</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="mission-side mission-course">
-        <div class="module-kicker"><b>COURSE</b><span class="zh-only">AwesomeMath 暑期课</span><span class="en-only">AwesomeMath course</span></div>
-        <h3><span class="zh-only">跟课 + 逐题日志</span><span class="en-only">Follow &amp; log</span></h3>
-        <p><span class="zh-only">代数 2.5 已完课，几何 2.5 进行中。</span><span class="en-only">Algebra 2.5 done, Geometry 2.5 in progress.</span></p>
-        <div class="index-table compact">
-          <a class="index-row" href="algebra-level2.html">
-            <span class="idx">A1</span>
-            <span class="label"><b>代数 Algebra 2.5</b></span>
-            <span class="meta">✓ 9<span class="zh-only">天</span><span class="en-only"> days</span></span>
-          </a>
-          <a class="index-row" href="geometry-level2.html">
-            <span class="idx">G1</span>
-            <span class="label"><b>几何 Geometry 2.5</b></span>
-            <span class="meta"><span class="zh-only">进行中</span><span class="en-only">live</span></span>
-          </a>
-        </div>
-      </article>
-
-      <article class="mission-side mission-next">
-        <div class="module-kicker"><b>NEXT</b><span class="zh-only">预备 / 打地基</span><span class="en-only">prep / foundation</span></div>
-        <h3><span class="zh-only">进阶专题地基</span><span class="en-only">Advanced groundwork</span></h3>
-        <p><span class="zh-only">二项式、复数单位根、限制排列，作为 AIME 前 10 题的专题准备。</span><span class="en-only">Binomials, roots of unity, and restricted permutations for the first part of AIME.</span></p>
-        <div class="index-table compact">
-          <a class="index-row" href="counting-level2.html">
-            <span class="idx">C1</span>
-            <span class="label"><b><span class="zh-only">组合 / 二项式/限制排列</span><span class="en-only">Counting / binomials</span></b></span>
-            <span class="meta"><span class="zh-only">8 概念</span><span class="en-only">8 concepts</span></span>
-          </a>
-          <a class="index-row" href="algebra-level2.html">
-            <span class="idx">A2</span>
-            <span class="label"><b><span class="zh-only">代数 / 复数单位根</span><span class="en-only">Algebra / roots of unity</span></b></span>
-            <span class="meta"><span class="zh-only">11 概念</span><span class="en-only">11 concepts</span></span>
-          </a>
-        </div>
-      </article>
+    <div class="now-goal">
+      <strong>AMC 10 · 120+</strong>
+      <span><span class="zh-only">把 Q21–25 的“等提示”变成独立启动</span><span class="en-only">Turn Q21–25 from “waiting for a hint” into an independent start</span></span>
+    </div>
+    <div class="countdown" aria-label="Days until AMC 10A">
+      <strong id="cdDays">0</strong>
+      <span><span class="zh-only">天至 11/5</span><span class="en-only">days to Nov 5</span></span>
     </div>
   </section>
 
-  <section class="section-block">
-    <div class="row-label swiss-grid">
-      <div class="section-heading">
-        <div class="rl-eyebrow">Math Resources</div>
-        <h2><span class="zh-only">数学规划与资源</span><span class="en-only">Math Planning &amp; Resources</span></h2>
+  <section class="destination" id="learn" aria-labelledby="learn-title">
+    <header class="destination-head">
+      <div class="destination-index">01</div>
+      <div>
+        <span class="section-kicker">CONCEPTS / COURSES</span>
+        <h2 id="learn-title"><span class="zh-only">学习</span><span class="en-only">Learn</span></h2>
+        <p><span class="zh-only">先建立知识地图，再把课堂内容变成可以调用的工具。</span><span class="en-only">Build the knowledge map, then turn each lesson into a tool you can call on.</span></p>
       </div>
-      <span class="rule"></span>
-    </div>
-    <div class="resource-index">
-      <a class="resource-row emphasis" href="summer-programs.html">
-        <span class="resource-no">01</span>
-        <span class="resource-title"><span class="zh-only">数学夏校规划</span><span class="en-only">Math Summer Programs</span></span>
-        <span class="resource-desc"><span class="zh-only">9 大夏校深度调研 + 两条赛道 + 季度行动计划</span><span class="en-only">9 programs, 2 tracks, quarterly action plan</span></span>
-        <span class="resource-go"><span class="zh-only">查看规划</span><span class="en-only">Explore</span></span>
+    </header>
+    <div class="content-list">
+      <a class="content-row featured" href="geometry-level2.html">
+        <span class="row-code">GEO</span>
+        <span class="row-main"><b><span class="zh-only">几何 · Geometry 2.5</span><span class="en-only">Geometry · Level 2.5</span></b><small><span class="zh-only">相似、圆、面积法与坐标几何</span><span class="en-only">Similarity, circles, area methods, coordinates</span></small></span>
+        <span class="row-status"><span class="status-live"><span class="zh-only">进行中</span><span class="en-only">IN PROGRESS</span></span></span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="resource-row" href="program-benchmarks.html">
-        <span class="resource-no">02</span>
-        <span class="resource-title"><span class="zh-only">能力基准卡</span><span class="en-only">Ability Benchmarks</span></span>
-        <span class="resource-desc"><span class="zh-only">9 张卡：每个项目要练成什么样、具体分数线</span><span class="en-only">9 cards: exact ability bar per program</span></span>
-        <span class="resource-go"><span class="zh-only">查看基准</span><span class="en-only">Open cards</span></span>
+      <a class="content-row" href="algebra-level2.html">
+        <span class="row-code">ALG</span>
+        <span class="row-main"><b><span class="zh-only">代数 · Algebra 2.5</span><span class="en-only">Algebra · Level 2.5</span></b><small><span class="zh-only">11 个知识点 / 9 天课堂日志</span><span class="en-only">11 concepts / 9-day class journal</span></small></span>
+        <span class="row-status"><span class="zh-only">已完课</span><span class="en-only">COMPLETE</span></span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="resource-row" href="qbank.html">
-        <span class="resource-no">03</span>
-        <span class="resource-title"><span class="zh-only">压轴题分级库</span><span class="en-only">Question Bank</span></span>
-        <span class="resource-desc"><span class="zh-only">1338 道 AMC/AIME 题，按知识点+难度筛选，专攻第21-25题</span><span class="en-only">1338 AMC/AIME problems, filter by topic &amp; difficulty</span></span>
-        <span class="resource-go"><span class="zh-only">刷题</span><span class="en-only">Browse</span></span>
+      <a class="content-row" href="number-level2.html">
+        <span class="row-code">NUM</span>
+        <span class="row-main"><b><span class="zh-only">数论 · Number Theory</span><span class="en-only">Number Theory</span></b><small><span class="zh-only">整除、同余与数论结构</span><span class="en-only">Divisibility, congruences, and number structure</span></small></span>
+        <span class="row-status"><span class="zh-only">扩充中</span><span class="en-only">EXPANDING</span></span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="resource-row" href="speed.html">
-        <span class="resource-no">04</span>
-        <span class="resource-title"><span class="zh-only">速度训练</span><span class="en-only">Speed Training</span></span>
-        <span class="resource-desc"><span class="zh-only">前20题限时冲刺：分段闯关练提速 + 整套跑验收，带 11/5 倒计时</span><span class="en-only">Timed front-20 sprints: segment drills + full runs, with a Nov-5 countdown</span></span>
-        <span class="resource-go"><span class="zh-only">开始计时</span><span class="en-only">Start clock</span></span>
-      </a>
-      <a class="resource-row" href="challenge-guide.html">
-        <span class="resource-no">05</span>
-        <span class="resource-title"><span class="zh-only">压轴题训练系统</span><span class="en-only">Last-5 Training System</span></span>
-        <span class="resource-desc"><span class="zh-only">按精讲、独立练习和进阶题分成三级。包含 24 道真题、启动步骤和卡点记录。</span><span class="en-only">Three levels: guided examples, independent practice, and advanced problems. Includes 24 official problems and a record of where each attempt stalls.</span></span>
-        <span class="resource-go"><span class="zh-only">走一遍</span><span class="en-only">Walk through</span></span>
+      <a class="content-row" href="counting-level2.html">
+        <span class="row-code">C&amp;P</span>
+        <span class="row-main"><b><span class="zh-only">组合 · Counting &amp; Probability</span><span class="en-only">Counting &amp; Probability</span></b><small><span class="zh-only">8 个知识点 / 精讲例题</span><span class="en-only">8 concepts / fully worked examples</span></small></span>
+        <span class="row-status"><span class="zh-only">专题地基</span><span class="en-only">FOUNDATION</span></span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
       </a>
     </div>
   </section>
 
-  <section class="section-block">
-    <div class="row-label swiss-grid">
-      <div class="section-heading">
-        <div class="rl-eyebrow">Concept Textbook</div>
-        <h2><span class="zh-only">知识点教材 ｜ 四大板块</span><span class="en-only">Concept Textbook ｜ Four Strands</span></h2>
+  <section class="destination" id="train" aria-labelledby="train-title">
+    <header class="destination-head">
+      <div class="destination-index">02</div>
+      <div>
+        <span class="section-kicker">DELIBERATE PRACTICE</span>
+        <h2 id="train-title"><span class="zh-only">训练</span><span class="en-only">Train</span></h2>
+        <p><span class="zh-only">选择一种训练目标，不混在一起：前 20 题提速，或最后 5 题突破。</span><span class="en-only">Choose one training objective: make the first 20 faster, or break through the last five.</span></p>
       </div>
-      <span class="rule"></span>
+    </header>
+    <div class="training-grid">
+      <a class="training-card speed-card" href="speed.html">
+        <span class="card-tag"><span class="zh-only">限时训练</span><span class="en-only">TIMED WORK</span></span>
+        <strong>Q01–20</strong>
+        <h3><span class="zh-only">速度与稳定性</span><span class="en-only">Speed &amp; control</span></h3>
+        <p><span class="zh-only">分段闯关 + 整套跑。目标不是更快地乱做，而是为压轴题留下干净时间。</span><span class="en-only">Segment sprints plus full runs. The goal is not rushed work—it is clean time saved for the finish.</span></p>
+        <span class="card-cta"><span class="zh-only">开始计时</span><span class="en-only">Start the clock</span> <i>↗</i></span>
+      </a>
+      <a class="training-card last-card" href="challenge-guide.html">
+        <span class="card-tag"><span class="zh-only">核心攻坚</span><span class="en-only">CORE FOCUS</span></span>
+        <strong>Q21–25</strong>
+        <h3><span class="zh-only">压轴题启动系统</span><span class="en-only">Last-five launch system</span></h3>
+        <p><span class="zh-only">三级、24 道真题。重点训练看到题目后的第一个判断，而不是背答案。</span><span class="en-only">Three levels and 24 official problems. Train the first useful decision—not a memorized solution.</span></p>
+        <span class="card-cta"><span class="zh-only">进入主训练</span><span class="en-only">Enter core training</span> <i>↗</i></span>
+      </a>
     </div>
-    <p class="strand-note"><span class="zh-only">按竞赛数学的四大板块组织。每个板块里：上半是系统的「知识点教材」，下半是按上课时间排的「每日一课」。</span><span class="en-only">Organized by the four strands of contest math. Inside each strand: a systematic concept textbook on top, and a day-by-day class journal below.</span></p>
-    <div class="strand-grid">
-      <a class="strand-row" href="algebra-level2.html">
-        <span class="strand-no">01</span>
-        <span class="strand-title"><span class="zh-only">代数 Algebra</span><span class="en-only">Algebra</span></span>
-        <span class="strand-desc"><span class="zh-only">11 个知识点 / 9 天课堂日志</span><span class="en-only">11 concepts / 9-day journal</span></span>
-        <span class="strand-go"><span class="zh-only">进入</span><span class="en-only">Open</span></span>
+    <a class="utility-link" href="qbank.html">
+      <span class="utility-label"><span class="zh-only">需要按知识点加练？</span><span class="en-only">Need targeted repetitions?</span></span>
+      <strong><span class="zh-only">打开 1338 题分级题库</span><span class="en-only">Open the 1,338-problem question bank</span></strong>
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <section class="destination" id="review" aria-labelledby="review-title">
+    <header class="destination-head">
+      <div class="destination-index">03</div>
+      <div>
+        <span class="section-kicker">ERROR → METHOD → TRANSFER</span>
+        <h2 id="review-title"><span class="zh-only">复盘</span><span class="en-only">Review</span></h2>
+        <p><span class="zh-only">一次错题不算学会。能说清卡点、重做原题、拿下变式，才算掌握。</span><span class="en-only">A reviewed mistake is not yet mastery. Name the block, redo the original, then win the transfer problem.</span></p>
+      </div>
+    </header>
+    <div class="review-layout">
+      <a class="review-primary" href="exam-2011-10A.html">
+        <span class="review-brow"><span class="zh-only">当前错题档案</span><span class="en-only">CURRENT ERROR FILE</span></span>
+        <div class="review-title">
+          <strong>2011 AMC 10A</strong>
+          <span>Q21–25</span>
+        </div>
+        <p><span class="zh-only">真卷错题、三种解法、同类变式和模拟验收放在同一条复盘链路里。</span><span class="en-only">Original misses, three methods, twin variants, and a mastery check in one review chain.</span></p>
+        <span class="card-cta"><span class="zh-only">继续复盘</span><span class="en-only">Continue review</span> <i>↗</i></span>
       </a>
-      <a class="strand-row" href="geometry-level2.html">
-        <span class="strand-no">02</span>
-        <span class="strand-title"><span class="zh-only">几何 Geometry</span><span class="en-only">Geometry</span></span>
-        <span class="strand-desc"><span class="zh-only">4 个知识点 / 6 天课堂日志</span><span class="en-only">4 concepts / 6-day journal</span></span>
-        <span class="strand-go"><span class="zh-only">进入</span><span class="en-only">Open</span></span>
-      </a>
-      <a class="strand-row" href="number-level2.html">
-        <span class="strand-no">03</span>
-        <span class="strand-title"><span class="zh-only">数论 Number Theory</span><span class="en-only">Number Theory</span></span>
-        <span class="strand-desc"><span class="zh-only">2 个知识点 / 待扩充</span><span class="en-only">2 concepts / expanding</span></span>
-        <span class="strand-go"><span class="zh-only">进入</span><span class="en-only">Open</span></span>
-      </a>
-      <a class="strand-row" href="counting-level2.html">
-        <span class="strand-no">04</span>
-        <span class="strand-title"><span class="zh-only">组合 Counting</span><span class="en-only">Counting &amp; Probability</span></span>
-        <span class="strand-desc"><span class="zh-only">8 个知识点 / 精讲例题满配</span><span class="en-only">8 concepts / fully worked</span></span>
-        <span class="strand-go"><span class="zh-only">进入</span><span class="en-only">Open</span></span>
-      </a>
+      <div class="review-method" aria-label="Review method">
+        <span class="method-title"><span class="zh-only">每题必须过四关</span><span class="en-only">Four gates for every miss</span></span>
+        <ol>
+          <li><b>01</b><span><strong><span class="zh-only">识别</span><span class="en-only">Identify</span></strong><small><span class="zh-only">这题在考什么组合？</span><span class="en-only">Which ideas are combined?</span></small></span></li>
+          <li><b>02</b><span><strong><span class="zh-only">定位</span><span class="en-only">Locate</span></strong><small><span class="zh-only">卡在知识、策略还是时间？</span><span class="en-only">Knowledge, strategy, or time?</span></small></span></li>
+          <li><b>03</b><span><strong><span class="zh-only">重做</span><span class="en-only">Redo</span></strong><small><span class="zh-only">不给提示，独立走通。</span><span class="en-only">Complete it without a hint.</span></small></span></li>
+          <li><b>04</b><span><strong><span class="zh-only">迁移</span><span class="en-only">Transfer</span></strong><small><span class="zh-only">立刻做一道同类变式。</span><span class="en-only">Solve a twin immediately.</span></small></span></li>
+        </ol>
+      </div>
     </div>
   </section>
 
-  <section class="section-block">
-    <div class="row-label swiss-grid">
-      <div class="section-heading">
-        <div class="rl-eyebrow">Math Timeline</div>
-        <h2><span class="zh-only">数学成长时间线</span><span class="en-only">Mathematics Growth Timeline</span></h2>
+
+  <section class="destination plan-destination" id="plan" aria-labelledby="plan-title">
+    <header class="destination-head">
+      <div class="destination-index">04</div>
+      <div>
+        <span class="section-kicker">TARGETS / ROADMAP</span>
+        <h2 id="plan-title"><span class="zh-only">规划</span><span class="en-only">Plan</span></h2>
+        <p><span class="zh-only">规划只回答两个问题：下一阶段的能力门槛是什么，现在该把时间投在哪里。</span><span class="en-only">Planning answers only two questions: what is the next ability bar, and where should time go now?</span></p>
       </div>
-      <span class="rule"></span>
+    </header>
+    <div class="plan-grid">
+      <a class="plan-link" href="summer-programs.html">
+        <span class="plan-code">PROGRAMS</span>
+        <strong><span class="zh-only">数学夏校路线</span><span class="en-only">Math summer pathway</span></strong>
+        <p><span class="zh-only">9 大项目、两条赛道、季度行动计划。</span><span class="en-only">Nine programs, two tracks, quarterly actions.</span></p>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a class="plan-link" href="program-benchmarks.html">
+        <span class="plan-code">BENCHMARKS</span>
+        <strong><span class="zh-only">能力基准卡</span><span class="en-only">Ability benchmark cards</span></strong>
+        <p><span class="zh-only">每个项目到底要练到什么水平。</span><span class="en-only">The exact ability bar for each program.</span></p>
+        <span aria-hidden="true">↗</span>
+      </a>
     </div>
-
-    <div class="timeline-table">
-      <article class="timeline-year current">
-        <div class="timeline-anchor">
-          <span class="year">2026</span>
-          <span class="year-tag"><span class="zh-only">进行中</span><span class="en-only">Now</span></span>
-        </div>
-        <div class="timeline-copy">
-          <p class="timeline-grade"><span class="zh-only">八年级 升九年级 ｜ 夯实基础、抬高 AMC 天花板</span><span class="en-only">Grade 8 9 ｜ build base, raise the AMC ceiling</span></p>
-          <p class="timeline-summary"><span class="zh-only">本年聚焦 AwesomeMath 竞赛训练，攻克 AMC10 最后五题。</span><span class="en-only">This year focuses on AwesomeMath contest training to crack the AMC10 last-5.</span></p>
-        </div>
-        <div class="timeline-programs">
-          <a class="timeline-row" href="algebra-level2.html">
-            <span class="t-cat">AwesomeMath ｜ 代数</span>
-            <span class="t-title">Algebra Level 2</span>
-            <span class="t-desc"><span class="zh-only">代数 2.5 ｜ 逐题精讲日志（中英双语）</span><span class="en-only">Algebra 2.5 ｜ worked-solution journal</span></span>
-            <span class="t-meta"><span class="zh-only">已开课 ｜ 9 天 ｜ 知识点精讲 / 逐题精解 / KaTeX</span><span class="en-only">Live ｜ 9 days ｜ Concepts / Solutions / KaTeX</span></span>
-          </a>
-          <a class="timeline-row" href="geometry-level2.html">
-            <span class="t-cat">AwesomeMath ｜ 几何</span>
-            <span class="t-title">Geometry Level 2</span>
-            <span class="t-desc"><span class="zh-only">相似三角形 ｜ 知识点教材：平行线分线段 / 摄影定理 / 角平分线</span><span class="en-only">Similarity ｜ Textbook: Thales / geometric means / angle bisector</span></span>
-            <span class="t-meta"><span class="zh-only">1 天课程 ｜ 3 章教材 ｜ 相似与圆 / 面积法 / 坐标几何</span><span class="en-only">1 class ｜ 3 textbook chapters ｜ Similarity &amp; circles / Area method / Coord. geo</span></span>
-          </a>
-        </div>
-      </article>
-
-      <article class="timeline-year">
-        <div class="timeline-anchor">
-          <span class="year">2027</span>
-          <span class="year-tag"><span class="zh-only">计划</span><span class="en-only">Planned</span></span>
-        </div>
-        <div class="timeline-copy">
-          <p class="timeline-grade"><span class="zh-only">九年级 升十年级 ｜ 竞赛出成绩 + 开始写证明</span><span class="en-only">Grade 9 10 ｜ contest results + start proofs</span></p>
-          <p class="timeline-summary"><span class="zh-only">晋级 AIME，尝试 HSMC 与 Mathcamp 资格测验，迈入证明赛道。</span><span class="en-only">Qualify for AIME, attempt HSMC + Mathcamp Quiz, enter the proof track.</span></p>
-        </div>
-        <div class="timeline-programs">
-          <a class="timeline-row" href="program-benchmarks.html#hsmc">
-            <span class="t-cat"><span class="zh-only">竞赛证明 桥梁</span><span class="en-only">CompProof</span></span>
-            <span class="t-title">HSMC</span>
-            <span class="t-desc"><span class="zh-only">Honors Summer Math Camp ｜ 接受拔尖低龄学生</span><span class="en-only">Honors Summer Math Camp ｜ takes younger talent</span></span>
-            <span class="t-meta"><span class="zh-only">目标 ｜ AMC10 110+ / AIME</span><span class="en-only">Target ｜ AMC10 110+ / AIME</span></span>
-          </a>
-          <a class="timeline-row" href="program-benchmarks.html#mathcamp">
-            <span class="t-cat"><span class="zh-only">证明赛道</span><span class="en-only">Proof track</span></span>
-            <span class="t-title">Mathcamp</span>
-            <span class="t-desc"><span class="zh-only">Canada/USA Mathcamp ｜ 资格测验是最好的证明训练</span><span class="en-only">Qualifying Quiz = best proof training</span></span>
-            <span class="t-meta"><span class="zh-only">可提早试做 ｜ 证明问题集 / 年龄不限</span><span class="en-only">Try early ｜ Proof quiz / Any age</span></span>
-          </a>
-        </div>
-      </article>
-
-      <article class="timeline-year">
-        <div class="timeline-anchor">
-          <span class="year">2028</span>
-          <span class="year-tag"><span class="zh-only">远期</span><span class="en-only">Future</span></span>
-        </div>
-        <div class="timeline-copy">
-          <p class="timeline-grade"><span class="zh-only">十年级 升十一年级 ｜ 冲击顶尖证明项目</span><span class="en-only">Grade 10 11 ｜ aim the flagship proof camps</span></p>
-          <p class="timeline-summary"><span class="zh-only">证明能力兑现，瞄准 PROMYS / Ross / SUMaC。</span><span class="en-only">Proof skills pay off: aim PROMYS / Ross / SUMaC.</span></p>
-        </div>
-        <div class="timeline-programs">
-          <a class="timeline-row" href="program-benchmarks.html#promys">
-            <span class="t-cat"><span class="zh-only">证明赛道 ｜ 顶尖</span><span class="en-only">Proof ｜ elite</span></span>
-            <span class="t-title">PROMYS</span>
-            <span class="t-desc"><span class="zh-only">数论发现法 ｜ 波士顿大学 6 周</span><span class="en-only">Number theory by discovery ｜ BU, 6 weeks</span></span>
-            <span class="t-meta"><span class="zh-only">北极星 ｜ 数论 / 申请问题集</span><span class="en-only">North star ｜ Number theory / Problem set</span></span>
-          </a>
-          <a class="timeline-row" href="program-benchmarks.html#sumac">
-            <span class="t-cat"><span class="zh-only">证明赛道 ｜ 名校</span><span class="en-only">Proof ｜ prestige</span></span>
-            <span class="t-title">SUMaC</span>
-            <span class="t-desc"><span class="zh-only">斯坦福数学营 ｜ 抽象代数与数论</span><span class="en-only">Stanford ｜ abstract algebra &amp; number theory</span></span>
-            <span class="t-meta"><span class="zh-only">目标 ｜ 仅 10-11 年级 / 证明</span><span class="en-only">Target ｜ Grades 10-11 / Proofs</span></span>
-          </a>
-        </div>
-      </article>
+    <div class="roadmap" aria-label="Mathematics roadmap">
+      <div class="roadmap-row current">
+        <time>2026</time>
+        <span class="roadmap-marker"></span>
+        <div><b><span class="zh-only">AMC 10 稳定 120+</span><span class="en-only">Stable AMC 10 score of 120+</span></b><small><span class="zh-only">AwesomeMath 跟课 / 最后五题独立启动</span><span class="en-only">AwesomeMath coursework / independent last-five starts</span></small></div>
+      </div>
+      <div class="roadmap-row">
+        <time>2027</time>
+        <span class="roadmap-marker"></span>
+        <div><b><span class="zh-only">晋级 AIME + 开始证明</span><span class="en-only">Qualify for AIME + begin proofs</span></b><small>HSMC / Mathcamp</small></div>
+      </div>
+      <div class="roadmap-row">
+        <time>2028</time>
+        <span class="roadmap-marker"></span>
+        <div><b><span class="zh-only">冲击顶尖证明项目</span><span class="en-only">Aim for elite proof programs</span></b><small>PROMYS / Ross / SUMaC</small></div>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <p><span class="zh-only">Suri / Mathematics / 2026</span><span class="en-only">Suri / Mathematics / 2026</span></p>
+  <div class="footer-inner">
+    <p>SURI / MATHEMATICS / 2026</p>
+    <a href="#main"><span class="zh-only">回到顶部</span><span class="en-only">Back to top</span> ↑</a>
+  </div>
 </footer>
 
 <script>
@@ -319,7 +256,7 @@
   if(!el) return;
   function upd(){
     var exam = new Date("2026-11-05T08:00:00");
-    var days = Math.ceil((exam - new Date()) / (1000 * 60 * 60 * 24));
+    var days = Math.ceil((exam - new Date()) / 86400000);
     el.textContent = days > 0 ? days : 0;
   }
   upd();
