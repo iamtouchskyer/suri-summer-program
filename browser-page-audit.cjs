@@ -6,7 +6,8 @@ const pages = [
   'index.html', 'algebra-level2.html', 'geometry-level2.html',
   'number-level2.html', 'counting-level2.html', 'qbank.html', 'speed.html',
   'challenge-guide.html', 'challenge-level2.html', 'challenge-advanced.html',
-  'challenge-quiz.html', 'exam-2011-10A.html', 'summer-programs.html',
+  'challenge-quiz.html', 'exam-2011-10A.html', 'exam-2012-10A.html',
+  'amc10-cutoffs.html', 'summer-programs.html',
   'program-benchmarks.html'
 ];
 const local = new URL(base).host;
