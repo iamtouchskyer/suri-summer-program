@@ -43,20 +43,25 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
 #q{width:100%;padding:9px 13px;border:1.5px solid var(--line);border-radius:9px;font-family:var(--sans);font-size:.9rem;background:var(--card);color:var(--ink);}
 #q:focus{outline:none;border-color:var(--accent);}
 .count{font-family:var(--mono);font-size:.76rem;color:var(--ink-faint);margin-top:8px;}
+.chip:focus-visible,.pq-ans-toggle:focus-visible,.more button:focus-visible,#q:focus-visible{outline:3px solid rgba(29,92,79,.28);outline-offset:2px;}
+@media(max-width:600px){.controls{position:static}.wrap{padding:0 14px}.chip{padding:7px 10px}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
     <div class="crumb"><a href="index.html">← 总览</a> · QUESTION BANK</div>
-    <h1>压轴题分级库</h1>
-    <div class="sub">1339 道 AMC/AIME 题 · 按知识点与难度筛选 · 专攻第 21–25 题</div>
-    <div class="note">本库含 1339 道题，其中约 800 道已由老师<b>文本匹配并代码核验答案</b>（点击“显示答案”查看）；其余诚实留白，逐题精做后补充。</div>
+    <h1>AMC / AIME 分级题库</h1>
+    <div class="sub"><span id="bankTotal">—</span> 道 AMC/AIME 训练题 · 按阶段、知识点与难度筛选</div>
+    <div class="note" id="bankNote">当前开放 1,259 道可完整作答的题；另有 79 道依赖缺失图形，修复前暂不开放。答案键采用分级核验，解析是复盘参考。</div>
   </div>
 </header>
 
 <div class="wrap">
   <div class="controls">
+    <div class="filter-row" id="stageRow">
+      <span class="flabel">训练阶段</span>
+    </div>
     <div class="filter-row" id="topicRow">
       <span class="flabel">知识点</span>
     </div>
@@ -64,10 +69,10 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
       <span class="flabel">难度</span>
     </div>
     <div class="filter-row">
-      <span class="flabel">搜索</span>
-      <input id="q" type="text" placeholder="输入关键词，如 circle / probability / 内接 …" />
+      <label class="flabel" for="q">搜索</label>
+      <input id="q" type="search" placeholder="输入关键词，如 circle / probability / 内接 …" />
     </div>
-    <div class="count" id="count"></div>
+    <div class="count" id="count" role="status" aria-live="polite"></div>
   </div>
   <div id="list"></div>
 </div>
@@ -113,6 +118,7 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
 
 
 <script src="qbank-data.js"></script>
+<script src="qbank-enhancements.js"></script>
 <script>
 var TOPICS = window.QBANK_TOPICS;
 var DATA = window.QBANK || [];
@@ -127,8 +133,10 @@ var PAGE = 25;
 function buildChips(){
   var tr = document.getElementById('topicRow');
   Object.keys(TOPICS).forEach(function(k){
-    var c = document.createElement('span');
+    var c = document.createElement('button');
+    c.type = 'button';
     c.className = 'chip';
+    c.setAttribute('aria-pressed','false');
     c.textContent = TOPICS[k][1];
     c.dataset.k = k;
     c.onclick = function(){ toggle(state.topics, k, c); render(); };
@@ -136,8 +144,10 @@ function buildChips(){
   });
   var br = document.getElementById('bandRow');
   BANDS.forEach(function(b){
-    var c = document.createElement('span');
+    var c = document.createElement('button');
+    c.type = 'button';
     c.className = 'chip d-' + b[0];
+    c.setAttribute('aria-pressed', state.bands.indexOf(b[0]) >= 0 ? 'true' : 'false');
     if (state.bands.indexOf(b[0]) >= 0) c.classList.add('on');
     c.textContent = b[1];
     c.dataset.k = b[0];
@@ -148,8 +158,8 @@ function buildChips(){
 
 function toggle(arr, k, el){
   var i = arr.indexOf(k);
-  if (i >= 0){ arr.splice(i,1); el.classList.remove('on'); }
-  else { arr.push(k); el.classList.add('on'); }
+  if (i >= 0){ arr.splice(i,1); el.classList.remove('on'); el.setAttribute('aria-pressed','false'); }
+  else { arr.push(k); el.classList.add('on'); el.setAttribute('aria-pressed','true'); }
 }
 
 function match(p){
@@ -177,8 +187,8 @@ function cardHTML(p){
   else { badges += '<span class="pq-badge">填空/证明</span>'; }
   var ansBlock = '';
   if (p.ans){
-    var tvB = p.tv ? '<span class="pq-ans-tv">老师验证</span>' : '';
-    var nrB = p.nr ? '<span class="pq-ans-nr">待核对</span>' : '';
+    var tvB = p.tv ? '<span class="pq-ans-tv">来源已核对</span>' : '';
+    var nrB = p.nr ? '<span class="pq-ans-nr">待逐题校订</span>' : '';
     var optsHTML = '';
     if (p.options && typeof p.options === 'object'){
       var parts = [];
@@ -190,7 +200,7 @@ function cardHTML(p){
     var solHTML = '';
   if (p.sol){
     if (typeof p.sol === 'string'){
-      solHTML = '<div class="pq-sol">' + esc(p.sol) + '</div>';
+      solHTML = '<div class="pq-sol">参考解析（待逐题校订）\n' + esc(p.sol) + '</div>';
     } else if (typeof p.sol === 'object'){
       var lines = [];
       var order = Object.keys(p.sol).sort(function(a,b){
@@ -207,14 +217,14 @@ function cardHTML(p){
       solHTML = '<div class="pq-sol">' + lines.join('\\n') + '</div>';
     }
   }
-    ansBlock = '<button class="pq-ans-toggle" data-tid="' + p.id + '">显示答案</button>' +
+    ansBlock = '<button type="button" class="pq-ans-toggle" data-tid="' + p.id + '" aria-expanded="false" aria-controls="ans-' + p.id + '">显示答案</button>' +
       '<div class="pq-ans-box" id="ans-' + p.id + '">' +
         '<div class="pq-ans-label">ANSWER</div>' +
         '<div class="pq-ans-val">' + esc(String(p.ans)) + tvB + nrB + '</div>' +
         optsHTML + solHTML +
       '</div>';
   } else {
-    ansBlock = '<div class="pq-ans-none">此题答案由老师逐题精做后补充</div>';
+    ansBlock = '<div class="pq-ans-none">此题答案键异常，已隐藏并等待复核</div>';
   }
   return '<div class="pcard-q">' +
     '<div class="pq-head">' +
@@ -273,6 +283,7 @@ document.addEventListener("click", function(e){
   if(!box) return;
   var open = box.classList.toggle("open");
   b.textContent = open ? "隐藏答案" : "显示答案";
+  b.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 </script>
 </body>
