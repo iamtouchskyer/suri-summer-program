@@ -53,7 +53,7 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
     <div class="crumb"><a href="index.html">← 总览</a> · QUESTION BANK</div>
     <h1>AMC / AIME 分级题库</h1>
     <div class="sub"><span id="bankTotal">—</span> 道 AMC/AIME 训练题 · 按阶段、知识点与难度筛选</div>
-    <div class="note" id="bankNote">当前开放 1,259 道可完整作答的题；另有 79 道依赖缺失图形，修复前暂不开放。答案键采用分级核验，解析是复盘参考。</div>
+    <div class="note" id="bankNote">默认进入“压轴同类冲刺300”：52道真实21–25标杆题 + 248道同知识点、同思维结构的迁移训练题。全部1,259道可用题仍可切换。</div>
   </div>
 </header>
 
@@ -118,6 +118,7 @@ h1{font-family:var(--serif);font-weight:900;font-size:1.9rem;line-height:1.05;}
 
 
 <script src="qbank-data.js"></script>
+<script src="sprint300-data.js"></script>
 <script src="qbank-enhancements.js"></script>
 <script>
 var TOPICS = window.QBANK_TOPICS;
@@ -182,6 +183,7 @@ function esc(s){
 function cardHTML(p){
   var diffLabel = 'DIFF ' + p.diff.toFixed(p.diff % 1 === 0 ? 0 : 2);
   var badges = '';
+  if (p.sprint){ badges += '<span class="pq-badge">' + esc(p.sprint.sprint_level) + '</span>'; badges += '<span class="pq-badge">' + esc(p.sprint.sprint_move) + '</span>'; if (p.sprint.is_benchmark) badges += '<span class="pq-badge">真实21–25</span>'; }
   if (p.img){ badges += '<span class="pq-badge">图</span>'; }
   if (p.mc){ badges += '<span class="pq-badge">选择题</span>'; }
   else { badges += '<span class="pq-badge">填空/证明</span>'; }

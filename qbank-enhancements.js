@@ -25,49 +25,16 @@
   window.QBANK = clean;
 })();
 
-(function () {
-  window.addEventListener('load', function () {
-    DATA = window.QBANK;
-    var total = document.getElementById('bankTotal');
-    if (total) total.textContent = DATA.length;
-    var row = document.getElementById('stageRow');
-    if (!row) return;
-    var active = 'all';
-    state.bands = [];
-    var stages = [
-      ['all', '全部可用题'],
-      ['amc_last5', 'AMC 21–25'],
-      ['amc_mid', 'AMC 进阶'],
-      ['foundation', '基础专题']
-    ];
-    function count(key) {
-      return key === 'all' ? DATA.length : DATA.filter(function (p) { return p.stage === key; }).length;
-    }
-    function select(key) {
-      active = key;
-      row.querySelectorAll('button').forEach(function (button) {
-        var on = button.dataset.stage === key;
-        button.classList.toggle('on', on);
-        button.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      render();
-    }
-    stages.forEach(function (item) {
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'chip' + (item[0] === 'all' ? ' on' : '');
-      button.dataset.stage = item[0];
-      button.textContent = item[1] + ' · ' + count(item[0]);
-      button.setAttribute('aria-pressed', item[0] === 'all' ? 'true' : 'false');
-      button.onclick = function () { select(item[0]); };
-      row.appendChild(button);
-    });
-    var baseMatch = match;
-    match = function (p) {
-      if (active !== 'all' && p.stage !== active) return false;
-      return baseMatch(p);
-    };
-    render();
-  });
-})();
-
+(function(){window.addEventListener('load',function(){
+var all=window.QBANK,map=Object.create(null);
+(window.SPRINT300||[]).forEach(function(x){map[x.canonical_id]=x;});
+all.forEach(function(p){if(map[p.canonical_id])p.sprint=map[p.canonical_id];});
+var sprint=all.filter(function(p){return p.sprint;}).sort(function(a,b){return a.sprint.sprint_order-b.sprint.sprint_order;});
+var source='sprint';DATA=sprint;state.bands=[];
+var total=document.getElementById('bankTotal');if(total)total.textContent=all.length;
+var row=document.getElementById('stageRow');if(!row)return;
+var views=[['sprint','压轴同类冲刺',sprint.length],['all','全部可用题',all.length],['amc_last5','真实21–25标杆',all.filter(function(p){return p.stage==='amc_last5';}).length],['foundation','基础专题',all.filter(function(p){return p.stage==='foundation';}).length]];
+function select(key){source=key;DATA=key==='sprint'?sprint:all;row.querySelectorAll('button').forEach(function(b){var on=b.dataset.stage===key;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');});render();}
+views.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='chip'+(x[0]==='sprint'?' on':'');b.dataset.stage=x[0];b.textContent=x[1]+' · '+x[2];b.setAttribute('aria-pressed',x[0]==='sprint'?'true':'false');b.onclick=function(){select(x[0]);};row.appendChild(b);});
+var base=match;match=function(p){if(source!=='sprint'&&source!=='all'&&p.stage!==source)return false;return base(p);};render();
+});})();
