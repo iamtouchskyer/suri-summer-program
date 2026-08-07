@@ -2,94 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>2012 AMC 10A · Q19–25 Learning Lab</title>
-<meta name="description" content="Suri's guided review of 2012 AMC 10A Questions 19–25: knowledge mapping, staged hints, rigorous solutions, transfer practice, and mastery checks." />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Exam Review · Suri's Math</title>
+<link rel="icon" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
-<link rel="stylesheet" href="exam-2012-10A.css" />
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-</head>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<link rel="stylesheet" href="exam-review.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>button:focus-visible,a:focus-visible{outline:3px solid rgba(49,93,120,.35);outline-offset:2px}</style></head>
 <body>
-<header class="site-head">
-  <div class="wrap head-inner">
-    <div>
-      <a class="crumb" href="index.html">← SURI'S MATH / EXAM ARCHIVE</a>
-      <p class="eyebrow">AUG 04, 2026 · DIAGNOSTIC REVIEW</p>
-      <h1>2012 AMC 10A<br><em>Q19–25 Learning Lab</em></h1>
-      <p class="lede" data-t="lede">Seven unsolved problems are not seven unrelated failures. They reveal three trainable gaps: translating structure, choosing a representation, and launching without a hint.</p>
-    </div>
-    <div class="lang-toggle" aria-label="Language">
-      <button type="button" data-lang="en" class="on">EN</button>
-      <button type="button" data-lang="zh">中文</button>
-    </div>
-  </div>
+<a class="skip" href="#main">Skip to review</a>
+<header class="topbar">
+  <a href="review.html" class="back">Review archive</a>
+  <div class="lang" aria-label="Language"><button type="button" onclick="void 0" data-lang="en">EN</button><button type="button" onclick="void 0" data-lang="zh">中文</button></div>
 </header>
-
-<main class="wrap">
-  <section class="diagnosis" aria-labelledby="diagnosis-title">
-    <div class="diag-copy">
-      <p class="section-tag">COACH'S DIAGNOSIS</p>
-      <h2 id="diagnosis-title" data-t="diagnosisTitle">The ceiling problem now starts at Q19.</h2>
-      <p data-t="diagnosisBody">This is not a careless-error problem. The pattern is sharper: once a problem combines two ideas, Suri waits for a hint before choosing the first representation. So this page deliberately makes her name the likely concepts before any hint unlocks.</p>
-    </div>
-    <div class="diag-facts">
-      <div><span data-t="reported">Reported</span><strong>Q19–25</strong><small data-t="unsolved">not independently solved</small></div>
-      <div><span data-t="firstTarget">First target</span><strong>+1</strong><small data-t="targetNote">independent solve from Q19–21</small></div>
-      <div><span data-t="cutoff2012">2012 AIME line</span><strong>115.5</strong><a href="amc10-cutoffs.html" data-t="allCutoffs">view all historical cutoffs →</a></div>
-    </div>
+<main id="main">
+  <header class="exam-head">
+    <p id="examDate" class="meta"></p>
+    <h1 id="examTitle"></h1>
+    <p id="examDiagnosis" class="diagnosis"></p>
+  </header>
+  <section class="record" aria-labelledby="recordTitle">
+    <div><p class="label" id="recordTitle">Attempt record</p><strong id="examScore"></strong></div>
+    <dl id="scoreFacts"></dl>
+    <p class="next"><span>Next</span><b id="nextAction"></b></p>
   </section>
-
-  <section class="score-lab" aria-labelledby="score-title">
-    <div>
-      <p class="section-tag">SCORE REALITY CHECK</p>
-      <h2 id="score-title" data-t="scoreTitle">Record the paper, not a vague feeling.</h2>
-      <p class="muted" data-t="scoreNote">Enter correct, wrong, and blank counts. Under the 2012 scoring rule: +6 correct, +1.5 blank, +0 wrong.</p>
-    </div>
-    <form id="scoreForm" class="score-form">
-      <label><span data-t="correct">Correct</span><input id="scoreCorrect" type="number" min="0" max="25" value="18" /></label>
-      <label><span data-t="wrong">Wrong</span><input id="scoreWrong" type="number" min="0" max="25" value="0" /></label>
-      <label><span data-t="blank">Blank</span><input id="scoreBlank" type="number" min="0" max="25" value="7" /></label>
-      <div class="score-output"><span data-t="projected">Projected score</span><strong id="scoreValue">118.5</strong><small id="scoreVerdict"></small></div>
-    </form>
-  </section>
-
-  <section class="map-summary" aria-labelledby="map-title">
-    <div>
-      <p class="section-tag">THE SEVEN-PROBLEM MAP</p>
-      <h2 id="map-title" data-t="mapTitle">Different surfaces. Repeated moves underneath.</h2>
-    </div>
-    <div id="problemMap" class="problem-map"></div>
-  </section>
-
-  <section aria-labelledby="problems-title">
-    <div class="section-head">
-      <div>
-        <p class="section-tag">GUIDED REBUILD</p>
-        <h2 id="problems-title" data-t="problemsTitle">Map → launch → hint → solution → transfer</h2>
-      </div>
-      <div class="mastery-meter"><span data-t="mastered">Mastered</span><strong id="masteredCount">0 / 7</strong></div>
-    </div>
-    <div id="problems"></div>
-  </section>
-
-  <section class="final-check" aria-labelledby="final-title">
-    <p class="section-tag">48-HOUR MASTERY CHECK</p>
-    <h2 id="final-title" data-t="finalTitle">A solution read today is not a skill owned tomorrow.</h2>
-    <div class="check-grid">
-      <div><b>01</b><strong data-t="check1Title">Cold redo</strong><p data-t="check1Body">Redo Q19–21 without this page. Maximum 12 minutes each.</p></div>
-      <div><b>02</b><strong data-t="check2Title">Explain the launch</strong><p data-t="check2Body">For every problem, say why the chosen representation is useful before calculating.</p></div>
-      <div><b>03</b><strong data-t="check3Title">Transfer</strong><p data-t="check3Body">Solve one variant per topic. A memorized route fails here; real understanding transfers.</p></div>
-    </div>
-  </section>
+  <form id="scoreEditor" class="score-editor"><label>Correct<input id="editCorrect" type="number" min="0" max="25"></label><label>Wrong<input id="editWrong" type="number" min="0" max="25"></label><label>Blank<input id="editBlank" type="number" min="0" max="25"></label><output id="editScore"></output></form>
+  <nav class="problem-nav" aria-label="Problem index"><span>Problems</span><div id="problemNav"></div></nav>
+  <section class="problem-map" aria-labelledby="mapTitle"><h2 id="mapTitle">Problem map</h2><div id="problemMap"></div></section>
+  <section aria-labelledby="reviewTitle"><div class="section-head"><h2 id="reviewTitle">Problem review</h2><p id="progressText"></p></div><div id="problems"></div></section>
+  <section id="mixedCheck" class="mixed-check" hidden></section>
+  <section class="recheck" aria-labelledby="recheckTitle"><h2 id="recheckTitle">Recheck protocol</h2><ol><li><b>Cold redo</b><span>No notes. Stop after 12 minutes.</span></li><li><b>Explain the launch</b><span>Name the representation before calculating.</span></li><li><b>Transfer</b><span>Solve one related problem after a delay.</span></li></ol></section>
 </main>
-
-<footer><div class="wrap"><a href="index.html">← <span data-t="home">Back to roadmap</span></a><a href="amc10-cutoffs.html"><span data-t="cutoffRecord">Historical cutoff &amp; score record</span> →</a></div></footer>
+<footer><a href="review.html">All review records</a><a href="index.html">Math roadmap</a></footer>
+<script src="review-data.js"></script>
 <script src="exam-2012-10A-data.js"></script>
-<script src="exam-2012-10A.js"></script>
+<script src="exam-review.js"></script>
 </body>
 </html>
