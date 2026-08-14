@@ -32,3 +32,17 @@ node test.js --alg    # 只测代数
 
 正常写完数据直接 `git push` 即可，钩子会自动校验。若想手动先确认：`node test.js`。
 如果新增了图，记得在 `geometry-figs.js` 里定义对应的 `FIG.xxx`，否则测试 2 会报"图丢失"。
+
+## 考试复盘模板
+
+新增或修改考试复盘模板后运行：
+
+```sh
+bun tools/test-exam-review-template.mjs
+```
+
+该测试会在临时目录生成一张虚拟新卷，检查文件名、稳定ID、默认成绩、页面数据引用，以及未替换占位内容必须被校验器拒绝。完整数据文件另用：
+
+```sh
+bun tools/validate-exam-review.mjs exam-YYYY-FORM-data.js
+```

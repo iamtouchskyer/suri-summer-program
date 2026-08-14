@@ -19,3 +19,14 @@ scripts/check-qbank-sync.sh
 ```
 
 The check expects `math-bank` to be a sibling directory of this repo.
+
+## Reusable Exam Reviews
+
+Create each new exam from the shared review template instead of copying an old page:
+
+```sh
+bun tools/create-exam-review.mjs --year 2025 --form "AMC 10A" --date 2025-11-05 --questions 21-25
+bun tools/validate-exam-review.mjs exam-2025-10A-data.js
+```
+
+See `EXAM_REVIEW_TEMPLATE.md` for the canonical data contract, archive registration, and browser acceptance checklist.
