@@ -27,6 +27,7 @@ Create each new exam from the shared review template instead of copying an old p
 ```sh
 bun tools/create-exam-review.mjs --year 2025 --form "AMC 10A" --date 2025-11-05 --questions 21-25
 bun tools/validate-exam-review.mjs exam-2025-10A-data.js
+bun tools/test-exam-review-template.mjs
 ```
 
 See `EXAM_REVIEW_TEMPLATE.md` for the canonical data contract, archive registration, and browser acceptance checklist.

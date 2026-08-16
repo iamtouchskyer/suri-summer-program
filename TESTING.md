@@ -46,3 +46,13 @@ bun tools/test-exam-review-template.mjs
 ```sh
 bun tools/validate-exam-review.mjs exam-YYYY-FORM-data.js
 ```
+
+## Agent可发现性
+
+确保其他Agent无需聊天上下文也能找到新卷子模板流程：
+
+```sh
+bun tools/test-agent-discovery.mjs
+```
+
+该测试要求 `AGENTS.md`、`CLAUDE.md` 和 `README.md` 都明确指向生成器、校验器与完整模板说明，并保留禁止复制旧页面和新增年份适配器等规则。

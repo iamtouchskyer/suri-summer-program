@@ -109,3 +109,18 @@ bun --hot ./index.ts
 ```
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+
+## Repository Workflow: New Exam Reviews
+
+Before adding any new AMC, MathCounts, mock-exam, or exam-review page, read `AGENTS.md` and `EXAM_REVIEW_TEMPLATE.md`.
+
+Mandatory commands:
+
+```sh
+bun tools/create-exam-review.mjs --year YYYY --form "AMC 10A" --date YYYY-MM-DD --questions 21-25
+bun tools/validate-exam-review.mjs exam-YYYY-10A-data.js
+bun tools/test-exam-review-template.mjs
+node test.js
+```
+
+All new exams must use the canonical `window.EXAM_REVIEW_DATA` contract. Never copy an old exam page implementation and never add a year-specific adapter to `exam-review.js` for ordinary content differences. Add the validated attempt to `review-data.js`, then complete the browser checklist in `EXAM_REVIEW_TEMPLATE.md`.
