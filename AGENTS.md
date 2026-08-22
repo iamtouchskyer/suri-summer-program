@@ -56,7 +56,10 @@ A new exam review is complete only when:
 
 ## Source ownership
 
-`qbank-data.js` is generated from the sibling private `math-bank` repository. Do not edit it manually. See `README.md`.
+`qbank-data.js` is generated from the sibling `pi-math` repository
+(`pi-math/data/qbank/base.js` + overlay → `pi-math/dist/qbank-data.js`).
+Do not edit it manually; `math-bank` is archived and is not the source.
+See `README.md` and `scripts/check-qbank-sync.sh`.
 
 ## Runtime convention
 

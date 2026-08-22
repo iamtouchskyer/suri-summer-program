@@ -1,24 +1,30 @@
 # Suri Summer Program
 
-Static summer program pages and question bank UI.
+Static summer program pages and question bank UI. The counselor app
+(`suri-counsel`) embeds a file-for-file mirror of this site in its Summer tab
+(`suri-counsel/web/public/summer/`); `scripts/check-qbank-sync.sh` verifies
+both the qbank artifact and that mirror on every run.
 
 ## Question Bank Data
 
-`qbank-data.js` is a generated downstream copy from the private `math-bank` repo:
+`qbank-data.js` is a generated downstream copy from the sibling `pi-math` repo
+(decision 2026-08-22: pi-math is the single source of truth for the qbank;
+math-bank stays archived):
 
 ```text
-../math-bank/dist/qbank-data.js -> qbank-data.js
+../pi-math/data/qbank/base.js + workbook_overlay.json
+  -> ../pi-math/dist/qbank-data.js -> qbank-data.js
 ```
 
-Do not hand edit `qbank-data.js` in this repo. Update canonical data in `math-bank`, run its export/sync flow, then commit the generated copy here.
+Do not hand edit `qbank-data.js` in this repo. Update qbank data in `pi-math`, run its export/check flow, then commit the generated copy here.
 
-Check that this repo is synced with `math-bank`:
+Check that this repo and the counselor mirror are synced with `pi-math`:
 
 ```sh
 scripts/check-qbank-sync.sh
 ```
 
-The check expects `math-bank` to be a sibling directory of this repo.
+The check expects `pi-math` and `suri-counsel` to be siblings of this repo.
 
 ## Reusable Exam Reviews
 
